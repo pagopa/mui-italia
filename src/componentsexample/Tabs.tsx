@@ -1,16 +1,18 @@
-import * as React from "react";
+import React from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
+interface ITabPanelProps {
+  readonly children?: React.ReactNode;
+  readonly index: number;
+  readonly value: number;
 }
 
-function TabPanel(props: TabPanelProps) {
+export const TabPanel: React.FunctionComponent<ITabPanelProps> = (
+  props: ITabPanelProps
+) => {
   const { children, value, index, ...other } = props;
 
   return (
@@ -28,29 +30,29 @@ function TabPanel(props: TabPanelProps) {
       )}
     </div>
   );
-}
+};
 
-function a11yProps(index: number) {
-  return {
-    id: `vertical-tab-${index}`,
-    "aria-controls": `vertical-tabpanel-${index}`,
-  };
-}
+const a11yProps = (index: number): Record<string, string> => ({
+  "aria-controls": `vertical-tabpanel-${index}`,
+  id: `vertical-tab-${index}`,
+});
 
-export default function VerticalTabs() {
+export const VerticalTabs: React.FunctionComponent<{}> = () => {
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    console.log(event);
+  const handleChange = (
+    _event: React.SyntheticEvent<Element, Event>,
+    newValue: number
+  ): void => {
     setValue(newValue);
   };
 
   return (
     <Box
       sx={{
-        flexGrow: 1,
         bgcolor: "background.paper",
         display: "flex",
+        flexGrow: 1,
         height: 224,
       }}
     >
@@ -60,7 +62,7 @@ export default function VerticalTabs() {
         value={value}
         onChange={handleChange}
         aria-label="Vertical tabs example"
-        sx={{ borderRight: 1, borderColor: "divider" }}
+        sx={{ borderColor: "divider", borderRight: 1 }}
       >
         <Tab label="Item One" {...a11yProps(0)} />
         <Tab label="Item Two" {...a11yProps(1)} />
@@ -93,4 +95,4 @@ export default function VerticalTabs() {
       </TabPanel>
     </Box>
   );
-}
+};

@@ -9,8 +9,10 @@
     ],
     "jsx": "react-jsx",
     "noEmit": true,
+    "declaration": true,
     "strict": true,
     "noImplicitAny": true,
+    "sourceMap": true,
     "noUnusedLocals": true,
     "noImplicitReturns": true,
     "moduleResolution": "node",
@@ -35,6 +37,7 @@
     "dist",
     "node_modules",
     "**/__tests__/*",
-    "Dangerfile.ts"
+    "Dangerfile.ts",
+    "src/**/__tests__/*"
   ]
 }
