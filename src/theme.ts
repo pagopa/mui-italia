@@ -60,7 +60,7 @@ const theme = createTheme({
     },
     text: {
       disabled: "#5a768a",
-      primary: "#19191a",
+      primary: "#17324D",
       secondary: "#3d4955",
     },
     warning: {
@@ -72,12 +72,23 @@ const theme = createTheme({
   },
   spacing: 8,
   typography: {
+    allVariants: {
+      color: "#17324D",
+    },
     body1: {
+      a: {
+        color: "#06c",
+        textDecoration: "underline",
+      },
       fontSize: 18,
       fontWeight: 300,
       lineHeight: 1.35,
     },
     body2: {
+      a: {
+        color: "#06c",
+        textDecoration: "underline",
+      },
       fontSize: 16,
       fontWeight: 400,
       lineHeight: 1.2,
@@ -87,7 +98,6 @@ const theme = createTheme({
       lineHeight: 1.2,
       textTransform: "none",
     },
-
     fontFamily: ['"Titillium Web"', "sans-serif"].join(", "),
     fontSize: 16,
     h1: {
@@ -117,6 +127,10 @@ const theme = createTheme({
     },
     htmlFontSize: 16,
     subtitle1: {
+      a: {
+        color: "#06c",
+        textDecoration: "underline",
+      },
       fontSize: 20,
       lineHeight: 1.35,
     },

@@ -1,4 +1,5 @@
 import Box from "@mui/material/Box";
+import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 
 const exampleTextHeading =
@@ -37,6 +38,11 @@ export const Types: React.FunctionComponent<{}> = () => (
     </Typography>
     <Typography variant="body1" gutterBottom my={2}>
       body1. {exampleTextBody}
+    </Typography>
+    <Typography variant="body1" gutterBottom my={2}>
+      Example of a <a href="#anchor">Link by an anchor tag</a>.
+      <br />
+      Or <Link href="#link">a Link with a Link Component</Link>
     </Typography>
     <Typography variant="body2" gutterBottom my={2}>
       body2. {exampleTextBody}
