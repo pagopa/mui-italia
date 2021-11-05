@@ -8,6 +8,9 @@ export const Buttons: React.FunctionComponent<{}> = () => (
       <Button variant="text">Text</Button>
       <Button variant="contained">Primary</Button>
       <Button variant="outlined">Outlined</Button>
+      <Button variant="contained" sx={{ backgroundColor: "primary.dark" }}>
+        Button with a custom sx
+      </Button>
     </Stack>
     <Stack direction="row" spacing={2} my={2}>
       <Button>Primary</Button>
