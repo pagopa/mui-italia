@@ -8,6 +8,7 @@ import theme from "./theme";
 import { Buttons } from "./componentsexample/Buttons";
 import { Types } from "./componentsexample/Typography";
 import { VerticalTabs } from "./componentsexample/Tabs";
+import { AppBarComponent } from "./componentsexample/Appbar";
 
 const Main: React.FunctionComponent<{}> = () => (
   <ThemeProvider theme={theme}>
@@ -32,6 +33,11 @@ const Main: React.FunctionComponent<{}> = () => (
           Examples of Heading and typography
         </Typography>
         <Types></Types>
+        <Divider />
+        <Typography my={3} variant="h6" component="div" gutterBottom>
+          Examples of AppBar
+        </Typography>
+        <AppBarComponent></AppBarComponent>
         <Divider />
         <Typography my={3} variant="h6" component="div" gutterBottom>
           Examples of Tabs
