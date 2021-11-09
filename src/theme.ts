@@ -1,4 +1,5 @@
 import { createTheme } from "@mui/material/styles";
+import italia from "./colors/italia";
 import "@fontsource/titillium-web/300.css";
 import "@fontsource/titillium-web/400.css";
 import "@fontsource/titillium-web/600.css";
@@ -50,7 +51,8 @@ const theme = createTheme({
       main: "#979899",
     },
     primary: {
-      main: "#06c",
+      dark: italia[700],
+      main: italia[500],
     },
     secondary: {
       main: "#5c6f82",
@@ -59,9 +61,9 @@ const theme = createTheme({
       main: "#008758",
     },
     text: {
-      disabled: "#5a768a",
+      disabled: "#475A6D",
       primary: "#17324D",
-      secondary: "#3d4955",
+      secondary: "#5C6F82",
     },
     warning: {
       main: "#a66300",
@@ -77,7 +79,7 @@ const theme = createTheme({
     },
     body1: {
       a: {
-        color: "#06c",
+        color: italia[500],
         textDecoration: "underline",
       },
       fontSize: 18,
@@ -86,7 +88,7 @@ const theme = createTheme({
     },
     body2: {
       a: {
-        color: "#06c",
+        color: italia[500],
         textDecoration: "underline",
       },
       fontSize: 16,
@@ -128,7 +130,7 @@ const theme = createTheme({
     htmlFontSize: 16,
     subtitle1: {
       a: {
-        color: "#06c",
+        color: italia[500],
         textDecoration: "underline",
       },
       fontSize: 20,
