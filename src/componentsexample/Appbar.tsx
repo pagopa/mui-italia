@@ -4,7 +4,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import italia from "../colors/italia";
+import italia from "../material/colors/italia";
 
 export const AppBarComponent: React.FunctionComponent<{}> = () => (
   <>

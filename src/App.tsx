@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import { ThemeProvider } from "@mui/material/styles";
 import Divider from "@mui/material/Divider";
-import theme from "./theme";
+import theme from "./material/theme";
 import { Buttons } from "./componentsexample/Buttons";
 import { Types } from "./componentsexample/Typography";
 import { VerticalTabs } from "./componentsexample/Tabs";
