@@ -103,9 +103,9 @@ stages:
               Contents: |
                 README.md
                 LICENSE
-                CHANGELOG.md
+                CHANGELOG
                 package.json
-                build/*
+                src/material/*
             displayName: 'Copy bundle files'
           
           - publish: $(System.DefaultWorkingDirectory)/bundle
