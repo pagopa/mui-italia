@@ -20,6 +20,8 @@
     "react-scripts": "4.0.3"
   },
   "scripts": {
+    "build": "react-scripts build",
+    "test": "react-scripts test",
     "lint": "eslint . -c .eslintrc.js --ext .ts,.tsx"
   },
   "eslintConfig": {
