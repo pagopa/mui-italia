@@ -101,7 +101,7 @@ stages:
                 LICENSE
                 CHANGELOG
                 package.json
-                src/colors/*
+                colors/*
                 index.js
                 theme.js
             displayName: 'Copy bundle files'
