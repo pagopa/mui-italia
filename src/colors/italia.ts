@@ -1,4 +1,4 @@
-declare const italia: {
+const italia: { [key: string | number]: string }  = {
     50: "#E3F2FD",
     // eslint-disable-next-line sort-keys
     100: "#BBDEFB",

@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "outDir": "dist",
+    "target": "es6",
     "module": "esnext",
     "lib": [
       "es6",
@@ -8,7 +9,7 @@
       "es2019"
     ],
     "jsx": "react-jsx",
-    "noEmit": true,
+    "noEmit": false,
     "declaration": true,
     "strict": true,
     "noImplicitAny": true,
@@ -31,7 +32,7 @@
   },
   "include": [
     "src/**/*"
-, "colors"  ],
+  ],
   "exclude": [
     "__mocks__",
     "dist",

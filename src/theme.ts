@@ -1,12 +1,11 @@
-import { createTheme } from "@mui/material/styles";
-import { ThemeOptions } from '@mui/core/styles'
-import italia from "@pagopa/mui-italia/colors/italia";
+import { createTheme, Theme } from "@mui/material/styles";
+import italia from "./colors/italia";
 import "@fontsource/titillium-web/300.css";
 import "@fontsource/titillium-web/400.css";
 import "@fontsource/titillium-web/600.css";
 import "@fontsource/titillium-web/700.css";
 
-const theme = createTheme({
+const theme: Theme = createTheme({
   components: {
     // Name of the component
     MuiButton: {
@@ -139,4 +138,4 @@ const theme = createTheme({
     },
   },
 });
-export function theme(): ThemeOptions;
+export default theme;
