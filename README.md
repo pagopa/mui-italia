@@ -2,7 +2,7 @@
 
 This is a Material-UI theme inspired by BootstrapItalia.
 
-### How use it in your react app
+## How use it in your react app
 
 (Main app js)
 
