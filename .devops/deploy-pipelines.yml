@@ -91,19 +91,16 @@ stages:
               #  ex: Build.SourceBranch=refs/tags/v1.2.3-RELEASE --> v1.2.3-RELEASE
               gitReference: $(gitReference)
 
+          - script: |
+              yarn generate && yarn cpfiles
+            displayName: 'Build'
+
           - task: CopyFiles@2
             inputs:
-              SourceFolder: '$(System.DefaultWorkingDirectory)'
+              SourceFolder: '$(System.DefaultWorkingDirectory)/dist'
               TargetFolder: '$(System.DefaultWorkingDirectory)/bundle'
-              # The list of files to be considered is determined by the "files" entry in package.json
               Contents: |
-                README.md
-                LICENSE
-                CHANGELOG
-                package.json
-                colors/*
-                index.js
-                theme.js
+                **/*
             displayName: 'Copy bundle files'
           
           - publish: $(System.DefaultWorkingDirectory)/bundle
