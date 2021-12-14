@@ -35,7 +35,7 @@ const theme: Theme = createTheme({
         },
         sizeLarge: {
           fontsize: 14,
-          lineHeight: 24,
+          lineHeight: 1.72,
           letterSpacing: 0
         },
         sizeMedium: {
@@ -44,7 +44,7 @@ const theme: Theme = createTheme({
         sizeSmall: {
           fontsize: 14,
           letterSpacing: 0,
-          lineHeight: 24
+          lineHeight: 1.72
         }
       },
       variants: [
@@ -149,7 +149,7 @@ const theme: Theme = createTheme({
       },
       fontSize: 18,
       fontWeight: 300,
-      lineHeight: 28,
+      lineHeight: 1.56,
       letterSpacing: 0
     },
     body2: {
@@ -159,7 +159,7 @@ const theme: Theme = createTheme({
       },
       fontSize: 16,
       fontWeight: 400,
-      lineHeight: 24
+      lineHeight: 1.5
     },
     button: {
       fontWeight: 600,
@@ -171,7 +171,7 @@ const theme: Theme = createTheme({
     h1: {
       fontSize: 56,
       fontWeight: 700,
-      lineHeight: 64,
+      lineHeight: 1.14,
       letterSpacing: -2,
     },
     h2: {
@@ -188,17 +188,17 @@ const theme: Theme = createTheme({
       fontSize: 32,
       fontWeight: 700,
       letterSpacing: 0,
-      lineHeight: 40
+      lineHeight: 1.25
     },
     h5: {
       fontSize: 28,
       fontWeight: 600,
-      lineHeight: 40
+      lineHeight: 1.43
     },
     h6: {
       fontSize: 24,
       fontWeight: 400,
-      lineHeight: 24,
+      lineHeight: 1,
       letterSpacing: 0
     },
     htmlFontSize: 16,
