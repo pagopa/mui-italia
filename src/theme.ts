@@ -6,6 +6,58 @@ import "@fontsource/titillium-web/600.css";
 import "@fontsource/titillium-web/700.css";
 
 const theme: Theme = createTheme({
+  palette: {
+    mode: "light",
+    background: {
+      paper: "#FFFFFF",
+      default: "#F2F6FA",
+    },
+    primary: {
+      main: '#0073E6',
+      light: '#2185E9',
+      dark: '#0062C3',
+      contrastText: '#FFFFFF',
+    },
+    secondary: {
+      main: "#00C5CA",
+      light: "#21CDD1",
+      dark: "#00A7AC",
+      contrastText: "#FFFFFF",
+    },
+    text: {
+      primary: "#17324D",
+      secondary: "#5C6F82",
+      disabled: "#A2ADB8",
+    },
+    action: {
+      active: "rgba(23, 50, 77, 0.54)", /* Text/Primary 54% */
+      hover: "rgba(23, 50, 77, 0.04)", /* Text/Primary 4% */
+      selected: "rgba(23, 50, 77, 0.08)", /* Text/Primary 8% */
+      disabled: "rgba(23, 50, 77, 0.26)", /* Text/Primary 26% */
+      disabledBackground: "rgba(23, 50, 77, 0.12)", /* Text/Primary 12% */
+      focus: "rgba(23, 50, 77, 0.12)", /* Text/Primary 12% */
+    },
+    /* Other */
+    divider: '#E3E7EB',
+    /* Start: @TODO: Update color values */
+    error: {
+      dark: "#b32d41",
+      light: "#eba4af",
+      main: "#f73e5a",
+    },
+    info: {
+      main: "#979899",
+    },
+    success: {
+      main: "#008758",
+    },
+    warning: {
+      dark: "#cc7a00",
+      main: "#ff9900",
+    },
+    
+    /* End: Update color values */
+  },
   components: {
     MuiAlertTitle: {
       styleOverrides: {
@@ -101,38 +153,6 @@ const theme: Theme = createTheme({
         }
       }
     }
-  },
-  palette: {
-    background: {
-      default: "#fff",
-    },
-    error: {
-      dark: "#b32d41",
-      light: "#eba4af",
-      main: "#f73e5a",
-    },
-    info: {
-      main: "#979899",
-    },
-    primary: {
-      dark: italia[700],
-      main: italia[500],
-    },
-    secondary: {
-      main: "#5c6f82",
-    },
-    success: {
-      main: "#008758",
-    },
-    text: {
-      disabled: "#475A6D",
-      primary: "#17324D",
-      secondary: "#5C6F82",
-    },
-    warning: {
-      dark: "#cc7a00",
-      main: "#ff9900",
-    },
   },
   shape: {
     borderRadius: 4,
