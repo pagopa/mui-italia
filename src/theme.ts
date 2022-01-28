@@ -1,9 +1,46 @@
 import { createTheme, Theme } from "@mui/material/styles";
+import { createBreakpoints } from '@mui/system';
+
+/* Design Tokens */
 import italia from "./colors/italia";
+
+/* Typefaces */
 import "@fontsource/titillium-web/300.css";
 import "@fontsource/titillium-web/400.css";
 import "@fontsource/titillium-web/600.css";
 import "@fontsource/titillium-web/700.css";
+
+const breakpoints = createBreakpoints({});
+
+function pxToRem(value: number): string {
+  return `${value / 16}rem`;
+}
+
+/* Configuration */
+const mainTypeface = ['"Titillium Web"', "sans-serif"].join(", ");
+const colorText = "#17324D";
+const responsiveBreakpoint = "md";
+
+declare module "@mui/material/styles" {
+  interface TypographyVariants {
+    headline: React.CSSProperties;
+    sidenav: React.CSSProperties;
+    "caption-semibold": React.CSSProperties;
+  }
+
+  interface TypographyVariantsOptions {
+    headline?: React.CSSProperties;
+    sidenav?: React.CSSProperties;
+    "caption-semibold"?: React.CSSProperties;
+  }
+}
+declare module "@mui/material/Typography" {
+  interface TypographyPropsVariantOverrides {
+    headline: true;
+    sidenav: true;
+    "caption-semibold": true;
+  }
+}
 
 const theme: Theme = createTheme({
   palette: {
@@ -55,25 +92,156 @@ const theme: Theme = createTheme({
       dark: "#cc7a00",
       main: "#ff9900",
     },
-    
     /* End: Update color values */
   },
-  components: {
-    MuiAlertTitle: {
-      styleOverrides: {
-        root: {
-          fontWeight: 600,
-        },
+  typography: {
+    /* Using a constant because type variants
+    don't inherit the typeface general color */
+    allVariants: {
+      color: colorText,
+    },
+    /* Using a constant because type variants
+    don't inherit the typeface font family */
+    fontFamily: mainTypeface,
+    fontSize: 16,
+    htmlFontSize: 16,
+    headline: { /* H1 Large */
+      fontSize: pxToRem(56),
+      fontFamily: mainTypeface,
+      color: colorText,
+      lineHeight: 1.1, /* ~60px */
+      fontWeight: 700,
+      letterSpacing: -0.5,
+    },
+    h1: {
+      fontSize: pxToRem(40),
+      lineHeight: 1.2, /* 48px */
+      fontWeight: 700,
+      letterSpacing: -0.5,
+      [breakpoints.up(responsiveBreakpoint)]: {
+        fontSize: pxToRem(56),
+        lineHeight: 1.15, /* 64px */
       },
     },
-    MuiBadge: {
-      styleOverrides: {
-        root: {
-          fontSize: 14,
-        },
+    h2: {
+      fontSize: pxToRem(32),
+      lineHeight: 1, /* 32px */
+      fontWeight: 700,
+      letterSpacing: -0.2,
+      [breakpoints.up(responsiveBreakpoint)]: {
+        fontSize: pxToRem(48),
+        lineHeight: 1.25, /* 60px */
       },
+    },
+    h3: {
+      fontSize: pxToRem(28),
+      lineHeight: 1.15, /* ~32px */
+      fontWeight: 700,
+      letterSpacing: -0.17,
+      [breakpoints.up(responsiveBreakpoint)]: {
+        fontSize: pxToRem(40),
+        lineHeight: 1.2, /* 48px */
+      },
+    },
+    h4: {
+      fontSize: pxToRem(24),
+      lineHeight: 1.15, /* ~28px */
+      fontWeight: 700,
+      letterSpacing: 0,
+      [breakpoints.up(responsiveBreakpoint)]: {
+        fontSize: pxToRem(32),
+        lineHeight: 1.25, /* 40px */
+      },
+    },
+    h5: {
+      fontSize: pxToRem(20),
+      lineHeight: 1.2, /* 24px */
+      fontWeight: 400,
+      letterSpacing: 0,
+      [breakpoints.up(responsiveBreakpoint)]: {
+        fontSize: pxToRem(28),
+        lineHeight: 1.4, /* ~40px */
+      },
+    },
+    h6: {
+      fontSize: pxToRem(16),
+      lineHeight: 1.5, /* 24px */
+      fontWeight: 600,
+      letterSpacing: 0,
+      [breakpoints.up(responsiveBreakpoint)]: {
+        fontSize: pxToRem(28),
+        lineHeight: 1.4, /* ~40px */
+      },
+    },
+    sidenav: {
+      fontFamily: mainTypeface,
+      fontSize: pxToRem(18),
+      lineHeight: 1.5, /* ~28px */
+      color: colorText,
+      fontWeight: 600,
+    },
+    body1: {
+      fontSize: pxToRem(16),
+      lineHeight: 1.5, /* 24px */
+      fontWeight: 400,
+      letterSpacing: 0,
+      [breakpoints.up(responsiveBreakpoint)]: {
+        fontSize: pxToRem(18),
+        lineHeight: 1.5, /* ~28px */
+      },
+      a: {
+        color: italia[500],
+        textDecoration: "underline",
+      },
+    },
+    button: {
+      fontWeight: 700,
+      lineHeight: 1.2,
+      textTransform: "none",
+      letterSpacing: 0,
+    },
+    caption: {
+      fontSize: pxToRem(14),
+      lineHeight: 1.4, /* ~20px */
+      fontWeight: 400,
+    },
+    "caption-semibold": {
+      fontFamily: mainTypeface,
+      fontSize: pxToRem(14),
+      lineHeight: 1.4, /* ~20px */
+      color: colorText,
+      fontWeight: 600,
+    },
+    overline: {
+      fontSize: pxToRem(14),
+      lineHeight: 1.15, /* ~16px */
+      fontWeight: 700,
+      letterSpacing: 1,
+    },
 
+    /* Start: To be revised */
+    subtitle1: {
+      a: {
+        color: italia[500],
+        textDecoration: "underline",
+      },
+      fontWeight: 600
     },
+    subtitle2: {
+      fontWeight: 600,
+    },
+    body2: {
+      a: {
+        color: italia[500],
+        textDecoration: "underline",
+      },
+      fontSize: 16,
+      lineHeight: 1.5,
+      fontWeight: 400,
+    },
+    /* End: To be revised */
+  },
+  components: {
     MuiButton: {
       styleOverrides: {
         // Name of the slot
@@ -85,19 +253,18 @@ const theme: Theme = createTheme({
             "inset 0 1px 0 rgb(255 255 255 / 15%), 0 1px 1px rgb(0 0 0 / 8%)",
           padding: "12px 24px",
         },
-        sizeLarge: {
-          fontsize: 14,
-          lineHeight: 1.72,
-          letterSpacing: 0
+        sizeSmall: {
+          fontsize: pxToRem(14),
+          lineHeight: 1.25, /* ~18px */
         },
         sizeMedium: {
-          fontWeight: 600
+          fontsize: pxToRem(16),
+          lineHeight: 1.25, /* 20px */
         },
-        sizeSmall: {
-          fontsize: 14,
-          letterSpacing: 0,
-          lineHeight: 1.72
-        }
+        sizeLarge: {
+          fontsize: pxToRem(18),
+          lineHeight: 1.2, /* ~22px */
+        },        
       },
       variants: [
         {
@@ -117,6 +284,21 @@ const theme: Theme = createTheme({
           },
         },
       ],
+    },
+    MuiAlertTitle: {
+      styleOverrides: {
+        root: {
+          fontWeight: 600,
+        },
+      },
+    },
+    MuiBadge: {
+      styleOverrides: {
+        root: {
+          fontSize: 14,
+        },
+      },
+
     },
     MuiChip: {
       styleOverrides: {
@@ -158,84 +340,8 @@ const theme: Theme = createTheme({
     borderRadius: 4,
   },
   spacing: 8,
-  typography: {
-    allVariants: {
-      color: "#17324D",
-    },
-    body1: {
-      a: {
-        color: italia[500],
-        textDecoration: "underline",
-      },
-      fontSize: 18,
-      fontWeight: 300,
-      lineHeight: 1.56,
-      letterSpacing: 0
-    },
-    body2: {
-      a: {
-        color: italia[500],
-        textDecoration: "underline",
-      },
-      fontSize: 16,
-      fontWeight: 400,
-      lineHeight: 1.5
-    },
-    button: {
-      fontWeight: 600,
-      lineHeight: 1.2,
-      textTransform: "none",
-    },
-    fontFamily: ['"Titillium Web"', "sans-serif"].join(", "),
-    fontSize: 16,
-    h1: {
-      fontSize: 56,
-      fontWeight: 700,
-      lineHeight: 1.14,
-      letterSpacing: -2,
-    },
-    h2: {
-      fontSize: 48,
-      fontWeight: 700,
-      letterSpacing: -1.3
-    },
-    h3: {
-      fontSize: 28,
-      fontWeight: 700,
-      letterSpacing: -1,
-    },
-    h4: {
-      fontSize: 32,
-      fontWeight: 700,
-      letterSpacing: 0,
-      lineHeight: 1.25
-    },
-    h5: {
-      fontSize: 28,
-      fontWeight: 600,
-      lineHeight: 1.43
-    },
-    h6: {
-      fontSize: 24,
-      fontWeight: 400,
-      lineHeight: 1,
-      letterSpacing: 0
-    },
-    htmlFontSize: 16,
-    overline: {
-      fontSize: 14,
-      fontWeight: 700,
-    },
-    subtitle1: {
-      a: {
-        color: italia[500],
-        textDecoration: "underline",
-      },
-      fontWeight: 600
-    },
-    subtitle2: {
-      fontWeight: 600,
-    },
-  },
 });
+
+
+
 export default theme;
