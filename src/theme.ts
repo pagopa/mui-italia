@@ -145,7 +145,7 @@ const theme: Theme = createTheme({
     },
     h2: {
       fontSize: pxToRem(32),
-      lineHeight: 1, /* 32px */
+      lineHeight: 1.25, /* 40px */
       fontWeight: 700,
       letterSpacing: -0.2,
       [breakpoints.up(responsiveBreakpoint)]: {
