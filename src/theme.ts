@@ -21,6 +21,7 @@ const mainTypeface = ['"Titillium Web"', "sans-serif"].join(", ");
 const colorText = "#17324D";
 const responsiveBreakpoint = "md";
 
+/* Custom Typography */
 declare module "@mui/material/styles" {
   interface TypographyVariants {
     headline: React.CSSProperties;
@@ -42,6 +43,21 @@ declare module "@mui/material/Typography" {
   }
 }
 
+/* Custom Palette */
+declare module '@mui/material/styles' {
+  interface Palette {
+    blueItaly: Palette['primary'];
+  }
+ interface PaletteOptions {
+    blueItaly?: PaletteOptions['primary'];
+  }
+}
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    blueItaly: true;
+  }
+}
+
 const theme: Theme = createTheme({
   palette: {
     mode: "light",
@@ -60,6 +76,10 @@ const theme: Theme = createTheme({
       light: "#21CDD1",
       dark: "#00A7AC",
       contrastText: "#FFFFFF",
+    },
+    blueItaly: {
+      main: '#0066CC',
+      contrastText: '#fff',
     },
     text: {
       primary: "#17324D",
