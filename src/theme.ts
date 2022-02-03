@@ -16,7 +16,7 @@ function pxToRem(value: number): string {
   return `${value / 16}rem`;
 }
 
-/* Configuration */
+/* Basic Configuration */
 const mainTypeface = ['"Titillium Web"', "sans-serif"].join(", ");
 const colorText = "#17324D";
 const responsiveBreakpoint = "md";
@@ -96,23 +96,31 @@ const theme: Theme = createTheme({
     },
     /* Other */
     divider: '#E3E7EB',
-    /* Start: @TODO: Update color values */
+    /* Indicator/Validation */
     error: {
-      dark: "#b32d41",
-      light: "#eba4af",
-      main: "#f73e5a",
+      main: "#F83E5A",
+      dark: "#D3354D",
+      light: "#F9576F",
+      contrastText: "#FFFFFF",
     },
     info: {
-      main: "#979899",
+      main: "#02C3ED",
+      dark: "#02A6C9",
+      light: "#23CBEF",
+      contrastText: "#FFFFFF",
     },
     success: {
-      main: "#008758",
+      main: "#00CF86",
+      dark: "#00B072",
+      light: "#21D596",
+      contrastText: "#FFFFFF",
     },
     warning: {
-      dark: "#cc7a00",
-      main: "#ff9900",
+      main: "#FF9700",
+      dark: "#D98000",
+      light: "#FFA421",
+      contrastText: "#FFFFFF",
     },
-    /* End: Update color values */
   },
   typography: {
     /* Using a constant because type variants
