@@ -1,1 +1,1 @@
-export { default as italia } from "./italia";
+export * from "./italia";
