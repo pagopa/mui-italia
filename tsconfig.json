@@ -9,7 +9,6 @@
       "es2019"
     ],
     "jsx": "react-jsx",
-    "noEmit": false,
     "declaration": true,
     "strict": true,
     "noImplicitAny": true,

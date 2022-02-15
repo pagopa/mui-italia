@@ -1,6 +1,7 @@
-const italia: { [key: string | number]: string }  = {
+export type colorPalette = 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
+
+export const italia: Record<colorPalette, string>  = {
     50: "#E3F2FD",
-    // eslint-disable-next-line sort-keys
     100: "#BBDEFB",
     200: "#90CAF9",
     300: "#1976D2",
@@ -11,5 +12,3 @@ const italia: { [key: string | number]: string }  = {
     800: "#1565C0",
     900: "#0D47A1",
 };
-
-export default italia;
