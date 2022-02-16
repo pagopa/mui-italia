@@ -56,6 +56,10 @@ declare module "@mui/material/Button" {
   interface ButtonPropsColorOverrides {
     blueItaly: true;
   }
+
+  interface ButtonPropsVariantOverrides {
+    secondary: false;
+  }
 }
 
 const foundation: Theme = createTheme({
@@ -88,8 +92,9 @@ const foundation: Theme = createTheme({
     },
     action: {
       active: "rgba(23, 50, 77, 0.54)" /* Text/Primary 54% */,
-      hover: "rgba(23, 50, 77, 0.04)" /* Text/Primary 4% */,
-      selected: "rgba(23, 50, 77, 0.08)" /* Text/Primary 8% */,
+      hover: "rgba(23, 50, 77, 0.08)" /* Text/Primary 4% */,
+      hoverOpacity: 0.08,
+      selected: "rgba(23, 50, 77, 0.12)" /* Text/Primary 8% */,
       disabled: "rgba(23, 50, 77, 0.26)" /* Text/Primary 26% */,
       disabledBackground: "rgba(23, 50, 77, 0.12)" /* Text/Primary 12% */,
       focus: "rgba(23, 50, 77, 0.12)" /* Text/Primary 12% */,
@@ -286,21 +291,45 @@ export const theme = createTheme(foundation, {
       },
       styleOverrides: {
         root: {
-          minWidth: "none",
-          padding: "12px",
+          padding: "0 20px",
         },
         sizeSmall: {
+          height: "40px",
+          padding: "0 20px",
           fontsize: pxToRem(14),
           lineHeight: 1.25 /* ~18px */,
         },
         sizeMedium: {
+          height: "48px",
+          padding: "0 24px",
           fontsize: pxToRem(16),
           lineHeight: 1.25 /* 20px */,
         },
         sizeLarge: {
           height: "56px",
+          padding: "0 24px",
           fontsize: pxToRem(18),
           lineHeight: 1.2 /* ~22px */,
+        },
+        outlined: {
+          borderWidth: "2px",
+          "&:hover": {
+            borderWidth: "2px",
+          },
+        },
+        outlinedPrimary: {
+          borderColor: foundation.palette.primary.main,
+          "&:hover": {
+            color: foundation.palette.primary.dark,
+            borderColor: "currentColor",
+          },
+        },
+        outlinedError: {
+          borderColor: foundation.palette.error.main,
+          "&:hover": {
+            color: foundation.palette.error.dark,
+            borderColor: "currentColor",
+          },
         },
       },
       variants: [
@@ -312,12 +341,6 @@ export const theme = createTheme(foundation, {
             },
             backgroundColor: "#5c6f82",
             color: "#fff",
-          },
-        },
-        {
-          props: { variant: "text" },
-          style: {
-            boxShadow: "none",
           },
         },
       ],

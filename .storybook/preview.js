@@ -9,8 +9,9 @@ import { sbTheme } from "./theme";
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   controls: {
+    expanded: true,
     matchers: {
-      color: /(background|color)$/i,
+      /* color: /(background|color)$/i, */
       date: /Date$/,
     },
   },
@@ -22,7 +23,6 @@ export const parameters = {
 export const decorators = [
   (Story) => (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
       <Story />
     </ThemeProvider>
   ),
