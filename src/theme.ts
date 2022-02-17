@@ -223,10 +223,10 @@ const foundation: Theme = createTheme({
         fontSize: pxToRem(18),
         lineHeight: 1.5 /* ~28px */,
       },
-      a: {
+      /* a: {
         color: italia[500],
         textDecoration: "underline",
-      },
+      }, */
     },
     button: {
       fontWeight: 700,
@@ -265,10 +265,10 @@ const foundation: Theme = createTheme({
       fontWeight: 600,
     },
     body2: {
-      a: {
+      /* a: {
         color: italia[500],
         textDecoration: "underline",
-      },
+      }, */
       fontSize: 16,
       lineHeight: 1.5,
       fontWeight: 400,
@@ -332,18 +332,18 @@ export const theme = createTheme(foundation, {
           },
         },
       },
-      variants: [
-        {
-          props: { color: "secondary" },
-          style: {
-            "&:hover": {
-              backgroundColor: "#4c5c6c",
-            },
-            backgroundColor: "#5c6f82",
-            color: "#fff",
-          },
+    },
+    MuiBreadcrumbs: {
+      styleOverrides: {
+        root: {
+          fontSize: pxToRem(16),
+          color: foundation.palette.text.primary,
         },
-      ],
+        separator: {
+          color: foundation.palette.text.secondary,
+        },
+      },
+    },
     },
     MuiAlertTitle: {
       styleOverrides: {
