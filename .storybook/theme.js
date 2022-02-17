@@ -7,14 +7,18 @@ export const theme = create({
 
   // Palette
   colorPrimary: "#00C5CA",
-  colorSecondary: "#0066CC",
+  colorSecondary: "#000000",
 
   // Typography
   fontBase: '"Inter", sans-serif',
 
   // UI
   appBg: "#E6E9F2",
-  appContentBg: "#FFF",
+  appContentBg: "#FFFFFF",
   appBorderColor: "#E3E7EB",
   appBorderRadius: 0,
+
+  // Toolbar
+  barTextColor: "#333333",
+  barSelectedColor: "#000000",
 });
