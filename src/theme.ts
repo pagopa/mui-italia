@@ -47,9 +47,24 @@ declare module "@mui/material/Typography" {
 declare module "@mui/material/styles" {
   interface Palette {
     blueItaly: Palette["primary"];
+    extraLight: Palette["warning"];
   }
   interface PaletteOptions {
     blueItaly?: PaletteOptions["primary"];
+    extraLight?: Palette["warning"];
+  }
+
+  interface PaletteColor {
+    extraLight?: string;
+  }
+
+  /* Add new extraLight key to the colours */
+  interface PaletteColorOptions {
+    main?: string;
+    dark?: string;
+    light?: string;
+    contrastText?: string;
+    extraLight?: string;
   }
 }
 declare module "@mui/material/Button" {
@@ -106,24 +121,28 @@ const foundation: Theme = createTheme({
       main: "#F83E5A",
       dark: "#D3354D",
       light: "#F9576F",
+      extraLight: "#FB9EAC",
       contrastText: "#FFFFFF",
     },
     info: {
       main: "#02C3ED",
       dark: "#02A6C9",
       light: "#23CBEF",
+      extraLight: "#80E1F6",
       contrastText: "#FFFFFF",
     },
     success: {
       main: "#00CF86",
       dark: "#00B072",
       light: "#21D596",
+      extraLight: "#80E7C2",
       contrastText: "#FFFFFF",
     },
     warning: {
       main: "#FF9700",
       dark: "#D98000",
       light: "#FFA421",
+      extraLight: "#FFCB80",
       contrastText: "#FFFFFF",
     },
   },
@@ -332,18 +351,6 @@ export const theme = createTheme(foundation, {
           },
         },
       },
-      variants: [
-        {
-          props: { color: "secondary" },
-          style: {
-            "&:hover": {
-              backgroundColor: "#4c5c6c",
-            },
-            backgroundColor: "#5c6f82",
-            color: "#fff",
-          },
-        },
-      ],
     },
     MuiAlertTitle: {
       styleOverrides: {
