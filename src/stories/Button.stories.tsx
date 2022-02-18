@@ -13,6 +13,7 @@ export default {
     variant: "contained",
     children: "Press me",
     fullWidth: false,
+    disabled: false,
   },
   argTypes: {
     size: {

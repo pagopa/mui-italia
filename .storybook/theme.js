@@ -13,7 +13,7 @@ export const theme = create({
   fontBase: '"Inter", sans-serif',
 
   // UI
-  appBg: "#E6E9F2",
+  appBg: "#FFFFFF",
   appContentBg: "#FFFFFF",
   appBorderColor: "#E3E7EB",
   appBorderRadius: 0,
