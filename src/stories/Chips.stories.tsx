@@ -31,6 +31,7 @@ export default {
       options: ["filled", "outlined"],
       control: { type: "radio" },
       table: {
+        disable: true,
         type: { summary: "string" },
         defaultValue: { summary: "filled" },
       },
@@ -82,7 +83,7 @@ Deletable.argTypes = {
   },
 };
 
-export const WithAvatar = Template.bind({});
+/* export const WithAvatar = Template.bind({});
 WithAvatar.args = {
   ...Default.args,
   avatar: <Avatar>M</Avatar>,
@@ -106,4 +107,4 @@ WithIcon.argTypes = {
       disable: true,
     },
   },
-};
+}; */
