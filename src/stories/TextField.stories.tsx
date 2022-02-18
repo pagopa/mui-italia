@@ -28,7 +28,6 @@ export default {
       onDelete: { action: "Deleted" },
     }, */
     variant: {
-      defaultValue: "outlined",
       options: ["filled", "outlined"],
       control: { type: "radio" },
       table: {
@@ -42,7 +41,6 @@ export default {
       },
     },
     size: {
-      defaultValue: "medium",
       options: ["small", "medium"],
       control: { type: "radio" },
       table: {
@@ -51,7 +49,6 @@ export default {
       },
     },
     error: {
-      defaultValue: false,
       control: { type: "boolean" },
       table: {
         type: { summary: "boolean" },
@@ -59,7 +56,6 @@ export default {
       },
     },
     fullWidth: {
-      defaultValue: false,
       control: { type: "boolean" },
       table: {
         type: { summary: "boolean" },
@@ -67,7 +63,6 @@ export default {
       },
     },
     required: {
-      defaultValue: false,
       control: { type: "boolean" },
       table: {
         type: { summary: "boolean" },
@@ -75,7 +70,6 @@ export default {
       },
     },
     disabled: {
-      defaultValue: false,
       control: { type: "boolean" },
       table: {
         type: { summary: "boolean" },
