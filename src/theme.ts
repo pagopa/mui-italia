@@ -1,4 +1,4 @@
-import { createTheme, Theme } from "@mui/material/styles";
+import { createTheme, Theme, alpha } from "@mui/material/styles";
 import { createBreakpoints } from "@mui/system";
 
 /* Design Tokens */
@@ -370,6 +370,70 @@ export const theme = createTheme(foundation, {
       styleOverrides: {
         root: {
           fontWeight: 600,
+          letterSpacing: 0.5,
+        },
+        deleteIcon: {
+          color: "currentColor",
+          opacity: "0.7",
+          "&:hover": {
+            color: "currentColor",
+            opacity: 1,
+          },
+        },
+        avatar: {
+          fontWeight: 400,
+        },
+        colorSecondary: {
+          "&.MuiChip-filled": {
+            backgroundColor: alpha(foundation.palette.secondary.main, 0.5),
+            color: foundation.palette.text.primary,
+          },
+        },
+        colorInfo: {
+          "&.MuiChip-filled": {
+            backgroundColor: foundation.palette.info.extraLight,
+            color: foundation.palette.text.primary,
+          },
+          "& .MuiChip-avatar": {
+            backgroundColor: foundation.palette.info.dark,
+            color: foundation.palette.info.contrastText,
+          },
+        },
+        colorError: {
+          "&.MuiChip-filled": {
+            backgroundColor: foundation.palette.error.extraLight,
+            color: foundation.palette.getContrastText(
+              foundation.palette.error.extraLight as string
+            ),
+          },
+          "& .MuiChip-avatar": {
+            backgroundColor: foundation.palette.error.dark,
+            color: foundation.palette.error.contrastText,
+          },
+        },
+        colorSuccess: {
+          "&.MuiChip-filled": {
+            backgroundColor: foundation.palette.success.extraLight,
+            color: foundation.palette.getContrastText(
+              foundation.palette.success.extraLight as string
+            ),
+          },
+          "& .MuiChip-avatar": {
+            backgroundColor: foundation.palette.success.dark,
+            color: foundation.palette.success.contrastText,
+          },
+        },
+        colorWarning: {
+          "&.MuiChip-filled": {
+            backgroundColor: foundation.palette.warning.extraLight,
+            color: foundation.palette.getContrastText(
+              foundation.palette.warning.extraLight as string
+            ),
+          },
+          "& .MuiChip-avatar": {
+            backgroundColor: foundation.palette.warning.dark,
+            color: foundation.palette.warning.contrastText,
+          },
         },
       },
     },
