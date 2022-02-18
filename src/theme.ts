@@ -333,6 +333,20 @@ export const theme = createTheme(foundation, {
         },
       },
     },
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          fontSize: pxToRem(14),
+          backgroundColor: "#455B71",
+          fontWeight: 600,
+          textAlign: "center",
+          boxShadow: foundation.shadows[16],
+        },
+        arrow: {
+          color: "#455B71",
+        },
+      },
+    },
     MuiBreadcrumbs: {
       styleOverrides: {
         root: {
@@ -343,7 +357,6 @@ export const theme = createTheme(foundation, {
           color: foundation.palette.text.secondary,
         },
       },
-    },
     },
     MuiAlertTitle: {
       styleOverrides: {
@@ -383,13 +396,6 @@ export const theme = createTheme(foundation, {
     MuiTableHead: {
       styleOverrides: {
         root: {
-          fontWeight: 600,
-        },
-      },
-    },
-    MuiTooltip: {
-      styleOverrides: {
-        tooltip: {
           fontWeight: 600,
         },
       },
