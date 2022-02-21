@@ -18,7 +18,7 @@ function pxToRem(value: number): string {
 
 /* Basic Configuration */
 const mainTypeface = ['"Titillium Web"', "sans-serif"].join(", ");
-const colorText = "#17324D";
+const colorTextPrimary = "#17324D";
 const responsiveBreakpoint = "md";
 
 /* Custom Typography */
@@ -118,39 +118,39 @@ const foundation: Theme = createTheme({
     divider: "#E3E7EB",
     /* Indicator/Validation */
     error: {
-      main: "#F83E5A",
-      dark: "#D3354D",
-      light: "#F9576F",
+      main: "#FE6666",
+      dark: "#D85757",
+      light: "#FE7A7A",
       extraLight: "#FB9EAC",
-      contrastText: "#FFFFFF",
+      contrastText: colorTextPrimary,
     },
     info: {
-      main: "#02C3ED",
-      dark: "#02A6C9",
-      light: "#23CBEF",
-      extraLight: "#80E1F6",
-      contrastText: "#FFFFFF",
+      main: "#6BCFFB",
+      dark: "#5BB0D5",
+      light: "#7ED5FC",
+      extraLight: "#86E1FD",
+      contrastText: colorTextPrimary,
     },
     success: {
-      main: "#00CF86",
-      dark: "#00B072",
-      light: "#21D596",
-      extraLight: "#80E7C2",
-      contrastText: "#FFFFFF",
+      main: "#6CC66A",
+      dark: "#5CA85A",
+      light: "#7FCD7D",
+      extraLight: "#B5E2B4",
+      contrastText: colorTextPrimary,
     },
     warning: {
-      main: "#FF9700",
-      dark: "#D98000",
-      light: "#FFA421",
-      extraLight: "#FFCB80",
-      contrastText: "#FFFFFF",
+      main: "#FFCB46",
+      dark: "#D9AD3C",
+      light: "#FFD25E",
+      extraLight: "#FFE5A3",
+      contrastText: colorTextPrimary,
     },
   },
   typography: {
     /* Using a constant because type variants
     don't inherit the typeface general color */
     allVariants: {
-      color: colorText,
+      color: colorTextPrimary,
     },
     /* Using a constant because type variants
     don't inherit the typeface font family */
@@ -161,7 +161,7 @@ const foundation: Theme = createTheme({
     headline: {
       fontSize: pxToRem(56),
       fontFamily: mainTypeface,
-      color: colorText,
+      color: colorTextPrimary,
       lineHeight: 1.1 /* ~60px */,
       fontWeight: 700,
       letterSpacing: -0.5,
@@ -230,7 +230,7 @@ const foundation: Theme = createTheme({
       fontFamily: mainTypeface,
       fontSize: pxToRem(18),
       lineHeight: 1.5 /* ~28px */,
-      color: colorText,
+      color: colorTextPrimary,
       fontWeight: 600,
     },
     body1: {
@@ -262,7 +262,7 @@ const foundation: Theme = createTheme({
       fontFamily: mainTypeface,
       fontSize: pxToRem(14),
       lineHeight: 1.4 /* ~20px */,
-      color: colorText,
+      color: colorTextPrimary,
       fontWeight: 600,
     },
     overline: {
@@ -391,49 +391,52 @@ export const theme = createTheme(foundation, {
         },
         colorInfo: {
           "&.MuiChip-filled": {
-            backgroundColor: foundation.palette.info.extraLight,
-            color: foundation.palette.text.primary,
+            backgroundColor: foundation.palette.info.light,
+            /* color: foundation.palette.text.primary, */
           },
-          "& .MuiChip-avatar": {
+          /* "& .MuiChip-avatar": {
             backgroundColor: foundation.palette.info.dark,
             color: foundation.palette.info.contrastText,
-          },
+          }, */
         },
         colorError: {
           "&.MuiChip-filled": {
-            backgroundColor: foundation.palette.error.extraLight,
-            color: foundation.palette.getContrastText(
+            backgroundColor: foundation.palette.error.light,
+            /*  color: foundation.palette.text.primary, */
+            /* color: foundation.palette.getContrastText(
               foundation.palette.error.extraLight as string
-            ),
+            ), */
           },
-          "& .MuiChip-avatar": {
+          /* "& .MuiChip-avatar": {
             backgroundColor: foundation.palette.error.dark,
             color: foundation.palette.error.contrastText,
-          },
+          }, */
         },
         colorSuccess: {
           "&.MuiChip-filled": {
-            backgroundColor: foundation.palette.success.extraLight,
-            color: foundation.palette.getContrastText(
+            backgroundColor: foundation.palette.success.light,
+            /* color: foundation.palette.text.primary, */
+            /* color: foundation.palette.getContrastText(
               foundation.palette.success.extraLight as string
-            ),
+            ), */
           },
-          "& .MuiChip-avatar": {
+          /* "& .MuiChip-avatar": {
             backgroundColor: foundation.palette.success.dark,
             color: foundation.palette.success.contrastText,
-          },
+          }, */
         },
         colorWarning: {
           "&.MuiChip-filled": {
-            backgroundColor: foundation.palette.warning.extraLight,
-            color: foundation.palette.getContrastText(
+            backgroundColor: foundation.palette.warning.light,
+            /* color: foundation.palette.text.primary, */
+            /* color: foundation.palette.getContrastText(
               foundation.palette.warning.extraLight as string
-            ),
+            ), */
           },
-          "& .MuiChip-avatar": {
+          /* "& .MuiChip-avatar": {
             backgroundColor: foundation.palette.warning.dark,
             color: foundation.palette.warning.contrastText,
-          },
+          }, */
         },
       },
     },
