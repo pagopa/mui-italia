@@ -287,7 +287,6 @@ export const theme = createTheme(foundation, {
       defaultProps: {
         disableElevation: true,
         disableFocusRipple: true,
-        disableRipple: true,
       },
       styleOverrides: {
         root: {
@@ -358,16 +357,27 @@ export const theme = createTheme(foundation, {
         },
       },
     },
+    /* START Alert */
     MuiAlert: {
       styleOverrides: {
         root: {
+          padding: foundation.spacing(2),
           color: colorTextPrimary,
+          alignItems: "center",
         },
         icon: {
           opacity: 1,
           alignItems: "center",
+          marginRight: foundation.spacing(2),
         },
-        filled: {
+        message: {
+          padding: 0,
+        },
+        action: {
+          marginRight: 0,
+          paddingTop: 0,
+        },
+        standard: {
           "& .MuiAlert-icon": {
             color: colorTextPrimary,
           },
@@ -398,6 +408,20 @@ export const theme = createTheme(foundation, {
         },
       },
     },
+    MuiAlertTitle: {
+      styleOverrides: {
+        root: {
+          fontSize: pxToRem(16),
+          fontWeight: 600,
+          margin: 0,
+          /* It inherits from `body1`, so I have to reset -_- */
+          [breakpoints.up(responsiveBreakpoint)]: {
+            fontSize: pxToRem(16),
+          },
+        },
+      },
+    },
+    /* END Alert */
     MuiBadge: {
       styleOverrides: {
         root: {

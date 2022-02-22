@@ -2,6 +2,9 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import { Alert, AlertTitle, Button } from "@mui/material";
 
+/* Icons */
+import CopyAllRoundedIcon from "@mui/icons-material/CopyAllRounded";
+
 export default {
   title: "MUI Components/Feedback/Alert",
   component: Alert,
@@ -43,6 +46,30 @@ WithTitle.args = {
       Altro contenuto che serve ad avvisare l&apos;utente di qualche azione
     </>
   ),
+};
+
+export const WithAction = Template.bind({});
+WithAction.args = {
+  children: (
+    <>
+      {title}
+      Altro contenuto che serve ad avvisare l&apos;utente di qualche azione
+    </>
+  ),
+  action: (
+    <Button size="small" startIcon={<CopyAllRoundedIcon />}>
+      Copia
+    </Button>
+  ),
+};
+WithAction.argTypes = {
+  children: { table: { disable: true } },
+  action: { table: { disable: true } },
+};
+
+export const NoWrap = Template.bind({});
+NoWrap.args = {
+  noWrap: true,
 };
 
 /* export const WithEndIcon = Template.bind({});
