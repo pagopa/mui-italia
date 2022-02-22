@@ -7,7 +7,7 @@ import RemoveCircleOutlineRoundedIcon from "@mui/icons-material/RemoveCircleOutl
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "MUI Components/Actions/Button",
+  title: "MUI Components/Inputs/Button",
   component: Button,
   args: {
     variant: "contained",

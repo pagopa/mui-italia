@@ -242,10 +242,10 @@ const foundation: Theme = createTheme({
         fontSize: pxToRem(18),
         lineHeight: 1.5 /* ~28px */,
       },
-      a: {
+      /* a: {
         color: italia[500],
         textDecoration: "underline",
-      },
+      }, */
     },
     button: {
       fontWeight: 700,
@@ -284,10 +284,10 @@ const foundation: Theme = createTheme({
       fontWeight: 600,
     },
     body2: {
-      a: {
+      /* a: {
         color: italia[500],
         textDecoration: "underline",
-      },
+      }, */
       fontSize: 16,
       lineHeight: 1.5,
       fontWeight: 400,
@@ -349,6 +349,31 @@ export const theme = createTheme(foundation, {
             color: foundation.palette.error.dark,
             borderColor: "currentColor",
           },
+        },
+      },
+    },
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          fontSize: pxToRem(14),
+          backgroundColor: "#455B71",
+          fontWeight: 600,
+          textAlign: "center",
+          boxShadow: foundation.shadows[16],
+        },
+        arrow: {
+          color: "#455B71",
+        },
+      },
+    },
+    MuiBreadcrumbs: {
+      styleOverrides: {
+        root: {
+          fontSize: pxToRem(16),
+          color: foundation.palette.text.primary,
+        },
+        separator: {
+          color: foundation.palette.text.secondary,
         },
       },
     },
@@ -457,13 +482,6 @@ export const theme = createTheme(foundation, {
     MuiTableHead: {
       styleOverrides: {
         root: {
-          fontWeight: 600,
-        },
-      },
-    },
-    MuiTooltip: {
-      styleOverrides: {
-        tooltip: {
           fontWeight: 600,
         },
       },
