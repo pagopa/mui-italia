@@ -18,7 +18,7 @@ function pxToRem(value: number): string {
 
 /* Basic Configuration */
 const mainTypeface = ['"Titillium Web"', "sans-serif"].join(", ");
-const colorText = "#17324D";
+const colorTextPrimary = "#17324D";
 const responsiveBreakpoint = "md";
 
 /* Custom Typography */
@@ -131,7 +131,7 @@ const foundation: Theme = createTheme({
     /* Using a constant because type variants
     don't inherit the typeface general color */
     allVariants: {
-      color: colorText,
+      color: colorTextPrimary,
     },
     /* Using a constant because type variants
     don't inherit the typeface font family */
@@ -142,7 +142,7 @@ const foundation: Theme = createTheme({
     headline: {
       fontSize: pxToRem(56),
       fontFamily: mainTypeface,
-      color: colorText,
+      color: colorTextPrimary,
       lineHeight: 1.1 /* ~60px */,
       fontWeight: 700,
       letterSpacing: -0.5,
@@ -211,7 +211,7 @@ const foundation: Theme = createTheme({
       fontFamily: mainTypeface,
       fontSize: pxToRem(18),
       lineHeight: 1.5 /* ~28px */,
-      color: colorText,
+      color: colorTextPrimary,
       fontWeight: 600,
     },
     body1: {
@@ -243,7 +243,7 @@ const foundation: Theme = createTheme({
       fontFamily: mainTypeface,
       fontSize: pxToRem(14),
       lineHeight: 1.4 /* ~20px */,
-      color: colorText,
+      color: colorTextPrimary,
       fontWeight: 600,
     },
     overline: {
@@ -358,10 +358,43 @@ export const theme = createTheme(foundation, {
         },
       },
     },
-    MuiAlertTitle: {
+    MuiAlert: {
       styleOverrides: {
         root: {
-          fontWeight: 600,
+          color: colorTextPrimary,
+        },
+        icon: {
+          opacity: 1,
+          alignItems: "center",
+        },
+        filled: {
+          "& .MuiAlert-icon": {
+            color: colorTextPrimary,
+          },
+        },
+        outlinedSuccess: {
+          borderColor: foundation.palette.success.main,
+          "& .MuiAlert-icon": {
+            color: foundation.palette.success.main,
+          },
+        },
+        outlinedError: {
+          borderColor: foundation.palette.error.main,
+          "& .MuiAlert-icon": {
+            color: foundation.palette.error.main,
+          },
+        },
+        outlinedInfo: {
+          borderColor: foundation.palette.info.main,
+          "& .MuiAlert-icon": {
+            color: foundation.palette.info.main,
+          },
+        },
+        outlinedWarning: {
+          borderColor: foundation.palette.warning.main,
+          "& .MuiAlert-icon": {
+            color: foundation.palette.warning.main,
+          },
         },
       },
     },
