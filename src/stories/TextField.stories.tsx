@@ -4,37 +4,12 @@ import { TextField, InputAdornment } from "@mui/material";
 
 import ErrorOutlineRoundedIcon from "@mui/icons-material/ErrorOutlineRounded";
 import PersonOutlineRoundedIcon from "@mui/icons-material/PersonOutlineRounded";
+import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
 
 export default {
   title: "MUI Components/Inputs/Text Field",
   component: TextField,
   argTypes: {
-    /* color: {
-      defaultValue: "default",
-      options: [
-        "default",
-        "primary",
-        "secondary",
-        "warning",
-        "info",
-        "error",
-        "success",
-      ],
-      control: { type: "radio" },
-      table: {
-        type: { summary: "string" },
-        defaultValue: { summary: "default" },
-      },
-      onDelete: { action: "Deleted" },
-    }, */
-    variant: {
-      options: ["filled", "outlined"],
-      control: { type: "radio" },
-      table: {
-        type: { summary: "string" },
-        defaultValue: { summary: "outlined" },
-      },
-    },
     placeholder: {
       table: {
         type: { summary: "string" },
@@ -109,8 +84,8 @@ WithIcon.args = {
   },
 };
 
-export const WithError = Template.bind({});
-WithError.args = {
+export const StateError = Template.bind({});
+StateError.args = {
   ...Default.args,
   label: "Ripeti di nuovo",
   error: true,
@@ -123,4 +98,24 @@ WithError.args = {
       </InputAdornment>
     ),
   },
+};
+StateError.argTypes = {
+  InputProps: { table: { disable: true } },
+};
+
+export const StateSuccess = Template.bind({});
+StateSuccess.args = {
+  ...Default.args,
+  label: "Indirizzo mail",
+  InputProps: {
+    endAdornment: (
+      <InputAdornment position="end">
+        <DoneRoundedIcon color="success" />
+      </InputAdornment>
+    ),
+  },
+};
+StateSuccess.argTypes = {
+  InputProps: { table: { disable: true } },
+  error: { table: { disable: true } },
 };
