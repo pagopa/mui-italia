@@ -43,19 +43,14 @@ WithTitle.args = {
   children: (
     <>
       {title}
-      Altro contenuto che serve ad avvisare l&apos;utente di qualche azione
+      Contenuto che serve ad avvisare l&apos;utente
     </>
   ),
 };
 
 export const WithAction = Template.bind({});
 WithAction.args = {
-  children: (
-    <>
-      {title}
-      Altro contenuto che serve ad avvisare l&apos;utente di qualche azione
-    </>
-  ),
+  children: "Contenuto che serve ad avvisare l'utente",
   action: (
     <Button size="small" startIcon={<CopyAllRoundedIcon />}>
       Copia
@@ -66,54 +61,3 @@ WithAction.argTypes = {
   children: { table: { disable: true } },
   action: { table: { disable: true } },
 };
-
-export const NoWrap = Template.bind({});
-NoWrap.args = {
-  noWrap: true,
-};
-
-/* export const WithEndIcon = Template.bind({});
-WithEndIcon.storyName = "Default + End Icon";
-WithEndIcon.args = {
-  ...Default.args,
-  endIcon: <ArrowForwardRoundedIcon />,
-};
-
-export const WithStartIcon = Template.bind({});
-WithStartIcon.storyName = "Default + Start Icon";
-WithStartIcon.args = {
-  ...Default.args,
-  startIcon: <ArrowBackRoundedIcon />,
-};
-
-export const Danger = Template.bind({});
-Danger.args = {
-  variant: "outlined",
-  color: "error",
-  size: "medium",
-  children: "Delete",
-};
-Danger.argTypes = {
-  variant: { table: { disable: true } },
-};
-
-export const DangerWithEndIcon = Template.bind({});
-DangerWithEndIcon.storyName = "Danger + End Icon";
-DangerWithEndIcon.args = {
-  ...Danger.args,
-  endIcon: <RemoveCircleOutlineRoundedIcon />,
-};
-DangerWithEndIcon.argTypes = {
-  ...Danger.argTypes,
-};
-
-export const DangerWithStartIcon = Template.bind({});
-DangerWithStartIcon.storyName = "Danger + Start Icon";
-DangerWithStartIcon.args = {
-  ...Danger.args,
-  startIcon: <RemoveCircleOutlineRoundedIcon />,
-};
-DangerWithStartIcon.argTypes = {
-  ...Danger.argTypes,
-};
- */

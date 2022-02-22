@@ -19,7 +19,7 @@ function pxToRem(value: number): string {
 /* Basic Configuration */
 const mainTypeface = ['"Titillium Web"', "sans-serif"].join(", ");
 const colorTextPrimary = "#17324D";
-const responsiveBreakpoint = "md";
+const responsiveBreakpoint = "sm";
 
 /* Custom Typography */
 declare module "@mui/material/styles" {
@@ -361,14 +361,20 @@ export const theme = createTheme(foundation, {
     MuiAlert: {
       styleOverrides: {
         root: {
-          padding: foundation.spacing(2),
+          padding: foundation.spacing(1),
           color: colorTextPrimary,
           alignItems: "center",
+          [breakpoints.up(responsiveBreakpoint)]: {
+            padding: foundation.spacing(2),
+          },
         },
         icon: {
           opacity: 1,
           alignItems: "center",
-          marginRight: foundation.spacing(2),
+          marginRight: foundation.spacing(1),
+          [breakpoints.up(responsiveBreakpoint)]: {
+            marginRight: foundation.spacing(2),
+          },
         },
         message: {
           padding: 0,
