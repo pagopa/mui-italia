@@ -1,4 +1,4 @@
-import { createTheme, Theme } from "@mui/material/styles";
+import { createTheme, Theme, alpha } from "@mui/material/styles";
 import { createBreakpoints } from "@mui/system";
 
 /* Design Tokens */
@@ -47,9 +47,24 @@ declare module "@mui/material/Typography" {
 declare module "@mui/material/styles" {
   interface Palette {
     blueItaly: Palette["primary"];
+    extraLight: Palette["warning"];
   }
   interface PaletteOptions {
     blueItaly?: PaletteOptions["primary"];
+    extraLight?: Palette["warning"];
+  }
+
+  interface PaletteColor {
+    extraLight?: string;
+  }
+
+  /* Add new extraLight key to the colours */
+  interface PaletteColorOptions {
+    main?: string;
+    dark?: string;
+    light?: string;
+    contrastText?: string;
+    extraLight?: string;
   }
 }
 declare module "@mui/material/Button" {
@@ -103,28 +118,32 @@ const foundation: Theme = createTheme({
     divider: "#E3E7EB",
     /* Indicator/Validation */
     error: {
-      main: "#F83E5A",
-      dark: "#D3354D",
-      light: "#F9576F",
-      contrastText: "#FFFFFF",
+      main: "#FE6666",
+      dark: "#D85757",
+      light: "#FE7A7A",
+      extraLight: "#FB9EAC",
+      contrastText: colorTextPrimary,
     },
     info: {
-      main: "#02C3ED",
-      dark: "#02A6C9",
-      light: "#23CBEF",
-      contrastText: "#FFFFFF",
+      main: "#6BCFFB",
+      dark: "#5BB0D5",
+      light: "#7ED5FC",
+      extraLight: "#86E1FD",
+      contrastText: colorTextPrimary,
     },
     success: {
-      main: "#00CF86",
-      dark: "#00B072",
-      light: "#21D596",
-      contrastText: "#FFFFFF",
+      main: "#6CC66A",
+      dark: "#5CA85A",
+      light: "#7FCD7D",
+      extraLight: "#B5E2B4",
+      contrastText: colorTextPrimary,
     },
     warning: {
-      main: "#FF9700",
-      dark: "#D98000",
-      light: "#FFA421",
-      contrastText: "#FFFFFF",
+      main: "#FFCB46",
+      dark: "#D9AD3C",
+      light: "#FFD25E",
+      extraLight: "#FFE5A3",
+      contrastText: colorTextPrimary,
     },
   },
   typography: {
@@ -439,9 +458,77 @@ export const theme = createTheme(foundation, {
       styleOverrides: {
         root: {
           fontWeight: 600,
+          letterSpacing: 0.5,
+        },
+        deleteIcon: {
+          color: "currentColor",
+          opacity: "0.7",
+          "&:hover": {
+            color: "currentColor",
+            opacity: 1,
+          },
+        },
+        avatar: {
+          fontWeight: 400,
+        },
+        colorSecondary: {
+          "&.MuiChip-filled": {
+            backgroundColor: alpha(foundation.palette.secondary.main, 0.5),
+            color: foundation.palette.text.primary,
+          },
+        },
+        colorInfo: {
+          "&.MuiChip-filled": {
+            backgroundColor: foundation.palette.info.light,
+            /* color: foundation.palette.text.primary, */
+          },
+          /* "& .MuiChip-avatar": {
+            backgroundColor: foundation.palette.info.dark,
+            color: foundation.palette.info.contrastText,
+          }, */
+        },
+        colorError: {
+          "&.MuiChip-filled": {
+            backgroundColor: foundation.palette.error.light,
+            /*  color: foundation.palette.text.primary, */
+            /* color: foundation.palette.getContrastText(
+              foundation.palette.error.extraLight as string
+            ), */
+          },
+          /* "& .MuiChip-avatar": {
+            backgroundColor: foundation.palette.error.dark,
+            color: foundation.palette.error.contrastText,
+          }, */
+        },
+        colorSuccess: {
+          "&.MuiChip-filled": {
+            backgroundColor: foundation.palette.success.light,
+            /* color: foundation.palette.text.primary, */
+            /* color: foundation.palette.getContrastText(
+              foundation.palette.success.extraLight as string
+            ), */
+          },
+          /* "& .MuiChip-avatar": {
+            backgroundColor: foundation.palette.success.dark,
+            color: foundation.palette.success.contrastText,
+          }, */
+        },
+        colorWarning: {
+          "&.MuiChip-filled": {
+            backgroundColor: foundation.palette.warning.light,
+            /* color: foundation.palette.text.primary, */
+            /* color: foundation.palette.getContrastText(
+              foundation.palette.warning.extraLight as string
+            ), */
+          },
+          /* "& .MuiChip-avatar": {
+            backgroundColor: foundation.palette.warning.dark,
+            color: foundation.palette.warning.contrastText,
+          }, */
         },
       },
     },
+    /** Start TEXT FIELD */
     MuiInput: {
       styleOverrides: {
         root: {
@@ -452,10 +539,23 @@ export const theme = createTheme(foundation, {
     MuiInputLabel: {
       styleOverrides: {
         root: {
+          color: foundation.palette.text.secondary,
           fontWeight: 600,
         },
       },
     },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          fontSize: pxToRem(12),
+          lineHeight: 1.25 /* 15px */,
+          color: foundation.palette.text.secondary,
+          fontWeight: 600,
+          letterSpacing: 0.5,
+        },
+      },
+    },
+    /** End TEXT FIELD */
     MuiTableHead: {
       styleOverrides: {
         root: {

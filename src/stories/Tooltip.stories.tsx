@@ -7,7 +7,6 @@ export default {
   component: Tooltip,
   argTypes: {
     placement: {
-      defaultValue: "bottom",
       options: ["top", "right", "bottom", "left"],
       control: { type: "radio" },
       table: {
