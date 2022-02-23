@@ -6,7 +6,7 @@ import { Typography } from "@mui/material";
 export default {
   title: "Foundation/Typography",
   component: Typography,
-  /* argTypes: {
+  argTypes: {
     variant: {
       options: [
         "body1",
@@ -24,7 +24,7 @@ export default {
       ],
       control: { type: "select" },
     },
-  }, */
+  },
 } as ComponentMeta<typeof Typography>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args

@@ -465,6 +465,7 @@ export const theme = createTheme(foundation, {
         },
       },
     },
+    /** Start TEXT FIELD */
     MuiInput: {
       styleOverrides: {
         root: {
@@ -475,10 +476,23 @@ export const theme = createTheme(foundation, {
     MuiInputLabel: {
       styleOverrides: {
         root: {
+          color: foundation.palette.text.secondary,
           fontWeight: 600,
         },
       },
     },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          fontSize: pxToRem(12),
+          lineHeight: 1.25 /* 15px */,
+          color: foundation.palette.text.secondary,
+          fontWeight: 600,
+          letterSpacing: 0.5,
+        },
+      },
+    },
+    /** End TEXT FIELD */
     MuiTableHead: {
       styleOverrides: {
         root: {
