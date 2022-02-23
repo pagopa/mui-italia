@@ -19,7 +19,7 @@ function pxToRem(value: number): string {
 /* Basic Configuration */
 const mainTypeface = ['"Titillium Web"', "sans-serif"].join(", ");
 const colorTextPrimary = "#17324D";
-const responsiveBreakpoint = "md";
+const responsiveBreakpoint = "sm";
 
 /* Custom Typography */
 declare module "@mui/material/styles" {
@@ -306,7 +306,6 @@ export const theme = createTheme(foundation, {
       defaultProps: {
         disableElevation: true,
         disableFocusRipple: true,
-        disableRipple: true,
       },
       styleOverrides: {
         root: {
@@ -377,13 +376,77 @@ export const theme = createTheme(foundation, {
         },
       },
     },
-    MuiAlertTitle: {
+    /* START Alert */
+    MuiAlert: {
       styleOverrides: {
         root: {
-          fontWeight: 600,
+          padding: foundation.spacing(1),
+          color: colorTextPrimary,
+          alignItems: "center",
+          [breakpoints.up(responsiveBreakpoint)]: {
+            padding: foundation.spacing(2),
+          },
+        },
+        icon: {
+          opacity: 1,
+          alignItems: "center",
+          marginRight: foundation.spacing(1),
+          [breakpoints.up(responsiveBreakpoint)]: {
+            marginRight: foundation.spacing(2),
+          },
+        },
+        message: {
+          padding: 0,
+        },
+        action: {
+          marginRight: 0,
+          paddingTop: 0,
+        },
+        standard: {
+          "& .MuiAlert-icon": {
+            color: colorTextPrimary,
+          },
+        },
+        outlinedSuccess: {
+          borderColor: foundation.palette.success.main,
+          "& .MuiAlert-icon": {
+            color: foundation.palette.success.main,
+          },
+        },
+        outlinedError: {
+          borderColor: foundation.palette.error.main,
+          "& .MuiAlert-icon": {
+            color: foundation.palette.error.main,
+          },
+        },
+        outlinedInfo: {
+          borderColor: foundation.palette.info.main,
+          "& .MuiAlert-icon": {
+            color: foundation.palette.info.main,
+          },
+        },
+        outlinedWarning: {
+          borderColor: foundation.palette.warning.main,
+          "& .MuiAlert-icon": {
+            color: foundation.palette.warning.main,
+          },
         },
       },
     },
+    MuiAlertTitle: {
+      styleOverrides: {
+        root: {
+          fontSize: pxToRem(16),
+          fontWeight: 600,
+          margin: 0,
+          /* It inherits from `body1`, so I have to reset -_- */
+          [breakpoints.up(responsiveBreakpoint)]: {
+            fontSize: pxToRem(16),
+          },
+        },
+      },
+    },
+    /* END Alert */
     MuiBadge: {
       styleOverrides: {
         root: {
