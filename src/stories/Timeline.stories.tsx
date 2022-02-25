@@ -1,23 +1,21 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import {
-  Timeline,
-  TimelineItem,
-  TimelineSeparator,
-  TimelineConnector,
-  TimelineContent,
-  TimelineOppositeContent,
-  TimelineDot,
-} from "@mui/lab";
-import { Chip, Box, Stack, Typography } from "@mui/material";
+import { Timeline, TimelineSeparator, TimelineConnector } from "@mui/lab";
+import { Chip, Box, Typography } from "@mui/material";
 
 import AttachFileRoundedIcon from "@mui/icons-material/AttachFileRounded";
 
 import { ButtonNaked } from "@components/ButtonNaked";
-import { theme } from "../theme";
+import {
+  TimelineNotification,
+  TimelineNotificationDot,
+  TimelineNotificationItem,
+  TimelineNotificationContent,
+  TimelineNotificationOppositeContent,
+} from "@components/TimelineNotification";
 
 export default {
-  title: "MUI Components/Lab/Timeline",
+  title: "Components/TimelineNotification",
   component: Timeline,
   parameters: { controls: { sort: "size" } },
   backgrounds: [{ name: "dark background", value: "#000", default: true }],
@@ -78,91 +76,59 @@ export const Default: ComponentStory<typeof Timeline> = () => (
       borderRadius: 2,
     }}
   >
-    <Timeline
-      sx={{
-        px: "0",
-        py: theme.spacing(2),
-      }}
-    >
-      {notificationStatusHistory.map((h: any) => (
-        <TimelineItem key={h.activeFrom}>
-          <TimelineOppositeContent
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "end",
-              flex: "15% 0",
-              p: "0",
-              pr: theme.spacing(2.5),
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                textAlign: "center",
-              }}
+    <TimelineNotification>
+      {notificationStatusHistory.map((item: any, i: number) => (
+        <TimelineNotificationItem key={item.activeFrom}>
+          <TimelineNotificationOppositeContent>
+            <Typography variant="sidenav" component="div">
+              {getDay(item.activeFrom)}
+            </Typography>
+            <Typography
+              color="text.secondary"
+              variant="caption"
+              component="div"
             >
-              <Typography variant="sidenav" component="div">
-                {getDay(h.activeFrom)}
-              </Typography>
-              <Typography
-                color="text.secondary"
-                variant="caption"
-                component="div"
-              >
-                {getMonthString(h.activeFrom)}
-              </Typography>
-            </Box>
-          </TimelineOppositeContent>
+              {getMonthString(item.activeFrom)}
+            </Typography>
+          </TimelineNotificationOppositeContent>
           <TimelineSeparator>
             <TimelineConnector />
-            <TimelineDot
-              sx={{
-                my: theme.spacing(1),
-              }}
+            <TimelineNotificationDot
+              variant={i === 0 ? "outlined" : undefined}
             />
             <TimelineConnector />
           </TimelineSeparator>
-          <TimelineContent
-            sx={{
-              py: 0,
-              px: theme.spacing(2.5),
-              my: theme.spacing(2.5),
-            }}
-          >
-            <Stack spacing={1} alignItems="baseline">
+          <TimelineNotificationContent>
+            <Typography
+              variant="caption"
+              color="text.secondary"
+              component="div"
+            >
+              {getTime(item.activeFrom)}
+            </Typography>
+            <Chip size="small" label={item.statusLabel} color={item.state} />
+            {item.description && (
               <Typography
-                variant="caption"
                 color="text.secondary"
+                variant="body2"
                 component="div"
               >
-                {getTime(h.activeFrom)}
+                {item.description}
               </Typography>
-              <Chip size="small" label={h.statusLabel} color={h.state} />
-              {h.description && (
-                <Typography
-                  color="text.secondary"
-                  variant="body2"
-                  component="div"
-                >
-                  {h.description}
-                </Typography>
-              )}
-              <ButtonNaked
-                href="#"
-                target="_blank"
-                variant="naked"
-                color="primary"
-                startIcon={<AttachFileRoundedIcon />}
-              >
-                Attestato opponibile a Terzi
-              </ButtonNaked>
-            </Stack>
-          </TimelineContent>
-        </TimelineItem>
+            )}
+            <ButtonNaked
+              href="#"
+              target="_blank"
+              variant="naked"
+              color="primary"
+              startIcon={<AttachFileRoundedIcon />}
+            >
+              Attestato opponibile a Terzi
+            </ButtonNaked>
+          </TimelineNotificationContent>
+        </TimelineNotificationItem>
       ))}
-    </Timeline>
+    </TimelineNotification>
   </Box>
 );
 Default.parameters = {
