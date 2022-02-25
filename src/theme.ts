@@ -495,6 +495,8 @@ export const theme = createTheme(foundation, {
     MuiChip: {
       styleOverrides: {
         root: {
+          fontSize: pxToRem(14),
+          lineHeight: 1.15 /* ~16px */,
           fontWeight: 600,
           letterSpacing: 0.5,
         },

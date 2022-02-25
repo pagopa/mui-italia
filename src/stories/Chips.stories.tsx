@@ -1,8 +1,6 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import { Chip, Avatar } from "@mui/material";
-
-import FaceRoundedIcon from "@mui/icons-material/FaceRounded";
+import { Chip } from "@mui/material";
 
 export default {
   title: "MUI Components/Data Display/Chips",
