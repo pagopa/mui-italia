@@ -1,8 +1,8 @@
 import React from "react";
 
-import { ThemeProvider, CssBaseline } from "@mui/material";
+import { ThemeProvider } from "@mui/material";
 /* MUI Italia Theme */
-import { theme } from "../src/theme";
+import { theme } from "@theme/index";
 /* Storybook Theme */
 import { sbTheme } from "./theme";
 

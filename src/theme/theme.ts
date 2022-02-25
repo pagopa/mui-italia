@@ -2,7 +2,7 @@ import { createTheme, Theme, alpha } from "@mui/material/styles";
 import { createBreakpoints } from "@mui/system";
 
 /* Design Tokens */
-import { italia } from "./colors";
+import { italia } from "@tokens/colors";
 
 /* Typefaces */
 import "@fontsource/titillium-web/300.css";
