@@ -536,11 +536,35 @@ export const theme = createTheme(foundation, {
         },
       },
     },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          "& .MuiOutlinedInput-notchedOutline": {
+            borderWidth: "2px",
+          },
+          "&.Mui-error .MuiOutlinedInput-notchedOutline": {
+            borderColor: foundation.palette.error.dark,
+          },
+        },
+      },
+    },
     MuiInputLabel: {
       styleOverrides: {
         root: {
           color: foundation.palette.text.secondary,
           fontWeight: 600,
+          "&.Mui-error": {
+            color: foundation.palette.error.dark,
+          },
+        },
+      },
+    },
+    MuiInputAdornment: {
+      styleOverrides: {
+        root: {
+          "& .MuiSvgIcon-colorError": {
+            color: `${foundation.palette.error.dark}`,
+          },
         },
       },
     },
@@ -552,6 +576,9 @@ export const theme = createTheme(foundation, {
           color: foundation.palette.text.secondary,
           fontWeight: 600,
           letterSpacing: 0.5,
+          "&.Mui-error": {
+            color: foundation.palette.error.dark,
+          },
         },
       },
     },
