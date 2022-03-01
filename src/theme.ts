@@ -21,6 +21,7 @@ const mainTypeface = ['"Titillium Web"', "sans-serif"].join(", ");
 const colorTextPrimary = "#17324D";
 const responsiveBreakpoint = "sm";
 const ringWidth = "4px";
+const alertBorderWidth = "4px";
 
 /* Custom Typography */
 declare module "@mui/material/styles" {
@@ -394,6 +395,7 @@ export const theme = createTheme(foundation, {
     MuiAlert: {
       styleOverrides: {
         root: {
+          borderLeft: `${alertBorderWidth} solid`,
           padding: foundation.spacing(1),
           color: colorTextPrimary,
           alignItems: "center",
@@ -421,11 +423,17 @@ export const theme = createTheme(foundation, {
             color: colorTextPrimary,
           },
         },
+        standardSuccess: {
+          borderColor: foundation.palette.success.main,
+        },
         outlinedSuccess: {
           borderColor: foundation.palette.success.main,
           "& .MuiAlert-icon": {
             color: foundation.palette.success.main,
           },
+        },
+        standardError: {
+          borderColor: foundation.palette.error.main,
         },
         outlinedError: {
           borderColor: foundation.palette.error.main,
@@ -433,11 +441,17 @@ export const theme = createTheme(foundation, {
             color: foundation.palette.error.main,
           },
         },
+        standardInfo: {
+          borderColor: foundation.palette.info.main,
+        },
         outlinedInfo: {
           borderColor: foundation.palette.info.main,
           "& .MuiAlert-icon": {
             color: foundation.palette.info.main,
           },
+        },
+        standardWarning: {
+          borderColor: foundation.palette.warning.main,
         },
         outlinedWarning: {
           borderColor: foundation.palette.warning.main,
