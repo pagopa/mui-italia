@@ -532,16 +532,15 @@ export const theme = createTheme(foundation, {
     MuiInput: {
       styleOverrides: {
         root: {
-          fontWeight: 700,
+          fontWeight: 600,
         },
       },
     },
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          "& .MuiOutlinedInput-notchedOutline": {
-            borderWidth: "2px",
-          },
+          fontWeight: 600,
+          "& .MuiOutlinedInput-notchedOutline": {},
           "&.Mui-error .MuiOutlinedInput-notchedOutline": {
             borderColor: foundation.palette.error.dark,
           },
