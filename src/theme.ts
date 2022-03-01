@@ -20,6 +20,7 @@ function pxToRem(value: number): string {
 const mainTypeface = ['"Titillium Web"', "sans-serif"].join(", ");
 const colorTextPrimary = "#17324D";
 const responsiveBreakpoint = "sm";
+const ringWidth = "4px";
 
 /* Custom Typography */
 declare module "@mui/material/styles" {
@@ -310,7 +311,14 @@ export const theme = createTheme(foundation, {
       styleOverrides: {
         root: {
           padding: "0 20px",
+          "&.Mui-focusVisible": {
+            boxShadow: `0 0 0 ${ringWidth} ${alpha(
+              foundation.palette.primary.main,
+              0.4
+            )}`,
+          },
         },
+
         sizeSmall: {
           height: "40px",
           padding: "0 20px",
@@ -347,6 +355,12 @@ export const theme = createTheme(foundation, {
           "&:hover": {
             color: foundation.palette.error.dark,
             borderColor: "currentColor",
+          },
+          "&.Mui-focusVisible": {
+            boxShadow: `0 0 0 ${ringWidth} ${alpha(
+              foundation.palette.error.main,
+              0.4
+            )}`,
           },
         },
       },
