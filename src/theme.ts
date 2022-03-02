@@ -21,7 +21,7 @@ const mainTypeface = ['"Titillium Web"', "sans-serif"].join(", ");
 const colorTextPrimary = "#17324D";
 const responsiveBreakpoint = "sm";
 const ringWidth = "4px";
-const backdropBackground = `#17324D`;
+const backdropBackground = "#17324D";
 
 /* Custom Typography */
 declare module "@mui/material/styles" {
