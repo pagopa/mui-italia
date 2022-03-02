@@ -21,6 +21,7 @@ const mainTypeface = ['"Titillium Web"', "sans-serif"].join(", ");
 const colorTextPrimary = "#17324D";
 const responsiveBreakpoint = "sm";
 const ringWidth = "4px";
+const backdropBackground = `#17324D`;
 
 /* Custom Typography */
 declare module "@mui/material/styles" {
@@ -596,6 +597,13 @@ export const theme = createTheme(foundation, {
       },
     },
     /** End TEXT FIELD */
+    MuiBackdrop: {
+      styleOverrides: {
+        root: {
+          backgroundColor: alpha(backdropBackground, 0.7),
+        },
+      },
+    },
     MuiTableHead: {
       styleOverrides: {
         root: {
