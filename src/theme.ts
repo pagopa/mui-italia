@@ -466,6 +466,7 @@ export const theme = createTheme(foundation, {
         root: {
           fontSize: pxToRem(16),
           fontWeight: 600,
+          letterSpacing: 0.15,
           margin: 0,
           /* It inherits from `body1`, so I have to reset -_- */
           [breakpoints.up(responsiveBreakpoint)]: {
