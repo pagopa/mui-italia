@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { Button } from "@mui/material";
 import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
-import RemoveCircleOutlineRoundedIcon from "@mui/icons-material/RemoveCircleOutlineRounded";
+import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -88,7 +88,7 @@ export const DangerWithEndIcon = Template.bind({});
 DangerWithEndIcon.storyName = "Danger + End Icon";
 DangerWithEndIcon.args = {
   ...Danger.args,
-  endIcon: <RemoveCircleOutlineRoundedIcon />,
+  endIcon: <DeleteOutlineRoundedIcon />,
 };
 DangerWithEndIcon.argTypes = {
   ...Danger.argTypes,
@@ -98,7 +98,7 @@ export const DangerWithStartIcon = Template.bind({});
 DangerWithStartIcon.storyName = "Danger + Start Icon";
 DangerWithStartIcon.args = {
   ...Danger.args,
-  startIcon: <RemoveCircleOutlineRoundedIcon />,
+  startIcon: <DeleteOutlineRoundedIcon />,
 };
 DangerWithStartIcon.argTypes = {
   ...Danger.argTypes,
