@@ -98,6 +98,12 @@ Body1.args = {
   children:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque posuere maximus semper. Etiam mauris magna, commodo sed egestas vel, scelerisque a turpis. Nulla a viverra eros. Nunc suscipit elementum tortor non ornare. Pellentesque vel erat nibh. Sed vulputate facilisis tincidunt. Phasellus euismod nibh ac faucibus faucibus. Suspendisse convallis, libero fermentum dictum commodo, nisi velit euismod sem, quis mollis nisl nibh lobortis nibh. Integer rhoncus tincidunt tellus laoreet scelerisque. Donec sodales nulla vel elit pretium, in dictum neque rhoncus.",
 };
+export const Body2 = Template.bind({});
+Body2.args = {
+  variant: "body2",
+  children:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque posuere maximus semper. Etiam mauris magna, commodo sed egestas vel, scelerisque a turpis. Nulla a viverra eros. Nunc suscipit elementum tortor non ornare. Pellentesque vel erat nibh. Sed vulputate facilisis tincidunt. Phasellus euismod nibh ac faucibus faucibus. Suspendisse convallis, libero fermentum dictum commodo, nisi velit euismod sem, quis mollis nisl nibh lobortis nibh. Integer rhoncus tincidunt tellus laoreet scelerisque. Donec sodales nulla vel elit pretium, in dictum neque rhoncus.",
+};
 
 export const Caption = Template.bind({});
 Caption.args = {
@@ -110,20 +116,3 @@ CaptionSemiBold.args = {
   variant: "caption-semibold",
   children: "Caption Semibold",
 };
-
-/* export const Secondary = Template.bind({});
-Secondary.args = {
-  label: 'Button',
-};
-
-export const Large = Template.bind({});
-Large.args = {
-  size: 'large',
-  label: 'Button',
-};
-
-export const Small = Template.bind({});
-Small.args = {
-  size: 'small',
-  label: 'Button',
-}; */
