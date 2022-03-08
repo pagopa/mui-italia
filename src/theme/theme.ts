@@ -21,6 +21,8 @@ const mainTypeface = ['"Titillium Web"', "sans-serif"].join(", ");
 const colorTextPrimary = "#17324D";
 const colorPrimaryContainedHover = "#0055AA"; // Not exposed by the theme object
 const responsiveBreakpoint = "sm";
+const ringWidth = "4px";
+const backdropBackground = "#17324D";
 
 /* Custom Typography */
 declare module "@mui/material/styles" {
@@ -313,7 +315,14 @@ export const theme = createTheme(foundation, {
       styleOverrides: {
         root: {
           padding: "0 20px",
+          "&.Mui-focusVisible": {
+            boxShadow: `0 0 0 ${ringWidth} ${alpha(
+              foundation.palette.primary.main,
+              0.4
+            )}`,
+          },
         },
+
         sizeSmall: {
           height: "40px",
           padding: "0 20px",
@@ -350,6 +359,12 @@ export const theme = createTheme(foundation, {
           "&:hover": {
             color: foundation.palette.error.dark,
             borderColor: "currentColor",
+          },
+          "&.Mui-focusVisible": {
+            boxShadow: `0 0 0 ${ringWidth} ${alpha(
+              foundation.palette.error.main,
+              0.4
+            )}`,
           },
         },
       },
@@ -572,7 +587,18 @@ export const theme = createTheme(foundation, {
     MuiInput: {
       styleOverrides: {
         root: {
-          fontWeight: 700,
+          fontWeight: 600,
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          fontWeight: 600,
+          "& .MuiOutlinedInput-notchedOutline": {},
+          "&.Mui-error .MuiOutlinedInput-notchedOutline": {
+            borderColor: foundation.palette.error.dark,
+          },
         },
       },
     },
@@ -581,6 +607,18 @@ export const theme = createTheme(foundation, {
         root: {
           color: foundation.palette.text.secondary,
           fontWeight: 600,
+          "&.Mui-error": {
+            color: foundation.palette.error.dark,
+          },
+        },
+      },
+    },
+    MuiInputAdornment: {
+      styleOverrides: {
+        root: {
+          "& .MuiSvgIcon-colorError": {
+            color: `${foundation.palette.error.dark}`,
+          },
         },
       },
     },
@@ -592,10 +630,20 @@ export const theme = createTheme(foundation, {
           color: foundation.palette.text.secondary,
           fontWeight: 600,
           letterSpacing: 0.5,
+          "&.Mui-error": {
+            color: foundation.palette.error.dark,
+          },
         },
       },
     },
     /** End TEXT FIELD */
+    MuiBackdrop: {
+      styleOverrides: {
+        root: {
+          backgroundColor: alpha(backdropBackground, 0.7),
+        },
+      },
+    },
     MuiTableHead: {
       styleOverrides: {
         root: {
