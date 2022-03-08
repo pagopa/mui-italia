@@ -12,7 +12,7 @@ import "@fontsource/titillium-web/700.css";
 
 const breakpoints = createBreakpoints({});
 
-function pxToRem(value: number): string {
+export function pxToRem(value: number): string {
   return `${value / 16}rem`;
 }
 
@@ -641,6 +641,13 @@ export const theme = createTheme(foundation, {
       styleOverrides: {
         root: {
           backgroundColor: alpha(backdropBackground, 0.7),
+        },
+      },
+    },
+    MuiTimelineDot: {
+      styleOverrides: {
+        root: {
+          boxShadow: "none",
         },
       },
     },
