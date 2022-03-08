@@ -249,6 +249,20 @@ const foundation: Theme = createTheme({
         textDecoration: "underline",
       }, */
     },
+    body2: {
+      fontSize: pxToRem(14),
+      lineHeight: 1.4 /* ~20px */,
+      fontWeight: 400,
+      letterSpacing: 0.15,
+      [breakpoints.up(responsiveBreakpoint)]: {
+        fontSize: pxToRem(16),
+        lineHeight: 1.4 /* ~22px */,
+      },
+      /* a: {
+        color: italia[500],
+        textDecoration: "underline",
+      }, */
+    },
     button: {
       fontWeight: 700,
       lineHeight: 1.2,
@@ -284,15 +298,6 @@ const foundation: Theme = createTheme({
     },
     subtitle2: {
       fontWeight: 600,
-    },
-    body2: {
-      /* a: {
-        color: italia[500],
-        textDecoration: "underline",
-      }, */
-      fontSize: 16,
-      lineHeight: 1.5,
-      fontWeight: 400,
     },
     /* End: To be revised */
   },
