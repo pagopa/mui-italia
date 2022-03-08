@@ -4,7 +4,7 @@ import {
   TimelineOppositeContentProps,
 } from "@mui/lab";
 import { Box } from "@mui/material";
-import { theme } from "@theme/theme";
+import { theme } from "@theme";
 
 export const TimelineNotificationOppositeContent: React.FC<TimelineOppositeContentProps> =
   (props): React.ReactElement => {

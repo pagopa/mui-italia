@@ -3,8 +3,8 @@
     "baseUrl": "./src",
     "paths": {
       "@components/*": [ "components/*" ],
-      "@tokens/*": [ "tokens/*" ],
-      "@theme/*": [ "theme/*" ],
+      "@tokens": [ "tokens/index" ],
+      "@theme": [ "theme/index" ],
     },
     "outDir": "dist",
     "target": "es6",

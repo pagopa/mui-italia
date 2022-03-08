@@ -2,7 +2,7 @@ import React from "react";
 
 import { ThemeProvider } from "@mui/material";
 /* MUI Italia Theme */
-import { theme } from "@theme/index";
+import { theme } from "@theme";
 /* Storybook Theme */
 import { sbTheme } from "./theme";
 

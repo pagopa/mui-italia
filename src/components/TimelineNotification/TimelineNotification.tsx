@@ -1,6 +1,6 @@
 import React from "react";
 import { Timeline, TimelineProps } from "@mui/lab";
-import { theme } from "@theme/theme";
+import { theme } from "@theme";
 
 export const TimelineNotification: React.FC<TimelineProps> = (
   props
