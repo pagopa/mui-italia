@@ -105,6 +105,7 @@ stages:
                 CHANGELOG
                 package.json
                 dist/**
+                !dist/stories/**/*
             displayName: 'Copy bundle files'
           
           - publish: $(System.DefaultWorkingDirectory)/bundle
