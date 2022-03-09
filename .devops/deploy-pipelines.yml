@@ -92,7 +92,7 @@ stages:
               gitReference: $(gitReference)
 
           - script: |
-              yarn generate && yarn cpfiles
+              yarn build
             displayName: 'Build'
 
           - task: CopyFiles@2
@@ -100,7 +100,11 @@ stages:
               SourceFolder: '$(System.DefaultWorkingDirectory)/dist'
               TargetFolder: '$(System.DefaultWorkingDirectory)/bundle'
               Contents: |
-                **/*
+                README.md
+                LICENSE
+                CHANGELOG
+                package.json
+                dist/**
             displayName: 'Copy bundle files'
           
           - publish: $(System.DefaultWorkingDirectory)/bundle
