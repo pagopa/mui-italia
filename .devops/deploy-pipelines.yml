@@ -97,7 +97,7 @@ stages:
 
           - task: CopyFiles@2
             inputs:
-              SourceFolder: '$(System.DefaultWorkingDirectory)/dist'
+              SourceFolder: '$(System.DefaultWorkingDirectory)'
               TargetFolder: '$(System.DefaultWorkingDirectory)/bundle'
               Contents: |
                 README.md
