@@ -7,16 +7,22 @@ export const ButtonNaked = <C extends React.ElementType>(
     {
       component?: C;
       buttonRef?: React.Ref<HTMLButtonElement>;
+      weight?: "default" | "light";
     }
   >
 ): React.ReactElement => {
-  const { children, buttonRef, ...rest } = props;
+  const { children, buttonRef, weight = "default", ...rest } = props;
   return (
     <Button
-      ref={buttonRef}
+      sx={{
+        fontWeight: weight === "default" ? "600" : "400",
+        letterSpacing: 0.3,
+      }}
       variant="naked"
+      size="small"
       disableRipple
       disableTouchRipple
+      ref={buttonRef}
       {...rest}
     >
       {children}

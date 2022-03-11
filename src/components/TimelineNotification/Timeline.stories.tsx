@@ -121,6 +121,7 @@ export const Default: ComponentStory<typeof Timeline> = () => (
               target="_blank"
               variant="naked"
               color="primary"
+              weight="light"
               startIcon={<AttachFileRoundedIcon />}
             >
               Attestato opponibile a Terzi
