@@ -76,7 +76,7 @@ stages:
             displayName: 'Skip release bundle'
 
   # Prepare Artifact
-  - stage: Prepare_artifact
+  - stage: Build
     dependsOn:
       - Release
     jobs:
@@ -106,7 +106,7 @@ stages:
                 package.json
                 dist/**
                 !dist/stories/**/*
-            displayName: 'Copy bundle files'
+            displayName: 'Copy Bundle Files'
           
           - publish: $(System.DefaultWorkingDirectory)/bundle
             artifact: Bundle
@@ -114,7 +114,7 @@ stages:
   # Publish
   - stage: Publish
     dependsOn:
-      - Prepare_artifact
+      - Build
     jobs:
       - job: publish
         steps:   

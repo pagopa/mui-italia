@@ -1,5 +1,11 @@
 {
   "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@components/*": [ "components/*" ],
+      "@tokens": [ "tokens/index" ],
+      "@theme": [ "theme/index" ],
+    },
     "outDir": "dist",
     "target": "es6",
     "module": "esnext",
