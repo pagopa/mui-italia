@@ -26,7 +26,6 @@
     "prebuild": "rimraf dist",
     "build": "tsc && tsc-alias -p tsconfig.json",
     "lint": "eslint . -c .eslintrc.js --ext .ts,.tsx",
-    "cpfiles": "copyfiles package.json dist",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },

@@ -33,7 +33,7 @@ resources:
     - repository: pagopaCommons
       type: github
       name: pagopa/azure-pipeline-templates
-      ref: refs/tags/v17
+      ref: refs/tags/v19
       endpoint: 'io-azure-devops-github-ro'
 
 stages:
@@ -76,7 +76,7 @@ stages:
             displayName: 'Skip release bundle'
 
   # Prepare Artifact
-  - stage: Prepare_artifact
+  - stage: Build
     dependsOn:
       - Release
     jobs:
@@ -92,16 +92,21 @@ stages:
               gitReference: $(gitReference)
 
           - script: |
-              yarn generate && yarn cpfiles
+              yarn build
             displayName: 'Build'
 
           - task: CopyFiles@2
             inputs:
-              SourceFolder: '$(System.DefaultWorkingDirectory)/dist'
+              SourceFolder: '$(System.DefaultWorkingDirectory)'
               TargetFolder: '$(System.DefaultWorkingDirectory)/bundle'
               Contents: |
-                **/*
-            displayName: 'Copy bundle files'
+                README.md
+                LICENSE
+                CHANGELOG
+                package.json
+                dist/**
+                !dist/stories/**/*
+            displayName: 'Copy Bundle Files'
           
           - publish: $(System.DefaultWorkingDirectory)/bundle
             artifact: Bundle
@@ -109,7 +114,7 @@ stages:
   # Publish
   - stage: Publish
     dependsOn:
-      - Prepare_artifact
+      - Build
     jobs:
       - job: publish
         steps:   

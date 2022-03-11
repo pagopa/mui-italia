@@ -22,6 +22,7 @@ const colorTextPrimary = "#17324D";
 const colorPrimaryContainedHover = "#0055AA"; // Not exposed by the theme object
 const responsiveBreakpoint = "sm";
 const ringWidth = "4px";
+const alertBorderWidth = "4px";
 const backdropBackground = "#17324D";
 
 /* Custom Typography */
@@ -252,6 +253,20 @@ const foundation: Theme = createTheme({
         textDecoration: "underline",
       }, */
     },
+    body2: {
+      fontSize: pxToRem(14),
+      lineHeight: 1.4 /* ~20px */,
+      fontWeight: 400,
+      letterSpacing: 0.15,
+      [breakpoints.up(responsiveBreakpoint)]: {
+        fontSize: pxToRem(16),
+        lineHeight: 1.4 /* ~22px */,
+      },
+      /* a: {
+        color: italia[500],
+        textDecoration: "underline",
+      }, */
+    },
     button: {
       fontWeight: 700,
       lineHeight: 1.2,
@@ -287,15 +302,6 @@ const foundation: Theme = createTheme({
     },
     subtitle2: {
       fontWeight: 600,
-    },
-    body2: {
-      /* a: {
-        color: italia[500],
-        textDecoration: "underline",
-      }, */
-      fontSize: 16,
-      lineHeight: 1.5,
-      fontWeight: 400,
     },
     /* End: To be revised */
   },
@@ -433,6 +439,7 @@ export const theme = createTheme(foundation, {
     MuiAlert: {
       styleOverrides: {
         root: {
+          borderLeft: `${alertBorderWidth} solid`,
           padding: foundation.spacing(1),
           color: colorTextPrimary,
           alignItems: "center",
@@ -460,11 +467,17 @@ export const theme = createTheme(foundation, {
             color: colorTextPrimary,
           },
         },
+        standardSuccess: {
+          borderColor: foundation.palette.success.main,
+        },
         outlinedSuccess: {
           borderColor: foundation.palette.success.main,
           "& .MuiAlert-icon": {
             color: foundation.palette.success.main,
           },
+        },
+        standardError: {
+          borderColor: foundation.palette.error.main,
         },
         outlinedError: {
           borderColor: foundation.palette.error.main,
@@ -472,11 +485,17 @@ export const theme = createTheme(foundation, {
             color: foundation.palette.error.main,
           },
         },
+        standardInfo: {
+          borderColor: foundation.palette.info.main,
+        },
         outlinedInfo: {
           borderColor: foundation.palette.info.main,
           "& .MuiAlert-icon": {
             color: foundation.palette.info.main,
           },
+        },
+        standardWarning: {
+          borderColor: foundation.palette.warning.main,
         },
         outlinedWarning: {
           borderColor: foundation.palette.warning.main,
@@ -491,6 +510,7 @@ export const theme = createTheme(foundation, {
         root: {
           fontSize: pxToRem(16),
           fontWeight: 600,
+          letterSpacing: 0.15,
           margin: 0,
           /* It inherits from `body1`, so I have to reset -_- */
           [breakpoints.up(responsiveBreakpoint)]: {
