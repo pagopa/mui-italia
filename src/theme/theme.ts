@@ -328,7 +328,6 @@ export const theme = createTheme(foundation, {
             )}`,
           },
         },
-
         sizeSmall: {
           height: "40px",
           padding: "0 20px",
@@ -350,6 +349,9 @@ export const theme = createTheme(foundation, {
         outlined: {
           borderWidth: "2px",
           "&:hover": {
+            borderWidth: "2px",
+          },
+          "&:disabled": {
             borderWidth: "2px",
           },
         },
