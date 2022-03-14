@@ -8,15 +8,7 @@ export default {
   argTypes: {
     color: {
       defaultValue: "default",
-      options: [
-        "default",
-        "primary",
-        "secondary",
-        "warning",
-        "info",
-        "error",
-        "success",
-      ],
+      options: ["default", "primary", "warning", "info", "error", "success"],
       control: { type: "radio" },
       table: {
         type: { summary: "string" },
