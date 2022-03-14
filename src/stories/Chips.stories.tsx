@@ -60,6 +60,24 @@ Default.args = {
   label: "Consegnata",
 };
 
+export const Outline = Template.bind({});
+Outline.args = {
+  color: "primary",
+  variant: "outlined",
+  label: "Consegnata",
+};
+Outline.argTypes = {
+  color: {
+    defaultValue: "default",
+    options: ["default", "primary"],
+    control: { type: "radio" },
+    table: {
+      type: { summary: "string" },
+      defaultValue: { summary: "default" },
+    },
+  },
+};
+
 export const Deletable = Template.bind({});
 Deletable.args = {
   ...Default.args,
