@@ -21,6 +21,7 @@ import PeopleRoundedIcon from "@mui/icons-material/PeopleRounded";
 import SupervisedUserCircleRoundedIcon from "@mui/icons-material/SupervisedUserCircleRounded";
 import ExpandLessRoundedIcon from "@mui/icons-material/ExpandLessRounded";
 import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
+import ExitToAppRoundedIcon from "@mui/icons-material/ExitToAppRounded";
 
 export default {
   title: "Composition/Sidenav",
@@ -41,7 +42,7 @@ export const Default: ComponentStory<typeof List> = () => {
   return (
     <Box
       sx={{
-        width: "100%",
+        height: "100%",
         maxWidth: 360,
         backgroundColor: "background.paper",
       }}
@@ -85,12 +86,18 @@ export const Default: ComponentStory<typeof List> = () => {
             <PeopleRoundedIcon fontSize="inherit" />
           </ListItemIcon>
           <ListItemText primary="Ruoli" />
+          <ListItemIcon>
+            <ExitToAppRoundedIcon color="action" />
+          </ListItemIcon>
         </ListItemButton>
         <ListItemButton disableRipple>
           <ListItemIcon>
             <SupervisedUserCircleRoundedIcon fontSize="inherit" />
           </ListItemIcon>
           <ListItemText primary="Gruppi" />
+          <ListItemIcon>
+            <ExitToAppRoundedIcon color="action" />
+          </ListItemIcon>
         </ListItemButton>
       </List>
     </Box>
@@ -101,7 +108,14 @@ Default.parameters = {
 };
 Default.decorators = [
   (Story) => (
-    <div style={{ padding: "1em", backgroundColor: "#F5F5F5" }}>
+    <div
+      style={{
+        display: "grid",
+        height: "100vh",
+        padding: "1em",
+        backgroundColor: "#F5F5F5",
+      }}
+    >
       <Story />
     </div>
   ),
@@ -203,7 +217,14 @@ Nested.parameters = {
 };
 Nested.decorators = [
   (Story) => (
-    <div style={{ padding: "1em", backgroundColor: "#F5F5F5" }}>
+    <div
+      style={{
+        display: "grid",
+        height: "100vh",
+        padding: "1em",
+        backgroundColor: "#F5F5F5",
+      }}
+    >
       <Story />
     </div>
   ),

@@ -716,7 +716,9 @@ export const theme = createTheme(foundation, {
           transitionProperty: "color",
           minWidth: "auto",
           color: foundation.palette.text.primary,
-          marginRight: foundation.spacing(2),
+          "& + .MuiListItemText-root": {
+            marginLeft: foundation.spacing(2),
+          },
         },
       },
     },
