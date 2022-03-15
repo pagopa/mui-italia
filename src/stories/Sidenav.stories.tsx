@@ -32,10 +32,7 @@ export default {
 export const Default: ComponentStory<typeof List> = () => {
   const [selectedIndex, setSelectedIndex] = React.useState(1);
 
-  const handleListItemClick = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    index: number
-  ) => {
+  const handleListItemClick = (index: number) => {
     setSelectedIndex(index);
   };
 
@@ -51,7 +48,7 @@ export const Default: ComponentStory<typeof List> = () => {
         <ListItemButton
           disableRipple
           selected={selectedIndex === 0}
-          onClick={(event) => handleListItemClick(event, 0)}
+          onClick={() => handleListItemClick(0)}
         >
           <ListItemIcon>
             <EmailRoundedIcon fontSize="inherit" />
@@ -61,7 +58,7 @@ export const Default: ComponentStory<typeof List> = () => {
         <ListItemButton
           disableRipple
           selected={selectedIndex === 1}
-          onClick={(event) => handleListItemClick(event, 1)}
+          onClick={() => handleListItemClick(1)}
         >
           <ListItemIcon>
             <KeyRoundedIcon fontSize="inherit" />
@@ -71,7 +68,7 @@ export const Default: ComponentStory<typeof List> = () => {
         <ListItemButton
           disableRipple
           selected={selectedIndex === 2}
-          onClick={(event) => handleListItemClick(event, 2)}
+          onClick={() => handleListItemClick(2)}
         >
           <ListItemIcon>
             <SettingsRoundedIcon fontSize="inherit" />
@@ -129,10 +126,7 @@ export const Nested: ComponentStory<typeof List> = () => {
     setOpen(!open);
   };
 
-  const handleListItemClick = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    target: string
-  ) => {
+  const handleListItemClick = (target: string) => {
     setSelectedTarget(target);
   };
 
@@ -164,9 +158,7 @@ export const Nested: ComponentStory<typeof List> = () => {
               disableRipple
               sx={{ pl: 6 }}
               selected={selectedTarget === "your-notifications"}
-              onClick={(event) =>
-                handleListItemClick(event, "your-notifications")
-              }
+              onClick={() => handleListItemClick("your-notifications")}
             >
               <ListItemText primary="Le tue notifiche" />
             </ListItemButton>
@@ -174,9 +166,7 @@ export const Nested: ComponentStory<typeof List> = () => {
               disableRipple
               sx={{ pl: 6 }}
               selected={selectedTarget === "giovanni-bianchi"}
-              onClick={(event) =>
-                handleListItemClick(event, "giovanni-bianchi")
-              }
+              onClick={() => handleListItemClick("giovanni-bianchi")}
             >
               <ListItemText primary="Giovanni Bianchi" />
               <ListItemBadge
@@ -188,7 +178,7 @@ export const Nested: ComponentStory<typeof List> = () => {
               disableRipple
               sx={{ pl: 6 }}
               selected={selectedTarget === "maria-rossi"}
-              onClick={(event) => handleListItemClick(event, "maria-rossi")}
+              onClick={() => handleListItemClick("maria-rossi")}
             >
               <ListItemText primary="Maria Rossi" />
               <ListItemBadge
@@ -201,7 +191,7 @@ export const Nested: ComponentStory<typeof List> = () => {
         <ListItemButton
           disableRipple
           selected={selectedTarget === "delegations"}
-          onClick={(event) => handleListItemClick(event, "delegations")}
+          onClick={() => handleListItemClick("delegations")}
         >
           <ListItemIcon>
             <PeopleRoundedIcon fontSize="inherit" />
