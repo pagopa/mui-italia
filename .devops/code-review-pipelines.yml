@@ -42,23 +42,6 @@ stages:
               yarn lint
             displayName: 'Lint'
 
-      - job: danger
-        condition: 
-          and(
-            succeeded(), 
-            and(
-              eq(variables['Build.Reason'], 'PullRequest'),
-              ne(variables['DANGER_GITHUB_API_TOKEN'], 'skip')
-            )
-          )
-        steps:
-          - template: templates/node-job-setup/template.yaml@pagopaCommons
-          - bash: |
-              yarn danger ci
-            env:
-              DANGER_GITHUB_API_TOKEN: '$(DANGER_GITHUB_API_TOKEN)'
-            displayName: 'Danger CI'
-
   - stage: Test
     dependsOn: []
     jobs:
