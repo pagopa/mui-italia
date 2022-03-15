@@ -671,6 +671,56 @@ export const theme = createTheme(foundation, {
         },
       },
     },
+    /** Start LIST ITEM (used in Sidenav) */
+    MuiListItemButton: {
+      styleOverrides: {
+        root: {
+          borderRight: "2px solid transparent",
+          transitionProperty: "background-color, border-color",
+          transitionDuration: foundation.transitions.duration.standard,
+          paddingTop: foundation.spacing(2),
+          paddingBottom: foundation.spacing(2),
+          /* Selected State */
+          "&.Mui-selected": {
+            borderColor: foundation.palette.primary.main,
+          },
+          "&.Mui-selected .MuiListItemText-root": {
+            color: foundation.palette.primary.main,
+          },
+          "&.Mui-selected .MuiListItemIcon-root": {
+            color: foundation.palette.primary.main,
+          },
+        },
+      },
+    },
+    MuiListItemText: {
+      styleOverrides: {
+        root: {
+          transition: `${foundation.transitions.duration.standard}ms ${foundation.transitions.easing.easeInOut}`,
+          transitionProperty: "color",
+          color: foundation.palette.text.primary,
+          margin: 0,
+        },
+        primary: {
+          fontWeight: 600,
+          color: "currentColor",
+        },
+      },
+    },
+    MuiListItemIcon: {
+      styleOverrides: {
+        root: {
+          /* Default Icon Size = 24px */
+          fontSize: pxToRem(24),
+          transition: `${foundation.transitions.duration.standard}ms ${foundation.transitions.easing.easeInOut}`,
+          transitionProperty: "color",
+          minWidth: "auto",
+          color: foundation.palette.text.primary,
+          marginRight: foundation.spacing(2),
+        },
+      },
+    },
+    /** End LIST ITEM */
     MuiTableHead: {
       styleOverrides: {
         root: {
