@@ -8,15 +8,7 @@ export default {
   argTypes: {
     color: {
       defaultValue: "default",
-      options: [
-        "default",
-        "primary",
-        "secondary",
-        "warning",
-        "info",
-        "error",
-        "success",
-      ],
+      options: ["default", "primary", "warning", "info", "error", "success"],
       control: { type: "radio" },
       table: {
         type: { summary: "string" },
@@ -66,6 +58,24 @@ const handleDelete = () => {
 export const Default = Template.bind({});
 Default.args = {
   label: "Consegnata",
+};
+
+export const Outline = Template.bind({});
+Outline.args = {
+  color: "primary",
+  variant: "outlined",
+  label: "Consegnata",
+};
+Outline.argTypes = {
+  color: {
+    defaultValue: "default",
+    options: ["default", "primary"],
+    control: { type: "radio" },
+    table: {
+      type: { summary: "string" },
+      defaultValue: { summary: "default" },
+    },
+  },
 };
 
 export const Deletable = Template.bind({});
