@@ -42,16 +42,16 @@ stages:
               yarn lint
             displayName: 'Lint'
 
-  - stage: Test
-    dependsOn: []
-    jobs:
-      - job: unit_tests
-        steps:
-          - template: templates/node-job-setup/template.yaml@pagopaCommons
-          - script: |
-              yarn test
-            displayName: 'Unit tests exec'
+  # - stage: Test
+  #   dependsOn: []
+  #   jobs:
+  #     - job: unit_tests
+  #       steps:
+  #         - template: templates/node-job-setup/template.yaml@pagopaCommons
+  #         - script: |
+  #             yarn test
+  #           displayName: 'Unit tests exec'
 
-          - bash: |
-              bash <(curl -s https://codecov.io/bash)
-            displayName: 'Code coverage'
+  #         - bash: |
+  #             bash <(curl -s https://codecov.io/bash)
+  #           displayName: 'Code coverage'
