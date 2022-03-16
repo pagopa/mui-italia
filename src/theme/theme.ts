@@ -690,6 +690,9 @@ export const theme = createTheme(foundation, {
     },
     /** Start LIST ITEM (used in Sidenav) */
     MuiListItemButton: {
+      defaultProps: {
+        disableRipple: true,
+      },
       styleOverrides: {
         root: {
           borderRight: "2px solid transparent",
@@ -740,6 +743,18 @@ export const theme = createTheme(foundation, {
       },
     },
     /** End LIST ITEM */
+    /** Start SELECT */
+    MuiMenuItem: {
+      defaultProps: {
+        disableRipple: true,
+      },
+      styleOverrides: {
+        root: {
+          fontWeight: 600,
+        },
+      },
+    },
+    /** End SELECT */
     MuiTableHead: {
       styleOverrides: {
         root: {

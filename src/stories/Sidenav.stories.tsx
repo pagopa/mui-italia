@@ -45,7 +45,6 @@ export const Default: ComponentStory<typeof List> = () => {
     >
       <List component="nav" aria-label="main piattaforma-notifiche sender">
         <ListItemButton
-          disableRipple
           selected={selectedIndex === 0}
           onClick={() => handleListItemClick(0)}
         >
@@ -55,7 +54,6 @@ export const Default: ComponentStory<typeof List> = () => {
           <ListItemText primary="Notifiche" />
         </ListItemButton>
         <ListItemButton
-          disableRipple
           selected={selectedIndex === 1}
           onClick={() => handleListItemClick(1)}
         >
@@ -65,7 +63,6 @@ export const Default: ComponentStory<typeof List> = () => {
           <ListItemText primary="Chiavi API" />
         </ListItemButton>
         <ListItemButton
-          disableRipple
           selected={selectedIndex === 2}
           onClick={() => handleListItemClick(2)}
         >
@@ -77,7 +74,7 @@ export const Default: ComponentStory<typeof List> = () => {
       </List>
       <Divider />
       <List component="nav" aria-label="secondary piattaforma-notifiche sender">
-        <ListItemButton disableRipple>
+        <ListItemButton>
           <ListItemIcon>
             <PeopleRoundedIcon fontSize="inherit" />
           </ListItemIcon>
@@ -86,7 +83,7 @@ export const Default: ComponentStory<typeof List> = () => {
             <ExitToAppRoundedIcon color="action" />
           </ListItemIcon>
         </ListItemButton>
-        <ListItemButton disableRipple>
+        <ListItemButton>
           <ListItemIcon>
             <SupervisedUserCircleRoundedIcon fontSize="inherit" />
           </ListItemIcon>
@@ -138,7 +135,7 @@ export const Nested: ComponentStory<typeof List> = () => {
       }}
     >
       <List component="nav" aria-label="main piattaforma-notifiche sender">
-        <ListItemButton disableRipple onClick={handleCollapseClick}>
+        <ListItemButton onClick={handleCollapseClick}>
           <ListItemIcon>
             <Badge color="primary" variant="dot">
               <EmailRoundedIcon fontSize="small" />
@@ -154,7 +151,6 @@ export const Nested: ComponentStory<typeof List> = () => {
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <ListItemButton
-              disableRipple
               sx={{ pl: 6 }}
               selected={selectedTarget === "your-notifications"}
               onClick={() => handleListItemClick("your-notifications")}
@@ -162,7 +158,6 @@ export const Nested: ComponentStory<typeof List> = () => {
               <ListItemText primary="Le tue notifiche" />
             </ListItemButton>
             <ListItemButton
-              disableRipple
               sx={{ pl: 6 }}
               selected={selectedTarget === "giovanni-bianchi"}
               onClick={() => handleListItemClick("giovanni-bianchi")}
@@ -171,7 +166,6 @@ export const Nested: ComponentStory<typeof List> = () => {
               <Badge variant="sidenav" color="primary" badgeContent={23} />
             </ListItemButton>
             <ListItemButton
-              disableRipple
               sx={{ pl: 6 }}
               selected={selectedTarget === "maria-rossi"}
               onClick={() => handleListItemClick("maria-rossi")}
@@ -182,7 +176,6 @@ export const Nested: ComponentStory<typeof List> = () => {
           </List>
         </Collapse>
         <ListItemButton
-          disableRipple
           selected={selectedTarget === "delegations"}
           onClick={() => handleListItemClick("delegations")}
         >
