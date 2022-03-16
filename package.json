@@ -14,7 +14,7 @@
     "url": "https://github.com/pagopa/mui-italia/issues"
   },
   "dependencies": {
-    "@emotion/react": "^11.7.1",
+    "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.6.0",
     "@fontsource/titillium-web": "^4.5.3",
     "@mui/icons-material": "^5.5.1",
