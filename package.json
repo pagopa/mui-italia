@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@emotion/react": "^11.8.2",
-    "@emotion/styled": "^11.6.0",
+    "@emotion/styled": "^11.8.1",
     "@fontsource/titillium-web": "^4.5.3",
     "@mui/icons-material": "^5.5.1",
     "@mui/lab": "^5.0.0-alpha.73",
