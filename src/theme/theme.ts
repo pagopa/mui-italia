@@ -522,8 +522,10 @@ export const theme = createTheme(foundation, {
     /* END Alert */
     MuiBadge: {
       styleOverrides: {
-        root: {
-          fontSize: 14,
+        badge: {
+          fontSize: pxToRem(14),
+          fontWeight: 600,
+          letterSpacing: 0.15,
         },
       },
     },
