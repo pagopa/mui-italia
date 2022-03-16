@@ -1436,10 +1436,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@fontsource/titillium-web@^4.5.0":
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/@fontsource/titillium-web/-/titillium-web-4.5.0.tgz#c428da3fea3448f84d2ee7bb9a1059f91a2531ef"
-  integrity sha512-QhMaLHRkcNqni+aLJ1CZ5cDEtIpKB90xp30SbGvOi5Q7DlziPVu+8D5yL0IXNzU4s76mPavOJ6jZxqd+jnq45w==
+"@fontsource/titillium-web@^4.5.3":
+  version "4.5.3"
+  resolved "https://registry.yarnpkg.com/@fontsource/titillium-web/-/titillium-web-4.5.3.tgz#36053f80be1d92a6c9a3a9f71cd202ffe1aedead"
+  integrity sha512-ErKKKl/6pRJ9D+duTEV6Q+XOhwNGlE3PkABdRUJELBdqPexGNjIIZt1vMK3vuTKmSlCxqF8V9mKemMuY1kpvyQ==
 
 "@gar/promisify@^1.0.1":
   version "1.1.2"
