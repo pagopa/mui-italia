@@ -10,7 +10,7 @@ export const TimelineNotificationDot: React.FC<TimelineDotProps> = (
     <TimelineDot
       {...props}
       sx={{
-        my: theme.spacing(1),
+        my: theme.spacing(0.5),
       }}
     >
       {children}

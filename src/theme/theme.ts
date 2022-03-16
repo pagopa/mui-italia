@@ -1,4 +1,5 @@
 import { createTheme, Theme, alpha } from "@mui/material/styles";
+import shadows, { Shadows } from "@mui/material/styles/shadows";
 import { createBreakpoints } from "@mui/system";
 
 /* Design Tokens */
@@ -24,6 +25,20 @@ const responsiveBreakpoint = "sm";
 const ringWidth = "4px";
 const alertBorderWidth = "4px";
 const backdropBackground = "#17324D";
+const shadowColor = "#002B55";
+
+const shadowValues = {
+  /* Elevation 4 */
+  4: `0px 2px 4px -1px ${alpha(shadowColor, 0.1)},
+      0px 4px 5px ${alpha(shadowColor, 0.05)},
+      0px 1px 10px ${alpha(shadowColor, 0.1)}`,
+  /* Elevation 16 */
+  16: `0px 8px 10px -5px ${alpha(shadowColor, 0.1)},
+       0px 16px 24px 2px ${alpha(shadowColor, 0.05)},
+       0px 6px 30px 5px ${alpha(shadowColor, 0.1)}`,
+};
+
+const shadowsArray = shadows.map(() => "none") as Shadows;
 
 /* Custom Typography */
 declare module "@mui/material/styles" {
@@ -311,6 +326,7 @@ const foundation: Theme = createTheme({
     },
     /* End: To be revised */
   },
+  shadows: { ...shadowsArray, ...shadowValues },
   shape: {
     borderRadius: 4,
   },
@@ -334,7 +350,6 @@ export const theme = createTheme(foundation, {
             )}`,
           },
         },
-
         sizeSmall: {
           height: "40px",
           padding: "0 20px",
@@ -356,6 +371,9 @@ export const theme = createTheme(foundation, {
         outlined: {
           borderWidth: "2px",
           "&:hover": {
+            borderWidth: "2px",
+          },
+          "&:disabled": {
             borderWidth: "2px",
           },
         },
@@ -455,6 +473,7 @@ export const theme = createTheme(foundation, {
         },
         icon: {
           opacity: 1,
+          padding: 0,
           alignItems: "center",
           marginRight: foundation.spacing(1),
           [breakpoints.up(responsiveBreakpoint)]: {
@@ -467,6 +486,10 @@ export const theme = createTheme(foundation, {
         action: {
           marginRight: 0,
           paddingTop: 0,
+        },
+        outlined: {
+          backgroundColor: foundation.palette.common.white,
+          boxShadow: foundation.shadows[4],
         },
         standard: {
           "& .MuiAlert-icon": {
