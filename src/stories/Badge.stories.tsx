@@ -25,7 +25,7 @@ export default {
       },
     },
     variant: {
-      options: ["dot", "standard"],
+      options: ["dot", "standard", "sidenav"],
       control: { type: "radio" },
       table: {
         type: { summary: "string" },
@@ -41,8 +41,8 @@ const Template: ComponentStory<typeof Badge> = (args) => (
   </Badge>
 );
 
-export const Default = Template.bind({});
-Default.args = {
+export const Standard = Template.bind({});
+Standard.args = {
   variant: "standard",
   color: "primary",
 };
@@ -52,4 +52,10 @@ Dot.args = {
   variant: "dot",
   color: "primary",
 };
-Dot.argTypes = {};
+
+export const Sidenav = Template.bind({});
+Sidenav.args = {
+  variant: "sidenav",
+  color: "primary",
+  children: <></>,
+};

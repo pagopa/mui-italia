@@ -47,6 +47,12 @@ declare module "@mui/material/Typography" {
   }
 }
 
+declare module "@mui/material/Badge" {
+  interface BadgePropsVariantOverrides {
+    sidenav: true;
+  }
+}
+
 /* Custom Palette */
 declare module "@mui/material/styles" {
   interface Palette {
@@ -526,6 +532,15 @@ export const theme = createTheme(foundation, {
           fontSize: pxToRem(14),
           fontWeight: 600,
           letterSpacing: 0.15,
+          "&.MuiBadge-sidenav": {
+            fontSize: pxToRem(12),
+            position: "relative",
+            transform: "translate(0,0)",
+            boxShadow: `0 0 0 2px ${alpha(
+              foundation.palette.common.white,
+              0.5
+            )}`,
+          },
         },
       },
     },

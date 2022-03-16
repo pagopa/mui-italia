@@ -11,7 +11,6 @@ import {
   Badge,
   Divider,
 } from "@mui/material";
-import { ListItemBadge } from "@components/ListItemBadge";
 
 /* Icons */
 import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
@@ -169,10 +168,7 @@ export const Nested: ComponentStory<typeof List> = () => {
               onClick={() => handleListItemClick("giovanni-bianchi")}
             >
               <ListItemText primary="Giovanni Bianchi" />
-              <ListItemBadge
-                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                badgeContent={23}
-              />
+              <Badge variant="sidenav" color="primary" badgeContent={23} />
             </ListItemButton>
             <ListItemButton
               disableRipple
@@ -181,10 +177,7 @@ export const Nested: ComponentStory<typeof List> = () => {
               onClick={() => handleListItemClick("maria-rossi")}
             >
               <ListItemText primary="Maria Rossi" />
-              <ListItemBadge
-                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                badgeContent={2}
-              />
+              <Badge variant="sidenav" color="primary" badgeContent={2} />
             </ListItemButton>
           </List>
         </Collapse>
