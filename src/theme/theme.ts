@@ -702,6 +702,9 @@ export const theme = createTheme(foundation, {
         root: {
           backgroundColor: alpha(backdropBackground, 0.7),
         },
+        invisible: {
+          backgroundColor: "transparent",
+        },
       },
     },
     MuiTimelineDot: {
