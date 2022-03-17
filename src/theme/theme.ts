@@ -62,6 +62,12 @@ declare module "@mui/material/Typography" {
   }
 }
 
+declare module "@mui/material/Badge" {
+  interface BadgePropsVariantOverrides {
+    sidenav: true;
+  }
+}
+
 /* Custom Palette */
 declare module "@mui/material/styles" {
   interface Palette {
@@ -545,8 +551,19 @@ export const theme = createTheme(foundation, {
     /* END Alert */
     MuiBadge: {
       styleOverrides: {
-        root: {
-          fontSize: 14,
+        badge: {
+          fontSize: pxToRem(14),
+          fontWeight: 600,
+          letterSpacing: 0.15,
+          "&.MuiBadge-sidenav": {
+            fontSize: pxToRem(12),
+            position: "relative",
+            transform: "translate(0,0)",
+            boxShadow: `0 0 0 2px ${alpha(
+              foundation.palette.common.white,
+              0.5
+            )}`,
+          },
         },
       },
     },
@@ -694,6 +711,73 @@ export const theme = createTheme(foundation, {
         },
       },
     },
+    /** Start LIST ITEM (used in Sidenav) */
+    MuiListItemButton: {
+      defaultProps: {
+        disableRipple: true,
+      },
+      styleOverrides: {
+        root: {
+          borderRight: "2px solid transparent",
+          transitionProperty: "background-color, border-color",
+          transitionDuration: foundation.transitions.duration.standard,
+          paddingTop: foundation.spacing(2),
+          paddingBottom: foundation.spacing(2),
+          /* Selected State */
+          "&.Mui-selected": {
+            borderColor: foundation.palette.primary.main,
+          },
+          "&.Mui-selected .MuiListItemText-root": {
+            color: foundation.palette.primary.main,
+          },
+          "&.Mui-selected .MuiListItemIcon-root": {
+            color: foundation.palette.primary.main,
+          },
+        },
+      },
+    },
+    MuiListItemText: {
+      styleOverrides: {
+        root: {
+          transition: `${foundation.transitions.duration.standard}ms ${foundation.transitions.easing.easeInOut}`,
+          transitionProperty: "color",
+          color: foundation.palette.text.primary,
+          margin: 0,
+        },
+        primary: {
+          fontWeight: 600,
+          color: "currentColor",
+        },
+      },
+    },
+    MuiListItemIcon: {
+      styleOverrides: {
+        root: {
+          /* Default Icon Size = 24px */
+          fontSize: pxToRem(24),
+          transition: `${foundation.transitions.duration.standard}ms ${foundation.transitions.easing.easeInOut}`,
+          transitionProperty: "color",
+          minWidth: "auto",
+          color: foundation.palette.text.primary,
+          "& + .MuiListItemText-root": {
+            marginLeft: foundation.spacing(2),
+          },
+        },
+      },
+    },
+    /** End LIST ITEM */
+    /** Start SELECT */
+    MuiMenuItem: {
+      defaultProps: {
+        disableRipple: true,
+      },
+      styleOverrides: {
+        root: {
+          fontWeight: 600,
+        },
+      },
+    },
+    /** End SELECT */
     MuiTableHead: {
       styleOverrides: {
         root: {

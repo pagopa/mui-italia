@@ -1,6 +1,6 @@
 import { create } from "@storybook/theming";
 
-export const theme = create({
+export const sbTheme = create({
   base: "light",
   brandTitle: "MUI Italia",
   brandUrl: "https://github.com/pagopa/mui-italia",
