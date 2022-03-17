@@ -766,7 +766,15 @@ export const theme = createTheme(foundation, {
       },
     },
     /** End LIST ITEM */
-    /** Start SELECT */
+    /** Start POPOVER */
+    MuiPopover: {
+      styleOverrides: {
+        paper: {
+          boxShadow: foundation.shadows[16],
+        },
+      },
+    },
+    /** End POPOVER */
     MuiMenuItem: {
       defaultProps: {
         disableRipple: true,
