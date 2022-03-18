@@ -25,6 +25,7 @@ const responsiveBreakpoint = "sm";
 const ringWidth = "4px";
 const alertBorderWidth = "4px";
 const backdropBackground = "#17324D";
+const menuItemBackground = "#17324D";
 const shadowColor = "#002B55";
 
 const shadowValues = {
@@ -778,6 +779,19 @@ export const theme = createTheme(foundation, {
       },
     },
     /** End POPOVER */
+    MuiSelect: {
+      styleOverrides: {
+        root: {
+          "& .MuiListItemIcon-root + .MuiListItemText-root": {
+            marginLeft: foundation.spacing(1),
+          },
+        },
+        select: {
+          display: "flex",
+          alignItems: "center",
+        },
+      },
+    },
     MuiMenuItem: {
       defaultProps: {
         disableRipple: true,
@@ -785,6 +799,32 @@ export const theme = createTheme(foundation, {
       styleOverrides: {
         root: {
           fontWeight: 600,
+          "& .MuiListItemIcon-root": {
+            color: foundation.palette.action.active,
+            fontSize: pxToRem(20),
+            minWidth: "auto",
+          },
+          "& .MuiListItemIcon-root + .MuiListItemText-root": {
+            marginLeft: foundation.spacing(1),
+          },
+          /* I know that the CSS overwrite under this block don't look very nice ¯\_(ツ)_/¯
+          But it seems the only way to style these elements without building
+          everything from the ground using Unstyled components */
+          "& .MuiListItemText-root .MuiListItemText-primary": {
+            fontSize: pxToRem(16),
+          },
+          "&.Mui-selected": {
+            color: foundation.palette.primary.main,
+            ".MuiListItemText-root": {
+              color: foundation.palette.primary.main,
+            },
+            ".MuiListItemIcon-root": {
+              color: foundation.palette.primary.main,
+            },
+          },
+          "&:hover": {
+            backgroundColor: alpha(menuItemBackground, 0.04),
+          },
         },
       },
     },

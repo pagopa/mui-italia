@@ -58,13 +58,19 @@ export const Default: ComponentStory<typeof FormControl> = (args) => {
           label="Cerca per:"
           onChange={handleChange}
         >
-          <MenuItem value={"it-fiscal-code"}>
+          <MenuItem selected value={"it-health-code"}>
+            Tessera Sanitaria
+          </MenuItem>
+          <MenuItem selected value={"it-fiscal-code"}>
             <ListItemIcon>
-              <SubtitlesRoundedIcon />
+              <SubtitlesRoundedIcon fontSize="inherit" />
             </ListItemIcon>
             <ListItemText>Codice fiscale</ListItemText>
           </MenuItem>
           <MenuItem value={"IUN"}>Codice IUN</MenuItem>
+          <MenuItem disabled value={"Deprecated Code"}>
+            Disabled field
+          </MenuItem>
         </Select>
       </FormControl>
     </Box>
