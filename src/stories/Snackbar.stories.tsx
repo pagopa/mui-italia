@@ -53,7 +53,7 @@ export const Default: ComponentStory<typeof Snackbar> = () => {
       <Snackbar
         open={open}
         onClose={handleClose}
-        message="Note archived"
+        message="Important message"
         action={action}
       />
     </div>
