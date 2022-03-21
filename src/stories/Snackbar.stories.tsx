@@ -1,7 +1,7 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import { Snackbar, Stack, IconButton, Button, Alert } from "@mui/material";
+import { Snackbar, IconButton, Button, Alert } from "@mui/material";
 
 /* Icons */
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
@@ -19,7 +19,7 @@ export const Default: ComponentStory<typeof Snackbar> = () => {
   };
 
   const handleClose = (
-    event: React.SyntheticEvent | Event,
+    _event: React.SyntheticEvent | Event,
     reason?: string
   ) => {
     if (reason === "clickaway") {
@@ -48,7 +48,7 @@ export const Default: ComponentStory<typeof Snackbar> = () => {
   return (
     <div>
       <Button variant="contained" onClick={handleClick}>
-        Open simple snackbar
+        Open snackbar
       </Button>
       <Snackbar
         open={open}
@@ -72,7 +72,7 @@ export const WithStatus: ComponentStory<typeof Alert> = (args) => {
   };
 
   const handleClose = (
-    event?: React.SyntheticEvent | Event,
+    _event?: React.SyntheticEvent | Event,
     reason?: string
   ) => {
     if (reason === "clickaway") {
@@ -84,7 +84,7 @@ export const WithStatus: ComponentStory<typeof Alert> = (args) => {
   return (
     <div>
       <Button variant="contained" onClick={handleClick}>
-        Open toast notification
+        Open snackbar
       </Button>
       <Snackbar open={open} onClose={handleClose}>
         <Alert
@@ -93,7 +93,7 @@ export const WithStatus: ComponentStory<typeof Alert> = (args) => {
           sx={{ width: "100%" }}
           {...args}
         >
-          An importante message you should read
+          An important message you should read
         </Alert>
       </Snackbar>
     </div>
