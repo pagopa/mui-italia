@@ -5,6 +5,7 @@
       "@components/*": [ "components/*" ],
       "@tokens": [ "tokens/index" ],
       "@theme": [ "theme/index" ],
+      "@illustrations/*": [ "illustrations/*" ],
     },
     "outDir": "dist",
     "target": "es6",
