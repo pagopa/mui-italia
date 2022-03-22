@@ -491,6 +491,7 @@ export const theme = createTheme(foundation, {
         outlined: {
           backgroundColor: foundation.palette.common.white,
           boxShadow: foundation.shadows[4],
+          borderWidth: `0 0 0 ${alertBorderWidth}`,
         },
         standard: {
           "& .MuiAlert-icon": {
@@ -550,6 +551,25 @@ export const theme = createTheme(foundation, {
       },
     },
     /* END Alert */
+    /* START Snackbar */
+    MuiSnackbarContent: {
+      styleOverrides: {
+        root: {
+          padding: foundation.spacing(2),
+          color: foundation.palette.text.primary,
+          backgroundColor: foundation.palette.common.white,
+          boxShadow: foundation.shadows[4],
+        },
+        action: {
+          marginRight: 0,
+        },
+        message: {
+          padding: 0,
+          fontSize: pxToRem(16),
+        },
+      },
+    },
+    /* END Snackbar */
     MuiBadge: {
       styleOverrides: {
         badge: {
