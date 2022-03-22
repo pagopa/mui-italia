@@ -1,6 +1,6 @@
 import { Illustration } from "@components/Illustration";
 
-export const IllustrationError = () => (
+export const IllusError = () => (
   <Illustration name="Error">
     <path
       fillRule="evenodd"
