@@ -1,4 +1,3 @@
-import React from "react";
 import { styled } from "@mui/system";
 import { alpha } from "@mui/material/styles";
 
@@ -22,7 +21,6 @@ export interface TagProps {
   /** Color of the component. It supports default neutral color,
    * primary color and status colours (warning, info, etc…). */
   color?: Colors;
-  tagRef?: React.Ref<HTMLButtonElement>;
 }
 
 /* Transform HTML component into MUI Styled Component
@@ -38,7 +36,6 @@ export const Tag = ({
   value,
   color = "default",
   variant = "default",
-  tagRef,
   ...rest
 }: TagProps): JSX.Element => {
   const tagNeutralBg =
@@ -65,7 +62,6 @@ export const Tag = ({
         fontFamily: theme.typography.fontFamily,
         borderRadius: theme.spacing(0.5),
       }}
-      ref={tagRef}
       {...rest}
     >
       {value}
