@@ -20,7 +20,7 @@
     "@mui/icons-material": "^5.5.1",
     "@mui/lab": "^5.0.0-alpha.73",
     "@mui/material": "^5.5.1",
-    "@mui/system": "^5.4.1"
+    "@mui/system": "^5.5.2"
   },
   "scripts": {
     "prebuild": "rimraf dist",
@@ -68,7 +68,7 @@
     "eslint-plugin-fp": "^2.3.0",
     "eslint-plugin-functional": "^4.2.0",
     "eslint-plugin-import": "^2.25.4",
-    "eslint-plugin-jsdoc": "^38.0.4",
+    "eslint-plugin-jsdoc": "^38.0.6",
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",
