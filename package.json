@@ -14,13 +14,7 @@
     "url": "https://github.com/pagopa/mui-italia/issues"
   },
   "dependencies": {
-    "@emotion/react": "^11.8.2",
-    "@emotion/styled": "^11.8.1",
-    "@fontsource/titillium-web": "^4.5.3",
-    "@mui/icons-material": "^5.5.1",
-    "@mui/lab": "^5.0.0-alpha.74",
-    "@mui/material": "^5.5.2",
-    "@mui/system": "^5.5.2"
+    "@fontsource/titillium-web": "^4.5.3"
   },
   "scripts": {
     "prebuild": "rimraf dist",
@@ -87,7 +81,13 @@
   },
   "peerDependencies": {
     "react": "^17.0.0",
-    "react-dom": "^17.0.0"
+    "react-dom": "^17.0.0",
+    "@emotion/react": "^11.8.2",
+    "@emotion/styled": "^11.8.1",
+    "@mui/icons-material": "^5.5.1",
+    "@mui/lab": "^5.0.0-alpha.74",
+    "@mui/material": "^5.5.2",
+    "@mui/system": "^5.5.2"
   },
   "keywords": [
     "design-system",

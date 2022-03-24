@@ -1,5 +1,4 @@
 import { createTheme, Theme, alpha } from "@mui/material/styles";
-import shadows, { Shadows } from "@mui/material/styles/shadows";
 import { createBreakpoints } from "@mui/system";
 
 /* Design Tokens */
@@ -39,7 +38,7 @@ const shadowValues = {
        0px 6px 30px 5px ${alpha(shadowColor, 0.1)}`,
 };
 
-const shadowsArray = shadows.map(() => "none") as Shadows;
+const shadowsArray = Array(25).fill("none") as any;
 
 /* Custom Typography */
 declare module "@mui/material/styles" {
