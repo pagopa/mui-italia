@@ -109,7 +109,7 @@ const foundation: Theme = createTheme({
     mode: "light",
     background: {
       paper: "#FFFFFF",
-      default: "#F2F6FA",
+      default: "#F2F2F2",
     },
     primary: {
       main: "#0073E6",
