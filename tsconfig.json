@@ -9,7 +9,7 @@
     },
     "outDir": "dist",
     "target": "es6",
-    "module": "esnext",
+    "module": "commonjs",
     "lib": [
       "es6",
       "dom",
@@ -19,7 +19,7 @@
     "declaration": true,
     "strict": true,
     "noImplicitAny": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "noUnusedLocals": true,
     "noImplicitReturns": true,
     "moduleResolution": "node",
