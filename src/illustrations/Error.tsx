@@ -1,7 +1,10 @@
-import { Illustration } from "@components/Illustration";
+import { Illustration, IllustrationProps } from "@components/Illustration";
 
-export const IllusError = () => (
-  <Illustration name="Error">
+export const IllusError = ({
+  title = "Errore",
+  ...rest
+}: IllustrationProps) => (
+  <Illustration name={title} {...rest}>
     <path
       fillRule="evenodd"
       clipRule="evenodd"
