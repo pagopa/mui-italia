@@ -590,10 +590,25 @@ export const theme = createTheme(foundation, {
     MuiChip: {
       styleOverrides: {
         root: {
+          height: "auto",
+        },
+        label: {
           fontSize: pxToRem(14),
-          lineHeight: 1.15 /* ~16px */,
           fontWeight: 600,
+          lineHeight: 1.3 /* ~18px */,
           letterSpacing: 0.5,
+          textAlign: "center",
+          overflowWrap: "break-word",
+          whiteSpace: "normal",
+          textOverflow: "clip",
+          padding: `${foundation.spacing(1)} ${foundation.spacing(
+            1.25
+          )}` /* 8px 10px */,
+        },
+        labelSmall: {
+          padding: `${foundation.spacing(0.5)} ${foundation.spacing(
+            1
+          )}` /* 4px 8px */,
         },
         deleteIcon: {
           color: "currentColor",
