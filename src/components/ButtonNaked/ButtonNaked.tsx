@@ -11,7 +11,13 @@ export const ButtonNaked = <C extends React.ElementType>(
     }
   >
 ): React.ReactElement => {
-  const { children, buttonRef, weight = "default", ...rest } = props;
+  const {
+    children,
+    buttonRef,
+    color = "text",
+    weight = "default",
+    ...rest
+  } = props;
   return (
     <Button
       sx={{
@@ -20,6 +26,7 @@ export const ButtonNaked = <C extends React.ElementType>(
       }}
       variant="naked"
       size="small"
+      color={color}
       disableRipple
       disableTouchRipple
       ref={buttonRef}

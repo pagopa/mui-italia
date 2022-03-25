@@ -96,6 +96,7 @@ declare module "@mui/material/styles" {
 declare module "@mui/material/Button" {
   interface ButtonPropsColorOverrides {
     blueItaly: true;
+    text: true;
   }
 
   interface ButtonPropsVariantOverrides {
@@ -402,11 +403,12 @@ export const theme = createTheme(foundation, {
         {
           props: { variant: "naked" },
           style: {
+            color: foundation.palette.text.primary,
             padding: 0,
             height: "auto",
             minWidth: "auto",
-            color: foundation.palette.text.primary,
             "&:hover": {
+              color: alpha(foundation.palette.text.primary, 0.8),
               backgroundColor: "transparent",
             },
             "&.Mui-focusVisible": {

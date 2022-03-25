@@ -28,11 +28,11 @@ export default {
       },
     },
     color: {
-      options: ["undefined", "primary"],
+      options: ["text", "primary"],
       control: { type: "radio" },
       table: {
         type: { summary: "string" },
-        defaultValue: { summary: "undefined" },
+        defaultValue: { summary: "text" },
       },
     },
     disabled: {
@@ -62,6 +62,7 @@ export const Default = Template.bind({});
 Default.args = {
   variant: "naked",
   size: "medium",
+  color: "text",
 };
 
 export const WithEndIcon = Template.bind({});
