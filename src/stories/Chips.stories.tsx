@@ -7,7 +7,6 @@ export default {
   component: Chip,
   argTypes: {
     color: {
-      defaultValue: "default",
       options: ["default", "primary", "warning", "info", "error", "success"],
       control: { type: "radio" },
       table: {
@@ -17,7 +16,6 @@ export default {
       onDelete: { action: "Deleted" },
     },
     variant: {
-      defaultValue: "filled",
       options: ["filled", "outlined"],
       control: { type: "radio" },
       table: {
@@ -27,7 +25,6 @@ export default {
       },
     },
     size: {
-      defaultValue: "medium",
       options: ["small", "medium"],
       control: { type: "radio" },
       table: {
@@ -36,7 +33,6 @@ export default {
       },
     },
     disabled: {
-      defaultValue: false,
       control: { type: "boolean" },
       table: {
         type: { summary: "boolean" },
@@ -68,7 +64,6 @@ Outline.args = {
 };
 Outline.argTypes = {
   color: {
-    defaultValue: "default",
     options: ["default", "primary"],
     control: { type: "radio" },
     table: {
