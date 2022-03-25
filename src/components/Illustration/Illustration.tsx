@@ -13,6 +13,11 @@ IllustrationSVG.defaultProps = {
   "aria-hidden": "true",
 };
 
+export interface IllustrationProps {
+  title?: string;
+  size?: number;
+}
+
 export const Illustration = <C extends React.ElementType>(
   props: SvgIconProps<
     C,
@@ -22,11 +27,11 @@ export const Illustration = <C extends React.ElementType>(
     }
   >
 ): React.ReactElement => {
-  const { children, name, ...rest } = props;
+  const { children, name, size = 80, ...rest } = props;
   return (
     <IllustrationSVG
       titleAccess={name}
-      sx={{ width: 120, height: 120 }}
+      sx={{ width: size, height: size }}
       {...rest}
     >
       {children}

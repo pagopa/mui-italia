@@ -2,7 +2,13 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import { Box, Typography } from "@mui/material";
 
-import { IllusCompleted, IllusError, IllusUploadFile, IllusSms } from "./";
+import {
+  IllusCompleted,
+  IllusError,
+  IllusUploadFile,
+  IllusSms,
+  IllusEmailValidation,
+} from "./";
 
 export interface IllusBoxProps {
   illustration: JSX.Element;
@@ -46,6 +52,10 @@ export const Overview: ComponentStory<typeof Box> = () => (
     <IllusBox name={"<IllusError />"} illustration={<IllusError />} />
     <IllusBox name={"<IllusUploadFile />"} illustration={<IllusUploadFile />} />
     <IllusBox name={"<IllusSms />"} illustration={<IllusSms />} />
+    <IllusBox
+      name={"<IllusEmailValidation />"}
+      illustration={<IllusEmailValidation />}
+    />
   </Box>
 );
 
