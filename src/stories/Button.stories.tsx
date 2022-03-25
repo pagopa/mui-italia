@@ -35,7 +35,6 @@ export default {
     variant: {
       options: ["contained", "outlined", "text"],
       control: { type: "radio" },
-      defaultValue: "contained",
       table: {
         type: { summary: "string" },
         defaultValue: { summary: "contained" },
