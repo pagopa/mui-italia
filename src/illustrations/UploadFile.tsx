@@ -1,7 +1,10 @@
-import { Illustration } from "@components/Illustration";
+import { Illustration, IllustrationProps } from "@components/Illustration";
 
-export const IllusUploadFile = () => (
-  <Illustration name="Upload File">
+export const IllusUploadFile = ({
+  title = "Carica il documento",
+  ...rest
+}: IllustrationProps) => (
+  <Illustration name={title} {...rest}>
     <path d="M90.344 79.65H50.998a2.397 2.397 0 0 0-2.39 2.39 2.398 2.398 0 0 0 2.39 2.391h39.37a2.398 2.398 0 0 0 2.39-2.39 2.403 2.403 0 0 0-2.414-2.39ZM68.161 42.144l-9.8 10.59a2.354 2.354 0 0 1-3.348.12c-.98-.885-1.003-2.415-.095-3.371l14.008-15.036a2.41 2.41 0 0 1 1.745-.765c.67 0 1.29.287 1.744.765L86.4 49.483c.908.956.837 2.462-.12 3.37a2.48 2.48 0 0 1-1.649.646c-.621 0-1.29-.264-1.769-.765l-9.92-10.59v26.104a2.398 2.398 0 0 1-2.39 2.39 2.398 2.398 0 0 1-2.391-2.39V42.144Z" />
     <path
       fillRule="evenodd"
