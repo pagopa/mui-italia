@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import { Timeline, TimelineSeparator, TimelineConnector } from "@mui/lab";
+import { Timeline, TimelineConnector } from "@mui/lab";
 import { Chip, Box, Typography } from "@mui/material";
 
 import AttachFileRoundedIcon from "@mui/icons-material/AttachFileRounded";
@@ -10,6 +10,7 @@ import {
   TimelineNotification,
   TimelineNotificationDot,
   TimelineNotificationItem,
+  TimelineNotificationSeparator,
   TimelineNotificationContent,
   TimelineNotificationOppositeContent,
 } from "@components/TimelineNotification";
@@ -24,14 +25,21 @@ export default {
 // Mock Data
 const notificationStatusHistory: Array<{
   statusLabel: string;
-  state: string;
+  state?: string;
   activeFrom: string;
   description?: string;
+  minor?: boolean;
 }> = [
   {
     statusLabel: "Pagata",
     state: "success",
     activeFrom: "2022-02-22T11:22:00.957Z",
+  },
+  {
+    statusLabel: "In inoltro",
+    description: "Lorem ipsum dolor bla bla",
+    activeFrom: "2022-02-22T11:22:12.971Z",
+    minor: true,
   },
   {
     statusLabel: "In inoltro",
@@ -91,13 +99,14 @@ export const Default: ComponentStory<typeof Timeline> = () => (
               {getMonthString(item.activeFrom)}
             </Typography>
           </TimelineNotificationOppositeContent>
-          <TimelineSeparator>
+          <TimelineNotificationSeparator>
             <TimelineConnector />
             <TimelineNotificationDot
               variant={i === 0 ? "outlined" : undefined}
+              size={item.minor ? "small" : "default"}
             />
             <TimelineConnector />
-          </TimelineSeparator>
+          </TimelineNotificationSeparator>
           <TimelineNotificationContent>
             <Typography
               variant="caption"
@@ -106,26 +115,30 @@ export const Default: ComponentStory<typeof Timeline> = () => (
             >
               {getTime(item.activeFrom)}
             </Typography>
-            <Chip size="small" label={item.statusLabel} color={item.state} />
+            {item.state && (
+              <Chip size="small" label={item.statusLabel} color={item.state} />
+            )}
             {item.description && (
               <Typography
                 color="text.secondary"
-                variant="body2"
+                variant="caption"
                 component="div"
               >
                 {item.description}
               </Typography>
             )}
-            <ButtonNaked
-              href="#"
-              target="_blank"
-              variant="naked"
-              color="primary"
-              weight="light"
-              startIcon={<AttachFileRoundedIcon />}
-            >
-              Attestato opponibile a Terzi
-            </ButtonNaked>
+            {!item.minor && (
+              <ButtonNaked
+                href="#"
+                target="_blank"
+                variant="naked"
+                color="primary"
+                weight="light"
+                startIcon={<AttachFileRoundedIcon />}
+              >
+                Attestato opponibile a Terzi
+              </ButtonNaked>
+            )}
           </TimelineNotificationContent>
         </TimelineNotificationItem>
       ))}
