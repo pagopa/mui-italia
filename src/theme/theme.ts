@@ -460,6 +460,22 @@ export const theme = createTheme(foundation, {
         },
       },
     },
+    /* START Stepper */
+    MuiStepLabel: {
+      styleOverrides: {
+        label: {
+          fontSize: pxToRem(14),
+          [breakpoints.up(responsiveBreakpoint)]: { fontSize: pxToRem(14) },
+          "&.Mui-completed": {
+            fontWeight: 600,
+          },
+          "&.Mui-active": {
+            fontWeight: 600,
+          },
+        },
+      },
+    },
+    /* END Stepper */
     /* START Alert */
     MuiAlert: {
       styleOverrides: {
