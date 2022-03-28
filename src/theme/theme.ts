@@ -97,11 +97,25 @@ declare module "@mui/material/Button" {
   interface ButtonPropsColorOverrides {
     blueItaly: true;
     text: true;
+    secondary: false;
+    warning: false;
+    info: false;
+    success: false;
   }
 
   interface ButtonPropsVariantOverrides {
     secondary: false;
     naked: true;
+  }
+}
+
+declare module "@mui/material/IconButton" {
+  interface IconButtonPropsColorOverrides {
+    secondary: false;
+    info: false;
+    success: false;
+    warning: false;
+    error: false;
   }
 }
 
@@ -435,6 +449,28 @@ export const theme = createTheme(foundation, {
           },
         },
       ],
+    },
+    MuiIconButton: {
+      defaultProps: {
+        disableRipple: true,
+      },
+      styleOverrides: {
+        root: {
+          color: foundation.palette.text.primary,
+          "&:hover": {
+            backgroundColor: alpha(foundation.palette.primary.main, 0.08),
+          },
+          "&:active": {
+            backgroundColor: alpha(foundation.palette.primary.main, 0.2),
+          },
+          "&.Mui-focusVisible": {
+            backgroundColor: alpha(foundation.palette.primary.main, 0.2),
+          },
+        },
+        colorPrimary: {
+          color: foundation.palette.primary.main,
+        },
+      },
     },
     MuiTooltip: {
       styleOverrides: {
