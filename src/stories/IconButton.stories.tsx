@@ -8,16 +8,16 @@ export default {
   component: IconButton,
   args: {
     size: "medium",
-    color: undefined,
+    color: "default",
     disabled: false,
   },
   argTypes: {
     color: {
-      options: ["primary", undefined],
+      options: ["primary", "default"],
       control: { type: "radio" },
       table: {
         type: { summary: "string" },
-        defaultValue: { summary: undefined },
+        defaultValue: { summary: "default" },
       },
     },
     size: {
