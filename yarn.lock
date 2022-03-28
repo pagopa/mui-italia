@@ -10193,10 +10193,10 @@ ts-pnp@^1.1.6:
   resolved "https://registry.yarnpkg.com/ts-pnp/-/ts-pnp-1.2.0.tgz#a500ad084b0798f1c3071af391e65912c86bca92"
   integrity sha512-csd+vJOb/gkzvcCHgTGSChYpy5f1/XKNsmvBGO4JXS+z1v2HobugDz4s1IeFXM3wZB44uczs+eazB5Q/ccdhQw==
 
-tsc-alias@^1.6.4:
-  version "1.6.4"
-  resolved "https://registry.yarnpkg.com/tsc-alias/-/tsc-alias-1.6.4.tgz#237c2491835811dc0a165cfb78b5ae3accb5f1ec"
-  integrity sha512-IXc4yh5onnSvocRU/US/TKm5L6/fh+PLsyFHKn/wI/rNs3GouiDngGgf/XIWo6z+HMR+Y0Pa0EwpZ7ZLR/c9sQ==
+tsc-alias@^1.6.5:
+  version "1.6.5"
+  resolved "https://registry.yarnpkg.com/tsc-alias/-/tsc-alias-1.6.5.tgz#06127ff6bad25643467eba941768585935a023da"
+  integrity sha512-0ECpqsxu3fsW0NwRDiBfsq4MDmdo0CXU9fzKv6UOvQFruh1OgEAkDEqCTDFTDjLBN9ZiHHrl5RpuQo+/RFCNqw==
   dependencies:
     chokidar "^3.5.3"
     commander "^9.0.0"
