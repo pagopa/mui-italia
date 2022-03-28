@@ -436,6 +436,25 @@ export const theme = createTheme(foundation, {
         },
       ],
     },
+    MuiIconButton: {
+      defaultProps: {
+        disableRipple: true,
+      },
+      styleOverrides: {
+        root: {
+          color: foundation.palette.text.primary,
+          "&:hover": {
+            backgroundColor: alpha(foundation.palette.primary.main, 0.08),
+          },
+          "&.Mui-focusVisible": {
+            backgroundColor: alpha(foundation.palette.primary.main, 0.2),
+          },
+        },
+        colorPrimary: {
+          color: foundation.palette.primary.main,
+        },
+      },
+    },
     MuiTooltip: {
       styleOverrides: {
         tooltip: {
