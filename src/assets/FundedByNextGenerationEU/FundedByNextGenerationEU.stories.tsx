@@ -9,15 +9,69 @@ export default {
     variant: "outline",
     color: "dark",
   },
-  parameters: {
-    layout: "centered",
-  },
 } as ComponentMeta<typeof FundedByNextGenerationEU>;
 
-export const Default: ComponentStory<typeof FundedByNextGenerationEU> = (
-  args
-) => <FundedByNextGenerationEU {...args} />;
+const Template: ComponentStory<typeof FundedByNextGenerationEU> = (args) => (
+  <FundedByNextGenerationEU {...args} />
+);
 
-/* NextGenerationEU.parameters = {
-  controls: { hideNoControlsWarning: true },
-}; */
+export const Default = Template.bind({});
+Default.args = {
+  variant: "outline",
+  color: "dark",
+};
+Default.decorators = [
+  (Story) => (
+    <div
+      style={{
+        position: "fixed",
+        inset: "0",
+        display: "grid",
+        placeItems: "center",
+      }}
+    >
+      <Story />
+    </div>
+  ),
+];
+
+export const Negative = Template.bind({});
+Negative.args = {
+  variant: "filled",
+  color: "light",
+};
+Negative.decorators = [
+  (Story) => (
+    <div
+      style={{
+        position: "fixed",
+        inset: "0",
+        display: "grid",
+        placeItems: "center",
+        backgroundColor: "#333",
+      }}
+    >
+      <Story />
+    </div>
+  ),
+];
+
+export const Color = Template.bind({});
+Color.args = {
+  variant: "color",
+  color: "dark",
+};
+Color.decorators = [
+  (Story) => (
+    <div
+      style={{
+        position: "fixed",
+        inset: "0",
+        display: "grid",
+        placeItems: "center",
+      }}
+    >
+      <Story />
+    </div>
+  ),
+];
