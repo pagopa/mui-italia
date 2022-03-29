@@ -72,10 +72,12 @@ declare module "@mui/material/Badge" {
 declare module "@mui/material/styles" {
   interface Palette {
     blueItaly: Palette["primary"];
+    europeanUnion: Palette["primary"];
     extraLight: Palette["warning"];
   }
   interface PaletteOptions {
     blueItaly?: PaletteOptions["primary"];
+    europeanUnion: PaletteOptions["primary"];
     extraLight?: Palette["warning"];
   }
 
@@ -140,6 +142,10 @@ const foundation: Theme = createTheme({
     },
     blueItaly: {
       main: "#0066CC",
+      contrastText: "#fff",
+    },
+    europeanUnion: {
+      main: "#264CA4",
       contrastText: "#fff",
     },
     text: {
