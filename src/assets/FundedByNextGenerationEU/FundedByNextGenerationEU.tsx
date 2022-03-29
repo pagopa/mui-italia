@@ -37,12 +37,12 @@ const colorMap = {
   pantone: theme.palette.europeanUnion.main,
 };
 
-const elementMap = {
+const variantMap = {
   outline: <SvgOutline />,
   filled: <SvgFilled />,
 };
 
-const svgColorMap = {
+const variantColorMap = {
   dark: <SvgColorDark />,
   light: <SvgColorLight />,
   pantone: <SvgColorDark />,
@@ -65,7 +65,7 @@ export const FundedByNextGenerationEU = ({
       fill: colorMap[color],
     }}
   >
-    {variant === "color" ? svgColorMap[color] : elementMap[variant]}
+    {variant === "color" ? variantColorMap[color] : variantMap[variant]}
     <title>{title}</title>
   </StyledSvg>
 );
