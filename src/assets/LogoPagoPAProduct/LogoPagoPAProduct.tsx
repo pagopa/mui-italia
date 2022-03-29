@@ -8,7 +8,7 @@ const StyledSvg = styled("svg")({
   userSelect: "none",
 });
 
-export type Colors = "light" | "dark" | "blue";
+export type LogoPagoPAProductColors = "light" | "dark" | "blue";
 
 export interface LogoPagoPAProductProps {
   /** Provides a human-readable title for the element that contains it. */
@@ -16,7 +16,7 @@ export interface LogoPagoPAProductProps {
   /** Width of the component. Height is set automatically. */
   size: number;
   /** The color of the component. */
-  color: Colors;
+  color: LogoPagoPAProductColors;
 }
 
 const colorMap = {
@@ -36,8 +36,6 @@ export const LogoPagoPAProduct = ({
     role="img"
     sx={{
       width: size,
-      /* If the color variant is set,
-      the following property is ignored */
       fill: colorMap[color],
     }}
   >

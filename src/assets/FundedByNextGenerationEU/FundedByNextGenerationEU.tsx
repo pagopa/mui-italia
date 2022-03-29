@@ -16,8 +16,8 @@ const StyledSvg = styled("svg")({
   userSelect: "none",
 });
 
-export type Variants = "filled" | "outline" | "color";
-export type Colors = "light" | "dark" | "pantone";
+export type NextGeneratioNEUVariants = "filled" | "outline" | "color";
+export type NextGenerationEUColors = "light" | "dark" | "pantone";
 
 export interface FundedByNextGenerationEUPropsProps {
   /** Provides a human-readable title for the element that contains it. */
@@ -26,9 +26,9 @@ export interface FundedByNextGenerationEUPropsProps {
   size: number;
   /** The variant to use. If the color variant is set,
    * the color property is ignored. */
-  variant: Variants;
+  variant: NextGeneratioNEUVariants;
   /** The color of the component. */
-  color: Colors;
+  color: NextGenerationEUColors;
 }
 
 const colorMap = {
