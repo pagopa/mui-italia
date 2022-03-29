@@ -22,8 +22,12 @@ export type Colors = "light" | "dark" | "pantone";
 export interface FundedByNextGenerationEUPropsProps {
   /** Provides a human-readable title for the element that contains it. */
   title: string;
+  /** Width of the component. Height is set automatically. */
   size: number;
+  /** The variant to use. If the color variant is set,
+   * the color property is ignored. */
   variant: Variants;
+  /** The color of the component. */
   color: Colors;
 }
 
@@ -36,7 +40,12 @@ const colorMap = {
 const elementMap = {
   outline: <SvgOutline />,
   filled: <SvgFilled />,
-  color: <SvgColorDark />,
+};
+
+const svgColorMap = {
+  dark: <SvgColorDark />,
+  light: <SvgColorLight />,
+  pantone: <SvgColorDark />,
 };
 
 export const FundedByNextGenerationEU = ({
@@ -51,16 +60,12 @@ export const FundedByNextGenerationEU = ({
     role="img"
     sx={{
       width: size,
+      /* If the color variant is set,
+      the following property is ignored */
       fill: colorMap[color],
     }}
   >
-    {variant === "color" && color === "light" ? (
-      <SvgColorLight />
-    ) : (
-      elementMap[variant]
-    )}
+    {variant === "color" ? svgColorMap[color] : elementMap[variant]}
     <title>{title}</title>
   </StyledSvg>
 );
-
-// Below: SVG Code of all the variants
