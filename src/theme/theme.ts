@@ -71,11 +71,13 @@ declare module "@mui/material/Badge" {
 /* Custom Palette */
 declare module "@mui/material/styles" {
   interface Palette {
-    blueItaly: Palette["primary"];
+    pagoPA: Palette["primary"];
+    europeanUnion: Palette["primary"];
     extraLight: Palette["warning"];
   }
   interface PaletteOptions {
-    blueItaly?: PaletteOptions["primary"];
+    pagoPA?: PaletteOptions["primary"];
+    europeanUnion: PaletteOptions["primary"];
     extraLight?: Palette["warning"];
   }
 
@@ -138,8 +140,12 @@ const foundation: Theme = createTheme({
       dark: "#00A7AC",
       contrastText: "#FFFFFF",
     },
-    blueItaly: {
+    pagoPA: {
       main: "#0066CC",
+      contrastText: "#fff",
+    },
+    europeanUnion: {
+      main: "#264CA4",
       contrastText: "#fff",
     },
     text: {

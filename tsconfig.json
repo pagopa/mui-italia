@@ -6,6 +6,7 @@
       "@tokens": [ "tokens/index" ],
       "@theme": [ "theme/index" ],
       "@illustrations/*": [ "illustrations/*" ],
+      "@assets/*": [ "assets/*" ],
     },
     "outDir": "dist",
     "target": "es6",
