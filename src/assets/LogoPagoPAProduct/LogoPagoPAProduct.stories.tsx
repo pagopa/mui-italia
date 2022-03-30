@@ -16,7 +16,7 @@ const Template: ComponentStory<typeof LogoPagoPAProduct> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  color: "blue",
+  color: "default",
 };
 Default.decorators = [
   (Story) => (

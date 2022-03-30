@@ -8,7 +8,7 @@ const StyledSvg = styled("svg")({
   userSelect: "none",
 });
 
-export type LogoPagoPAProductColors = "light" | "dark" | "blue";
+export type LogoPagoPAProductColors = "default" | "light" | "dark";
 
 export interface LogoPagoPAProductProps {
   /** Provides a human-readable title for the element that contains it. */
@@ -20,15 +20,15 @@ export interface LogoPagoPAProductProps {
 }
 
 const colorMap = {
+  default: theme.palette.pagoPA.main,
   dark: theme.palette.common.black,
   light: theme.palette.common.white,
-  blue: theme.palette.pagoPA.main,
 };
 
 export const LogoPagoPAProduct = ({
   title = "pagoPA",
   size = 56,
-  color = "blue",
+  color = "default",
 }: LogoPagoPAProductProps): JSX.Element => (
   <StyledSvg
     viewBox="0 0 40 27"

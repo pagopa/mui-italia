@@ -20,9 +20,9 @@ export interface LogoIOAppProps {
 }
 
 const colorMap = {
+  default: theme.palette.primary.main,
   dark: theme.palette.common.black,
   light: theme.palette.common.white,
-  default: theme.palette.primary.main,
 };
 
 export const LogoIOApp = ({
