@@ -24,11 +24,13 @@ export default {
 
 // Mock Data
 const notificationStatusHistory: Array<{
+  minor?: boolean;
   statusLabel: string;
   state?: string;
   activeFrom: string;
+  title?: string;
   description?: string;
-  minor?: boolean;
+  fiscalCode?: string;
 }> = [
   {
     statusLabel: "Pagata",
@@ -36,10 +38,12 @@ const notificationStatusHistory: Array<{
     activeFrom: "2022-02-22T11:22:00.957Z",
   },
   {
-    statusLabel: "In inoltro",
-    description: "Lorem ipsum dolor bla bla",
-    activeFrom: "2022-02-22T11:22:12.971Z",
     minor: true,
+    statusLabel: "In inoltro",
+    title: "Minor event with multiple destinataries",
+    description: "Description",
+    activeFrom: "2022-02-22T11:22:12.971Z",
+    fiscalCode: "MRARSS08S05I480N - Mario Rossi",
   },
   {
     statusLabel: "In inoltro",
@@ -51,6 +55,13 @@ const notificationStatusHistory: Array<{
     statusLabel: "Perfezionata per visione",
     state: "success",
     activeFrom: "2022-02-22T08:12:29.991Z",
+  },
+  {
+    minor: true,
+    statusLabel: "In inoltro",
+    title: "Minor event with single destinatary",
+    description: "Description",
+    activeFrom: "2022-02-22T11:22:12.971Z",
   },
   {
     statusLabel: "Destinatario irreperibile",
@@ -118,13 +129,31 @@ export const Default: ComponentStory<typeof Timeline> = () => (
             {item.state && (
               <Chip size="small" label={item.statusLabel} color={item.state} />
             )}
+            {item.title && (
+              <Typography
+                color="text.primary"
+                variant="caption-semibold"
+                component="div"
+              >
+                {item.title}
+              </Typography>
+            )}
             {item.description && (
+              <Typography
+                color="text.primary"
+                variant="caption"
+                component="div"
+              >
+                {item.description}
+              </Typography>
+            )}
+            {item.minor && item.fiscalCode && (
               <Typography
                 color="text.secondary"
                 variant="caption"
                 component="div"
               >
-                {item.description}
+                {item.fiscalCode}
               </Typography>
             )}
             {!item.minor && (
