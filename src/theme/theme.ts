@@ -651,6 +651,7 @@ export const theme = createTheme(foundation, {
       styleOverrides: {
         root: {
           height: "auto",
+          borderRadius: foundation.spacing(5),
         },
         label: {
           fontSize: pxToRem(14),
@@ -662,8 +663,8 @@ export const theme = createTheme(foundation, {
           whiteSpace: "normal",
           textOverflow: "clip",
           padding: `${foundation.spacing(1)} ${foundation.spacing(
-            1.25
-          )}` /* 8px 10px */,
+            1.5
+          )}` /* 8px 12px */,
         },
         labelSmall: {
           padding: `${foundation.spacing(0.5)} ${foundation.spacing(
@@ -680,6 +681,9 @@ export const theme = createTheme(foundation, {
         },
         avatar: {
           fontWeight: 400,
+        },
+        outlined: {
+          borderRadius: foundation.spacing(5),
         },
         colorSecondary: {
           "&.MuiChip-filled": {
