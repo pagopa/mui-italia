@@ -25,7 +25,7 @@ type EntityImage = {
 const entityMockImages: Array<EntityImage> = [
   {
     src: stemmaMilano,
-    alt: "Città di Milano",
+    alt: "Comune di Milano",
   },
   {
     src: stemmaRoma,
