@@ -2,61 +2,52 @@ import { useState } from "react";
 
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-/* Assets */
-import stemmaMilano from "@static/entities/citta-milano.png";
-import stemmaSottoIlMonte from "@static/entities/comune-sotto-il-monte.jpg";
-import stemmaCastelfrancoEmilia from "@static/entities/comune-castelfranco-emilia.png";
-import stemmaParma from "@static/entities/comune-parma.png";
-import stemmaRoma from "@static/entities/comune-roma.png";
-import stemmaCampoNellElba from "@static/entities/comune-campo-nell-elba.png";
-import stemmaCastiglioneDellaPescaia from "@static/entities/comune-castiglione-della-pescaia.png";
-import stemmaPescasseroli from "@static/entities/comune-pescasseroli.png";
-import stemmaSanValentinoEtc from "@static/entities/comune-sanvalentino-etc.png";
-
 import { Button, Stack, Typography } from "@mui/material";
 
 import { EntityAvatar } from "./EntityAvatar";
 
 type EntityImage = {
-  src: string;
+  src: string | undefined;
   alt: string;
 };
 
+const cdnPath = "https://assets.cdn.io.italia.it/logos/organizations/";
+
 const entityMockImages: Array<EntityImage> = [
   {
-    src: stemmaMilano,
+    src: `${cdnPath}1199250158.png`,
     alt: "Comune di Milano",
   },
   {
-    src: stemmaRoma,
+    src: `${cdnPath}2438750586.png`,
     alt: "Comune di Roma",
   },
   {
-    src: stemmaParma,
+    src: `${cdnPath}162210348.png`,
     alt: "Comune di Parma",
   },
   {
-    src: stemmaSottoIlMonte,
+    src: `${cdnPath}82003830161.png`,
     alt: "Comune di Sotto il Monte Giovanni XXIII",
   },
   {
-    src: stemmaCastelfrancoEmilia,
+    src: `${cdnPath}172960361.png`,
     alt: "Comune di Castelfranco Emilia",
   },
   {
-    src: stemmaCampoNellElba,
+    src: `${cdnPath}82001510492.png`,
     alt: "Comune di Campo nell'Elba",
   },
   {
-    src: stemmaCastiglioneDellaPescaia,
+    src: `${cdnPath}117100537.png`,
     alt: "Comune di Castiglione della Pescaia",
   },
   {
-    src: stemmaPescasseroli,
+    src: `${cdnPath}142680669.png`,
     alt: "Comune di Pescasseroli",
   },
   {
-    src: stemmaSanValentinoEtc,
+    src: `${cdnPath}81000410688.png`,
     alt: "Comune di San Valentino in Abruzzo Citeriore",
   },
   {
@@ -78,6 +69,7 @@ const randomValueFromArray = (array: Array<EntityImage>) => {
   const randomValueIndex = Math.floor(Math.random() * alreadyPicked.length);
   const indexOfItemInMyArray = alreadyPicked[randomValueIndex];
   alreadyPicked.splice(randomValueIndex, 1);
+  console.log(array[indexOfItemInMyArray]);
   return array.indexOf(array[indexOfItemInMyArray]);
 };
 

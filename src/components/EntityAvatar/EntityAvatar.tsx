@@ -34,7 +34,7 @@ export const EntityAvatar = ({
         ? theme.palette.background.paper
         : theme.palette.grey[200],
       boxSizing: "border-box",
-      padding: theme.spacing(0.75) /* 6px */,
+      padding: theme.spacing(1) /* 8px */,
       boxShadow: `inset 0 0 0 1px ${theme.palette.divider}`,
       /* Color of the fallback icon */
       color: theme.palette.text.disabled,
