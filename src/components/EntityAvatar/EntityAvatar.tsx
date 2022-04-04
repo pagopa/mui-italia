@@ -28,6 +28,7 @@ export const EntityAvatar = ({
     alt={customAlt}
     src={customSrc}
     sx={{
+      position: "relative",
       width: size,
       height: size,
       backgroundColor: customSrc
@@ -35,12 +36,22 @@ export const EntityAvatar = ({
         : theme.palette.grey[200],
       boxSizing: "border-box",
       padding: theme.spacing(1) /* 8px */,
-      boxShadow: `inset 0 0 0 1px ${theme.palette.divider}`,
       /* Color of the fallback icon */
       color: theme.palette.text.disabled,
       "& .MuiAvatar-img": {
         objectFit: "contain",
         objectPosition: "center",
+      },
+      /* Inner shadow */
+      "&:after": {
+        content: "''",
+        position: "absolute",
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        boxShadow: `inset 0 0 0 1px ${theme.palette.divider}`,
+        borderRadius: "inherit",
       },
     }}
   >
