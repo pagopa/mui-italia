@@ -149,7 +149,7 @@ const foundation: Theme = createTheme({
       contrastText: "#fff",
     },
     text: {
-      primary: "#17324D",
+      primary: colorTextPrimary,
       secondary: "#5C6F82",
       disabled: "#A2ADB8",
     },
@@ -203,6 +203,8 @@ const foundation: Theme = createTheme({
     /* Using a constant because type variants
     don't inherit the typeface font family */
     fontFamily: mainTypeface,
+    fontWeightMedium: 600 /* Semibold */,
+    fontWeightBold: 700,
     fontSize: 16,
     htmlFontSize: 16,
     /* H1 Large */
