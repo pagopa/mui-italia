@@ -282,28 +282,20 @@ const foundation: Theme = createTheme({
       fontWeight: 600,
     },
     body1: {
-      fontSize: pxToRem(16),
-      lineHeight: 1.5 /* 24px */,
+      fontSize: pxToRem(18),
+      lineHeight: 1.5 /* ~28px */,
       fontWeight: 400,
       letterSpacing: 0,
-      [breakpoints.up(responsiveBreakpoint)]: {
-        fontSize: pxToRem(18),
-        lineHeight: 1.5 /* ~28px */,
-      },
       /* a: {
         color: italia[500],
         textDecoration: "underline",
       }, */
     },
     body2: {
-      fontSize: pxToRem(14),
+      fontSize: pxToRem(16),
       lineHeight: 1.4 /* ~20px */,
       fontWeight: 400,
       letterSpacing: 0.15,
-      [breakpoints.up(responsiveBreakpoint)]: {
-        fontSize: pxToRem(16),
-        lineHeight: 1.4 /* ~22px */,
-      },
       /* a: {
         color: italia[500],
         textDecoration: "underline",
