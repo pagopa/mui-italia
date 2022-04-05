@@ -10,12 +10,14 @@ export interface EntityAccountItemProps {
   entityName: string;
   /* The role of the user. E.g: "Referente amministrativo" */
   entityRole?: string;
+  noWrap: boolean;
 }
 
 export const EntityAccountItem = ({
   entityName,
   entityRole,
   image,
+  noWrap = true,
 }: EntityAccountItemProps) => (
   <Box
     sx={{
@@ -40,6 +42,9 @@ export const EntityAccountItem = ({
             sx={{
               fontWeight: theme.typography.fontWeightBold,
               lineHeight: 1.25,
+              ...(noWrap && {
+                whiteSpace: "nowrap",
+              }),
             }}
           >
             {entityName}

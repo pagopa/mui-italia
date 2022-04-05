@@ -134,6 +134,7 @@ const Template: ComponentStory<typeof EntityAccountItem> = (args) => {
       </Button>
 
       <EntityAccountItem
+        {...args}
         image={item.image}
         entityName={item.name}
         entityRole={item.role}
@@ -143,3 +144,8 @@ const Template: ComponentStory<typeof EntityAccountItem> = (args) => {
 };
 
 export const Default = Template.bind({});
+
+export const NoWrap = Template.bind({});
+NoWrap.args = {
+  noWrap: true,
+};
