@@ -30,6 +30,7 @@ const StyledTag = styled("span")({
   fontSize: pxToRem(14),
   fontWeight: 600,
   letterSpacing: 0.5,
+  whiteSpace: "nowrap",
 });
 
 export const Tag = ({

@@ -74,11 +74,13 @@ declare module "@mui/material/styles" {
     pagoPA: Palette["primary"];
     europeanUnion: Palette["primary"];
     extraLight: Palette["warning"];
+    primaryAction: Palette["action"];
   }
   interface PaletteOptions {
     pagoPA?: PaletteOptions["primary"];
     europeanUnion: PaletteOptions["primary"];
-    extraLight?: Palette["warning"];
+    extraLight?: PaletteOptions["warning"];
+    primaryAction: PaletteOptions["action"];
   }
 
   interface PaletteColor {
@@ -155,12 +157,16 @@ const foundation: Theme = createTheme({
     },
     action: {
       active: "rgba(23, 50, 77, 0.54)" /* Text/Primary 54% */,
-      hover: "rgba(23, 50, 77, 0.08)" /* Text/Primary 4% */,
+      hover: "rgba(23, 50, 77, 0.08)" /* Text/Primary 8% */,
       hoverOpacity: 0.08,
-      selected: "rgba(23, 50, 77, 0.12)" /* Text/Primary 8% */,
+      selected: "rgba(23, 50, 77, 0.12)" /* Text/Primary 12% */,
       disabled: "rgba(23, 50, 77, 0.26)" /* Text/Primary 26% */,
       disabledBackground: "rgba(23, 50, 77, 0.12)" /* Text/Primary 12% */,
       focus: "rgba(23, 50, 77, 0.12)" /* Text/Primary 12% */,
+    },
+    primaryAction: {
+      selected: "rgba(0, 115, 230, 0.08)" /* Primary 8% */,
+      hover: "rgba(0, 115, 230, 0.12)" /* Primary 12% */,
     },
     /* Other */
     divider: "#E3E7EB",
