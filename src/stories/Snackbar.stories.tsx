@@ -1,7 +1,7 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import { Snackbar, IconButton, Button, Alert } from "@mui/material";
+import { Snackbar, IconButton, Button, Alert, Stack } from "@mui/material";
 
 /* Icons */
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
@@ -81,6 +81,23 @@ export const WithStatus: ComponentStory<typeof Alert> = (args) => {
 
     setOpen(false);
   };
+
+  const action = (
+    <Stack gap={1} direction="row" alignItems="center">
+      <Button size="small" variant="text">
+        Action
+      </Button>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseRoundedIcon fontSize="small" />
+      </IconButton>
+    </Stack>
+  );
+
   return (
     <div>
       <Button variant="contained" onClick={handleClick}>
@@ -91,6 +108,7 @@ export const WithStatus: ComponentStory<typeof Alert> = (args) => {
           onClose={handleClose}
           variant="outlined"
           sx={{ width: "100%" }}
+          action={action}
           {...args}
         >
           An important message you should read
