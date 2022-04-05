@@ -5414,21 +5414,21 @@ eslint-plugin-react@^7.21.5, eslint-plugin-react@^7.29.4:
     semver "^6.3.0"
     string.prototype.matchall "^4.0.6"
 
-eslint-plugin-sonar@^0.7.1:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-sonar/-/eslint-plugin-sonar-0.7.1.tgz#9b920aee8b3b341405c7101fa3635e70a9e0632b"
-  integrity sha512-L1vh4zPKvrs05nuCPRJsFDstjS/vQRTUkIfqXHozq+R0GzPouYvBvVRiOsuBenxvTY3RPZ5aNdgfruZWKGygGg==
+eslint-plugin-sonar@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-sonar/-/eslint-plugin-sonar-0.8.0.tgz#c67b3da53ca3a8531e3e333891b54c1d92f1176b"
+  integrity sha512-5ZqgYIY1NSyR80v9RXbgwaK/jkHuGmuBa7ybsDEhwPydGplYvoj4zx8ahR8II7SoIOXPuzeh8HifEvKQSxu0iQ==
   dependencies:
     "@babel/eslint-parser" "^7.17.0"
     builtin-modules "^3.2.0"
     bytes "^3.1.2"
-    eslint-plugin-sonarjs "^0.12.0"
+    eslint-plugin-sonarjs "^0.13.0"
     scslre "^0.1.6"
 
-eslint-plugin-sonarjs@^0.12.0:
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-sonarjs/-/eslint-plugin-sonarjs-0.12.0.tgz#03a160a58f179fde084135baec08656b59786b8c"
-  integrity sha512-soxjK67hoYxO8hesKqXWN50GSM+oG2r35N5WnAMehetahO6zoVpv3HZbdziP0jYWNopEe6te/BFUZOYAZI+qhg==
+eslint-plugin-sonarjs@^0.13.0:
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-sonarjs/-/eslint-plugin-sonarjs-0.13.0.tgz#c34d140cc90abaaed38f5a5201a2ccdebe398862"
+  integrity sha512-t3m7ta0EspzDxSOZh3cEOJIJVZgN/TlJYaBGnQlK6W/PZNbWep8q4RQskkJkA7/zwNpX0BaoEOSUUrqaADVoqA==
 
 eslint-plugin-sonarjs@^0.5.0:
   version "0.5.0"
