@@ -610,6 +610,31 @@ export const theme = createTheme(foundation, {
       },
     },
     /* END Alert */
+    /* START Card */
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: foundation.spacing(1),
+          boxShadow: foundation.shadows[16],
+        },
+      },
+    },
+    MuiCardContent: {
+      styleOverrides: {
+        root: {
+          padding: foundation.spacing(3),
+        },
+      },
+    },
+    MuiCardActions: {
+      styleOverrides: {
+        root: {
+          padding: foundation.spacing(3),
+          paddingTop: 0,
+        },
+      },
+    },
+    /* END Card */
     /* START Snackbar */
     MuiSnackbarContent: {
       styleOverrides: {
