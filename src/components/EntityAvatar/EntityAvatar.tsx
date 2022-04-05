@@ -8,11 +8,11 @@ export interface EntityAvatarProps {
   /** The id attribute added to the element */
   id?: string;
   /** The logo src */
-  customSrc?: string | undefined;
+  customSrc: string | undefined;
   /** The alt text showed instead of the image */
-  customAlt?: string | undefined;
+  customAlt: string | undefined;
   /** Logo Dimension set in pixels */
-  size: number;
+  size?: number;
   /** If true it will not display the component */
   /* loading?: boolean; */
 }
@@ -35,7 +35,7 @@ export const EntityAvatar = ({
         ? theme.palette.background.paper
         : theme.palette.grey[200],
       boxSizing: "border-box",
-      padding: theme.spacing(1) /* 8px */,
+      padding: theme.spacing(0.75) /* 6px */,
       /* Color of the fallback icon */
       color: theme.palette.text.disabled,
       "& .MuiAvatar-img": {

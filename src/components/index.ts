@@ -4,3 +4,5 @@ export * from "./Tag";
 export * from "./TagGroup";
 export * from "./Illustration";
 export * from "./EntityAvatar";
+export * from "./EntityAccountItem";
+export * from "./EntityAccountItemButton";
