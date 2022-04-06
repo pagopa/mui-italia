@@ -615,7 +615,9 @@ export const theme = createTheme(foundation, {
       styleOverrides: {
         root: {
           borderRadius: foundation.spacing(1),
-          boxShadow: foundation.shadows[16],
+          "&.MuiPaper-elevation8": {
+            boxShadow: foundation.shadows[16],
+          },
         },
       },
     },

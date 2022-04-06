@@ -50,8 +50,31 @@ Default.parameters = {
   controls: { hideNoControlsWarning: true },
 };
 
+export const Raised: ComponentStory<typeof Card> = () => (
+  <Card raised sx={{ minWidth: 275, maxWidth: 300 }}>
+    <CardContent>
+      <Typography variant="h6" gutterBottom>
+        Check IBAN
+      </Typography>
+      <Typography variant="body2">
+        Verifica l&apos;abbinamento di un IBAN ad un CF di un cittadino o di
+        un&apos;impresa.
+      </Typography>
+    </CardContent>
+    <CardActions>
+      <Button variant="outlined" size="small">
+        Attiva prodotto
+      </Button>
+    </CardActions>
+  </Card>
+);
+
+Raised.parameters = {
+  controls: { hideNoControlsWarning: true },
+};
+
 export const WithMedia: ComponentStory<typeof Card> = () => (
-  <Card sx={{ maxWidth: 300 }}>
+  <Card raised sx={{ maxWidth: 300 }}>
     <CardMedia
       component="img"
       height="200"
