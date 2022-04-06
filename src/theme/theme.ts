@@ -1,5 +1,4 @@
 import { createTheme, Theme, alpha } from "@mui/material/styles";
-import { createBreakpoints } from "@mui/system";
 
 /* Design Tokens */
 import { italia } from "@tokens";
@@ -9,8 +8,6 @@ import "@fontsource/titillium-web/300.css";
 import "@fontsource/titillium-web/400.css";
 import "@fontsource/titillium-web/600.css";
 import "@fontsource/titillium-web/700.css";
-
-const breakpoints = createBreakpoints({});
 
 export function pxToRem(value: number): string {
   return `${value / 16}rem`;
@@ -124,6 +121,15 @@ declare module "@mui/material/IconButton" {
 }
 
 const foundation: Theme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 640,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
   palette: {
     mode: "light",
     background: {
@@ -213,6 +219,16 @@ const foundation: Theme = createTheme({
     fontWeightBold: 700,
     fontSize: 16,
     htmlFontSize: 16,
+  },
+  shadows: { ...shadowsArray, ...shadowValues },
+  shape: {
+    borderRadius: 4,
+  },
+  spacing: 8,
+});
+
+export const theme = createTheme(foundation, {
+  typography: {
     /* H1 Large */
     headline: {
       fontSize: pxToRem(56),
@@ -227,7 +243,7 @@ const foundation: Theme = createTheme({
       lineHeight: 1.2 /* 48px */,
       fontWeight: 700,
       letterSpacing: -0.5,
-      [breakpoints.up(responsiveBreakpoint)]: {
+      [foundation.breakpoints.up(responsiveBreakpoint)]: {
         fontSize: pxToRem(56),
         lineHeight: 1.15 /* 64px */,
       },
@@ -237,7 +253,7 @@ const foundation: Theme = createTheme({
       lineHeight: 1.25 /* 40px */,
       fontWeight: 700,
       letterSpacing: -0.2,
-      [breakpoints.up(responsiveBreakpoint)]: {
+      [foundation.breakpoints.up(responsiveBreakpoint)]: {
         fontSize: pxToRem(48),
         lineHeight: 1.25 /* 60px */,
       },
@@ -247,7 +263,7 @@ const foundation: Theme = createTheme({
       lineHeight: 1.15 /* ~32px */,
       fontWeight: 700,
       letterSpacing: -0.17,
-      [breakpoints.up(responsiveBreakpoint)]: {
+      [foundation.breakpoints.up(responsiveBreakpoint)]: {
         fontSize: pxToRem(40),
         lineHeight: 1.2 /* 48px */,
       },
@@ -257,7 +273,7 @@ const foundation: Theme = createTheme({
       lineHeight: 1.15 /* ~28px */,
       fontWeight: 700,
       letterSpacing: 0,
-      [breakpoints.up(responsiveBreakpoint)]: {
+      [foundation.breakpoints.up(responsiveBreakpoint)]: {
         fontSize: pxToRem(32),
         lineHeight: 1.25 /* 40px */,
       },
@@ -267,7 +283,7 @@ const foundation: Theme = createTheme({
       lineHeight: 1.2 /* 24px */,
       fontWeight: 400,
       letterSpacing: 0,
-      [breakpoints.up(responsiveBreakpoint)]: {
+      [foundation.breakpoints.up(responsiveBreakpoint)]: {
         fontSize: pxToRem(28),
         lineHeight: 1.4 /* ~40px */,
       },
@@ -277,7 +293,7 @@ const foundation: Theme = createTheme({
       lineHeight: 1.5 /* 24px */,
       fontWeight: 600,
       letterSpacing: 0,
-      [breakpoints.up(responsiveBreakpoint)]: {
+      [foundation.breakpoints.up(responsiveBreakpoint)]: {
         fontSize: pxToRem(28),
         lineHeight: 1.4 /* ~40px */,
       },
@@ -295,9 +311,9 @@ const foundation: Theme = createTheme({
       fontWeight: 400,
       letterSpacing: 0,
       /* a: {
-        color: italia[500],
-        textDecoration: "underline",
-      }, */
+    color: italia[500],
+    textDecoration: "underline",
+  }, */
     },
     body2: {
       fontSize: pxToRem(16),
@@ -305,9 +321,9 @@ const foundation: Theme = createTheme({
       fontWeight: 400,
       letterSpacing: 0.15,
       /* a: {
-        color: italia[500],
-        textDecoration: "underline",
-      }, */
+    color: italia[500],
+    textDecoration: "underline",
+  }, */
     },
     button: {
       fontWeight: 700,
@@ -347,14 +363,6 @@ const foundation: Theme = createTheme({
     },
     /* End: To be revised */
   },
-  shadows: { ...shadowsArray, ...shadowValues },
-  shape: {
-    borderRadius: 4,
-  },
-  spacing: 8,
-});
-
-export const theme = createTheme(foundation, {
   components: {
     MuiButton: {
       defaultProps: {
@@ -508,7 +516,9 @@ export const theme = createTheme(foundation, {
       styleOverrides: {
         label: {
           fontSize: pxToRem(14),
-          [breakpoints.up(responsiveBreakpoint)]: { fontSize: pxToRem(14) },
+          [foundation.breakpoints.up(responsiveBreakpoint)]: {
+            fontSize: pxToRem(14),
+          },
           "&.Mui-completed": {
             fontWeight: 600,
           },
@@ -527,7 +537,7 @@ export const theme = createTheme(foundation, {
           padding: foundation.spacing(1),
           color: colorTextPrimary,
           alignItems: "center",
-          [breakpoints.up(responsiveBreakpoint)]: {
+          [foundation.breakpoints.up(responsiveBreakpoint)]: {
             padding: foundation.spacing(2),
           },
         },
@@ -536,7 +546,7 @@ export const theme = createTheme(foundation, {
           padding: 0,
           alignItems: "center",
           marginRight: foundation.spacing(1),
-          [breakpoints.up(responsiveBreakpoint)]: {
+          [foundation.breakpoints.up(responsiveBreakpoint)]: {
             marginRight: foundation.spacing(2),
           },
         },
@@ -603,7 +613,7 @@ export const theme = createTheme(foundation, {
           letterSpacing: 0.15,
           margin: 0,
           /* It inherits from `body1`, so I have to reset -_- */
-          [breakpoints.up(responsiveBreakpoint)]: {
+          [foundation.breakpoints.up(responsiveBreakpoint)]: {
             fontSize: pxToRem(16),
           },
         },
@@ -615,6 +625,8 @@ export const theme = createTheme(foundation, {
       styleOverrides: {
         root: {
           borderRadius: foundation.spacing(1),
+          /* There's no attribute exposed for this,
+          so I have to use the class name */
           "&.MuiPaper-elevation8": {
             boxShadow: foundation.shadows[16],
           },
