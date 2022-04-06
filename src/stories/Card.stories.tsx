@@ -63,8 +63,8 @@ export const WithMedia: ComponentStory<typeof Card> = () => (
         Check IBAN
       </Typography>
       <Typography variant="body2">
-        Verifica l'abbinamento di un IBAN ad un CF di un cittadino o di
-        un’impresa.
+        Verifica l&apos;abbinamento di un IBAN ad un CF di un cittadino o di
+        un&apos;impresa.
       </Typography>
     </CardContent>
     <CardActions>
