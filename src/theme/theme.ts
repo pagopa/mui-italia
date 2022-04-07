@@ -215,6 +215,7 @@ const foundation: Theme = createTheme({
     /* Using a constant because type variants
     don't inherit the typeface font family */
     fontFamily: mainTypeface,
+    fontWeightRegular: 400,
     fontWeightMedium: 600 /* Semibold */,
     fontWeightBold: 700,
     fontSize: 16,
@@ -235,13 +236,13 @@ export const theme = createTheme(foundation, {
       fontFamily: mainTypeface,
       color: colorTextPrimary,
       lineHeight: 1.1 /* ~60px */,
-      fontWeight: 700,
+      fontWeight: foundation.typography.fontWeightBold,
       letterSpacing: -0.5,
     },
     h1: {
       fontSize: pxToRem(40),
       lineHeight: 1.2 /* 48px */,
-      fontWeight: 700,
+      fontWeight: foundation.typography.fontWeightBold,
       letterSpacing: -0.5,
       [foundation.breakpoints.up(responsiveBreakpoint)]: {
         fontSize: pxToRem(56),
@@ -251,7 +252,7 @@ export const theme = createTheme(foundation, {
     h2: {
       fontSize: pxToRem(32),
       lineHeight: 1.25 /* 40px */,
-      fontWeight: 700,
+      fontWeight: foundation.typography.fontWeightBold,
       letterSpacing: -0.2,
       [foundation.breakpoints.up(responsiveBreakpoint)]: {
         fontSize: pxToRem(48),
@@ -261,7 +262,7 @@ export const theme = createTheme(foundation, {
     h3: {
       fontSize: pxToRem(28),
       lineHeight: 1.15 /* ~32px */,
-      fontWeight: 700,
+      fontWeight: foundation.typography.fontWeightBold,
       letterSpacing: -0.17,
       [foundation.breakpoints.up(responsiveBreakpoint)]: {
         fontSize: pxToRem(40),
@@ -271,7 +272,7 @@ export const theme = createTheme(foundation, {
     h4: {
       fontSize: pxToRem(24),
       lineHeight: 1.15 /* ~28px */,
-      fontWeight: 700,
+      fontWeight: foundation.typography.fontWeightBold,
       letterSpacing: 0,
       [foundation.breakpoints.up(responsiveBreakpoint)]: {
         fontSize: pxToRem(32),
@@ -281,7 +282,7 @@ export const theme = createTheme(foundation, {
     h5: {
       fontSize: pxToRem(20),
       lineHeight: 1.2 /* 24px */,
-      fontWeight: 400,
+      fontWeight: foundation.typography.fontWeightRegular,
       letterSpacing: 0,
       [foundation.breakpoints.up(responsiveBreakpoint)]: {
         fontSize: pxToRem(28),
@@ -291,7 +292,7 @@ export const theme = createTheme(foundation, {
     h6: {
       fontSize: pxToRem(16),
       lineHeight: 1.5 /* 24px */,
-      fontWeight: 600,
+      fontWeight: foundation.typography.fontWeightMedium,
       letterSpacing: 0,
       [foundation.breakpoints.up(responsiveBreakpoint)]: {
         fontSize: pxToRem(28),
@@ -303,12 +304,12 @@ export const theme = createTheme(foundation, {
       fontSize: pxToRem(18),
       lineHeight: 1.5 /* ~28px */,
       color: colorTextPrimary,
-      fontWeight: 600,
+      fontWeight: foundation.typography.fontWeightMedium,
     },
     body1: {
       fontSize: pxToRem(18),
       lineHeight: 1.5 /* ~28px */,
-      fontWeight: 400,
+      fontWeight: foundation.typography.fontWeightRegular,
       letterSpacing: 0,
       /* a: {
     color: italia[500],
@@ -318,7 +319,7 @@ export const theme = createTheme(foundation, {
     body2: {
       fontSize: pxToRem(16),
       lineHeight: 1.4 /* ~20px */,
-      fontWeight: 400,
+      fontWeight: foundation.typography.fontWeightRegular,
       letterSpacing: 0.15,
       /* a: {
     color: italia[500],
@@ -326,7 +327,7 @@ export const theme = createTheme(foundation, {
   }, */
     },
     button: {
-      fontWeight: 700,
+      fontWeight: foundation.typography.fontWeightBold,
       lineHeight: 1.2,
       textTransform: "none",
       letterSpacing: 0,
@@ -334,19 +335,19 @@ export const theme = createTheme(foundation, {
     caption: {
       fontSize: pxToRem(14),
       lineHeight: 1.4 /* ~20px */,
-      fontWeight: 400,
+      fontWeight: foundation.typography.fontWeightRegular,
     },
     "caption-semibold": {
       fontFamily: mainTypeface,
       fontSize: pxToRem(14),
       lineHeight: 1.4 /* ~20px */,
       color: colorTextPrimary,
-      fontWeight: 600,
+      fontWeight: foundation.typography.fontWeightMedium,
     },
     overline: {
       fontSize: pxToRem(14),
       lineHeight: 1.15 /* ~16px */,
-      fontWeight: 700,
+      fontWeight: foundation.typography.fontWeightBold,
       letterSpacing: 1,
     },
 
@@ -356,10 +357,10 @@ export const theme = createTheme(foundation, {
         color: italia[500],
         textDecoration: "underline",
       },
-      fontWeight: 600,
+      fontWeight: foundation.typography.fontWeightMedium,
     },
     subtitle2: {
-      fontWeight: 600,
+      fontWeight: foundation.typography.fontWeightMedium,
     },
     /* End: To be revised */
   },
@@ -491,7 +492,7 @@ export const theme = createTheme(foundation, {
         tooltip: {
           fontSize: pxToRem(14),
           backgroundColor: "#455B71",
-          fontWeight: 600,
+          fontWeight: foundation.typography.fontWeightMedium,
           textAlign: "center",
           boxShadow: foundation.shadows[16],
         },
@@ -520,10 +521,10 @@ export const theme = createTheme(foundation, {
             fontSize: pxToRem(14),
           },
           "&.Mui-completed": {
-            fontWeight: 600,
+            fontWeight: foundation.typography.fontWeightMedium,
           },
           "&.Mui-active": {
-            fontWeight: 600,
+            fontWeight: foundation.typography.fontWeightMedium,
           },
         },
       },
@@ -609,7 +610,7 @@ export const theme = createTheme(foundation, {
       styleOverrides: {
         root: {
           fontSize: pxToRem(16),
-          fontWeight: 600,
+          fontWeight: foundation.typography.fontWeightMedium,
           letterSpacing: 0.15,
           margin: 0,
           /* It inherits from `body1`, so I have to reset -_- */
@@ -672,7 +673,7 @@ export const theme = createTheme(foundation, {
       styleOverrides: {
         badge: {
           fontSize: pxToRem(14),
-          fontWeight: 600,
+          fontWeight: foundation.typography.fontWeightMedium,
           letterSpacing: 0.15,
           "&.MuiBadge-sidenav": {
             fontSize: pxToRem(12),
@@ -694,7 +695,7 @@ export const theme = createTheme(foundation, {
         },
         label: {
           fontSize: pxToRem(14),
-          fontWeight: 600,
+          fontWeight: foundation.typography.fontWeightMedium,
           lineHeight: 1.3 /* ~18px */,
           letterSpacing: 0.5,
           textAlign: "center",
@@ -719,7 +720,7 @@ export const theme = createTheme(foundation, {
           },
         },
         avatar: {
-          fontWeight: 400,
+          fontWeight: foundation.typography.fontWeightRegular,
         },
         outlined: {
           borderRadius: foundation.spacing(5),
@@ -785,14 +786,14 @@ export const theme = createTheme(foundation, {
     MuiInput: {
       styleOverrides: {
         root: {
-          fontWeight: 600,
+          fontWeight: foundation.typography.fontWeightMedium,
         },
       },
     },
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          fontWeight: 600,
+          fontWeight: foundation.typography.fontWeightMedium,
           "& .MuiOutlinedInput-notchedOutline": {},
           "&.Mui-error .MuiOutlinedInput-notchedOutline": {
             borderColor: foundation.palette.error.dark,
@@ -804,7 +805,7 @@ export const theme = createTheme(foundation, {
       styleOverrides: {
         root: {
           color: foundation.palette.text.secondary,
-          fontWeight: 600,
+          fontWeight: foundation.typography.fontWeightMedium,
           "&.Mui-error": {
             color: foundation.palette.error.dark,
           },
@@ -826,7 +827,7 @@ export const theme = createTheme(foundation, {
           fontSize: pxToRem(12),
           lineHeight: 1.25 /* 15px */,
           color: foundation.palette.text.secondary,
-          fontWeight: 600,
+          fontWeight: foundation.typography.fontWeightMedium,
           letterSpacing: 0.5,
           "&.Mui-error": {
             color: foundation.palette.error.dark,
@@ -886,7 +887,7 @@ export const theme = createTheme(foundation, {
           margin: 0,
         },
         primary: {
-          fontWeight: 600,
+          fontWeight: foundation.typography.fontWeightMedium,
           color: "currentColor",
         },
       },
@@ -935,7 +936,7 @@ export const theme = createTheme(foundation, {
       },
       styleOverrides: {
         root: {
-          fontWeight: 600,
+          fontWeight: foundation.typography.fontWeightMedium,
           "& .MuiListItemIcon-root": {
             color: foundation.palette.action.active,
             fontSize: pxToRem(20),
@@ -969,7 +970,7 @@ export const theme = createTheme(foundation, {
     MuiTableHead: {
       styleOverrides: {
         root: {
-          fontWeight: 600,
+          fontWeight: foundation.typography.fontWeightMedium,
         },
       },
     },
