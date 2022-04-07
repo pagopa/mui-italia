@@ -15,12 +15,12 @@ import { FooterPreLogin } from "@components/FooterPreLogin";
 export type LinkType = "internal" | "external";
 
 type FooterProps = /* LangSwitchProps &  */ {
-  /* Waiting for the kind of control (see JwtUser above),
+  /* Waiting for the type of control (see JwtUser above),
   we use a simple Boolean prop */
-  loggedUser?: boolean;
+  loggedUser: boolean;
   companyLink: CompanyLinkType;
   postLoginLinks: Array<FooterLinksType>;
-  /* preLoginLinks: Array<FooterLinksType>; */
+  preLoginLinks: PreLoginFooterLinksType;
   legalInfo: JSX.Element | Array<JSX.Element>;
   onExit?: (href: string, linkType: LinkType) => void;
 };
@@ -32,6 +32,29 @@ export type FooterLinksType = {
   linkType: LinkType;
 };
 
+export type PreLoginFooterSingleSectionType = {
+  title?: string;
+  links: Array<FooterLinksType>;
+};
+
+export type PreLoginFooterSocialLink = {
+  icon: string;
+  href: string;
+  title: string;
+  ariaLabel: string;
+};
+
+export type PreLoginFooterLinksType = {
+  aboutUs: PreLoginFooterSingleSectionType;
+  productsAndServices: PreLoginFooterSingleSectionType;
+  resources: PreLoginFooterSingleSectionType;
+  followUs: {
+    title: string;
+    socialLinks: Array<PreLoginFooterSocialLink>;
+    links: Array<FooterLinksType>;
+  };
+};
+
 export type CompanyLinkType = {
   href: string;
   ariaLabel: string;
@@ -41,7 +64,7 @@ export const Footer = ({
   /* ...langProps */
   companyLink,
   postLoginLinks,
-  /* preLoginLinks, */
+  preLoginLinks,
   legalInfo,
   loggedUser,
   onExit,
@@ -50,11 +73,11 @@ export const Footer = ({
     {loggedUser ? (
       <FooterPostLogin
         companyLink={companyLink}
-        postLoginLinks={postLoginLinks}
+        links={postLoginLinks}
         onExit={onExit}
       />
     ) : (
-      <FooterPreLogin companyLink={companyLink} />
+      <FooterPreLogin companyLink={companyLink} links={preLoginLinks} />
     )}
     <FooterLegal content={legalInfo} />
   </Box>

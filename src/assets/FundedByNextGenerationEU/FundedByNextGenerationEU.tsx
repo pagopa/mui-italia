@@ -21,18 +21,18 @@ export type NextGenerationEUColors = "light" | "dark" | "pantone";
 
 export interface FundedByNextGenerationEUPropsProps {
   /** Provides a human-readable title for the element that contains it. */
-  title: string;
+  title?: string;
   /** Width of the component. Height is set automatically. */
-  size: number;
+  size?: number;
   /** The variant to use. If the color variant is set,
    * the color property is ignored. */
-  variant: NextGeneratioNEUVariants;
+  variant?: NextGeneratioNEUVariants;
   /** The color of the component. */
-  color: NextGenerationEUColors;
+  color?: NextGenerationEUColors;
 }
 
 const colorMap = {
-  dark: theme.palette.common.black,
+  dark: theme.palette.text.primary,
   light: theme.palette.common.white,
   pantone: theme.palette.europeanUnion.main,
 };

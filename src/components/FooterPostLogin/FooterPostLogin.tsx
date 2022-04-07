@@ -7,14 +7,14 @@ import { LogoPagoPACompany } from "@assets/LogoPagoPACompany";
 
 type FooterPostLoginProps = /* LangSwitchProps &  */ {
   companyLink: CompanyLinkType;
-  postLoginLinks: Array<FooterLinksType>;
+  links: Array<FooterLinksType>;
   onExit?: (href: string, linkType: LinkType) => void;
 };
 
 export const FooterPostLogin = ({
   /* ...langProps */
   companyLink,
-  postLoginLinks,
+  links,
   onExit,
 }: FooterPostLoginProps): JSX.Element => {
   const wrapHandleClick =
@@ -55,7 +55,7 @@ export const FooterPostLogin = ({
             direction={{ xs: "column", sm: "row" }}
             sx={{ alignItems: "center" }}
           >
-            {postLoginLinks.map(({ href, label, ariaLabel, linkType }, i) => (
+            {links.map(({ href, label, ariaLabel, linkType }, i) => (
               <Link
                 aria-label={ariaLabel}
                 component="button"

@@ -360,6 +360,7 @@ export const theme = createTheme(foundation, {
       fontWeight: foundation.typography.fontWeightMedium,
     },
     subtitle2: {
+      fontSize: pxToRem(14),
       fontWeight: foundation.typography.fontWeightMedium,
     },
     /* End: To be revised */
