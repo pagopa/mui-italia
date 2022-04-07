@@ -6,3 +6,7 @@ export * from "./Illustration";
 export * from "./EntityAvatar";
 export * from "./EntityAccountItem";
 export * from "./EntityAccountItemButton";
+export * from "./Footer";
+export * from "./FooterLegal";
+export * from "./FooterPostLogin";
+export * from "./LangSwitch";
