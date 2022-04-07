@@ -50,19 +50,19 @@ const postLoginLinks: Array<FooterLinksType> = [
   {
     label: "Privacy policy",
     href: "#privacy-policy",
-    ariaLabel: "Vai al link: privacy policy",
+    ariaLabel: "Vai al link: Privacy policy",
     linkType: "internal",
   },
   {
     label: "Termini e condizioni",
     href: "#terms-conditions",
-    ariaLabel: "Vai al link: termini e condizioni",
+    ariaLabel: "Vai al link: Termini e condizioni",
     linkType: "internal",
   },
   {
     label: "Accessibilità",
     href: "#accessibility",
-    ariaLabel: "Vai al link: accessibilità",
+    ariaLabel: "Vai al link: Accessibilità",
     linkType: "internal",
   },
 ];

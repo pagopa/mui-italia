@@ -1,6 +1,7 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { FooterLegal } from "@components/FooterLegal";
 import { FooterPostLogin } from "@components/FooterPostLogin";
+import { FooterPreLogin } from "@components/FooterPreLogin";
 /* import { LangSwitchProps } from "@components/LangSwitch";  */
 
 // We need to validate this. It might be possible that the fields differ from product to product
@@ -53,19 +54,8 @@ export const Footer = ({
         onExit={onExit}
       />
     ) : (
-      <Box
-        sx={{
-          textAlign: "center",
-          borderTop: 1,
-          borderColor: "divider",
-          backgroundColor: "background.paper",
-          py: 2,
-        }}
-      >
-        <Typography variant="h6">Pre Login Footer</Typography>
-      </Box>
+      <FooterPreLogin companyLink={companyLink} />
     )}
-    {/* <FooterPreLogin companyLink={companyLink} /> */}
     <FooterLegal content={legalInfo} />
   </Box>
 );

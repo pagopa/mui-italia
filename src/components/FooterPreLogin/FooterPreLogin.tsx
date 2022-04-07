@@ -1,22 +1,22 @@
 import React from "react";
-import { Stack, Box, Container, Link } from "@mui/material";
-import { CompanyLinkType, FooterLinksType, LinkType } from "@components/Footer";
+import { Stack, Box, Typography, Container, Link } from "@mui/material";
+import { CompanyLinkType, LinkType } from "@components/Footer";
 /* import { LangSwitch LangSwitchProps } from "@components/LangSwitch"; */
 
 import { LogoPagoPACompany } from "@assets/LogoPagoPACompany";
 
-type FooterPostLoginProps = /* LangSwitchProps &  */ {
+type FooterPreLoginProps = /* LangSwitchProps &  */ {
   companyLink: CompanyLinkType;
-  postLoginLinks: Array<FooterLinksType>;
+  /* preLoginLinks: Array<FooterLinksType>; */
   onExit?: (href: string, linkType: LinkType) => void;
 };
 
-export const FooterPostLogin = ({
+export const FooterPreLogin = ({
   /* ...langProps */
   companyLink,
-  postLoginLinks,
+  /* preLoginLinks, */
   onExit,
-}: FooterPostLoginProps): JSX.Element => {
+}: FooterPreLoginProps): JSX.Element => {
   const wrapHandleClick =
     (href: string, linkType: "internal" | "external") =>
     (e: React.SyntheticEvent) => {
@@ -55,21 +55,7 @@ export const FooterPostLogin = ({
             direction={{ xs: "column", sm: "row" }}
             sx={{ alignItems: "center" }}
           >
-            {postLoginLinks.map(({ href, label, ariaLabel, linkType }, i) => (
-              <Link
-                aria-label={ariaLabel}
-                component="button"
-                onClick={wrapHandleClick(href, linkType as LinkType)}
-                key={i}
-                underline="none"
-                color="text.primary"
-                sx={{ display: "inline-block" }}
-                variant="caption"
-                fontWeight="700"
-              >
-                {label}
-              </Link>
-            ))}
+            <Typography variant="body2">Pre Login Footer</Typography>
 
             {/* <LangSwitch {...langProps} /> */}
           </Stack>

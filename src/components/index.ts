@@ -9,4 +9,5 @@ export * from "./EntityAccountItemButton";
 export * from "./Footer";
 export * from "./FooterLegal";
 export * from "./FooterPostLogin";
+export * from "./FooterPreLogin";
 export * from "./LangSwitch";
