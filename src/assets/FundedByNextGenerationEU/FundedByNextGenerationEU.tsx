@@ -63,6 +63,7 @@ export const FundedByNextGenerationEU = ({
       /* If the color variant is set,
       the following property is ignored */
       fill: colorMap[color],
+      maxWidth: "100%",
     }}
   >
     {variant === "color" ? variantColorMap[color] : variantMap[variant]}

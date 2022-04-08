@@ -11,6 +11,7 @@ import { LangSwitch, LangSwitchProps } from "@components/LangSwitch";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import LinkedIcon from "@mui/icons-material/LinkedIn";
 import InstagramIcon from "@mui/icons-material/Instagram";
+import { MediumIcon } from "@icons/MediumIcon";
 
 import { LogoPagoPACompany } from "@assets/LogoPagoPACompany";
 import { FundedByNextGenerationEU } from "@assets/FundedByNextGenerationEU";
@@ -45,6 +46,7 @@ export const FooterPreLogin = ({
     linkedin: <LinkedIcon />,
     twitter: <TwitterIcon />,
     instagram: <InstagramIcon />,
+    medium: <MediumIcon />,
   };
 
   return (
@@ -176,11 +178,11 @@ export const FooterPreLogin = ({
 
                 <Stack alignItems={{ xs: "center", sm: "start" }}>
                   <Stack
-                    spacing={{ xs: 3, sm: 2, lg: 3 }}
+                    spacing={{ xs: 3, sm: 1.5, lg: 3 }}
                     direction="row"
                     component="ul"
                     alignItems={{ xs: "center", sm: "start" }}
-                    sx={{ padding: 0, listStyle: "none" }}
+                    sx={{ padding: 0, mt: 0.5, listStyle: "none" }}
                   >
                     {followUs?.socialLinks.map(
                       ({ icon, href, ariaLabel }, i) => (

@@ -1,4 +1,4 @@
-import { useState } from "react";
+/* import { useState } from "react"; */
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import {
   Footer,
@@ -41,7 +41,7 @@ const LANGUAGES = {
   en: { it: "Italian", en: "English" },
 };
 
-type LangCode = "it" | "en";
+/* type LangCode = "it" | "en"; */
 
 /*
 Links Section
@@ -239,11 +239,12 @@ const preLoginLinks: PreLoginFooterLinksType = {
         href: "https://www.instagram.com/pagopa/",
         ariaLabel: "Link: vai al sito Instagram di PagoPA S.p.A.",
       },
-      /* {
+      {
+        icon: "medium",
         title: "Medium",
         href: "https://medium.com/pagopa",
         ariaLabel: "Link: vai al sito Medium di PagoPA S.p.A.",
-      }, */
+      },
     ],
     links: [
       {
@@ -256,46 +257,46 @@ const preLoginLinks: PreLoginFooterLinksType = {
   },
 };
 
-export const PreLogin: ComponentStory<typeof Footer> = () => {
-  const { lang, setLang } = useState<LangCode>("it");
+export const PreLogin: ComponentStory<typeof Footer> = () => (
+  /* const { lang, setLang } = useState<LangCode>("it"); */
 
-  return (
-    <Footer
-      loggedUser={false}
-      companyLink={pagoPALink}
-      legalInfo={companyLegalInfo}
-      postLoginLinks={postLoginLinks}
-      preLoginLinks={preLoginLinks}
-      currentLangCode={lang}
-      onLanguageChanged={(newLang) => {
-        setLang(newLang);
-      }}
-      languages={LANGUAGES}
-      onExit={(href, linkType) => {
-        console.log("Clicked on exit", href, linkType);
-      }}
-    />
-  );
-};
+  <Footer
+    loggedUser={false}
+    companyLink={pagoPALink}
+    legalInfo={companyLegalInfo}
+    postLoginLinks={postLoginLinks}
+    preLoginLinks={preLoginLinks}
+    currentLangCode={"it"}
+    onLanguageChanged={
+      (/* newLang */) => {
+        console.log("Changed Language");
+      }
+    }
+    languages={LANGUAGES}
+    onExit={(href, linkType) => {
+      console.log("Clicked on exit", href, linkType);
+    }}
+  />
+);
 
-export const PostLogin: ComponentStory<typeof Footer> = () => {
-  const { lang, setLang } = useState<LangCode>("it");
+export const PostLogin: ComponentStory<typeof Footer> = () => (
+  /* const { lang, setLang } = useState<LangCode>("it"); */
 
-  return (
-    <Footer
-      loggedUser
-      companyLink={pagoPALink}
-      legalInfo={companyLegalInfo}
-      postLoginLinks={postLoginLinks}
-      preLoginLinks={preLoginLinks}
-      currentLangCode={lang}
-      onLanguageChanged={(newLang) => {
-        setLang(newLang);
-      }}
-      languages={LANGUAGES}
-      onExit={(href, linkType) => {
-        console.log("Clicked on exit", href, linkType);
-      }}
-    />
-  );
-};
+  <Footer
+    loggedUser
+    companyLink={pagoPALink}
+    legalInfo={companyLegalInfo}
+    postLoginLinks={postLoginLinks}
+    preLoginLinks={preLoginLinks}
+    currentLangCode={"it"}
+    onLanguageChanged={
+      (/* newLang */) => {
+        console.log("Changed Language");
+      }
+    }
+    languages={LANGUAGES}
+    onExit={(href, linkType) => {
+      console.log("Clicked on exit", href, linkType);
+    }}
+  />
+);
