@@ -1,4 +1,4 @@
-/* import { useState } from "react";  */
+import { useState } from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import {
   Footer,
@@ -36,12 +36,12 @@ const companyLegalInfo = (
 /* 
 Languages Section
 */
-/* const LANGUAGES = {
+const LANGUAGES = {
   it: { it: "Italiano", en: "Inglese" },
   en: { it: "Italian", en: "English" },
-}; */
+};
 
-/* type LangCode = "it" | "en"; */
+type LangCode = "it" | "en";
 
 /*
 Links Section
@@ -256,42 +256,46 @@ const preLoginLinks: PreLoginFooterLinksType = {
   },
 };
 
-export const PreLogin: ComponentStory<typeof Footer> = () => (
-  /* const { lang, setLang } = useState<LangCode>("it"); */
+export const PreLogin: ComponentStory<typeof Footer> = () => {
+  const { lang, setLang } = useState<LangCode>("it");
 
-  <Footer
-    loggedUser={false}
-    companyLink={pagoPALink}
-    legalInfo={companyLegalInfo}
-    postLoginLinks={postLoginLinks}
-    preLoginLinks={preLoginLinks}
-    /* currentLangCode={lang} */
-    /* onLanguageChanged={(newLang) => {
+  return (
+    <Footer
+      loggedUser={false}
+      companyLink={pagoPALink}
+      legalInfo={companyLegalInfo}
+      postLoginLinks={postLoginLinks}
+      preLoginLinks={preLoginLinks}
+      currentLangCode={lang}
+      onLanguageChanged={(newLang) => {
         setLang(newLang);
-      }} */
-    /*  languages={LANGUAGES} */
-    onExit={(href, linkType) => {
-      console.log("Clicked on exit", href, linkType);
-    }}
-  />
-);
+      }}
+      languages={LANGUAGES}
+      onExit={(href, linkType) => {
+        console.log("Clicked on exit", href, linkType);
+      }}
+    />
+  );
+};
 
-export const PostLogin: ComponentStory<typeof Footer> = () => (
-  /* const { lang, setLang } = useState<LangCode>("it"); */
+export const PostLogin: ComponentStory<typeof Footer> = () => {
+  const { lang, setLang } = useState<LangCode>("it");
 
-  <Footer
-    loggedUser
-    companyLink={pagoPALink}
-    legalInfo={companyLegalInfo}
-    postLoginLinks={postLoginLinks}
-    preLoginLinks={preLoginLinks}
-    /* currentLangCode={lang} */
-    /* onLanguageChanged={(newLang) => {
+  return (
+    <Footer
+      loggedUser
+      companyLink={pagoPALink}
+      legalInfo={companyLegalInfo}
+      postLoginLinks={postLoginLinks}
+      preLoginLinks={preLoginLinks}
+      currentLangCode={lang}
+      onLanguageChanged={(newLang) => {
         setLang(newLang);
-      }} */
-    /*  languages={LANGUAGES} */
-    onExit={(href, linkType) => {
-      console.log("Clicked on exit", href, linkType);
-    }}
-  />
-);
+      }}
+      languages={LANGUAGES}
+      onExit={(href, linkType) => {
+        console.log("Clicked on exit", href, linkType);
+      }}
+    />
+  );
+};

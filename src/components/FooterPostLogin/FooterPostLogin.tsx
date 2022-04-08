@@ -1,21 +1,21 @@
 import React from "react";
 import { Stack, Box, Container, Link } from "@mui/material";
 import { CompanyLinkType, FooterLinksType, LinkType } from "@components/Footer";
-/* import { LangSwitch LangSwitchProps } from "@components/LangSwitch"; */
+import { LangSwitch, LangSwitchProps } from "@components/LangSwitch";
 
 import { LogoPagoPACompany } from "@assets/LogoPagoPACompany";
 
-type FooterPostLoginProps = /* LangSwitchProps &  */ {
+type FooterPostLoginProps = LangSwitchProps & {
   companyLink: CompanyLinkType;
   links: Array<FooterLinksType>;
   onExit?: (href: string, linkType: LinkType) => void;
 };
 
 export const FooterPostLogin = ({
-  /* ...langProps */
   companyLink,
   links,
   onExit,
+  ...langProps
 }: FooterPostLoginProps): JSX.Element => {
   const wrapHandleClick =
     (href: string, linkType: "internal" | "external") =>
@@ -71,7 +71,7 @@ export const FooterPostLogin = ({
               </Link>
             ))}
 
-            {/* <LangSwitch {...langProps} /> */}
+            <LangSwitch {...langProps} />
           </Stack>
         </Stack>
       </Container>

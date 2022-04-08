@@ -5,7 +5,7 @@ import {
   LinkType,
   PreLoginFooterLinksType,
 } from "@components/Footer";
-/* import { LangSwitch LangSwitchProps } from "@components/LangSwitch"; */
+import { LangSwitch, LangSwitchProps } from "@components/LangSwitch";
 
 /* Icons */
 import TwitterIcon from "@mui/icons-material/Twitter";
@@ -15,17 +15,17 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import { LogoPagoPACompany } from "@assets/LogoPagoPACompany";
 import { FundedByNextGenerationEU } from "@assets/FundedByNextGenerationEU";
 
-type FooterPreLoginProps = /* LangSwitchProps &  */ {
+type FooterPreLoginProps = LangSwitchProps & {
   companyLink: CompanyLinkType;
   links: PreLoginFooterLinksType;
   onExit?: (href: string, linkType: LinkType) => void;
 };
 
 export const FooterPreLogin = ({
-  /* ...langProps */
   companyLink,
   links,
   onExit,
+  ...langProps
 }: FooterPreLoginProps): JSX.Element => {
   const wrapHandleClick =
     (href: string, linkType: "internal" | "external") =>
@@ -226,7 +226,7 @@ export const FooterPreLogin = ({
                   )}
                 </Stack>
 
-                {/* <LangSwitch {...langProps} /> */}
+                <LangSwitch {...langProps} />
               </Stack>
 
               <FundedByNextGenerationEU size={180} />

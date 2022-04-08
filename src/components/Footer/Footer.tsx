@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import { FooterLegal } from "@components/FooterLegal";
 import { FooterPostLogin } from "@components/FooterPostLogin";
 import { FooterPreLogin } from "@components/FooterPreLogin";
-/* import { LangSwitchProps } from "@components/LangSwitch";  */
+import { LangSwitchProps } from "@components/LangSwitch";
 
 // We need to validate this. It might be possible that the fields differ from product to product
 /* type JwtUser = {
@@ -14,7 +14,7 @@ import { FooterPreLogin } from "@components/FooterPreLogin";
 
 export type LinkType = "internal" | "external";
 
-type FooterProps = /* LangSwitchProps &  */ {
+type FooterProps = LangSwitchProps & {
   /* Waiting for the type of control (see JwtUser above),
   we use a simple Boolean prop */
   loggedUser: boolean;
@@ -61,13 +61,14 @@ export type CompanyLinkType = {
 };
 
 export const Footer = ({
-  /* ...langProps */
   companyLink,
   postLoginLinks,
   preLoginLinks,
   legalInfo,
   loggedUser,
   onExit,
+  languages,
+  onLanguageChanged,
 }: FooterProps) => (
   <Box component="footer">
     {loggedUser ? (
@@ -75,9 +76,16 @@ export const Footer = ({
         companyLink={companyLink}
         links={postLoginLinks}
         onExit={onExit}
+        languages={languages}
+        onLanguageChanged={onLanguageChanged}
       />
     ) : (
-      <FooterPreLogin companyLink={companyLink} links={preLoginLinks} />
+      <FooterPreLogin
+        companyLink={companyLink}
+        links={preLoginLinks}
+        languages={languages}
+        onLanguageChanged={onLanguageChanged}
+      />
     )}
     <FooterLegal content={legalInfo} />
   </Box>

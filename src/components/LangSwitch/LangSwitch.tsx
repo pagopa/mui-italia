@@ -59,12 +59,7 @@ export function LangSwitch({
         >
           {currentLangCode && (
             <Box component="span" sx={{ textAlign: "left" }}>
-              <Typography
-                color="inherit"
-                component="span"
-                variant="caption"
-                sx={{ fontWeight: 700 }}
-              >
+              <Typography color="inherit" component="span" variant="subtitle2">
                 {languages[currentLangCode][currentLangCode]}
               </Typography>
             </Box>
@@ -87,15 +82,8 @@ export function LangSwitch({
               <MenuItem
                 key={i}
                 onClick={wrapUpdateActiveLang(langCode as LangCode)}
-                sx={{ display: "block" }}
               >
-                <Typography
-                  component="span"
-                  variant="caption"
-                  sx={{ fontWeight: 700 }}
-                >
-                  {languages[currentLangCode][langCode as LangCode]}
-                </Typography>
+                {languages[currentLangCode][langCode as LangCode]}
               </MenuItem>
             ))}
           </Menu>
