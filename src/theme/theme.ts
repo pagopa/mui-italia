@@ -226,84 +226,77 @@ export const theme = createTheme(foundation, {
   typography: {
     /* H1 Large */
     headline: {
-      fontSize: pxToRem(56),
+      fontSize: pxToRem(58),
       fontFamily: mainTypeface,
       color: colorTextPrimary,
-      lineHeight: 1.1 /* ~60px */,
+      lineHeight: 1.1 /* ~64px */,
       fontWeight: foundation.typography.fontWeightBold,
-      letterSpacing: -0.5,
     },
     h1: {
-      fontSize: pxToRem(40),
-      lineHeight: 1.2 /* 48px */,
+      fontSize: pxToRem(42),
+      lineHeight: 1.1 /* 46px */,
       fontWeight: foundation.typography.fontWeightBold,
-      letterSpacing: -0.5,
-      [breakpoints.up(responsiveBreakpoint)]: {
-        fontSize: pxToRem(56),
-        lineHeight: 1.15 /* 64px */,
+      [foundation.breakpoints.up(responsiveBreakpoint)]: {
+        fontSize: pxToRem(50),
+        lineHeight: 1.08 /* 54px */,
       },
     },
     h2: {
-      fontSize: pxToRem(32),
-      lineHeight: 1.25 /* 40px */,
+      fontSize: pxToRem(36),
+      lineHeight: 1.1 /* ~40px */,
       fontWeight: foundation.typography.fontWeightBold,
-      letterSpacing: -0.2,
-      [breakpoints.up(responsiveBreakpoint)]: {
-        fontSize: pxToRem(48),
-        lineHeight: 1.25 /* 60px */,
+      [foundation.breakpoints.up(responsiveBreakpoint)]: {
+        fontSize: pxToRem(44),
+        lineHeight: 1.09 /* ~48px */,
       },
     },
     h3: {
-      fontSize: pxToRem(28),
-      lineHeight: 1.15 /* ~32px */,
+      fontSize: pxToRem(32),
+      lineHeight: 1.125 /* 36px */,
       fontWeight: foundation.typography.fontWeightBold,
-      letterSpacing: -0.17,
-      [breakpoints.up(responsiveBreakpoint)]: {
-        fontSize: pxToRem(40),
-        lineHeight: 1.2 /* 48px */,
+      [foundation.breakpoints.up(responsiveBreakpoint)]: {
+        fontSize: pxToRem(38),
+        lineHeight: 1.1 /* ~42px */,
       },
     },
     h4: {
-      fontSize: pxToRem(24),
-      lineHeight: 1.15 /* ~28px */,
+      fontSize: pxToRem(28),
+      lineHeight: 1.15 /* ~32px */,
       fontWeight: foundation.typography.fontWeightBold,
-      letterSpacing: 0,
-      [breakpoints.up(responsiveBreakpoint)]: {
+      [foundation.breakpoints.up(responsiveBreakpoint)]: {
         fontSize: pxToRem(32),
-        lineHeight: 1.25 /* 40px */,
+        lineHeight: 1.125 /* 36px */,
       },
     },
     h5: {
-      fontSize: pxToRem(20),
-      lineHeight: 1.2 /* 24px */,
-      fontWeight: 400,
-      letterSpacing: 0,
-      [breakpoints.up(responsiveBreakpoint)]: {
+      fontSize: pxToRem(24),
+      lineHeight: 1.15 /* ~28px */,
+      fontWeight: foundation.typography.fontWeightMedium,
+      [foundation.breakpoints.up(responsiveBreakpoint)]: {
         fontSize: pxToRem(28),
-        lineHeight: 1.4 /* ~40px */,
+        lineHeight: 1.5 /* 42px */,
       },
     },
     h6: {
-      fontSize: pxToRem(16),
-      lineHeight: 1.5 /* 24px */,
+      fontSize: pxToRem(22),
+      lineHeight: 1.18 /* ~26px */,
       fontWeight: foundation.typography.fontWeightMedium,
-      letterSpacing: 0,
-      [breakpoints.up(responsiveBreakpoint)]: {
-        fontSize: pxToRem(28),
-        lineHeight: 1.4 /* ~40px */,
+      [foundation.breakpoints.up(responsiveBreakpoint)]: {
+        fontSize: pxToRem(24),
+        lineHeight: 1.15 /* ~28px */,
       },
     },
     sidenav: {
       fontFamily: mainTypeface,
       fontSize: pxToRem(18),
-      lineHeight: 1.5 /* ~28px */,
+      lineHeight: 1.35 /* ~24px */,
       color: colorTextPrimary,
       fontWeight: foundation.typography.fontWeightMedium,
     },
     body1: {
       fontSize: pxToRem(18),
       lineHeight: 1.5 /* ~28px */,
-      fontWeight: 400,
+      fontWeight: foundation.typography.fontWeightRegular,
       letterSpacing: 0,
       /* a: {
         color: italia[500],
@@ -313,7 +306,7 @@ export const theme = createTheme(foundation, {
     body2: {
       fontSize: pxToRem(16),
       lineHeight: 1.4 /* ~20px */,
-      fontWeight: 400,
+      fontWeight: foundation.typography.fontWeightRegular,
       letterSpacing: 0.15,
       /* a: {
         color: italia[500],
@@ -329,7 +322,7 @@ export const theme = createTheme(foundation, {
     caption: {
       fontSize: pxToRem(14),
       lineHeight: 1.4 /* ~20px */,
-      fontWeight: 400,
+      fontWeight: foundation.typography.fontWeightRegular,
     },
     "caption-semibold": {
       fontFamily: mainTypeface,
@@ -710,7 +703,7 @@ export const theme = createTheme(foundation, {
           },
         },
         avatar: {
-          fontWeight: 400,
+          fontWeight: foundation.typography.fontWeightRegular,
         },
         outlined: {
           borderRadius: foundation.spacing(5),
