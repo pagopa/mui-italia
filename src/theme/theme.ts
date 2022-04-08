@@ -1,5 +1,4 @@
 import { createTheme, Theme, alpha } from "@mui/material/styles";
-import { createBreakpoints } from "@mui/system";
 
 /* Design Tokens */
 import { italia } from "@tokens";
@@ -9,8 +8,6 @@ import "@fontsource/titillium-web/300.css";
 import "@fontsource/titillium-web/400.css";
 import "@fontsource/titillium-web/600.css";
 import "@fontsource/titillium-web/700.css";
-
-const breakpoints = createBreakpoints({});
 
 export function pxToRem(value: number): string {
   return `${value / 16}rem`;
@@ -124,6 +121,15 @@ declare module "@mui/material/IconButton" {
 }
 
 const foundation: Theme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 640,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
   palette: {
     mode: "light",
     background: {
@@ -209,7 +215,7 @@ const foundation: Theme = createTheme({
     /* Using a constant because type variants
     don't inherit the typeface font family */
     fontFamily: mainTypeface,
-    fontWeightRegular: 400 /* Semibold */,
+    fontWeightRegular: 400,
     fontWeightMedium: 600 /* Semibold */,
     fontWeightBold: 700,
     fontSize: 16,
@@ -299,9 +305,9 @@ export const theme = createTheme(foundation, {
       fontWeight: foundation.typography.fontWeightRegular,
       letterSpacing: 0,
       /* a: {
-        color: italia[500],
-        textDecoration: "underline",
-      }, */
+    color: italia[500],
+    textDecoration: "underline",
+  }, */
     },
     body2: {
       fontSize: pxToRem(16),
@@ -309,9 +315,9 @@ export const theme = createTheme(foundation, {
       fontWeight: foundation.typography.fontWeightRegular,
       letterSpacing: 0.15,
       /* a: {
-        color: italia[500],
-        textDecoration: "underline",
-      }, */
+    color: italia[500],
+    textDecoration: "underline",
+  }, */
     },
     button: {
       fontWeight: foundation.typography.fontWeightBold,
@@ -347,6 +353,7 @@ export const theme = createTheme(foundation, {
       fontWeight: foundation.typography.fontWeightMedium,
     },
     subtitle2: {
+      fontSize: pxToRem(14),
       fontWeight: foundation.typography.fontWeightMedium,
     },
     /* End: To be revised */
@@ -504,7 +511,9 @@ export const theme = createTheme(foundation, {
       styleOverrides: {
         label: {
           fontSize: pxToRem(14),
-          [breakpoints.up(responsiveBreakpoint)]: { fontSize: pxToRem(14) },
+          [foundation.breakpoints.up(responsiveBreakpoint)]: {
+            fontSize: pxToRem(14),
+          },
           "&.Mui-completed": {
             fontWeight: foundation.typography.fontWeightMedium,
           },
@@ -523,7 +532,7 @@ export const theme = createTheme(foundation, {
           padding: foundation.spacing(1),
           color: colorTextPrimary,
           alignItems: "center",
-          [breakpoints.up(responsiveBreakpoint)]: {
+          [foundation.breakpoints.up(responsiveBreakpoint)]: {
             padding: foundation.spacing(2),
           },
         },
@@ -532,7 +541,7 @@ export const theme = createTheme(foundation, {
           padding: 0,
           alignItems: "center",
           marginRight: foundation.spacing(1),
-          [breakpoints.up(responsiveBreakpoint)]: {
+          [foundation.breakpoints.up(responsiveBreakpoint)]: {
             marginRight: foundation.spacing(2),
           },
         },
@@ -599,7 +608,7 @@ export const theme = createTheme(foundation, {
           letterSpacing: 0.15,
           margin: 0,
           /* It inherits from `body1`, so I have to reset -_- */
-          [breakpoints.up(responsiveBreakpoint)]: {
+          [foundation.breakpoints.up(responsiveBreakpoint)]: {
             fontSize: pxToRem(16),
           },
         },
@@ -611,6 +620,8 @@ export const theme = createTheme(foundation, {
       styleOverrides: {
         root: {
           borderRadius: foundation.spacing(1),
+          /* There's no attribute exposed for this,
+          so I have to use the class name */
           "&.MuiPaper-elevation8": {
             boxShadow: foundation.shadows[16],
           },
@@ -919,6 +930,7 @@ export const theme = createTheme(foundation, {
       },
       styleOverrides: {
         root: {
+          fontSize: pxToRem(16),
           fontWeight: foundation.typography.fontWeightMedium,
           "& .MuiListItemIcon-root": {
             color: foundation.palette.action.active,
