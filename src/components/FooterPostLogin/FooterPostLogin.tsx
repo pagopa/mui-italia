@@ -51,7 +51,7 @@ export const FooterPostLogin = ({
           </Link>
 
           <Stack
-            spacing={2}
+            spacing={3}
             direction={{ xs: "column", sm: "row" }}
             sx={{ alignItems: "center" }}
           >
@@ -64,8 +64,7 @@ export const FooterPostLogin = ({
                 underline="none"
                 color="text.primary"
                 sx={{ display: "inline-block" }}
-                variant="caption"
-                fontWeight="700"
+                variant="subtitle2"
               >
                 {label}
               </Link>

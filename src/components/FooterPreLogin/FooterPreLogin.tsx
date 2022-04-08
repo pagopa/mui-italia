@@ -69,7 +69,6 @@ export const FooterPreLogin = ({
               </Link>
 
               <Stack
-                spacing={1}
                 component="ul"
                 alignItems={{ xs: "center", sm: "start" }}
                 sx={{ padding: 0, listStyle: "none" }}
@@ -84,7 +83,7 @@ export const FooterPreLogin = ({
                         onClick={wrapHandleClick(href, linkType as LinkType)}
                         underline="none"
                         color="text.primary"
-                        sx={{ display: "inline-block" }}
+                        sx={{ display: "inline-block", py: 0.5 }}
                         variant="subtitle2"
                       >
                         {label}
@@ -104,7 +103,6 @@ export const FooterPreLogin = ({
               )}
 
               <Stack
-                spacing={1}
                 component="ul"
                 alignItems={{ xs: "center", sm: "start" }}
                 sx={{ padding: 0, listStyle: "none" }}
@@ -119,7 +117,7 @@ export const FooterPreLogin = ({
                         onClick={wrapHandleClick(href, linkType as LinkType)}
                         underline="none"
                         color="text.primary"
-                        sx={{ display: "inline-block" }}
+                        sx={{ display: "inline-block", py: 0.5 }}
                         variant="subtitle2"
                       >
                         {label}
@@ -138,7 +136,6 @@ export const FooterPreLogin = ({
               )}
 
               <Stack
-                spacing={1}
                 component="ul"
                 alignItems={{ xs: "center", sm: "start" }}
                 sx={{ padding: 0, listStyle: "none" }}
@@ -153,7 +150,7 @@ export const FooterPreLogin = ({
                         onClick={wrapHandleClick(href, linkType as LinkType)}
                         underline="none"
                         color="text.primary"
-                        sx={{ display: "inline-block" }}
+                        sx={{ display: "inline-block", py: 0.5 }}
                         variant="subtitle2"
                       >
                         {label}
@@ -172,61 +169,67 @@ export const FooterPreLogin = ({
               sx={{ height: "100%" }}
               alignItems={{ xs: "center", sm: "start" }}
             >
-              <Stack alignItems={{ xs: "center", sm: "start" }}>
+              <Stack spacing={2} alignItems={{ xs: "center", sm: "start" }}>
                 {followUs?.title && (
                   <Typography variant="overline">{followUs.title}</Typography>
                 )}
 
-                <Stack
-                  spacing={3}
-                  direction="row"
-                  component="ul"
-                  alignItems={{ xs: "center", sm: "start" }}
-                  sx={{ padding: 0, listStyle: "none" }}
-                >
-                  {followUs?.socialLinks.map(({ icon, href, ariaLabel }, i) => (
-                    <li key={i}>
-                      <Link
-                        aria-label={ariaLabel}
-                        component="button"
-                        onClick={wrapHandleClick(href, "external")}
-                        underline="none"
-                        color="text.primary"
-                        sx={{ display: "inline-flex" }}
-                        variant="caption"
-                      >
-                        {icon && iconMap[icon]}
-                      </Link>
-                    </li>
-                  ))}
-                </Stack>
+                <Stack alignItems={{ xs: "center", sm: "start" }}>
+                  <Stack
+                    spacing={{ xs: 3, sm: 2, lg: 3 }}
+                    direction="row"
+                    component="ul"
+                    alignItems={{ xs: "center", sm: "start" }}
+                    sx={{ padding: 0, listStyle: "none" }}
+                  >
+                    {followUs?.socialLinks.map(
+                      ({ icon, href, ariaLabel }, i) => (
+                        <li key={i}>
+                          <Link
+                            aria-label={ariaLabel}
+                            component="button"
+                            onClick={wrapHandleClick(href, "external")}
+                            underline="none"
+                            color="text.primary"
+                            sx={{ display: "inline-flex" }}
+                            variant="caption"
+                          >
+                            {icon && iconMap[icon]}
+                          </Link>
+                        </li>
+                      )
+                    )}
+                  </Stack>
 
-                <Stack
-                  spacing={1}
-                  component="ul"
-                  alignItems={{ xs: "center", sm: "start" }}
-                  sx={{ padding: 0, listStyle: "none" }}
-                >
-                  {followUs?.links.map(
-                    ({ href, label, ariaLabel, linkType }, i) => (
-                      <li key={i}>
-                        <Link
-                          aria-label={ariaLabel}
-                          component="button"
-                          onClick={wrapHandleClick(href, linkType as LinkType)}
-                          underline="none"
-                          color="text.primary"
-                          sx={{ display: "inline-block" }}
-                          variant="subtitle2"
-                        >
-                          {label}
-                        </Link>
-                      </li>
-                    )
-                  )}
-                </Stack>
+                  <Stack
+                    component="ul"
+                    alignItems={{ xs: "center", sm: "start" }}
+                    sx={{ padding: 0, margin: 0, listStyle: "none" }}
+                  >
+                    {followUs?.links.map(
+                      ({ href, label, ariaLabel, linkType }, i) => (
+                        <li key={i}>
+                          <Link
+                            aria-label={ariaLabel}
+                            component="button"
+                            onClick={wrapHandleClick(
+                              href,
+                              linkType as LinkType
+                            )}
+                            underline="none"
+                            color="text.primary"
+                            sx={{ display: "inline-block", py: 0.5 }}
+                            variant="subtitle2"
+                          >
+                            {label}
+                          </Link>
+                        </li>
+                      )
+                    )}
+                  </Stack>
 
-                <LangSwitch {...langProps} />
+                  <LangSwitch {...langProps} />
+                </Stack>
               </Stack>
 
               <FundedByNextGenerationEU size={180} />

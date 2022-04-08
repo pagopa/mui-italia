@@ -937,6 +937,7 @@ export const theme = createTheme(foundation, {
       },
       styleOverrides: {
         root: {
+          fontSize: pxToRem(16),
           fontWeight: foundation.typography.fontWeightMedium,
           "& .MuiListItemIcon-root": {
             color: foundation.palette.action.active,
