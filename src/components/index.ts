@@ -10,4 +10,5 @@ export * from "./Footer";
 export * from "./FooterLegal";
 export * from "./FooterPostLogin";
 export * from "./FooterPreLogin";
+export * from "./FooterCheckout";
 export * from "./LangSwitch";

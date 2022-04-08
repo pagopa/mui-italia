@@ -1,5 +1,6 @@
 /* import { useState } from "react"; */
 import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { FooterCheckout } from "@components/FooterCheckout";
 import {
   Footer,
   PreLoginFooterLinksType,
@@ -52,6 +53,27 @@ const pagoPALink: CompanyLinkType = {
 };
 
 const postLoginLinks: Array<FooterLinksType> = [
+  {
+    label: "Privacy policy",
+    href: "#privacy-policy",
+    ariaLabel: "Vai al link: Privacy policy",
+    linkType: "internal",
+  },
+  {
+    label: "Termini e condizioni",
+    href: "#terms-conditions",
+    ariaLabel: "Vai al link: Termini e condizioni",
+    linkType: "internal",
+  },
+  {
+    label: "Accessibilità",
+    href: "#accessibility",
+    ariaLabel: "Vai al link: Accessibilità",
+    linkType: "internal",
+  },
+];
+
+const checkoutLinks: Array<FooterLinksType> = [
   {
     label: "Privacy policy",
     href: "#privacy-policy",
@@ -288,6 +310,25 @@ export const PostLogin: ComponentStory<typeof Footer> = () => (
     legalInfo={companyLegalInfo}
     postLoginLinks={postLoginLinks}
     preLoginLinks={preLoginLinks}
+    currentLangCode={"it"}
+    onLanguageChanged={
+      (/* newLang */) => {
+        console.log("Changed Language");
+      }
+    }
+    languages={LANGUAGES}
+    onExit={(href, linkType) => {
+      console.log("Clicked on exit", href, linkType);
+    }}
+  />
+);
+
+export const Checkout: ComponentStory<typeof FooterCheckout> = () => (
+  /* const { lang, setLang } = useState<LangCode>("it"); */
+
+  <FooterCheckout
+    companyLink={pagoPALink}
+    links={checkoutLinks}
     currentLangCode={"it"}
     onLanguageChanged={
       (/* newLang */) => {
