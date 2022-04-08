@@ -34,9 +34,9 @@ export const FooterPostLogin = ({
         backgroundColor: "background.paper",
       }}
     >
-      <Container sx={{ py: 2 }}>
+      <Container sx={{ py: { xs: 3, sm: 2 } }}>
         <Stack
-          spacing={3}
+          spacing={{ xs: 4, sm: 3 }}
           direction={{ xs: "column", sm: "row" }}
           justifyContent="space-between"
           sx={{ alignItems: "center" }}
@@ -51,7 +51,7 @@ export const FooterPostLogin = ({
           </Link>
 
           <Stack
-            spacing={3}
+            spacing={{ xs: 1, sm: 3 }}
             direction={{ xs: "column", sm: "row" }}
             sx={{ alignItems: "center" }}
           >
