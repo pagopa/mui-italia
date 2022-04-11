@@ -3,11 +3,11 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { Settings as SettingsIcon } from "@mui/icons-material";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 
-import { PreHeader, RootLinkType, JwtUser } from "./PreHeader";
+import { HeaderAccount, RootLinkType, JwtUser } from "./HeaderAccount";
 
 export default {
-  title: "Components/PreHeader",
-  component: PreHeader,
+  title: "Components/HeaderAccount",
+  component: HeaderAccount,
   decorators: [
     (Story) => (
       <div style={{ padding: 0, backgroundColor: "#F5F5F5" }}>
@@ -18,7 +18,7 @@ export default {
   parameters: {
     controls: { hideNoControlsWarning: true },
   },
-} as ComponentMeta<typeof PreHeader>;
+} as ComponentMeta<typeof HeaderAccount>;
 
 /*
 User info
@@ -40,10 +40,8 @@ const pagoPALink: RootLinkType = {
   title: "Sito di PagoPA S.p.A.",
 };
 
-export const LoggedOut: ComponentStory<typeof PreHeader> = () => (
-  /* const { lang, setLang } = useState<LangCode>("it"); */
-
-  <PreHeader
+export const LoggedOut: ComponentStory<typeof HeaderAccount> = () => (
+  <HeaderAccount
     rootLink={pagoPALink}
     loggedUser={false}
     onAssistanceClick={() => {
@@ -52,17 +50,6 @@ export const LoggedOut: ComponentStory<typeof PreHeader> = () => (
     onLogin={() => {
       console.log("User login");
     }}
-    /*
-    subHeaderLeftComponent={
-      <Typography component="span" variant="h5" fontWeight={700}>
-        Interoperabilità
-      </Typography>
-    }
-    subHeaderRightComponent={
-      doesRouteAllowTwoColumnsLayout(history.location) && party !== null ? (
-        <PartySelect />
-      ) : null
-    } */
     userActions={[
       {
         id: "logout",
@@ -76,10 +63,8 @@ export const LoggedOut: ComponentStory<typeof PreHeader> = () => (
   />
 );
 
-export const LoggedIn: ComponentStory<typeof PreHeader> = () => (
-  /* const { lang, setLang } = useState<LangCode>("it"); */
-
-  <PreHeader
+export const LoggedIn: ComponentStory<typeof HeaderAccount> = () => (
+  <HeaderAccount
     rootLink={pagoPALink}
     loggedUser={user}
     /*  loggedUser={party !== null ? user : undefined} */
@@ -89,17 +74,6 @@ export const LoggedIn: ComponentStory<typeof PreHeader> = () => (
     onLogin={() => {
       console.log("User login");
     }}
-    /*
-    subHeaderLeftComponent={
-      <Typography component="span" variant="h5" fontWeight={700}>
-        Interoperabilità
-      </Typography>
-    }
-    subHeaderRightComponent={
-      doesRouteAllowTwoColumnsLayout(history.location) && party !== null ? (
-        <PartySelect />
-      ) : null
-    } */
     userActions={[
       {
         id: "profile",

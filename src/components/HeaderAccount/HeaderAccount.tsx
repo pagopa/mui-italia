@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Container,
-  Button,
-  Box,
-  Stack,
-  Link,
-  Typography,
-  IconButton,
-} from "@mui/material";
+import { Container, Button, Stack, IconButton } from "@mui/material";
 import { HelpOutline as HelpOutlineIcon } from "@mui/icons-material";
 import { ButtonNaked } from "@components/ButtonNaked";
 import { AccountDropdown } from "@components/AccountDropdown";
@@ -33,7 +25,7 @@ export type RootLinkType = {
   title: string;
 };
 
-type PreHeaderProps = {
+type HeaderAccountProps = {
   rootLink: RootLinkType;
   loggedUser?: JwtUser | false;
   onAssistanceClick: () => void;
@@ -41,13 +33,13 @@ type PreHeaderProps = {
   userActions?: Array<UserAction>;
 };
 
-export const PreHeader = ({
+export const HeaderAccount = ({
   rootLink,
   loggedUser,
   userActions,
   onAssistanceClick,
   onLogin,
-}: PreHeaderProps) => (
+}: HeaderAccountProps) => (
   <Stack
     component="header"
     justifyContent="center"
