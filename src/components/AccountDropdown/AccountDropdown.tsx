@@ -11,6 +11,7 @@ import {
   KeyboardArrowUp as KeyboardArrowUpIcon,
   AccountCircle as AccountCircleIcon,
 } from "@mui/icons-material";
+
 import { ButtonNaked } from "@components/ButtonNaked";
 
 type JwtUser = {
@@ -37,6 +38,7 @@ export const AccountDropdown = ({
   userActions,
 }: AccountDropdownProps) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+
   const open = Boolean(anchorEl);
   const handleClick = (e: React.SyntheticEvent) => {
     const currentTarget = e.currentTarget as HTMLButtonElement;
@@ -90,6 +92,10 @@ export const AccountDropdown = ({
         <Menu
           /* PaperProps={{ style: { maxHeight: 220, width: 200 } }} */
           anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+          transformOrigin={{
+            vertical: -8,
+            horizontal: "right",
+          }}
           anchorEl={anchorEl}
           open={open}
           onClose={handleClose}
