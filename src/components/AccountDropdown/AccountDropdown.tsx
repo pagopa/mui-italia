@@ -6,11 +6,9 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import {
-  KeyboardArrowDown as KeyboardArrowDownIcon,
-  KeyboardArrowUp as KeyboardArrowUpIcon,
-  AccountCircle as AccountCircleIcon,
-} from "@mui/icons-material";
+import { AccountCircle as AccountCircleIcon } from "@mui/icons-material";
+import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
+import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 
 import { ButtonNaked } from "@components/ButtonNaked";
 
@@ -68,13 +66,10 @@ export const AccountDropdown = ({
         onClick={handleClick}
         startIcon={<AccountCircleIcon />}
         endIcon={
-          open ? (
-            <KeyboardArrowUpIcon fontSize="small" />
-          ) : (
-            <KeyboardArrowDownIcon fontSize="small" />
-          )
+          open ? <ArrowDropUpRoundedIcon /> : <ArrowDropDownRoundedIcon />
         }
         sx={{ display: ["none", "flex"] }}
+        weight="default"
       >
         {user.name && user.surname ? `${user.name} ${user.surname}` : "Utente"}
       </ButtonNaked>

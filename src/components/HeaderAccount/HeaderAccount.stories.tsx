@@ -50,21 +50,46 @@ export const LoggedOut: ComponentStory<typeof HeaderAccount> = () => (
     onLogin={() => {
       console.log("User login");
     }}
-    userActions={[
-      {
-        id: "logout",
-        label: "Logout",
-        onClick: () => {
-          console.log("User logged out");
-        },
-        icon: <SettingsIcon fontSize="small" color="inherit" sx={{ mr: 1 }} />,
-      },
-    ]}
   />
 );
 
 export const LoggedIn: ComponentStory<typeof HeaderAccount> = () => (
   <HeaderAccount
+    rootLink={pagoPALink}
+    loggedUser={user}
+    /*  loggedUser={party !== null ? user : undefined} */
+    onAssistanceClick={() => {
+      console.log("Clicked/Tapped on Assistance");
+    }}
+    onLogin={() => {
+      console.log("User login");
+    }}
+    userActions={[
+      {
+        id: "profile",
+        label: "Profilo",
+        onClick: () => {
+          console.log("Clicked/Tapped on Profile");
+        },
+        icon: <SettingsIcon fontSize="small" color="inherit" />,
+      },
+      {
+        id: "logout",
+        label: "Esci",
+        onClick: () => {
+          console.log("User logged out");
+        },
+        icon: <LogoutRoundedIcon fontSize="small" color="inherit" />,
+      },
+    ]}
+  />
+);
+
+export const LoggedInWithDropdown: ComponentStory<
+  typeof HeaderAccount
+> = () => (
+  <HeaderAccount
+    enableDropdown
     rootLink={pagoPALink}
     loggedUser={user}
     /*  loggedUser={party !== null ? user : undefined} */

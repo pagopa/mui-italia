@@ -30,7 +30,9 @@ type HeaderAccountProps = {
   loggedUser?: JwtUser | false;
   onAssistanceClick: () => void;
   onLogin: () => void;
+  onLogout?: () => void;
   userActions?: Array<UserAction>;
+  enableDropdown?: boolean;
 };
 
 export const HeaderAccount = ({
@@ -38,7 +40,9 @@ export const HeaderAccount = ({
   loggedUser,
   userActions,
   onAssistanceClick,
+  onLogout,
   onLogin,
+  enableDropdown = false,
 }: HeaderAccountProps) => (
   <Stack
     component="header"
@@ -84,12 +88,13 @@ export const HeaderAccount = ({
             onClick={onAssistanceClick}
             startIcon={<HelpOutlineIcon />}
             sx={{ display: ["none", "flex"] }}
+            weight="default"
           >
             Assistenza
           </ButtonNaked>
           <IconButton
-            aria-label="Assistenza"
             size="small"
+            aria-label="Assistenza"
             sx={{ display: ["flex", "none"] }}
             onClick={onAssistanceClick}
           >
@@ -98,7 +103,18 @@ export const HeaderAccount = ({
           {/* END Assistance MOBILE/DESKTOP */}
 
           {loggedUser ? (
-            <AccountDropdown user={loggedUser} userActions={userActions} />
+            enableDropdown ? (
+              <AccountDropdown user={loggedUser} userActions={userActions} />
+            ) : (
+              <Button
+                variant="text"
+                size="small"
+                onClick={onLogout}
+                title="Esci"
+              >
+                Esci
+              </Button>
+            )
           ) : (
             <Button
               variant="contained"

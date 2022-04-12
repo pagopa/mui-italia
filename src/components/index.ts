@@ -12,5 +12,5 @@ export * from "./FooterPostLogin";
 export * from "./FooterPreLogin";
 export * from "./FooterCheckout";
 export * from "./LangSwitch";
-export * from "./PreHeader";
+export * from "./HeaderAccount";
 export * from "./AccountDropdown";

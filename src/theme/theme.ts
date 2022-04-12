@@ -320,7 +320,6 @@ export const theme = createTheme(foundation, {
   }, */
     },
     button: {
-      fontWeight: foundation.typography.fontWeightBold,
       lineHeight: 1.2,
       textTransform: "none",
       letterSpacing: 0,
