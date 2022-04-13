@@ -1,13 +1,12 @@
-/* import { useState } from "react"; */
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { Box } from "@mui/system";
+import { Box } from "@mui/material";
 
 import {
   EntityAccountItem,
   EntityAccountItemProps,
 } from "@components/EntityAccountItem";
 import { EntityAvatar, EntityAvatarProps } from "@components/EntityAvatar";
-import { HeaderProduct } from "./HeaderProduct";
+import { HeaderProduct, ProductEntity } from "./HeaderProduct";
 
 export default {
   title: "Components/HeaderProduct",
@@ -40,8 +39,50 @@ const entityMobileMock: EntityAvatarProps = {
   customAlt: "Comune di Milano",
 };
 
-export const Default: ComponentStory<typeof HeaderProduct> = () => (
+const productsList: Array<ProductEntity> = [
+  {
+    id: 0,
+    name: `Area Riservata`,
+  },
+  {
+    id: 1,
+    name: `Piattaforma Notifiche`,
+  },
+  {
+    id: 2,
+    name: `App IO`,
+  },
+  {
+    id: 3,
+    name: `Interoperabilità`,
+  },
+];
+
+export const ProductSelection: ComponentStory<typeof HeaderProduct> = () => (
   <HeaderProduct
+    productsList={productsList}
+    onSelectedProduct={(id) =>
+      console.log("Selected Item:", productsList[id]?.name)
+    }
+    entitySelection={
+      <>
+        {/* TODO: Find a better way to include responsive components */}
+        <Box sx={{ display: ["flex", "none"] }}>
+          <EntityAvatar {...entityMobileMock} />
+        </Box>
+        <Box sx={{ display: ["none", "flex"] }}>
+          <EntityAccountItem {...entityMock} />
+        </Box>
+      </>
+    }
+  />
+);
+
+export const WithoutProductSelection: ComponentStory<
+  typeof HeaderProduct
+> = () => (
+  <HeaderProduct
+    productName="Area Riservata"
     entitySelection={
       <>
         {/* TODO: Find a better way to include responsive components */}
