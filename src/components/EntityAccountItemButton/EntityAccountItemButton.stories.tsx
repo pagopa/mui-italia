@@ -6,13 +6,8 @@ import { Button, Stack } from "@mui/material";
 
 import { Tag } from "@components/Tag";
 
+import { EntityAccount } from "@components/EntityAccountItem";
 import { EntityAccountItemButton } from "./EntityAccountItemButton";
-
-type EntityAccount = {
-  image: string | undefined;
-  name: string;
-  role?: string | undefined;
-};
 
 const cdnPath = "https://assets.cdn.io.italia.it/logos/organizations/";
 

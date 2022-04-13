@@ -4,6 +4,11 @@ import { EntityAvatar } from "@components/EntityAvatar";
 
 import { theme } from "@theme";
 
+export type EntityAccount = {
+  image: string | undefined;
+  name: string;
+  role?: string | undefined;
+};
 export interface EntityAccountItemProps {
   image?: string;
   /* The name of the entity. E.g: "Comune di Roma" */

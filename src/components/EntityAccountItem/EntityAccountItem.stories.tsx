@@ -4,13 +4,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import { Button, Stack } from "@mui/material";
 
-import { EntityAccountItem } from "./EntityAccountItem";
-
-type EntityAccount = {
-  image: string | undefined;
-  name: string;
-  role?: string | undefined;
-};
+import { EntityAccountItem, EntityAccount } from "./EntityAccountItem";
 
 const cdnPath = "https://assets.cdn.io.italia.it/logos/organizations/";
 

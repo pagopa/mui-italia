@@ -1,5 +1,4 @@
 import React, { useCallback, useState } from "react";
-import clsx from "clsx";
 import {
   Box,
   Container,
@@ -9,14 +8,9 @@ import {
   MenuItem,
 } from "@mui/material";
 
-import { ButtonUnstyledProps, useButton } from "@mui/base/ButtonUnstyled";
-import { styled } from "@mui/system";
-import { alpha } from "@mui/material/styles";
-
+import { SwitchProductButton } from "@components/SwitchProductButton";
 import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
-
-import { ringWidth } from "@theme";
 
 export type ProductEntity = {
   id: number;
@@ -29,57 +23,6 @@ export type HeaderProductProps = {
   entitySelection?: React.ReactNode;
   onSelectedProduct?: (id: number) => void;
 };
-
-const StyledSwitcherButton = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  borderRadius: theme.spacing(1),
-  backgroundColor: "transparent",
-  padding: 0,
-  cursor: "pointer",
-  border: "none",
-  transition: `${theme.transitions.duration.short}ms ${theme.transitions.easing.easeInOut}`,
-  transitionProperty: ["color", "background-color", "box-shadow"],
-
-  /*
-  "&:not(.disabled):hover": {},
-  "&.active": {},
-  */
-
-  "&.focusVisible": {
-    outline: "none",
-    boxShadow: `0 0 0 ${ringWidth} ${alpha(theme.palette.primary.main, 0.4)}`,
-  },
-
-  "&.disabled": {
-    opacity: "0.5",
-    cursor: "default",
-  },
-}));
-
-const SwitchProductButton = React.forwardRef(function SwitchProductButton(
-  props: ButtonUnstyledProps,
-  ref: React.ForwardedRef<any>
-) {
-  const { children } = props;
-  const { /* active */ disabled, focusVisible, getRootProps } = useButton({
-    ...props,
-    ref,
-    component: StyledSwitcherButton,
-  });
-
-  const classes = {
-    /* active, */
-    disabled,
-    focusVisible,
-  };
-
-  return (
-    <StyledSwitcherButton {...getRootProps()} className={clsx(classes)}>
-      {children}
-    </StyledSwitcherButton>
-  );
-});
 
 export const HeaderProduct = ({
   productName,
