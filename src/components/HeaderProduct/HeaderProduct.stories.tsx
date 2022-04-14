@@ -42,25 +42,29 @@ const entityMobileMock: EntityAvatarProps = {
 const productsList: Array<ProductEntity> = [
   {
     id: 0,
-    name: `Area Riservata`,
+    title: `Area Riservata`,
+    productUrl: "#area-riservata",
   },
   {
     id: 1,
-    name: `Piattaforma Notifiche`,
+    title: `Piattaforma Notifiche`,
+    productUrl: "#piattaforma-notifiche",
   },
   {
     id: 2,
-    name: `App IO`,
+    title: `App IO`,
+    productUrl: "#app-io",
   },
   {
     id: 3,
-    name: `Interoperabilità`,
+    title: `Interoperabilità`,
+    productUrl: "#interoperabilità",
   },
 ];
 
-export const Default: ComponentStory<typeof HeaderProduct> = () => (
-  <HeaderProduct productName="Area Riservata" />
-);
+export const DefaultWithoutEntities: ComponentStory<
+  typeof HeaderProduct
+> = () => <HeaderProduct productName="Area Riservata" />;
 
 export const WithProductSelection: ComponentStory<
   typeof HeaderProduct
@@ -68,7 +72,7 @@ export const WithProductSelection: ComponentStory<
   <HeaderProduct
     productsList={productsList}
     onSelectedProduct={(id) =>
-      console.log("Selected Item:", productsList[id]?.name)
+      console.log("Selected Item:", productsList[id]?.title)
     }
     entitySelection={
       <>

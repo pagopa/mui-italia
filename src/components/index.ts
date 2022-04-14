@@ -15,4 +15,4 @@ export * from "./LangSwitch";
 export * from "./HeaderAccount";
 export * from "./HeaderProduct";
 export * from "./AccountDropdown";
-export * from "./SwitchProductButton";
+export * from "./ProductSwitch";
