@@ -9,7 +9,7 @@ import { EntityAvatar, EntityAvatarProps } from "@components/EntityAvatar";
 import { HeaderProduct, ProductEntity } from "./HeaderProduct";
 
 export default {
-  title: "Components/HeaderProduct",
+  title: "Components/HeaderProduct (WIP)",
   component: HeaderProduct,
   decorators: [
     (Story) => (
@@ -58,7 +58,13 @@ const productsList: Array<ProductEntity> = [
   },
 ];
 
-export const ProductSelection: ComponentStory<typeof HeaderProduct> = () => (
+export const Default: ComponentStory<typeof HeaderProduct> = () => (
+  <HeaderProduct productName="Area Riservata" />
+);
+
+export const WithProductSelection: ComponentStory<
+  typeof HeaderProduct
+> = () => (
   <HeaderProduct
     productsList={productsList}
     onSelectedProduct={(id) =>

@@ -53,12 +53,12 @@ export const HeaderProduct = ({
   return (
     <Box
       component="header"
-      justifyContent="center"
+      display="flex"
+      alignItems="center"
       sx={{
         borderBottom: 1,
         borderColor: "divider",
         backgroundColor: "background.paper",
-        py: 2,
         minHeight: "80px",
         boxSizing: "border-box",
       }}
@@ -69,6 +69,7 @@ export const HeaderProduct = ({
           direction="row"
           justifyContent="space-between"
           alignItems="center"
+          sx={{ py: 1 }}
         >
           {/* Left side of the component */}
 
