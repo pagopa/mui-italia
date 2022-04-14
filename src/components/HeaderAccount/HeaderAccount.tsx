@@ -29,10 +29,11 @@ type HeaderAccountProps = {
   rootLink: RootLinkType;
   loggedUser?: JwtUser | false;
   onAssistanceClick: () => void;
-  onLogin: () => void;
+  onLogin?: () => void;
   onLogout?: () => void;
   userActions?: Array<UserAction>;
   enableDropdown?: boolean;
+  enableLogin?: boolean;
 };
 
 export const HeaderAccount = ({
@@ -43,6 +44,7 @@ export const HeaderAccount = ({
   onLogout,
   onLogin,
   enableDropdown = false,
+  enableLogin = true,
 }: HeaderAccountProps) => (
   <Stack
     component="header"
@@ -102,20 +104,22 @@ export const HeaderAccount = ({
           </IconButton>
           {/* END Assistance MOBILE/DESKTOP */}
 
-          {loggedUser ? (
-            enableDropdown ? (
-              <AccountDropdown user={loggedUser} userActions={userActions} />
-            ) : (
-              <Button
-                variant="text"
-                size="small"
-                onClick={onLogout}
-                title="Esci"
-              >
-                Esci
-              </Button>
-            )
-          ) : (
+          {/* DIFFERENT COMBINATIONS */}
+
+          {/* 1. Logged User with Dropdown */}
+          {enableLogin && loggedUser && enableDropdown && (
+            <AccountDropdown user={loggedUser} userActions={userActions} />
+          )}
+
+          {/* 2. Logged User with Logout CTA */}
+          {enableLogin && loggedUser && !enableDropdown && (
+            <Button variant="text" size="small" onClick={onLogout} title="Esci">
+              Esci
+            </Button>
+          )}
+
+          {/* 3. User not logged with Login CTA */}
+          {enableLogin && !loggedUser && (
             <Button
               variant="contained"
               size="small"

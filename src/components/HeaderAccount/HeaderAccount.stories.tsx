@@ -6,7 +6,7 @@ import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import { HeaderAccount, RootLinkType, JwtUser } from "./HeaderAccount";
 
 export default {
-  title: "Components/HeaderAccount",
+  title: "Components/HeaderAccount (WIP)",
   component: HeaderAccount,
   decorators: [
     (Story) => (
@@ -64,24 +64,9 @@ export const LoggedIn: ComponentStory<typeof HeaderAccount> = () => (
     onLogin={() => {
       console.log("User login");
     }}
-    userActions={[
-      {
-        id: "profile",
-        label: "Profilo",
-        onClick: () => {
-          console.log("Clicked/Tapped on Profile");
-        },
-        icon: <SettingsIcon fontSize="small" color="inherit" />,
-      },
-      {
-        id: "logout",
-        label: "Esci",
-        onClick: () => {
-          console.log("User logged out");
-        },
-        icon: <LogoutRoundedIcon fontSize="small" color="inherit" />,
-      },
-    ]}
+    onLogout={() => {
+      console.log("User logout");
+    }}
   />
 );
 
@@ -117,5 +102,15 @@ export const LoggedInWithDropdown: ComponentStory<
         icon: <LogoutRoundedIcon fontSize="small" color="inherit" />,
       },
     ]}
+  />
+);
+
+export const withoutLogin: ComponentStory<typeof HeaderAccount> = () => (
+  <HeaderAccount
+    enableLogin={false}
+    rootLink={pagoPALink}
+    onAssistanceClick={() => {
+      console.log("Clicked/Tapped on Assistance");
+    }}
   />
 );
