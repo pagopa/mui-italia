@@ -105,7 +105,7 @@ export const LoggedInWithDropdown: ComponentStory<
   />
 );
 
-export const withoutLogin: ComponentStory<typeof HeaderAccount> = () => (
+export const WithoutLogin: ComponentStory<typeof HeaderAccount> = () => (
   <HeaderAccount
     enableLogin={false}
     rootLink={pagoPALink}
