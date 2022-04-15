@@ -120,6 +120,16 @@ declare module "@mui/material/IconButton" {
   }
 }
 
+declare module "@mui/material/Switch" {
+  interface SwitchPropsColorOverrides {
+    secondary: false;
+    warning: false;
+    info: false;
+    success: false;
+    error: false;
+  }
+}
+
 const foundation: Theme = createTheme({
   breakpoints: {
     values: {
