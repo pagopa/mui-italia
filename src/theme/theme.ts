@@ -961,6 +961,40 @@ export const theme = createTheme(foundation, {
         },
       },
     },
+    MuiSwitch: {
+      defaultProps: {
+        disableRipple: true,
+      },
+      styleOverrides: {
+        root: {
+          "& .MuiSwitch-switchBase.Mui-focusVisible .MuiSwitch-thumb": {
+            boxShadow: `0 0 0 ${ringWidth} ${alpha(
+              foundation.palette.text.primary,
+              0.25
+            )}`,
+          },
+          "& .MuiSwitch-colorPrimary.Mui-checked.Mui-focusVisible .MuiSwitch-thumb":
+            {
+              boxShadow: `0 0 0 ${ringWidth} ${alpha(
+                foundation.palette.primary.main,
+                0.25
+              )}`,
+            },
+        },
+        switchBase: {
+          transition: `${foundation.transitions.duration.short}ms ${foundation.transitions.easing.easeInOut}`,
+          transitionProperty: "background-color, border-color, transform",
+        },
+        thumb: {
+          transition: `${foundation.transitions.duration.short}ms ${foundation.transitions.easing.easeInOut}`,
+          transitionProperty: "box-shadow",
+        },
+        track: {
+          backgroundColor: foundation.palette.text.primary,
+        },
+      },
+    },
+
     /** End SELECT */
     MuiTableHead: {
       styleOverrides: {
