@@ -60,6 +60,12 @@ const postLoginLinks: Array<FooterLinksType> = [
     linkType: "internal",
   },
   {
+    label: "Diritto alla protezione dei dati personali",
+    href: "#diritto-allaprotezionedipersonalidati",
+    ariaLabel: "Vai al link: Diritto alla protezione dei dati personali",
+    linkType: "internal",
+  },
+  {
     label: "Termini e condizioni",
     href: "#terms-conditions",
     ariaLabel: "Vai al link: Termini e condizioni",
