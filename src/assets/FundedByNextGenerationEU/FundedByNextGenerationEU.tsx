@@ -58,6 +58,7 @@ export const FundedByNextGenerationEU = ({
     viewBox="0 0 1174 270"
     focusable="false"
     role="img"
+    aria-labelledby="logo-next-genEU-titleID"
     sx={{
       width: size,
       /* If the color variant is set,
@@ -67,6 +68,6 @@ export const FundedByNextGenerationEU = ({
     }}
   >
     {variant === "color" ? variantColorMap[color] : variantMap[variant]}
-    <title>{title}</title>
+    <title id="logo-next-genEU-titleID">{title}</title>
   </StyledSvg>
 );
