@@ -45,7 +45,7 @@
   "devDependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
-    "@mui/icons-material": "^5.6.1",
+    "@mui/icons-material": "^5.6.2",
     "@mui/lab": "^5.0.0-alpha.78",
     "@mui/material": "^5.6.2",
     "@mui/system": "^5.5.3",
@@ -79,7 +79,7 @@
     "react-docgen-typescript": "^2.2.2",
     "react-dom": "^17.0.2",
     "rimraf": "^3.0.2",
-    "tsc-alias": "^1.6.5",
+    "tsc-alias": "^1.6.6",
     "tsconfig": "*",
     "tsconfig-paths-webpack-plugin": "^3.5.2",
     "typescript": "^4.6.2"
@@ -87,7 +87,7 @@
   "peerDependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
-    "@mui/icons-material": "^5.6.1",
+    "@mui/icons-material": "^5.6.2",
     "@mui/lab": "^5.0.0-alpha.78",
     "@mui/material": "^5.6.2",
     "@mui/system": "^5.5.3",
