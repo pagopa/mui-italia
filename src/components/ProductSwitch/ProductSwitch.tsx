@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import { ForwardedRef, forwardRef, useCallback, useMemo, useState } from "react";
 import clsx from "clsx";
 import { Menu, MenuItem, Typography } from "@mui/material";
 import { styled } from "@mui/system";
@@ -12,16 +12,16 @@ import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 
 export type ProductSwitchItem = {
-  id: number;
+  id: string;
   title: string;
   productUrl: string;
 };
 
 export type ProductSwitchProps = {
+  currentProductId: string;
   products: Array<ProductSwitchItem>;
   /* token: string; */
-  onExit?: (id: number) => void;
-  currentProductId: number;
+  onExit?: (id: string) => void;
 };
 
 export const ProductSwitch = ({
@@ -34,19 +34,21 @@ export const ProductSwitch = ({
   const [selectedId, setSelectedId] = useState(currentProductId);
   const open = Boolean(anchorEl);
 
-  /* TODO: Manage the edge case when user click/tap outside without
-  setting `selectedId` */
+  const selectedProduct = useMemo(() => products.find(p => p.id === selectedId), [selectedId]);
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = useCallback(
-    (id: number) => {
-      console.log("SelectedId", selectedId);
-      setSelectedId(id);
+    (id?: string) => {
+      if (id) {
+        setSelectedId(id);
+        if (onExit) {
+          onExit(id);
+        }
+      }
       setAnchorEl(null);
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      onExit ? onExit : null;
     },
     [selectedId]
   );
@@ -61,7 +63,7 @@ export const ProductSwitch = ({
         onClick={handleClick}
       >
         <Typography sx={{ fontSize: { xs: 20, sm: 28 }, fontWeight: "bold" }}>
-          {products[selectedId]?.title}
+          {selectedProduct?.title}
         </Typography>
         {open ? <ArrowDropUpRoundedIcon /> : <ArrowDropDownRoundedIcon />}
       </ProductSwitchButton>
@@ -71,14 +73,14 @@ export const ProductSwitch = ({
         anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
         anchorEl={anchorEl}
         open={open}
-        onClose={handleClose}
+        onClose={() => handleClose()}
         MenuListProps={{
           "aria-labelledby": "Seleziona i tuoi prodotti",
         }}
       >
-        {products.map(({ id, title }, i) => (
+        {products.map(({ id, title }) => (
           <MenuItem
-            key={i}
+            key={id}
             onClick={() => handleClose(id)}
             selected={id === selectedId}
           >
@@ -116,9 +118,9 @@ const StyledSwitcherButton = styled("div")(({ theme }) => ({
   },
 }));
 
-const ProductSwitchButton = React.forwardRef(function ProductSwitchButton(
+const ProductSwitchButton = forwardRef(function ProductSwitchButton(
   props: ButtonUnstyledProps,
-  ref: React.ForwardedRef<any>
+  ref: ForwardedRef<any>
 ) {
   const { children } = props;
   const { /* active */ disabled, focusVisible, getRootProps } = useButton({
