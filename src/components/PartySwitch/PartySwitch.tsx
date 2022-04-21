@@ -22,7 +22,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 import SentimentDissatisfied from "@mui/icons-material/SentimentDissatisfied";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 
 import { PartyAccountItem } from "@components/PartyAccountItem";
 import { PartyAccountItemButton } from "@components/PartyAccountItemButton";
@@ -67,7 +67,7 @@ export const PartySwitch = ({
   const [filter, setFilter] = useState("");
 
   const mobileHideStyle = useMemo(
-    () => ({ display: { xs: "none", md: "none", lg: "block" } }),
+    () => ({ display: { xs: "none", md: "block" } }),
     []
   );
 
@@ -139,7 +139,11 @@ export const PartySwitch = ({
               </InputAdornment>
             ),
             endAdornment: filter && (
-              <InputAdornment position="end" onClick={() => setFilter('')} sx={{cursor: 'pointer'}}>
+              <InputAdornment
+                position="end"
+                onClick={() => setFilter("")}
+                sx={{ cursor: "pointer" }}
+              >
                 <CloseIcon />
               </InputAdornment>
             ),

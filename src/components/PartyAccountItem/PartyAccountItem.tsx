@@ -28,11 +28,10 @@ export const PartyAccountItem = ({
   image,
   noWrap = true,
   containerSx,
-  infoContainerSx
+  infoContainerSx,
 }: PartyAccountItemProps) => {
   const containerStyle = useMemo(
     () => ({
-      backgroundColor: "background.paper",
       userSelect: "none",
       ...containerSx,
     }),
@@ -40,9 +39,7 @@ export const PartyAccountItem = ({
   ) as SxProps;
 
   return (
-    <Box
-      sx={containerStyle}
-    >
+    <Box sx={containerStyle}>
       <Box sx={{ display: "flex", flexDirection: "row" }}>
         {/* Avatar Container */}
         <PartyAvatar customAlt={partyName} customSrc={image} />
@@ -52,7 +49,7 @@ export const PartyAccountItem = ({
             ml: 1.25,
             alignSelf: "center",
             userSelect: "text",
-            ...infoContainerSx
+            ...infoContainerSx,
           }}
         >
           {partyName && (
@@ -70,9 +67,7 @@ export const PartyAccountItem = ({
               {partyName}
             </Typography>
           )}
-          {partyRole && (
-            <Typography variant="caption">{partyRole}</Typography>
-          )}
+          {partyRole && <Typography variant="caption">{partyRole}</Typography>}
         </Box>
       </Box>
     </Box>

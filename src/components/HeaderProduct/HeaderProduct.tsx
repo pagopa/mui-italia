@@ -97,7 +97,7 @@ export const HeaderProduct = ({
               partyRole={selectedParty.productRole}
               image={selectedParty.logoUrl}
               infoContainerSx={{
-                display: { xs: "none", md: "none", lg: "block" },
+                display: { xs: "none", md: "flex" },
               }}
             />
           )}
