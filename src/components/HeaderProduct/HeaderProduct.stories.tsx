@@ -1,11 +1,5 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { Box } from "@mui/material";
 
-import {
-  EntityAccountItem,
-  EntityAccountItemProps,
-} from "@components/EntityAccountItem";
-import { EntityAvatar, EntityAvatarProps } from "@components/EntityAvatar";
 import { HeaderProduct, PartyEntity, ProductEntity } from "./HeaderProduct";
 
 export default {
@@ -22,22 +16,6 @@ export default {
     controls: { hideNoControlsWarning: true },
   },
 } as ComponentMeta<typeof HeaderProduct>;
-
-/*
-Entity Info
-*/
-const entityMock: EntityAccountItemProps = {
-  image: "https://assets.cdn.io.italia.it/logos/organizations/1199250158.png",
-  entityName: "Comune di Milano",
-  entityRole: "Referente amministrativo",
-  noWrap: true,
-};
-
-const entityMobileMock: EntityAvatarProps = {
-  customSrc:
-    "https://assets.cdn.io.italia.it/logos/organizations/1199250158.png",
-  customAlt: "Comune di Milano",
-};
 
 const productsList: Array<ProductEntity> = [
   {
