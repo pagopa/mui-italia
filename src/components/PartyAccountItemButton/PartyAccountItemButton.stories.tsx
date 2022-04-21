@@ -7,7 +7,7 @@ import { Button, Stack } from "@mui/material";
 import { Tag } from "@components/Tag";
 
 import { PartyAccount } from "@components/PartyAccountItem";
-import { PartyAccountItemButton } from "./PartyAccountItemButton";
+import { PartyAccountItemButton } from "@components/PartyAccountItemButton";
 
 const cdnPath = "https://assets.cdn.io.italia.it/logos/organizations/";
 

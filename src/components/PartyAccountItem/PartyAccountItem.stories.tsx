@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import { Button, Stack } from "@mui/material";
 
-import { PartyAccountItem, PartyAccount } from "./PartyAccountItem";
+import { PartyAccountItem, PartyAccount } from "@components/PartyAccountItem";
 
 const cdnPath = "https://assets.cdn.io.italia.it/logos/organizations/";
 

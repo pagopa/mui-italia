@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import { HeaderProduct, PartyEntity, ProductEntity } from "./HeaderProduct";
+import { HeaderProduct, PartyEntity, ProductEntity } from "@components/HeaderProduct";
 
 export default {
   title: "Components/HeaderProduct (WIP)",

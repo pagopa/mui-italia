@@ -1,9 +1,9 @@
 import { useMemo } from "react";
 import { Box, Container, Stack, Typography } from "@mui/material";
 
-import { ProductSwitch, ProductSwitchItem } from "../ProductSwitch";
-import { PartySwitchItem, PartySwitch } from "../PartySwitch";
-import { PartyAccountItem } from "../PartyAccountItem";
+import { ProductSwitch, ProductSwitchItem } from "@components/ProductSwitch";
+import { PartySwitchItem, PartySwitch } from "@components/PartySwitch";
+import { PartyAccountItem } from "@components/PartyAccountItem";
 
 export type ProductEntity = ProductSwitchItem;
 export type PartyEntity = PartySwitchItem;

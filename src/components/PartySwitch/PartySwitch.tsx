@@ -24,8 +24,8 @@ import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 import SentimentDissatisfied from "@mui/icons-material/SentimentDissatisfied";
 import CloseIcon from '@mui/icons-material/Close';
 
-import { PartyAccountItem } from "../PartyAccountItem";
-import { PartyAccountItemButton } from "../PartyAccountItemButton";
+import { PartyAccountItem } from "@components/PartyAccountItem";
+import { PartyAccountItemButton } from "@components/PartyAccountItemButton";
 
 export type PartySwitchItem = {
   id: string;
