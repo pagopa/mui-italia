@@ -14,7 +14,8 @@
     "url": "https://github.com/pagopa/mui-italia/issues"
   },
   "dependencies": {
-    "@fontsource/titillium-web": "^4.5.3"
+    "@fontsource/titillium-web": "^4.5.3",
+    "clsx": "^1.1.1"
   },
   "scripts": {
     "prebuild": "rimraf dist",

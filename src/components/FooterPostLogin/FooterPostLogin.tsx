@@ -59,7 +59,7 @@ export const FooterPostLogin = ({
               <Link
                 aria-label={ariaLabel}
                 component="button"
-                onClick={wrapHandleClick(href, linkType as LinkType)}
+                onClick={wrapHandleClick(href, linkType)}
                 key={i}
                 underline="none"
                 color="text.primary"

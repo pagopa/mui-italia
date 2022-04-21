@@ -4,7 +4,7 @@ import AccountBalanceRoundedIcon from "@mui/icons-material/AccountBalanceRounded
 
 import { theme } from "@theme";
 
-export interface EntityAvatarProps {
+export interface PartyAvatarProps {
   /** The id attribute added to the element */
   id?: string;
   /** The logo src */
@@ -17,12 +17,12 @@ export interface EntityAvatarProps {
   /* loading?: boolean; */
 }
 
-export const EntityAvatar = ({
+export const PartyAvatar = ({
   customAlt,
   customSrc,
   size = 48,
   id,
-}: EntityAvatarProps): JSX.Element => (
+}: PartyAvatarProps): JSX.Element => (
   <Avatar
     id={id}
     alt={customAlt}

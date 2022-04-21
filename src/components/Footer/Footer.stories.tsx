@@ -9,7 +9,7 @@ import {
 } from "./Footer";
 
 export default {
-  title: "Components/Footer",
+  title: "Components/Footer (WIP)",
   component: Footer,
   decorators: [
     (Story) => (

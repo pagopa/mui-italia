@@ -18,7 +18,7 @@ const mainTypeface = ['"Titillium Web"', "sans-serif"].join(", ");
 const colorTextPrimary = "#17324D";
 const colorPrimaryContainedHover = "#0055AA"; // Not exposed by the theme object
 const responsiveBreakpoint = "sm";
-const ringWidth = "4px";
+export const ringWidth = "4px";
 const alertBorderWidth = "4px";
 const backdropBackground = "#17324D";
 const menuItemBackground = "#17324D";
@@ -116,16 +116,6 @@ declare module "@mui/material/IconButton" {
     info: false;
     success: false;
     warning: false;
-    error: false;
-  }
-}
-
-declare module "@mui/material/Switch" {
-  interface SwitchPropsColorOverrides {
-    secondary: false;
-    warning: false;
-    info: false;
-    success: false;
     error: false;
   }
 }
@@ -330,7 +320,6 @@ export const theme = createTheme(foundation, {
   }, */
     },
     button: {
-      fontWeight: foundation.typography.fontWeightBold,
       lineHeight: 1.2,
       textTransform: "none",
       letterSpacing: 0,
@@ -971,40 +960,6 @@ export const theme = createTheme(foundation, {
         },
       },
     },
-    MuiSwitch: {
-      defaultProps: {
-        disableRipple: true,
-      },
-      styleOverrides: {
-        root: {
-          "& .MuiSwitch-switchBase.Mui-focusVisible .MuiSwitch-thumb": {
-            boxShadow: `0 0 0 ${ringWidth} ${alpha(
-              foundation.palette.text.primary,
-              0.25
-            )}`,
-          },
-          "& .MuiSwitch-colorPrimary.Mui-checked.Mui-focusVisible .MuiSwitch-thumb":
-            {
-              boxShadow: `0 0 0 ${ringWidth} ${alpha(
-                foundation.palette.primary.main,
-                0.25
-              )}`,
-            },
-        },
-        switchBase: {
-          transition: `${foundation.transitions.duration.short}ms ${foundation.transitions.easing.easeInOut}`,
-          transitionProperty: "background-color, border-color, transform",
-        },
-        thumb: {
-          transition: `${foundation.transitions.duration.short}ms ${foundation.transitions.easing.easeInOut}`,
-          transitionProperty: "box-shadow",
-        },
-        track: {
-          backgroundColor: foundation.palette.text.primary,
-        },
-      },
-    },
-
     /** End SELECT */
     MuiTableHead: {
       styleOverrides: {
