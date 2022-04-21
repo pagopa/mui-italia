@@ -2,16 +2,16 @@ import React from "react";
 
 import { Typography, Box } from "@mui/material";
 
-import { EntityAvatar } from "@components/EntityAvatar";
+import { PartyAvatar } from "@components/PartyAvatar";
 
 import { theme } from "@theme";
 
-export interface EntityAccountItemButtonProps {
+export interface PartyAccountItemButtonProps {
   selectedItem?: boolean;
-  /* The name of the entity. E.g: "Comune di Roma" */
-  entityName: string;
+  /* The name of the party. E.g: "Comune di Roma" */
+  partyName: string;
   /* The role of the user. E.g: "Referente amministrativo" */
-  entityRole?: string;
+  partyRole?: string;
   image?: string;
   action?: React.Dispatch<React.MouseEvent<HTMLDivElement, MouseEvent>>;
   disabled?: boolean;
@@ -19,15 +19,15 @@ export interface EntityAccountItemButtonProps {
   endSlot?: JSX.Element | Array<JSX.Element> | undefined;
 }
 
-export const EntityAccountItemButton = ({
-  entityName,
-  entityRole,
+export const PartyAccountItemButton = ({
+  partyName,
+  partyRole,
   image,
   selectedItem,
   action,
   disabled,
   endSlot,
-}: EntityAccountItemButtonProps) => (
+}: PartyAccountItemButtonProps) => (
   <Box
     sx={{
       p: 1.5,
@@ -63,7 +63,7 @@ export const EntityAccountItemButton = ({
           }),
         }}
       >
-        <EntityAvatar customAlt={entityName} customSrc={image} />
+        <PartyAvatar customAlt={partyName} customSrc={image} />
       </Box>
       {/* Info Container */}
       <Box
@@ -77,7 +77,7 @@ export const EntityAccountItemButton = ({
           }),
         }}
       >
-        {entityName && (
+        {partyName && (
           <Typography
             variant="body1"
             component="h6"
@@ -86,10 +86,10 @@ export const EntityAccountItemButton = ({
               lineHeight: 1.25,
             }}
           >
-            {entityName}
+            {partyName}
           </Typography>
         )}
-        {entityRole && <Typography variant="caption">{entityRole}</Typography>}
+        {partyRole && <Typography variant="caption">{partyRole}</Typography>}
       </Box>
       {endSlot && (
         <Box

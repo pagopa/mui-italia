@@ -2,28 +2,28 @@ import { useMemo } from "react";
 import { Box, Container, Stack, Typography } from "@mui/material";
 
 import { ProductSwitch, ProductSwitchItem } from "../ProductSwitch";
-import { EntitySwitchItem, EntitySwitch } from "../EntitySwitch";
-import { EntityAccountItem } from "../EntityAccountItem";
+import { PartySwitchItem, PartySwitch } from "../PartySwitch";
+import { PartyAccountItem } from "../PartyAccountItem";
 
 export type ProductEntity = ProductSwitchItem;
-export type PartyEntity = EntitySwitchItem;
+export type PartyEntity = PartySwitchItem;
 
 export type HeaderProductProps = {
   productId?: string;
   productsList: Array<ProductEntity>;
-  entityId?: string;
-  entityList?: Array<PartyEntity>;
+  partyId?: string;
+  partyList?: Array<PartyEntity>;
   onSelectedProduct?: (product: ProductSwitchItem) => void;
-  onSelectedEntity?: (entity: EntitySwitchItem) => void;
+  onSelectedParty?: (party: PartySwitchItem) => void;
 };
 
 export const HeaderProduct = ({
   productId,
   productsList,
-  entityId,
-  entityList,
+  partyId,
+  partyList,
   onSelectedProduct,
-  onSelectedEntity,
+  onSelectedParty,
 }: HeaderProductProps) => {
   const selectedProduct = useMemo(
     () =>
@@ -32,12 +32,12 @@ export const HeaderProduct = ({
         : productsList[0],
     []
   ) as ProductSwitchItem;
-  const selectedEntity = useMemo(() => {
-    if (!entityList) {
+  const selectedParty = useMemo(() => {
+    if (!partyList) {
       return;
     }
-    return entityId ? entityList.find((e) => e.id === entityId) : entityList[0];
-  }, []) as EntitySwitchItem;
+    return partyId ? partyList.find((e) => e.id === partyId) : partyList[0];
+  }, []) as PartySwitchItem;
 
   return (
     <Box
@@ -81,21 +81,21 @@ export const HeaderProduct = ({
           )}
 
           {/* Right side of the component */}
-          {entityList && entityList.length > 1 && (
+          {partyList && partyList.length > 1 && (
             <>
-              {/* Switcher Entity */}
-              <EntitySwitch
-                currentEntityId={selectedEntity.id}
-                entites={entityList}
-                onExit={onSelectedEntity}
-              ></EntitySwitch>
+              {/* Switcher Party */}
+              <PartySwitch
+                currentPartyId={selectedParty.id}
+                parties={partyList}
+                onExit={onSelectedParty}
+              ></PartySwitch>
             </>
           )}
-          {entityList && selectedEntity && entityList.length === 1 && (
-            <EntityAccountItem
-              entityName={selectedEntity.name}
-              entityRole={selectedEntity.productRole}
-              image={selectedEntity.logoUrl}
+          {partyList && selectedParty && partyList.length === 1 && (
+            <PartyAccountItem
+              partyName={selectedParty.name}
+              partyRole={selectedParty.productRole}
+              image={selectedParty.logoUrl}
               infoContainerSx={{
                 display: { xs: "none", md: "none", lg: "block" },
               }}

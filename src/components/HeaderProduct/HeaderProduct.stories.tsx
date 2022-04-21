@@ -42,7 +42,7 @@ const productsList: Array<ProductEntity> = [
 
 const cdnPath = "https://assets.cdn.io.italia.it/logos/organizations/";
 
-const entityList: Array<PartyEntity> = [
+const partyList: Array<PartyEntity> = [
   {
     id: "0",
     name: `Comune di Milano`,
@@ -127,7 +127,7 @@ const entityList: Array<PartyEntity> = [
   }
 ];
 
-export const DefaultWithoutEntities: ComponentStory<
+export const DefaultWithoutParties: ComponentStory<
   typeof HeaderProduct
 > = () => <HeaderProduct productsList={[productsList[0]]} />;
 
@@ -140,7 +140,7 @@ export const WithProductSelection: ComponentStory<
     onSelectedProduct={(p) =>
       console.log("Selected Item:", p.title)
     }
-    entityList={[entityList[0]]}
+    partyList={[partyList[0]]}
   />
 );
 
@@ -149,17 +149,17 @@ export const WithoutProductSelection: ComponentStory<
 > = () => (
   <HeaderProduct
     productsList={[productsList[0]]}
-    entityList={[entityList[0]]}
+    partyList={[partyList[0]]}
   />
 );
 
-export const WithEntitySelection: ComponentStory<
+export const WithPartySelection: ComponentStory<
   typeof HeaderProduct
 > = () => (
   <HeaderProduct
     productsList={[productsList[0]]}
-    entityList={entityList}
-    onSelectedEntity={(e) =>
+    partyList={partyList}
+    onSelectedParty={(e) =>
       console.log("Selected Item:", e.name)
     }
   />

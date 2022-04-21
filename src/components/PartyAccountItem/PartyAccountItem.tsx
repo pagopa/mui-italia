@@ -1,20 +1,20 @@
 import { Typography, Box, SxProps } from "@mui/material";
 import { useMemo } from "react";
 
-import { EntityAvatar } from "@components/EntityAvatar";
+import { PartyAvatar } from "@components/PartyAvatar";
 import { theme } from "@theme";
 
-export type EntityAccount = {
+export type PartyAccount = {
   image: string | undefined;
   name: string;
   role?: string | undefined;
 };
-export interface EntityAccountItemProps {
+export interface PartyAccountItemProps {
   image?: string;
-  /* The name of the entity. E.g: "Comune di Roma" */
-  entityName: string;
+  /* The name of the party. E.g: "Comune di Roma" */
+  partyName: string;
   /* The role of the user. E.g: "Referente amministrativo" */
-  entityRole?: string;
+  partyRole?: string;
   noWrap?: boolean;
   /* Style to override overall style */
   containerSx?: SxProps;
@@ -22,14 +22,14 @@ export interface EntityAccountItemProps {
   infoContainerSx?: SxProps;
 }
 
-export const EntityAccountItem = ({
-  entityName,
-  entityRole,
+export const PartyAccountItem = ({
+  partyName,
+  partyRole,
   image,
   noWrap = true,
   containerSx,
   infoContainerSx
-}: EntityAccountItemProps) => {
+}: PartyAccountItemProps) => {
   const containerStyle = useMemo(
     () => ({
       backgroundColor: "background.paper",
@@ -45,7 +45,7 @@ export const EntityAccountItem = ({
     >
       <Box sx={{ display: "flex", flexDirection: "row" }}>
         {/* Avatar Container */}
-        <EntityAvatar customAlt={entityName} customSrc={image} />
+        <PartyAvatar customAlt={partyName} customSrc={image} />
         {/* Info Container */}
         <Box
           sx={{
@@ -55,7 +55,7 @@ export const EntityAccountItem = ({
             ...infoContainerSx
           }}
         >
-          {entityName && (
+          {partyName && (
             <Typography
               variant="body1"
               component="h6"
@@ -67,11 +67,11 @@ export const EntityAccountItem = ({
                 }),
               }}
             >
-              {entityName}
+              {partyName}
             </Typography>
           )}
-          {entityRole && (
-            <Typography variant="caption">{entityRole}</Typography>
+          {partyRole && (
+            <Typography variant="caption">{partyRole}</Typography>
           )}
         </Box>
       </Box>

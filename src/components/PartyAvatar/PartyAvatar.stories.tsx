@@ -4,17 +4,17 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import { Button, Stack, Typography } from "@mui/material";
 
-import { EntityAvatar } from "./EntityAvatar";
+import { PartyAvatar } from "./PartyAvatar";
 
-type EntityImage = {
+type PartyImage = {
   name: string;
-  /* Source image is obtained from the union of `CDN Path` + `Fiscal Code` of the Public Entity */
+  /* Source image is obtained from the union of `CDN Path` + `Fiscal Code` of the Public Party */
   image: string | undefined;
 };
 
 const cdnPath = "https://assets.cdn.io.italia.it/logos/organizations/";
 
-const entityMockImages: Array<EntityImage> = [
+const partyMockImages: Array<PartyImage> = [
   {
     image: `${cdnPath}1199250158.png`,
     name: "Comune di Milano",
@@ -73,7 +73,7 @@ const entityMockImages: Array<EntityImage> = [
   Source of this snippet: https://akashmittal.com/javascript-random-array-element-no-repeat/ */
 const alreadyPicked: Array<number> = [];
 
-const randomValueFromArray = (array: Array<EntityImage>) => {
+const randomValueFromArray = (array: Array<PartyImage>) => {
   if (alreadyPicked.length === 0) {
     for (const [i] of array.entries()) {
       alreadyPicked.push(i);
@@ -86,8 +86,8 @@ const randomValueFromArray = (array: Array<EntityImage>) => {
 };
 
 export default {
-  title: "Components/EntityAvatar",
-  component: EntityAvatar,
+  title: "Components/PartyAvatar",
+  component: PartyAvatar,
   decorators: [
     (Story) => (
       <div
@@ -100,28 +100,28 @@ export default {
       </div>
     ),
   ],
-} as ComponentMeta<typeof EntityAvatar>;
+} as ComponentMeta<typeof PartyAvatar>;
 
-export const Default: ComponentStory<typeof EntityAvatar> = () => {
+export const Default: ComponentStory<typeof PartyAvatar> = () => {
   const [randomIndex, setRandomIndex] = useState(0);
-  const item = entityMockImages[randomIndex];
+  const item = partyMockImages[randomIndex];
 
-  const getRandomEntity = () => {
-    const randomNumber = randomValueFromArray(entityMockImages);
+  const getRandomParty = () => {
+    const randomNumber = randomValueFromArray(partyMockImages);
     setRandomIndex(randomNumber);
   };
 
   return (
     <Stack gap={2} alignItems="flex-start">
-      <EntityAvatar customSrc={item.image} customAlt={item.name} />
+      <PartyAvatar customSrc={item.image} customAlt={item.name} />
       <div>
-        <Typography variant="overline">Entity:</Typography>
+        <Typography variant="overline">Party:</Typography>
         <Typography variant="h6">
-          {entityMockImages[randomIndex].name}
+          {partyMockImages[randomIndex].name}
         </Typography>
       </div>
-      <Button variant="contained" onClick={getRandomEntity}>
-        Get random Entity
+      <Button variant="contained" onClick={getRandomParty}>
+        Get random Party
       </Button>
     </Stack>
   );

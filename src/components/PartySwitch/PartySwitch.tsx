@@ -24,21 +24,21 @@ import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 import SentimentDissatisfied from "@mui/icons-material/SentimentDissatisfied";
 import CloseIcon from '@mui/icons-material/Close';
 
-import { EntityAccountItem } from "../EntityAccountItem";
-import { EntityAccountItemButton } from "../EntityAccountItemButton";
+import { PartyAccountItem } from "../PartyAccountItem";
+import { PartyAccountItemButton } from "../PartyAccountItemButton";
 
-export type EntitySwitchItem = {
+export type PartySwitchItem = {
   id: string;
   name: string;
   productRole?: string;
   logoUrl?: string;
 };
 
-export type EntitySwitchProps = {
-  currentEntityId: string;
-  entites: Array<EntitySwitchItem>;
+export type PartySwitchProps = {
+  currentPartyId: string;
+  parties: Array<PartySwitchItem>;
   /* token: string; */
-  onExit?: (entity: EntitySwitchItem) => void;
+  onExit?: (party: PartySwitchItem) => void;
 };
 
 const CustomDrawer = styled(Drawer)(() => ({
@@ -57,12 +57,12 @@ const CustomDrawer = styled(Drawer)(() => ({
   },
 }));
 
-export const EntitySwitch = ({
-  entites,
+export const PartySwitch = ({
+  parties,
   onExit,
-  currentEntityId,
-}: EntitySwitchProps) => {
-  const [selectedId, setSelectedId] = useState(currentEntityId);
+  currentPartyId,
+}: PartySwitchProps) => {
+  const [selectedId, setSelectedId] = useState(currentPartyId);
   const [open, setOpen] = useState(false);
   const [filter, setFilter] = useState("");
 
@@ -71,29 +71,29 @@ export const EntitySwitch = ({
     []
   );
 
-  const filteredEntities = useMemo(() => {
+  const filteredParties = useMemo(() => {
     if (!filter) {
-      return entites;
+      return parties;
     }
-    return entites.filter(
+    return parties.filter(
       (e) => e.name.toLowerCase().indexOf(filter.toLowerCase()) > -1
     );
   }, [filter]);
 
-  const selectedEntity = useMemo(
-    () => filteredEntities.find((e) => e.id === selectedId),
+  const selectedParty = useMemo(
+    () => filteredParties.find((e) => e.id === selectedId),
     [selectedId]
-  ) as EntitySwitchItem;
+  ) as PartySwitchItem;
 
   const toggleDrawer = (openStatus: boolean) => {
     setOpen(openStatus);
   };
 
-  const handleEntitySelection = (entity: EntitySwitchItem) => {
-    setSelectedId(entity.id);
+  const handlePartySelection = (party: PartySwitchItem) => {
+    setSelectedId(party.id);
     setOpen(false);
     if (onExit) {
-      onExit(entity);
+      onExit(party);
     }
   };
 
@@ -103,17 +103,17 @@ export const EntitySwitch = ({
 
   return (
     <Fragment>
-      <EntitySwitchButton
-        aria-describedby="entity-selection"
-        aria-controls={open ? "entity-selection" : undefined}
+      <PartySwitchButton
+        aria-describedby="party-selection"
+        aria-controls={open ? "party-selection" : undefined}
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={() => toggleDrawer(true)}
       >
-        <EntityAccountItem
-          entityName={selectedEntity.name}
-          entityRole={selectedEntity.productRole}
-          image={selectedEntity.logoUrl}
+        <PartyAccountItem
+          partyName={selectedParty.name}
+          partyRole={selectedParty.productRole}
+          image={selectedParty.logoUrl}
           infoContainerSx={mobileHideStyle}
         />
         {open ? (
@@ -121,7 +121,7 @@ export const EntitySwitch = ({
         ) : (
           <ArrowDropDownRoundedIcon sx={mobileHideStyle} />
         )}
-      </EntitySwitchButton>
+      </PartySwitchButton>
       <CustomDrawer
         anchor="right"
         open={open}
@@ -150,18 +150,18 @@ export const EntitySwitch = ({
           onChange={handleFilterChange}
           value={filter}
         />
-        {filteredEntities.length > 0 &&
-          filteredEntities.map((e) => (
-            <EntityAccountItemButton
+        {filteredParties.length > 0 &&
+          filteredParties.map((e) => (
+            <PartyAccountItemButton
               key={e.id}
-              entityName={e.name}
-              entityRole={e.productRole}
+              partyName={e.name}
+              partyRole={e.productRole}
               image={e.logoUrl}
-              action={() => handleEntitySelection(e)}
+              action={() => handlePartySelection(e)}
               selectedItem={e.id === selectedId}
             />
           ))}
-        {filteredEntities.length === 0 && (
+        {filteredParties.length === 0 && (
           <Fragment>
             <Box
               component="div"
@@ -211,7 +211,7 @@ const StyledSwitcherButton = styled("div")(({ theme }) => ({
   },
 }));
 
-const EntitySwitchButton = forwardRef(function EntitySwitchButton(
+const PartySwitchButton = forwardRef(function PartySwitchButton(
   props: ButtonUnstyledProps,
   ref: ForwardedRef<any>
 ) {
