@@ -21,7 +21,7 @@ export type ProductSwitchProps = {
   currentProductId: string;
   products: Array<ProductSwitchItem>;
   /* token: string; */
-  onExit?: (id: string) => void;
+  onExit?: (product: ProductSwitchItem) => void;
 };
 
 export const ProductSwitch = ({
@@ -41,11 +41,11 @@ export const ProductSwitch = ({
   };
 
   const handleClose = useCallback(
-    (id?: string) => {
-      if (id) {
-        setSelectedId(id);
+    (product?: ProductSwitchItem) => {
+      if (product) {
+        setSelectedId(product.id);
         if (onExit) {
-          onExit(id);
+          onExit(product);
         }
       }
       setAnchorEl(null);
@@ -78,13 +78,13 @@ export const ProductSwitch = ({
           "aria-labelledby": "Seleziona i tuoi prodotti",
         }}
       >
-        {products.map(({ id, title }) => (
+        {products.map((product) => (
           <MenuItem
-            key={id}
-            onClick={() => handleClose(id)}
-            selected={id === selectedId}
+            key={product.id}
+            onClick={() => handleClose(product)}
+            selected={product.id === selectedId}
           >
-            {title}
+            {product.title}
           </MenuItem>
         ))}
       </Menu>

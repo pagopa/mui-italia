@@ -137,8 +137,8 @@ export const WithProductSelection: ComponentStory<
   <HeaderProduct
     productId="1"
     productsList={productsList}
-    onSelectedProduct={(id) =>
-      console.log("Selected Item:", productsList.find(p => p.id === id)?.title)
+    onSelectedProduct={(p) =>
+      console.log("Selected Item:", p.title)
     }
     entityList={[entityList[0]]}
   />
@@ -159,8 +159,8 @@ export const WithEntitySelection: ComponentStory<
   <HeaderProduct
     productsList={[productsList[0]]}
     entityList={entityList}
-    onSelectedEntity={(id) =>
-      console.log("Selected Item:", entityList.find(e => e.id === id)?.name)
+    onSelectedEntity={(e) =>
+      console.log("Selected Item:", e.name)
     }
   />
 );

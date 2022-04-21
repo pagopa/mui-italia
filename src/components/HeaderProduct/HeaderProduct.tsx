@@ -13,8 +13,8 @@ export type HeaderProductProps = {
   productsList: Array<ProductEntity>;
   entityId?: string;
   entityList?: Array<PartyEntity>;
-  onSelectedProduct?: (id: string) => void;
-  onSelectedEntity?: (id: string) => void;
+  onSelectedProduct?: (product: ProductSwitchItem) => void;
+  onSelectedEntity?: (entity: EntitySwitchItem) => void;
 };
 
 export const HeaderProduct = ({

@@ -38,7 +38,7 @@ export type EntitySwitchProps = {
   currentEntityId: string;
   entites: Array<EntitySwitchItem>;
   /* token: string; */
-  onExit?: (id: string) => void;
+  onExit?: (entity: EntitySwitchItem) => void;
 };
 
 const CustomDrawer = styled(Drawer)(() => ({
@@ -89,11 +89,11 @@ export const EntitySwitch = ({
     setOpen(openStatus);
   };
 
-  const handleEntitySelection = (id: string) => {
-    setSelectedId(id);
+  const handleEntitySelection = (entity: EntitySwitchItem) => {
+    setSelectedId(entity.id);
     setOpen(false);
     if (onExit) {
-      onExit(id);
+      onExit(entity);
     }
   };
 
@@ -157,7 +157,7 @@ export const EntitySwitch = ({
               entityName={e.name}
               entityRole={e.productRole}
               image={e.logoUrl}
-              action={() => handleEntitySelection(e.id)}
+              action={() => handleEntitySelection(e)}
               selectedItem={e.id === selectedId}
             />
           ))}
