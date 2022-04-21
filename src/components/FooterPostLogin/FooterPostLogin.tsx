@@ -34,10 +34,10 @@ export const FooterPostLogin = ({
         backgroundColor: "background.paper",
       }}
     >
-      <Container sx={{ py: { xs: 3, sm: 2 } }}>
+      <Container sx={{ py: { xs: 3, md: 2 } }}>
         <Stack
-          spacing={{ xs: 4, sm: 3 }}
-          direction={{ xs: "column", sm: "row" }}
+          spacing={{ xs: 4, md: 3 }}
+          direction={{ xs: "column", md: "row" }}
           justifyContent="space-between"
           sx={{ alignItems: "center" }}
         >
@@ -51,8 +51,8 @@ export const FooterPostLogin = ({
           </Link>
 
           <Stack
-            spacing={{ xs: 1, sm: 3 }}
-            direction={{ xs: "column", sm: "row" }}
+            spacing={{ xs: 1, md: 3 }}
+            direction={{ xs: "column", md: "row" }}
             sx={{ alignItems: "center" }}
           >
             {links.map(({ href, label, ariaLabel, linkType }, i) => (
