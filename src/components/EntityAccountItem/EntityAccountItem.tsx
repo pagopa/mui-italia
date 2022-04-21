@@ -4,7 +4,6 @@ import { useMemo } from "react";
 import { EntityAvatar } from "@components/EntityAvatar";
 import { theme } from "@theme";
 
-
 export type EntityAccount = {
   image: string | undefined;
   name: string;
@@ -17,14 +16,6 @@ export interface EntityAccountItemProps {
   /* The role of the user. E.g: "Referente amministrativo" */
   entityRole?: string;
   noWrap?: boolean;
-  /* Function called when user click on element */
-  onClick?: () => void;
-  /* Disabled status */
-  disabled?: boolean;
-  /* Selected status */
-  isSelected?: boolean;
-  /* Slot available for custom state components. E.g: Tag with action */
-  endSlot?: JSX.Element | Array<JSX.Element> | undefined;
   /* Style to override overall style */
   containerSx?: SxProps;
   /* Style to override info container style */
@@ -36,71 +27,31 @@ export const EntityAccountItem = ({
   entityRole,
   image,
   noWrap = true,
-  onClick,
-  disabled = false,
-  isSelected = false,
-  endSlot,
   containerSx,
   infoContainerSx
 }: EntityAccountItemProps) => {
-  const containerStyle = useMemo(() => {
-    // button style
-    if (onClick) {
-      return {
-        p: 1.5,
-        transitionProperty: "background-color",
-        transitionDuration: `${theme.transitions.duration.short}ms`,
-        boxSizing: "border-box",
-        ...(!disabled && {
-          cursor: "pointer",
-          "&:hover": {
-            backgroundColor: theme.palette.action.hover,
-          },
-        }),
-        ...(isSelected && {
-          boxShadow: `inset 2px 0 0 0 ${theme.palette.primary.main}`,
-          backgroundColor: theme.palette.primaryAction.selected,
-          "&:hover": {
-            backgroundColor: theme.palette.primaryAction.hover,
-          },
-        }),
-        ...containerSx
-      };
-    }
-    return {
+  const containerStyle = useMemo(
+    () => ({
       backgroundColor: "background.paper",
       userSelect: "none",
-      ...containerSx
-    };
-  }, []) as SxProps;
+      ...containerSx,
+    }),
+    []
+  ) as SxProps;
 
   return (
     <Box
       sx={containerStyle}
-      onClick={onClick}
-      role={onClick ? "button" : undefined}
     >
       <Box sx={{ display: "flex", flexDirection: "row" }}>
         {/* Avatar Container */}
-        <Box
-          sx={{
-            ...(disabled && {
-              opacity: theme.palette.action.disabledOpacity,
-            }),
-          }}
-        >
-          <EntityAvatar customAlt={entityName} customSrc={image} />
-        </Box>
+        <EntityAvatar customAlt={entityName} customSrc={image} />
         {/* Info Container */}
         <Box
           sx={{
             ml: 1.25,
             alignSelf: "center",
             userSelect: "text",
-            ...(disabled && {
-              opacity: theme.palette.action.disabledOpacity,
-              userSelect: "none",
-            }),
             ...infoContainerSx
           }}
         >
@@ -123,13 +74,6 @@ export const EntityAccountItem = ({
             <Typography variant="caption">{entityRole}</Typography>
           )}
         </Box>
-        {endSlot && (
-          <Box
-            sx={{ display: "flex", alignItems: "center", ml: "auto", pl: 1.25 }}
-          >
-            {endSlot}
-          </Box>
-        )}
       </Box>
     </Box>
   );
