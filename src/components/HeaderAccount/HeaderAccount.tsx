@@ -11,7 +11,7 @@ export type JwtUser = {
   email?: string;
 };
 
-type UserAction = {
+export type UserAction = {
   id: string;
   icon: React.ReactNode;
   label: string;
