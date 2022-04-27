@@ -47,7 +47,7 @@ export const HeaderAccount = ({
   enableLogin = true,
 }: HeaderAccountProps) => (
   <Stack
-    component="header"
+    component="div"
     justifyContent="center"
     sx={{
       borderBottom: 1,
