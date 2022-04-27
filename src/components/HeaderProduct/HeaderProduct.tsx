@@ -41,7 +41,7 @@ export const HeaderProduct = ({
 
   return (
     <Box
-      component="header"
+      component="div"
       display="flex"
       alignItems="center"
       sx={{
