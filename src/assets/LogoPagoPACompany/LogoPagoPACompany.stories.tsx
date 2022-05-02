@@ -7,6 +7,7 @@ export default {
   component: LogoPagoPACompany,
   args: {
     color: "dark",
+    variant: "default",
   },
 } as ComponentMeta<typeof LogoPagoPACompany>;
 
@@ -52,3 +53,8 @@ Negative.decorators = [
     </div>
   ),
 ];
+
+export const Flat = Template.bind({});
+Flat.args = {
+  variant: "flat",
+};
