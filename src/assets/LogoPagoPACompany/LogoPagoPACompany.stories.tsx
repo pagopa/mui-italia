@@ -58,3 +58,17 @@ export const Flat = Template.bind({});
 Flat.args = {
   variant: "flat",
 };
+Flat.decorators = [
+  (Story) => (
+    <div
+      style={{
+        position: "fixed",
+        inset: "0",
+        display: "grid",
+        placeItems: "center",
+      }}
+    >
+      <Story />
+    </div>
+  ),
+];
