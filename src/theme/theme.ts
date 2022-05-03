@@ -29,6 +29,10 @@ const shadowValues = {
   4: `0px 2px 4px -1px ${alpha(shadowColor, 0.1)},
       0px 4px 5px ${alpha(shadowColor, 0.05)},
       0px 1px 10px ${alpha(shadowColor, 0.1)}`,
+  /* Elevation 8 = Elevation 16 */
+  8: `0px 8px 10px -5px ${alpha(shadowColor, 0.1)},
+      0px 16px 24px 2px ${alpha(shadowColor, 0.05)},
+      0px 6px 30px 5px ${alpha(shadowColor, 0.1)}`,
   /* Elevation 16 */
   16: `0px 8px 10px -5px ${alpha(shadowColor, 0.1)},
        0px 16px 24px 2px ${alpha(shadowColor, 0.05)},
@@ -634,11 +638,6 @@ export const theme = createTheme(foundation, {
       styleOverrides: {
         root: {
           borderRadius: foundation.spacing(1),
-          /* There's no attribute exposed for this,
-          so I have to use the class name */
-          "&.MuiPaper-elevation8": {
-            boxShadow: foundation.shadows[16],
-          },
         },
       },
     },
