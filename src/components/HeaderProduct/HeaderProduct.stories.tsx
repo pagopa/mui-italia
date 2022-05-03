@@ -22,21 +22,25 @@ const productsList: Array<ProductEntity> = [
     id: "0",
     title: `Area Riservata`,
     productUrl: "#area-riservata",
+    linkType: 'external'
   },
   {
     id: "1",
     title: `Piattaforma Notifiche`,
     productUrl: "#piattaforma-notifiche",
+    linkType: 'external'
   },
   {
     id: "2",
     title: `App IO`,
     productUrl: "#app-io",
+    linkType: 'internal'
   },
   {
     id: "3",
     title: `Interoperabilità`,
     productUrl: "#interoperabilità",
+    linkType: 'internal'
   },
 ];
 

@@ -3,18 +3,18 @@ import clsx from "clsx";
 import { Menu, MenuItem, Typography } from "@mui/material";
 import { styled } from "@mui/system";
 import { alpha } from "@mui/material/styles";
-
 import { ButtonUnstyledProps, useButton } from "@mui/base/ButtonUnstyled";
-
-import { ringWidth, theme } from "@theme";
-
 import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
+
+import { ringWidth, theme } from "@theme";
+import { LinkType } from "@components/Footer";
 
 export type ProductSwitchItem = {
   id: string;
   title: string;
   productUrl: string;
+  linkType: LinkType;
 };
 
 export type ProductSwitchProps = {
@@ -43,7 +43,9 @@ export const ProductSwitch = ({
   const handleClose = useCallback(
     (product?: ProductSwitchItem) => {
       if (product) {
-        setSelectedId(product.id);
+        if (product.linkType === 'internal') {
+          setSelectedId(product.id);
+        }
         if (onExit) {
           onExit(product);
         }
