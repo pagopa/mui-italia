@@ -7,6 +7,7 @@ export default {
   component: LogoPagoPACompany,
   args: {
     color: "dark",
+    variant: "default",
   },
 } as ComponentMeta<typeof LogoPagoPACompany>;
 
@@ -46,6 +47,25 @@ Negative.decorators = [
         display: "grid",
         placeItems: "center",
         backgroundColor: "#333",
+      }}
+    >
+      <Story />
+    </div>
+  ),
+];
+
+export const Flat = Template.bind({});
+Flat.args = {
+  variant: "flat",
+};
+Flat.decorators = [
+  (Story) => (
+    <div
+      style={{
+        position: "fixed",
+        inset: "0",
+        display: "grid",
+        placeItems: "center",
       }}
     >
       <Story />

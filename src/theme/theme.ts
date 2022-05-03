@@ -120,6 +120,21 @@ declare module "@mui/material/IconButton" {
   }
 }
 
+declare module "@mui/material/Pagination" {
+  interface ButtonPropsColorOverrides {
+    blueItaly: true;
+    text: true;
+    secondary: false;
+    warning: false;
+    info: false;
+    success: false;
+  }
+
+  interface PaginationPropsVariantOverrides {
+    outlined: false;
+  }
+}
+
 const foundation: Theme = createTheme({
   breakpoints: {
     values: {
@@ -958,6 +973,11 @@ export const theme = createTheme(foundation, {
             backgroundColor: alpha(menuItemBackground, 0.04),
           },
         },
+      },
+    },
+    MuiPaginationItem: {
+      defaultProps: {
+        disableRipple: true,
       },
     },
     /** End SELECT */

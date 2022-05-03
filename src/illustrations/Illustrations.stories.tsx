@@ -8,6 +8,8 @@ import {
   IllusUploadFile,
   IllusSms,
   IllusEmailValidation,
+  IllusPiggyBank,
+  IllusLogin,
 } from "./";
 
 export interface IllusBoxProps {
@@ -56,6 +58,8 @@ export const Overview: ComponentStory<typeof Box> = () => (
       name={"<IllusEmailValidation />"}
       illustration={<IllusEmailValidation />}
     />
+    <IllusBox name={"<IllusPiggyBank />"} illustration={<IllusPiggyBank />} />
+    <IllusBox name={"<IllusLogin />"} illustration={<IllusLogin />} />
   </Box>
 );
 
