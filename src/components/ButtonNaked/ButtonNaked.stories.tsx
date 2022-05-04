@@ -14,7 +14,6 @@ export default {
   title: "Components/ButtonNaked",
   component: ButtonNaked,
   args: {
-    variant: "naked",
     children: "Discover more",
     disabled: false,
   },
@@ -60,7 +59,6 @@ const Template: ComponentStory<typeof ButtonNaked> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  variant: "naked",
   size: "medium",
   color: "text",
 };
