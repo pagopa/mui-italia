@@ -34,7 +34,7 @@ export const FooterPostLogin = ({
         backgroundColor: "background.paper",
       }}
     >
-      <Container sx={{ py: { xs: 3, md: 2 } }}>
+      <Container maxWidth={false} sx={{ py: { xs: 3, md: 2 } }}>
         <Stack
           spacing={{ xs: 4, md: 3 }}
           direction={{ xs: "column", md: "row" }}

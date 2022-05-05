@@ -56,7 +56,7 @@ export const HeaderAccount = ({
       minHeight: "48px",
     }}
   >
-    <Container>
+    <Container maxWidth={false}>
       <Stack
         spacing={2}
         direction="row"

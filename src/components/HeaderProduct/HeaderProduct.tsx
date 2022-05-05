@@ -52,7 +52,7 @@ export const HeaderProduct = ({
         boxSizing: "border-box",
       }}
     >
-      <Container>
+      <Container maxWidth={false}>
         <Stack
           spacing={2}
           direction="row"

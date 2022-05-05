@@ -57,7 +57,7 @@ export const FooterPreLogin = ({
         backgroundColor: "background.paper",
       }}
     >
-      <Container sx={{ py: 8 }}>
+      <Container maxWidth={false} sx={{ py: 8 }}>
         <Grid container spacing={{ xs: 6, sm: 3 }}>
           <Grid item xs={12} sm={3}>
             <Stack spacing={2} alignItems={{ xs: "center", sm: "start" }}>
