@@ -124,6 +124,22 @@ declare module "@mui/material/IconButton" {
   }
 }
 
+declare module "@mui/material/Checkbox" {
+  interface CheckboxPropsColorOverrides {
+    secondary: false;
+    info: false;
+    warning: false;
+  }
+}
+
+declare module "@mui/material/Radio" {
+  interface RadioPropsColorOverrides {
+    secondary: false;
+    info: false;
+    warning: false;
+  }
+}
+
 declare module "@mui/material/Pagination" {
   interface ButtonPropsColorOverrides {
     blueItaly: true;
