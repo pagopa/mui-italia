@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Menu, MenuItem, Typography, Box } from "@mui/material";
-import { KeyboardArrowDownRounded as KeyboardArrowDownIcon } from "@mui/icons-material";
-import { KeyboardArrowUpRounded as KeyboardArrowUpIcon } from "@mui/icons-material";
 import { ButtonNaked } from "@components/ButtonNaked";
+
+/* Icons */
+import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
+import KeyboardArrowUpRoundedIcon from "@mui/icons-material/KeyboardArrowUpRounded";
 
 type LangCode = "it" | "en";
 type LangLabels = Record<LangCode, string>;
@@ -66,9 +68,9 @@ export function LangSwitch({
           )}
 
           {open ? (
-            <KeyboardArrowUpIcon fontSize="small" />
+            <KeyboardArrowUpRoundedIcon fontSize="small" />
           ) : (
-            <KeyboardArrowDownIcon fontSize="small" />
+            <KeyboardArrowDownRoundedIcon fontSize="small" />
           )}
         </ButtonNaked>
         {Boolean(Object.keys(languages).length > 0) && (

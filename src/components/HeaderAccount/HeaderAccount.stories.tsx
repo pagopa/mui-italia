@@ -1,6 +1,8 @@
 /* import { useState } from "react"; */
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { Settings as SettingsIcon } from "@mui/icons-material";
+
+/* Icons */
+import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 
 import { HeaderAccount, RootLinkType, JwtUser } from "./HeaderAccount";

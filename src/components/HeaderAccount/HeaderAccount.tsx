@@ -1,8 +1,10 @@
 import React from "react";
 import { Container, Button, Stack, IconButton } from "@mui/material";
-import { HelpOutline as HelpOutlineIcon } from "@mui/icons-material";
 import { ButtonNaked } from "@components/ButtonNaked";
 import { AccountDropdown } from "@components/AccountDropdown";
+
+/* Icons */
+import HelpOutlineRoundedIcon from "@mui/icons-material/HelpOutlineRounded";
 
 export type JwtUser = {
   id: string;
@@ -88,7 +90,7 @@ export const HeaderAccount = ({
             size="small"
             component="button"
             onClick={onAssistanceClick}
-            startIcon={<HelpOutlineIcon />}
+            startIcon={<HelpOutlineRoundedIcon />}
             sx={{ display: ["none", "flex"] }}
             weight="default"
           >
@@ -100,7 +102,7 @@ export const HeaderAccount = ({
             sx={{ display: ["flex", "none"] }}
             onClick={onAssistanceClick}
           >
-            <HelpOutlineIcon fontSize="inherit" />
+            <HelpOutlineRoundedIcon fontSize="inherit" />
           </IconButton>
           {/* END Assistance MOBILE/DESKTOP */}
 

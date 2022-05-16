@@ -6,7 +6,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { AccountCircle as AccountCircleIcon } from "@mui/icons-material";
+import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 
@@ -64,7 +64,7 @@ export const AccountDropdown = ({
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
-        startIcon={<AccountCircleIcon />}
+        startIcon={<AccountCircleRoundedIcon />}
         endIcon={
           open ? <ArrowDropUpRoundedIcon /> : <ArrowDropDownRoundedIcon />
         }
@@ -79,7 +79,7 @@ export const AccountDropdown = ({
         sx={{ display: ["flex", "none"] }}
         onClick={handleClick}
       >
-        <AccountCircleIcon fontSize="inherit" />
+        <AccountCircleRoundedIcon fontSize="inherit" />
       </IconButton>
       {/* END Account Button MOBILE/DESKTOP */}
 
