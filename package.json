@@ -75,7 +75,7 @@
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.5.0",
     "eslint-plugin-sonar": "^0.8.0",
-    "eslint-plugin-storybook": "^0.5.10",
+    "eslint-plugin-storybook": "^0.5.12",
     "prettier": "^2.6.2",
     "react": "^17.0.2",
     "react-docgen-typescript": "^2.2.2",
