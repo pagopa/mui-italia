@@ -1,6 +1,10 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import { HeaderProduct, PartyEntity, ProductEntity } from "@components/HeaderProduct";
+import {
+  HeaderProduct,
+  PartyEntity,
+  ProductEntity,
+} from "@components/HeaderProduct";
 
 export default {
   title: "Components/HeaderProduct (WIP)",
@@ -22,25 +26,25 @@ const productsList: Array<ProductEntity> = [
     id: "0",
     title: `Area Riservata`,
     productUrl: "#area-riservata",
-    linkType: 'external'
+    linkType: "external",
   },
   {
     id: "1",
     title: `Piattaforma Notifiche`,
     productUrl: "#piattaforma-notifiche",
-    linkType: 'external'
+    linkType: "external",
   },
   {
     id: "2",
     title: `App IO`,
     productUrl: "#app-io",
-    linkType: 'internal'
+    linkType: "internal",
   },
   {
     id: "3",
     title: `Interoperabilità`,
     productUrl: "#interoperabilità",
-    linkType: 'internal'
+    linkType: "internal",
   },
 ];
 
@@ -49,9 +53,12 @@ const cdnPath = "https://assets.cdn.io.italia.it/logos/organizations/";
 const partyList: Array<PartyEntity> = [
   {
     id: "0",
-    name: `Comune di Milano`,
-    productRole: 'Referente amministrativo',
-    logoUrl: `${cdnPath}1199250158.png`
+    name: `Commissario straordinario per la realizzazione di
+    approdi temporanei e di interventi complementari per la
+    salvaguardia di Venezia e della sua laguna e ulteriori
+    interventi per la salvaguardia della laguna di Venezia`,
+    productRole: "Referente amministrativo",
+    logoUrl: `${cdnPath}1199250158.png`,
   },
   {
     id: "1",
@@ -128,7 +135,7 @@ const partyList: Array<PartyEntity> = [
     logoUrl: undefined,
     name: "Ente senza stemma",
     productRole: "Referente amministrativo",
-  }
+  },
 ];
 
 export const DefaultWithoutParties: ComponentStory<
@@ -141,9 +148,7 @@ export const WithProductSelection: ComponentStory<
   <HeaderProduct
     productId="1"
     productsList={productsList}
-    onSelectedProduct={(p) =>
-      console.log("Selected Item:", p.title)
-    }
+    onSelectedProduct={(p) => console.log("Selected Item:", p.title)}
     partyList={[partyList[0]]}
   />
 );
@@ -151,20 +156,13 @@ export const WithProductSelection: ComponentStory<
 export const WithoutProductSelection: ComponentStory<
   typeof HeaderProduct
 > = () => (
-  <HeaderProduct
-    productsList={[productsList[0]]}
-    partyList={[partyList[0]]}
-  />
+  <HeaderProduct productsList={[productsList[0]]} partyList={[partyList[0]]} />
 );
 
-export const WithPartySelection: ComponentStory<
-  typeof HeaderProduct
-> = () => (
+export const WithPartySelection: ComponentStory<typeof HeaderProduct> = () => (
   <HeaderProduct
     productsList={[productsList[0]]}
     partyList={partyList}
-    onSelectedParty={(e) =>
-      console.log("Selected Item:", e.name)
-    }
+    onSelectedParty={(e) => console.log("Selected Item:", e.name)}
   />
 );

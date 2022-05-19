@@ -80,27 +80,30 @@ export const HeaderProduct = ({
             </Typography>
           )}
 
-          {/* Right side of the component */}
-          {partyList && partyList.length > 1 && (
-            <>
-              {/* Switcher Party */}
-              <PartySwitch
-                currentPartyId={selectedParty.id}
-                parties={partyList}
-                onExit={onSelectedParty}
-              ></PartySwitch>
-            </>
-          )}
-          {partyList && selectedParty && partyList.length === 1 && (
-            <PartyAccountItem
-              partyName={selectedParty.name}
-              partyRole={selectedParty.productRole}
-              image={selectedParty.logoUrl}
-              infoContainerSx={{
-                display: { xs: "none", md: "block" },
-              }}
-            />
-          )}
+          {/* insert maxWith to lock container when the const multiLine is used in PartySwitch and PartyAccountItem */}
+          <Box maxWidth="25rem">
+            {/* Right side of the component */}
+            {partyList && partyList.length > 1 && (
+              <>
+                {/* Switcher Party */}
+                <PartySwitch
+                  currentPartyId={selectedParty.id}
+                  parties={partyList}
+                  onExit={onSelectedParty}
+                ></PartySwitch>
+              </>
+            )}
+            {partyList && selectedParty && partyList.length === 1 && (
+              <PartyAccountItem
+                partyName={selectedParty.name}
+                partyRole={selectedParty.productRole}
+                image={selectedParty.logoUrl}
+                infoContainerSx={{
+                  display: { xs: "none", md: "block" },
+                }}
+              />
+            )}
+          </Box>
         </Stack>
       </Container>
     </Box>

@@ -11,8 +11,11 @@ const cdnPath = "https://assets.cdn.io.italia.it/logos/organizations/";
 const partyMockImages: Array<PartyAccount> = [
   {
     image: `${cdnPath}1199250158.png`,
-    name: "Comune di Milano",
-    role: "Referente amministrativo",
+    name: `Commissario straordinario per la realizzazione di
+    approdi temporanei e di interventi complementari per la
+    salvaguardia di Venezia e della sua laguna e ulteriori
+    interventi per la salvaguardia della laguna di Venezia`,
+    role: `Referente amministrativo`,
   },
   {
     image: `${cdnPath}2438750586.png`,
