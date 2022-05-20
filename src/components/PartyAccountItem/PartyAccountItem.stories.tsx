@@ -10,14 +10,6 @@ const cdnPath = "https://assets.cdn.io.italia.it/logos/organizations/";
 
 const partyMockImages: Array<PartyAccount> = [
   {
-    image: `${cdnPath}1199250158.png`,
-    name: `Commissario straordinario per la realizzazione di
-    approdi temporanei e di interventi complementari per la
-    salvaguardia di Venezia e della sua laguna e ulteriori
-    interventi per la salvaguardia della laguna di Venezia`,
-    role: `Operatore - Operatore API Operatore - Operatore API`,
-  },
-  {
     image: `${cdnPath}2438750586.png`,
     name: "Comune di Roma",
     role: "Referente amministrativo",
@@ -79,6 +71,14 @@ const partyMockImages: Array<PartyAccount> = [
     image: undefined,
     name: "Ente senza stemma",
     role: "Referente amministrativo",
+  },
+  {
+    image: `${cdnPath}1199250158.png`,
+    name: `Commissario straordinario per la realizzazione di
+    approdi temporanei e di interventi complementari per la
+    salvaguardia di Venezia e della sua laguna e ulteriori
+    interventi per la salvaguardia della laguna di Venezia`,
+    role: `Operatore - Operatore API Operatore - Operatore API`,
   },
 ];
 

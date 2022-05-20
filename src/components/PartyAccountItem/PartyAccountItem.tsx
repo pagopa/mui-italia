@@ -4,7 +4,6 @@ import { Tooltip } from "@mui/material";
 
 import { PartyAvatar } from "@components/PartyAvatar";
 import { theme } from "@theme";
-import { Theme } from "@mui/material/styles";
 
 export type PartyAccount = {
   image: string | undefined;
@@ -52,7 +51,7 @@ export const PartyAccountItem = ({
     display: "-webkit-box",
     WebkitBoxOrient: "vertical" as const,
     width: "100%",
-    whiteSpace: "normal",
+    whiteSpace: "normal" as const,
   };
 
   return (
@@ -75,19 +74,17 @@ export const PartyAccountItem = ({
                 textAlign="start"
                 variant="body1"
                 component="h6"
-                sx={
-                  {
-                    fontWeight: theme.typography.fontWeightBold,
-                    lineHeight: 1.25,
-                    ...(noWrap && {
-                      whiteSpace: "nowrap",
-                    }),
-                    ...(maxCharacter && {
-                      ...multiLine,
-                      WebkitLineClamp: 2,
-                    }),
-                  } as SxProps<Theme> | undefined
-                }
+                sx={{
+                  fontWeight: theme.typography.fontWeightBold,
+                  lineHeight: 1.25,
+                  ...(noWrap && {
+                    whiteSpace: "nowrap",
+                  }),
+                  ...(maxCharacter && {
+                    ...multiLine,
+                    WebkitLineClamp: 2,
+                  }),
+                }}
               >
                 {partyName}
               </Typography>

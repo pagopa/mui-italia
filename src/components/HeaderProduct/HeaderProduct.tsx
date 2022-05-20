@@ -80,7 +80,7 @@ export const HeaderProduct = ({
             </Typography>
           )}
 
-          {/* insert maxWith to lock container when the const multiLine is used in PartySwitch and PartyAccountItem */}
+          {/* insert maxWidh to limit component width when the const multiLine is used in PartySwitch and PartyAccountItem */}
           <Box maxWidth="25rem">
             {/* Right side of the component */}
             {partyList && partyList.length > 1 && (
