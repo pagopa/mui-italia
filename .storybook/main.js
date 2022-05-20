@@ -2,7 +2,6 @@ const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
 module.exports = {
   stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
-  staticDirs: ["../src/static"],
   features: {
     storyStoreV7: true,
     emotionAlias: false,
