@@ -15,7 +15,7 @@ const partyMockImages: Array<PartyAccount> = [
     approdi temporanei e di interventi complementari per la
     salvaguardia di Venezia e della sua laguna e ulteriori
     interventi per la salvaguardia della laguna di Venezia`,
-    role: `Referente amministrativo`,
+    role: `Operatore - Operatore API Operatore - Operatore API`,
   },
   {
     image: `${cdnPath}2438750586.png`,

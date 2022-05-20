@@ -4,6 +4,7 @@ import { Tooltip } from "@mui/material";
 
 import { PartyAvatar } from "@components/PartyAvatar";
 import { theme } from "@theme";
+import { Theme } from "@mui/material/styles";
 
 export type PartyAccount = {
   image: string | undefined;
@@ -45,6 +46,15 @@ export const PartyAccountItem = ({
   const maxCharacter =
     partyName && partyName.length > maxCharactersNumberMultiLine;
 
+  const multiLine = {
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    display: "-webkit-box",
+    WebkitBoxOrient: "vertical" as const,
+    width: "100%",
+    whiteSpace: "normal",
+  };
+
   return (
     <Box sx={containerStyle}>
       <Box sx={{ display: "flex", flexDirection: "row" }}>
@@ -65,28 +75,37 @@ export const PartyAccountItem = ({
                 textAlign="start"
                 variant="body1"
                 component="h6"
-                sx={{
-                  fontWeight: theme.typography.fontWeightBold,
-                  lineHeight: 1.25,
-                  ...(noWrap && {
-                    whiteSpace: "nowrap",
-                  }),
-                  ...(maxCharacter && {
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    display: "-webkit-box",
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: "vertical" as const,
-                    width: "100%",
-                    whiteSpace: "normal",
-                  }),
-                }}
+                sx={
+                  {
+                    fontWeight: theme.typography.fontWeightBold,
+                    lineHeight: 1.25,
+                    ...(noWrap && {
+                      whiteSpace: "nowrap",
+                    }),
+                    ...(maxCharacter && {
+                      ...multiLine,
+                      WebkitLineClamp: 2,
+                    }),
+                  } as SxProps<Theme> | undefined
+                }
               >
                 {partyName}
               </Typography>
             </Tooltip>
           )}
-          {partyRole && <Typography variant="caption">{partyRole}</Typography>}
+          {partyRole && (
+            <Tooltip title={partyRole}>
+              <Typography
+                variant="caption"
+                sx={{
+                  ...multiLine,
+                  WebkitLineClamp: 1,
+                }}
+              >
+                {partyRole}
+              </Typography>
+            </Tooltip>
+          )}
         </Box>
       </Box>
     </Box>
