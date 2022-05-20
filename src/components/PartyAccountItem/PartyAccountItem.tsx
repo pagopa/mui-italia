@@ -1,5 +1,6 @@
 import { Typography, Box, SxProps } from "@mui/material";
 import { useMemo } from "react";
+import { Tooltip } from "@mui/material";
 
 import { PartyAvatar } from "@components/PartyAvatar";
 import { theme } from "@theme";
@@ -20,6 +21,8 @@ export interface PartyAccountItemProps {
   containerSx?: SxProps;
   /* Style to override info container style */
   infoContainerSx?: SxProps;
+  /* The number of characters beyond which the multiLine is applied */
+  maxCharactersNumberMultiLine?: number;
 }
 
 export const PartyAccountItem = ({
@@ -29,6 +32,7 @@ export const PartyAccountItem = ({
   noWrap = true,
   containerSx,
   infoContainerSx,
+  maxCharactersNumberMultiLine = 50,
 }: PartyAccountItemProps) => {
   const containerStyle = useMemo(
     () => ({
@@ -37,6 +41,18 @@ export const PartyAccountItem = ({
     }),
     []
   ) as SxProps;
+
+  const maxCharacter =
+    partyName && partyName.length > maxCharactersNumberMultiLine;
+
+  const multiLine = {
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    display: "-webkit-box",
+    WebkitBoxOrient: "vertical" as const,
+    width: "100%",
+    whiteSpace: "normal" as const,
+  };
 
   return (
     <Box sx={containerStyle}>
@@ -53,21 +69,40 @@ export const PartyAccountItem = ({
           }}
         >
           {partyName && (
-            <Typography
-              variant="body1"
-              component="h6"
-              sx={{
-                fontWeight: theme.typography.fontWeightBold,
-                lineHeight: 1.25,
-                ...(noWrap && {
-                  whiteSpace: "nowrap",
-                }),
-              }}
-            >
-              {partyName}
-            </Typography>
+            <Tooltip title={partyName}>
+              <Typography
+                textAlign="start"
+                variant="body1"
+                component="h6"
+                sx={{
+                  fontWeight: theme.typography.fontWeightBold,
+                  lineHeight: 1.25,
+                  ...(noWrap && {
+                    whiteSpace: "nowrap",
+                  }),
+                  ...(maxCharacter && {
+                    ...multiLine,
+                    WebkitLineClamp: 2,
+                  }),
+                }}
+              >
+                {partyName}
+              </Typography>
+            </Tooltip>
           )}
-          {partyRole && <Typography variant="caption">{partyRole}</Typography>}
+          {partyRole && (
+            <Tooltip title={partyRole}>
+              <Typography
+                variant="caption"
+                sx={{
+                  ...multiLine,
+                  WebkitLineClamp: 1,
+                }}
+              >
+                {partyRole}
+              </Typography>
+            </Tooltip>
+          )}
         </Box>
       </Box>
     </Box>

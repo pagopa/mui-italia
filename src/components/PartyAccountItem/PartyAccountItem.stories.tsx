@@ -77,6 +77,14 @@ const partyMockImages: Array<PartyAccount> = [
     name: "Ente senza stemma",
     role: "Referente amministrativo",
   },
+  {
+    image: `${cdnPath}339370272.png`,
+    name: `Commissario straordinario per la realizzazione di
+    approdi temporanei e di interventi complementari per la
+    salvaguardia di Venezia e della sua laguna e ulteriori
+    interventi per la salvaguardia della laguna di Venezia`,
+    role: `Operatore - Operatore API Operatore - Operatore API`,
+  },
 ];
 
 /* Generate random value without repeating values
