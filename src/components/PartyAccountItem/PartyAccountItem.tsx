@@ -45,7 +45,7 @@ export const PartyAccountItem = ({
   const maxCharacter =
     partyName && partyName.length > maxCharactersNumberMultiLine;
 
-  const multiLine = {
+  const truncatedText = {
     overflow: "hidden",
     textOverflow: "ellipsis",
     display: "-webkit-box",
@@ -69,7 +69,7 @@ export const PartyAccountItem = ({
           }}
         >
           {partyName && (
-            <Tooltip title={partyName}>
+            <Tooltip arrow title={maxCharacter ? partyName : ""}>
               <Typography
                 textAlign="start"
                 variant="body1"
@@ -81,7 +81,7 @@ export const PartyAccountItem = ({
                     whiteSpace: "nowrap",
                   }),
                   ...(maxCharacter && {
-                    ...multiLine,
+                    ...truncatedText,
                     WebkitLineClamp: 2,
                   }),
                 }}
@@ -91,17 +91,15 @@ export const PartyAccountItem = ({
             </Tooltip>
           )}
           {partyRole && (
-            <Tooltip title={partyRole}>
-              <Typography
-                variant="caption"
-                sx={{
-                  ...multiLine,
-                  WebkitLineClamp: 1,
-                }}
-              >
-                {partyRole}
-              </Typography>
-            </Tooltip>
+            <Typography
+              variant="caption"
+              sx={{
+                ...truncatedText,
+                WebkitLineClamp: 1,
+              }}
+            >
+              {partyRole}
+            </Typography>
           )}
         </Box>
       </Box>
