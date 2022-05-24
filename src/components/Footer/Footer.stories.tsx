@@ -304,6 +304,7 @@ export const PreLogin: ComponentStory<typeof Footer> = () => (
     onExit={(href, linkType) => {
       console.log("Clicked on exit", href, linkType);
     }}
+    url="https://dev.selfcare.pagopa.it/assets/products.json"
   />
 );
 
@@ -326,6 +327,7 @@ export const PostLogin: ComponentStory<typeof Footer> = () => (
     onExit={(href, linkType) => {
       console.log("Clicked on exit", href, linkType);
     }}
+    url="https://dev.selfcare.pagopa.it/assets/products.json"
   />
 );
 

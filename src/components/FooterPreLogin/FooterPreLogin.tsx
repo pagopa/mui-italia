@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Grid, Stack, Box, Typography, Container, Link } from "@mui/material";
 import {
   CompanyLinkType,
@@ -12,7 +12,6 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import LinkedIcon from "@mui/icons-material/LinkedIn";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import { MediumIcon } from "@icons/MediumIcon";
-
 import { LogoPagoPACompany } from "@assets/LogoPagoPACompany";
 import { FundedByNextGenerationEU } from "@assets/FundedByNextGenerationEU";
 
@@ -20,12 +19,14 @@ type FooterPreLoginProps = LangSwitchProps & {
   companyLink: CompanyLinkType;
   links: PreLoginFooterLinksType;
   onExit?: (href: string, linkType: LinkType) => void;
+  url: string;
 };
 
 export const FooterPreLogin = ({
   companyLink,
   links,
   onExit,
+  url,
   ...langProps
 }: FooterPreLoginProps): JSX.Element => {
   const wrapHandleClick =
@@ -36,7 +37,18 @@ export const FooterPreLogin = ({
         onExit(href, linkType);
       }
     };
-  const { aboutUs, productsAndServices, resources, followUs } = links;
+  const { aboutUs, resources, followUs } = links;
+
+  const [jsonProducts, setJsonProducts] = useState([]);
+
+  useEffect(() => {
+    fetch(url)
+      .then((r) => r.json())
+      .then((json) => setJsonProducts(json))
+      .catch((err) => {
+        throw new Error(err);
+      });
+  }, []);
 
   interface iconMapObject {
     [key: string]: JSX.Element;
@@ -98,10 +110,8 @@ export const FooterPreLogin = ({
           </Grid>
           <Grid item xs={12} sm={3}>
             <Stack spacing={2} alignItems={{ xs: "center", sm: "start" }}>
-              {productsAndServices?.title && (
-                <Typography variant="overline">
-                  {productsAndServices.title}
-                </Typography>
+              {jsonProducts && (
+                <Typography variant="overline">Prodotti e Servizi</Typography>
               )}
 
               <Stack
@@ -109,24 +119,25 @@ export const FooterPreLogin = ({
                 alignItems={{ xs: "center", sm: "start" }}
                 sx={{ padding: 0, listStyle: "none" }}
               >
-                {productsAndServices?.links.map(
-                  ({ href, label, ariaLabel, linkType }, i) => (
-                    <li key={i}>
-                      <Link
-                        aria-label={ariaLabel}
-                        component="a"
-                        href={href}
-                        onClick={wrapHandleClick(href, linkType as LinkType)}
-                        underline="none"
-                        color="text.primary"
-                        sx={{ display: "inline-block", py: 0.5 }}
-                        variant="subtitle2"
-                      >
-                        {label}
-                      </Link>
-                    </li>
-                  )
-                )}
+                {jsonProducts &&
+                  jsonProducts?.map(
+                    ({ href, label, ariaLabel, linkType }, i) => (
+                      <li key={i}>
+                        <Link
+                          aria-label={ariaLabel}
+                          component="a"
+                          href={href}
+                          onClick={wrapHandleClick(href, linkType as LinkType)}
+                          underline="none"
+                          color="text.primary"
+                          sx={{ display: "inline-block", py: 0.5 }}
+                          variant="subtitle2"
+                        >
+                          {label}
+                        </Link>
+                      </li>
+                    )
+                  )}
               </Stack>
             </Stack>
           </Grid>
