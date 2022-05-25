@@ -48,7 +48,6 @@ export type PreLoginFooterSocialLink = {
 
 export type PreLoginFooterLinksType = {
   aboutUs: PreLoginFooterSingleSectionType;
-  productsAndServices: PreLoginFooterSingleSectionType;
   resources: PreLoginFooterSingleSectionType;
   followUs: {
     title: string;
