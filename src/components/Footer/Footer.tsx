@@ -23,7 +23,8 @@ type FooterProps = LangSwitchProps & {
   preLoginLinks: PreLoginFooterLinksType;
   legalInfo: JSX.Element | Array<JSX.Element>;
   onExit?: (href: string, linkType: LinkType) => void;
-  productsJsonUrl: string;
+  productsJsonUrl?: string;
+  onProductsJsonFetchError?: (reason: any) => void;
 };
 
 export type FooterLinksType = {
@@ -71,6 +72,7 @@ export const Footer = ({
   languages,
   onLanguageChanged,
   productsJsonUrl,
+  onProductsJsonFetchError,
 }: FooterProps) => (
   <Box component="footer">
     {loggedUser ? (
@@ -88,6 +90,7 @@ export const Footer = ({
         languages={languages}
         onLanguageChanged={onLanguageChanged}
         productsJsonUrl={productsJsonUrl}
+        onProductsJsonFetchError={onProductsJsonFetchError}
       />
     )}
     <FooterLegal content={legalInfo} />

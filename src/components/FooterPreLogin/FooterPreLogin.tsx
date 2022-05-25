@@ -19,7 +19,7 @@ type FooterPreLoginProps = LangSwitchProps & {
   companyLink: CompanyLinkType;
   links: PreLoginFooterLinksType;
   onExit?: (href: string, linkType: LinkType) => void;
-  productsJsonUrl: string;
+  productsJsonUrl?: string;
   onProductsJsonFetchError?: (reason: any) => void;
 };
 
@@ -44,10 +44,12 @@ export const FooterPreLogin = ({
   const [jsonProducts, setJsonProducts] = useState([]);
 
   useEffect(() => {
-    fetch(productsJsonUrl)
-      .then((r) => r.json())
-      .then((json) => setJsonProducts(json))
-      .catch(onProductsJsonFetchError ?? ((reason) => console.error(reason)));
+    if (productsJsonUrl) {
+      fetch(productsJsonUrl)
+        .then((r) => r.json())
+        .then((json) => setJsonProducts(json))
+        .catch(onProductsJsonFetchError ?? ((reason) => console.error(reason)));
+    }
   }, []);
 
   interface iconMapObject {
