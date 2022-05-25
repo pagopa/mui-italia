@@ -19,14 +19,16 @@ type FooterPreLoginProps = LangSwitchProps & {
   companyLink: CompanyLinkType;
   links: PreLoginFooterLinksType;
   onExit?: (href: string, linkType: LinkType) => void;
-  url: string;
+  productsJsonUrl: string;
+  onProductsJsonFetchError?: (reason: any) => void;
 };
 
 export const FooterPreLogin = ({
   companyLink,
   links,
   onExit,
-  url,
+  productsJsonUrl,
+  onProductsJsonFetchError,
   ...langProps
 }: FooterPreLoginProps): JSX.Element => {
   const wrapHandleClick =
@@ -42,12 +44,10 @@ export const FooterPreLogin = ({
   const [jsonProducts, setJsonProducts] = useState([]);
 
   useEffect(() => {
-    fetch(url)
+    fetch(productsJsonUrl)
       .then((r) => r.json())
       .then((json) => setJsonProducts(json))
-      .catch((err) => {
-        throw new Error(err);
-      });
+      .catch(onProductsJsonFetchError ?? ((reason) => console.error(reason)));
   }, []);
 
   interface iconMapObject {
@@ -108,39 +108,44 @@ export const FooterPreLogin = ({
               </Stack>
             </Stack>
           </Grid>
-          <Grid item xs={12} sm={3}>
-            <Stack spacing={2} alignItems={{ xs: "center", sm: "start" }}>
-              {jsonProducts && (
-                <Typography variant="overline">Prodotti e Servizi</Typography>
-              )}
+          {productsJsonUrl && (
+            <Grid item xs={12} sm={3}>
+              <Stack spacing={2} alignItems={{ xs: "center", sm: "start" }}>
+                {jsonProducts && (
+                  <Typography variant="overline">Prodotti e Servizi</Typography>
+                )}
 
-              <Stack
-                component="ul"
-                alignItems={{ xs: "center", sm: "start" }}
-                sx={{ padding: 0, listStyle: "none" }}
-              >
-                {jsonProducts &&
-                  jsonProducts?.map(
-                    ({ href, label, ariaLabel, linkType }, i) => (
-                      <li key={i}>
-                        <Link
-                          aria-label={ariaLabel}
-                          component="a"
-                          href={href}
-                          onClick={wrapHandleClick(href, linkType as LinkType)}
-                          underline="none"
-                          color="text.primary"
-                          sx={{ display: "inline-block", py: 0.5 }}
-                          variant="subtitle2"
-                        >
-                          {label}
-                        </Link>
-                      </li>
-                    )
-                  )}
+                <Stack
+                  component="ul"
+                  alignItems={{ xs: "center", sm: "start" }}
+                  sx={{ padding: 0, listStyle: "none" }}
+                >
+                  {jsonProducts &&
+                    jsonProducts?.map(
+                      ({ href, label, ariaLabel, linkType }, i) => (
+                        <li key={i}>
+                          <Link
+                            aria-label={ariaLabel}
+                            component="a"
+                            href={href}
+                            onClick={wrapHandleClick(
+                              href,
+                              linkType as LinkType
+                            )}
+                            underline="none"
+                            color="text.primary"
+                            sx={{ display: "inline-block", py: 0.5 }}
+                            variant="subtitle2"
+                          >
+                            {label}
+                          </Link>
+                        </li>
+                      )
+                    )}
+                </Stack>
               </Stack>
-            </Stack>
-          </Grid>
+            </Grid>
+          )}
 
           <Grid item xs={12} sm={3}>
             <Stack spacing={2} alignItems={{ xs: "center", sm: "start" }}>
