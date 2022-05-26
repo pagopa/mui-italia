@@ -6,6 +6,7 @@ import {
   PreLoginFooterLinksType,
 } from "@components/Footer";
 import { LangSwitch, LangSwitchProps } from "@components/LangSwitch";
+import { isRight, toError } from "fp-ts/lib/Either";
 
 /* Icons */
 import TwitterIcon from "@mui/icons-material/Twitter";
@@ -14,6 +15,10 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import { MediumIcon } from "@icons/MediumIcon";
 import { LogoPagoPACompany } from "@assets/LogoPagoPACompany";
 import { FundedByNextGenerationEU } from "@assets/FundedByNextGenerationEU";
+
+/* Enum */
+import { FooterLinksType } from "..";
+import { ProductArrayType } from "./ProductType";
 
 type FooterPreLoginProps = LangSwitchProps & {
   companyLink: CompanyLinkType;
@@ -41,13 +46,20 @@ export const FooterPreLogin = ({
     };
   const { aboutUs, resources, followUs } = links;
 
-  const [jsonProducts, setJsonProducts] = useState([]);
+  const [jsonProducts, setJsonProducts] = useState<Array<FooterLinksType>>([]);
 
   useEffect(() => {
     if (productsJsonUrl) {
       fetch(productsJsonUrl)
         .then((r) => r.json())
-        .then((json) => setJsonProducts(json))
+        .then((json) => {
+          const decodeProducts = ProductArrayType.decode(json);
+          if (isRight(decodeProducts)) {
+            setJsonProducts(decodeProducts.right.slice());
+          } else {
+            throw toError(JSON.stringify(decodeProducts.left));
+          }
+        })
         .catch(onProductsJsonFetchError ?? ((reason) => console.error(reason)));
     }
   }, []);
