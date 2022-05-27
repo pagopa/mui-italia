@@ -24,12 +24,10 @@ type FooterPreLoginProps = LangSwitchProps & {
   companyLink: CompanyLinkType;
   links: PreLoginFooterLinksType;
   onExit?: (href: string, linkType: LinkType) => void;
-  /** ## productsJsonUrl
-  This URL contains a json with the list of products to list inside the Footer. By default it's set with https://selfcare.pagopa.it/assets/products.json */
+  /** This URL contains a json with the list of products to list inside the Footer. By default it's set with https://selfcare.pagopa.it/assets/products.json */
   productsJsonUrl?: string;
   onProductsJsonFetchError?: (reason: any) => void;
-  /** ## hideProductsColumn 
-   If true, it will not render the products column. As default, the column will be visible */
+  /** If true, it will not render the products column. As default, the column will be visible */
   hideProductsColumn?: boolean;
 };
 
