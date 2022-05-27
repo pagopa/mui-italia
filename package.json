@@ -15,7 +15,9 @@
   },
   "dependencies": {
     "@fontsource/titillium-web": "^4.5.8",
-    "clsx": "^1.1.1"
+    "clsx": "^1.1.1",
+    "fp-ts": "^2.12.1",
+    "io-ts": "^2.2.16"
   },
   "scripts": {
     "prebuild": "rimraf dist",
@@ -44,13 +46,13 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.18.0",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.8.0",
     "@mui/lab": "^5.0.0-alpha.80",
     "@mui/material": "^5.8.0",
     "@mui/system": "^5.8.1",
-    "@babel/core": "^7.18.0",
     "@pagopa/eslint-config": "^3.0.0",
     "@storybook/addon-a11y": "^6.5.4",
     "@storybook/addon-actions": "^6.5.3",
