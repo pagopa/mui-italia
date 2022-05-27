@@ -23,11 +23,12 @@ export default {
   },
   argTypes: {
     hideProductColums: {
-      description: "If true, it will not render the products column",
+      description:
+        "If true, it will not render the products column. As default, the column will be visible",
     },
     productsJsonUrl: {
       description:
-        "This URL contains a json with the list of products inside the Footer. By default it's set with the prod url",
+        "This URL contains a json with the list of products to list inside the Footer. By default it's set with https://selfcare.pagopa.it/assets/products.json",
     },
   },
 } as ComponentMeta<typeof Footer>;

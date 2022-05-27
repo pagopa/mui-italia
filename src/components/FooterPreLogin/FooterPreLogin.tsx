@@ -25,11 +25,11 @@ type FooterPreLoginProps = LangSwitchProps & {
   links: PreLoginFooterLinksType;
   onExit?: (href: string, linkType: LinkType) => void;
   /** ## productsJsonUrl
-  This URL contains a json with the list of products inside the Footer. You can change the url usign the prop productsJsonUrl. As default is set the prod url "https://selfcare.pagopa.it/assets/products.json". */
+  This URL contains a json with the list of products to list inside the Footer. By default it's set with https://selfcare.pagopa.it/assets/products.json */
   productsJsonUrl?: string;
   onProductsJsonFetchError?: (reason: any) => void;
   /** ## hideProductsColumn 
-   If true, it will not render the products column */
+   If true, it will not render the products column. As default, the column will be visible */
   hideProductsColumn?: boolean;
 };
 
@@ -55,7 +55,7 @@ export const FooterPreLogin = ({
   const [jsonProducts, setJsonProducts] = useState<Array<FooterLinksType>>([]);
 
   useEffect(() => {
-    if (productsJsonUrl) {
+    if (!hideProductsColumn) {
       fetch(productsJsonUrl)
         .then((r) => r.json())
         .then((json) => {
