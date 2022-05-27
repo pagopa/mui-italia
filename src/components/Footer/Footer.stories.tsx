@@ -21,6 +21,16 @@ export default {
   parameters: {
     controls: { hideNoControlsWarning: true },
   },
+  argTypes: {
+    hideProductColums: {
+      description:
+        "If true, it will not render the products column. As default, the column will be visible",
+    },
+    productsJsonUrl: {
+      description:
+        "This URL contains a json with the list of products to list inside the Footer. By default it's set with https://selfcare.pagopa.it/assets/products.json",
+    },
+  },
 } as ComponentMeta<typeof Footer>;
 
 const companyLegalInfo = (
@@ -251,6 +261,7 @@ export const PreLogin: ComponentStory<typeof Footer> = () => (
       console.log("Clicked on exit", href, linkType);
     }}
     productsJsonUrl="https://dev.selfcare.pagopa.it/assets/products.json"
+    hideProductsColumn={false}
   />
 );
 
@@ -274,6 +285,7 @@ export const PostLogin: ComponentStory<typeof Footer> = () => (
       console.log("Clicked on exit", href, linkType);
     }}
     productsJsonUrl="https://dev.selfcare.pagopa.it/assets/products.json"
+    hideProductsColumn={false}
   />
 );
 

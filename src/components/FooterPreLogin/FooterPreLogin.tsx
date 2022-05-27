@@ -24,16 +24,20 @@ type FooterPreLoginProps = LangSwitchProps & {
   companyLink: CompanyLinkType;
   links: PreLoginFooterLinksType;
   onExit?: (href: string, linkType: LinkType) => void;
+  /** This URL contains a json with the list of products to list inside the Footer. By default it's set with https://selfcare.pagopa.it/assets/products.json */
   productsJsonUrl?: string;
   onProductsJsonFetchError?: (reason: any) => void;
+  /** If true, it will not render the products column. As default, the column will be visible */
+  hideProductsColumn?: boolean;
 };
 
 export const FooterPreLogin = ({
   companyLink,
   links,
   onExit,
-  productsJsonUrl,
+  productsJsonUrl = "https://selfcare.pagopa.it/assets/products.json",
   onProductsJsonFetchError,
+  hideProductsColumn,
   ...langProps
 }: FooterPreLoginProps): JSX.Element => {
   const wrapHandleClick =
@@ -49,7 +53,7 @@ export const FooterPreLogin = ({
   const [jsonProducts, setJsonProducts] = useState<Array<FooterLinksType>>([]);
 
   useEffect(() => {
-    if (productsJsonUrl) {
+    if (!hideProductsColumn) {
       fetch(productsJsonUrl)
         .then((r) => r.json())
         .then((json) => {
@@ -122,7 +126,7 @@ export const FooterPreLogin = ({
               </Stack>
             </Stack>
           </Grid>
-          {productsJsonUrl && (
+          {!hideProductsColumn && (
             <Grid item xs={12} sm={3}>
               <Stack spacing={2} alignItems={{ xs: "center", sm: "start" }}>
                 {jsonProducts && (
