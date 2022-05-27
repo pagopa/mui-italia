@@ -26,14 +26,16 @@ type FooterPreLoginProps = LangSwitchProps & {
   onExit?: (href: string, linkType: LinkType) => void;
   productsJsonUrl?: string;
   onProductsJsonFetchError?: (reason: any) => void;
+  hideProductsColumn?: boolean;
 };
 
 export const FooterPreLogin = ({
   companyLink,
   links,
   onExit,
-  productsJsonUrl,
+  productsJsonUrl = "https://selfcare.pagopa.it/assets/products.json",
   onProductsJsonFetchError,
+  hideProductsColumn,
   ...langProps
 }: FooterPreLoginProps): JSX.Element => {
   const wrapHandleClick =
@@ -122,7 +124,7 @@ export const FooterPreLogin = ({
               </Stack>
             </Stack>
           </Grid>
-          {productsJsonUrl && (
+          {!hideProductsColumn && (
             <Grid item xs={12} sm={3}>
               <Stack spacing={2} alignItems={{ xs: "center", sm: "start" }}>
                 {jsonProducts && (

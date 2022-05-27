@@ -25,6 +25,7 @@ type FooterProps = LangSwitchProps & {
   onExit?: (href: string, linkType: LinkType) => void;
   productsJsonUrl?: string;
   onProductsJsonFetchError?: (reason: any) => void;
+  hideProductsColumn?: boolean;
 };
 
 export type FooterLinksType = {
@@ -72,6 +73,7 @@ export const Footer = ({
   onLanguageChanged,
   productsJsonUrl,
   onProductsJsonFetchError,
+  hideProductsColumn,
 }: FooterProps) => (
   <Box component="footer">
     {loggedUser ? (
@@ -90,6 +92,7 @@ export const Footer = ({
         onLanguageChanged={onLanguageChanged}
         productsJsonUrl={productsJsonUrl}
         onProductsJsonFetchError={onProductsJsonFetchError}
+        hideProductsColumn={hideProductsColumn}
       />
     )}
     <FooterLegal content={legalInfo} />

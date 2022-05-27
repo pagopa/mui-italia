@@ -251,6 +251,7 @@ export const PreLogin: ComponentStory<typeof Footer> = () => (
       console.log("Clicked on exit", href, linkType);
     }}
     productsJsonUrl="https://dev.selfcare.pagopa.it/assets/products.json"
+    hideProductsColumn={false}
   />
 );
 
@@ -274,6 +275,7 @@ export const PostLogin: ComponentStory<typeof Footer> = () => (
       console.log("Clicked on exit", href, linkType);
     }}
     productsJsonUrl="https://dev.selfcare.pagopa.it/assets/products.json"
+    hideProductsColumn={false}
   />
 );
 
