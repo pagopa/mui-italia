@@ -21,6 +21,15 @@ export default {
   parameters: {
     controls: { hideNoControlsWarning: true },
   },
+  argTypes: {
+    hideProductColums: {
+      description: "If true, it will not render the products column",
+    },
+    productsJsonUrl: {
+      description:
+        "This URL contains a json with the list of products inside the Footer. By default it's set with the prod url",
+    },
+  },
 } as ComponentMeta<typeof Footer>;
 
 const companyLegalInfo = (

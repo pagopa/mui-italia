@@ -24,8 +24,12 @@ type FooterPreLoginProps = LangSwitchProps & {
   companyLink: CompanyLinkType;
   links: PreLoginFooterLinksType;
   onExit?: (href: string, linkType: LinkType) => void;
+  /** ## productsJsonUrl
+  This URL contains a json with the list of products inside the Footer. You can change the url usign the prop productsJsonUrl. As default is set the prod url "https://selfcare.pagopa.it/assets/products.json". */
   productsJsonUrl?: string;
   onProductsJsonFetchError?: (reason: any) => void;
+  /** ## hideProductsColumn 
+   If true, it will not render the products column */
   hideProductsColumn?: boolean;
 };
 
