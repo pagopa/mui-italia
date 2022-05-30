@@ -171,9 +171,11 @@ const preLoginLinks: PreLoginFooterLinksType = {
       },
       {
         label: "Preferenze Cookie",
-        href: "#preferenze-cookie",
         ariaLabel: "Vai al link: Preferenze Cookie",
         linkType: "internal",
+        onClickLink: () => {
+          console.log("onClickLink");
+        },
       },
       {
         label: "Termini e Condizioni",

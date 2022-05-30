@@ -23,7 +23,7 @@ import { ProductArrayType } from "./ProductType";
 type FooterPreLoginProps = LangSwitchProps & {
   companyLink: CompanyLinkType;
   links: PreLoginFooterLinksType;
-  onExit?: (href: string, linkType: LinkType) => void;
+  onExit?: (linkType: LinkType, href?: string) => void;
   /** This URL contains a json with the list of products to list inside the Footer. By default it's set with https://selfcare.pagopa.it/assets/products.json */
   productsJsonUrl?: string;
   onProductsJsonFetchError?: (reason: any) => void;
@@ -41,11 +41,18 @@ export const FooterPreLogin = ({
   ...langProps
 }: FooterPreLoginProps): JSX.Element => {
   const wrapHandleClick =
-    (href: string, linkType: "internal" | "external") =>
+    (
+      linkType: "internal" | "external",
+      href?: string,
+      onClickLink?: () => void
+    ) =>
     (e: React.SyntheticEvent) => {
       if (onExit) {
         e.preventDefault();
-        onExit(href, linkType);
+        onExit(linkType, href);
+      }
+      if (onClickLink) {
+        onClickLink();
       }
     };
   const { aboutUs, resources, followUs } = links;
@@ -94,7 +101,7 @@ export const FooterPreLogin = ({
               <Link
                 component="button"
                 aria-label={companyLink?.ariaLabel}
-                onClick={wrapHandleClick(companyLink?.href, "external")}
+                onClick={wrapHandleClick("external", companyLink?.href)}
                 sx={{ display: "inline-flex" }}
               >
                 <LogoPagoPACompany />
@@ -112,7 +119,7 @@ export const FooterPreLogin = ({
                         aria-label={ariaLabel}
                         component="a"
                         href={href}
-                        onClick={wrapHandleClick(href, linkType as LinkType)}
+                        onClick={wrapHandleClick(linkType as LinkType, href)}
                         underline="none"
                         color="text.primary"
                         sx={{ display: "inline-block", py: 0.5 }}
@@ -147,8 +154,8 @@ export const FooterPreLogin = ({
                             component="a"
                             href={href}
                             onClick={wrapHandleClick(
-                              href,
-                              linkType as LinkType
+                              linkType as LinkType,
+                              href
                             )}
                             underline="none"
                             color="text.primary"
@@ -177,16 +184,24 @@ export const FooterPreLogin = ({
                 sx={{ padding: 0, listStyle: "none" }}
               >
                 {resources?.links.map(
-                  ({ href, label, ariaLabel, linkType }, i) => (
+                  ({ href, label, ariaLabel, linkType, onClickLink }, i) => (
                     <li key={i}>
                       <Link
                         aria-label={ariaLabel}
                         component="a"
                         href={href}
-                        onClick={wrapHandleClick(href, linkType as LinkType)}
+                        onClick={wrapHandleClick(
+                          linkType as LinkType,
+                          href,
+                          onClickLink
+                        )}
                         underline="none"
                         color="text.primary"
-                        sx={{ display: "inline-block", py: 0.5 }}
+                        sx={{
+                          display: "inline-block",
+                          py: 0.5,
+                          cursor: "pointer",
+                        }}
                         variant="subtitle2"
                       >
                         {label}
@@ -224,7 +239,7 @@ export const FooterPreLogin = ({
                           <Link
                             aria-label={ariaLabel}
                             component="button"
-                            onClick={wrapHandleClick(href, "external")}
+                            onClick={wrapHandleClick("external", href)}
                             underline="none"
                             color="text.primary"
                             sx={{ display: "inline-flex" }}
@@ -249,12 +264,15 @@ export const FooterPreLogin = ({
                             aria-label={ariaLabel}
                             component="button"
                             onClick={wrapHandleClick(
-                              href,
-                              linkType as LinkType
+                              linkType as LinkType,
+                              href
                             )}
                             underline="none"
                             color="text.primary"
-                            sx={{ display: "inline-block", py: 0.5 }}
+                            sx={{
+                              display: "inline-block",
+                              py: 0.5,
+                            }}
                             variant="subtitle2"
                           >
                             {label}

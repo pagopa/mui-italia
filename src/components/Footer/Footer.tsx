@@ -30,9 +30,10 @@ type FooterProps = LangSwitchProps & {
 
 export type FooterLinksType = {
   label: string;
-  href: string;
+  href?: string;
   ariaLabel: string;
   linkType: LinkType;
+  onClickLink?: () => void;
 };
 
 export type PreLoginFooterSingleSectionType = {
