@@ -257,8 +257,8 @@ export const PreLogin: ComponentStory<typeof Footer> = () => (
       }
     }
     languages={LANGUAGES}
-    onExit={(href, linkType) => {
-      console.log("Clicked on exit", href, linkType);
+    onExit={() => {
+      console.log("Clicked on exit");
     }}
     productsJsonUrl="https://dev.selfcare.pagopa.it/assets/products.json"
     hideProductsColumn={false}
@@ -281,8 +281,8 @@ export const PostLogin: ComponentStory<typeof Footer> = () => (
       }
     }
     languages={LANGUAGES}
-    onExit={(href, linkType) => {
-      console.log("Clicked on exit", href, linkType);
+    onExit={() => {
+      console.log("Clicked on exit");
     }}
     productsJsonUrl="https://dev.selfcare.pagopa.it/assets/products.json"
     hideProductsColumn={false}
@@ -302,8 +302,8 @@ export const Checkout: ComponentStory<typeof FooterCheckout> = () => (
       }
     }
     languages={LANGUAGES}
-    onExit={(href, linkType) => {
-      console.log("Clicked on exit", href, linkType);
+    onExit={() => {
+      console.log("Clicked on exit");
     }}
   />
 );

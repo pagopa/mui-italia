@@ -22,7 +22,7 @@ type FooterProps = LangSwitchProps & {
   postLoginLinks: Array<FooterLinksType>;
   preLoginLinks: PreLoginFooterLinksType;
   legalInfo: JSX.Element | Array<JSX.Element>;
-  onExit?: (href: string, linkType: LinkType) => void;
+  onExit?: (exitAction: () => void) => void;
   productsJsonUrl?: string;
   onProductsJsonFetchError?: (reason: any) => void;
   hideProductsColumn?: boolean;
@@ -33,6 +33,7 @@ export type FooterLinksType = {
   href: string;
   ariaLabel: string;
   linkType: LinkType;
+  onClick?: () => void;
 };
 
 export type PreLoginFooterSingleSectionType = {
@@ -80,7 +81,7 @@ export const Footer = ({
       <FooterPostLogin
         companyLink={companyLink}
         links={postLoginLinks}
-        onExit={onExit}
+        onExit={() => onExit}
         languages={languages}
         onLanguageChanged={onLanguageChanged}
       />
@@ -93,6 +94,7 @@ export const Footer = ({
         productsJsonUrl={productsJsonUrl}
         onProductsJsonFetchError={onProductsJsonFetchError}
         hideProductsColumn={hideProductsColumn}
+        onExit={() => onExit}
       />
     )}
     <FooterLegal content={legalInfo} />

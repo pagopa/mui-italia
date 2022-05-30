@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Grid, Stack, Box, Typography, Container, Link } from "@mui/material";
-import {
-  CompanyLinkType,
-  LinkType,
-  PreLoginFooterLinksType,
-} from "@components/Footer";
+import { CompanyLinkType, PreLoginFooterLinksType } from "@components/Footer";
 import { LangSwitch, LangSwitchProps } from "@components/LangSwitch";
 import { isRight, toError } from "fp-ts/lib/Either";
 
@@ -23,7 +19,7 @@ import { ProductArrayType } from "./ProductType";
 type FooterPreLoginProps = LangSwitchProps & {
   companyLink: CompanyLinkType;
   links: PreLoginFooterLinksType;
-  onExit?: (href: string, linkType: LinkType) => void;
+  onExit?: (exitAction: () => void) => void;
   /** This URL contains a json with the list of products to list inside the Footer. By default it's set with https://selfcare.pagopa.it/assets/products.json */
   productsJsonUrl?: string;
   onProductsJsonFetchError?: (reason: any) => void;
@@ -41,13 +37,16 @@ export const FooterPreLogin = ({
   ...langProps
 }: FooterPreLoginProps): JSX.Element => {
   const wrapHandleClick =
-    (href: string, linkType: "internal" | "external") =>
-    (e: React.SyntheticEvent) => {
+    (href: string, onClick?: () => void) => (e: React.SyntheticEvent) => {
       if (onExit) {
         e.preventDefault();
-        onExit(href, linkType);
+        onExit(onClick ? onClick : () => window.location.assign(href));
+      } else if (onClick) {
+        e.preventDefault();
+        onClick();
       }
     };
+
   const { aboutUs, resources, followUs } = links;
 
   const [jsonProducts, setJsonProducts] = useState<Array<FooterLinksType>>([]);
@@ -94,7 +93,10 @@ export const FooterPreLogin = ({
               <Link
                 component="button"
                 aria-label={companyLink?.ariaLabel}
-                onClick={wrapHandleClick(companyLink?.href, "external")}
+                href={companyLink?.href}
+                onClick={wrapHandleClick(companyLink?.href, () =>
+                  window.location.assign(companyLink?.href)
+                )}
                 sx={{ display: "inline-flex" }}
               >
                 <LogoPagoPACompany />
@@ -106,13 +108,18 @@ export const FooterPreLogin = ({
                 sx={{ padding: 0, listStyle: "none" }}
               >
                 {aboutUs?.links.map(
-                  ({ href, label, ariaLabel, linkType }, i) => (
+                  (
+                    { href = "javascript:void(0)", label, ariaLabel, onClick },
+                    i
+                  ) => (
                     <li key={i}>
                       <Link
                         aria-label={ariaLabel}
                         component="a"
                         href={href}
-                        onClick={wrapHandleClick(href, linkType as LinkType)}
+                        onClick={wrapHandleClick(href, () =>
+                          onClick ? onClick : window.location.assign(href)
+                        )}
                         underline="none"
                         color="text.primary"
                         sx={{ display: "inline-block", py: 0.5 }}
@@ -140,15 +147,22 @@ export const FooterPreLogin = ({
                 >
                   {jsonProducts &&
                     jsonProducts?.map(
-                      ({ href, label, ariaLabel, linkType }, i) => (
+                      (
+                        {
+                          href = "javascript:void(0)",
+                          label,
+                          ariaLabel,
+                          onClick,
+                        },
+                        i
+                      ) => (
                         <li key={i}>
                           <Link
                             aria-label={ariaLabel}
                             component="a"
                             href={href}
-                            onClick={wrapHandleClick(
-                              href,
-                              linkType as LinkType
+                            onClick={wrapHandleClick(href, () =>
+                              onClick ? onClick : window.location.assign(href)
                             )}
                             underline="none"
                             color="text.primary"
@@ -177,13 +191,18 @@ export const FooterPreLogin = ({
                 sx={{ padding: 0, listStyle: "none" }}
               >
                 {resources?.links.map(
-                  ({ href, label, ariaLabel, linkType }, i) => (
+                  (
+                    { href = "javascript:void(0)", label, ariaLabel, onClick },
+                    i
+                  ) => (
                     <li key={i}>
                       <Link
                         aria-label={ariaLabel}
                         component="a"
                         href={href}
-                        onClick={wrapHandleClick(href, linkType as LinkType)}
+                        onClick={wrapHandleClick(href, () =>
+                          onClick ? onClick : window.location.assign(href)
+                        )}
                         underline="none"
                         color="text.primary"
                         sx={{ display: "inline-block", py: 0.5 }}
@@ -219,12 +238,15 @@ export const FooterPreLogin = ({
                     sx={{ padding: 0, mt: 0.5, listStyle: "none" }}
                   >
                     {followUs?.socialLinks.map(
-                      ({ icon, href, ariaLabel }, i) => (
+                      ({ icon, href = "javascript:void(0)", ariaLabel }, i) => (
                         <li key={i}>
                           <Link
                             aria-label={ariaLabel}
                             component="button"
-                            onClick={wrapHandleClick(href, "external")}
+                            href={href}
+                            onClick={wrapHandleClick(href, () =>
+                              window.location.assign(href)
+                            )}
                             underline="none"
                             color="text.primary"
                             sx={{ display: "inline-flex" }}
@@ -243,14 +265,22 @@ export const FooterPreLogin = ({
                     sx={{ padding: 0, margin: 0, listStyle: "none" }}
                   >
                     {followUs?.links.map(
-                      ({ href, label, ariaLabel, linkType }, i) => (
+                      (
+                        {
+                          href = "javascript:void(0)",
+                          label,
+                          ariaLabel,
+                          onClick,
+                        },
+                        i
+                      ) => (
                         <li key={i}>
                           <Link
                             aria-label={ariaLabel}
                             component="button"
-                            onClick={wrapHandleClick(
-                              href,
-                              linkType as LinkType
+                            href={href}
+                            onClick={wrapHandleClick(href, () =>
+                              onClick ? onClick : window.location.assign(href)
                             )}
                             underline="none"
                             color="text.primary"

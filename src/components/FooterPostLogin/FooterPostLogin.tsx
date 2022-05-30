@@ -1,6 +1,6 @@
 import React from "react";
 import { Stack, Box, Container, Link } from "@mui/material";
-import { CompanyLinkType, FooterLinksType, LinkType } from "@components/Footer";
+import { CompanyLinkType, FooterLinksType } from "@components/Footer";
 import { LangSwitch, LangSwitchProps } from "@components/LangSwitch";
 
 import { LogoPagoPACompany } from "@assets/LogoPagoPACompany";
@@ -8,7 +8,7 @@ import { LogoPagoPACompany } from "@assets/LogoPagoPACompany";
 type FooterPostLoginProps = LangSwitchProps & {
   companyLink: CompanyLinkType;
   links: Array<FooterLinksType>;
-  onExit?: (href: string, linkType: LinkType) => void;
+  onExit?: (exitAction: () => void) => void;
 };
 
 export const FooterPostLogin = ({
@@ -18,11 +18,13 @@ export const FooterPostLogin = ({
   ...langProps
 }: FooterPostLoginProps): JSX.Element => {
   const wrapHandleClick =
-    (href: string, linkType: "internal" | "external") =>
-    (e: React.SyntheticEvent) => {
+    (href: string, onClick?: () => void) => (e: React.SyntheticEvent) => {
       if (onExit) {
         e.preventDefault();
-        onExit(href, linkType);
+        onExit(onClick ? onClick : () => window.location.assign(href));
+      } else if (onClick) {
+        e.preventDefault();
+        onClick();
       }
     };
 
@@ -44,7 +46,10 @@ export const FooterPostLogin = ({
           <Link
             component="button"
             aria-label={companyLink?.ariaLabel}
-            onClick={wrapHandleClick(companyLink?.href, "external")}
+            href={companyLink?.href}
+            onClick={wrapHandleClick(companyLink?.href, () =>
+              window.location.assign(companyLink?.href)
+            )}
             sx={{ display: "inline-flex" }}
           >
             <LogoPagoPACompany />
@@ -55,20 +60,28 @@ export const FooterPostLogin = ({
             direction={{ xs: "column", md: "row" }}
             sx={{ alignItems: "center" }}
           >
-            {links.map(({ href, label, ariaLabel, linkType }, i) => (
-              <Link
-                aria-label={ariaLabel}
-                component="button"
-                onClick={wrapHandleClick(href, linkType)}
-                key={i}
-                underline="none"
-                color="text.primary"
-                sx={{ display: "inline-block" }}
-                variant="subtitle2"
-              >
-                {label}
-              </Link>
-            ))}
+            {links.map(
+              (
+                { href = "javascript:void(0)", label, ariaLabel, onClick },
+                i
+              ) => (
+                <Link
+                  aria-label={ariaLabel}
+                  component="button"
+                  href={href}
+                  onClick={wrapHandleClick(href, () =>
+                    onClick ? onClick : window.location.assign(href)
+                  )}
+                  key={i}
+                  underline="none"
+                  color="text.primary"
+                  sx={{ display: "inline-block" }}
+                  variant="subtitle2"
+                >
+                  {label}
+                </Link>
+              )
+            )}
 
             <LangSwitch {...langProps} />
           </Stack>
