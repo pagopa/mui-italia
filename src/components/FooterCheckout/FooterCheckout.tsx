@@ -8,7 +8,7 @@ import { LogoPagoPACompany } from "@assets/LogoPagoPACompany";
 type FooterCheckoutProps = LangSwitchProps & {
   companyLink: CompanyLinkType;
   links: Array<FooterLinksType>;
-  onExit?: (href: string, linkType: LinkType) => void;
+  onExit?: (linkType: LinkType, href?: string) => void;
 };
 
 export const FooterCheckout = ({
@@ -18,11 +18,11 @@ export const FooterCheckout = ({
   ...langProps
 }: FooterCheckoutProps): JSX.Element => {
   const wrapHandleClick =
-    (href: string, linkType: "internal" | "external") =>
+    (linkType: "internal" | "external", href?: string) =>
     (e: React.SyntheticEvent) => {
       if (onExit) {
         e.preventDefault();
-        onExit(href, linkType);
+        onExit(linkType, href);
       }
     };
 
@@ -43,7 +43,7 @@ export const FooterCheckout = ({
             <Link
               aria-label={ariaLabel}
               component="button"
-              onClick={wrapHandleClick(href, linkType as LinkType)}
+              onClick={wrapHandleClick(linkType as LinkType, href)}
               key={i}
               underline="none"
               color="text.primary"
@@ -60,7 +60,7 @@ export const FooterCheckout = ({
         <Link
           component="button"
           aria-label={companyLink?.ariaLabel}
-          onClick={wrapHandleClick(companyLink?.href, "external")}
+          onClick={wrapHandleClick("external", companyLink?.href)}
           sx={{ display: "inline-flex" }}
         >
           <LogoPagoPACompany size={70} />

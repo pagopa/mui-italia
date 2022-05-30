@@ -22,7 +22,7 @@ type FooterProps = LangSwitchProps & {
   postLoginLinks: Array<FooterLinksType>;
   preLoginLinks: PreLoginFooterLinksType;
   legalInfo: JSX.Element | Array<JSX.Element>;
-  onExit?: (href: string, linkType: LinkType) => void;
+  onExit?: (linkType: LinkType, href?: string) => void;
   productsJsonUrl?: string;
   onProductsJsonFetchError?: (reason: any) => void;
   hideProductsColumn?: boolean;
