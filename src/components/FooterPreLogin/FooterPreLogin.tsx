@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Grid, Stack, Box, Typography, Container, Link } from "@mui/material";
 import { CompanyLinkType, PreLoginFooterLinksType } from "@components/Footer";
 import { LangSwitch, LangSwitchProps } from "@components/LangSwitch";
 import { isRight, toError } from "fp-ts/lib/Either";
+import wrapHandleClick from "utils/ts-utils";
 
 /* Icons */
 import TwitterIcon from "@mui/icons-material/Twitter";
@@ -36,17 +37,6 @@ export const FooterPreLogin = ({
   hideProductsColumn,
   ...langProps
 }: FooterPreLoginProps): JSX.Element => {
-  const wrapHandleClick =
-    (href: string, onClick?: () => void) => (e: React.SyntheticEvent) => {
-      if (onExit) {
-        e.preventDefault();
-        onExit(onClick ? onClick : () => window.location.assign(href));
-      } else if (onClick) {
-        e.preventDefault();
-        onClick();
-      }
-    };
-
   const { aboutUs, resources, followUs } = links;
 
   const [jsonProducts, setJsonProducts] = useState<Array<FooterLinksType>>([]);
@@ -90,17 +80,19 @@ export const FooterPreLogin = ({
         <Grid container spacing={{ xs: 6, sm: 3 }}>
           <Grid item xs={12} sm={3}>
             <Stack spacing={2} alignItems={{ xs: "center", sm: "start" }}>
-              <Link
-                component="button"
-                aria-label={companyLink?.ariaLabel}
-                href={companyLink?.href}
-                onClick={wrapHandleClick(companyLink?.href, () =>
-                  window.location.assign(companyLink?.href)
-                )}
-                sx={{ display: "inline-flex" }}
-              >
-                <LogoPagoPACompany />
-              </Link>
+              {companyLink && (
+                <Link
+                  component="button"
+                  aria-label={companyLink.ariaLabel}
+                  href={companyLink.href}
+                  onClick={wrapHandleClick(companyLink.href, () =>
+                    window.location.assign(companyLink.href)
+                  )}
+                  sx={{ display: "inline-flex" }}
+                >
+                  <LogoPagoPACompany />
+                </Link>
+              )}
 
               <Stack
                 component="ul"
