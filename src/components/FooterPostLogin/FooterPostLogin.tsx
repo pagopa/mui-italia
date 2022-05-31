@@ -3,7 +3,7 @@ import { CompanyLinkType, FooterLinksType } from "@components/Footer";
 import { LangSwitch, LangSwitchProps } from "@components/LangSwitch";
 
 import { LogoPagoPACompany } from "@assets/LogoPagoPACompany";
-import wrapHandleClick from "utils/ts-utils";
+import { hrefNoOp, wrapHandleExitAction } from "utils/ts-utils";
 
 type FooterPostLoginProps = LangSwitchProps & {
   companyLink: CompanyLinkType;
@@ -35,8 +35,12 @@ export const FooterPostLogin = ({
           <Link
             component="button"
             aria-label={companyLink?.ariaLabel}
-            href={companyLink?.href}
-            onClick={wrapHandleClick(companyLink.href, undefined, onExit)}
+            href={companyLink?.href ?? hrefNoOp}
+            onClick={wrapHandleExitAction(
+              companyLink.href ?? hrefNoOp,
+              undefined,
+              onExit
+            )}
             sx={{ display: "inline-flex" }}
           >
             <LogoPagoPACompany />
@@ -48,23 +52,21 @@ export const FooterPostLogin = ({
           direction={{ xs: "column", md: "row" }}
           sx={{ alignItems: "center" }}
         >
-          {links.map(
-            ({ href = "javascript:void(0)", label, ariaLabel, onClick }, i) => (
-              <Link
-                aria-label={ariaLabel}
-                component="button"
-                href={href}
-                onClick={wrapHandleClick(href, onClick, onExit)}
-                key={i}
-                underline="none"
-                color="text.primary"
-                sx={{ display: "inline-block" }}
-                variant="subtitle2"
-              >
-                {label}
-              </Link>
-            )
-          )}
+          {links.map(({ href = hrefNoOp, label, ariaLabel, onClick }, i) => (
+            <Link
+              aria-label={ariaLabel}
+              component="button"
+              href={href}
+              onClick={wrapHandleExitAction(href, onClick, onExit)}
+              key={i}
+              underline="none"
+              color="text.primary"
+              sx={{ display: "inline-block" }}
+              variant="subtitle2"
+            >
+              {label}
+            </Link>
+          ))}
 
           <LangSwitch {...langProps} />
         </Stack>

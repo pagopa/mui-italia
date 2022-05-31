@@ -3,7 +3,7 @@ import { Grid, Stack, Box, Typography, Container, Link } from "@mui/material";
 import { CompanyLinkType, PreLoginFooterLinksType } from "@components/Footer";
 import { LangSwitch, LangSwitchProps } from "@components/LangSwitch";
 import { isRight, toError } from "fp-ts/lib/Either";
-import wrapHandleClick from "utils/ts-utils";
+import { hrefNoOp, wrapHandleExitAction } from "utils/ts-utils";
 
 /* Icons */
 import TwitterIcon from "@mui/icons-material/Twitter";
@@ -80,15 +80,21 @@ export const FooterPreLogin = ({
         <Grid container spacing={{ xs: 6, sm: 3 }}>
           <Grid item xs={12} sm={3}>
             <Stack spacing={2} alignItems={{ xs: "center", sm: "start" }}>
-              <Link
-                component="button"
-                aria-label={companyLink?.ariaLabel}
-                href={companyLink?.href}
-                onClick={wrapHandleClick(companyLink?.href, undefined, onExit)}
-                sx={{ display: "inline-flex" }}
-              >
-                <LogoPagoPACompany />
-              </Link>
+              {companyLink && (
+                <Link
+                  component="button"
+                  aria-label={companyLink.ariaLabel}
+                  href={companyLink.href ?? hrefNoOp}
+                  onClick={wrapHandleExitAction(
+                    companyLink.href ?? hrefNoOp,
+                    companyLink.onClick,
+                    onExit
+                  )}
+                  sx={{ display: "inline-flex" }}
+                >
+                  <LogoPagoPACompany />
+                </Link>
+              )}
 
               <Stack
                 component="ul"
@@ -96,16 +102,13 @@ export const FooterPreLogin = ({
                 sx={{ padding: 0, listStyle: "none" }}
               >
                 {aboutUs?.links.map(
-                  (
-                    { href = "javascript:void(0)", label, ariaLabel, onClick },
-                    i
-                  ) => (
+                  ({ href = hrefNoOp, label, ariaLabel, onClick }, i) => (
                     <li key={i}>
                       <Link
                         aria-label={ariaLabel}
                         component="a"
                         href={href}
-                        onClick={wrapHandleClick(href, onClick, onExit)}
+                        onClick={wrapHandleExitAction(href, onClick, onExit)}
                         underline="none"
                         color="text.primary"
                         sx={{ display: "inline-block", py: 0.5 }}
@@ -133,21 +136,17 @@ export const FooterPreLogin = ({
                 >
                   {jsonProducts &&
                     jsonProducts?.map(
-                      (
-                        {
-                          href = "javascript:void(0)",
-                          label,
-                          ariaLabel,
-                          onClick,
-                        },
-                        i
-                      ) => (
+                      ({ href = hrefNoOp, label, ariaLabel, onClick }, i) => (
                         <li key={i}>
                           <Link
                             aria-label={ariaLabel}
                             component="a"
                             href={href}
-                            onClick={wrapHandleClick(href, onClick, onExit)}
+                            onClick={wrapHandleExitAction(
+                              href,
+                              onClick,
+                              onExit
+                            )}
                             underline="none"
                             color="text.primary"
                             sx={{ display: "inline-block", py: 0.5 }}
@@ -175,16 +174,13 @@ export const FooterPreLogin = ({
                 sx={{ padding: 0, listStyle: "none" }}
               >
                 {resources?.links.map(
-                  (
-                    { href = "javascript:void(0)", label, ariaLabel, onClick },
-                    i
-                  ) => (
+                  ({ href = hrefNoOp, label, ariaLabel, onClick }, i) => (
                     <li key={i}>
                       <Link
                         aria-label={ariaLabel}
                         component="a"
                         href={href}
-                        onClick={wrapHandleClick(href, onClick, onExit)}
+                        onClick={wrapHandleExitAction(href, onClick, onExit)}
                         underline="none"
                         color="text.primary"
                         sx={{ display: "inline-block", py: 0.5 }}
@@ -220,13 +216,17 @@ export const FooterPreLogin = ({
                     sx={{ padding: 0, mt: 0.5, listStyle: "none" }}
                   >
                     {followUs?.socialLinks.map(
-                      ({ icon, href = "javascript:void(0)", ariaLabel }, i) => (
+                      ({ icon, href = hrefNoOp, ariaLabel, onClick }, i) => (
                         <li key={i}>
                           <Link
                             aria-label={ariaLabel}
                             component="button"
                             href={href}
-                            onClick={wrapHandleClick(href, undefined, onExit)}
+                            onClick={wrapHandleExitAction(
+                              href,
+                              onClick,
+                              onExit
+                            )}
                             underline="none"
                             color="text.primary"
                             sx={{ display: "inline-flex" }}
@@ -245,21 +245,17 @@ export const FooterPreLogin = ({
                     sx={{ padding: 0, margin: 0, listStyle: "none" }}
                   >
                     {followUs?.links.map(
-                      (
-                        {
-                          href = "javascript:void(0)",
-                          label,
-                          ariaLabel,
-                          onClick,
-                        },
-                        i
-                      ) => (
+                      ({ href = hrefNoOp, label, ariaLabel, onClick }, i) => (
                         <li key={i}>
                           <Link
                             aria-label={ariaLabel}
                             component="button"
                             href={href}
-                            onClick={wrapHandleClick(href, onClick, onExit)}
+                            onClick={wrapHandleExitAction(
+                              href,
+                              onClick,
+                              onExit
+                            )}
                             underline="none"
                             color="text.primary"
                             sx={{ display: "inline-block", py: 0.5 }}
