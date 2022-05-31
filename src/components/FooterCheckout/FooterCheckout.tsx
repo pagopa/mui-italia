@@ -3,7 +3,7 @@ import { CompanyLinkType, FooterLinksType } from "@components/Footer";
 import { LangSwitch, LangSwitchProps } from "@components/LangSwitch";
 
 import { LogoPagoPACompany } from "@assets/LogoPagoPACompany";
-import { wrapHandleClick } from "utils/ts-utils";
+import wrapHandleClick from "utils/ts-utils";
 
 type FooterCheckoutProps = LangSwitchProps & {
   companyLink: CompanyLinkType;
@@ -35,9 +35,7 @@ export const FooterCheckout = ({
               aria-label={ariaLabel}
               component="button"
               href={href}
-              onClick={wrapHandleClick(href, () =>
-                onClick ? onClick : window.location.assign(href)
-              )}
+              onClick={wrapHandleClick(href, onClick, onExit)}
               key={i}
               underline="none"
               color="text.primary"
@@ -55,11 +53,9 @@ export const FooterCheckout = ({
       {companyLink && (
         <Link
           component="button"
-          aria-label={companyLink.ariaLabel}
-          href={companyLink.href}
-          onClick={wrapHandleClick(companyLink.href, () =>
-            window.location.assign(companyLink.href)
-          )}
+          aria-label={companyLink?.ariaLabel}
+          href={companyLink?.href}
+          onClick={wrapHandleClick(companyLink.href, undefined, onExit)}
           sx={{ display: "inline-flex" }}
         >
           <LogoPagoPACompany size={70} />

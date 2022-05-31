@@ -80,19 +80,15 @@ export const FooterPreLogin = ({
         <Grid container spacing={{ xs: 6, sm: 3 }}>
           <Grid item xs={12} sm={3}>
             <Stack spacing={2} alignItems={{ xs: "center", sm: "start" }}>
-              {companyLink && (
-                <Link
-                  component="button"
-                  aria-label={companyLink.ariaLabel}
-                  href={companyLink.href}
-                  onClick={wrapHandleClick(companyLink.href, () =>
-                    window.location.assign(companyLink.href)
-                  )}
-                  sx={{ display: "inline-flex" }}
-                >
-                  <LogoPagoPACompany />
-                </Link>
-              )}
+              <Link
+                component="button"
+                aria-label={companyLink?.ariaLabel}
+                href={companyLink?.href}
+                onClick={wrapHandleClick(companyLink?.href, undefined, onExit)}
+                sx={{ display: "inline-flex" }}
+              >
+                <LogoPagoPACompany />
+              </Link>
 
               <Stack
                 component="ul"
@@ -109,9 +105,7 @@ export const FooterPreLogin = ({
                         aria-label={ariaLabel}
                         component="a"
                         href={href}
-                        onClick={wrapHandleClick(href, () =>
-                          onClick ? onClick : window.location.assign(href)
-                        )}
+                        onClick={wrapHandleClick(href, onClick, onExit)}
                         underline="none"
                         color="text.primary"
                         sx={{ display: "inline-block", py: 0.5 }}
@@ -153,9 +147,7 @@ export const FooterPreLogin = ({
                             aria-label={ariaLabel}
                             component="a"
                             href={href}
-                            onClick={wrapHandleClick(href, () =>
-                              onClick ? onClick : window.location.assign(href)
-                            )}
+                            onClick={wrapHandleClick(href, onClick, onExit)}
                             underline="none"
                             color="text.primary"
                             sx={{ display: "inline-block", py: 0.5 }}
@@ -192,9 +184,7 @@ export const FooterPreLogin = ({
                         aria-label={ariaLabel}
                         component="a"
                         href={href}
-                        onClick={wrapHandleClick(href, () =>
-                          onClick ? onClick : window.location.assign(href)
-                        )}
+                        onClick={wrapHandleClick(href, onClick, onExit)}
                         underline="none"
                         color="text.primary"
                         sx={{ display: "inline-block", py: 0.5 }}
@@ -236,9 +226,7 @@ export const FooterPreLogin = ({
                             aria-label={ariaLabel}
                             component="button"
                             href={href}
-                            onClick={wrapHandleClick(href, () =>
-                              window.location.assign(href)
-                            )}
+                            onClick={wrapHandleClick(href, undefined, onExit)}
                             underline="none"
                             color="text.primary"
                             sx={{ display: "inline-flex" }}
@@ -271,9 +259,7 @@ export const FooterPreLogin = ({
                             aria-label={ariaLabel}
                             component="button"
                             href={href}
-                            onClick={wrapHandleClick(href, () =>
-                              onClick ? onClick : window.location.assign(href)
-                            )}
+                            onClick={wrapHandleClick(href, onClick, onExit)}
                             underline="none"
                             color="text.primary"
                             sx={{ display: "inline-block", py: 0.5 }}

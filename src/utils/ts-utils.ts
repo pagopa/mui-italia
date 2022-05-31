@@ -27,7 +27,7 @@ export function createEnumType<T>(e: object, name?: string) {
   return new EnumType<T>(e, name);
 }
 
-export const wrapHandleExitAction =
+const wrapHandleExitAction =
   (
     href: string,
     onClick?: () => void,
@@ -42,3 +42,4 @@ export const wrapHandleExitAction =
       onClick();
     }
   };
+export default wrapHandleExitAction;
