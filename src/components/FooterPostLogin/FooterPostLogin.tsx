@@ -38,7 +38,7 @@ export const FooterPostLogin = ({
             href={companyLink?.href ?? hrefNoOp}
             onClick={wrapHandleExitAction(
               companyLink.href ?? hrefNoOp,
-              undefined,
+              companyLink.onClick,
               onExit
             )}
             sx={{ display: "inline-flex" }}
