@@ -81,7 +81,7 @@ export const Footer = ({
       <FooterPostLogin
         companyLink={companyLink}
         links={postLoginLinks}
-        onExit={() => onExit}
+        onExit={onExit}
         languages={languages}
         onLanguageChanged={onLanguageChanged}
       />
@@ -94,7 +94,7 @@ export const Footer = ({
         productsJsonUrl={productsJsonUrl}
         onProductsJsonFetchError={onProductsJsonFetchError}
         hideProductsColumn={hideProductsColumn}
-        onExit={() => onExit}
+        onExit={onExit}
       />
     )}
     <FooterLegal content={legalInfo} />

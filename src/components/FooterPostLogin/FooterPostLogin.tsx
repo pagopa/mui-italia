@@ -47,9 +47,7 @@ export const FooterPostLogin = ({
             component="button"
             aria-label={companyLink?.ariaLabel}
             href={companyLink?.href}
-            onClick={wrapHandleClick(companyLink?.href, () =>
-              window.location.assign(companyLink?.href)
-            )}
+            onClick={wrapHandleClick(companyLink.href, undefined)}
             sx={{ display: "inline-flex" }}
           >
             <LogoPagoPACompany />
@@ -69,9 +67,7 @@ export const FooterPostLogin = ({
                   aria-label={ariaLabel}
                   component="button"
                   href={href}
-                  onClick={wrapHandleClick(href, () =>
-                    onClick ? onClick : window.location.assign(href)
-                  )}
+                  onClick={wrapHandleClick(href, onClick)}
                   key={i}
                   underline="none"
                   color="text.primary"
