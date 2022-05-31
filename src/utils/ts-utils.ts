@@ -35,11 +35,12 @@ export const wrapHandleExitAction =
     onExit?: (exitAction: () => void) => void
   ) =>
   (e: React.SyntheticEvent) => {
+    e.preventDefault();
     if (onExit) {
-      e.preventDefault();
       onExit(onClick ? onClick : () => window.location.assign(href));
     } else if (onClick) {
-      e.preventDefault();
       onClick();
+    } else {
+      window.location.assign(href);
     }
   };
