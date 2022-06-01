@@ -165,15 +165,20 @@ const preLoginLinks: PreLoginFooterLinksType = {
       },
       {
         label: "Diritto alla protezione dei dati personali",
-        href: "#diritto-alla-protezione-dei-dati-personali",
         ariaLabel: "Vai al link: Diritto alla protezione dei dati personali",
         linkType: "internal",
+        onClick: () => {
+          console.log("onClick");
+        },
       },
       {
         label: "Preferenze Cookie",
         href: "#preferenze-cookie",
         ariaLabel: "Vai al link: Preferenze Cookie",
         linkType: "internal",
+        onClick: () => {
+          console.log("onClick");
+        },
       },
       {
         label: "Termini e Condizioni",
@@ -257,8 +262,9 @@ export const PreLogin: ComponentStory<typeof Footer> = () => (
       }
     }
     languages={LANGUAGES}
-    onExit={(href, linkType) => {
-      console.log("Clicked on exit", href, linkType);
+    onExit={(exitAction) => {
+      console.log("Executing exit Action");
+      exitAction();
     }}
     productsJsonUrl="https://dev.selfcare.pagopa.it/assets/products.json"
     hideProductsColumn={false}
@@ -281,9 +287,6 @@ export const PostLogin: ComponentStory<typeof Footer> = () => (
       }
     }
     languages={LANGUAGES}
-    onExit={(href, linkType) => {
-      console.log("Clicked on exit", href, linkType);
-    }}
     productsJsonUrl="https://dev.selfcare.pagopa.it/assets/products.json"
     hideProductsColumn={false}
   />
@@ -302,8 +305,8 @@ export const Checkout: ComponentStory<typeof FooterCheckout> = () => (
       }
     }
     languages={LANGUAGES}
-    onExit={(href, linkType) => {
-      console.log("Clicked on exit", href, linkType);
+    onExit={() => {
+      console.log("Exit Action Blocked");
     }}
   />
 );

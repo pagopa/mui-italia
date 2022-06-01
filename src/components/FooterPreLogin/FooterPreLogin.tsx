@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Grid, Stack, Box, Typography, Container, Link } from "@mui/material";
-import {
-  CompanyLinkType,
-  LinkType,
-  PreLoginFooterLinksType,
-} from "@components/Footer";
+import { CompanyLinkType, PreLoginFooterLinksType } from "@components/Footer";
 import { LangSwitch, LangSwitchProps } from "@components/LangSwitch";
 import { isRight, toError } from "fp-ts/lib/Either";
+import { hrefNoOp, wrapHandleExitAction } from "utils/ts-utils";
 
 /* Icons */
 import TwitterIcon from "@mui/icons-material/Twitter";
@@ -23,7 +20,7 @@ import { ProductArrayType } from "./ProductType";
 type FooterPreLoginProps = LangSwitchProps & {
   companyLink: CompanyLinkType;
   links: PreLoginFooterLinksType;
-  onExit?: (href: string, linkType: LinkType) => void;
+  onExit?: (exitAction: () => void) => void;
   /** This URL contains a json with the list of products to list inside the Footer. By default it's set with https://selfcare.pagopa.it/assets/products.json */
   productsJsonUrl?: string;
   onProductsJsonFetchError?: (reason: any) => void;
@@ -40,14 +37,6 @@ export const FooterPreLogin = ({
   hideProductsColumn,
   ...langProps
 }: FooterPreLoginProps): JSX.Element => {
-  const wrapHandleClick =
-    (href: string, linkType: "internal" | "external") =>
-    (e: React.SyntheticEvent) => {
-      if (onExit) {
-        e.preventDefault();
-        onExit(href, linkType);
-      }
-    };
   const { aboutUs, resources, followUs } = links;
 
   const [jsonProducts, setJsonProducts] = useState<Array<FooterLinksType>>([]);
@@ -91,14 +80,21 @@ export const FooterPreLogin = ({
         <Grid container spacing={{ xs: 6, sm: 3 }}>
           <Grid item xs={12} sm={3}>
             <Stack spacing={2} alignItems={{ xs: "center", sm: "start" }}>
-              <Link
-                component="button"
-                aria-label={companyLink?.ariaLabel}
-                onClick={wrapHandleClick(companyLink?.href, "external")}
-                sx={{ display: "inline-flex" }}
-              >
-                <LogoPagoPACompany />
-              </Link>
+              {companyLink && (
+                <Link
+                  component="button"
+                  aria-label={companyLink.ariaLabel}
+                  href={companyLink.href ?? hrefNoOp}
+                  onClick={wrapHandleExitAction(
+                    companyLink.href ?? hrefNoOp,
+                    companyLink.onClick,
+                    onExit
+                  )}
+                  sx={{ display: "inline-flex" }}
+                >
+                  <LogoPagoPACompany />
+                </Link>
+              )}
 
               <Stack
                 component="ul"
@@ -106,13 +102,13 @@ export const FooterPreLogin = ({
                 sx={{ padding: 0, listStyle: "none" }}
               >
                 {aboutUs?.links.map(
-                  ({ href, label, ariaLabel, linkType }, i) => (
+                  ({ href = hrefNoOp, label, ariaLabel, onClick }, i) => (
                     <li key={i}>
                       <Link
                         aria-label={ariaLabel}
                         component="a"
                         href={href}
-                        onClick={wrapHandleClick(href, linkType as LinkType)}
+                        onClick={wrapHandleExitAction(href, onClick, onExit)}
                         underline="none"
                         color="text.primary"
                         sx={{ display: "inline-block", py: 0.5 }}
@@ -140,15 +136,16 @@ export const FooterPreLogin = ({
                 >
                   {jsonProducts &&
                     jsonProducts?.map(
-                      ({ href, label, ariaLabel, linkType }, i) => (
+                      ({ href = hrefNoOp, label, ariaLabel, onClick }, i) => (
                         <li key={i}>
                           <Link
                             aria-label={ariaLabel}
                             component="a"
                             href={href}
-                            onClick={wrapHandleClick(
+                            onClick={wrapHandleExitAction(
                               href,
-                              linkType as LinkType
+                              onClick,
+                              onExit
                             )}
                             underline="none"
                             color="text.primary"
@@ -177,13 +174,13 @@ export const FooterPreLogin = ({
                 sx={{ padding: 0, listStyle: "none" }}
               >
                 {resources?.links.map(
-                  ({ href, label, ariaLabel, linkType }, i) => (
+                  ({ href = hrefNoOp, label, ariaLabel, onClick }, i) => (
                     <li key={i}>
                       <Link
                         aria-label={ariaLabel}
                         component="a"
                         href={href}
-                        onClick={wrapHandleClick(href, linkType as LinkType)}
+                        onClick={wrapHandleExitAction(href, onClick, onExit)}
                         underline="none"
                         color="text.primary"
                         sx={{ display: "inline-block", py: 0.5 }}
@@ -219,12 +216,17 @@ export const FooterPreLogin = ({
                     sx={{ padding: 0, mt: 0.5, listStyle: "none" }}
                   >
                     {followUs?.socialLinks.map(
-                      ({ icon, href, ariaLabel }, i) => (
+                      ({ icon, href = hrefNoOp, ariaLabel, onClick }, i) => (
                         <li key={i}>
                           <Link
                             aria-label={ariaLabel}
                             component="button"
-                            onClick={wrapHandleClick(href, "external")}
+                            href={href}
+                            onClick={wrapHandleExitAction(
+                              href,
+                              onClick,
+                              onExit
+                            )}
                             underline="none"
                             color="text.primary"
                             sx={{ display: "inline-flex" }}
@@ -243,14 +245,16 @@ export const FooterPreLogin = ({
                     sx={{ padding: 0, margin: 0, listStyle: "none" }}
                   >
                     {followUs?.links.map(
-                      ({ href, label, ariaLabel, linkType }, i) => (
+                      ({ href = hrefNoOp, label, ariaLabel, onClick }, i) => (
                         <li key={i}>
                           <Link
                             aria-label={ariaLabel}
                             component="button"
-                            onClick={wrapHandleClick(
+                            href={href}
+                            onClick={wrapHandleExitAction(
                               href,
-                              linkType as LinkType
+                              onClick,
+                              onExit
                             )}
                             underline="none"
                             color="text.primary"

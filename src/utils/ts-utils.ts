@@ -26,3 +26,21 @@ export class EnumType<A> extends t.Type<A> {
 export function createEnumType<T>(e: object, name?: string) {
   return new EnumType<T>(e, name);
 }
+
+export const hrefNoOp = "javascript:void(0)";
+export const wrapHandleExitAction =
+  (
+    href: string,
+    onClick?: () => void,
+    onExit?: (exitAction: () => void) => void
+  ) =>
+  (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    if (onExit) {
+      onExit(onClick ? onClick : () => window.location.assign(href));
+    } else if (onClick) {
+      onClick();
+    } else {
+      window.location.assign(href);
+    }
+  };
