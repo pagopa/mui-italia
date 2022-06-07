@@ -23,6 +23,7 @@ const alertBorderWidth = "4px";
 const backdropBackground = "#17324D";
 const menuItemBackground = "#17324D";
 const shadowColor = "#002B55";
+// TODO: GRIDCONF
 export const gutter = "16px";
 export const marginParagraph = "16px";
 export const paddingY = "64px";
