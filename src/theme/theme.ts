@@ -23,6 +23,12 @@ const alertBorderWidth = "4px";
 const backdropBackground = "#17324D";
 const menuItemBackground = "#17324D";
 const shadowColor = "#002B55";
+export const gutter = "16px";
+export const marginParagraph = "16px";
+export const paddingY = "64px";
+export const paddingX = "144px";
+export const mobilePaddingY = "32px";
+export const mobilePaddingX = "16px";
 
 const shadowValues = {
   /* Elevation 4 */
@@ -76,12 +82,14 @@ declare module "@mui/material/styles" {
     europeanUnion: Palette["primary"];
     extraLight: Palette["warning"];
     primaryAction: Palette["action"];
+    inverted: PaletteColorOptions;
   }
   interface PaletteOptions {
     pagoPA?: PaletteOptions["primary"];
     europeanUnion: PaletteOptions["primary"];
     extraLight?: PaletteOptions["warning"];
     primaryAction: PaletteOptions["action"];
+    inverted: PaletteColorOptions;
   }
 
   interface PaletteColor {
@@ -102,6 +110,8 @@ declare module "@mui/material/Button" {
   interface ButtonPropsColorOverrides {
     blueItaly: true;
     text: true;
+    primary: true;
+    inverted: true;
     secondary: false;
     warning: false;
     info: false;
@@ -190,6 +200,10 @@ const foundation: Theme = createTheme({
     europeanUnion: {
       main: "#264CA4",
       contrastText: "#fff",
+    },
+    inverted: {
+      main: "#fff",
+      contrastText: "#0066CC",
     },
     text: {
       primary: colorTextPrimary,

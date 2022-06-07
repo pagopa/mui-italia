@@ -9,6 +9,7 @@
       "@assets/*": [ "assets/*" ],
       "@icons/*": [ "icons/*" ],
       "@static/*": [ "static/*" ],
+      "@types": [ "types" ],
     },
     "outDir": "dist",
     "target": "es6",
