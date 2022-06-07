@@ -1,13 +1,4 @@
 import { Box, Button, Grid, Stack, Typography } from "@mui/material";
-import {
-  gutter,
-  marginParagraph,
-  mobilePaddingX,
-  mobilePaddingY,
-  paddingX,
-  paddingY,
-} from "@theme";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import { CTA, position } from "@types";
 
 export interface HeroProps {
@@ -30,48 +21,48 @@ export const Hero = ({
   image,
   altText = "hero image",
   background,
-}: HeroProps) => {
-  const isMobile = useMediaQuery("(max-width:600px)");
-
-  return (
-    <Box
-      bgcolor="primary.main"
-      sx={{ backgroundImage: `url(${background})`, backgroundSize: "cover" }}
+}: HeroProps) => (
+  <Box
+    bgcolor="primary.main"
+    sx={{ backgroundImage: `url(${background})`, backgroundSize: "cover" }}
+  >
+    <Grid
+      container
+      direction={textPosition === position.RIGHT ? "row-reverse" : "row"}
+      px={2}
+      columnSpacing={2}
+      sx={{
+        py: {
+          xs: 4,
+          sm: 4,
+          md: 8,
+        },
+      }}
     >
-      <Grid
-        container
-        direction={textPosition === position.RIGHT ? "row-reverse" : "row"}
-        px={isMobile ? mobilePaddingX : paddingX}
-        py={isMobile ? mobilePaddingY : paddingY}
-      >
-        <Grid item sm={12} md={6} my="auto" pr={gutter}>
-          <Typography
-            variant="h1"
-            color="primary.contrastText"
-            mb={marginParagraph}
-          >
-            {title}
-          </Typography>
-          <Typography color="primary.contrastText" mb={marginParagraph}>
-            {subtitle}
-          </Typography>
-          {ctaPrimary && (
-            <Box mb={isMobile ? marginParagraph : 0}>
-              <Button
-                aria-label={ctaPrimary.title}
-                variant="contained"
-                color="inverted"
-                href={ctaPrimary.href}
-              >
-                {ctaPrimary.label}
-              </Button>
-            </Box>
-          )}
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Stack direction="column">
+      <Grid item sm={0} md={1} />
+      <Grid item sm={12} md={5} my="auto">
+        <Stack spacing={4}>
+          <Stack spacing={2}>
+            <Typography variant="h1" color="primary.contrastText">
+              {title}
+            </Typography>
+            <Typography color="primary.contrastText">{subtitle}</Typography>
+          </Stack>
+          <Stack direction="row" spacing={2}>
+            {ctaPrimary && (
+              <Box>
+                <Button
+                  aria-label={ctaPrimary.title}
+                  variant="contained"
+                  color="inverted"
+                  href={ctaPrimary.href}
+                >
+                  {ctaPrimary.label}
+                </Button>
+              </Box>
+            )}
             {ctaSecondary && (
-              <Box alignSelf="flex-start" mb={marginParagraph}>
+              <Box>
                 <Button
                   aria-label={ctaSecondary.title}
                   color="inverted"
@@ -82,12 +73,15 @@ export const Hero = ({
                 </Button>
               </Box>
             )}
-            <Box maxHeight="600px" maxWidth="100%">
-              {image && <img alt={altText} src={image} width="100%" />}
-            </Box>
           </Stack>
-        </Grid>
+        </Stack>
       </Grid>
-    </Box>
-  );
-};
+      <Grid item sm={12} md={5}>
+        <Box maxHeight="600px" maxWidth="100%">
+          {image && <img alt={altText} src={image} width="100%" />}
+        </Box>
+      </Grid>
+      <Grid item sm={0} md={1} />
+    </Grid>
+  </Box>
+);
