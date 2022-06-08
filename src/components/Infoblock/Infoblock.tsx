@@ -55,13 +55,7 @@ export const Infoblock = ({
           <Stack spacing={4}>
             <Stack spacing={2}>
               {overline && (
-                <Typography
-                  variant="body2"
-                  fontWeight="bold"
-                  color="text.secondary"
-                >
-                  {overline}
-                </Typography>
+                <Typography variant="overline">{overline}</Typography>
               )}
               <Typography variant="h4" color="text.primary">
                 {title}
