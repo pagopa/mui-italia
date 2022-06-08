@@ -24,7 +24,10 @@ export const Hero = ({
 }: HeroProps) => (
   <Box
     bgcolor="primary.main"
-    sx={{ backgroundImage: `url(${background})`, backgroundSize: "cover" }}
+    sx={{
+      backgroundImage: `url(${background})`,
+      backgroundSize: "cover",
+    }}
   >
     <Container maxWidth="xl">
       <Box
@@ -97,10 +100,21 @@ export const Hero = ({
             xs: "auto",
             md: 1,
           }}
+          alignSelf="center"
         >
-          <Box maxHeight="600px" maxWidth="100%">
-            {image && <img alt={altText} src={image} width="100%" />}
-          </Box>
+          {image && (
+            <img
+              alt={altText}
+              src={image}
+              style={{
+                objectFit: "contain",
+                objectPosition: "center",
+                width: "100%",
+                height: "100%",
+                maxHeight: "600px",
+              }}
+            />
+          )}
         </Box>
       </Box>
     </Container>

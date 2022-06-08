@@ -35,7 +35,16 @@ export default {
     ctaSecondary: secondCTA,
     altText: "altText",
   },
-  argTypes: {},
+  argTypes: {
+    inverse: {
+      options: [true, false],
+      control: { type: "boolean" },
+      table: {
+        type: { summary: "boolean" },
+        defaultValue: { summary: false },
+      },
+    },
+  },
 } as ComponentMeta<typeof Hero>;
 
 export const Default: ComponentStory<typeof Hero> = (args) => (
