@@ -19,7 +19,7 @@ export const Hero = ({
   ctaSecondary,
   inverse = false,
   image,
-  altText = "hero image",
+  altText = "Hero Image",
   background,
 }: HeroProps) => (
   <Box
@@ -33,7 +33,8 @@ export const Hero = ({
       <Box
         sx={{
           display: "grid",
-          gap: 3,
+          columnGap: 3,
+          rowGap: 5,
           gridTemplateColumns: {
             xs: "repeat(6, minmax(0, 1fr))",
             md: "repeat(12, minmax(0, 1fr))",
@@ -112,6 +113,7 @@ export const Hero = ({
                 width: "100%",
                 height: "100%",
                 maxHeight: "600px",
+                userSelect: "none",
               }}
             />
           )}

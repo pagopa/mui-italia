@@ -1,6 +1,9 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Hero } from "@components/Hero";
 
+import heroBackground from "./assets/hero_background.png";
+import heroImage from "./assets/hero_image.png";
+
 const firstCTA = {
   label: "CallToAction 1",
   title: "CTA 1",
@@ -28,8 +31,8 @@ export default {
     subtitle:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eget lacus consequat, accumsan metus sed, pharetra dui. Praesent at accumsan odio. Praesent augue ipsum, pharetra eget metus vel, bibendum dapibus augue. Nunc maximus id eros finibus laoreet. Integer iaculis, neque at feugiat accumsan, nisi magna iaculis nisl, ultricies euismod nulla orci sit amet justo.",
     inverse: false,
-    image: "",
-    background: "",
+    image: heroImage,
+    background: heroBackground,
     showPrimary: true,
     ctaPrimary: firstCTA,
     ctaSecondary: secondCTA,
