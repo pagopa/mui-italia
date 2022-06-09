@@ -83,14 +83,14 @@ declare module "@mui/material/styles" {
     europeanUnion: Palette["primary"];
     extraLight: Palette["warning"];
     primaryAction: Palette["action"];
-    inverted: PaletteColorOptions;
+    negative: PaletteColorOptions;
   }
   interface PaletteOptions {
     pagoPA?: PaletteOptions["primary"];
     europeanUnion: PaletteOptions["primary"];
     extraLight?: PaletteOptions["warning"];
     primaryAction: PaletteOptions["action"];
-    inverted: PaletteColorOptions;
+    negative: PaletteColorOptions;
   }
 
   interface PaletteColor {
@@ -112,7 +112,7 @@ declare module "@mui/material/Button" {
     blueItaly: true;
     text: true;
     primary: true;
-    inverted: true;
+    negative: true;
     secondary: false;
     warning: false;
     info: false;
@@ -202,8 +202,8 @@ const foundation: Theme = createTheme({
       main: "#264CA4",
       contrastText: "#fff",
     },
-    inverted: {
-      main: "#fff",
+    negative: {
+      main: "#FFFFFF",
       contrastText: "#0066CC",
     },
     text: {
