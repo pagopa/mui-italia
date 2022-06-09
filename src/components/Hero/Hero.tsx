@@ -19,18 +19,22 @@ export const Hero = ({
   ctaSecondary,
   inverse = false,
   image,
-  altText = "hero image",
+  altText = "Hero Image",
   background,
 }: HeroProps) => (
   <Box
     bgcolor="primary.main"
-    sx={{ backgroundImage: `url(${background})`, backgroundSize: "cover" }}
+    sx={{
+      backgroundImage: `url(${background})`,
+      backgroundSize: "cover",
+    }}
   >
     <Container maxWidth="xl">
       <Box
         sx={{
           display: "grid",
-          gap: 3,
+          columnGap: 3,
+          rowGap: 5,
           gridTemplateColumns: {
             xs: "repeat(6, minmax(0, 1fr))",
             md: "repeat(12, minmax(0, 1fr))",
@@ -58,7 +62,9 @@ export const Hero = ({
               <Typography variant="h1" color="primary.contrastText">
                 {title}
               </Typography>
-              <Typography color="primary.contrastText">{subtitle}</Typography>
+              <Typography variant="body1" color="primary.contrastText">
+                {subtitle}
+              </Typography>
             </Stack>
             <Stack direction="row" spacing={2}>
               {ctaPrimary && (
@@ -66,7 +72,7 @@ export const Hero = ({
                   <Button
                     aria-label={ctaPrimary.title}
                     variant="contained"
-                    color="inverted"
+                    color="negative"
                     href={ctaPrimary.href}
                   >
                     {ctaPrimary.label}
@@ -77,7 +83,7 @@ export const Hero = ({
                 <Box>
                   <Button
                     aria-label={ctaSecondary.title}
-                    color="inverted"
+                    color="negative"
                     variant="outlined"
                     href={ctaSecondary.href}
                   >
@@ -97,10 +103,22 @@ export const Hero = ({
             xs: "auto",
             md: 1,
           }}
+          alignSelf="center"
         >
-          <Box maxHeight="600px" maxWidth="100%">
-            {image && <img alt={altText} src={image} width="100%" />}
-          </Box>
+          {image && (
+            <img
+              alt={altText}
+              src={image}
+              style={{
+                objectFit: "contain",
+                objectPosition: "center",
+                width: "100%",
+                height: "100%",
+                maxHeight: "600px",
+                userSelect: "none",
+              }}
+            />
+          )}
         </Box>
       </Box>
     </Container>
