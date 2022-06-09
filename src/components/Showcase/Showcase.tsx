@@ -37,14 +37,14 @@ export const Showcase = ({ title, items }: ShowcaseProps) => (
               direction={{ xs: "column", md: "row" }}
               alignContent="center"
               justifyContent="center"
-              spacing={4}
+              spacing={{ xs: 6, md: 4 }}
             >
               {items.map((item, index) => (
                 <Stack
                   key={index}
                   alignContent="center"
                   justifyContent="center"
-                  spacing={4}
+                  spacing={{ xs: 1, md: 4 }}
                   sx={{
                     width: { sx: "100%", md: `calc(100%/${items.length})` },
                   }}
