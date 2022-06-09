@@ -8,7 +8,8 @@ const items = [
   {
     icon: <CieIcon />,
     title: "First Item",
-    subtitle: "A very descriptive subtitle",
+    subtitle:
+      "A very descriptive subtitle, that is the intro to our Walkthrough",
   },
   {
     icon: <MediumIcon />,
@@ -17,13 +18,13 @@ const items = [
   },
   {
     icon: <SpidIcon />,
-    title: "Second Item",
+    title: "Third Item",
     subtitle: "Short subtitle",
   },
   {
     icon: <SpidIcon />,
     title: "Fourth Item",
-    subtitle: "Short subtitle",
+    subtitle: "End Walkthrough",
   },
 ];
 
