@@ -102,16 +102,18 @@ export const Infoblock = ({
           mr="40px"
         >
           <Box maxHeight="600px" maxWidth="100%" position="relative" zIndex={1}>
-            <Box
-              width="100%"
-              height="100%"
-              sx={{
-                position: "absolute",
-                top: "40px",
-                backgroundColor: "#EEEEEE",
-                zIndex: 2,
-              }}
-            />
+            {imageShadow && (
+              <Box
+                width="100%"
+                height="100%"
+                sx={{
+                  position: "absolute",
+                  top: "40px",
+                  backgroundColor: "#EEEEEE",
+                  zIndex: 2,
+                }}
+              />
+            )}
             <Box position="relative" left="40px" zIndex={5}>
               <img alt={altText} src={image} width="100%" />
             </Box>

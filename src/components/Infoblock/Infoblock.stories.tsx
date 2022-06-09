@@ -32,6 +32,7 @@ export default {
     ctaPrimary: primaryCTA,
     ctaSecondary: secondaryCTA,
     image: require("./infoblockImage.png"),
+    imageShadow: true,
   },
 } as ComponentMeta<typeof Infoblock>;
 
