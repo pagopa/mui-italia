@@ -103,7 +103,7 @@ export const Infoblock = ({
           mr="40px"
         >
           <Box
-            maxHeight="560px"
+            maxHeight="546px"
             maxWidth="100%"
             width="fit-content"
             position="relative"
@@ -127,7 +127,7 @@ export const Infoblock = ({
               <img
                 alt={altText}
                 src={image}
-                style={{ maxWidth: "100%", maxHeight: "560px" }}
+                style={{ maxWidth: "100%", maxHeight: "546px" }}
               />
             </Box>
           </Box>
