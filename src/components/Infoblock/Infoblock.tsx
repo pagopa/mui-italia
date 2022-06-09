@@ -55,7 +55,9 @@ export const Infoblock = ({
           <Stack spacing={4}>
             <Stack spacing={2}>
               {overline && (
-                <Typography variant="overline">{overline}</Typography>
+                <Typography variant="overline" color="text.secondary">
+                  {overline}
+                </Typography>
               )}
               <Typography variant="h4" color="text.primary">
                 {title}
@@ -97,9 +99,22 @@ export const Infoblock = ({
             xs: "auto",
             md: 1,
           }}
+          mr="40px"
         >
-          <Box maxHeight="600px" maxWidth="100%">
-            <img alt={altText} src={image} width="100%" />
+          <Box maxHeight="600px" maxWidth="100%" position="relative" zIndex={1}>
+            <Box
+              width="100%"
+              height="100%"
+              sx={{
+                position: "absolute",
+                top: "40px",
+                backgroundColor: "#EEEEEE",
+                zIndex: 2,
+              }}
+            />
+            <Box position="relative" left="40px" zIndex={5}>
+              <img alt={altText} src={image} width="100%" />
+            </Box>
           </Box>
         </Box>
       </Box>

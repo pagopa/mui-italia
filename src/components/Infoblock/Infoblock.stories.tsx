@@ -31,6 +31,7 @@ export default {
     inverse: false,
     ctaPrimary: primaryCTA,
     ctaSecondary: secondaryCTA,
+    image: require("./infoblockImage.png"),
   },
 } as ComponentMeta<typeof Infoblock>;
 
