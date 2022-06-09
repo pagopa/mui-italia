@@ -1,4 +1,4 @@
-import { Showcase } from "@components/Showcase/Showcase";
+import { Walkthrough } from "@components/Walkthrough/Walkthrough";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { CieIcon } from "@icons/CieIcon";
 import { MediumIcon } from "@icons/MediumIcon";
@@ -28,8 +28,8 @@ const items = [
 ];
 
 export default {
-  title: "Components/Showcase",
-  component: Showcase,
+  title: "Components/Walkthrough",
+  component: Walkthrough,
   decorators: [
     (Story) => (
       <div style={{ padding: 0, backgroundColor: "#F5F5F5" }}>
@@ -40,8 +40,8 @@ export default {
   args: {
     title: "Title",
   },
-} as ComponentMeta<typeof Showcase>;
+} as ComponentMeta<typeof Walkthrough>;
 
-export const Default: ComponentStory<typeof Showcase> = (args) => (
-  <Showcase {...args} items={items} />
+export const Default: ComponentStory<typeof Walkthrough> = (args) => (
+  <Walkthrough {...args} items={items} />
 );

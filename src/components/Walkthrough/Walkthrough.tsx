@@ -1,4 +1,5 @@
 import { Box, Container, Stack, Typography } from "@mui/material";
+import { ArrowForward } from "@mui/icons-material";
 
 export interface Item {
   icon?: JSX.Element;
@@ -11,7 +12,7 @@ export interface ShowcaseProps {
   items: Array<Item>;
 }
 
-export const Showcase = ({ title, items }: ShowcaseProps) => (
+export const Walkthrough = ({ title, items }: ShowcaseProps) => (
   <Box bgcolor="#FAFAFA">
     <Container
       maxWidth="xl"
@@ -23,8 +24,10 @@ export const Showcase = ({ title, items }: ShowcaseProps) => (
         },
       }}
     >
-      <Stack alignContent="center" textAlign="center" spacing={8}>
-        <Typography variant="h4">{title}</Typography>
+      <Stack alignContent="center" spacing={8}>
+        <Typography variant="h4" textAlign="center">
+          {title}
+        </Typography>
         <Box
           sx={{
             display: "grid",
@@ -34,10 +37,10 @@ export const Showcase = ({ title, items }: ShowcaseProps) => (
         >
           <Box gridColumn="2 / span 10">
             <Stack
-              direction={{ xs: "column", md: "row" }}
+              direction="row"
               alignContent="center"
               justifyContent="center"
-              spacing={4}
+              spacing={8}
             >
               {items.map((item, index) => (
                 <Stack
@@ -49,7 +52,17 @@ export const Showcase = ({ title, items }: ShowcaseProps) => (
                     width: { sx: "100%", md: `calc(100%/${items.length})` },
                   }}
                 >
-                  <Box mx="auto">{item.icon}</Box>
+                  <Typography
+                    variant="caption"
+                    color="primary.dark"
+                    alignSelf="flex-start"
+                  >
+                    {index.toString().padStart(2, "0")}
+                  </Typography>
+                  <Stack direction="row" justifyContent="space-between">
+                    <Box alignSelf="flex-start">{item.icon}</Box>
+                    <ArrowForward color="primary.dark" />
+                  </Stack>
                   <Stack spacing={1}>
                     <Typography variant="h6">{item.title}</Typography>
                     <Typography variant="body2">{item.subtitle}</Typography>
