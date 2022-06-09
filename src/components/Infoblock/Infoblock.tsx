@@ -1,5 +1,6 @@
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { CTA } from "@types";
+import circle from "./circle.svg";
 
 export interface InfoblockProps {
   overline?: string;
@@ -101,7 +102,14 @@ export const Infoblock = ({
           }}
           mr="40px"
         >
-          <Box maxHeight="600px" maxWidth="100%" position="relative" zIndex={1}>
+          <Box
+            maxHeight="560px"
+            maxWidth="100%"
+            width="fit-content"
+            position="relative"
+            ml="auto"
+            zIndex={1}
+          >
             {imageShadow && (
               <Box
                 width="100%"
@@ -109,13 +117,18 @@ export const Infoblock = ({
                 sx={{
                   position: "absolute",
                   top: "40px",
-                  backgroundColor: "#EEEEEE",
                   zIndex: 2,
+                  backgroundImage: `url(${circle})`,
+                  backgroundSize: "40px",
                 }}
-              />
+              ></Box>
             )}
-            <Box position="relative" left="40px" zIndex={5}>
-              <img alt={altText} src={image} width="100%" />
+            <Box position="relative" width="auto" left="40px" zIndex={5}>
+              <img
+                alt={altText}
+                src={image}
+                style={{ maxWidth: "100%", maxHeight: "560px" }}
+              />
             </Box>
           </Box>
         </Box>
