@@ -62,7 +62,9 @@ export const Hero = ({
               <Typography variant="h1" color="primary.contrastText">
                 {title}
               </Typography>
-              <Typography color="primary.contrastText">{subtitle}</Typography>
+              <Typography variant="body1" color="primary.contrastText">
+                {subtitle}
+              </Typography>
             </Stack>
             <Stack direction="row" spacing={2}>
               {ctaPrimary && (
@@ -70,7 +72,7 @@ export const Hero = ({
                   <Button
                     aria-label={ctaPrimary.title}
                     variant="contained"
-                    color="inverted"
+                    color="negative"
                     href={ctaPrimary.href}
                   >
                     {ctaPrimary.label}
@@ -81,7 +83,7 @@ export const Hero = ({
                 <Box>
                   <Button
                     aria-label={ctaSecondary.title}
-                    color="inverted"
+                    color="negative"
                     variant="outlined"
                     href={ctaSecondary.href}
                   >
