@@ -76,12 +76,14 @@ declare module "@mui/material/styles" {
     europeanUnion: Palette["primary"];
     extraLight: Palette["warning"];
     primaryAction: Palette["action"];
+    negative: PaletteColorOptions;
   }
   interface PaletteOptions {
     pagoPA?: PaletteOptions["primary"];
     europeanUnion: PaletteOptions["primary"];
     extraLight?: PaletteOptions["warning"];
     primaryAction: PaletteOptions["action"];
+    negative: PaletteColorOptions;
   }
 
   interface PaletteColor {
@@ -102,6 +104,8 @@ declare module "@mui/material/Button" {
   interface ButtonPropsColorOverrides {
     blueItaly: true;
     text: true;
+    primary: true;
+    negative: true;
     secondary: false;
     warning: false;
     info: false;
@@ -190,6 +194,10 @@ const foundation: Theme = createTheme({
     europeanUnion: {
       main: "#264CA4",
       contrastText: "#fff",
+    },
+    negative: {
+      main: "#FFFFFF",
+      contrastText: "#0066CC",
     },
     text: {
       primary: colorTextPrimary,
