@@ -43,10 +43,10 @@ export const Showcase = ({ title, items }: ShowcaseProps) => (
                 <Stack
                   key={index}
                   alignContent="center"
-                  justifyContent="center"
+                  justifyContent="flex-start"
                   spacing={{ xs: 1, md: 4 }}
                   sx={{
-                    width: { sx: "100%", md: `calc(100%/${items.length})` },
+                    flex: 1,
                   }}
                 >
                   <Box mx="auto">{item.icon}</Box>
