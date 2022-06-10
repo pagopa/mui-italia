@@ -49,7 +49,7 @@
     "@babel/core": "^7.18.2",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
-    "@mui/icons-material": "^5.8.2",
+    "@mui/icons-material": "^5.8.3",
     "@mui/lab": "^5.0.0-alpha.80",
     "@mui/material": "^5.8.2",
     "@mui/system": "^5.8.3",
@@ -91,7 +91,7 @@
   "peerDependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
-    "@mui/icons-material": "^5.8.2",
+    "@mui/icons-material": "^5.8.3",
     "@mui/lab": "^5.0.0-alpha.80",
     "@mui/material": "^5.8.2",
     "@mui/system": "^5.8.3",
