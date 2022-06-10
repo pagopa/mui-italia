@@ -1,6 +1,6 @@
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { CTA } from "@types";
-import circle from "./circle.svg";
+import { useCallback, useEffect, useState } from "react";
 
 export interface InfoblockProps {
   overline?: string;
@@ -12,6 +12,8 @@ export interface InfoblockProps {
   image: string;
   altText?: string;
   imageShadow: boolean;
+  imageType?: "circle";
+  aspectRatio?: "4/3" | "9/16";
 }
 
 export const Infoblock = ({
@@ -24,115 +26,137 @@ export const Infoblock = ({
   image,
   altText = "info image",
   imageShadow,
-}: InfoblockProps) => (
-  <Box>
-    <Container maxWidth="xl">
-      <Box
-        sx={{
-          display: "grid",
-          gap: 3,
-          gridTemplateColumns: {
-            xs: "repeat(6, minmax(0, 1fr))",
-            md: "repeat(12, minmax(0, 1fr))",
-          },
-          py: {
-            xs: 4,
-            sm: 4,
-            md: 8,
-          },
-        }}
-      >
+  imageType,
+  aspectRatio = "4/3",
+}: InfoblockProps) => {
+  const [imageTypePattern, setImageTypePattern] = useState("");
+
+  const left = aspectRatio === "4/3" ? "43px" : "49px";
+
+  useEffect(() => {
+    import(`./patterns/${imageType}_${aspectRatio.replace("/", "_")}.svg`)
+      .then((patternImage) => setImageTypePattern(patternImage.default))
+      .catch(() => console.warn("Infobox: Pattern not found"));
+  }, []);
+
+  return (
+    <Box>
+      <Container maxWidth="xl">
         <Box
-          gridColumn={{
-            xs: "span 6",
-            md: inverse ? "7 / span 5" : "2 / span 5",
+          sx={{
+            display: "grid",
+            gap: 3,
+            gridTemplateColumns: {
+              xs: "repeat(6, minmax(0, 1fr))",
+              md: "repeat(12, minmax(0, 1fr))",
+            },
+            py: {
+              xs: 4,
+              sm: 4,
+              md: 8,
+            },
           }}
-          gridRow={{
-            xs: "auto",
-            md: 1,
-          }}
-          my="auto"
-        >
-          <Stack spacing={4}>
-            <Stack spacing={2}>
-              {overline && (
-                <Typography variant="overline" color="text.secondary">
-                  {overline}
-                </Typography>
-              )}
-              <Typography variant="h4" color="text.primary">
-                {title}
-              </Typography>
-              {content && (
-                <Typography color="text.primary">{content}</Typography>
-              )}
-            </Stack>
-            {(ctaPrimary || ctaSecondary) && (
-              <Stack direction="row" spacing={2}>
-                {ctaPrimary && (
-                  <Button
-                    aria-label={ctaPrimary.title}
-                    variant="contained"
-                    href={ctaPrimary.href}
-                  >
-                    {ctaPrimary.label}
-                  </Button>
-                )}
-                {ctaSecondary && (
-                  <Button
-                    aria-label={ctaSecondary.title}
-                    variant="outlined"
-                    href={ctaSecondary.href}
-                  >
-                    {ctaSecondary.label}
-                  </Button>
-                )}
-              </Stack>
-            )}
-          </Stack>
-        </Box>
-        <Box
-          gridColumn={{
-            xs: "span 6",
-            md: inverse ? "2 / span 5" : "7 / span 5",
-          }}
-          gridRow={{
-            xs: "auto",
-            md: 1,
-          }}
-          mr="40px"
         >
           <Box
-            maxHeight="546px"
-            maxWidth="100%"
-            width="fit-content"
-            position="relative"
-            ml="auto"
-            zIndex={1}
+            gridColumn={{
+              xs: "span 6",
+              md: inverse ? "7 / span 5" : "2 / span 5",
+            }}
+            gridRow={{
+              xs: "auto",
+              md: 1,
+            }}
+            my="auto"
           >
-            {imageShadow && (
-              <Box
-                width="100%"
-                height="100%"
-                sx={{
-                  position: "absolute",
-                  top: "40px",
-                  zIndex: 2,
-                  backgroundImage: `url(${circle})`,
-                  backgroundSize: "40px",
-                }}
-              ></Box>
-            )}
-            <Box position="relative" width="auto" left="40px" zIndex={5}>
+            <Stack spacing={4}>
+              <Stack spacing={2}>
+                {overline && (
+                  <Typography variant="overline" color="text.secondary">
+                    {overline}
+                  </Typography>
+                )}
+                <Typography variant="h4" color="text.primary">
+                  {title}
+                </Typography>
+                {content && (
+                  <Typography color="text.primary">{content}</Typography>
+                )}
+              </Stack>
+              {(ctaPrimary || ctaSecondary) && (
+                <Stack direction="row" spacing={2}>
+                  {ctaPrimary && (
+                    <Button
+                      aria-label={ctaPrimary.title}
+                      variant="contained"
+                      href={ctaPrimary.href}
+                    >
+                      {ctaPrimary.label}
+                    </Button>
+                  )}
+                  {ctaSecondary && (
+                    <Button
+                      aria-label={ctaSecondary.title}
+                      variant="outlined"
+                      href={ctaSecondary.href}
+                    >
+                      {ctaSecondary.label}
+                    </Button>
+                  )}
+                </Stack>
+              )}
+            </Stack>
+          </Box>
+          <Box
+            gridColumn={{
+              xs: "span 6",
+              md: inverse ? "2 / span 5" : "7 / span 5",
+            }}
+            gridRow={{
+              xs: "auto",
+              md: 1,
+            }}
+            mr={imageShadow ? "43px" : "0"}
+          >
+            <Box
+              sx={{
+                display: "grid",
+                maxHeight: "450px",
+                maxWidth: "100%",
+                mx: "auto",
+              }}
+            >
+              {imageShadow && (
+                <Box
+                  sx={{
+                    gridArea: "1 / 1 / 2 / 2",
+                    zIndex: 2,
+                    backgroundImage: `url(${imageTypePattern})`,
+                    backgroundSize: "contain",
+                    height: "100%",
+                    width: "100%",
+                    mt: aspectRatio === "4/3" ? "62px" : "72px",
+                  }}
+                />
+              )}
               <img
                 alt={altText}
                 src={image}
-                style={{ maxWidth: "100%", maxHeight: "546px" }}
+                style={{
+                  objectFit: "cover",
+                  objectPosition: "50%",
+                  maxWidth: "100%",
+                  maxHeight: "450px",
+                  width: "100%",
+                  gridArea: "1 / 1 / 2 / 2",
+                  zIndex: 5,
+                  aspectRatio,
+                  marginLeft: imageShadow ? left : "0",
+                }}
               />
             </Box>
           </Box>
         </Box>
-      </Box>
-    </Container>
-  </Box>
-);
+      </Container>
+    </Box>
+  );
+};

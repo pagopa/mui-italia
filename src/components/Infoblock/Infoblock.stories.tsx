@@ -33,9 +33,14 @@ export default {
     ctaSecondary: secondaryCTA,
     image: require("./infoblockImage.png"),
     imageShadow: true,
+    imageType: "circle",
   },
 } as ComponentMeta<typeof Infoblock>;
 
-export const Default: ComponentStory<typeof Infoblock> = (args) => (
-  <Infoblock {...args} />
+export const AspectRatio_4_3: ComponentStory<typeof Infoblock> = (args) => (
+  <Infoblock {...args} aspectRatio={"4/3"} />
+);
+
+export const AspectRatio_9_16: ComponentStory<typeof Infoblock> = (args) => (
+  <Infoblock {...args} aspectRatio={"9/16"} />
 );
