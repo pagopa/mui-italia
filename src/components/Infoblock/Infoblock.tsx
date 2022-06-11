@@ -31,7 +31,7 @@ export const Infoblock = ({
 }: InfoblockProps) => {
   const [imageTypePattern, setImageTypePattern] = useState("");
 
-  const left = aspectRatio === "4/3" ? "43px" : "49px";
+  const left = aspectRatio === "4/3" ? "11%" : "17%";
 
   useEffect(() => {
     import(`./patterns/${imageType}_${aspectRatio.replace("/", "_")}.svg`)
@@ -115,42 +115,63 @@ export const Infoblock = ({
               xs: "auto",
               md: 1,
             }}
-            mr={imageShadow ? "43px" : "0"}
+            mr={{
+              xs: "0",
+              md: imageShadow ? "43px" : "0",
+            }}
+            my="auto"
           >
             <Box
               sx={{
                 display: "grid",
-                maxHeight: "450px",
-                maxWidth: "100%",
+                maxHeight: aspectRatio === "4/3" ? "450px" : "none",
+                maxWidth: aspectRatio === "4/3" ? "none" : "270px",
                 mx: "auto",
               }}
             >
               {imageShadow && (
                 <Box
                   sx={{
+                    display: {
+                      xs: "none",
+                      md: "block",
+                    },
                     gridArea: "1 / 1 / 2 / 2",
                     zIndex: 2,
                     backgroundImage: `url(${imageTypePattern})`,
-                    backgroundSize: "contain",
+                    backgroundSize: "cover",
                     height: "100%",
                     width: "100%",
-                    mt: aspectRatio === "4/3" ? "62px" : "72px",
+                    maxWidth: aspectRatio === "4/3" ? "600px" : "270px",
+                    maxHeight: aspectRatio === "4/3" ? "450px" : "480px",
+                    mt: aspectRatio === "4/3" ? "16%" : "25%",
                   }}
                 />
               )}
-              <img
+              <Box
+                component="img"
                 alt={altText}
                 src={image}
-                style={{
+                sx={{
                   objectFit: "cover",
                   objectPosition: "50%",
-                  maxWidth: "100%",
-                  maxHeight: "450px",
+                  maxWidth: {
+                    xs: "100%",
+                    md: aspectRatio === "4/3" ? "600px" : "270px",
+                  },
+                  maxHeight: {
+                    xs: "300px",
+                    md: aspectRatio === "4/3" ? "450px" : "480px",
+                  },
                   width: "100%",
+                  height: "100%",
                   gridArea: "1 / 1 / 2 / 2",
                   zIndex: 5,
                   aspectRatio,
-                  marginLeft: imageShadow ? left : "0",
+                  marginLeft: {
+                    xs: "0",
+                    md: imageShadow ? left : "0",
+                  },
                 }}
               />
             </Box>
