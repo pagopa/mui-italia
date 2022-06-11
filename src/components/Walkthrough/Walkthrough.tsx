@@ -82,7 +82,7 @@ export const Walkthrough = ({ title, items }: WalkthroughProps) => {
                     key={index}
                     alignContent="center"
                     justifyContent="flex-start"
-                    spacing={4}
+                    spacing={1}
                     sx={{
                       minWidth: { xs: "80%", sm: "40%", md: "auto" },
                       flex: 1,
@@ -96,11 +96,22 @@ export const Walkthrough = ({ title, items }: WalkthroughProps) => {
                     >
                       {(index + 1).toString().padStart(2, "0")}
                     </Typography>
-                    <Stack direction="row" justifyContent="space-between">
-                      <Box alignSelf="flex-start">{item.icon}</Box>
-                      {index < items.length - 1 && (
-                        <ArrowForward sx={{ color: "primary.dark" }} />
-                      )}
+                    <Stack
+                      direction="row"
+                      justifyContent="space-between"
+                      color="primary.dark"
+                      sx={{
+                        svg: {
+                          height: "60px",
+                          width: "60px",
+                          fontWeight: "100px",
+                        },
+                      }}
+                    >
+                      <Box alignSelf="flex-start" height="60px" width="60px">
+                        {item.icon}
+                      </Box>
+                      {index < items.length - 1 && <ArrowForward />}
                     </Stack>
                     <Stack spacing={1}>
                       <Typography variant="h6">{item.title}</Typography>
