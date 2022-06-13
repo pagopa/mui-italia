@@ -1,6 +1,6 @@
 import { useTheme, useMediaQuery } from "@mui/material";
 import { Box, Container, Stack, Typography } from "@mui/material";
-import { ArrowForward } from "@mui/icons-material";
+import ArrowForward from "./ArrowForward";
 
 export interface Item {
   icon?: JSX.Element;
@@ -102,15 +102,12 @@ export const Walkthrough = ({ title, items }: WalkthroughProps) => {
                       color="primary.dark"
                       sx={{
                         svg: {
-                          height: "60px",
-                          width: "60px",
-                          fontWeight: "100px",
+                          height: "64px",
+                          width: "64px",
                         },
                       }}
                     >
-                      <Box alignSelf="flex-start" height="60px" width="60px">
-                        {item.icon}
-                      </Box>
+                      <Box alignSelf="flex-start">{item.icon}</Box>
                       {index < items.length - 1 && <ArrowForward />}
                     </Stack>
                     <Stack spacing={1}>

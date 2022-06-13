@@ -49,7 +49,18 @@ export const Showcase = ({ title, items }: ShowcaseProps) => (
                     flex: 1,
                   }}
                 >
-                  <Box mx="auto">{item.icon}</Box>
+                  <Box
+                    mx="auto"
+                    sx={{
+                      color: "primary.dark",
+                      svg: {
+                        height: "64px",
+                        width: "64px",
+                      },
+                    }}
+                  >
+                    {item.icon}
+                  </Box>
                   <Stack spacing={1}>
                     <Typography variant="h6">{item.title}</Typography>
                     <Typography variant="body2">{item.subtitle}</Typography>
