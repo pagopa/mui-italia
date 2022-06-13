@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Infoblock } from "@components/Infoblock/Infoblock";
+import { Infoblock } from "@components/Infoblock";
 
 const primaryCTA = {
   label: "CallToAction 1",
