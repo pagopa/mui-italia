@@ -1,4 +1,4 @@
-import { Showcase } from "@components/Showcase/Showcase";
+import { Showcase } from "@components/Showcase";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { CieIcon } from "@icons/CieIcon";
 import { MediumIcon } from "@icons/MediumIcon";

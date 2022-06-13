@@ -1,4 +1,4 @@
-import { Walkthrough } from "@components/Walkthrough/Walkthrough";
+import { Walkthrough } from "@components/Walkthrough";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { CieIcon } from "@icons/CieIcon";
 import { MediumIcon } from "@icons/MediumIcon";

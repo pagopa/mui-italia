@@ -1,6 +1,6 @@
 import { Box, Container, Stack, Typography } from "@mui/material";
 
-export interface Item {
+export interface ShowcaseItem {
   icon?: JSX.Element;
   title: string;
   subtitle: string;
@@ -8,7 +8,7 @@ export interface Item {
 
 export interface ShowcaseProps {
   title: string;
-  items: Array<Item>;
+  items: Array<ShowcaseItem>;
 }
 
 export const Showcase = ({ title, items }: ShowcaseProps) => (
