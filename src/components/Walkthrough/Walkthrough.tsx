@@ -100,15 +100,31 @@ export const Walkthrough = ({ title, items }: WalkthroughProps) => {
                       direction="row"
                       justifyContent="space-between"
                       color="primary.dark"
-                      sx={{
-                        svg: {
-                          height: "64px",
-                          width: "64px",
-                        },
-                      }}
                     >
-                      <Box alignSelf="flex-start">{item.icon}</Box>
-                      {index < items.length - 1 && <ArrowForward />}
+                      <Box
+                        alignSelf="flex-start"
+                        sx={{
+                          svg: {
+                            height: theme.spacing(8),
+                            width: theme.spacing(8),
+                          },
+                        }}
+                      >
+                        {item.icon}
+                      </Box>
+                      {index < items.length - 1 && (
+                        <Box
+                          sx={{
+                            display: "flex",
+                            width: theme.spacing(8),
+                            height: theme.spacing(8),
+                          }}
+                          alignItems="center"
+                          justifyContent="flex-end"
+                        >
+                          <ArrowForward />
+                        </Box>
+                      )}
                     </Stack>
                     <Stack spacing={1}>
                       <Typography variant="h6">{item.title}</Typography>
