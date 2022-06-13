@@ -16,3 +16,5 @@ export * from "./HeaderAccount";
 export * from "./HeaderProduct";
 export * from "./AccountDropdown";
 export * from "./ProductSwitch";
+export * from "./Walkthrough";
+export * from "./Showcase";
