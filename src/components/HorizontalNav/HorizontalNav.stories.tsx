@@ -1,4 +1,7 @@
-import { HorizontalNav } from "@components/HorizontalNav/HorizontalNav";
+import {
+  HorizontalNav,
+  Section,
+} from "@components/HorizontalNav/HorizontalNav";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { CieIcon } from "@icons/CieIcon";
 import { SpidIcon } from "@icons/SpidIcon";
@@ -7,7 +10,8 @@ const sections = [
   {
     icon: <CieIcon />,
     title: "First Item",
-    subtitle: "First subtitle",
+    subtitle:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eget lacus consequat, accumsan metus sed, pharetra dui. Praesent at accumsan odio. Praesent augue ipsum, pharetra eget metus vel, bibendum dapibus augue. Nunc maximus id eros finibus laoreet. Integer iaculis, neque at feugiat accumsan, nisi magna iaculis nisl, ultricies euismod nulla orci sit amet justo.",
     cta: {
       label: "CTA label",
       title: "CTA 1",
@@ -39,5 +43,5 @@ export default {
 } as ComponentMeta<typeof HorizontalNav>;
 
 export const Default: ComponentStory<typeof HorizontalNav> = () => (
-  <HorizontalNav sections={sections} />
+  <HorizontalNav sections={sections as [Section, Section]} />
 );
