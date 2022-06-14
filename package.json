@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.18.2",
-    "@emotion/react": "^11.9.0",
+    "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.8.3",
     "@mui/lab": "^5.0.0-alpha.80",
@@ -62,7 +62,7 @@
     "@types/node": "^17.0.42",
     "@types/react": "^18.0.12",
     "@types/react-dom": "^17.0.14",
-    "@typescript-eslint/eslint-plugin": "^5.27.1",
+    "@typescript-eslint/eslint-plugin": "^5.28.0",
     "@typescript-eslint/parser": "^5.27.1",
     "babel-loader": "^8.2.5",
     "date-fns": "^2.28.0",
@@ -86,10 +86,10 @@
     "tsc-alias": "^1.6.9",
     "tsconfig": "*",
     "tsconfig-paths-webpack-plugin": "^3.5.2",
-    "typescript": "^4.7.2"
+    "typescript": "^4.7.3"
   },
   "peerDependencies": {
-    "@emotion/react": "^11.9.0",
+    "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.8.3",
     "@mui/lab": "^5.0.0-alpha.80",
