@@ -589,6 +589,7 @@ export const theme = createTheme(foundation, {
         },
         message: {
           padding: 0,
+          overflow: "inherit", // Fix overflow: auto bug introduced by MUI
         },
         action: {
           marginRight: 0,
