@@ -30,14 +30,14 @@ export const HeaderProduct = ({
       productId
         ? productsList.find((p) => p.id === productId)
         : productsList[0],
-    []
+    [productId]
   ) as ProductSwitchItem;
   const selectedParty = useMemo(() => {
     if (!partyList) {
       return;
     }
     return partyId ? partyList.find((e) => e.id === partyId) : partyList[0];
-  }, []) as PartySwitchItem;
+  }, [partyId]) as PartySwitchItem;
 
   return (
     <Box

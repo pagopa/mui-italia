@@ -78,7 +78,7 @@ export const PartySwitch = ({
     return parties.filter(
       (e) => e.name.toLowerCase().indexOf(filter.toLowerCase()) > -1
     );
-  }, [filter]);
+  }, [filter, parties]);
 
   const selectedParty = useMemo(
     () => filteredParties.find((e) => e.id === selectedId),
