@@ -223,7 +223,6 @@ const PartySwitchButton = forwardRef(function PartySwitchButton(
   const { /* active */ disabled, focusVisible, getRootProps } = useButton({
     ...props,
     ref,
-    component: StyledSwitcherButton,
   });
 
   const classes = {
