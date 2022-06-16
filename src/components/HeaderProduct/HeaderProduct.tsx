@@ -48,7 +48,7 @@ export const HeaderProduct = ({
         borderBottom: 1,
         borderColor: "divider",
         backgroundColor: "background.paper",
-        minHeight: "80px",
+        minHeight: { xs: "auto", md: "80px" },
         boxSizing: "border-box",
       }}
     >
@@ -58,7 +58,7 @@ export const HeaderProduct = ({
           direction="row"
           justifyContent="space-between"
           alignItems="center"
-          sx={{ py: 1 }}
+          sx={{ py: 2 }}
         >
           {/* Left side of the component */}
           {productsList.length > 1 && (
