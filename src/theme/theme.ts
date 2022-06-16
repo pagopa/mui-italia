@@ -3,16 +3,6 @@ import { createTheme, Theme, alpha } from "@mui/material/styles";
 /* Design Tokens */
 import { italia } from "@tokens";
 
-/* Typefaces */
-import TitiliumLightWoff from "../fonts/titillium-web-300.woff2";
-import TitiliumLightWoff2 from "../fonts/titillium-web-300.woff2";
-import TitiliumRegularWoff from "../fonts/titillium-web-400.woff2";
-import TitiliumRegularWoff2 from "../fonts/titillium-web-400.woff2";
-import TitiliumSemiboldWoff from "../fonts/titillium-web-600.woff2";
-import TitiliumSemiboldWoff2 from "../fonts/titillium-web-600.woff2";
-import TitiliumBoldWoff from "../fonts/titillium-web-700.woff2";
-import TitiliumBoldWoff2 from "../fonts/titillium-web-700.woff2";
-
 export function pxToRem(value: number): string {
   return `${value / 16}rem`;
 }
@@ -413,8 +403,8 @@ export const theme = createTheme(foundation, {
             font-style: normal;
             font-display: swap;
             font-weight: 300;
-            src: local('Titillium Web'), local('Titillium Web'), url(${TitiliumLightWoff2}) format('woff2');
-            url(${TitiliumLightWoff}) format('woff');
+            src: local('Titillium Web'), local('Titillium Web'), url(../fonts/titillium-web-400.woff2) format('woff2');
+            url(../fonts/titillium-web-400.woff) format('woff');
           }
 
           @font-face {
@@ -422,8 +412,8 @@ export const theme = createTheme(foundation, {
             font-style: normal;
             font-display: swap;
             font-weight: 400;
-            src: local('Titillium Web'), local('Titillium Web'), url(${TitiliumRegularWoff2}) format('woff2');
-            url(${TitiliumRegularWoff}) format('woff');
+            src: local('Titillium Web'), local('Titillium Web'), url(../fonts/titillium-web-400.woff2) format('woff2');
+            url(../fonts/titillium-web-400.woff) format('woff');
           }
 
           @font-face {
@@ -431,8 +421,8 @@ export const theme = createTheme(foundation, {
             font-style: normal;
             font-display: swap;
             font-weight: 600;
-            src: local('Titillium Web'), local('Titillium Web'), url(${TitiliumSemiboldWoff2}) format('woff2');
-            url(${TitiliumSemiboldWoff}) format('woff');
+            src: local('Titillium Web'), local('Titillium Web'), url(../fonts/titillium-web-600.woff2) format('woff2');
+            url(../fonts/titillium-web-600.woff) format('woff');
           }
 
           @font-face {
@@ -440,8 +430,8 @@ export const theme = createTheme(foundation, {
             font-style: normal;
             font-display: swap;
             font-weight: 700;
-            src: local('Titillium Web'), local('Titillium Web'), url(${TitiliumBoldWoff2}) format('woff2');
-            url(${TitiliumBoldWoff}) format('woff');
+            src: local('Titillium Web'), local('Titillium Web'), url(../fonts/titillium-web-700.woff2) format('woff2');
+            url(../fonts/titillium-web-700.woff) format('woff');
           }
         `,
       },
