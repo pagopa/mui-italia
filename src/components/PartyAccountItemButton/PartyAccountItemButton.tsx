@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, Tooltip } from "@mui/material";
 
 import { PartyAvatar } from "@components/PartyAvatar";
 
@@ -17,6 +17,8 @@ export interface PartyAccountItemButtonProps {
   disabled?: boolean;
   /* Slot available for custom state components. E.g: Tag with action */
   endSlot?: JSX.Element | Array<JSX.Element> | undefined;
+  /* The number of characters beyond which the multiLine is applied */
+  maxCharactersNumberMultiLine?: number;
 }
 
 export const PartyAccountItemButton = ({
@@ -27,77 +29,106 @@ export const PartyAccountItemButton = ({
   action,
   disabled,
   endSlot,
-}: PartyAccountItemButtonProps) => (
-  <Box
-    sx={{
-      p: 1.5,
-      width: "100%",
-      backgroundColor: "background.paper",
-      transitionProperty: "background-color",
-      transitionDuration: `${theme.transitions.duration.short}ms`,
-      userSelect: "none",
-      boxSizing: "border-box",
-      ...(!disabled && {
-        cursor: "pointer",
-        "&:hover": {
-          backgroundColor: theme.palette.action.hover,
-        },
-      }),
-      ...(selectedItem && {
-        boxShadow: `inset 2px 0 0 0 ${theme.palette.primary.main}`,
-        backgroundColor: theme.palette.primaryAction.selected,
-        "&:hover": {
-          backgroundColor: theme.palette.primaryAction.hover,
-        },
-      }),
-    }}
-    role="button"
-    onClick={action}
-  >
-    <Box sx={{ display: "flex", flexDirection: "row" }}>
-      {/* Avatar Container */}
-      <Box
-        sx={{
-          ...(disabled && {
-            opacity: theme.palette.action.disabledOpacity,
-          }),
-        }}
-      >
-        <PartyAvatar customAlt={partyName} customSrc={image} />
-      </Box>
-      {/* Info Container */}
-      <Box
-        sx={{
-          ml: 1.25,
-          alignSelf: "center",
-          userSelect: "text",
-          ...(disabled && {
-            opacity: theme.palette.action.disabledOpacity,
-            userSelect: "none",
-          }),
-        }}
-      >
-        {partyName && (
-          <Typography
-            variant="body1"
-            component="h6"
-            sx={{
-              fontWeight: theme.typography.fontWeightBold,
-              lineHeight: 1.25,
-            }}
-          >
-            {partyName}
-          </Typography>
-        )}
-        {partyRole && <Typography variant="caption">{partyRole}</Typography>}
-      </Box>
-      {endSlot && (
+  maxCharactersNumberMultiLine = 50,
+}: PartyAccountItemButtonProps) => {
+  const maxCharacter =
+    partyName && partyName.length > maxCharactersNumberMultiLine;
+  const truncatedText = {
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    display: "-webkit-box",
+    WebkitBoxOrient: "vertical" as const,
+    width: "100%",
+    whiteSpace: "normal" as const,
+  };
+  return (
+    <Box
+      sx={{
+        p: 1.5,
+        width: "100%",
+        backgroundColor: "background.paper",
+        transitionProperty: "background-color",
+        transitionDuration: `${theme.transitions.duration.short}ms`,
+        userSelect: "none",
+        boxSizing: "border-box",
+        ...(!disabled && {
+          cursor: "pointer",
+          "&:hover": {
+            backgroundColor: theme.palette.action.hover,
+          },
+        }),
+        ...(selectedItem && {
+          boxShadow: `inset 2px 0 0 0 ${theme.palette.primary.main}`,
+          backgroundColor: theme.palette.primaryAction.selected,
+          "&:hover": {
+            backgroundColor: theme.palette.primaryAction.hover,
+          },
+        }),
+      }}
+      role="button"
+      onClick={action}
+    >
+      <Box sx={{ display: "flex", flexDirection: "row" }}>
+        {/* Avatar Container */}
         <Box
-          sx={{ display: "flex", alignItems: "center", ml: "auto", pl: 1.25 }}
+          sx={{
+            ...(disabled && {
+              opacity: theme.palette.action.disabledOpacity,
+            }),
+          }}
         >
-          {endSlot}
+          <PartyAvatar customAlt={partyName} customSrc={image} />
         </Box>
-      )}
+        {/* Info Container */}
+        <Box
+          sx={{
+            ml: 1.25,
+            alignSelf: "center",
+            userSelect: "text",
+            ...(disabled && {
+              opacity: theme.palette.action.disabledOpacity,
+              userSelect: "none",
+            }),
+          }}
+        >
+          {partyName && (
+            <Tooltip arrow title={maxCharacter ? partyName : ""}>
+              <Typography
+                variant="body1"
+                component="h6"
+                sx={{
+                  fontWeight: theme.typography.fontWeightBold,
+                  lineHeight: 1.25,
+                  ...(maxCharacter && {
+                    ...truncatedText,
+                    WebkitLineClamp: 2,
+                  }),
+                }}
+              >
+                {partyName}
+              </Typography>
+            </Tooltip>
+          )}
+          {partyRole && (
+            <Typography
+              variant="caption"
+              sx={{
+                ...truncatedText,
+                WebkitLineClamp: 1,
+              }}
+            >
+              {partyRole}
+            </Typography>
+          )}
+        </Box>
+        {endSlot && (
+          <Box
+            sx={{ display: "flex", alignItems: "center", ml: "auto", pl: 1.25 }}
+          >
+            {endSlot}
+          </Box>
+        )}
+      </Box>
     </Box>
-  </Box>
-);
+  );
+};

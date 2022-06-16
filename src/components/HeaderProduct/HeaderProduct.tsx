@@ -37,7 +37,7 @@ export const HeaderProduct = ({
       return;
     }
     return partyId ? partyList.find((e) => e.id === partyId) : partyList[0];
-  }, [partyList]) as PartySwitchItem;
+  }, [partyList, partyId]) as PartySwitchItem;
 
   return (
     <Box
