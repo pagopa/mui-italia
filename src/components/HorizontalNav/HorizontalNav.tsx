@@ -47,11 +47,6 @@ export const HorizontalNav = ({ sections }: HorizontalNavProps) => {
               xs: "repeat(6, minmax(0, 1fr))",
               md: "repeat(12, minmax(0, 1fr))",
             },
-            py: {
-              xs: 4,
-              sm: 4,
-              md: 8,
-            },
           }}
         >
           <Box
@@ -65,6 +60,14 @@ export const HorizontalNav = ({ sections }: HorizontalNavProps) => {
               md: 1,
             }}
             my="auto"
+            sx={{
+              px: 4,
+              py: {
+                xs: 4,
+                sm: 4,
+                md: 8,
+              },
+            }}
           >
             <Stack spacing={4} height="100%" alignItems="center">
               <Box
@@ -103,6 +106,14 @@ export const HorizontalNav = ({ sections }: HorizontalNavProps) => {
               md: 1,
             }}
             my="auto"
+            sx={{
+              px: 4,
+              py: {
+                xs: 4,
+                sm: 4,
+                md: 8,
+              },
+            }}
           >
             <Stack spacing={4} height="100%" alignItems="center">
               <Box
