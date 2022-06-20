@@ -1,4 +1,10 @@
-import { ForwardedRef, forwardRef, useCallback, useMemo, useState } from "react";
+import {
+  ForwardedRef,
+  forwardRef,
+  useCallback,
+  useMemo,
+  useState,
+} from "react";
 import clsx from "clsx";
 import { Menu, MenuItem, Typography } from "@mui/material";
 import { styled } from "@mui/system";
@@ -34,7 +40,10 @@ export const ProductSwitch = ({
   const [selectedId, setSelectedId] = useState(currentProductId);
   const open = Boolean(anchorEl);
 
-  const selectedProduct = useMemo(() => products.find(p => p.id === selectedId), [selectedId]);
+  const selectedProduct = useMemo(
+    () => products.find((p) => p.id === selectedId),
+    [selectedId]
+  );
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -43,7 +52,7 @@ export const ProductSwitch = ({
   const handleClose = useCallback(
     (product?: ProductSwitchItem) => {
       if (product) {
-        if (product.linkType === 'internal') {
+        if (product.linkType === "internal") {
           setSelectedId(product.id);
         }
         if (onExit) {
@@ -128,7 +137,6 @@ const ProductSwitchButton = forwardRef(function ProductSwitchButton(
   const { /* active */ disabled, focusVisible, getRootProps } = useButton({
     ...props,
     ref,
-    component: StyledSwitcherButton,
   });
 
   const classes = {
