@@ -21,8 +21,16 @@ export interface Section {
   cta: sectionCTA;
 }
 
+type MultiSection<TLength extends number> = [Section, ...Array<Section>] & {
+  length: TLength;
+};
+
+export type SingleSection = MultiSection<1>;
+export type DoubleSection = MultiSection<2>;
+export type TripleSection = MultiSection<3>;
+
 export interface HorizontalNavProps {
-  sections: [Section, Section];
+  sections: SingleSection | DoubleSection | TripleSection;
 }
 
 export const HorizontalNav = ({ sections }: HorizontalNavProps) => {

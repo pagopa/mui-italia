@@ -1,7 +1,4 @@
-import {
-  HorizontalNav,
-  Section,
-} from "@components/HorizontalNav/HorizontalNav";
+import { HorizontalNav } from "@components/HorizontalNav/HorizontalNav";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { CieIcon } from "@icons/CieIcon";
 import { SpidIcon } from "@icons/SpidIcon";
@@ -15,6 +12,16 @@ const sections = [
     cta: {
       label: "CTA label",
       title: "CTA 1",
+      href: "#",
+    },
+  },
+  {
+    icon: <SpidIcon />,
+    title: "Second Item",
+    subtitle: "Second subtitle",
+    cta: {
+      label: "CTA 2 label",
+      title: "CTA 2",
       href: "#",
     },
   },
@@ -43,5 +50,5 @@ export default {
 } as ComponentMeta<typeof HorizontalNav>;
 
 export const Default: ComponentStory<typeof HorizontalNav> = () => (
-  <HorizontalNav sections={sections as [Section, Section]} />
+  <HorizontalNav sections={sections} />
 );
