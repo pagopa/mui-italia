@@ -31,7 +31,7 @@ export const Infoblock = ({
 }: InfoblockProps) => {
   const [imageTypePattern, setImageTypePattern] = useState("");
 
-  const left = aspectRatio === "4/3" ? "11%" : "17%";
+  const imagePadding = imageShadow ? 5 : 0;
 
   useEffect(() => {
     import(`./patterns/${imageType}_${aspectRatio.replace("/", "_")}.svg`)
@@ -115,36 +115,43 @@ export const Infoblock = ({
               xs: "auto",
               md: 1,
             }}
-            mr={{
-              xs: "0",
-              md: imageShadow ? "43px" : "0",
-            }}
             my="auto"
           >
             <Box
               sx={{
                 display: "grid",
-                maxHeight: aspectRatio === "4/3" ? "450px" : "none",
-                maxWidth: aspectRatio === "4/3" ? "none" : "270px",
+                position: "relative",
+                maxHeight: aspectRatio === "4/3" ? "300px" : "450px",
+                maxWidth: aspectRatio === "4/3" ? "450px" : "800px",
+                width: aspectRatio === "4/3" ? "auto" : "50%",
                 mx: "auto",
+                "&:before": {
+                  display: "block",
+                  content: '""',
+                  paddingTop: aspectRatio === "4/3" ? "75%" : "177.75%",
+                },
               }}
             >
               {imageShadow && (
                 <Box
+                  component="img"
+                  src={imageTypePattern}
                   sx={{
-                    display: {
-                      xs: "none",
-                      md: "block",
-                    },
-                    gridArea: "1 / 1 / 2 / 2",
-                    zIndex: 2,
-                    backgroundImage: `url(${imageTypePattern})`,
-                    backgroundSize: "cover",
-                    height: "100%",
+                    boxSizing: "border-box",
                     width: "100%",
-                    maxWidth: aspectRatio === "4/3" ? "600px" : "270px",
-                    maxHeight: aspectRatio === "4/3" ? "450px" : "480px",
-                    mt: aspectRatio === "4/3" ? "16%" : "25%",
+                    height: aspectRatio === "4/3" ? "auto" : "100%",
+                    objectFit: "cover",
+                    objectPosition: "50%",
+                    gridArea: "1 / 1 / 2 / 2",
+                    position: "absolute",
+                    zIndex: 3,
+                    top: aspectRatio === "4/3" ? 0 : "40px",
+                    right: 0,
+                    bottom: 0,
+                    left: 0,
+                    paddingTop: aspectRatio === "4/3" ? 5 : 0,
+                    paddingRight: inverse ? 0 : 5,
+                    paddingLeft: inverse ? 5 : 0,
                   }}
                 />
               )}
@@ -153,25 +160,26 @@ export const Infoblock = ({
                 alt={altText}
                 src={image}
                 sx={{
-                  objectFit: "cover",
-                  objectPosition: "50%",
-                  maxWidth: {
-                    xs: "100%",
-                    md: aspectRatio === "4/3" ? "600px" : "270px",
+                  boxSizing: "border-box",
+                  paddingLeft: {
+                    xs: 0,
+                    md: inverse ? 0 : imagePadding,
                   },
-                  maxHeight: {
-                    xs: "300px",
-                    md: aspectRatio === "4/3" ? "450px" : "480px",
+                  paddingRight: {
+                    xs: 0,
+                    md: inverse ? imagePadding : 0,
                   },
                   width: "100%",
-                  height: "100%",
+                  height: aspectRatio === "4/3" ? "auto" : "100%",
+                  objectFit: "cover",
+                  objectPosition: "50%",
                   gridArea: "1 / 1 / 2 / 2",
-                  zIndex: 5,
-                  aspectRatio,
-                  marginLeft: {
-                    xs: "0",
-                    md: imageShadow ? left : "0",
-                  },
+                  position: "absolute",
+                  zIndex: 3,
+                  top: 0,
+                  right: 0,
+                  bottom: 0,
+                  left: 0,
                 }}
               />
             </Box>
@@ -181,3 +189,57 @@ export const Infoblock = ({
     </Box>
   );
 };
+
+// <Box
+//   sx={{
+//     display: "grid",
+//     maxHeight: aspectRatio === "4/3" ? "450px" : "none",
+//     maxWidth: aspectRatio === "4/3" ? "none" : "270px",
+//     mx: "auto",
+//   }}
+// >
+//   {imageShadow && (
+//     <Box
+//       sx={{
+//         display: {
+//           xs: "none",
+//           md: "block",
+//         },
+//         gridArea: "1 / 1 / 2 / 2",
+//         zIndex: 2,
+//         backgroundImage: `url(${imageTypePattern})`,
+//         backgroundSize: "cover",
+//         height: "100%",
+//         width: "100%",
+//         maxWidth: aspectRatio === "4/3" ? "600px" : "270px",
+//         maxHeight: aspectRatio === "4/3" ? "450px" : "480px",
+//         pt: aspectRatio === "4/3" ? 5 : "25%",
+//       }}
+//     />
+//   )}
+//   <Box
+//     component="img"
+//     alt={altText}
+//     src={image}
+//     sx={{
+//       objectFit: "cover",
+//       objectPosition: "50%",
+//       maxWidth: {
+//         xs: "100%",
+//         md: aspectRatio === "4/3" ? "600px" : "270px",
+//       },
+//       maxHeight: {
+//         xs: "300px",
+//         md: aspectRatio === "4/3" ? "450px" : "480px",
+//       },
+//       width: "100%",
+//       height: "100%",
+//       gridArea: "1 / 1 / 2 / 2",
+//       zIndex: 5,
+//       paddingLeft: {
+//         xs: "0",
+//         md: imageShadow ? left : 0,
+//       },
+//     }}
+//   />
+// </Box>
