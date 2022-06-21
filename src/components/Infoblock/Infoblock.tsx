@@ -121,14 +121,18 @@ export const Infoblock = ({
               sx={{
                 display: "grid",
                 position: "relative",
-                maxHeight: aspectRatio === "4/3" ? "300px" : "450px",
-                maxWidth: aspectRatio === "4/3" ? "450px" : "800px",
-                width: aspectRatio === "4/3" ? "auto" : "50%",
+                width: {
+                  xs: "100%",
+                  md: aspectRatio === "4/3" ? "auto" : "50%",
+                },
                 mx: "auto",
                 "&:before": {
                   display: "block",
                   content: '""',
-                  paddingTop: aspectRatio === "4/3" ? "75%" : "177.75%",
+                  paddingTop: {
+                    xs: "100%",
+                    md: aspectRatio === "4/3" ? "75%" : "177.75%",
+                  },
                 },
               }}
             >
