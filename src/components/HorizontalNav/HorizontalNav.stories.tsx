@@ -25,16 +25,6 @@ const sections = [
       href: "#",
     },
   },
-  {
-    icon: <SpidIcon />,
-    title: "Second Item",
-    subtitle: "Second subtitle",
-    cta: {
-      label: "CTA 2 label",
-      title: "CTA 2",
-      href: "#",
-    },
-  },
 ];
 
 export default {

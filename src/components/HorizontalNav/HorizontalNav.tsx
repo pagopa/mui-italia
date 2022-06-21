@@ -21,27 +21,26 @@ export interface Section {
   cta: sectionCTA;
 }
 
-type MultiSection<TLength extends number> = [Section, ...Array<Section>] & {
-  length: TLength;
-};
-
-export type SingleSection = MultiSection<1>;
-export type DoubleSection = MultiSection<2>;
-export type TripleSection = MultiSection<3>;
-
 export interface HorizontalNavProps {
-  sections: SingleSection | DoubleSection | TripleSection;
+  sections: Array<Section>;
 }
 
 export const HorizontalNav = ({ sections }: HorizontalNavProps) => {
   const theme = useTheme();
 
+  const lastColor =
+    sections.length === 1
+      ? theme.palette.primary.dark
+      : sections.length === 2
+      ? theme.palette.primary.main
+      : theme.palette.primary.light;
+
   return (
     <Box
       sx={{
         backgroundImage: {
-          md: `linear-gradient(90deg, ${theme.palette.primary.dark} 50%, ${theme.palette.primary.main} 50%)`,
-          xs: `linear-gradient(180deg, ${theme.palette.primary.dark} 50%, ${theme.palette.primary.main} 50%)`,
+          md: `linear-gradient(90deg, ${theme.palette.primary.dark} 50%, ${lastColor} 50%)`,
+          xs: `none`,
         },
       }}
     >
@@ -51,102 +50,82 @@ export const HorizontalNav = ({ sections }: HorizontalNavProps) => {
             display: "grid",
             columnGap: 3,
             rowGap: 3,
-            gridTemplateColumns: {
-              xs: "repeat(6, minmax(0, 1fr))",
-              md: "repeat(12, minmax(0, 1fr))",
-            },
+            gridTemplateColumns: "repeat(12, minmax(0, 1fr))",
           }}
         >
-          <Box
-            bgcolor="primary.dark"
-            gridColumn={{
-              xs: "span 6",
-              md: "2 / span 5",
-            }}
-            gridRow={{
-              xs: "auto",
-              md: 1,
-            }}
-            my="auto"
-            sx={{
-              px: 4,
-              py: {
-                xs: 4,
-                sm: 4,
-                md: 8,
-              },
-            }}
-          >
-            <Stack spacing={4} height="100%" alignItems="center">
-              <Box
-                color="primary.contrastText"
-                sx={{
-                  svg: {
-                    height: "60px",
-                    width: "60px",
-                  },
-                }}
-              >
-                {sections[0].icon}
-              </Box>
-              <Typography variant="h5" color="primary.contrastText">
-                {sections[0].title}
-              </Typography>
-              <Typography variant="body1" color="primary.contrastText">
-                {sections[0].subtitle}
-              </Typography>
-              <Button variant="text">
-                <Typography color="primary.contrastText">
-                  {sections[0].cta.label}
-                </Typography>
-                <ArrowForward sx={{ color: "primary.contrastText" }} />
-              </Button>
-            </Stack>
-          </Box>
-          <Box
-            bgcolor="primary.main"
-            gridColumn={{
-              xs: "span 6",
-              md: "7 / span 5",
-            }}
-            gridRow={{
-              xs: "auto",
-              md: 1,
-            }}
-            my="auto"
-            sx={{
-              px: 4,
-              py: {
-                xs: 4,
-                sm: 4,
-                md: 8,
-              },
-            }}
-          >
-            <Stack spacing={4} height="100%" alignItems="center">
-              <Box
-                color="primary.contrastText"
-                sx={{
-                  svg: {
-                    height: "60px",
-                    width: "60px",
-                  },
-                }}
-              >
-                {sections[1].icon}
-              </Box>
-              <Typography variant="h5" color="primary.contrastText">
-                {sections[1].title}
-              </Typography>
-              <Typography variant="body1" color="primary.contrastText">
-                {sections[1].subtitle}
-              </Typography>
-              <Button variant="text">
-                <Typography color="primary.contrastText">
-                  {sections[1].cta.label}
-                </Typography>
-                <ArrowForward sx={{ color: "primary.contrastText" }} />
-              </Button>
+          <Box gridColumn={{ xs: "1 / span 12", md: "2 / span 10" }} my="auto">
+            <Stack
+              direction={{ xs: "column", md: "row" }}
+              width="100%"
+              color="primary.contrastText"
+              textAlign="center"
+            >
+              {sections.map((section, index) => (
+                <>
+                  {index > 2 ? (
+                    <></>
+                  ) : (
+                    <Box
+                      key={index}
+                      bgcolor={
+                        index === 0
+                          ? theme.palette.primary.dark
+                          : index === 1
+                          ? theme.palette.primary.main
+                          : theme.palette.primary.light
+                      }
+                      flex="1 0"
+                      sx={{
+                        px: 4,
+                        py: {
+                          xs: 4,
+                          sm: 4,
+                          md: 8,
+                        },
+                      }}
+                    >
+                      <Stack
+                        spacing={4}
+                        height="100%"
+                        alignItems="center"
+                        justifyContent="center"
+                      >
+                        <Box
+                          color="primary.contrastText"
+                          sx={{
+                            svg: {
+                              height: "60px",
+                              width: "60px",
+                            },
+                          }}
+                        >
+                          {section.icon}
+                        </Box>
+                        <Typography variant="h5" color="primary.contrastText">
+                          {section.title}
+                        </Typography>
+                        <Typography
+                          variant="body1"
+                          color="primary.contrastText"
+                        >
+                          {section.subtitle}
+                        </Typography>
+                        <Button variant="text">
+                          <Typography color="primary.contrastText">
+                            {section.cta.label}
+                          </Typography>
+                          <ArrowForward
+                            sx={{
+                              marginLeft: 1,
+                              color: "primary.contrastText",
+                            }}
+                          />
+                        </Button>
+                      </Stack>
+                    </Box>
+                  )}
+                </>
+              ))}
             </Stack>
           </Box>
         </Box>
