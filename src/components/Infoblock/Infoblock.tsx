@@ -16,6 +16,7 @@ export interface InfoblockProps {
   aspectRatio?: "4/3" | "9/16";
 }
 
+// eslint-disable-next-line complexity
 export const Infoblock = ({
   overline,
   title,
@@ -45,7 +46,8 @@ export const Infoblock = ({
         <Box
           sx={{
             display: "grid",
-            gap: 3,
+            columnGap: 3,
+            rowGap: 5,
             gridTemplateColumns: {
               xs: "repeat(6, minmax(0, 1fr))",
               md: "repeat(12, minmax(0, 1fr))",
@@ -83,7 +85,9 @@ export const Infoblock = ({
                 )}
               </Stack>
               {(ctaPrimary || ctaSecondary) && (
-                <Stack direction="row" spacing={2}>
+                <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+                  {/* One CTA below the other one
+                  in the mobile version to avoid the multi-line label */}
                   {ctaPrimary && (
                     <Button
                       aria-label={ctaPrimary.title}
@@ -130,7 +134,7 @@ export const Infoblock = ({
                   display: "block",
                   content: '""',
                   paddingTop: {
-                    xs: "100%",
+                    xs: aspectRatio === "4/3" ? null : "100%",
                     md: aspectRatio === "4/3" ? "75%" : "177.75%",
                   },
                 },
@@ -141,6 +145,7 @@ export const Infoblock = ({
                   component="img"
                   src={imageTypePattern}
                   sx={{
+                    display: { xs: "none", md: "block" },
                     boxSizing: "border-box",
                     width: "100%",
                     height: aspectRatio === "4/3" ? "auto" : "100%",
