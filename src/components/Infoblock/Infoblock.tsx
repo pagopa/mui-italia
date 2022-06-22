@@ -127,7 +127,8 @@ export const Infoblock = ({
                 position: "relative",
                 width: {
                   xs: "100%",
-                  md: aspectRatio === "4/3" ? "auto" : "50%",
+                  md: aspectRatio === "4/3" ? "auto" : "75%",
+                  lg: aspectRatio === "4/3" ? "auto" : "50%",
                 },
                 mx: "auto",
                 "&:before": {
@@ -142,8 +143,6 @@ export const Infoblock = ({
             >
               {imageShadow && (
                 <Box
-                  component="img"
-                  src={imageTypePattern}
                   sx={{
                     display: { xs: "none", md: "block" },
                     boxSizing: "border-box",
@@ -154,22 +153,32 @@ export const Infoblock = ({
                     gridArea: "1 / 1 / 2 / 2",
                     position: "absolute",
                     zIndex: 3,
-                    top: aspectRatio === "4/3" ? 0 : "40px",
-                    right: 0,
-                    bottom: 0,
-                    left: 0,
-                    paddingTop: aspectRatio === "4/3" ? 5 : 0,
                     paddingRight: inverse ? 0 : 5,
                     paddingLeft: inverse ? 5 : 0,
+                    paddingTop: 5,
                   }}
-                />
+                >
+                  <Box
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      objectPosition: "0%",
+                    }}
+                    component="img"
+                    src={imageTypePattern}
+                  />
+                </Box>
               )}
               <Box
-                component="img"
-                alt={altText}
-                src={image}
                 sx={{
                   boxSizing: "border-box",
+                  width: "100%",
+                  height: aspectRatio === "4/3" ? "auto" : "100%",
+                  gridArea: "1 / 1 / 2 / 2",
+                  position: "absolute",
+                  zIndex: 3,
+                  paddingBottom: 5,
                   paddingLeft: {
                     xs: 0,
                     md: inverse ? 0 : imagePadding,
@@ -178,19 +187,20 @@ export const Infoblock = ({
                     xs: 0,
                     md: inverse ? imagePadding : 0,
                   },
-                  width: "100%",
-                  height: aspectRatio === "4/3" ? "auto" : "100%",
-                  objectFit: "cover",
-                  objectPosition: "50%",
-                  gridArea: "1 / 1 / 2 / 2",
-                  position: "absolute",
-                  zIndex: 3,
-                  top: 0,
-                  right: 0,
-                  bottom: 0,
-                  left: 0,
                 }}
-              />
+              >
+                <Box
+                  sx={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    objectPosition: "50%",
+                  }}
+                  component="img"
+                  alt={altText}
+                  src={image}
+                />
+              </Box>
             </Box>
           </Box>
         </Box>
