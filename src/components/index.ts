@@ -18,3 +18,4 @@ export * from "./AccountDropdown";
 export * from "./ProductSwitch";
 export * from "./Walkthrough";
 export * from "./Showcase";
+export * from "./HorizontalNav";
