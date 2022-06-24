@@ -80,6 +80,7 @@ export const Footer = ({
   onExit,
   languages,
   onLanguageChanged,
+  currentLangCode,
   productsJsonUrl,
   onProductsJsonFetchError,
   hideProductsColumn,
@@ -92,6 +93,7 @@ export const Footer = ({
         onExit={onExit}
         languages={languages}
         onLanguageChanged={onLanguageChanged}
+        currentLangCode={currentLangCode}
       />
     ) : (
       <FooterPreLogin
@@ -99,6 +101,7 @@ export const Footer = ({
         links={preLoginLinks}
         languages={languages}
         onLanguageChanged={onLanguageChanged}
+        currentLangCode={currentLangCode}
         productsJsonUrl={productsJsonUrl}
         onProductsJsonFetchError={onProductsJsonFetchError}
         hideProductsColumn={hideProductsColumn}
