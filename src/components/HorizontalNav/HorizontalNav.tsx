@@ -101,26 +101,26 @@ export const HorizontalNav = ({ sections }: HorizontalNavProps) => {
                         >
                           {section.icon}
                         </Box>
-                        <Typography variant="h5" color="primary.contrastText">
-                          {section.title}
-                        </Typography>
-                        <Typography
-                          variant="body1"
-                          color="primary.contrastText"
-                        >
-                          {section.subtitle}
-                        </Typography>
-                        <Button variant="text">
-                          <Typography color="primary.contrastText">
-                            {section.cta.label}
+                        <Stack spacing={2}>
+                          <Typography variant="h5" color="primary.contrastText">
+                            {section.title}
                           </Typography>
-                          <ArrowForward
-                            sx={{
-                              marginLeft: 1,
-                              color: "primary.contrastText",
-                            }}
-                          />
-                        </Button>
+                          <Typography
+                            variant="body1"
+                            color="primary.contrastText"
+                          >
+                            {section.subtitle}
+                          </Typography>
+                        </Stack>
+                        {section.cta && (
+                          <Button
+                            variant="text"
+                            color="negative"
+                            endIcon={<ArrowForward />}
+                          >
+                            {section.cta.label}
+                          </Button>
+                        )}
                       </Stack>
                     </Box>
                   )}
