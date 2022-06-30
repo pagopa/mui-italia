@@ -1,7 +1,5 @@
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { CTA } from "@types";
-import { useEffect, useState } from "react";
-
 export interface InfoblockProps {
   overline?: string;
   title: string;
@@ -27,18 +25,9 @@ export const Infoblock = ({
   image,
   altText = "info image",
   imageShadow,
-  imageType,
   aspectRatio = "4/3",
 }: InfoblockProps) => {
-  const [imageTypePattern, setImageTypePattern] = useState("");
-
   const imagePadding = imageShadow ? 5 : 0;
-
-  useEffect(() => {
-    import(`./patterns/${imageType}_${aspectRatio.replace("/", "_")}.svg`)
-      .then((patternImage) => setImageTypePattern(patternImage.default))
-      .catch(() => console.warn("Infobox: Pattern not found"));
-  }, []);
 
   return (
     <Box>
@@ -157,18 +146,7 @@ export const Infoblock = ({
                     paddingLeft: inverse ? 5 : 0,
                     paddingTop: 5,
                   }}
-                >
-                  <Box
-                    sx={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      objectPosition: "0%",
-                    }}
-                    component="img"
-                    src={imageTypePattern}
-                  />
-                </Box>
+                ></Box>
               )}
               <Box
                 sx={{
