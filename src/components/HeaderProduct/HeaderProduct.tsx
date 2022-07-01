@@ -15,6 +15,10 @@ export type HeaderProductProps = {
   partyList?: Array<PartyEntity>;
   onSelectedProduct?: (product: ProductSwitchItem) => void;
   onSelectedParty?: (party: PartySwitchItem) => void;
+  /* The number of characters beyond which the multiLine is applied in component PartyAccountItemButton */
+  maxCharactersNumberMultiLineButton?: number;
+  /* The number of characters beyond which the multiLine is applied in component PartyAccountItem */
+  maxCharactersNumberMultiLineItem?: number;
 };
 
 export const HeaderProduct = ({
@@ -24,6 +28,8 @@ export const HeaderProduct = ({
   partyList,
   onSelectedProduct,
   onSelectedParty,
+  maxCharactersNumberMultiLineButton,
+  maxCharactersNumberMultiLineItem,
 }: HeaderProductProps) => {
   const selectedProduct = useMemo(
     () =>
@@ -90,11 +96,18 @@ export const HeaderProduct = ({
                   currentPartyId={selectedParty.id}
                   parties={partyList}
                   onExit={onSelectedParty}
+                  maxCharactersNumberMultiLineItem={
+                    maxCharactersNumberMultiLineItem
+                  }
+                  maxCharactersNumberMultiLineButton={
+                    maxCharactersNumberMultiLineButton
+                  }
                 ></PartySwitch>
               </>
             )}
             {partyList && selectedParty && partyList.length === 1 && (
               <PartyAccountItem
+                maxCharactersNumberMultiLine={maxCharactersNumberMultiLineItem}
                 partyName={selectedParty.name}
                 partyRole={selectedParty.productRole}
                 image={selectedParty.logoUrl}

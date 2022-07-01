@@ -39,6 +39,10 @@ export type PartySwitchProps = {
   parties: Array<PartySwitchItem>;
   /* token: string; */
   onExit?: (party: PartySwitchItem) => void;
+  /* The number of characters beyond which the multiLine is applied in component PartyAccountItemButton */
+  maxCharactersNumberMultiLineButton?: number;
+  /* The number of characters beyond which the multiLine is applied in component PartyAccountItem */
+  maxCharactersNumberMultiLineItem?: number;
 };
 
 const CustomDrawer = styled(Drawer)(() => ({
@@ -61,6 +65,8 @@ export const PartySwitch = ({
   parties,
   onExit,
   currentPartyId,
+  maxCharactersNumberMultiLineItem,
+  maxCharactersNumberMultiLineButton,
 }: PartySwitchProps) => {
   const [selectedId, setSelectedId] = useState(currentPartyId);
   const [open, setOpen] = useState(false);
@@ -115,6 +121,7 @@ export const PartySwitch = ({
           partyRole={selectedParty.productRole}
           image={selectedParty.logoUrl}
           infoContainerSx={mobileHideStyle}
+          maxCharactersNumberMultiLine={maxCharactersNumberMultiLineItem}
         />
         {open ? (
           <ArrowDropUpRoundedIcon sx={mobileHideStyle} />
@@ -163,6 +170,7 @@ export const PartySwitch = ({
               image={e.logoUrl}
               action={() => handlePartySelection(e)}
               selectedItem={e.id === selectedId}
+              maxCharactersNumberMultiLine={maxCharactersNumberMultiLineButton}
             />
           ))}
         {filteredParties.length === 0 && (
