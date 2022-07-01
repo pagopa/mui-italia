@@ -120,6 +120,8 @@ export const ProductAvatar = ({
         right: 0,
         top: 0,
         bottom: 0,
+        /* 10% Black inner border if background is set,
+        otherwise a light grey inner border */
         boxShadow: productAttributesMap[product]?.background
           ? `inset 0 0 0 1px ${alpha(theme.palette.common.black, 0.1)}`
           : `inset 0 0 0 1px ${theme.palette.divider}`,

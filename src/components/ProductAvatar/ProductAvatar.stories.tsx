@@ -4,9 +4,9 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import { Button, Stack, Typography } from "@mui/material";
 
-import { ProductAvatar } from "./ProductAvatar";
+import { ProductAvatar, Product } from "./ProductAvatar";
 
-const productMockImages: Array<string> = [
+const productMockImages: Array<Product> = [
   "app-io",
   "check-iban",
   "piattaforma-notifiche",
