@@ -21,3 +21,4 @@ export * from "./Infoblock";
 export * from "./Walkthrough";
 export * from "./Showcase";
 export * from "./HorizontalNav";
+export * from "./ProductAvatar";

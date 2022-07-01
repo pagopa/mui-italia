@@ -14,7 +14,7 @@ export interface LogoIOAppProps {
   /** Provides a human-readable title for the element that contains it. */
   title: string;
   /** Width of the component. Height is set automatically. */
-  size: number;
+  size?: number;
   /** The color of the component. */
   color: LogoIOAppColors;
 }
