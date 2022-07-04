@@ -47,6 +47,7 @@ export const PartyAccountItemButton = ({
         p: 1.5,
         width: "100%",
         backgroundColor: "background.paper",
+        color: "text.primary",
         transitionProperty: "background-color",
         transitionDuration: `${theme.transitions.duration.short}ms`,
         userSelect: "none",
@@ -60,6 +61,7 @@ export const PartyAccountItemButton = ({
         ...(selectedItem && {
           boxShadow: `inset 2px 0 0 0 ${theme.palette.primary.main}`,
           backgroundColor: theme.palette.primaryAction.selected,
+          color: theme.palette.primary.main,
           "&:hover": {
             backgroundColor: theme.palette.primaryAction.hover,
           },
@@ -96,6 +98,7 @@ export const PartyAccountItemButton = ({
               <Typography
                 variant="body1"
                 component="h6"
+                color="inherit"
                 sx={{
                   fontWeight: theme.typography.fontWeightBold,
                   lineHeight: 1.25,
@@ -112,6 +115,7 @@ export const PartyAccountItemButton = ({
           {partyRole && (
             <Typography
               variant="caption"
+              color="inherit"
               sx={{
                 ...truncatedText,
                 WebkitLineClamp: 1,
