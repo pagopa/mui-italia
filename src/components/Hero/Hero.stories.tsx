@@ -1,3 +1,4 @@
+import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Hero } from "@components/Hero";
 
@@ -7,13 +8,13 @@ import heroImage from "./assets/hero_image.png";
 const firstCTA = {
   label: "CallToAction 1",
   title: "CTA 1",
-  href: "#",
+  onClick: (_: React.SyntheticEvent) => {},
 };
 
 const secondCTA = {
   label: "CallToAction 2",
   title: "CTA 2",
-  href: "#",
+  onClick: (_: React.SyntheticEvent) => {},
 };
 
 export default {

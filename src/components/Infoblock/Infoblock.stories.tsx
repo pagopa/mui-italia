@@ -1,16 +1,17 @@
+import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Infoblock } from "@components/Infoblock";
 
 const primaryCTA = {
   label: "CallToAction 1",
   title: "CTA1",
-  href: "#",
+  onClick: (_: React.SyntheticEvent) => {},
 };
 
 const secondaryCTA = {
   label: "CallToAction 2",
   title: "CTA2",
-  href: "#",
+  onClick: (_: React.SyntheticEvent) => {},
 };
 
 export default {
