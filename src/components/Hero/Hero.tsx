@@ -73,7 +73,8 @@ export const Hero = ({
                     aria-label={ctaPrimary.title}
                     variant="contained"
                     color="negative"
-                    href={ctaPrimary.href}
+                    onClick={ctaPrimary.onClick}
+                    component="a"
                   >
                     {ctaPrimary.label}
                   </Button>
@@ -85,7 +86,8 @@ export const Hero = ({
                     aria-label={ctaSecondary.title}
                     color="negative"
                     variant="outlined"
-                    href={ctaSecondary.href}
+                    onClick={ctaSecondary.onClick}
+                    component="a"
                   >
                     {ctaSecondary.label}
                   </Button>

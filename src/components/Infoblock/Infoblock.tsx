@@ -81,7 +81,8 @@ export const Infoblock = ({
                     <Button
                       aria-label={ctaPrimary.title}
                       variant="contained"
-                      href={ctaPrimary.href}
+                      onClick={ctaPrimary.onClick}
+                      component="a"
                     >
                       {ctaPrimary.label}
                     </Button>
@@ -90,7 +91,8 @@ export const Infoblock = ({
                     <Button
                       aria-label={ctaSecondary.title}
                       variant="outlined"
-                      href={ctaSecondary.href}
+                      onClick={ctaSecondary.onClick}
+                      component="a"
                     >
                       {ctaSecondary.label}
                     </Button>
