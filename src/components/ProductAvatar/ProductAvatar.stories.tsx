@@ -59,8 +59,9 @@ export const Default: ComponentStory<typeof ProductAvatar> = () => {
 
   return (
     <Stack gap={2} alignItems="flex-start">
+      <ProductAvatar product={item} size="small" />
       <ProductAvatar product={item} />
-      <ProductAvatar size="large" product={item} />
+      <ProductAvatar product={item} size="large" />
       <div>
         <Typography variant="overline">Product:</Typography>
         <Typography variant="h6">{productMockImages[randomIndex]}</Typography>

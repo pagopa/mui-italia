@@ -25,12 +25,22 @@ export interface ProductAvatarProps {
   /** Product to be shown */
   product: Product;
   /** Component dimension set in pixels */
-  size?: "default" | "large";
+  size?: "small" | "default" | "large";
 }
 
 const sizesMap = {
-  default: 64,
-  large: 88,
+  small: {
+    dimension: 32,
+    padding: 1 /* 8px */,
+  },
+  default: {
+    dimension: 64,
+    padding: 2 /* 16px */,
+  },
+  large: {
+    dimension: 88,
+    padding: 3 /* 24px */,
+  },
 };
 
 const productAttributesMap = {
@@ -97,8 +107,8 @@ export const ProductAvatar = ({
       alignItems: "center",
       justifyContent: "center",
       position: "relative",
-      width: sizesMap[size],
-      height: sizesMap[size],
+      width: sizesMap[size]?.dimension,
+      height: sizesMap[size]?.dimension,
       backgroundColor: productAttributesMap[product]?.background
         ? productAttributesMap[product]?.background
         : theme.palette.background.paper,
@@ -107,10 +117,7 @@ export const ProductAvatar = ({
           ? productAttributesMap["app-io"]?.backgroundImage
           : null,
       boxSizing: "border-box",
-      padding:
-        size === "default"
-          ? theme.spacing(2) /* 16px */
-          : theme.spacing(3) /* 24px */,
+      padding: theme.spacing(sizesMap[size]?.padding),
       borderRadius: theme.spacing(1) /* 8px */,
       /* Inner shadow */
       "&:after": {
