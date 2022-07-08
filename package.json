@@ -74,7 +74,7 @@
     "eslint-plugin-jsdoc": "^39.3.2",
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-react": "^7.30.0",
+    "eslint-plugin-react": "^7.30.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-sonar": "^0.8.0",
     "eslint-plugin-storybook": "^0.5.13",
