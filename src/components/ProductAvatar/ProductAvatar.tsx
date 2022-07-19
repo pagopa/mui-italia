@@ -72,7 +72,8 @@ export const ProductAvatar = ({
       style={{
         width: "100%",
         height: "100%",
-        background: logoBgColor,
+        objectFit: "contain",
+        objectPosition: "center",
       }}
     />
   </Box>
