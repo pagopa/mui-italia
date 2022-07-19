@@ -2,7 +2,14 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import { Stack, Box, Typography } from "@mui/material";
 
-import { MediumIcon, SpidIcon, CieIcon } from "./";
+import {
+  MediumIcon,
+  SpidIcon,
+  CieIcon,
+  CheckIbanIcon,
+  PNIcon,
+  InteropIcon,
+} from "./";
 
 export interface IconBoxProps {
   icon: JSX.Element;
@@ -42,6 +49,9 @@ export const Overview: ComponentStory<typeof Box> = () => (
     <IconBox name={"MediumIcon"} icon={<MediumIcon />} />
     <IconBox name={"SpidIcon"} icon={<SpidIcon />} />
     <IconBox name={"CieIcon"} icon={<CieIcon />} />
+    <IconBox name={"CheckIbanIcon"} icon={<CheckIbanIcon />} />
+    <IconBox name={"PNIcon"} icon={<PNIcon />} />
+    <IconBox name={"InteropIcon"} icon={<InteropIcon />} />
   </Box>
 );
 

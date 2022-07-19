@@ -74,6 +74,7 @@ declare module "@mui/material/styles" {
   interface Palette {
     pagoPA: Palette["primary"];
     europeanUnion: Palette["primary"];
+    checkIban: Palette["primary"];
     extraLight: Palette["warning"];
     primaryAction: Palette["action"];
     negative: PaletteColorOptions;
@@ -81,6 +82,7 @@ declare module "@mui/material/styles" {
   interface PaletteOptions {
     pagoPA?: PaletteOptions["primary"];
     europeanUnion: PaletteOptions["primary"];
+    checkIban?: PaletteOptions["primary"];
     extraLight?: PaletteOptions["warning"];
     primaryAction: PaletteOptions["action"];
     negative: PaletteColorOptions;
@@ -189,6 +191,10 @@ const foundation: Theme = createTheme({
     },
     pagoPA: {
       main: "#0066CC",
+      contrastText: "#fff",
+    },
+    checkIban: {
+      main: "#008CA8",
       contrastText: "#fff",
     },
     europeanUnion: {

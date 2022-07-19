@@ -14,7 +14,7 @@ export interface LogoPagoPAProductProps {
   /** Provides a human-readable title for the element that contains it. */
   title: string;
   /** Width of the component. Height is set automatically. */
-  size: number;
+  size?: number;
   /** The color of the component. */
   color: LogoPagoPAProductColors;
 }
@@ -36,7 +36,7 @@ export const LogoPagoPAProduct = ({
     aria-labelledby="logo-pagoPA-product-titleID"
     role="img"
     sx={{
-      width: size,
+      width: size ? size : "auto",
       fill: colorMap[color],
     }}
   >
