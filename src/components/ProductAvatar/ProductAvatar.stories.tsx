@@ -74,10 +74,11 @@ export default {
 
 export const Default: ComponentStory<typeof ProductAvatar> = () => {
   const [randomIndex, setRandomIndex] = useState(0);
-  const item: any = Object.keys(productMockImages)[randomIndex];
-  const url = productMockImages[item as keyof typeof productMockImages].url;
-  const bgColor =
-    productMockImages[item as keyof typeof productMockImages].background;
+  const item = Object.keys(productMockImages)[
+    randomIndex
+  ] as keyof typeof productMockImages;
+  const url = productMockImages[item].url;
+  const bgColor = productMockImages[item].background;
 
   const getRandomProduct = () => {
     const randomNumber = randomValueFromArray(Object.keys(productMockImages));
@@ -91,9 +92,7 @@ export const Default: ComponentStory<typeof ProductAvatar> = () => {
       <ProductAvatar logoUrl={url} logoBgColor={bgColor} size="large" />
       <div>
         <Typography variant="overline">Product:</Typography>
-        <Typography variant="h6">
-          {productMockImages[item as keyof typeof productMockImages].title}
-        </Typography>
+        <Typography variant="h6">{productMockImages[item].title}</Typography>
       </div>
       <Button variant="contained" onClick={getRandomProduct}>
         Get random product
