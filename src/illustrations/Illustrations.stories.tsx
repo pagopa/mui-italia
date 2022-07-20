@@ -8,6 +8,7 @@ import {
   IllusUploadFile,
   IllusSms,
   IllusEmailValidation,
+  IllusEmail,
   IllusPiggyBank,
   IllusLogin,
 } from "./";
@@ -58,6 +59,7 @@ export const Overview: ComponentStory<typeof Box> = () => (
       name={"<IllusEmailValidation />"}
       illustration={<IllusEmailValidation />}
     />
+    <IllusBox name={"<IllusEmail />"} illustration={<IllusEmail />} />
     <IllusBox name={"<IllusPiggyBank />"} illustration={<IllusPiggyBank />} />
     <IllusBox name={"<IllusLogin />"} illustration={<IllusLogin />} />
   </Box>
