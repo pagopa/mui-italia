@@ -105,12 +105,20 @@ export const HorizontalNav = ({ sections }: HorizontalNavProps) => {
                           <Typography variant="h5" color="primary.contrastText">
                             {section.title}
                           </Typography>
-                          <Typography
-                            variant="body1"
-                            color="primary.contrastText"
-                          >
-                            {section.subtitle}
-                          </Typography>
+                          <>
+                            {section.subtitle &&
+                              typeof section.subtitle === "string" && (
+                                <Typography
+                                  variant="body1"
+                                  color="primary.contrastText"
+                                >
+                                  {section.subtitle}
+                                </Typography>
+                              )}
+                            {section.subtitle &&
+                              typeof section.subtitle !== "string" &&
+                              section.subtitle}
+                          </>
                         </Stack>
                         {section.cta && (
                           <Button

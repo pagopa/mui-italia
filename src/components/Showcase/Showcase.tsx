@@ -63,7 +63,14 @@ export const Showcase = ({ title, items }: ShowcaseProps) => (
                   </Box>
                   <Stack spacing={1}>
                     <Typography variant="h6">{item.title}</Typography>
-                    <Typography variant="body2">{item.subtitle}</Typography>
+                    <>
+                      {item.subtitle && typeof item.subtitle === "string" && (
+                        <Typography variant="body2">{item.subtitle}</Typography>
+                      )}
+                      {item.subtitle &&
+                        typeof item.subtitle !== "string" &&
+                        item.subtitle}
+                    </>
                   </Stack>
                 </Stack>
               ))}

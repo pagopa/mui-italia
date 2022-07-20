@@ -69,9 +69,12 @@ export const Infoblock = ({
                 <Typography variant="h4" color="text.primary">
                   {title}
                 </Typography>
-                {content && (
-                  <Typography color="text.primary">{content}</Typography>
-                )}
+                <>
+                  {content && typeof content === "string" && (
+                    <Typography variant="body2">{content}</Typography>
+                  )}
+                  {content && typeof content !== "string" && { content }}
+                </>
               </Stack>
               {(ctaPrimary || ctaSecondary) && (
                 <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>

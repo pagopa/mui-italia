@@ -62,9 +62,14 @@ export const Hero = ({
               <Typography variant="h1" color="primary.contrastText">
                 {title}
               </Typography>
-              <Typography variant="body1" color="primary.contrastText">
-                {subtitle}
-              </Typography>
+              <>
+                {subtitle && typeof subtitle === "string" && (
+                  <Typography variant="body1" color="primary.contrastText">
+                    {subtitle}
+                  </Typography>
+                )}
+                {subtitle && typeof subtitle !== "string" && { subtitle }}
+              </>
             </Stack>
             <Stack direction="row" spacing={2}>
               {ctaPrimary && (
