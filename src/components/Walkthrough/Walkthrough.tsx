@@ -5,7 +5,7 @@ import ArrowForward from "./ArrowForward";
 export interface WalkthroughItem {
   icon?: JSX.Element;
   title: string;
-  subtitle: string;
+  subtitle: string | JSX.Element;
 }
 
 export interface WalkthroughProps {
@@ -128,7 +128,16 @@ export const Walkthrough = ({ title, items }: WalkthroughProps) => {
                     </Stack>
                     <Stack spacing={1}>
                       <Typography variant="h6">{item.title}</Typography>
-                      <Typography variant="body2">{item.subtitle}</Typography>
+                      <>
+                        {item.subtitle && typeof item.subtitle === "string" && (
+                          <Typography variant="body2">
+                            {item.subtitle}
+                          </Typography>
+                        )}
+                        {item.subtitle &&
+                          typeof item.subtitle !== "string" &&
+                          item.subtitle}
+                      </>
                     </Stack>
                   </Stack>
                 ))}
