@@ -17,7 +17,7 @@ interface sectionCTA {
 export interface Section {
   icon?: JSX.Element;
   title: string;
-  subtitle: string;
+  subtitle: string | JSX.Element;
   cta: sectionCTA;
 }
 

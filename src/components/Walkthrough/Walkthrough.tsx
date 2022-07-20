@@ -5,7 +5,7 @@ import ArrowForward from "./ArrowForward";
 export interface WalkthroughItem {
   icon?: JSX.Element;
   title: string;
-  subtitle: string;
+  subtitle: string | JSX.Element;
 }
 
 export interface WalkthroughProps {

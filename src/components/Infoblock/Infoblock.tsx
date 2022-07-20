@@ -3,7 +3,7 @@ import { CTA } from "@types";
 export interface InfoblockProps {
   overline?: string;
   title: string;
-  content?: string;
+  content?: string | JSX.Element;
   ctaPrimary?: CTA;
   ctaSecondary?: CTA;
   inverse: boolean;

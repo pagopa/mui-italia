@@ -3,7 +3,7 @@ import { Box, Container, Stack, Typography } from "@mui/material";
 export interface ShowcaseItem {
   icon?: JSX.Element;
   title: string;
-  subtitle: string;
+  subtitle: string | JSX.Element;
 }
 
 export interface ShowcaseProps {

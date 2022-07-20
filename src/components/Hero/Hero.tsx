@@ -3,7 +3,7 @@ import { CTA } from "@types";
 
 export interface HeroProps {
   title: string;
-  subtitle?: string;
+  subtitle?: string | JSX.Element;
   ctaPrimary?: CTA;
   ctaSecondary?: CTA;
   inverse?: boolean;
