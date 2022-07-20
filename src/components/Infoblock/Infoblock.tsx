@@ -73,7 +73,7 @@ export const Infoblock = ({
                   {content && typeof content === "string" && (
                     <Typography variant="body2">{content}</Typography>
                   )}
-                  {content && typeof content !== "string" && { content }}
+                  {content && typeof content !== "string" && content}
                 </>
               </Stack>
               {(ctaPrimary || ctaSecondary) && (

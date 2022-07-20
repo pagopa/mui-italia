@@ -68,7 +68,7 @@ export const Hero = ({
                     {subtitle}
                   </Typography>
                 )}
-                {subtitle && typeof subtitle !== "string" && { subtitle }}
+                {subtitle && typeof subtitle !== "string" && subtitle}
               </>
             </Stack>
             <Stack direction="row" spacing={2}>
