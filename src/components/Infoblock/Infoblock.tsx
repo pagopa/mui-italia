@@ -129,7 +129,7 @@ export const Infoblock = ({
                   display: "block",
                   content: '""',
                   paddingTop: {
-                    xs: aspectRatio === "4/3" ? null : "100%",
+                    xs: aspectRatio === "4/3" ? "75%" : "100%",
                     md: aspectRatio === "4/3" ? "75%" : "177.75%",
                   },
                 },
