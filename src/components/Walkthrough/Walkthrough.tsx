@@ -6,6 +6,7 @@ export interface WalkthroughItem {
   icon?: JSX.Element;
   title: string;
   subtitle: string | JSX.Element;
+  isSequential?: boolean;
 }
 
 export interface WalkthroughProps {
@@ -77,70 +78,79 @@ export const Walkthrough = ({ title, items }: WalkthroughProps) => {
                   },
                 }}
               >
-                {items.map((item, index) => (
-                  <Stack
-                    key={index}
-                    alignContent="center"
-                    justifyContent="flex-start"
-                    spacing={1}
-                    sx={{
-                      minWidth: { xs: "80%", sm: "40%", md: "auto" },
-                      flex: 1,
-                      scrollSnapAlign: "start",
-                    }}
-                  >
-                    <Typography
-                      variant="caption"
-                      color="primary.dark"
-                      alignSelf="flex-start"
-                    >
-                      {(index + 1).toString().padStart(2, "0")}
-                    </Typography>
+                {items.map(
+                  (
+                    { icon, title: itemTitle, subtitle, isSequential = true },
+                    index
+                  ) => (
                     <Stack
-                      direction="row"
-                      justifyContent="space-between"
-                      color="primary.dark"
+                      key={index}
+                      alignContent="center"
+                      justifyContent="flex-start"
+                      spacing={1}
+                      sx={{
+                        minWidth: { xs: "80%", sm: "40%", md: "auto" },
+                        flex: 1,
+                        scrollSnapAlign: "start",
+                      }}
                     >
-                      <Box
-                        alignSelf="flex-start"
-                        sx={{
-                          svg: {
-                            height: theme.spacing(8),
-                            width: theme.spacing(8),
-                          },
-                        }}
-                      >
-                        {item.icon}
-                      </Box>
-                      {index < items.length - 1 && (
-                        <Box
-                          sx={{
-                            display: "flex",
-                            width: theme.spacing(8),
-                            height: theme.spacing(8),
-                          }}
-                          alignItems="center"
-                          justifyContent="flex-end"
+                      {isSequential ? (
+                        <Typography
+                          variant="caption"
+                          color="primary.dark"
+                          alignSelf="flex-start"
                         >
-                          <ArrowForward />
-                        </Box>
+                          {(index + 1).toString().padStart(2, "0")}{" "}
+                        </Typography>
+                      ) : (
+                        <Box mt={2.5} />
                       )}
+                      <Stack
+                        direction="row"
+                        justifyContent="space-between"
+                        color="primary.dark"
+                      >
+                        <Box
+                          alignSelf="flex-start"
+                          sx={{
+                            svg: {
+                              height: theme.spacing(8),
+                              width: theme.spacing(8),
+                            },
+                          }}
+                        >
+                          {icon}
+                        </Box>
+                        {index < items.length - 1 &&
+                          isSequential &&
+                          (typeof items[index + 1].isSequential ===
+                            "undefined" ||
+                            items[index + 1].isSequential) && (
+                            <Box
+                              sx={{
+                                display: "flex",
+                                width: theme.spacing(8),
+                                height: theme.spacing(8),
+                              }}
+                              alignItems="center"
+                              justifyContent="flex-end"
+                            >
+                              <ArrowForward />
+                            </Box>
+                          )}
+                      </Stack>
+                      <Stack spacing={1}>
+                        <Typography variant="h6">{itemTitle}</Typography>
+                        <>
+                          {subtitle && typeof subtitle === "string" && (
+                            <Typography variant="body2">{subtitle}</Typography>
+                          )}
+                          {subtitle && typeof subtitle !== "string" && subtitle}
+                        </>
+                      </Stack>
                     </Stack>
-                    <Stack spacing={1}>
-                      <Typography variant="h6">{item.title}</Typography>
-                      <>
-                        {item.subtitle && typeof item.subtitle === "string" && (
-                          <Typography variant="body2">
-                            {item.subtitle}
-                          </Typography>
-                        )}
-                        {item.subtitle &&
-                          typeof item.subtitle !== "string" &&
-                          item.subtitle}
-                      </>
-                    </Stack>
-                  </Stack>
-                ))}
+                  )
+                )}
               </Stack>
             </Box>
           </Box>

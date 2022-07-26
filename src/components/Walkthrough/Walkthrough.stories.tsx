@@ -25,6 +25,7 @@ const items = [
     icon: <SpidIcon />,
     title: "Fourth Item",
     subtitle: "End Walkthrough",
+    isSequential: false,
   },
 ];
 
