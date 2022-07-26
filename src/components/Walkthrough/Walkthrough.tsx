@@ -122,6 +122,7 @@ export const Walkthrough = ({ title, items }: WalkthroughProps) => {
                           {icon}
                         </Box>
                         {index < items.length - 1 &&
+                          isSequential &&
                           (typeof items[index + 1].isSequential ===
                             "undefined" ||
                             items[index + 1].isSequential) && (
