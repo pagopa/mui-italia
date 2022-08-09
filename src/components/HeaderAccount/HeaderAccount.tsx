@@ -36,6 +36,7 @@ type HeaderAccountProps = {
   userActions?: Array<UserAction>;
   enableDropdown?: boolean;
   enableLogin?: boolean;
+  enableAssistanceButton?: boolean;
 };
 
 export const HeaderAccount = ({
@@ -47,6 +48,7 @@ export const HeaderAccount = ({
   onLogin,
   enableDropdown = false,
   enableLogin = true,
+  enableAssistanceButton = true,
 }: HeaderAccountProps) => (
   <Stack
     component="div"
@@ -86,24 +88,28 @@ export const HeaderAccount = ({
           spacing={{ xs: 1, sm: 3, md: 4 }}
         >
           {/* START Assistance MOBILE/DESKTOP */}
-          <ButtonNaked
-            size="small"
-            component="button"
-            onClick={onAssistanceClick}
-            startIcon={<HelpOutlineRoundedIcon />}
-            sx={{ display: ["none", "flex"] }}
-            weight="default"
-          >
-            Assistenza
-          </ButtonNaked>
-          <IconButton
-            size="small"
-            aria-label="Assistenza"
-            sx={{ display: ["flex", "none"] }}
-            onClick={onAssistanceClick}
-          >
-            <HelpOutlineRoundedIcon fontSize="inherit" />
-          </IconButton>
+          {enableAssistanceButton && (
+            <>
+              <ButtonNaked
+                size="small"
+                component="button"
+                onClick={onAssistanceClick}
+                startIcon={<HelpOutlineRoundedIcon />}
+                sx={{ display: ["none", "flex"] }}
+                weight="default"
+              >
+                Assistenza
+              </ButtonNaked>
+              <IconButton
+                size="small"
+                aria-label="Assistenza"
+                sx={{ display: ["flex", "none"] }}
+                onClick={onAssistanceClick}
+              >
+                <HelpOutlineRoundedIcon fontSize="inherit" />
+              </IconButton>
+            </>
+          )}
           {/* END Assistance MOBILE/DESKTOP */}
 
           {/* DIFFERENT COMBINATIONS */}
