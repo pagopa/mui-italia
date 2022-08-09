@@ -116,3 +116,13 @@ export const WithoutLogin: ComponentStory<typeof HeaderAccount> = () => (
     }}
   />
 );
+
+export const WithoutAssistance: ComponentStory<typeof HeaderAccount> = () => (
+  <HeaderAccount
+    enableAssistanceButton={false}
+    rootLink={pagoPALink}
+    onAssistanceClick={() => {
+      console.log("Clicked/Tapped on Assistance");
+    }}
+  />
+);
