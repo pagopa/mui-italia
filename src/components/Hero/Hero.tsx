@@ -13,11 +13,11 @@ interface HeroBasicProps extends HeroTextProps {
   background?: string;
 }
 
-export interface HeroJustTextProps extends HeroBasicProps {
+interface HeroJustTextProps extends HeroBasicProps {
   type: "text";
 }
 
-export interface HeroWithImageProps extends HeroBasicProps {
+interface HeroWithImageProps extends HeroBasicProps {
   type: "image";
   image: string;
   altText: string;
