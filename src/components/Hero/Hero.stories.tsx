@@ -32,12 +32,10 @@ export default {
     subtitle:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eget lacus consequat, accumsan metus sed, pharetra dui. Praesent at accumsan odio. Praesent augue ipsum, pharetra eget metus vel, bibendum dapibus augue. Nunc maximus id eros finibus laoreet. Integer iaculis, neque at feugiat accumsan, nisi magna iaculis nisl, ultricies euismod nulla orci sit amet justo.",
     inverse: false,
-    image: heroImage,
     background: heroBackground,
     showPrimary: true,
     ctaPrimary: firstCTA,
     ctaSecondary: secondCTA,
-    altText: "altText",
   },
   argTypes: {
     inverse: {
@@ -48,9 +46,32 @@ export default {
         defaultValue: { summary: false },
       },
     },
+    type: {
+      table: {
+        disable: true,
+      },
+    },
   },
 } as ComponentMeta<typeof Hero>;
 
-export const Default: ComponentStory<typeof Hero> = (args) => (
+export const WithImage: ComponentStory<typeof Hero> = (args) => (
   <Hero {...args} />
 );
+export const WithImageProps = WithImage.bind({});
+WithImage.args = {
+  type: "image",
+  image: heroImage,
+  altText: "altText",
+};
+
+export const JustText: ComponentStory<typeof Hero> = (args) => (
+  <Hero {...args} />
+);
+export const JustTextProps = JustText.bind({});
+JustText.args = {
+  type: "text",
+};
+JustText.argTypes = {
+  image: { table: { disable: true } },
+  altText: { table: { disable: true } },
+};
