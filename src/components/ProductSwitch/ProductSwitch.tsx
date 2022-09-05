@@ -1,4 +1,11 @@
-import { ForwardedRef, forwardRef, useCallback, useState } from "react";
+import {
+  ForwardedRef,
+  forwardRef,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import clsx from "clsx";
 import { Menu, MenuItem, Typography } from "@mui/material";
 import { styled } from "@mui/system";
@@ -34,6 +41,15 @@ export const ProductSwitch = ({
   const [selectedId, setSelectedId] = useState(currentProductId);
   const open = Boolean(anchorEl);
 
+  const selectedProduct = useMemo(
+    () => products.find((p) => p.id === selectedId),
+    [selectedId]
+  );
+
+  useEffect(() => {
+    setSelectedId(selectedId);
+  }, [currentProductId]);
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -63,7 +79,7 @@ export const ProductSwitch = ({
         onClick={handleClick}
       >
         <Typography sx={{ fontSize: { xs: 20, sm: 28 }, fontWeight: "bold" }}>
-          {products[0].title}
+          {selectedProduct?.title}
         </Typography>
         {open ? <ArrowDropUpRoundedIcon /> : <ArrowDropDownRoundedIcon />}
       </ProductSwitchButton>
