@@ -2,6 +2,7 @@ import {
   ForwardedRef,
   forwardRef,
   useCallback,
+  useEffect,
   useMemo,
   useState,
 } from "react";
@@ -44,6 +45,10 @@ export const ProductSwitch = ({
     () => products.find((p) => p.id === selectedId),
     [selectedId]
   );
+
+  useEffect(() => {
+    setSelectedId(selectedId);
+  }, [currentProductId]);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
