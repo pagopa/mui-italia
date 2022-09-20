@@ -23,11 +23,13 @@ export default {
 } as ComponentMeta<typeof DesktopDatePicker>;
 
 export const Default: ComponentStory<typeof DesktopDatePicker> = () => {
-  const [value, setValue] = useState(new Date());
+  const [value, setValue] = useState<Date>(new Date());
 
-  /*   const handleChange = (newValue: Date) => {
-    setValue(newValue);
-  }; */
+  const onChangeHandler = (_date: Date | null) => {
+    if (_date) {
+      setValue(_date);
+    }
+  };
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -35,7 +37,7 @@ export const Default: ComponentStory<typeof DesktopDatePicker> = () => {
         label="Data della notifica"
         inputFormat="dd/MM/yyyy"
         value={value}
-        onChange={setValue}
+        onChange={onChangeHandler}
         renderInput={(params: TextFieldProps) => (
           <TextField
             {...params}
