@@ -1,7 +1,7 @@
 import * as t from "io-ts";
 
 export class EnumType<A> extends t.Type<A> {
-  public readonly _tag: "EnumType" = "EnumType";
+  public readonly _tag = "EnumType" as const;
   public enumObject!: object;
   public constructor(e: object, name?: string) {
     super(

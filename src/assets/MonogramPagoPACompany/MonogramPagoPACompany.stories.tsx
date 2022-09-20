@@ -19,20 +19,20 @@ export const Default = Template.bind({});
 Default.args = {
   color: "primary",
 };
-Default.decorators = [
-  (Story) => (
-    <div
-      style={{
-        position: "fixed",
-        inset: "0",
-        display: "grid",
-        placeItems: "center",
-      }}
-    >
-      <Story />
-    </div>
-  ),
-];
+// Default.decorators = [
+//   (Story) => (
+//     <div
+//       style={{
+//         position: "fixed",
+//         inset: "0",
+//         display: "grid",
+//         placeItems: "center",
+//       }}
+//     >
+//       <Story />
+//     </div>
+//   ),
+// ];
 
 export const Circle = Template.bind({});
 Circle.args = {
@@ -42,10 +42,6 @@ Circle.decorators = [
   (Story) => (
     <div
       style={{
-        position: "fixed",
-        inset: "0",
-        display: "grid",
-        placeItems: "center",
         backgroundColor: "#333",
       }}
     >
