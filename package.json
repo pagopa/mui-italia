@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "@fontsource/titillium-web": "^4.5.9",
-    "@mui/x-date-pickers": "^5.0.2",
     "clsx": "^1.2.1",
     "fp-ts": "^2.12.3",
     "io-ts": "^2.2.18"
@@ -54,6 +53,7 @@
     "@mui/lab": "^5.0.0-alpha.100",
     "@mui/material": "^5.10.6",
     "@mui/system": "^5.10.6",
+    "@mui/x-date-pickers": "^5.0.2",
     "@pagopa/eslint-config": "^3.0.0",
     "@storybook/addon-a11y": "^6.5.12",
     "@storybook/addon-actions": "^6.5.12",
