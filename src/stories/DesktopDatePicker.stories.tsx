@@ -1,13 +1,9 @@
 import { useState } from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import { TextField } from "@mui/material";
-import {
-  DesktopDatePicker,
-  DesktopDatePickerProps,
-  LocalizationProvider,
-} from "@mui/lab";
-import DateAdapter from "@mui/lab/AdapterDateFns";
+import { TextField, TextFieldProps } from "@mui/material";
+import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 export default {
   title: "MUI Components/Lab/Desktop Date Picker",
@@ -34,13 +30,13 @@ export const Default: ComponentStory<typeof DesktopDatePicker> = () => {
   }; */
 
   return (
-    <LocalizationProvider dateAdapter={DateAdapter}>
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DesktopDatePicker
         label="Data della notifica"
         inputFormat="dd/MM/yyyy"
         value={value}
-        onChange={setValue as DesktopDatePickerProps["onChange"]}
-        renderInput={(params) => (
+        onChange={setValue}
+        renderInput={(params: TextFieldProps) => (
           <TextField
             {...params}
             inputProps={{ ...params.inputProps, placeholder: "dd/mm/aaaa" }}
