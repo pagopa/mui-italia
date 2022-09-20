@@ -20,20 +20,6 @@ Default.args = {
   variant: "outline",
   color: "dark",
 };
-Default.decorators = [
-  (Story) => (
-    <div
-      style={{
-        position: "fixed",
-        inset: "0",
-        display: "grid",
-        placeItems: "center",
-      }}
-    >
-      <Story />
-    </div>
-  ),
-];
 
 export const Negative = Template.bind({});
 Negative.args = {
@@ -44,10 +30,6 @@ Negative.decorators = [
   (Story) => (
     <div
       style={{
-        position: "fixed",
-        inset: "0",
-        display: "grid",
-        placeItems: "center",
         backgroundColor: "#333",
       }}
     >
@@ -61,17 +43,3 @@ Color.args = {
   variant: "color",
   color: "dark",
 };
-Color.decorators = [
-  (Story) => (
-    <div
-      style={{
-        position: "fixed",
-        inset: "0",
-        display: "grid",
-        placeItems: "center",
-      }}
-    >
-      <Story />
-    </div>
-  ),
-];

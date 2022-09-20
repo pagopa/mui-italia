@@ -18,7 +18,7 @@ export const Default = Template.bind({});
 Default.args = {
   color: "default",
 };
-Default.decorators = [
+/* Default.decorators = [
   (Story) => (
     <div
       style={{
@@ -31,7 +31,7 @@ Default.decorators = [
       <Story />
     </div>
   ),
-];
+]; */
 
 export const Negative = Template.bind({});
 Negative.args = {
@@ -41,10 +41,6 @@ Negative.decorators = [
   (Story) => (
     <div
       style={{
-        position: "fixed",
-        inset: "0",
-        display: "grid",
-        placeItems: "center",
         backgroundColor: "#333",
       }}
     >
