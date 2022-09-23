@@ -3174,7 +3174,7 @@
     semver "^7.3.7"
     tsutils "^3.21.0"
 
-"@typescript-eslint/utils@5.28.0", "@typescript-eslint/utils@^5.10.2":
+"@typescript-eslint/utils@5.28.0":
   version "5.28.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/utils/-/utils-5.28.0.tgz#b27a136eac300a48160b36d2aad0da44a1341b99"
   integrity sha512-E60N5L0fjv7iPJV3UGc4EC+A3Lcj4jle9zzR0gW7vXhflO7/J29kwiTGITA2RlrmPokKiZbBy2DgaclCaEUs6g==
@@ -3186,7 +3186,7 @@
     eslint-scope "^5.1.1"
     eslint-utils "^3.0.0"
 
-"@typescript-eslint/utils@5.38.0":
+"@typescript-eslint/utils@5.38.0", "@typescript-eslint/utils@^5.10.2":
   version "5.38.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/utils/-/utils-5.38.0.tgz#5b31f4896471818153790700eb02ac869a1543f4"
   integrity sha512-6sdeYaBgk9Fh7N2unEXGz+D+som2QCQGPAf1SxrkEr+Z32gMreQ0rparXTNGRRfYUWk/JzbGdcM8NSSd6oqnTA==
@@ -5521,19 +5521,10 @@ eslint-plugin-fp@^2.3.0:
     lodash "^4.13.1"
     req-all "^0.1.0"
 
-eslint-plugin-functional@^4.2.1:
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-functional/-/eslint-plugin-functional-4.2.1.tgz#c486f15695a31f916847c89f0f85a09c8ee423c6"
-  integrity sha512-j16ozgXrr0UdPBirdbgDZgRBPr9Prj3j1xoisE435wzRDMWQlSHHJ41LCzNrlfGDb7OFAyXVcVatVwALz2jckw==
-  dependencies:
-    "@typescript-eslint/utils" "^5.10.2"
-    deepmerge-ts "^4.0.3"
-    escape-string-regexp "^4.0.0"
-
-eslint-plugin-functional@^4.3.2:
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-functional/-/eslint-plugin-functional-4.3.2.tgz#e6afed23cb1f9fd9d110e146bbcc39c07df21b95"
-  integrity sha512-GoR36d/P8/ZG984mGXMIrnCEBSoPC/WgBCh3zH7z7xsvIlvByO4fSexzsuo1ap3HVyKIY7L+gtRohscGBsZ5Fg==
+eslint-plugin-functional@^4.2.1, eslint-plugin-functional@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-functional/-/eslint-plugin-functional-4.4.0.tgz#695a06b02f742cc5c5ced31caccec28ab13431db"
+  integrity sha512-DY/Iax9knIgzvxhVeSe+KoF9e4imLvzCvUEN1a+bWciDiBi3s1CG/1fw7AQVXoAqoNw9eYuP7C2u3OtHzMFy+A==
   dependencies:
     "@typescript-eslint/utils" "^5.10.2"
     deepmerge-ts "^4.0.3"
