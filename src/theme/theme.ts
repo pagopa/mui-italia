@@ -79,6 +79,7 @@ declare module "@mui/material/styles" {
     extraLight: Palette["warning"];
     primaryAction: Palette["action"];
     negative: PaletteColorOptions;
+    indigo: Palette["primary"];
   }
   interface PaletteOptions {
     pagoPA?: PaletteOptions["primary"];
