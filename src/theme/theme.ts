@@ -1,4 +1,5 @@
 import { createTheme, Theme, alpha } from "@mui/material/styles";
+import { indigo } from "@mui/material/colors";
 
 /* Design Tokens */
 import { italia } from "@tokens";
@@ -78,6 +79,7 @@ declare module "@mui/material/styles" {
     extraLight: Palette["warning"];
     primaryAction: Palette["action"];
     negative: PaletteColorOptions;
+    indigo: Palette["primary"];
   }
   interface PaletteOptions {
     pagoPA?: PaletteOptions["primary"];
@@ -86,6 +88,7 @@ declare module "@mui/material/styles" {
     extraLight?: PaletteOptions["warning"];
     primaryAction: PaletteOptions["action"];
     negative: PaletteColorOptions;
+    indigo: PaletteColorOptions;
   }
 
   interface PaletteColor {
@@ -161,6 +164,12 @@ declare module "@mui/material/Pagination" {
   }
 }
 
+declare module "@mui/material/Chip" {
+  export interface ChipPropsColorOverrides {
+    indigo: true;
+  }
+}
+
 const foundation: Theme = createTheme({
   breakpoints: {
     values: {
@@ -199,6 +208,10 @@ const foundation: Theme = createTheme({
     },
     europeanUnion: {
       main: "#264CA4",
+      contrastText: "#fff",
+    },
+    indigo: {
+      main: indigo[500],
       contrastText: "#fff",
     },
     negative: {

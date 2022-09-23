@@ -7,7 +7,15 @@ export default {
   component: Chip,
   argTypes: {
     color: {
-      options: ["default", "primary", "warning", "info", "error", "success"],
+      options: [
+        "default",
+        "primary",
+        "warning",
+        "info",
+        "error",
+        "success",
+        "indigo",
+      ],
       control: { type: "radio" },
       table: {
         type: { summary: "string" },

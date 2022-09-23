@@ -1,7 +1,9 @@
 {
   "name": "@pagopa/mui-italia",
   "version": "0.7.1",
-  "author": "PagoPA",
+  "author": {
+    "name": "PagoPA"
+  },
   "license": "MIT",
   "private": false,
   "main": "dist/index.js",
