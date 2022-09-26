@@ -224,7 +224,7 @@ const foundation: Theme = createTheme({
       disabled: "#A2ADB8",
     },
     action: {
-      active: "rgba(23, 50, 77, 0.54)" /* Text/Primary 54% */,
+      active: "#5C6F82" /* Text/Secondary */,
       hover: "rgba(23, 50, 77, 0.08)" /* Text/Primary 8% */,
       hoverOpacity: 0.08,
       selected: "rgba(23, 50, 77, 0.12)" /* Text/Primary 12% */,
@@ -526,7 +526,6 @@ export const theme = createTheme(foundation, {
       },
       styleOverrides: {
         root: {
-          color: foundation.palette.text.primary,
           "&:hover": {
             backgroundColor: alpha(foundation.palette.primary.main, 0.08),
           },
