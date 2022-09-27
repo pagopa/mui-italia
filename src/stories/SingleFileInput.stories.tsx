@@ -24,7 +24,7 @@ export const Default: ComponentStory<typeof SingleFileInput> = () => {
       id="test"
       label="Document (required)"
       value={file}
-      accept={["image/png", "image/gif"]}
+      accept={["image/png"]}
       onFileSelected={handleSelect}
       onFileRemoved={handleRemove}
       dropzoneLabel="Drag and drop your .png image here or click to select from your computer"
@@ -51,6 +51,17 @@ export const Error: ComponentStory<typeof SingleFileInput> = () => (
     label="Document (required)"
     value={null}
     error
+    onFileSelected={() => {}}
+    onFileRemoved={() => {}}
+    dropzoneLabel="Drag and drop your .png image here or click to select from your computer"
+  />
+);
+
+export const WithFile: ComponentStory<typeof SingleFileInput> = () => (
+  <SingleFileInput
+    id="test"
+    label="Document (required)"
+    value={new File([], "test.png")}
     onFileSelected={() => {}}
     onFileRemoved={() => {}}
     dropzoneLabel="Drag and drop your .png image here or click to select from your computer"
