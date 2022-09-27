@@ -2,7 +2,22 @@ import { alpha, SxProps } from "@mui/system";
 import { theme } from "@theme";
 import { UploadStatus } from "./SingleFileInput";
 
-// ellissi 60 caratteri che non copre estensione del file
+/**
+ * Truncate file name string if it is longer than 30 characters.
+ * Keeps the file extension.
+ *
+ * @param fileName
+ * @returns truncated file name
+ */
+export const truncateFileName = (fileName: string) => {
+  const splittedFileName = fileName.split(".");
+  const fileExtension = splittedFileName[1];
+  const truncatedFileName = splittedFileName[0];
+  if (truncatedFileName.length >= 30) {
+    return `${truncatedFileName}... .${fileExtension ?? ""}`;
+  }
+  return fileName;
+};
 
 /**
  * Check if a mime type matches the set given in accept

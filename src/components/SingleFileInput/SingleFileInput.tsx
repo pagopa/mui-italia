@@ -14,7 +14,12 @@ import {
   CloudUpload as CloudUploadIcon,
   Error as ErrorIcon,
 } from "@mui/icons-material";
-import { getContainerStyle, getStatus, verifyAccept } from "./utils";
+import {
+  getContainerStyle,
+  getStatus,
+  truncateFileName,
+  verifyAccept,
+} from "./utils";
 
 export type SingleFileInputProps = {
   /** Input identifier */
@@ -184,7 +189,7 @@ export const SingleFileInput = ({
       <Box
         sx={{
           position: "relative",
-          height: 80,
+          minHeight: 80,
           borderRadius: "10px",
           display: "flex",
           justifyContent: "center",
@@ -269,7 +274,9 @@ export const SingleFileInput = ({
           >
             <Box display="flex" justifyContent="center" alignItems="center">
               <AttachFileIcon sx={{ mr: 1 }} color="primary" />
-              <Typography color="primary">{value.name}</Typography>
+              <Typography color="primary">
+                {truncateFileName(value.name)}
+              </Typography>
               <Typography fontWeight={600} sx={{ marginLeft: "30px" }}>
                 {(value.size / 1024).toFixed(2)}&nbsp;KB
               </Typography>

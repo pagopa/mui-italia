@@ -67,3 +67,21 @@ export const WithFile: ComponentStory<typeof SingleFileInput> = () => (
     dropzoneLabel="Drag and drop your .png image here or click to select from your computer"
   />
 );
+
+export const WithTruncatedFileName: ComponentStory<
+  typeof SingleFileInput
+> = () => (
+  <SingleFileInput
+    id="test"
+    label="Document (required)"
+    value={
+      new File(
+        [],
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.docx"
+      )
+    }
+    onFileSelected={() => {}}
+    onFileRemoved={() => {}}
+    dropzoneLabel="Drag and drop your .png image here or click to select from your computer"
+  />
+);
