@@ -65,7 +65,7 @@ const OrientedBox = ({
   vertical,
   children,
 }: {
-  vertical: boolean;
+  vertical?: boolean;
   children: ReactNode;
 }) => (
   <Box
@@ -177,69 +177,81 @@ export const SingleFileInput = ({
 
   return (
     <FormControl sx={{ width: "100%" }}>
-      <FormLabel sx={{ fontWeight: 600, mb: 1 }} htmlFor={id}>
+      <FormLabel error={error} sx={{ fontWeight: 600, mb: 1 }} htmlFor={id}>
         {label}
       </FormLabel>
+
       <Box
         sx={{
-          ...containerStyle,
-          padding: "24px",
+          position: "relative",
+          height: 80,
           borderRadius: "10px",
-          display: "block",
-          width: "100%",
-          cursor: "pointer",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          ...containerStyle,
         }}
-        onDragOver={handleDragOver}
-        onDrop={handleDrop}
-        onDragEnter={handleDragEnter}
-        onDragLeave={handleDragLeave}
-        component="button"
-        onClick={chooseFileHandler}
-        data-testid="loadFromPc"
       >
         {showDropzone && (
-          <OrientedBox vertical={vertical}>
-            {status === UploadStatus.REJECTED && (
-              <>
-                <ErrorIcon color="error" sx={{ margin: "0 10px" }} />
-                <Typography color="error" display="inline" variant="body2">
-                  {rejectedLabel}
-                </Typography>
-              </>
-            )}
+          <Box
+            sx={{
+              position: "absolute",
+              inset: 0,
+              cursor: "pointer",
+              backgroundColor: "transparent",
+              border: "none",
+            }}
+            onDragOver={handleDragOver}
+            onDrop={handleDrop}
+            onDragEnter={handleDragEnter}
+            onDragLeave={handleDragLeave}
+            component="button"
+            onClick={chooseFileHandler}
+            data-testid="loadFromPc"
+          >
+            <OrientedBox vertical={vertical}>
+              {status === UploadStatus.REJECTED && (
+                <>
+                  <ErrorIcon color="error" sx={{ margin: "0 10px" }} />
+                  <Typography color="error" display="inline" variant="body2">
+                    {rejectedLabel}
+                  </Typography>
+                </>
+              )}
 
-            {status === UploadStatus.IDLE && (
-              <>
-                <CloudUploadIcon color="primary" sx={{ margin: "0 10px" }} />
-                <Typography display="inline" variant="body2">
-                  {dropzoneLabel}
-                </Typography>
-              </>
-            )}
+              {status === UploadStatus.IDLE && (
+                <>
+                  <CloudUploadIcon color="primary" sx={{ margin: "0 10px" }} />
+                  <Typography display="inline" variant="body2">
+                    {dropzoneLabel}
+                  </Typography>
+                </>
+              )}
 
-            {status === UploadStatus.ERROR && (
-              <>
-                <CloudUploadIcon color="error" sx={{ margin: "0 10px" }} />
-                <Typography color="error" display="inline" variant="body2">
-                  {dropzoneLabel}
-                </Typography>
-              </>
-            )}
+              {status === UploadStatus.ERROR && (
+                <>
+                  <CloudUploadIcon color="error" sx={{ margin: "0 10px" }} />
+                  <Typography color="error" display="inline" variant="body2">
+                    {dropzoneLabel}
+                  </Typography>
+                </>
+              )}
 
-            <Input
-              inputProps={{ accept }}
-              type="file"
-              id={id}
-              sx={{ display: "none" }}
-              inputRef={uploadInputRef}
-              onChange={handleSelectFile}
-              data-testid="fileInput"
-            />
-          </OrientedBox>
+              <Input
+                inputProps={{ accept }}
+                type="file"
+                id={id}
+                sx={{ display: "none" }}
+                inputRef={uploadInputRef}
+                onChange={handleSelectFile}
+                data-testid="fileInput"
+              />
+            </OrientedBox>
+          </Box>
         )}
 
         {status === UploadStatus.LOADING && (
-          <OrientedBox vertical={false}>
+          <OrientedBox>
             <CircularProgress sx={{ mr: 2 }} />
 
             <Typography display="inline" variant="body2">

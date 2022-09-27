@@ -71,7 +71,6 @@ export function getContainerStyle(status: UploadStatus): SxProps {
         border: "1px dashed",
         borderColor: theme.palette.primary.main,
         backgroundColor: theme.palette.primaryAction.selected,
-        py: 8,
       };
     case UploadStatus.REJECTED:
     case UploadStatus.ERROR:
@@ -85,6 +84,7 @@ export function getContainerStyle(status: UploadStatus): SxProps {
         border: "1px solid",
         borderColor: theme.palette.primary.main,
         backgroundColor: "white",
+        px: 4,
       };
     default:
       return {};
