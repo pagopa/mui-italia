@@ -15,6 +15,7 @@ import {
   Error as ErrorIcon,
 } from "@mui/icons-material";
 import {
+  generateRandomID,
   getContainerStyle,
   getStatus,
   truncateFileName,
@@ -22,9 +23,6 @@ import {
 } from "./utils";
 
 export type SingleFileInputProps = {
-  /** Input identifier */
-  id: string;
-
   /** The file to be displayed. */
   value: File | null;
 
@@ -93,7 +91,6 @@ export enum UploadStatus {
 }
 
 export const SingleFileInput = ({
-  id,
   value,
   label,
   error,
@@ -111,6 +108,7 @@ export const SingleFileInput = ({
 }: SingleFileInputProps): JSX.Element => {
   const uploadInputRef = useRef<HTMLButtonElement>();
 
+  const [id, _] = useState(generateRandomID());
   const [isFileRejected, setIsFileRejected] = useState(false);
 
   const status = getStatus(

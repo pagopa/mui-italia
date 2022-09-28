@@ -105,3 +105,7 @@ export function getContainerStyle(status: UploadStatus): SxProps {
       return {};
   }
 }
+
+export function generateRandomID(): string {
+  return new Crypto().randomUUID();
+}
