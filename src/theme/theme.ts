@@ -187,7 +187,7 @@ const foundation: Theme = createTheme({
       default: "#F2F2F2",
     },
     primary: {
-      main: "#FF3300",
+      main: "#0073E6",
       light: "#2185E9",
       dark: "#0062C3",
       contrastText: "#FFFFFF",
