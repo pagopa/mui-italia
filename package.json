@@ -26,7 +26,8 @@
     "build": "tsc && tsc-alias -p tsconfig.json",
     "lint": "eslint . -c .eslintrc.js --ext .ts,.tsx",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "chromatic": "chromatic"
   },
   "eslintConfig": {
     "extends": [
@@ -68,6 +69,7 @@
     "@typescript-eslint/eslint-plugin": "^5.38.0",
     "@typescript-eslint/parser": "^5.39.0",
     "babel-loader": "^8.2.5",
+    "chromatic": "^6.10.1",
     "date-fns": "^2.29.3",
     "eslint": "^8.23.1",
     "eslint-config-prettier": "^8.5.0",
@@ -110,5 +112,6 @@
   "engines": {
     "node": ">=14.x",
     "npm": ">=8.x"
-  }
+  },
+  "_id": "@pagopa/mui-italia@0.7.3"
 }
