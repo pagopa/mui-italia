@@ -71,7 +71,7 @@
     "babel-loader": "^8.2.5",
     "chromatic": "^6.10.1",
     "date-fns": "^2.29.3",
-    "eslint": "^8.23.1",
+    "eslint": "^8.24.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-fp": "^2.3.0",
     "eslint-plugin-functional": "^4.3.2",
