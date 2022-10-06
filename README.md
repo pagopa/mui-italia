@@ -61,7 +61,7 @@ import { italia } from "@pagopa/mui-italia";
 ```
 
 ## Storybook
-If you need to view all the styled and custom components available in this package, check out the (ongoing) [MUI Italia Storybook](https://mui-italia.vercel.app/).
+If you need to view all the styled and custom components available in this package, check out the (ongoing) [MUI Italia Storybook](https://main--633c31eff9fe385398ada426.chromatic.com/) (managed with Chromatic).
 
 
 ### Contributions
