@@ -1032,3 +1032,13 @@ export const theme = createTheme(foundation, {
     },
   },
 });
+
+export const darkTheme = createTheme(theme, {
+  palette: {
+    mode: "dark",
+    primary: {
+      main: "#3DA2FF",
+      contrastText: "#FFFFFF",
+    },
+  },
+});
