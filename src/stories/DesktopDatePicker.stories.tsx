@@ -23,7 +23,7 @@ export default {
 } as ComponentMeta<typeof DesktopDatePicker>;
 
 export const Default: ComponentStory<typeof DesktopDatePicker> = () => {
-  const [value, setValue] = useState<Date>(new Date());
+  const [value, setValue] = useState<Date>(new Date(2022, 0, 17));
 
   const onChangeHandler = (_date: Date | null) => {
     if (_date) {
