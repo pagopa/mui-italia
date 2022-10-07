@@ -233,8 +233,8 @@ const foundation: Theme = createTheme({
       focus: "rgba(23, 50, 77, 0.12)" /* Text/Primary 12% */,
     },
     primaryAction: {
-      selected: "rgba(0, 115, 230, 0.08)" /* Primary 8% */,
       hover: "rgba(0, 115, 230, 0.12)" /* Primary 12% */,
+      selected: "rgba(0, 115, 230, 0.08)" /* Primary 8% */,
     },
     /* Other */
     divider: "#E3E7EB",
