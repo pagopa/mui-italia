@@ -290,7 +290,7 @@ const foundation: Theme = createTheme({
   spacing: 8,
 });
 
-export const theme = createTheme(foundation, {
+export const theme: Theme = createTheme(foundation, {
   typography: {
     /* H1 Large */
     headline: {
@@ -1033,7 +1033,7 @@ export const theme = createTheme(foundation, {
   },
 });
 
-export const darkTheme = createTheme(theme, {
+export const darkTheme: Theme = createTheme(theme, {
   palette: {
     mode: "dark",
     primary: {
