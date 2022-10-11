@@ -4,7 +4,7 @@ import { DecoratorFn } from "@storybook/react";
 /* Storybook Theme */
 import { sbTheme } from "./theme";
 
-import { ThemeProvider } from "@mui/material";
+import { ThemeProvider, Box } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 /* MUI Italia Theme */
@@ -24,7 +24,30 @@ export const parameters = {
   },
 };
 
+interface StoryContainerProps {
+  children: React.ReactNode;
+}
+
+const StoryContainer = ({ children }: StoryContainerProps) => (
+  <Box
+    sx={{
+      position: "absolute",
+      inset: 0,
+      width: "100vw",
+      height: "100vh",
+      overflow: "auto",
+      padding: "1rem",
+      backgroundColor: "background.paper",
+    }}
+  >
+    {children}
+  </Box>
+);
+
 export const withTheme: DecoratorFn = (Story, context) => {
+  // More info about this decorator
+  // https://storybook.js.org/blog/how-to-add-a-theme-switcher-to-storybook/
+
   const theme = context.parameters.theme || context.globals.theme;
   const storyTheme = theme === "light" ? lightTheme : darkTheme;
 
@@ -39,7 +62,9 @@ export const withTheme: DecoratorFn = (Story, context) => {
     case "system": {
       return (
         <ThemeProvider theme={currentTheme}>
-          <Story />
+          <StoryContainer>
+            <Story />
+          </StoryContainer>
         </ThemeProvider>
       );
     }
@@ -47,7 +72,9 @@ export const withTheme: DecoratorFn = (Story, context) => {
     case "dark": {
       return (
         <ThemeProvider theme={darkTheme}>
-          <Story />
+          <StoryContainer>
+            <Story />
+          </StoryContainer>
         </ThemeProvider>
       );
     }
@@ -55,7 +82,9 @@ export const withTheme: DecoratorFn = (Story, context) => {
     default: {
       return (
         <ThemeProvider theme={storyTheme}>
-          <Story />
+          <StoryContainer>
+            <Story />
+          </StoryContainer>
         </ThemeProvider>
       );
     }

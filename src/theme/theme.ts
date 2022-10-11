@@ -1040,5 +1040,8 @@ export const darkTheme: Theme = createTheme(theme, {
       main: "#3DA2FF",
       contrastText: "#FFFFFF",
     },
+    background: {
+      paper: "#252525",
+    },
   },
 });
