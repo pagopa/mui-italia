@@ -37,14 +37,6 @@ export const Negative = Template.bind({});
 Negative.args = {
   color: "light",
 };
-Negative.decorators = [
-  (Story) => (
-    <div
-      style={{
-        backgroundColor: "#333",
-      }}
-    >
-      <Story />
-    </div>
-  ),
-];
+Negative.parameters = {
+  theme: "dark",
+};
