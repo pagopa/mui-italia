@@ -88,7 +88,11 @@ export const Default: ComponentStory<typeof ProductAvatar> = () => {
   return (
     <Stack gap={2} alignItems="flex-start">
       <ProductAvatar logoUrl={url} logoBgColor={bgColor} size="small" />
-      <ProductAvatar logoUrl={url} logoBgColor={bgColor} />
+      <ProductAvatar
+        logoUrl={url}
+        logoBgColor={bgColor}
+        logoAltText="Alternate text for logo"
+      />
       <ProductAvatar logoUrl={url} logoBgColor={bgColor} size="large" />
       <div>
         <Typography variant="overline">Product:</Typography>

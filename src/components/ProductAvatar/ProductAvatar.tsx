@@ -12,6 +12,8 @@ export interface ProductAvatarProps {
   logoUrl: string;
   /** The logo background color */
   logoBgColor?: string;
+  /** Alternate text for logo */
+  logoAltText?: string;
 }
 
 const sizesMap = {
@@ -34,6 +36,7 @@ export const ProductAvatar = ({
   id,
   logoUrl,
   logoBgColor,
+  logoAltText,
 }: ProductAvatarProps): JSX.Element => (
   <Box
     id={id}
@@ -69,6 +72,7 @@ export const ProductAvatar = ({
   >
     <img
       src={logoUrl}
+      alt={logoAltText}
       style={{
         width: "100%",
         height: "100%",
