@@ -34,7 +34,7 @@ const StoryContainer = ({ children }: StoryContainerProps) => (
       position: "absolute",
       inset: 0,
       width: "100vw",
-      height: "100vh",
+      minHeight: "100vh",
       overflow: "auto",
       padding: "1rem",
       backgroundColor: "background.paper",
