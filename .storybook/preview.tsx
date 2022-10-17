@@ -100,14 +100,13 @@ export const globalTypes = {
     toolbar: {
       // The icon for the toolbar item
       icon: "circlehollow",
+      title: "Theme",
       // Array of options
       items: [
         { value: "system", icon: "cog", title: "System" },
         { value: "light", icon: "circlehollow", title: "Light" },
         { value: "dark", icon: "circle", title: "Dark" },
       ],
-      // Property that specifies if the name of the item will be displayed
-      showName: true,
     },
   },
 };
