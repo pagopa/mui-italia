@@ -21,7 +21,6 @@ export const Default: ComponentStory<typeof SingleFileInput> = () => {
 
   return (
     <SingleFileInput
-      id="test"
       label="Document (required)"
       value={file}
       accept={["image/png"]}
@@ -35,7 +34,6 @@ export const Default: ComponentStory<typeof SingleFileInput> = () => {
 
 export const Loading: ComponentStory<typeof SingleFileInput> = () => (
   <SingleFileInput
-    id="test"
     label="Document (required)"
     value={null}
     onFileSelected={() => {}}
@@ -47,7 +45,6 @@ export const Loading: ComponentStory<typeof SingleFileInput> = () => (
 
 export const Error: ComponentStory<typeof SingleFileInput> = () => (
   <SingleFileInput
-    id="test"
     label="Document (required)"
     value={null}
     error
@@ -59,7 +56,6 @@ export const Error: ComponentStory<typeof SingleFileInput> = () => (
 
 export const WithFile: ComponentStory<typeof SingleFileInput> = () => (
   <SingleFileInput
-    id="test"
     label="Document (required)"
     value={new File([], "test.png")}
     onFileSelected={() => {}}
@@ -72,7 +68,6 @@ export const WithTruncatedFileName: ComponentStory<
   typeof SingleFileInput
 > = () => (
   <SingleFileInput
-    id="test"
     label="Document (required)"
     value={
       new File(
