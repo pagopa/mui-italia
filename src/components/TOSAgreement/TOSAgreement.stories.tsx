@@ -1,8 +1,9 @@
-import { FormControlLabel, Link, Switch, Typography } from "@mui/material";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import React from "react";
+import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import { TOSAgreement } from "../components/TOSAgreement";
+import { FormControlLabel, Link, Switch, Typography } from "@mui/material";
+
+import { TOSAgreement } from "./TOSAgreement";
 
 export default {
   title: "Components/TOSAgreement",
