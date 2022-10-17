@@ -12,6 +12,7 @@ import { theme as lightTheme, darkTheme } from "@theme";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
+  layout: "fullscreen",
   controls: {
     expanded: true,
     matchers: {
@@ -31,12 +32,6 @@ interface StoryContainerProps {
 const StoryContainer = ({ children }: StoryContainerProps) => (
   <Box
     sx={{
-      position: "absolute",
-      inset: 0,
-      width: "100vw",
-      minHeight: "100vh",
-      overflow: "auto",
-      padding: "1rem",
       backgroundColor: "background.paper",
     }}
     data-chromatic="ignore"
