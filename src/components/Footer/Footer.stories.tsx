@@ -23,7 +23,7 @@ export default {
   parameters: {
     controls: { hideNoControlsWarning: true },
     chromatic: {
-      viewports: [theme.breakpoints.values.xs, theme.breakpoints.values.lg],
+      viewports: [320, theme.breakpoints.values.lg],
     },
   },
   argTypes: {
