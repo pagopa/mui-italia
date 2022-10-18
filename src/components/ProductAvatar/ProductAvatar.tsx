@@ -13,7 +13,7 @@ export interface ProductAvatarProps {
   /** The logo background color */
   logoBgColor?: string;
   /** Alternate text for logo */
-  logoAltText?: string;
+  logoAltText: string;
 }
 
 const sizesMap = {

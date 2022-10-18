@@ -91,7 +91,7 @@ export const Default: ComponentStory<typeof ProductAvatar> = () => {
       <ProductAvatar
         logoUrl={url}
         logoBgColor={bgColor}
-        logoAltText="Alternate text for logo"
+        logoAltText={altText}
       />
       <ProductAvatar logoUrl={url} logoBgColor={bgColor} size="large" />
       <div>
