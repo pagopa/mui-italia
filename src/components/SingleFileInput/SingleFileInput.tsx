@@ -8,12 +8,14 @@ import {
   Input,
   Typography,
 } from "@mui/material";
-import {
-  AttachFile as AttachFileIcon,
-  Close as CloseIcon,
-  CloudUpload as CloudUploadIcon,
-  Error as ErrorIcon,
-} from "@mui/icons-material";
+
+/* Icons */
+import AttachFileIcon from "@mui/icons-material/AttachFile";
+import CloseIcon from "@mui/icons-material/Close";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import ErrorIcon from "@mui/icons-material/Error";
+
+/* Utils */
 import {
   generateRandomID,
   getContainerStyle,
