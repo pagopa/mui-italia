@@ -107,5 +107,9 @@ export function getContainerStyle(status: UploadStatus): SxProps {
 }
 
 export function generateRandomID(): string {
-  return new Crypto().randomUUID();
+  // SSR safe
+  if (window) {
+    return window.crypto.randomUUID();
+  }
+  return Math.random().toString(36).substring(2, 15);
 }
