@@ -1,11 +1,22 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import React from "react";
 
-import { SingleFileInput } from "../components/SingleFileInput/SingleFileInput";
+import { breakpointsChromaticValues } from "@theme";
+
+import { SingleFileInput } from "./SingleFileInput";
+
+const componentMaxWidth = 900;
 
 export default {
   title: "Components/SingleFileInput",
   component: SingleFileInput,
+  parameters: {
+    chromatic: {
+      viewports: breakpointsChromaticValues.filter(
+        (resolution) => resolution <= componentMaxWidth
+      ),
+    },
+  },
 } as ComponentMeta<typeof SingleFileInput>;
 
 export const Default: ComponentStory<typeof SingleFileInput> = () => {
