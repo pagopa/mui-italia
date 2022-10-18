@@ -6,7 +6,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { ArrowForward } from "@mui/icons-material";
+import ArrowForward from "@mui/icons-material/ArrowForward";
 
 interface sectionCTA {
   label: string;

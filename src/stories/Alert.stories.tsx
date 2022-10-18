@@ -2,8 +2,12 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import { Alert, AlertTitle, Button } from "@mui/material";
 
+import { breakpointsChromaticValues } from "@theme";
+
 /* Icons */
 import CopyAllRoundedIcon from "@mui/icons-material/CopyAllRounded";
+
+const componentMaxWidth = 900;
 
 export default {
   title: "MUI Components/Feedback/Alert",
@@ -28,6 +32,13 @@ export default {
         type: { summary: "string" },
         defaultValue: { summary: "standard" },
       },
+    },
+  },
+  parameters: {
+    chromatic: {
+      viewports: breakpointsChromaticValues.filter(
+        (resolution) => resolution <= componentMaxWidth
+      ),
     },
   },
 } as ComponentMeta<typeof Alert>;

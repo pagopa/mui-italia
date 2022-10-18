@@ -170,6 +170,12 @@ declare module "@mui/material/Chip" {
   }
 }
 
+/*
+Used to generate different snapshots per component
+More info:  https://www.chromatic.com/docs/viewports
+*/
+export const breakpointsChromaticValues = [375, 640, 900, 1200, 1600];
+
 const foundation: Theme = createTheme({
   breakpoints: {
     values: {
@@ -233,8 +239,8 @@ const foundation: Theme = createTheme({
       focus: "rgba(23, 50, 77, 0.12)" /* Text/Primary 12% */,
     },
     primaryAction: {
-      selected: "rgba(0, 115, 230, 0.08)" /* Primary 8% */,
       hover: "rgba(0, 115, 230, 0.12)" /* Primary 12% */,
+      selected: "rgba(0, 115, 230, 0.08)" /* Primary 8% */,
     },
     /* Other */
     divider: "#E3E7EB",
@@ -290,7 +296,7 @@ const foundation: Theme = createTheme({
   spacing: 8,
 });
 
-export const theme = createTheme(foundation, {
+export const theme: Theme = createTheme(foundation, {
   typography: {
     /* H1 Large */
     headline: {
@@ -1029,6 +1035,19 @@ export const theme = createTheme(foundation, {
           fontWeight: foundation.typography.fontWeightMedium,
         },
       },
+    },
+  },
+});
+
+export const darkTheme: Theme = createTheme(theme, {
+  palette: {
+    mode: "dark",
+    primary: {
+      main: "#3DA2FF",
+      contrastText: "#FFFFFF",
+    },
+    background: {
+      paper: "#252525",
     },
   },
 });

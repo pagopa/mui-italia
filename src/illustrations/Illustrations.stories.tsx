@@ -11,6 +11,13 @@ import {
   IllusEmail,
   IllusPiggyBank,
   IllusLogin,
+  IllusSafeDeposit,
+  IllusQuick,
+  IllusSharingInfo,
+  IllusRepository,
+  IllusHistoryDoc,
+  IllusDataSecurity,
+  IllusSimplify,
 } from "./";
 
 export interface IllusBoxProps {
@@ -62,6 +69,22 @@ export const Overview: ComponentStory<typeof Box> = () => (
     <IllusBox name={"<IllusEmail />"} illustration={<IllusEmail />} />
     <IllusBox name={"<IllusPiggyBank />"} illustration={<IllusPiggyBank />} />
     <IllusBox name={"<IllusLogin />"} illustration={<IllusLogin />} />
+    <IllusBox name={"<IllusSimplify />"} illustration={<IllusSimplify />} />
+    <IllusBox
+      name={"<IllusSafeDeposit />"}
+      illustration={<IllusSafeDeposit />}
+    />
+    <IllusBox name={"<IllusQuick />"} illustration={<IllusQuick />} />
+    <IllusBox
+      name={"<IllusSharingInfo />"}
+      illustration={<IllusSharingInfo />}
+    />
+    <IllusBox name={"<IllusRepository />"} illustration={<IllusRepository />} />
+    <IllusBox name={"<IllusHistoryDoc />"} illustration={<IllusHistoryDoc />} />
+    <IllusBox
+      name={"<IllusDataSecurity />"}
+      illustration={<IllusDataSecurity />}
+    />
   </Box>
 );
 

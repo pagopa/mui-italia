@@ -9,6 +9,9 @@ export default {
     variant: "outline",
     color: "dark",
   },
+  parameters: {
+    layout: "centered",
+  },
 } as ComponentMeta<typeof FundedByNextGenerationEU>;
 
 const Template: ComponentStory<typeof FundedByNextGenerationEU> = (args) => (
@@ -26,17 +29,9 @@ Negative.args = {
   variant: "filled",
   color: "light",
 };
-Negative.decorators = [
-  (Story) => (
-    <div
-      style={{
-        backgroundColor: "#333",
-      }}
-    >
-      <Story />
-    </div>
-  ),
-];
+Negative.parameters = {
+  theme: "dark",
+};
 
 export const Color = Template.bind({});
 Color.args = {

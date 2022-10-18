@@ -1,6 +1,8 @@
 /* import { useState } from "react"; */
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { FooterCheckout } from "@components/FooterCheckout";
+import { breakpointsChromaticValues } from "@theme";
+
 import {
   Footer,
   PreLoginFooterLinksType,
@@ -20,6 +22,9 @@ export default {
   ],
   parameters: {
     controls: { hideNoControlsWarning: true },
+    chromatic: {
+      viewports: breakpointsChromaticValues,
+    },
   },
   argTypes: {
     hideProductColums: {

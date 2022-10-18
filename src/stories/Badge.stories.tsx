@@ -15,6 +15,9 @@ export default {
     variant: "standard",
     color: "primary",
   },
+  parameters: {
+    layout: "centered",
+  },
   argTypes: {
     color: {
       options: ["default", "primary", "warning", "info", "error", "success"],

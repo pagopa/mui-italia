@@ -9,6 +9,9 @@ export default {
     color: "primary",
     shape: "none",
   },
+  parameters: {
+    layout: "centered",
+  },
 } as ComponentMeta<typeof MonogramPagoPACompany>;
 
 const Template: ComponentStory<typeof MonogramPagoPACompany> = (args) => (
@@ -19,33 +22,11 @@ export const Default = Template.bind({});
 Default.args = {
   color: "primary",
 };
-// Default.decorators = [
-//   (Story) => (
-//     <div
-//       style={{
-//         position: "fixed",
-//         inset: "0",
-//         display: "grid",
-//         placeItems: "center",
-//       }}
-//     >
-//       <Story />
-//     </div>
-//   ),
-// ];
 
 export const Circle = Template.bind({});
 Circle.args = {
   shape: "circle",
 };
-Circle.decorators = [
-  (Story) => (
-    <div
-      style={{
-        backgroundColor: "#333",
-      }}
-    >
-      <Story />
-    </div>
-  ),
-];
+Circle.parameters = {
+  theme: "dark",
+};

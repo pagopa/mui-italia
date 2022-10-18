@@ -1,5 +1,7 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
+import { breakpointsChromaticValues } from "@theme";
+
 import {
   HeaderProduct,
   PartyEntity,
@@ -18,6 +20,9 @@ export default {
   ],
   parameters: {
     controls: { hideNoControlsWarning: true },
+    chromatic: {
+      viewports: breakpointsChromaticValues,
+    },
   },
 } as ComponentMeta<typeof HeaderProduct>;
 

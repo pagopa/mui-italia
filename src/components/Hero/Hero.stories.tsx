@@ -1,5 +1,8 @@
 import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+
+import { breakpointsChromaticValues } from "@theme";
+
 import { Hero } from "@components/Hero";
 
 import heroBackground from "./assets/hero_background.png";
@@ -27,6 +30,11 @@ export default {
       </div>
     ),
   ],
+  parameters: {
+    chromatic: {
+      viewports: breakpointsChromaticValues,
+    },
+  },
   args: {
     title: "Title",
     subtitle:
