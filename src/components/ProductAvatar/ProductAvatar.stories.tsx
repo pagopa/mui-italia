@@ -79,6 +79,7 @@ export const Default: ComponentStory<typeof ProductAvatar> = () => {
   ] as keyof typeof productMockImages;
   const url = productMockImages[item].url;
   const bgColor = productMockImages[item].background;
+  const altText = productMockImages[item].title + " logo";
 
   const getRandomProduct = () => {
     const randomNumber = randomValueFromArray(Object.keys(productMockImages));
@@ -87,9 +88,23 @@ export const Default: ComponentStory<typeof ProductAvatar> = () => {
 
   return (
     <Stack gap={2} alignItems="flex-start">
-      <ProductAvatar logoUrl={url} logoBgColor={bgColor} size="small" />
-      <ProductAvatar logoUrl={url} logoBgColor={bgColor} />
-      <ProductAvatar logoUrl={url} logoBgColor={bgColor} size="large" />
+      <ProductAvatar
+        logoUrl={url}
+        logoBgColor={bgColor}
+        logoAltText={altText}
+        size="small"
+      />
+      <ProductAvatar
+        logoUrl={url}
+        logoBgColor={bgColor}
+        logoAltText={altText}
+      />
+      <ProductAvatar
+        logoUrl={url}
+        logoBgColor={bgColor}
+        logoAltText={altText}
+        size="large"
+      />
       <div>
         <Typography variant="overline">Product:</Typography>
         <Typography variant="h6">{productMockImages[item].title}</Typography>
