@@ -9,6 +9,9 @@ export default {
     color: "dark",
     variant: "default",
   },
+  parameters: {
+    layout: "centered",
+  },
 } as ComponentMeta<typeof LogoPagoPACompany>;
 
 const Template: ComponentStory<typeof LogoPagoPACompany> = (args) => (

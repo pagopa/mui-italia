@@ -9,6 +9,9 @@ export default {
     color: "primary",
     shape: "none",
   },
+  parameters: {
+    layout: "centered",
+  },
 } as ComponentMeta<typeof MonogramPagoPACompany>;
 
 const Template: ComponentStory<typeof MonogramPagoPACompany> = (args) => (

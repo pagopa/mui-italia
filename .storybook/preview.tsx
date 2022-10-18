@@ -30,12 +30,7 @@ interface StoryContainerProps {
 }
 
 const StoryContainer = ({ children }: StoryContainerProps) => (
-  <Box
-    sx={{
-      backgroundColor: "background.paper",
-    }}
-    data-chromatic="ignore"
-  >
+  <Box sx={{ backgroundColor: "background.paper" }} data-chromatic="ignore">
     {children}
   </Box>
 );

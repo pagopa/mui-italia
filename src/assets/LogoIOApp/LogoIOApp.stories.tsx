@@ -8,6 +8,9 @@ export default {
   args: {
     color: "dark",
   },
+  parameters: {
+    layout: "centered",
+  },
 } as ComponentMeta<typeof LogoIOApp>;
 
 const Template: ComponentStory<typeof LogoIOApp> = (args) => (
