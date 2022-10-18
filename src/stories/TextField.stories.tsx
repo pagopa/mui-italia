@@ -52,6 +52,9 @@ export default {
       },
     },
   },
+  parameters: {
+    layout: "padded",
+  },
 } as ComponentMeta<typeof TextField>;
 
 const Template: ComponentStory<typeof TextField> = (args) => (

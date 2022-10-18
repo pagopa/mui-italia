@@ -5,6 +5,8 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 
+import { breakpointsChromaticValues } from "@theme";
+
 import { HeaderAccount, RootLinkType, JwtUser } from "./HeaderAccount";
 
 export default {
@@ -19,6 +21,9 @@ export default {
   ],
   parameters: {
     controls: { hideNoControlsWarning: true },
+    chromatic: {
+      viewports: breakpointsChromaticValues,
+    },
   },
 } as ComponentMeta<typeof HeaderAccount>;
 

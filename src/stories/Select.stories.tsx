@@ -34,6 +34,9 @@ export default {
       },
     },
   },
+  parameters: {
+    layout: "padded",
+  },
 } as ComponentMeta<typeof FormControl>;
 
 export const Default: ComponentStory<typeof FormControl> = (args) => {

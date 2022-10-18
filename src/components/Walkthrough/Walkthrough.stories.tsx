@@ -1,5 +1,10 @@
-import { Walkthrough } from "@components/Walkthrough";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+
+import { Walkthrough } from "@components/Walkthrough";
+
+import { breakpointsChromaticValues } from "@theme";
+
+/* Icons */
 import { CieIcon } from "@icons/CieIcon";
 import { MediumIcon } from "@icons/MediumIcon";
 import { SpidIcon } from "@icons/SpidIcon";
@@ -32,15 +37,13 @@ const items = [
 export default {
   title: "Components/Walkthrough",
   component: Walkthrough,
-  decorators: [
-    (Story) => (
-      <div style={{ padding: 0, backgroundColor: "#F5F5F5" }}>
-        <Story />
-      </div>
-    ),
-  ],
   args: {
     title: "Title",
+  },
+  parameters: {
+    chromatic: {
+      viewports: breakpointsChromaticValues,
+    },
   },
 } as ComponentMeta<typeof Walkthrough>;
 
