@@ -8,6 +8,9 @@ import { TOSAgreement } from "./TOSAgreement";
 export default {
   title: "Components/TOSAgreement",
   component: TOSAgreement,
+  chromatic: {
+    viewports: breakpointsChromaticValues,
+  },
 } as ComponentMeta<typeof TOSAgreement>;
 
 export const Default: ComponentStory<typeof TOSAgreement> = () => {
