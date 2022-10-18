@@ -9,6 +9,9 @@ export default {
     variant: "outline",
     color: "dark",
   },
+  parameters: {
+    layout: "centered",
+  },
 } as ComponentMeta<typeof FundedByNextGenerationEU>;
 
 const Template: ComponentStory<typeof FundedByNextGenerationEU> = (args) => (

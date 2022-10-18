@@ -1,6 +1,6 @@
 {
   "name": "@pagopa/mui-italia",
-  "version": "0.7.3",
+  "version": "0.7.5",
   "author": {
     "name": "PagoPA"
   },
@@ -52,7 +52,7 @@
     "@babel/core": "^7.19.1",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
-    "@mui/icons-material": "^5.10.6",
+    "@mui/icons-material": "^5.10.9",
     "@mui/lab": "^5.0.0-alpha.100",
     "@mui/material": "^5.10.9",
     "@mui/system": "^5.10.8",
@@ -96,7 +96,7 @@
   "peerDependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
-    "@mui/icons-material": "^5.10.6",
+    "@mui/icons-material": "^5.10.9",
     "@mui/lab": "^5.0.0-alpha.100",
     "@mui/material": "^5.10.9",
     "@mui/system": "^5.10.8",
@@ -112,6 +112,5 @@
   "engines": {
     "node": ">=14.x",
     "npm": ">=8.x"
-  },
-  "_id": "@pagopa/mui-italia@0.7.3"
+  }
 }

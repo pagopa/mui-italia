@@ -170,6 +170,12 @@ declare module "@mui/material/Chip" {
   }
 }
 
+/*
+Used to generate different snapshots per component
+More info:  https://www.chromatic.com/docs/viewports
+*/
+export const breakpointsChromaticValues = [375, 640, 900, 1200, 1600];
+
 const foundation: Theme = createTheme({
   breakpoints: {
     values: {

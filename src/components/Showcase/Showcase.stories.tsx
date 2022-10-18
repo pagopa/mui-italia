@@ -1,5 +1,10 @@
-import { Showcase } from "@components/Showcase";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+
+import { breakpointsChromaticValues } from "@theme";
+
+import { Showcase } from "@components/Showcase";
+
+/* Icons */
 import { CieIcon } from "@icons/CieIcon";
 import { MediumIcon } from "@icons/MediumIcon";
 import { SpidIcon } from "@icons/SpidIcon";
@@ -30,15 +35,13 @@ const items = [
 export default {
   title: "Components/Showcase",
   component: Showcase,
-  decorators: [
-    (Story) => (
-      <div style={{ padding: 0, backgroundColor: "#F5F5F5" }}>
-        <Story />
-      </div>
-    ),
-  ],
   args: {
     title: "Title",
+  },
+  parameters: {
+    chromatic: {
+      viewports: breakpointsChromaticValues,
+    },
   },
 } as ComponentMeta<typeof Showcase>;
 

@@ -1,5 +1,8 @@
 import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+
+import { breakpointsChromaticValues } from "@theme";
+
 import { Infoblock } from "@components/Infoblock";
 
 const primaryCTA = {
@@ -17,13 +20,11 @@ const secondaryCTA = {
 export default {
   title: "Components/Infoblock",
   component: Infoblock,
-  decorators: [
-    (Story) => (
-      <div style={{ padding: 0, backgroundColor: "#FFFFFF" }}>
-        <Story />
-      </div>
-    ),
-  ],
+  parameters: {
+    chromatic: {
+      viewports: breakpointsChromaticValues,
+    },
+  },
   args: {
     overline: "Overline",
     title: "Title",

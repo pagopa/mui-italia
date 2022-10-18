@@ -1,13 +1,13 @@
 import { useState } from "react";
-
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import { Button, Stack } from "@mui/material";
 
-import { Tag } from "@components/Tag";
+import { breakpointsChromaticValues } from "@theme";
 
 import { PartyAccount } from "@components/PartyAccountItem";
 import { PartyAccountItemButton } from "@components/PartyAccountItemButton";
+import { Tag } from "@components/Tag";
 
 const cdnPath = "https://assets.cdn.io.italia.it/logos/organizations/";
 
@@ -93,6 +93,8 @@ const partyMockImages: Array<PartyAccount> = [
 /* Tag Element */
 const tag: JSX.Element = <Tag color="warning" value="Da completare" />;
 
+const componentMaxWidth = 400;
+
 /* Generate random value without repeating values
   Source of this snippet: https://akashmittal.com/javascript-random-array-element-no-repeat/ */
 const alreadyPicked: Array<number> = [];
@@ -112,17 +114,14 @@ const randomValueFromArray = (array: Array<PartyAccount>) => {
 export default {
   title: "Components/PartyAccountItemButton",
   component: PartyAccountItemButton,
-  decorators: [
-    (Story) => (
-      <div
-        style={{
-          padding: "1em",
-        }}
-      >
-        <Story />
-      </div>
-    ),
-  ],
+  parameters: {
+    layout: "padded",
+    chromatic: {
+      viewports: breakpointsChromaticValues.filter(
+        (resolution) => resolution <= componentMaxWidth
+      ),
+    },
+  },
 } as ComponentMeta<typeof PartyAccountItemButton>;
 
 const Template: ComponentStory<typeof PartyAccountItemButton> = (args) => {
@@ -135,7 +134,7 @@ const Template: ComponentStory<typeof PartyAccountItemButton> = (args) => {
   };
 
   return (
-    <Stack gap={2} alignItems="flex-start" sx={{ maxWidth: 350 }}>
+    <Stack gap={2} alignItems="flex-start" sx={{ maxWidth: componentMaxWidth }}>
       <Button variant="contained" onClick={getRandomParty}>
         Get random Party
       </Button>

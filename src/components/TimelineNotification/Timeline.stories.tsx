@@ -3,6 +3,9 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { Timeline, TimelineConnector } from "@mui/lab";
 import { Chip, Box, Typography } from "@mui/material";
 
+import { breakpointsChromaticValues } from "@theme";
+
+/* Icons */
 import AttachFileRoundedIcon from "@mui/icons-material/AttachFileRounded";
 
 import { ButtonNaked } from "@components/ButtonNaked";
@@ -18,7 +21,12 @@ import {
 export default {
   title: "Components/TimelineNotification",
   component: Timeline,
-  parameters: { controls: { sort: "size" } },
+  parameters: {
+    controls: { sort: "size" },
+    chromatic: {
+      viewports: breakpointsChromaticValues,
+    },
+  },
   backgrounds: [{ name: "dark background", value: "#000", default: true }],
 } as ComponentMeta<typeof Timeline>;
 
@@ -90,7 +98,7 @@ function getTime(dateString: string): string {
 export const Default: ComponentStory<typeof Timeline> = () => (
   <Box
     sx={{
-      width: 450,
+      maxWidth: 450,
       backgroundColor: "background.paper",
       borderRadius: 2,
     }}

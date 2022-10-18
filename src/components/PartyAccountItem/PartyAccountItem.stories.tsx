@@ -1,14 +1,19 @@
 import { useState } from "react";
-
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import { Button, Stack } from "@mui/material";
+
+import { breakpointsChromaticValues } from "@theme";
 
 import { PartyAccountItem, PartyAccount } from "@components/PartyAccountItem";
 
 const cdnPath = "https://assets.cdn.io.italia.it/logos/organizations/";
 
 const partyMockImages: Array<PartyAccount> = [
+  {
+    image: `${cdnPath}81000410688.png`,
+    name: "Comune di San Valentino in Abruzzo Citeriore",
+  },
   {
     image: `${cdnPath}1199250158.png`,
     name: "Comune di Milano",
@@ -49,10 +54,6 @@ const partyMockImages: Array<PartyAccount> = [
     name: "Comune di Pescasseroli",
   },
   {
-    image: `${cdnPath}81000410688.png`,
-    name: "Comune di San Valentino in Abruzzo Citeriore",
-  },
-  {
     image: `${cdnPath}189800204.png`,
     name: "Comune di Mantova",
     role: "Referente amministrativo",
@@ -87,6 +88,8 @@ const partyMockImages: Array<PartyAccount> = [
   },
 ];
 
+const componentMaxWidth = 500;
+
 /* Generate random value without repeating values
   Source of this snippet: https://akashmittal.com/javascript-random-array-element-no-repeat/ */
 const alreadyPicked: Array<number> = [];
@@ -118,6 +121,13 @@ export default {
       </div>
     ),
   ],
+  parameters: {
+    chromatic: {
+      viewports: breakpointsChromaticValues.filter(
+        (resolution) => resolution <= componentMaxWidth
+      ),
+    },
+  },
 } as ComponentMeta<typeof PartyAccountItem>;
 
 const Template: ComponentStory<typeof PartyAccountItem> = (args) => {
@@ -130,7 +140,7 @@ const Template: ComponentStory<typeof PartyAccountItem> = (args) => {
   };
 
   return (
-    <Stack gap={2} alignItems="flex-start" sx={{ maxWidth: 350 }}>
+    <Stack gap={2} alignItems="flex-start" sx={{ maxWidth: componentMaxWidth }}>
       <Button variant="contained" onClick={getRandomParty}>
         Get random Party
       </Button>
@@ -146,6 +156,9 @@ const Template: ComponentStory<typeof PartyAccountItem> = (args) => {
 };
 
 export const Default = Template.bind({});
+Default.args = {
+  noWrap: false,
+};
 
 export const NoWrap = Template.bind({});
 NoWrap.args = {

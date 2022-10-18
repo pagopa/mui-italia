@@ -3,6 +3,8 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { CieIcon } from "@icons/CieIcon";
 import { SpidIcon } from "@icons/SpidIcon";
 
+import { breakpointsChromaticValues } from "@theme";
+
 const sections = [
   {
     icon: <CieIcon />,
@@ -30,6 +32,11 @@ const sections = [
 export default {
   title: "Components/HorizontalNav",
   component: HorizontalNav,
+  parameters: {
+    chromatic: {
+      viewports: breakpointsChromaticValues,
+    },
+  },
   decorators: [
     (Story) => (
       <div style={{ padding: 0, backgroundColor: "#F5F5F5" }}>

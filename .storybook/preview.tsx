@@ -12,6 +12,7 @@ import { theme as lightTheme, darkTheme } from "@theme";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
+  layout: "fullscreen",
   controls: {
     expanded: true,
     matchers: {
@@ -29,18 +30,7 @@ interface StoryContainerProps {
 }
 
 const StoryContainer = ({ children }: StoryContainerProps) => (
-  <Box
-    sx={{
-      position: "absolute",
-      inset: 0,
-      width: "100vw",
-      height: "100vh",
-      overflow: "auto",
-      padding: "1rem",
-      backgroundColor: "background.paper",
-    }}
-    data-chromatic="ignore"
-  >
+  <Box sx={{ backgroundColor: "background.paper" }} data-chromatic="ignore">
     {children}
   </Box>
 );
@@ -100,14 +90,13 @@ export const globalTypes = {
     toolbar: {
       // The icon for the toolbar item
       icon: "circlehollow",
+      title: "Theme",
       // Array of options
       items: [
         { value: "system", icon: "cog", title: "System" },
         { value: "light", icon: "circlehollow", title: "Light" },
         { value: "dark", icon: "circle", title: "Dark" },
       ],
-      // Property that specifies if the name of the item will be displayed
-      showName: true,
     },
   },
 };
