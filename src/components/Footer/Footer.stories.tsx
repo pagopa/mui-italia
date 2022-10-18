@@ -1,7 +1,7 @@
 /* import { useState } from "react"; */
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { FooterCheckout } from "@components/FooterCheckout";
-import { theme } from "@theme";
+import { breakpointsChromaticValues } from "@theme";
 
 import {
   Footer,
@@ -23,7 +23,7 @@ export default {
   parameters: {
     controls: { hideNoControlsWarning: true },
     chromatic: {
-      viewports: [320, theme.breakpoints.values.lg],
+      viewports: breakpointsChromaticValues,
     },
   },
   argTypes: {
