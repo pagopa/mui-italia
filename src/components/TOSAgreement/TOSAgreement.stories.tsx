@@ -1,6 +1,8 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
+import { breakpointsChromaticValues } from "@theme";
+
 import { FormControlLabel, Link, Switch, Typography } from "@mui/material";
 
 import { TOSAgreement } from "./TOSAgreement";
@@ -8,8 +10,10 @@ import { TOSAgreement } from "./TOSAgreement";
 export default {
   title: "Components/TOSAgreement",
   component: TOSAgreement,
-  chromatic: {
-    viewports: breakpointsChromaticValues,
+  parameters: {
+    chromatic: {
+      viewports: breakpointsChromaticValues,
+    },
   },
 } as ComponentMeta<typeof TOSAgreement>;
 
