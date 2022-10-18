@@ -1,3 +1,5 @@
+import crypto from "node:crypto";
+
 import { alpha, SxProps } from "@mui/system";
 import { theme } from "@theme";
 import { UploadStatus } from "./SingleFileInput";
