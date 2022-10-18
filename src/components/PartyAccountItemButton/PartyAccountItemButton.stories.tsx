@@ -93,6 +93,8 @@ const partyMockImages: Array<PartyAccount> = [
 /* Tag Element */
 const tag: JSX.Element = <Tag color="warning" value="Da completare" />;
 
+const componentMaxWidth = 400;
+
 /* Generate random value without repeating values
   Source of this snippet: https://akashmittal.com/javascript-random-array-element-no-repeat/ */
 const alreadyPicked: Array<number> = [];
@@ -116,7 +118,7 @@ export default {
     layout: "padded",
     chromatic: {
       viewports: breakpointsChromaticValues.filter(
-        (resolution) => resolution <= 900
+        (resolution) => resolution <= componentMaxWidth
       ),
     },
   },
@@ -132,7 +134,7 @@ const Template: ComponentStory<typeof PartyAccountItemButton> = (args) => {
   };
 
   return (
-    <Stack gap={2} alignItems="flex-start" sx={{ maxWidth: 350 }}>
+    <Stack gap={2} alignItems="flex-start" sx={{ maxWidth: componentMaxWidth }}>
       <Button variant="contained" onClick={getRandomParty}>
         Get random Party
       </Button>

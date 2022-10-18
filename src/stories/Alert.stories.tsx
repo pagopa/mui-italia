@@ -7,6 +7,8 @@ import { breakpointsChromaticValues } from "@theme";
 /* Icons */
 import CopyAllRoundedIcon from "@mui/icons-material/CopyAllRounded";
 
+const componentMaxWidth = 900;
+
 export default {
   title: "MUI Components/Feedback/Alert",
   component: Alert,
@@ -34,7 +36,9 @@ export default {
   },
   parameters: {
     chromatic: {
-      viewports: breakpointsChromaticValues,
+      viewports: breakpointsChromaticValues.filter(
+        (resolution) => resolution <= componentMaxWidth
+      ),
     },
   },
 } as ComponentMeta<typeof Alert>;
