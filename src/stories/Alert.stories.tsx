@@ -2,6 +2,8 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import { Alert, AlertTitle, Button } from "@mui/material";
 
+import { breakpointsChromaticValues } from "@theme";
+
 /* Icons */
 import CopyAllRoundedIcon from "@mui/icons-material/CopyAllRounded";
 
@@ -28,6 +30,11 @@ export default {
         type: { summary: "string" },
         defaultValue: { summary: "standard" },
       },
+    },
+  },
+  parameters: {
+    chromatic: {
+      viewports: breakpointsChromaticValues,
     },
   },
 } as ComponentMeta<typeof Alert>;

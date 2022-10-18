@@ -1,8 +1,9 @@
 import { useState } from "react";
-
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import { Button, Stack } from "@mui/material";
+
+import { breakpointsChromaticValues } from "@theme";
 
 import { PartyAccountItem, PartyAccount } from "@components/PartyAccountItem";
 
@@ -118,6 +119,13 @@ export default {
       </div>
     ),
   ],
+  parameters: {
+    chromatic: {
+      viewports: breakpointsChromaticValues.filter(
+        (resolution) => resolution <= 900
+      ),
+    },
+  },
 } as ComponentMeta<typeof PartyAccountItem>;
 
 const Template: ComponentStory<typeof PartyAccountItem> = (args) => {

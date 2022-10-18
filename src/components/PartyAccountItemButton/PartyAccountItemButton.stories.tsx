@@ -1,13 +1,13 @@
 import { useState } from "react";
-
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import { Button, Stack } from "@mui/material";
 
-import { Tag } from "@components/Tag";
+import { breakpointsChromaticValues } from "@theme";
 
 import { PartyAccount } from "@components/PartyAccountItem";
 import { PartyAccountItemButton } from "@components/PartyAccountItemButton";
+import { Tag } from "@components/Tag";
 
 const cdnPath = "https://assets.cdn.io.italia.it/logos/organizations/";
 
@@ -112,17 +112,14 @@ const randomValueFromArray = (array: Array<PartyAccount>) => {
 export default {
   title: "Components/PartyAccountItemButton",
   component: PartyAccountItemButton,
-  decorators: [
-    (Story) => (
-      <div
-        style={{
-          padding: "1em",
-        }}
-      >
-        <Story />
-      </div>
-    ),
-  ],
+  parameters: {
+    layout: "padded",
+    chromatic: {
+      viewports: breakpointsChromaticValues.filter(
+        (resolution) => resolution <= 900
+      ),
+    },
+  },
 } as ComponentMeta<typeof PartyAccountItemButton>;
 
 const Template: ComponentStory<typeof PartyAccountItemButton> = (args) => {
