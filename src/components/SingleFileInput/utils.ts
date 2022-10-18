@@ -1,4 +1,4 @@
-import crypto from "node:crypto";
+import crypto from "crypto";
 
 import { alpha, SxProps } from "@mui/system";
 import { theme } from "@theme";
