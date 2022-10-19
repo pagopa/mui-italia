@@ -1,5 +1,3 @@
-import crypto from "crypto";
-
 import { alpha, SxProps } from "@mui/system";
 import { theme } from "@theme";
 import { UploadStatus } from "./SingleFileInput";
@@ -109,5 +107,6 @@ export function getContainerStyle(status: UploadStatus): SxProps {
 }
 
 export function generateRandomID(): string {
+  const crypto = window.crypto;
   return crypto.randomUUID();
 }
