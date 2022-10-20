@@ -107,6 +107,14 @@ export function getContainerStyle(status: UploadStatus): SxProps {
 }
 
 export function generateRandomID(): string {
-  const crypto = window.crypto;
-  return crypto.randomUUID();
+  /* eslint-disable no-bitwise */
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+    const randomNum =
+      typeof window !== "undefined"
+        ? window.crypto.getRandomValues(new Uint8Array(1))[0] | 0
+        : (Math.random() * 16) | 0;
+    const v = c === "x" ? randomNum : (randomNum & 0x3) | 0x8;
+    return v.toString(16);
+  });
 }
+
