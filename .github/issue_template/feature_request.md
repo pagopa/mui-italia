@@ -1,16 +1,16 @@
 ---
 name: Feature request
-about: Send a suggestion to improve the product
+about: Suggest an idea for this project
 title: ''
-labels: 'enhancement'
+labels: enhancement
 assignees: ''
 
 ---
 
-## How could this request improve the product?
+### How could this request improve the product?
 
-## Which solution do you propose?
+### Which idea do you propose?
 
-## Have you already considered alternative paths?
+### Have you already considered alternative solutions?
 
-## Additional information
+### Additional information
