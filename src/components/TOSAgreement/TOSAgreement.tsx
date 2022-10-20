@@ -29,9 +29,12 @@ export function TOSAgreement({
     <Stack
       alignItems="center"
       justifyContent="center"
-      sx={{ py: 16, backgroundColor: "#FAFAFA", ...sx }}
+      sx={{ py: { xs: 4, lg: 16 }, backgroundColor: "#FAFAFA", ...sx }}
     >
-      <Stack sx={{ maxWidth: 680, mx: "auto", px: 4 }} spacing={8}>
+      <Stack
+        sx={{ maxWidth: 680, mx: "auto", px: { xs: 3, lg: 4 } }}
+        spacing={{ xs: 4, lg: 8 }}
+      >
         <Stack sx={{ textAlign: "center" }} spacing={1}>
           <Typography variant="h3">{productName}</Typography>
           <Typography component={isDescriptionComponentAString ? "p" : "span"}>
