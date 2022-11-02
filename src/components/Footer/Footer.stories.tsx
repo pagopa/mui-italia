@@ -69,9 +69,9 @@ const pagoPALink: CompanyLinkType = {
 
 const postLoginLinks: Array<FooterLinksType> = [
   {
-    label: "Privacy policy",
-    href: "#privacy-policy",
-    ariaLabel: "Vai al link: Privacy policy",
+    label: "Informativa Privacy",
+    href: "#informativa-privacy",
+    ariaLabel: "Vai al link: Informativa Privacy",
     linkType: "internal",
   },
   {
@@ -96,9 +96,9 @@ const postLoginLinks: Array<FooterLinksType> = [
 
 const checkoutLinks: Array<FooterLinksType> = [
   {
-    label: "Privacy policy",
-    href: "#privacy-policy",
-    ariaLabel: "Vai al link: Privacy policy",
+    label: "Informativa Privacy",
+    href: "#informativa-privacy",
+    ariaLabel: "Vai al link: Informativa Privacy",
     linkType: "internal",
   },
   {
@@ -151,9 +151,9 @@ const preLoginLinks: PreLoginFooterLinksType = {
     title: "Risorse",
     links: [
       {
-        label: "Privacy Policy",
-        href: "#privacy-policy",
-        ariaLabel: "Vai al link: Privacy Policy",
+        label: "Informativa Privacy",
+        href: "#informativa-privacy",
+        ariaLabel: "Vai al link: Informativa Privacy",
         linkType: "internal",
       },
       {
