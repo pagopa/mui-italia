@@ -60,6 +60,15 @@ import { italia } from "@pagopa/mui-italia";
 ></Box>
 ```
 
+### CLI Commands
+Here's an explanation of the commands you can find in the `package.json`:
+* `prebuild`: Executed automtically before the `build` command. It removes the `dist` folder to get a blank state.
+* `build`: It compiles the entire project using the relative `tsconfig.json` file. It also resolves all the alias contained in the configuration file.
+* `lint`: It checks the entire project to detect syntax errors or inefficient code, using the configuration set in the `eslintrc.js` file.
+* `storybook`: It launches a local Storybook application using 6006 port.
+* `build-storybook`: It outputs a static Storybook in the `storybook-static` folder
+* `chromatic`: It checks all the possible differences between snapshots using the Chromatic service. It also publishes an updated version of the Storybook-Chromatic library (see address below). This command is just available to the CI/CD environment because you have to specify the project token to run the command successfully. To get the token value in Chromatic: `Manage → Configure → Setup Chromatic`
+
 ## Storybook
 If you need to view all the styled and custom components available in this package, check out the (ongoing) [MUI Italia Storybook](https://main--633c31eff9fe385398ada426.chromatic.com/) (managed with Chromatic).
 
