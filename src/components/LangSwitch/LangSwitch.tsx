@@ -54,7 +54,7 @@ export function LangSwitch({
             height: "auto",
             display: "flex",
           }}
-          aria-label="lang-menu-button"
+          aria-label="lingua"
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
           onClick={handleClick}
@@ -82,6 +82,7 @@ export function LangSwitch({
           >
             {Object.keys(languages).map((langCode, i) => (
               <MenuItem
+                aria-label={languages[currentLangCode][langCode as LangCode]}
                 key={i}
                 onClick={wrapUpdateActiveLang(langCode as LangCode)}
               >
