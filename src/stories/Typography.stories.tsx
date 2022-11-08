@@ -21,6 +21,7 @@ export default {
         "sidenav",
         "caption",
         "caption-semibold",
+        "monospaced",
       ],
       control: { type: "select" },
     },
@@ -115,4 +116,10 @@ export const CaptionSemiBold = Template.bind({});
 CaptionSemiBold.args = {
   variant: "caption-semibold",
   children: "Caption Semibold",
+};
+
+export const Monospaced = Template.bind({});
+Monospaced.args = {
+  variant: "monospaced",
+  children: "IT 99 C 12345 67890 123456789012",
 };

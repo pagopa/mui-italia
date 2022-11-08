@@ -5,10 +5,13 @@ import { indigo } from "@mui/material/colors";
 import { italia } from "@tokens";
 
 /* Typefaces */
+/* -- Titilium */
 import "@fontsource/titillium-web/300.css";
 import "@fontsource/titillium-web/400.css";
 import "@fontsource/titillium-web/600.css";
 import "@fontsource/titillium-web/700.css";
+/* -- DM Mono */
+import "@fontsource/dm-mono/400.css";
 
 export function pxToRem(value: number): string {
   return `${value / 16}rem`;
@@ -16,6 +19,7 @@ export function pxToRem(value: number): string {
 
 /* Basic Configuration */
 const mainTypeface = ['"Titillium Web"', "sans-serif"].join(", ");
+const monospacedTypeface = ['"DM Mono"', "monospace"].join(", ");
 const colorTextPrimary = "#17324D";
 const colorPrimaryContainedHover = "#0055AA"; // Not exposed by the theme object
 const responsiveBreakpoint = "sm";
@@ -47,12 +51,14 @@ declare module "@mui/material/styles" {
   interface TypographyVariants {
     headline: React.CSSProperties;
     sidenav: React.CSSProperties;
+    monospaced: React.CSSProperties;
     "caption-semibold": React.CSSProperties;
   }
 
   interface TypographyVariantsOptions {
     headline?: React.CSSProperties;
     sidenav?: React.CSSProperties;
+    monospaced?: React.CSSProperties;
     "caption-semibold"?: React.CSSProperties;
   }
 }
@@ -60,6 +66,7 @@ declare module "@mui/material/Typography" {
   interface TypographyPropsVariantOverrides {
     headline: true;
     sidenav: true;
+    monospaced: true;
     "caption-semibold": true;
   }
 }
@@ -403,6 +410,14 @@ export const theme: Theme = createTheme(foundation, {
       lineHeight: 1.4 /* ~20px */,
       color: colorTextPrimary,
       fontWeight: foundation.typography.fontWeightMedium,
+    },
+    monospaced: {
+      fontFamily: monospacedTypeface,
+      fontSize: pxToRem(16),
+      lineHeight: 1.4 /* ~22px */,
+      color: colorTextPrimary,
+      letterSpacing: "0.15px",
+      fontWeight: foundation.typography.fontWeightRegular,
     },
     overline: {
       fontSize: pxToRem(14),
