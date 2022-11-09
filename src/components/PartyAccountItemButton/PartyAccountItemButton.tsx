@@ -68,6 +68,7 @@ export const PartyAccountItemButton = ({
         }),
       }}
       role="button"
+      tabIndex={0}
       onClick={action}
     >
       <Box sx={{ display: "flex", flexDirection: "row" }}>
