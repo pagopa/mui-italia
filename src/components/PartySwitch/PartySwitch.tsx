@@ -133,6 +133,7 @@ export const PartySwitch = ({
         anchor="right"
         open={open}
         onClose={() => toggleDrawer(false)}
+        tabIndex={0}
       >
         <Box sx={{ textAlign: "center", margin: "10px 0" }}>
           <Typography variant="overline">Accedi per un altro ente</Typography>
