@@ -211,6 +211,7 @@ export const SingleFileInput = ({
             onDragEnter={handleDragEnter}
             onDragLeave={handleDragLeave}
             component="button"
+            type="button"
             onClick={chooseFileHandler}
             data-testid="loadFromPc"
           >
