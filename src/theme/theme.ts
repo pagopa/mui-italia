@@ -539,6 +539,21 @@ export const theme: Theme = createTheme(foundation, {
             },
           },
         },
+        {
+          props: { variant: "naked", color: "error" },
+          style: {
+            color: foundation.palette.error.main,
+            "&:hover": {
+              color: foundation.palette.error.light,
+            },
+            "&.Mui-focusVisible": {
+              boxShadow: `0 0 0 3px ${alpha(
+                foundation.palette.error.main,
+                0.35
+              )}`,
+            },
+          },
+        },
       ],
     },
     MuiIconButton: {
