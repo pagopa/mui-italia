@@ -5,9 +5,9 @@ import { SxProps } from "@mui/system";
 type TOSAgreementProps = {
   productName: string;
   description: React.ReactNode | string;
-  children: React.ReactNode;
   onConfirm: VoidFunction;
 
+  children?: React.ReactNode;
   sx?: SxProps;
   confirmBtnDisabled?: boolean;
   confirmBtnLabel?: string;
@@ -41,7 +41,7 @@ export function TOSAgreement({
             {description}
           </Typography>
         </Stack>
-        <Box>{children}</Box>
+        {children && <Box>{children}</Box>}
         <Box sx={{ textAlign: "center" }}>
           <Button
             onClick={onConfirm}
