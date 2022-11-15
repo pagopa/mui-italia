@@ -27,7 +27,7 @@ export default {
       },
     },
     color: {
-      options: ["text", "primary"],
+      options: ["text", "primary", "error"],
       control: { type: "radio" },
       table: {
         type: { summary: "string" },
