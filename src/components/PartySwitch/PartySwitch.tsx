@@ -15,6 +15,7 @@ import {
   InputAdornment,
   TextField,
   Typography,
+  IconButton,
 } from "@mui/material";
 import { alpha, styled } from "@mui/material/styles";
 import { ButtonUnstyledProps, useButton } from "@mui/base/ButtonUnstyled";
@@ -152,7 +153,9 @@ export const PartySwitch = ({
                 onClick={() => setFilter("")}
                 sx={{ cursor: "pointer" }}
               >
-                <CloseIcon />
+                <IconButton aria-label="elimina">
+                  <CloseIcon />
+                </IconButton>
               </InputAdornment>
             ),
           }}
