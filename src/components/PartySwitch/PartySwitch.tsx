@@ -133,6 +133,17 @@ export const PartySwitch = ({
       <CustomDrawer
         anchor="right"
         open={open}
+        onKeyDownCapture={(e) => {
+          if (e.key === "Enter") {
+            const partySelected = (e as any).target;
+            const selectedParty = filteredParties.find((p: PartySwitchItem) =>
+              partySelected.textContent.includes(p.name)
+            );
+            if (selectedParty) {
+              handlePartySelection(selectedParty);
+            }
+          }
+        }}
         onClose={() => toggleDrawer(false)}
         tabIndex={0}
       >
