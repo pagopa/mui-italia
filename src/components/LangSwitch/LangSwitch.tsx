@@ -6,7 +6,7 @@ import { ButtonNaked } from "@components/ButtonNaked";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import KeyboardArrowUpRoundedIcon from "@mui/icons-material/KeyboardArrowUpRounded";
 
-type LangCode = "it" | "en";
+type LangCode = "it" | "en" | "de" | "fr" | "sl";
 type LangLabels = Record<LangCode, string>;
 type Languages = Record<LangCode, LangLabels>;
 
