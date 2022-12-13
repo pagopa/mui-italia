@@ -53,8 +53,21 @@ const companyLegalInfo = (
 Languages Section
 */
 const LANGUAGES = {
-  it: { it: "Italiano", en: "Inglese" },
-  en: { it: "Italian", en: "English" },
+  it: {
+    it: "Italiano",
+    en: "Inglese",
+    fr: "Francese",
+  },
+  en: {
+    it: "Italian",
+    en: "English",
+    fr: "French",
+  },
+  fr: {
+    it: "Italien",
+    en: "Anglais",
+    fr: "Français",
+  },
 };
 
 /* type LangCode = "it" | "en"; */
