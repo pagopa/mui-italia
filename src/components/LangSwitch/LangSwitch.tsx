@@ -6,15 +6,15 @@ import { ButtonNaked } from "@components/ButtonNaked";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import KeyboardArrowUpRoundedIcon from "@mui/icons-material/KeyboardArrowUpRounded";
 
-type LangCode = "it" | "en" | "de" | "fr" | "sl";
+export type LangCode = "it" | "en" | "de" | "fr" | "sl";
 
 // Partial is used here to define that every key in LangLabels is optional,
 // while the it key-value pair is mandatory
-type LangLabels = Partial<Record<LangCode, string>> & { it: string };
+export type LangLabels = Partial<Record<LangCode, string>> & { it: string };
 
 // Partial is used here to define that every key in LangLabels is optional,
 // while the it key-value pair is mandatory
-type Languages = Partial<Record<LangCode, LangLabels>> & { it: LangLabels };
+export type Languages = Partial<Record<LangCode, LangLabels>> & { it: LangLabels };
 
 export type LangSwitchProps = {
   currentLangCode?: LangCode;
