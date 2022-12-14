@@ -6,9 +6,15 @@ import { ButtonNaked } from "@components/ButtonNaked";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import KeyboardArrowUpRoundedIcon from "@mui/icons-material/KeyboardArrowUpRounded";
 
-type LangCode = "it" | "en";
-type LangLabels = Record<LangCode, string>;
-type Languages = Record<LangCode, LangLabels>;
+type LangCode = "it" | "en" | "de" | "fr" | "sl";
+
+// Partial is used here to define that every key in LangLabels is optional,
+// while the it key-value pair is mandatory
+type LangLabels = Partial<Record<LangCode, string>> & { it: string };
+
+// Partial is used here to define that every key in LangLabels is optional,
+// while the it key-value pair is mandatory
+type Languages = Partial<Record<LangCode, LangLabels>> & { it: LangLabels };
 
 export type LangSwitchProps = {
   currentLangCode?: LangCode;
@@ -23,6 +29,12 @@ export function LangSwitch({
 }: LangSwitchProps) {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const open = Boolean(anchorEl);
+
+  // checks if currentLangCode is included in languages,
+  // if not uses the italian labels, this allows non italian lang labels and
+  // languages to be optional while being backward compatible
+  const currentLangLabels: LangLabels =
+    languages[currentLangCode] ?? languages.it;
 
   const handleClick = (e: React.SyntheticEvent) => {
     const currentTarget = e.currentTarget as HTMLButtonElement;
@@ -62,7 +74,7 @@ export function LangSwitch({
           {currentLangCode && (
             <Box component="span" sx={{ textAlign: "left" }}>
               <Typography color="inherit" component="span" variant="subtitle2">
-                {languages[currentLangCode][currentLangCode]}
+                {currentLangLabels[currentLangCode]}
               </Typography>
             </Box>
           )}
@@ -82,11 +94,11 @@ export function LangSwitch({
           >
             {Object.keys(languages).map((langCode, i) => (
               <MenuItem
-                aria-label={languages[currentLangCode][langCode as LangCode]}
+                aria-label={currentLangLabels[langCode as LangCode]}
                 key={i}
                 onClick={wrapUpdateActiveLang(langCode as LangCode)}
               >
-                {languages[currentLangCode][langCode as LangCode]}
+                {currentLangLabels[langCode as LangCode]}
               </MenuItem>
             ))}
           </Menu>
