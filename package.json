@@ -75,7 +75,7 @@
     "eslint": "^8.25.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-fp": "^2.3.0",
-    "eslint-plugin-functional": "^4.3.2",
+    "eslint-plugin-functional": "^4.4.1",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsdoc": "^39.3.6",
     "eslint-plugin-prefer-arrow": "^1.2.3",
