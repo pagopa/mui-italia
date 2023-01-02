@@ -89,7 +89,7 @@
     "react-docgen-typescript": "^2.2.2",
     "react-dom": "^18.2.0",
     "rimraf": "^3.0.2",
-    "tsc-alias": "^1.7.0",
+    "tsc-alias": "^1.8.2",
     "tsconfig": "*",
     "tsconfig-paths-webpack-plugin": "^4.0.0",
     "typescript": "^4.9.4"
