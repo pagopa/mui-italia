@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Box, Container, Stack, Typography } from "@mui/material";
+import { Box, Chip, Container, Stack, Typography } from "@mui/material";
 
 import { ProductSwitch, ProductSwitchItem } from "@components/ProductSwitch";
 import { PartySwitchItem, PartySwitch } from "@components/PartySwitch";
@@ -9,27 +9,45 @@ export type ProductEntity = ProductSwitchItem;
 export type PartyEntity = PartySwitchItem;
 
 export type HeaderProductProps = {
-  productId?: string;
-  productsList: Array<ProductEntity>;
-  partyId?: string;
-  partyList?: Array<PartyEntity>;
-  onSelectedProduct?: (product: ProductSwitchItem) => void;
-  onSelectedParty?: (party: PartySwitchItem) => void;
+  borderBottom?: number;
+  borderColor?: string;
+  chipColor?:
+    | "default"
+    | "indigo"
+    | "primary"
+    | "secondary"
+    | "error"
+    | "info"
+    | "success"
+    | "warning";
+  chipLabel?: string;
+  chipSize?: "small" | "medium";
   /* The number of characters beyond which the multiLine is applied in component PartyAccountItemButton */
   maxCharactersNumberMultiLineButton?: number;
   /* The number of characters beyond which the multiLine is applied in component PartyAccountItem */
   maxCharactersNumberMultiLineItem?: number;
+  onSelectedParty?: (party: PartySwitchItem) => void;
+  onSelectedProduct?: (product: ProductSwitchItem) => void;
+  partyId?: string;
+  partyList?: Array<PartyEntity>;
+  productId?: string;
+  productsList: Array<ProductEntity>;
 };
 
 export const HeaderProduct = ({
-  productId,
-  productsList,
-  partyId,
-  partyList,
-  onSelectedProduct,
-  onSelectedParty,
+  borderBottom,
+  borderColor,
+  chipColor = "primary",
+  chipLabel,
+  chipSize = "small",
   maxCharactersNumberMultiLineButton,
   maxCharactersNumberMultiLineItem,
+  onSelectedParty,
+  onSelectedProduct,
+  partyId,
+  partyList,
+  productId,
+  productsList,
 }: HeaderProductProps) => {
   const selectedProduct = useMemo(
     () =>
@@ -45,45 +63,63 @@ export const HeaderProduct = ({
     return partyId ? partyList.find((e) => e.id === partyId) : partyList[0];
   }, [partyList, partyId]) as PartySwitchItem;
 
+  const ChipComponent = (
+    <Chip
+      sx={{
+        py: 0,
+        "& .MuiChip-labelSmall": {
+          py: "2px",
+        },
+      }}
+      color={chipColor}
+      label={chipLabel}
+      size={chipSize}
+    ></Chip>
+  );
+
   return (
     <Box
       component="div"
       display="flex"
       alignItems="center"
       sx={{
-        borderBottom: 1,
-        borderColor: "divider",
         backgroundColor: "background.paper",
-        minHeight: { xs: "auto", md: "80px" },
+        borderBottom: borderBottom ?? 1,
+        borderColor: borderColor ?? "divider",
         boxSizing: "border-box",
+        minHeight: { xs: "auto", md: "80px" },
       }}
     >
       <Container maxWidth={false}>
         <Stack
-          spacing={2}
+          alignItems="center"
           direction="row"
           justifyContent="space-between"
-          alignItems="center"
+          spacing={2}
           sx={{ py: 2 }}
         >
           {/* Left side of the component */}
           {productsList.length > 1 && (
-            <>
+            <Stack spacing={2} direction="row" alignItems="center">
               {/* Switcher Product */}
               <ProductSwitch
                 currentProductId={selectedProduct.id}
                 products={productsList}
                 onExit={onSelectedProduct}
               ></ProductSwitch>
-            </>
+              {chipLabel && chipLabel !== "" && ChipComponent}
+            </Stack>
           )}
 
           {selectedProduct && productsList.length === 1 && (
-            <Typography
-              sx={{ fontSize: { xs: 20, sm: 28 }, fontWeight: "bold" }}
-            >
-              {selectedProduct?.title}
-            </Typography>
+            <Stack spacing={2} direction="row" alignItems="center">
+              <Typography
+                sx={{ fontSize: { xs: 20, sm: 28 }, fontWeight: "bold" }}
+              >
+                {selectedProduct?.title}
+              </Typography>
+              {chipLabel && chipLabel !== "" && ChipComponent}
+            </Stack>
           )}
 
           {/* insert maxWidth to limit component width when the const multiLine is used in PartySwitch and PartyAccountItem */}
