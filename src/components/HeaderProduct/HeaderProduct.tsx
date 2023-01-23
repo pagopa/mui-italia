@@ -7,19 +7,20 @@ import { PartyAccountItem } from "@components/PartyAccountItem";
 
 export type ProductEntity = ProductSwitchItem;
 export type PartyEntity = PartySwitchItem;
+export type ChipColors =
+  | "default"
+  | "indigo"
+  | "primary"
+  | "secondary"
+  | "error"
+  | "info"
+  | "success"
+  | "warning";
 
 export type HeaderProductProps = {
   borderBottom?: number;
   borderColor?: string;
-  chipColor?:
-    | "default"
-    | "indigo"
-    | "primary"
-    | "secondary"
-    | "error"
-    | "info"
-    | "success"
-    | "warning";
+  chipColor?: ChipColors;
   chipLabel?: string;
   chipSize?: "small" | "medium";
   /* The number of characters beyond which the multiLine is applied in component PartyAccountItemButton */
