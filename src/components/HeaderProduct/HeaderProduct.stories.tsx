@@ -215,7 +215,7 @@ export const WithProductSelectionWithPartySelectionWithChip: ComponentStory<
     borderBottom={3}
     borderColor={theme.palette.warning.main}
     chipColor="warning"
-    chipLabel="Ambiente di Collaudo"
+    chipLabel="Collaudo"
     productsList={productsList}
     partyList={partyList}
     onSelectedParty={(e) => console.log("Selected Item:", e.name)}
