@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import { breakpointsChromaticValues } from "@theme";
+import { breakpointsChromaticValues, theme } from "@theme";
 
 import {
   HeaderProduct,
@@ -147,10 +147,25 @@ export const DefaultWithoutParties: ComponentStory<
   typeof HeaderProduct
 > = () => <HeaderProduct productsList={[productsList[0]]} />;
 
+export const DefaultWithoutPartiesWithChip: ComponentStory<
+  typeof HeaderProduct
+> = () => <HeaderProduct chipLabel="Beta" productsList={[productsList[0]]} />;
+
 export const WithProductSelection: ComponentStory<
   typeof HeaderProduct
 > = () => (
   <HeaderProduct
+    productId="1"
+    productsList={productsList}
+    onSelectedProduct={(p) => console.log("Selected Item:", p.title)}
+    partyList={[partyList[0]]}
+  />
+);
+export const WithProductSelectionWithChip: ComponentStory<
+  typeof HeaderProduct
+> = () => (
+  <HeaderProduct
+    chipLabel="Beta"
     productId="1"
     productsList={productsList}
     onSelectedProduct={(p) => console.log("Selected Item:", p.title)}
@@ -164,9 +179,44 @@ export const WithoutProductSelection: ComponentStory<
   <HeaderProduct productsList={[productsList[0]]} partyList={[partyList[0]]} />
 );
 
+export const WithoutProductSelectionWithChip: ComponentStory<
+  typeof HeaderProduct
+> = () => (
+  <HeaderProduct
+    chipLabel="Beta"
+    productsList={[productsList[0]]}
+    partyList={[partyList[0]]}
+  />
+);
+
 export const WithPartySelection: ComponentStory<typeof HeaderProduct> = () => (
   <HeaderProduct
     productsList={[productsList[0]]}
+    partyList={partyList}
+    onSelectedParty={(e) => console.log("Selected Item:", e.name)}
+  />
+);
+
+export const WithPartySelectionWithChip: ComponentStory<
+  typeof HeaderProduct
+> = () => (
+  <HeaderProduct
+    chipLabel="Beta"
+    productsList={[productsList[0]]}
+    partyList={partyList}
+    onSelectedParty={(e) => console.log("Selected Item:", e.name)}
+  />
+);
+
+export const WithProductSelectionWithPartySelectionWithChip: ComponentStory<
+  typeof HeaderProduct
+> = () => (
+  <HeaderProduct
+    borderBottom={3}
+    borderColor={theme.palette.warning.main}
+    chipColor="warning"
+    chipLabel="Collaudo"
+    productsList={productsList}
     partyList={partyList}
     onSelectedParty={(e) => console.log("Selected Item:", e.name)}
   />
