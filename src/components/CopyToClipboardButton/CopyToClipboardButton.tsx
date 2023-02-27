@@ -51,11 +51,9 @@ export const CopyToClipboardButton: React.FC<CopyToClipboardProps> = ({
     const valueToCopy = value instanceof Function ? value() : value;
     try {
       await navigator.clipboard.writeText(valueToCopy);
-      if (tooltipTitle) {
-        clearTimeout(copiedTimeoutRef.current);
-        setCopied(true);
-        copiedTimeoutRef.current = setTimeout(() => setCopied(false), 2000);
-      }
+      clearTimeout(copiedTimeoutRef.current);
+      setCopied(true);
+      copiedTimeoutRef.current = setTimeout(() => setCopied(false), 2000);
     } catch (err) {
       console.error(err);
     }
@@ -68,7 +66,13 @@ export const CopyToClipboardButton: React.FC<CopyToClipboardProps> = ({
   };
 
   return (
-    <Tooltip open={copied} arrow={true} title={tooltipTitle} placement="top">
+    <Tooltip
+      // the tooltip only shows when the tooltipTitle is given
+      open={!!tooltipTitle && copied}
+      arrow={true}
+      title={tooltipTitle}
+      placement="top"
+    >
       <IconButton
         role="button"
         onClick={handleCopyToClipboard}
