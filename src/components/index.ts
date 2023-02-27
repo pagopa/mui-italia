@@ -24,3 +24,4 @@ export * from "./HorizontalNav";
 export * from "./ProductAvatar";
 export * from "./TOSAgreement";
 export * from "./SingleFileInput";
+export * from "./CopyToClipboardButton";
