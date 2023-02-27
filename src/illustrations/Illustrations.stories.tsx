@@ -18,7 +18,8 @@ import {
   IllusHistoryDoc,
   IllusDataSecurity,
   IllusSimplify,
-  PaymentCompleted,
+  IllusPaymentCompleted,
+  IllusInProgress,
 } from "./";
 
 export interface IllusBoxProps {
@@ -87,9 +88,10 @@ export const Overview: ComponentStory<typeof Box> = () => (
       illustration={<IllusDataSecurity />}
     />
     <IllusBox
-      name={"<PaymentCompleted />"}
-      illustration={<PaymentCompleted />}
+      name={"<IllusPaymentCompleted />"}
+      illustration={<IllusPaymentCompleted />}
     />
+    <IllusBox name={"<IllusInProgress />"} illustration={<IllusInProgress />} />
   </Box>
 );
 

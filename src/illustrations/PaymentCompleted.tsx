@@ -1,6 +1,6 @@
 import { Illustration, IllustrationProps } from "@components/Illustration";
 
-export const PaymentCompleted = ({
+export const IllusPaymentCompleted = ({
   title = "Pagamento Completato",
   ...rest
 }: IllustrationProps) => (
