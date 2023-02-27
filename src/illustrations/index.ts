@@ -13,3 +13,4 @@ export * from "./Repository";
 export * from "./HistoryDoc";
 export * from "./DataSecurity";
 export * from "./Simplify";
+export * from "./PaymentCompleted";
