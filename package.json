@@ -69,7 +69,7 @@
     "@types/react-dom": "^18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.47.1",
     "@typescript-eslint/parser": "^5.39.0",
-    "babel-loader": "^8.2.5",
+    "babel-loader": "^9.1.2",
     "chromatic": "^6.17.1",
     "date-fns": "^2.29.3",
     "eslint": "^8.25.0",
