@@ -57,7 +57,7 @@
     "@mui/lab": "^5.0.0-alpha.100",
     "@mui/material": "^5.10.9",
     "@mui/system": "^5.10.8",
-    "@mui/x-date-pickers": "^5.0.3",
+    "@mui/x-date-pickers": "^6.0.1",
     "@pagopa/eslint-config": "^3.0.0",
     "@storybook/addon-a11y": "^6.5.16",
     "@storybook/addon-actions": "^6.5.16",
