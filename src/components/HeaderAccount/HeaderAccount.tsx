@@ -5,6 +5,7 @@ import { AccountDropdown } from "@components/AccountDropdown";
 
 /* Icons */
 import HelpOutlineRoundedIcon from "@mui/icons-material/HelpOutlineRounded";
+import DescriptionIcon from "@mui/icons-material/Description";
 
 export type JwtUser = {
   id: string;
@@ -37,6 +38,7 @@ type HeaderAccountProps = {
   enableDropdown?: boolean;
   enableLogin?: boolean;
   enableAssistanceButton?: boolean;
+  onDocumentationClick?: () => void;
 };
 
 export const HeaderAccount = ({
@@ -44,6 +46,7 @@ export const HeaderAccount = ({
   loggedUser,
   userActions,
   onAssistanceClick,
+  onDocumentationClick,
   onLogout,
   onLogin,
   enableDropdown = false,
@@ -87,6 +90,31 @@ export const HeaderAccount = ({
           alignItems="center"
           spacing={{ xs: 1, sm: 3, md: 4 }}
         >
+          {/* START Documentation MOBILE/DESKTOP */}
+          {onDocumentationClick && (
+            <>
+              <ButtonNaked
+                size="small"
+                component="button"
+                onClick={onDocumentationClick}
+                startIcon={<DescriptionIcon />}
+                sx={{ display: ["none", "flex"] }}
+                weight="default"
+              >
+                Documentazione
+              </ButtonNaked>
+              <IconButton
+                size="small"
+                aria-label="Documentazione"
+                sx={{ display: ["flex", "none"] }}
+                onClick={onDocumentationClick}
+              >
+                <DescriptionIcon fontSize="inherit" />
+              </IconButton>
+            </>
+          )}
+          {/* END Documentation MOBILE/DESKTOP */}
+
           {/* START Assistance MOBILE/DESKTOP */}
           {enableAssistanceButton && (
             <>
