@@ -131,3 +131,15 @@ export const WithoutAssistance: ComponentStory<typeof HeaderAccount> = () => (
     }}
   />
 );
+
+export const WithDocumentation: ComponentStory<typeof HeaderAccount> = () => (
+  <HeaderAccount
+    rootLink={pagoPALink}
+    onDocumentationClick={() => {
+      console.log("Clicked/Tapped on Assistance");
+    }}
+    onAssistanceClick={() => {
+      console.log("Clicked/Tapped on Assistance");
+    }}
+  />
+);
