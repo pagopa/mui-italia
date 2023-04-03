@@ -1,11 +1,4 @@
-import {
-  ForwardedRef,
-  forwardRef,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { ForwardedRef, forwardRef, useEffect, useMemo, useState } from "react";
 import clsx from "clsx";
 import { Menu, MenuItem, Typography } from "@mui/material";
 import { styled } from "@mui/system";
@@ -54,20 +47,17 @@ export const ProductSwitch = ({
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = useCallback(
-    (product?: ProductSwitchItem) => {
-      if (product) {
-        if (product.linkType === "internal") {
-          setSelectedId(product.id);
-        }
-        if (onExit) {
-          onExit(product);
-        }
+  const handleClose = (product?: ProductSwitchItem) => {
+    if (product) {
+      if (product.linkType === "internal") {
+        setSelectedId(product.id);
       }
-      setAnchorEl(null);
-    },
-    [selectedId]
-  );
+      if (onExit) {
+        onExit(product);
+      }
+    }
+    setAnchorEl(null);
+  };
 
   return (
     <>
