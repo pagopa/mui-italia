@@ -1,10 +1,18 @@
+import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import { TextField, InputAdornment } from "@mui/material";
-
+import {
+  TextField,
+  InputAdornment,
+  MenuItem,
+  Box,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
 import ErrorOutlineRoundedIcon from "@mui/icons-material/ErrorOutlineRounded";
 import PersonOutlineRoundedIcon from "@mui/icons-material/PersonOutlineRounded";
 import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 
 export default {
   title: "MUI Components/Inputs/Text Field",
@@ -121,4 +129,89 @@ StateSuccess.args = {
 StateSuccess.argTypes = {
   InputProps: { table: { disable: true } },
   error: { table: { disable: true } },
+};
+
+export const DefaultSelect: ComponentStory<typeof TextField> = (args) => {
+  const [state, setState] = React.useState("");
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setState(event.target.value as string);
+  };
+
+  return (
+    <Box
+      sx={{
+        width: 200,
+      }}
+    >
+      <TextField
+        {...args}
+        onChange={handleChange}
+        value={state}
+        select
+        placeholder="Select an option"
+        label="Select an option"
+        fullWidth
+      />
+    </Box>
+  );
+};
+DefaultSelect.args = {
+  children: [
+    <MenuItem key="option-1" value="option-1">
+      Option 1
+    </MenuItem>,
+    <MenuItem key="option-2" value="option-2">
+      Option 2
+    </MenuItem>,
+    <MenuItem key="option-3" value="option-3">
+      Option 3
+    </MenuItem>,
+  ],
+};
+
+export const SelectWtihLongOption = DefaultSelect.bind({});
+SelectWtihLongOption.args = {
+  ...DefaultSelect.args,
+  children: [
+    <MenuItem key="option-1" value="option-1">
+      Option 1
+    </MenuItem>,
+    <MenuItem key="option-2" value="option-2">
+      <ListItemText>
+        Option 2 with a very very very very very very very very very very very
+        very very very very very very very very very very very very very very
+        very very very very very very very very very very very very very very
+        very very very very very very very very very long text
+      </ListItemText>
+    </MenuItem>,
+    <MenuItem key="option-3" value="option-3">
+      Option 3
+    </MenuItem>,
+  ],
+};
+
+export const SelectWtihIcon = DefaultSelect.bind({});
+SelectWtihIcon.args = {
+  ...DefaultSelect.args,
+  children: [
+    <MenuItem key="option-1" value="option-1">
+      <ListItemIcon>
+        <AccountBalanceIcon sx={{ mr: 1 }} />
+      </ListItemIcon>
+      <ListItemText>Option 1</ListItemText>
+    </MenuItem>,
+    <MenuItem key="option-2" value="option-2">
+      <ListItemIcon>
+        <AccountBalanceIcon sx={{ mr: 1 }} />
+      </ListItemIcon>
+      <ListItemText>Option 2</ListItemText>
+    </MenuItem>,
+    <MenuItem key="option-3" value="option-3">
+      <ListItemIcon>
+        <AccountBalanceIcon sx={{ mr: 1 }} />
+      </ListItemIcon>
+      <ListItemText>Option 3</ListItemText>
+    </MenuItem>,
+  ],
 };

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { IconButton, Tooltip } from "@mui/material";
 import type { IconButtonProps } from "@mui/material";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";

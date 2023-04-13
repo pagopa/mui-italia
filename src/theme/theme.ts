@@ -1013,6 +1013,11 @@ export const theme: Theme = createTheme(foundation, {
         select: {
           display: "flex",
           alignItems: "center",
+          "& .MuiListItemText-root": {
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          },
         },
       },
     },
@@ -1024,6 +1029,7 @@ export const theme: Theme = createTheme(foundation, {
         root: {
           fontSize: pxToRem(16),
           fontWeight: foundation.typography.fontWeightMedium,
+          whiteSpace: "normal",
           "& .MuiListItemIcon-root": {
             color: foundation.palette.action.active,
             fontSize: pxToRem(20),
