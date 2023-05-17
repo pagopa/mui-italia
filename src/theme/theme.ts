@@ -946,14 +946,13 @@ export const theme: Theme = createTheme(foundation, {
       },
       styleOverrides: {
         root: {
-          borderRight: "2px solid transparent",
           transitionProperty: "background-color, border-color",
           transitionDuration: foundation.transitions.duration.standard,
           paddingTop: foundation.spacing(2),
           paddingBottom: foundation.spacing(2),
           /* Selected State */
           "&.Mui-selected": {
-            borderColor: foundation.palette.primary.main,
+            borderRight: `2px solid ${foundation.palette.primary.main}`,
           },
           "&.Mui-selected .MuiListItemText-root": {
             color: foundation.palette.primary.main,
