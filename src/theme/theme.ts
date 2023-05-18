@@ -952,13 +952,13 @@ export const theme: Theme = createTheme(foundation, {
           paddingBottom: foundation.spacing(2),
           /* Selected State */
           "&.Mui-selected": {
-            borderRight: `2px solid ${foundation.palette.primary.main}`,
+            borderRight: `2px solid ${foundation.palette.primary.dark}`,
           },
           "&.Mui-selected .MuiListItemText-root": {
-            color: foundation.palette.primary.main,
+            color: foundation.palette.primary.dark,
           },
           "&.Mui-selected .MuiListItemIcon-root": {
-            color: foundation.palette.primary.main,
+            color: foundation.palette.primary.dark,
           },
         },
       },
