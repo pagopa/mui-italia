@@ -597,6 +597,18 @@ export const theme: Theme = createTheme(foundation, {
           fontSize: pxToRem(16),
           color: foundation.palette.text.primary,
         },
+        li: {
+          "a:hover": {
+            textDecoration: "none",
+          },
+          p: {
+            fontSize: `${pxToRem(16)} !important`,
+          },
+          svg: {
+            fontSize: pxToRem(20),
+            marginRight: foundation.spacing(1.5),
+          },
+        },
         separator: {
           color: foundation.palette.text.secondary,
         },
