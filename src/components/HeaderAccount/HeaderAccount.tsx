@@ -5,7 +5,7 @@ import { AccountDropdown } from "@components/AccountDropdown";
 
 /* Icons */
 import HelpOutlineRoundedIcon from "@mui/icons-material/HelpOutlineRounded";
-import DescriptionIcon from "@mui/icons-material/Description";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
 
 export type JwtUser = {
   id: string;
@@ -97,11 +97,11 @@ export const HeaderAccount = ({
                 size="small"
                 component="button"
                 onClick={onDocumentationClick}
-                startIcon={<DescriptionIcon />}
+                startIcon={<MenuBookIcon />}
                 sx={{ display: ["none", "flex"] }}
                 weight="default"
               >
-                Documentazione
+                Manuale operativo
               </ButtonNaked>
               <IconButton
                 size="small"
@@ -109,7 +109,7 @@ export const HeaderAccount = ({
                 sx={{ display: ["flex", "none"] }}
                 onClick={onDocumentationClick}
               >
-                <DescriptionIcon fontSize="inherit" />
+                <MenuBookIcon fontSize="inherit" />
               </IconButton>
             </>
           )}
