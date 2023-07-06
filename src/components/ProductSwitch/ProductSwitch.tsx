@@ -1,3 +1,5 @@
+"use client";
+
 import { ForwardedRef, forwardRef, useEffect, useMemo, useState } from "react";
 import clsx from "clsx";
 import { Menu, MenuItem, Typography } from "@mui/material";

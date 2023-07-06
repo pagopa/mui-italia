@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { Grid, Stack, Box, Typography, Container, Link } from "@mui/material";
 import { CompanyLinkType, PreLoginFooterLinksType } from "@components/Footer";

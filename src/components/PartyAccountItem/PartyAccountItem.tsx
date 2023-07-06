@@ -1,3 +1,5 @@
+"use client";
+
 import { Typography, Box, SxProps } from "@mui/material";
 import { useMemo } from "react";
 import { Tooltip } from "@mui/material";

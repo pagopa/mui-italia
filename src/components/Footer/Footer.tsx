@@ -1,3 +1,5 @@
+"use client";
+
 import { Box } from "@mui/material";
 import { FooterLegal } from "@components/FooterLegal";
 import { FooterPostLogin } from "@components/FooterPostLogin";

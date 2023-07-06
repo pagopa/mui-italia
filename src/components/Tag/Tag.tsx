@@ -1,3 +1,5 @@
+"use client";
+
 import { styled } from "@mui/system";
 import { alpha } from "@mui/material/styles";
 
