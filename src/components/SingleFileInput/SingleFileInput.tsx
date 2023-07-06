@@ -1,3 +1,5 @@
+"use client";
+
 import { useRef, ChangeEvent, DragEvent, ReactNode, useState } from "react";
 import {
   Box,

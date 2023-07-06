@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { Menu, MenuItem, Typography, Box } from "@mui/material";
 import { ButtonNaked } from "@components/ButtonNaked";

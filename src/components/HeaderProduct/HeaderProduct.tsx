@@ -1,3 +1,5 @@
+"use client";
+
 import { useMemo } from "react";
 import { Box, Chip, Container, Stack, Typography } from "@mui/material";
 

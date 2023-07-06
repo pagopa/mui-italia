@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { TimelineDot, TimelineDotProps } from "@mui/lab";
 import { theme } from "@theme";

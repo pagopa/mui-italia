@@ -1,3 +1,5 @@
+"use client";
+
 import { useTheme, useMediaQuery } from "@mui/material";
 import { Box, Container, Stack, Typography } from "@mui/material";
 import ArrowForward from "./ArrowForward";

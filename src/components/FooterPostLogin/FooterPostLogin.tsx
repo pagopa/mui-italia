@@ -1,3 +1,5 @@
+"use client";
+
 import { Stack, Box, Container, Link } from "@mui/material";
 import { CompanyLinkType, FooterLinksType } from "@components/Footer";
 import { LangSwitch, LangSwitchProps } from "@components/LangSwitch";

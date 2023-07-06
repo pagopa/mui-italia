@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Container, Button, Stack, IconButton } from "@mui/material";
 import { ButtonNaked } from "@components/ButtonNaked";

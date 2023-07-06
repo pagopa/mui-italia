@@ -1,3 +1,5 @@
+"use client";
+
 const ArrowForward = () => (
   <svg
     width="44"

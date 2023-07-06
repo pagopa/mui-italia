@@ -1,3 +1,5 @@
+"use client";
+
 import { Box, Button, Stack, Typography, Container } from "@mui/material";
 import { CTA } from "@types";
 
