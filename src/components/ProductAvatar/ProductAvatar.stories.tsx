@@ -12,6 +12,11 @@ const productMockImages = {
     background: "#0073E6",
     title: "App Io",
   },
+  "prod-io-premium": {
+    url: "https://dev.selfcare.pagopa.it/resources/products/prod-io-premium/logo.svg",
+    background: "#0073E6",
+    title: "App Io Premium",
+  },
   "prod-ciban": {
     url: "https://dev.selfcare.pagopa.it/resources/products/prod-ciban/logo.svg",
     background: "#008CA8",
