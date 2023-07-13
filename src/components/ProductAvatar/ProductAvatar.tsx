@@ -21,7 +21,7 @@ export interface ProductAvatarProps {
 const sizesMap = {
   small: {
     dimension: 32,
-    padding: "4px",
+    padding: 0.5 /* 4px */,
   },
   default: {
     dimension: 64,
@@ -53,7 +53,7 @@ export const ProductAvatar = ({
         ? logoBgColor
         : theme.palette.background.paper,
       boxSizing: "border-box",
-      padding: theme.spacing(size === "small" ? 0.5 : sizesMap[size]?.padding),
+      padding: theme.spacing(sizesMap[size]?.padding),
       borderRadius: theme.spacing(1) /* 8px */,
       /* Inner shadow */
       "&:after": {
