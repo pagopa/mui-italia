@@ -7,6 +7,7 @@ import {
   PartyEntity,
   ProductEntity,
 } from "@components/HeaderProduct";
+import { IoIcon } from "@icons/IoIcon";
 
 export default {
   title: "Components/HeaderProduct (WIP)",
@@ -50,6 +51,12 @@ const productsList: Array<ProductEntity> = [
     title: `Interoperabilità`,
     productUrl: "#interoperabilità",
     linkType: "internal",
+  },
+  {
+    id: "4",
+    title: ``,
+    productUrl: "#no-title",
+    linkType: "external",
   },
 ];
 
@@ -147,9 +154,43 @@ export const DefaultWithoutParties: ComponentStory<
   typeof HeaderProduct
 > = () => <HeaderProduct productsList={[productsList[0]]} />;
 
+export const DefaultWithoutPartiesAndIcon: ComponentStory<
+  typeof HeaderProduct
+> = () => (
+  <HeaderProduct
+    icon={<IoIcon fontSize="large" color="primary" />}
+    productsList={[productsList[2]]}
+  />
+);
+
+export const DefaultOnlyIcon: ComponentStory<typeof HeaderProduct> = () => (
+  <HeaderProduct
+    icon={<IoIcon fontSize="large" color="primary" />}
+    productsList={[productsList[4]]}
+  />
+);
+
+export const OnlyIconAndChip: ComponentStory<typeof HeaderProduct> = () => (
+  <HeaderProduct
+    chipLabel="beta"
+    icon={<IoIcon fontSize="large" color="primary" />}
+    productsList={[productsList[4]]}
+  />
+);
+
 export const DefaultWithoutPartiesWithChip: ComponentStory<
   typeof HeaderProduct
 > = () => <HeaderProduct chipLabel="Beta" productsList={[productsList[0]]} />;
+
+export const DefaultWithoutPartiesWithChipAndIcon: ComponentStory<
+  typeof HeaderProduct
+> = () => (
+  <HeaderProduct
+    chipLabel="Beta"
+    icon={<IoIcon fontSize="large" color="primary" />}
+    productsList={[productsList[2]]}
+  />
+);
 
 export const WithProductSelection: ComponentStory<
   typeof HeaderProduct
@@ -161,6 +202,7 @@ export const WithProductSelection: ComponentStory<
     partyList={[partyList[0]]}
   />
 );
+
 export const WithProductSelectionWithChip: ComponentStory<
   typeof HeaderProduct
 > = () => (
@@ -188,10 +230,30 @@ export const WithoutProductSelectionWithChip: ComponentStory<
     partyList={[partyList[0]]}
   />
 );
+export const WithoutProductSelectionWithChipAndIcon: ComponentStory<
+  typeof HeaderProduct
+> = () => (
+  <HeaderProduct
+    chipLabel="Beta"
+    icon={<IoIcon fontSize="large" color="primary" />}
+    productsList={[productsList[2]]}
+    partyList={[partyList[0]]}
+  />
+);
 
 export const WithPartySelection: ComponentStory<typeof HeaderProduct> = () => (
   <HeaderProduct
     productsList={[productsList[0]]}
+    partyList={partyList}
+    onSelectedParty={(e) => console.log("Selected Item:", e.name)}
+  />
+);
+export const WithPartySelectionAndIcon: ComponentStory<
+  typeof HeaderProduct
+> = () => (
+  <HeaderProduct
+    productsList={[productsList[2]]}
+    icon={<IoIcon fontSize="large" color="primary" />}
     partyList={partyList}
     onSelectedParty={(e) => console.log("Selected Item:", e.name)}
   />
