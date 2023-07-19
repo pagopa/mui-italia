@@ -8,6 +8,8 @@ import {
   ProductEntity,
 } from "@components/HeaderProduct";
 import { IoIcon } from "@icons/IoIcon";
+import { CieIcon } from "@icons/CieIcon";
+import { ReactNode, useState } from "react";
 
 export default {
   title: "Components/HeaderProduct (WIP)",
@@ -283,3 +285,42 @@ export const WithProductSelectionWithPartySelectionWithChip: ComponentStory<
     onSelectedParty={(e) => console.log("Selected Item:", e.name)}
   />
 );
+
+export const WithProductSelectionWithPartySelectionWithChipAndIconFunction: ComponentStory<
+  typeof HeaderProduct
+> = () => {
+  const [iconVisible, setIconVisible] = useState<ReactNode | null | undefined>(
+    null
+  );
+  const handleChangeProduct = (e: ProductEntity) => {
+    console.log("selected product", e);
+
+    switch (e.id) {
+      case "0":
+        setIconVisible(null);
+        break;
+      case "1":
+        setIconVisible(null);
+        break;
+      case "2":
+        setIconVisible(<IoIcon fontSize="large" color="primary" />);
+        break;
+      case "3":
+        setIconVisible(<CieIcon fontSize="large" color="primary" />);
+        break;
+    }
+  };
+  return (
+    <HeaderProduct
+      borderBottom={3}
+      borderColor={theme.palette.warning.main}
+      chipColor="warning"
+      chipLabel="Collaudo"
+      productsList={productsList}
+      partyList={partyList}
+      icon={iconVisible}
+      onSelectedProduct={(e: ProductEntity) => handleChangeProduct(e)}
+      onSelectedParty={(e) => console.log("Selected Item:", e.name)}
+    />
+  );
+};
