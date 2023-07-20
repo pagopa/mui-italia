@@ -15,7 +15,7 @@ export type PartyAccount = {
 };
 export interface PartyAccountItemProps {
   image?: string;
-  /* The name of the party. E.g: "Comune di Roma". If aoo or uo are present, it will be name of Aoo or Uo */
+  /* The name of the party. E.g: "Comune di Roma".  */
   partyName: string;
   /* The role of the user. E.g: "Referente amministrativo" */
   partyRole?: string;
@@ -26,7 +26,7 @@ export interface PartyAccountItemProps {
   infoContainerSx?: SxProps;
   /* The number of characters beyond which the multiLine is applied */
   maxCharactersNumberMultiLine?: number;
-  /* The name of the party. E.g: "Comune di Roma" when is visible aoo or uo */
+  /* Label showed above partyName. */
   topicPartyName?: string;
 }
 

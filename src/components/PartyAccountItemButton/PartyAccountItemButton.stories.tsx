@@ -96,9 +96,15 @@ const partyMockImages: Array<PartyAccount> = [
   },
 ];
 
+const itemWithTopic = {
+  image: `${cdnPath}172960361.png`,
+  name: "Amministrazione Comunale",
+  role: "Referente amministrativo",
+  topicName: "Comune di Castelfranco Emilia",
+};
+
 /* Tag Element */
 const tag: JSX.Element = <Tag color="warning" value="Da completare" />;
-
 const componentMaxWidth = 400;
 
 /* Generate random value without repeating values
@@ -173,3 +179,12 @@ export const WithTag = Template.bind({});
 WithTag.args = {
   endSlot: tag,
 };
+
+export const WithTopic: ComponentStory<typeof PartyAccountItemButton> = () => (
+  <PartyAccountItemButton
+    image={itemWithTopic.image}
+    partyName={itemWithTopic.name}
+    partyRole={itemWithTopic.role}
+    topicPartyName={itemWithTopic.topicName}
+  />
+);
