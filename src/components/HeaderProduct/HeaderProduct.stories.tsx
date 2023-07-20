@@ -9,7 +9,6 @@ import {
 } from "@components/HeaderProduct";
 import { IoIcon } from "@icons/IoIcon";
 import { CieIcon } from "@icons/CieIcon";
-import { ReactNode, useState } from "react";
 
 export default {
   title: "Components/HeaderProduct (WIP)",
@@ -47,18 +46,21 @@ const productsList: Array<ProductEntity> = [
     title: `App IO`,
     productUrl: "#app-io",
     linkType: "internal",
+    icon: <IoIcon fontSize="large" color="primary" />,
   },
   {
     id: "3",
     title: `Interoperabilità`,
     productUrl: "#interoperabilità",
     linkType: "internal",
+    icon: <CieIcon fontSize="large" color="primary" />,
   },
   {
     id: "4",
     title: ``,
     productUrl: "#no-title",
     linkType: "external",
+    icon: <IoIcon fontSize="large" color="primary" />,
   },
 ];
 
@@ -158,26 +160,14 @@ export const DefaultWithoutParties: ComponentStory<
 
 export const DefaultWithoutPartiesAndIcon: ComponentStory<
   typeof HeaderProduct
-> = () => (
-  <HeaderProduct
-    icon={<IoIcon fontSize="large" color="primary" />}
-    productsList={[productsList[2]]}
-  />
-);
+> = () => <HeaderProduct productsList={[productsList[2]]} />;
 
 export const DefaultOnlyIcon: ComponentStory<typeof HeaderProduct> = () => (
-  <HeaderProduct
-    icon={<IoIcon fontSize="large" color="primary" />}
-    productsList={[productsList[4]]}
-  />
+  <HeaderProduct productsList={[productsList[4]]} />
 );
 
 export const OnlyIconAndChip: ComponentStory<typeof HeaderProduct> = () => (
-  <HeaderProduct
-    chipLabel="beta"
-    icon={<IoIcon fontSize="large" color="primary" />}
-    productsList={[productsList[4]]}
-  />
+  <HeaderProduct chipLabel="beta" productsList={[productsList[4]]} />
 );
 
 export const DefaultWithoutPartiesWithChip: ComponentStory<
@@ -186,13 +176,7 @@ export const DefaultWithoutPartiesWithChip: ComponentStory<
 
 export const DefaultWithoutPartiesWithChipAndIcon: ComponentStory<
   typeof HeaderProduct
-> = () => (
-  <HeaderProduct
-    chipLabel="Beta"
-    icon={<IoIcon fontSize="large" color="primary" />}
-    productsList={[productsList[2]]}
-  />
-);
+> = () => <HeaderProduct chipLabel="Beta" productsList={[productsList[2]]} />;
 
 export const WithProductSelection: ComponentStory<
   typeof HeaderProduct
@@ -237,7 +221,6 @@ export const WithoutProductSelectionWithChipAndIcon: ComponentStory<
 > = () => (
   <HeaderProduct
     chipLabel="Beta"
-    icon={<IoIcon fontSize="large" color="primary" />}
     productsList={[productsList[2]]}
     partyList={[partyList[0]]}
   />
@@ -255,7 +238,6 @@ export const WithPartySelectionAndIcon: ComponentStory<
 > = () => (
   <HeaderProduct
     productsList={[productsList[2]]}
-    icon={<IoIcon fontSize="large" color="primary" />}
     partyList={partyList}
     onSelectedParty={(e) => console.log("Selected Item:", e.name)}
   />
@@ -288,39 +270,15 @@ export const WithProductSelectionWithPartySelectionWithChip: ComponentStory<
 
 export const WithProductSelectionWithPartySelectionWithChipAndIconFunction: ComponentStory<
   typeof HeaderProduct
-> = () => {
-  const [iconVisible, setIconVisible] = useState<ReactNode | null | undefined>(
-    null
-  );
-  const handleChangeProduct = (e: ProductEntity) => {
-    console.log("selected product", e);
-
-    switch (e.id) {
-      case "0":
-        setIconVisible(null);
-        break;
-      case "1":
-        setIconVisible(null);
-        break;
-      case "2":
-        setIconVisible(<IoIcon fontSize="large" color="primary" />);
-        break;
-      case "3":
-        setIconVisible(<CieIcon fontSize="large" color="primary" />);
-        break;
-    }
-  };
-  return (
-    <HeaderProduct
-      borderBottom={3}
-      borderColor={theme.palette.warning.main}
-      chipColor="warning"
-      chipLabel="Collaudo"
-      productsList={productsList}
-      partyList={partyList}
-      icon={iconVisible}
-      onSelectedProduct={(e: ProductEntity) => handleChangeProduct(e)}
-      onSelectedParty={(e) => console.log("Selected Item:", e.name)}
-    />
-  );
-};
+> = () => (
+  <HeaderProduct
+    borderBottom={3}
+    borderColor={theme.palette.warning.main}
+    chipColor="warning"
+    chipLabel="Collaudo"
+    productsList={productsList}
+    partyList={partyList}
+    onSelectedProduct={(e) => console.log("Selected Product: ", e.title)}
+    onSelectedParty={(e) => console.log("Selected Item:", e.name)}
+  />
+);

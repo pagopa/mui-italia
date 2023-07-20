@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useMemo } from "react";
+import { ReactNode, useMemo, useState } from "react";
 import {
   Box,
   Chip,
@@ -42,7 +42,6 @@ export type HeaderProductProps = {
   partyList?: Array<PartyEntity>;
   productId?: string;
   productsList: Array<ProductEntity>;
-  icon?: ReactNode;
 };
 
 export const HeaderProduct = ({
@@ -54,12 +53,11 @@ export const HeaderProduct = ({
   maxCharactersNumberMultiLineButton,
   maxCharactersNumberMultiLineItem,
   onSelectedParty,
-  onSelectedProduct,
+  onSelectedProduct = () => {},
   partyId,
   partyList,
   productId,
   productsList,
-  icon,
 }: HeaderProductProps) => {
   const selectedProduct = useMemo(
     () =>
@@ -68,6 +66,9 @@ export const HeaderProduct = ({
         : productsList[0],
     [productId, productsList]
   ) as ProductSwitchItem;
+  const [iconSelected, setIconSelected] = useState<
+    ReactNode | null | undefined
+  >(selectedProduct.icon || null);
   const selectedParty = useMemo(() => {
     if (!partyList) {
       return;
@@ -88,6 +89,11 @@ export const HeaderProduct = ({
       size={chipSize}
     ></Chip>
   );
+
+  const onSelectedProductChangeIcon = (e: ProductEntity) => {
+    setIconSelected(e.icon);
+    onSelectedProduct(e);
+  };
 
   return (
     <Box
@@ -112,14 +118,14 @@ export const HeaderProduct = ({
         >
           {/* Left side of the component */}
           <Stack alignItems="center" direction="row">
-            {!!icon && <IconButton>{icon}</IconButton>}
+            {!!iconSelected && <IconButton>{iconSelected}</IconButton>}
             {productsList.length > 1 && (
               <Stack spacing={2} direction="row" alignItems="center">
                 {/* Switcher Product */}
                 <ProductSwitch
                   currentProductId={selectedProduct.id}
                   products={productsList}
-                  onExit={onSelectedProduct}
+                  onExit={onSelectedProductChangeIcon}
                 ></ProductSwitch>
                 {chipLabel && chipLabel !== "" && ChipComponent}
               </Stack>
