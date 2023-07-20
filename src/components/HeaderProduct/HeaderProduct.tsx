@@ -130,7 +130,6 @@ export const HeaderProduct = ({
                 {chipLabel && chipLabel !== "" && ChipComponent}
               </Stack>
             )}
-
             {selectedProduct && productsList.length === 1 && (
               <Stack spacing={2} direction="row" alignItems="center">
                 <Typography
