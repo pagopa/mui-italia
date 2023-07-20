@@ -1,4 +1,13 @@
-import { ForwardedRef, forwardRef, useEffect, useMemo, useState } from "react";
+"use client";
+
+import {
+  ForwardedRef,
+  ReactNode,
+  forwardRef,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import clsx from "clsx";
 import { Menu, MenuItem, Typography } from "@mui/material";
 import { styled } from "@mui/system";
@@ -15,6 +24,7 @@ export type ProductSwitchItem = {
   title: string;
   productUrl: string;
   linkType: LinkType;
+  icon?: ReactNode;
 };
 
 export type ProductSwitchProps = {

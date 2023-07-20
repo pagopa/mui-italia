@@ -1,3 +1,5 @@
+"use client";
+
 import { Avatar } from "@mui/material";
 
 import AccountBalanceRoundedIcon from "@mui/icons-material/AccountBalanceRounded";

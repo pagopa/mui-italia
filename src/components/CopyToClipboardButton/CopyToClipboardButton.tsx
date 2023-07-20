@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useRef, useEffect } from "react";
 import { IconButton, Tooltip } from "@mui/material";
 import type { IconButtonProps } from "@mui/material";

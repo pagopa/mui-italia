@@ -7,6 +7,7 @@ import {
   PartyEntity,
   ProductEntity,
 } from "@components/HeaderProduct";
+import { LogoIOApp } from "@assets/LogoIOApp";
 
 export default {
   title: "Components/HeaderProduct (WIP)",
@@ -44,12 +45,20 @@ const productsList: Array<ProductEntity> = [
     title: `App IO`,
     productUrl: "#app-io",
     linkType: "internal",
+    icon: <LogoIOApp size={32} title="io" color="default" />,
   },
   {
     id: "3",
     title: `Interoperabilità`,
     productUrl: "#interoperabilità",
     linkType: "internal",
+  },
+  {
+    id: "4",
+    title: ``,
+    productUrl: "#no-title",
+    linkType: "external",
+    icon: <LogoIOApp size={32} title="io" color="default" />,
   },
 ];
 
@@ -154,9 +163,25 @@ export const DefaultWithoutParties: ComponentStory<
   typeof HeaderProduct
 > = () => <HeaderProduct productsList={[productsList[0]]} />;
 
+export const DefaultWithoutPartiesAndIcon: ComponentStory<
+  typeof HeaderProduct
+> = () => <HeaderProduct productsList={[productsList[2]]} />;
+
+export const DefaultOnlyIcon: ComponentStory<typeof HeaderProduct> = () => (
+  <HeaderProduct productsList={[productsList[4]]} />
+);
+
+export const OnlyIconAndChip: ComponentStory<typeof HeaderProduct> = () => (
+  <HeaderProduct chipLabel="beta" productsList={[productsList[4]]} />
+);
+
 export const DefaultWithoutPartiesWithChip: ComponentStory<
   typeof HeaderProduct
 > = () => <HeaderProduct chipLabel="Beta" productsList={[productsList[0]]} />;
+
+export const DefaultWithoutPartiesWithChipAndIcon: ComponentStory<
+  typeof HeaderProduct
+> = () => <HeaderProduct chipLabel="Beta" productsList={[productsList[2]]} />;
 
 export const WithProductSelection: ComponentStory<
   typeof HeaderProduct
@@ -168,6 +193,7 @@ export const WithProductSelection: ComponentStory<
     partyList={[partyList[0]]}
   />
 );
+
 export const WithProductSelectionWithChip: ComponentStory<
   typeof HeaderProduct
 > = () => (
@@ -195,10 +221,28 @@ export const WithoutProductSelectionWithChip: ComponentStory<
     partyList={[partyList[0]]}
   />
 );
+export const WithoutProductSelectionWithChipAndIcon: ComponentStory<
+  typeof HeaderProduct
+> = () => (
+  <HeaderProduct
+    chipLabel="Beta"
+    productsList={[productsList[2]]}
+    partyList={[partyList[0]]}
+  />
+);
 
 export const WithPartySelection: ComponentStory<typeof HeaderProduct> = () => (
   <HeaderProduct
     productsList={[productsList[0]]}
+    partyList={partyList}
+    onSelectedParty={(e) => console.log("Selected Item:", e.name)}
+  />
+);
+export const WithPartySelectionAndIcon: ComponentStory<
+  typeof HeaderProduct
+> = () => (
+  <HeaderProduct
+    productsList={[productsList[2]]}
     partyList={partyList}
     onSelectedParty={(e) => console.log("Selected Item:", e.name)}
   />
@@ -225,6 +269,21 @@ export const WithProductSelectionWithPartySelectionWithChip: ComponentStory<
     chipLabel="Collaudo"
     productsList={productsList}
     partyList={partyList}
+    onSelectedParty={(e) => console.log("Selected Item:", e.name)}
+  />
+);
+
+export const WithProductSelectionWithPartySelectionWithChipAndIconFunction: ComponentStory<
+  typeof HeaderProduct
+> = () => (
+  <HeaderProduct
+    borderBottom={3}
+    borderColor={theme.palette.warning.main}
+    chipColor="warning"
+    chipLabel="Collaudo"
+    productsList={productsList}
+    partyList={partyList}
+    onSelectedProduct={(e) => console.log("Selected Product: ", e.title)}
     onSelectedParty={(e) => console.log("Selected Item:", e.name)}
   />
 );

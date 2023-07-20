@@ -1,3 +1,5 @@
+"use client";
+
 import { Box } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 
@@ -19,15 +21,15 @@ export interface ProductAvatarProps {
 const sizesMap = {
   small: {
     dimension: 32,
-    padding: 1 /* 8px */,
+    padding: 0.5 /* 4px */,
   },
   default: {
     dimension: 64,
-    padding: 2 /* 16px */,
+    padding: 1 /* 8px */,
   },
   large: {
     dimension: 88,
-    padding: 3 /* 24px */,
+    padding: 2 /* 16px */,
   },
 };
 

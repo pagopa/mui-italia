@@ -1,3 +1,5 @@
+"use client";
+
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { CTA } from "@types";
 export interface InfoblockProps {

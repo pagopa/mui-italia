@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Stack, Typography, Box, Button } from "@mui/material";
 import { SxProps } from "@mui/system";
