@@ -1,7 +1,14 @@
 "use client";
 
-import { useMemo } from "react";
-import { Box, Chip, Container, Stack, Typography } from "@mui/material";
+import { ReactNode, useMemo, useState } from "react";
+import {
+  Box,
+  Chip,
+  Container,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material";
 
 import { ProductSwitch, ProductSwitchItem } from "@components/ProductSwitch";
 import { PartySwitchItem, PartySwitch } from "@components/PartySwitch";
@@ -46,7 +53,7 @@ export const HeaderProduct = ({
   maxCharactersNumberMultiLineButton,
   maxCharactersNumberMultiLineItem,
   onSelectedParty,
-  onSelectedProduct,
+  onSelectedProduct = () => {},
   partyId,
   partyList,
   productId,
@@ -59,6 +66,9 @@ export const HeaderProduct = ({
         : productsList[0],
     [productId, productsList]
   ) as ProductSwitchItem;
+  const [iconSelected, setIconSelected] = useState<
+    ReactNode | null | undefined
+  >(selectedProduct.icon || null);
   const selectedParty = useMemo(() => {
     if (!partyList) {
       return;
@@ -79,6 +89,11 @@ export const HeaderProduct = ({
       size={chipSize}
     ></Chip>
   );
+
+  const onSelectedProductChangeIcon = (e: ProductEntity) => {
+    setIconSelected(e.icon);
+    onSelectedProduct(e);
+  };
 
   return (
     <Box
@@ -102,29 +117,30 @@ export const HeaderProduct = ({
           sx={{ py: 2 }}
         >
           {/* Left side of the component */}
-          {productsList.length > 1 && (
-            <Stack spacing={2} direction="row" alignItems="center">
-              {/* Switcher Product */}
-              <ProductSwitch
-                currentProductId={selectedProduct.id}
-                products={productsList}
-                onExit={onSelectedProduct}
-              ></ProductSwitch>
-              {chipLabel && chipLabel !== "" && ChipComponent}
-            </Stack>
-          )}
-
-          {selectedProduct && productsList.length === 1 && (
-            <Stack spacing={2} direction="row" alignItems="center">
-              <Typography
-                sx={{ fontSize: { xs: 20, sm: 28 }, fontWeight: "bold" }}
-              >
-                {selectedProduct?.title}
-              </Typography>
-              {chipLabel && chipLabel !== "" && ChipComponent}
-            </Stack>
-          )}
-
+          <Stack alignItems="center" direction="row">
+            {!!iconSelected && <IconButton>{iconSelected}</IconButton>}
+            {productsList.length > 1 && (
+              <Stack spacing={2} direction="row" alignItems="center">
+                {/* Switcher Product */}
+                <ProductSwitch
+                  currentProductId={selectedProduct.id}
+                  products={productsList}
+                  onExit={onSelectedProductChangeIcon}
+                ></ProductSwitch>
+                {chipLabel && chipLabel !== "" && ChipComponent}
+              </Stack>
+            )}
+            {selectedProduct && productsList.length === 1 && (
+              <Stack spacing={2} direction="row" alignItems="center">
+                <Typography
+                  sx={{ fontSize: { xs: 20, sm: 28 }, fontWeight: "bold" }}
+                >
+                  {selectedProduct?.title}
+                </Typography>
+                {chipLabel && chipLabel !== "" && ChipComponent}
+              </Stack>
+            )}
+          </Stack>
           {/* insert maxWidth to limit component width when the const multiLine is used in PartySwitch and PartyAccountItem */}
           <Box maxWidth="25rem">
             {/* Right side of the component */}
