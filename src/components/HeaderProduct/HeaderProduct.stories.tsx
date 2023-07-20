@@ -7,8 +7,7 @@ import {
   PartyEntity,
   ProductEntity,
 } from "@components/HeaderProduct";
-import { IoIcon } from "@icons/IoIcon";
-import { CieIcon } from "@icons/CieIcon";
+import { LogoIOApp } from "@assets/LogoIOApp";
 
 export default {
   title: "Components/HeaderProduct (WIP)",
@@ -46,21 +45,20 @@ const productsList: Array<ProductEntity> = [
     title: `App IO`,
     productUrl: "#app-io",
     linkType: "internal",
-    icon: <IoIcon fontSize="large" color="primary" />,
+    icon: <LogoIOApp size={32} title="io" color="default" />,
   },
   {
     id: "3",
     title: `Interoperabilità`,
     productUrl: "#interoperabilità",
     linkType: "internal",
-    icon: <CieIcon fontSize="large" color="primary" />,
   },
   {
     id: "4",
     title: ``,
     productUrl: "#no-title",
     linkType: "external",
-    icon: <IoIcon fontSize="large" color="primary" />,
+    icon: <LogoIOApp size={32} title="io" color="default" />,
   },
 ];
 
