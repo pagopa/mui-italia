@@ -88,6 +88,12 @@ const partyMockImages: Array<PartyAccount> = [
     interventi per la salvaguardia della laguna di Venezia`,
     role: `Operatore - Operatore API Operatore - Operatore API`,
   },
+  {
+    image: `${cdnPath}172960361.png`,
+    name: "Amministrazione Comunale",
+    role: "Referente amministrativo",
+    topicName: "Comune di Castelfranco Emilia",
+  },
 ];
 
 /* Tag Element */
@@ -144,6 +150,7 @@ const Template: ComponentStory<typeof PartyAccountItemButton> = (args) => {
         image={item.image}
         partyName={item.name}
         partyRole={item.role}
+        topicPartyName={item.topicName}
       />
     </Stack>
   );

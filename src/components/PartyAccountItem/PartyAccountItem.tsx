@@ -9,10 +9,11 @@ export type PartyAccount = {
   image: string | undefined;
   name: string;
   role?: string | undefined;
+  topicName?: string;
 };
 export interface PartyAccountItemProps {
   image?: string;
-  /* The name of the party. E.g: "Comune di Roma" */
+  /* The name of the party. E.g: "Comune di Roma". If aoo or uo are present, it will be name of Aoo or Uo */
   partyName: string;
   /* The role of the user. E.g: "Referente amministrativo" */
   partyRole?: string;
@@ -23,10 +24,13 @@ export interface PartyAccountItemProps {
   infoContainerSx?: SxProps;
   /* The number of characters beyond which the multiLine is applied */
   maxCharactersNumberMultiLine?: number;
+  /* The name of the party. E.g: "Comune di Roma" when is visible aoo or uo */
+  topicPartyName?: string;
 }
 
 export const PartyAccountItem = ({
   partyName,
+  topicPartyName,
   partyRole,
   image,
   noWrap = true,
@@ -58,7 +62,14 @@ export const PartyAccountItem = ({
     <Box sx={containerStyle}>
       <Box sx={{ display: "flex", flexDirection: "row" }}>
         {/* Avatar Container */}
-        <PartyAvatar customAlt={partyName} customSrc={image} />
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <PartyAvatar customAlt={partyName} customSrc={image} />
+        </Box>
         {/* Info Container */}
         <Box
           sx={{
@@ -68,6 +79,25 @@ export const PartyAccountItem = ({
             ...infoContainerSx,
           }}
         >
+          {topicPartyName && (
+            <Tooltip arrow title={maxCharacter ? topicPartyName : ""}>
+              <Typography
+                variant="caption"
+                component="h6"
+                color="inherit"
+                sx={{
+                  fontWeight: theme.typography.fontWeightMedium,
+                  lineHeight: 1.25,
+                  ...(maxCharacter && {
+                    ...truncatedText,
+                    WebkitLineClamp: 1,
+                  }),
+                }}
+              >
+                {topicPartyName}
+              </Typography>
+            </Tooltip>
+          )}
           {partyName && (
             <Tooltip arrow title={maxCharacter ? partyName : ""}>
               <Typography
