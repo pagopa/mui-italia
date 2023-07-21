@@ -86,7 +86,7 @@ export const PartyAccountItem = ({
               <Typography
                 variant="caption"
                 component="h6"
-                color="inherit"
+                color="colorTextPrimary"
                 sx={{
                   fontWeight: theme.typography.fontWeightMedium,
                   lineHeight: 1.25,
