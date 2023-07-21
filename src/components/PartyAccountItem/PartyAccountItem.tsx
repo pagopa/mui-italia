@@ -11,7 +11,7 @@ export type PartyAccount = {
   image: string | undefined;
   name: string;
   role?: string | undefined;
-  topicName?: string;
+  parentName?: string;
 };
 export interface PartyAccountItemProps {
   image?: string;
@@ -27,12 +27,12 @@ export interface PartyAccountItemProps {
   /* The number of characters beyond which the multiLine is applied */
   maxCharactersNumberMultiLine?: number;
   /* Label showed above partyName. */
-  topicPartyName?: string;
+  parentPartyName?: string;
 }
 
 export const PartyAccountItem = ({
   partyName,
-  topicPartyName,
+  parentPartyName,
   partyRole,
   image,
   noWrap = true,
@@ -81,8 +81,8 @@ export const PartyAccountItem = ({
             ...infoContainerSx,
           }}
         >
-          {topicPartyName && (
-            <Tooltip arrow title={maxCharacter ? topicPartyName : ""}>
+          {parentPartyName && (
+            <Tooltip arrow title={maxCharacter ? parentPartyName : ""}>
               <Typography
                 variant="caption"
                 component="h6"
@@ -96,7 +96,7 @@ export const PartyAccountItem = ({
                   }),
                 }}
               >
-                {topicPartyName}
+                {parentPartyName}
               </Typography>
             </Tooltip>
           )}

@@ -169,7 +169,7 @@ export const HeaderProduct = ({
                 infoContainerSx={{
                   display: { xs: "none", md: "block" },
                 }}
-                topicPartyName={selectedParty.topicName}
+                parentPartyName={selectedParty.parentName}
               />
             )}
           </Box>

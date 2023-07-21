@@ -35,7 +35,7 @@ export type PartySwitchItem = {
   name: string;
   productRole?: string;
   logoUrl?: string;
-  topicName?: string;
+  parentName?: string;
 };
 
 export type PartySwitchProps = {
@@ -126,7 +126,7 @@ export const PartySwitch = ({
           image={selectedParty.logoUrl}
           infoContainerSx={mobileHideStyle}
           maxCharactersNumberMultiLine={maxCharactersNumberMultiLineItem}
-          topicPartyName={selectedParty?.topicName}
+          parentPartyName={selectedParty?.parentName}
         />
         {open ? (
           <ArrowDropUpRoundedIcon sx={mobileHideStyle} />
@@ -190,7 +190,7 @@ export const PartySwitch = ({
               action={() => handlePartySelection(e)}
               selectedItem={e.id === selectedId}
               maxCharactersNumberMultiLine={maxCharactersNumberMultiLineButton}
-              topicPartyName={e.topicName}
+              parentPartyName={e.parentName}
             />
           ))}
         {filteredParties.length === 0 && (

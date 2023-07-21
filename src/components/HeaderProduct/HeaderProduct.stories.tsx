@@ -155,7 +155,7 @@ const partyList: Array<PartyEntity> = [
     logoUrl: `${cdnPath}172960361.png`,
     name: "Amministrazione Comunale",
     productRole: "Referente amministrativo",
-    topicName: "Comune di Castelfranco Emilia",
+    parentName: "Comune di Castelfranco Emilia",
   },
 ];
 
@@ -288,7 +288,7 @@ export const WithProductSelectionWithPartySelectionWithChipAndIconFunction: Comp
   />
 );
 
-export const WithProductSelectionWithPartySelectionWithChipWithTopicName: ComponentStory<
+export const WithProductSelectionWithPartySelectionWithChipWithParentName: ComponentStory<
   typeof HeaderProduct
 > = () => (
   <HeaderProduct

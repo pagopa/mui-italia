@@ -22,7 +22,7 @@ export interface PartyAccountItemButtonProps {
   /* The number of characters beyond which the multiLine is applied */
   maxCharactersNumberMultiLine?: number;
   /* Label showed above partyName. */
-  topicPartyName?: string;
+  parentPartyName?: string;
 }
 
 export const PartyAccountItemButton = ({
@@ -34,7 +34,7 @@ export const PartyAccountItemButton = ({
   disabled,
   endSlot,
   maxCharactersNumberMultiLine = 50,
-  topicPartyName,
+  parentPartyName,
 }: PartyAccountItemButtonProps) => {
   const maxCharacter =
     partyName && partyName.length > maxCharactersNumberMultiLine;
@@ -101,8 +101,8 @@ export const PartyAccountItemButton = ({
             }),
           }}
         >
-          {topicPartyName && (
-            <Tooltip arrow title={maxCharacter ? topicPartyName : ""}>
+          {parentPartyName && (
+            <Tooltip arrow title={maxCharacter ? parentPartyName : ""}>
               <Typography
                 variant="caption"
                 component="h6"
@@ -116,7 +116,7 @@ export const PartyAccountItemButton = ({
                   }),
                 }}
               >
-                {topicPartyName}
+                {parentPartyName}
               </Typography>
             </Tooltip>
           )}

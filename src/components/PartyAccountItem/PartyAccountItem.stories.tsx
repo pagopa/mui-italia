@@ -90,15 +90,15 @@ const partyMockImages: Array<PartyAccount> = [
     image: `${cdnPath}172960361.png`,
     name: "Amministrazione Comunale",
     role: "Referente amministrativo",
-    topicName: "Comune di Castelfranco Emilia",
+    parentName: "Comune di Castelfranco Emilia",
   },
 ];
 
-const itemWithTopic = {
+const itemWithParentName = {
   image: `${cdnPath}172960361.png`,
   name: "Amministrazione Comunale",
   role: "Referente amministrativo",
-  topicName: "Comune di Castelfranco Emilia",
+  parentName: "Comune di Castelfranco Emilia",
 };
 
 const componentMaxWidth = 500;
@@ -163,7 +163,7 @@ const Template: ComponentStory<typeof PartyAccountItem> = (args) => {
         image={item.image}
         partyName={item.name}
         partyRole={item.role}
-        topicPartyName={item.topicName}
+        parentPartyName={item.parentName}
       />
     </Stack>
   );
@@ -179,11 +179,11 @@ NoWrap.args = {
   noWrap: true,
 };
 
-export const WithTopic: ComponentStory<typeof PartyAccountItem> = () => (
+export const WithParentName: ComponentStory<typeof PartyAccountItem> = () => (
   <PartyAccountItem
-    image={itemWithTopic.image}
-    partyName={itemWithTopic.name}
-    partyRole={itemWithTopic.role}
-    topicPartyName={itemWithTopic.topicName}
+    image={itemWithParentName.image}
+    partyName={itemWithParentName.name}
+    partyRole={itemWithParentName.role}
+    parentPartyName={itemWithParentName.parentName}
   />
 );
