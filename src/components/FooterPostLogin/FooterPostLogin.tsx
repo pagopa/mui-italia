@@ -35,7 +35,6 @@ export const FooterPostLogin = ({
       >
         {companyLink && (
           <Link
-            component="button"
             aria-label={companyLink?.ariaLabel}
             href={companyLink?.href ?? hrefNoOp}
             onClick={wrapHandleExitAction(
@@ -57,7 +56,6 @@ export const FooterPostLogin = ({
           {links.map(({ href = hrefNoOp, label, ariaLabel, onClick }, i) => (
             <Link
               aria-label={ariaLabel}
-              component="button"
               href={href}
               onClick={wrapHandleExitAction(href, onClick, onExit)}
               key={i}
