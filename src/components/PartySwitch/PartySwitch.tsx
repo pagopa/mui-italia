@@ -37,6 +37,7 @@ export type PartySwitchItem = {
   name: string;
   productRole?: string;
   logoUrl?: string;
+  parentName?: string;
 };
 
 export type PartySwitchProps = {
@@ -127,6 +128,7 @@ export const PartySwitch = ({
           image={selectedParty.logoUrl}
           infoContainerSx={mobileHideStyle}
           maxCharactersNumberMultiLine={maxCharactersNumberMultiLineItem}
+          parentPartyName={selectedParty?.parentName}
         />
         {open ? (
           <ArrowDropUpRoundedIcon sx={mobileHideStyle} />
@@ -195,6 +197,7 @@ export const PartySwitch = ({
               action={() => handlePartySelection(e)}
               selectedItem={e.id === selectedId}
               maxCharactersNumberMultiLine={maxCharactersNumberMultiLineButton}
+              parentPartyName={e.parentName}
             />
           ))}
         {filteredParties.length === 0 && (
