@@ -86,7 +86,20 @@ const partyMockImages: Array<PartyAccount> = [
     interventi per la salvaguardia della laguna di Venezia`,
     role: `Operatore - Operatore API Operatore - Operatore API`,
   },
+  {
+    image: `${cdnPath}172960361.png`,
+    name: "Amministrazione Comunale",
+    role: "Referente amministrativo",
+    parentName: "Comune di Castelfranco Emilia",
+  },
 ];
+
+const itemWithParentName = {
+  image: `${cdnPath}172960361.png`,
+  name: "Amministrazione Comunale",
+  role: "Referente amministrativo",
+  parentName: "Comune di Castelfranco Emilia",
+};
 
 const componentMaxWidth = 500;
 
@@ -150,6 +163,7 @@ const Template: ComponentStory<typeof PartyAccountItem> = (args) => {
         image={item.image}
         partyName={item.name}
         partyRole={item.role}
+        parentPartyName={item.parentName}
       />
     </Stack>
   );
@@ -164,3 +178,12 @@ export const NoWrap = Template.bind({});
 NoWrap.args = {
   noWrap: true,
 };
+
+export const WithParentName: ComponentStory<typeof PartyAccountItem> = () => (
+  <PartyAccountItem
+    image={itemWithParentName.image}
+    partyName={itemWithParentName.name}
+    partyRole={itemWithParentName.role}
+    parentPartyName={itemWithParentName.parentName}
+  />
+);

@@ -150,6 +150,13 @@ const partyList: Array<PartyEntity> = [
     name: "Ente senza stemma",
     productRole: "Referente amministrativo",
   },
+  {
+    id: "14",
+    logoUrl: `${cdnPath}172960361.png`,
+    name: "Amministrazione Comunale",
+    productRole: "Referente amministrativo",
+    parentName: "Comune di Castelfranco Emilia",
+  },
 ];
 
 export const DefaultWithoutParties: ComponentStory<
@@ -277,6 +284,21 @@ export const WithProductSelectionWithPartySelectionWithChipAndIconFunction: Comp
     productsList={productsList}
     partyList={partyList}
     onSelectedProduct={(e) => console.log("Selected Product: ", e.title)}
+    onSelectedParty={(e) => console.log("Selected Item:", e.name)}
+  />
+);
+
+export const WithProductSelectionWithPartySelectionWithChipWithParentName: ComponentStory<
+  typeof HeaderProduct
+> = () => (
+  <HeaderProduct
+    borderBottom={3}
+    borderColor={theme.palette.warning.main}
+    chipColor="warning"
+    chipLabel="Collaudo"
+    productsList={productsList}
+    partyList={partyList}
+    partyId={"14"}
     onSelectedParty={(e) => console.log("Selected Item:", e.name)}
   />
 );
