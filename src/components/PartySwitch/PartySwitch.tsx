@@ -20,7 +20,9 @@ import {
   IconButton,
 } from "@mui/material";
 import { alpha, styled } from "@mui/material/styles";
-import { ButtonUnstyledProps, useButton } from "@mui/base/ButtonUnstyled";
+import { ButtonProps } from "@mui/base/Button";
+import useButton from "@mui/base/useButton";
+
 import SearchIcon from "@mui/icons-material/Search";
 import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
@@ -137,12 +139,17 @@ export const PartySwitch = ({
       <CustomDrawer
         anchor="right"
         open={open}
-        onKeyDownCapture={(e) => {
+        onKeyDownCapture={(e: React.KeyboardEvent) => {
           if (e.key === "Enter") {
-            const partySelected = (e as any).target;
-            const selectedParty = filteredParties.find((p: PartySwitchItem) =>
-              partySelected.textContent.includes(p.name)
-            );
+            const partySelected = e.target;
+            const selectedParty = filteredParties.find((p: PartySwitchItem) => {
+              if (
+                "textContent" in partySelected &&
+                typeof partySelected.textContent === "string"
+              ) {
+                partySelected.textContent.includes(p.name);
+              }
+            });
             if (selectedParty) {
               handlePartySelection(selectedParty);
             }
@@ -244,17 +251,16 @@ const StyledSwitcherButton = styled("div")(({ theme }) => ({
 }));
 
 const PartySwitchButton = forwardRef(function PartySwitchButton(
-  props: ButtonUnstyledProps,
+  props: ButtonProps,
   ref: ForwardedRef<any>
 ) {
-  const { children } = props;
-  const { /* active */ disabled, focusVisible, getRootProps } = useButton({
+  const { children, disabled } = props;
+  const { focusVisible, getRootProps } = useButton({
     ...props,
-    ref,
+    rootRef: ref,
   });
 
   const classes = {
-    /* active, */
     disabled,
     focusVisible,
   };

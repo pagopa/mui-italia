@@ -12,7 +12,8 @@ import clsx from "clsx";
 import { Menu, MenuItem, Typography } from "@mui/material";
 import { styled } from "@mui/system";
 import { alpha } from "@mui/material/styles";
-import { ButtonUnstyledProps, useButton } from "@mui/base/ButtonUnstyled";
+import { ButtonProps } from "@mui/base/Button";
+import useButton from "@mui/base/useButton";
 import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 
@@ -135,17 +136,16 @@ const StyledSwitcherButton = styled("div")(({ theme }) => ({
 }));
 
 const ProductSwitchButton = forwardRef(function ProductSwitchButton(
-  props: ButtonUnstyledProps,
+  props: ButtonProps,
   ref: ForwardedRef<any>
 ) {
-  const { children } = props;
-  const { /* active */ disabled, focusVisible, getRootProps } = useButton({
+  const { children, disabled } = props;
+  const { focusVisible, getRootProps } = useButton({
     ...props,
-    ref,
+    rootRef: ref,
   });
 
   const classes = {
-    /* active, */
     disabled,
     focusVisible,
   };

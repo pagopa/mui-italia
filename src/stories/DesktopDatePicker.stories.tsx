@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import { TextField, TextFieldProps } from "@mui/material";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
@@ -35,15 +34,14 @@ export const Default: ComponentStory<typeof DesktopDatePicker> = () => {
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DesktopDatePicker
         label="Data della notifica"
-        inputFormat="dd/MM/yyyy"
+        format="dd/MM/yyyy"
         value={value}
         onChange={onChangeHandler}
-        renderInput={(params: TextFieldProps) => (
-          <TextField
-            {...params}
-            inputProps={{ ...params.inputProps, placeholder: "dd/mm/aaaa" }}
-          />
-        )}
+        slotProps={{
+          textField: {
+            inputProps: { placeholder: "dd/mm/aaaa" },
+          },
+        }}
       />
     </LocalizationProvider>
   );

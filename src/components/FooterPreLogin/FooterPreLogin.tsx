@@ -84,7 +84,6 @@ export const FooterPreLogin = ({
             <Stack spacing={2} alignItems={{ xs: "center", sm: "start" }}>
               {companyLink && (
                 <Link
-                  component="button"
                   aria-label={companyLink.ariaLabel}
                   href={companyLink.href ?? hrefNoOp}
                   onClick={wrapHandleExitAction(
@@ -222,7 +221,6 @@ export const FooterPreLogin = ({
                         <li key={i}>
                           <Link
                             aria-label={ariaLabel}
-                            component="button"
                             href={href}
                             onClick={wrapHandleExitAction(
                               href,
@@ -251,7 +249,6 @@ export const FooterPreLogin = ({
                         <li key={i}>
                           <Link
                             aria-label={ariaLabel}
-                            component="button"
                             href={href}
                             onClick={wrapHandleExitAction(
                               href,
