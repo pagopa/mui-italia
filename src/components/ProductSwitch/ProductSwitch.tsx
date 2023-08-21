@@ -13,7 +13,7 @@ import { Menu, MenuItem, Typography } from "@mui/material";
 import { styled } from "@mui/system";
 import { alpha } from "@mui/material/styles";
 import { ButtonProps } from "@mui/base/Button";
-import useButton from "@mui/base/useButton";
+import { useButton } from "@mui/base/useButton";
 import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 

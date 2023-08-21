@@ -21,7 +21,7 @@ import {
 } from "@mui/material";
 import { alpha, styled } from "@mui/material/styles";
 import { ButtonProps } from "@mui/base/Button";
-import useButton from "@mui/base/useButton";
+import { useButton } from "@mui/base/useButton";
 
 import SearchIcon from "@mui/icons-material/Search";
 import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
