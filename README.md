@@ -3,7 +3,7 @@
 [Material-UI](https://mui.com/core/) theme inspired by [Bootstrap Italia](https://italia.github.io/bootstrap-italia/).
 
 > [!important]
-> The components of this package are intended to be used in the context of an application. If you want to build a landing page you should directly use the external [pagopa-editorial-components](https://github.com/pagopa/pagopa-editorial-components) package, actually based on this one.
+> The components of this package are designed for use within an application. To build a landing page, use the [pagopa-editorial-components](https://github.com/pagopa/pagopa-editorial-components) package, which is based on this one.
 
 ## Installation
 To add this package to your `package.json` run in your terminal:
