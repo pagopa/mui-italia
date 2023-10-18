@@ -76,7 +76,7 @@ Here's an explanation of the commands you can find in the `package.json`:
 If you need to view all the styled and custom components available in this package, check out the (ongoing) [MUI Italia Storybook](https://main--633c31eff9fe385398ada426.chromatic.com/) (managed with Chromatic).
 
 
-## Contributions
+## How to contribute
 All components in this package should be generic enough to be used in different applications and use cases. In this sense, if you have any doubts or aren't sure, please ask your fellow designer.
 With that said, you basically have two options starting from the design project:
 
