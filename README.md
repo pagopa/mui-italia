@@ -2,6 +2,9 @@
 
 [Material-UI](https://mui.com/core/) theme inspired by [Bootstrap Italia](https://italia.github.io/bootstrap-italia/).
 
+> [!important]
+> The components of this package are intended to be used in the context of an application. If you want to build a landing page you should directly use the external [pagopa-editorial-components](https://github.com/pagopa/pagopa-editorial-components) package, actually based on this one.
+
 ## Installation
 To add this package to your `package.json` run in your terminal:
 ```console
@@ -73,5 +76,46 @@ Here's an explanation of the commands you can find in the `package.json`:
 If you need to view all the styled and custom components available in this package, check out the (ongoing) [MUI Italia Storybook](https://main--633c31eff9fe385398ada426.chromatic.com/) (managed with Chromatic).
 
 
-### Contributions
-Any critiques and suggestions are welcome. If you feel pretty confident, you can [open a Pull Request](https://github.com/pagopa/mui-italia/pulls)
+## Contributions
+All components in this package should be generic enough to be used in different applications and use cases. In this sense, if you have any doubts or aren't sure, please ask your fellow designer.
+With that said, you basically have two options starting from the design project:
+
+### Build the generic component (easy abstraction)
+1. Take the time to make a proper analysis of the component's possible props.
+2. Ask your fellow developers/designers for comments or criticism
+3. Build it, according to the provided guidelines (see below)
+4. Test all its possible combinations, using Storybook or similar playground 
+
+### Provide a sample of how to compose the component (hard abstraction)
+1. Compose the component using the available components provided by the library
+2. Add a specific story to the Storybook, under the `Composition` section
+3. See the `Sidenav` as an example of this approach
+
+Either way, you must follow these guidelines:
+
+#### Visual consistency
+- If possible, avoid magic numbers.
+- Use the provided visual attributes (color, spacing, etc…), using the corresponding `theme` file
+- If you have to use some values not provided by the `theme` object:
+  - Ask to your fellow designer for clarification
+  - If necessary, extend it.
+
+#### Version control
+- Create a new branch using the relative Jira ticket as prefix, followed by a very concise description of the task. E.g: `JIRA-201-add-new-color-values`
+- Once you have completed your task, open a PR with a descriptive title preceded by the Jira ticket number. E.g: _[JIRA-201] Add the new color values for the new [A] component_
+- Please follow the PR template. Don't leave the description blank
+
+#### Storybook/Chromatic integration
+- New components must have relative Storybook stories.
+- If your contribution involves updates to existing components, ensure that Storybook stories are updated to reflect the changes.
+- The components are responsive by default. To make sure everything is okay, please configure the single story using the `breakpointsChromaticValues` array in the configuration to make sure Chromatic generates all the required snapshots.
+- To access Chromatic with full privileges, you need to be part of the PagoPA `mui-italia-contributors` team. Please contact your (technical) project manager for more information.
+
+#### Accessibility
+- Ensure that the new components are accessible to all users. To avoid reinventing the wheel, take advantage of the MUI base components.
+- Try to perform the actions using only the keyboard.
+
+#### Cross-Browser Compatibility
+- Test your changes on multiple browsers and ensure they work consistently.
+
+When you feel ready, you can [open a pull request](https://github.com/pagopa/mui-italia/pulls).
