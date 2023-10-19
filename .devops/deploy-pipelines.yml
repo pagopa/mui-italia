@@ -28,6 +28,14 @@ pr: none
 pool:
   vmImage: 'ubuntu-latest'
 
+resources:
+  repositories:
+    - repository: pagopaCommons
+      type: github
+      name: pagopa/azure-pipeline-templates
+      ref: refs/tags/v19
+      endpoint: 'io-azure-devops-github-ro'
+
 stages:
 
   # Create a relase
@@ -52,7 +60,7 @@ stages:
           - template: ./node-job-setup-yarn3/template.yaml
             parameters:
               persistCredentials: true
-          - template: ./node-github-release/template.yaml
+          - template: templates/node-github-release/template.yaml@pagopaCommons
             parameters:
               release_branch: '$(DEFAULT_BRANCH)'
               semver: '${{ parameters.RELEASE_SEMVER }}'
@@ -74,7 +82,7 @@ stages:
     jobs:
       - job: make_build
         steps:
-          - template: ./node-job-setup-yarn3/template.yaml
+          - template: ./node-job-setup/template.yaml
             parameters:
               # On the assumption that this stage is executed only when Relase stage is,
               #  with this parameter we set the reference the deploy script must pull changes from.
