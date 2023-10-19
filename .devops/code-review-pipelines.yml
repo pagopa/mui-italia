@@ -10,14 +10,6 @@
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azure-devops&tabs=schema%2Cparameter-schema#pr-trigger
 trigger: none
 
-resources:
-  repositories:
-    - repository: pagopaCommons
-      type: github
-      name: pagopa/azure-pipeline-templates
-      ref: refs/tags/v19
-      endpoint: 'io-azure-devops-github-ro'
-
 pool:
   vmImage: 'ubuntu-latest'
 
@@ -27,7 +19,7 @@ stages:
     jobs:
       - job: make_build
         steps:
-          - template: templates/node-job-setup/template.yaml@pagopaCommons
+          - template: ./node-job-setup-yarn3/template.yaml
           - script: |
               yarn build
             displayName: 'Build'
@@ -37,7 +29,7 @@ stages:
     jobs:
       - job: lint
         steps:
-          - template: templates/node-job-setup/template.yaml@pagopaCommons
+          - template: ./node-job-setup-yarn3/template.yaml
           - script: |
               yarn lint
             displayName: 'Lint'
