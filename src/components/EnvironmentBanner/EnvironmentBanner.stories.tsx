@@ -27,7 +27,6 @@ export default {
       control: {
         type: "text",
       },
-      defaultValue: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     },
     icon: {
       control: {
@@ -38,5 +37,9 @@ export default {
 } as ComponentMeta<typeof EnvironmentBanner>;
 
 export const Default: ComponentStory<typeof EnvironmentBanner> = (args) => (
-  <EnvironmentBanner {...args} icon={<WarningAmberIcon fontSize="small" />} />
+  <EnvironmentBanner
+    {...args}
+    message="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    icon={<WarningAmberIcon fontSize="small" />}
+  />
 );
