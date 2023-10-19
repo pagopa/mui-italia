@@ -28,6 +28,14 @@ pr: none
 pool:
   vmImage: 'ubuntu-latest'
 
+resources:
+  repositories:
+    - repository: pagopaCommons
+      type: github
+      name: pagopa/azure-pipeline-templates
+      ref: refs/tags/v19
+      endpoint: 'io-azure-devops-github-ro'
+
 stages:
 
   # Create a relase
@@ -49,7 +57,7 @@ stages:
       - job: make_release
         condition: eq(variables['Build.SourceBranch'], format('refs/heads/{0}', variables.DEFAULT_BRANCH))
         steps:
-          - template: ./node-job-setup-yarn3/template.yaml
+          - template: templates/node-github-release/template.yaml@pagopaCommons
             parameters:
               persistCredentials: true
           - template: ./node-github-release/template.yaml
