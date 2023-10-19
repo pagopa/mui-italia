@@ -2,18 +2,17 @@
 
 import React from "react";
 import { Alert, Typography } from "@mui/material";
-
-interface EnvironmentBannerProps {
+export interface EnvironmentBannerProps {
   env: "test" | "prod";
   message: string;
   icon?: React.ReactNode;
 }
 
-export function EnvironmentBanner({
+export const EnvironmentBanner = ({
   env,
   message,
   icon,
-}: EnvironmentBannerProps) {
+}: EnvironmentBannerProps) => {
   const bgcolor = env === "test" ? "warning.extraLight" : "background.default";
   return (
     <Alert
@@ -38,4 +37,4 @@ export function EnvironmentBanner({
       </Typography>
     </Alert>
   );
-}
+};
