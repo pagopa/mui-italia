@@ -27,7 +27,7 @@
     "lint": "eslint . -c .eslintrc.js --ext .ts,.tsx",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "chromatic": "chromatic"
+    "chromatic": "chromatic --only-changed"
   },
   "eslintConfig": {
     "extends": [
