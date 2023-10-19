@@ -57,10 +57,10 @@ stages:
       - job: make_release
         condition: eq(variables['Build.SourceBranch'], format('refs/heads/{0}', variables.DEFAULT_BRANCH))
         steps:
-          - template: templates/node-job-setup/template.yaml@pagopaCommons
+          - template: ./node-job-setup-yarn3/template.yaml
             parameters:
               persistCredentials: true
-          - template: ./node-github-release/template.yaml
+          - template: templates/node-github-release/template.yaml@pagopaCommons
             parameters:
               release_branch: '$(DEFAULT_BRANCH)'
               semver: '${{ parameters.RELEASE_SEMVER }}'
