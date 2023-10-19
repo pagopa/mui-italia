@@ -2736,7 +2736,7 @@ __metadata:
     "@storybook/react": ^7.5.0
     "@storybook/react-webpack5": ^7.5.0
     "@types/node": ^18.16.20
-    "@types/react": ^18.2.15
+    "@types/react": ^18.2.29
     "@types/react-dom": ^18.2.7
     "@typescript-eslint/eslint-plugin": ^5.47.1
     "@typescript-eslint/parser": ^5.39.0
@@ -4930,7 +4930,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:^18.2.15":
+"@types/react@npm:*":
   version: 18.2.15
   resolution: "@types/react@npm:18.2.15"
   dependencies:
@@ -4941,7 +4941,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:>=16":
+"@types/react@npm:>=16, @types/react@npm:^18.2.29":
   version: 18.2.29
   resolution: "@types/react@npm:18.2.29"
   dependencies:
