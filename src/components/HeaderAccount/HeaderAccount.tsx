@@ -133,7 +133,7 @@ export const HeaderAccount = ({
               <IconButton
                 size="small"
                 aria-label="Assistenza"
-                sx={{ display: ["flex", "none"] }}
+                sx={{ display: ["flex", "none"], color: "text.primary" }}
                 onClick={onAssistanceClick}
               >
                 <HelpOutlineRoundedIcon fontSize="inherit" />
