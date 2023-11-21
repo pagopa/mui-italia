@@ -51,7 +51,7 @@ export const ProductSwitch = ({
   );
 
   useEffect(() => {
-    setSelectedId(selectedId);
+    setSelectedId(currentProductId);
   }, [currentProductId]);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
