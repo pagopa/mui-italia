@@ -1,0 +1,83 @@
+# This repository adheres to the publiccode.yml standard by including this 
+# metadata file that makes public software easily discoverable.
+# More info at https://github.com/italia/publiccode.yml
+
+publiccodeYmlVersion: '0.3'
+categories:
+  - website-builder
+description:
+  en:
+    documentation: 'http://pagopa.github.io/mui-italia'
+    features:
+      - Design System
+    longDescription: |
+      MUI Italia presents a Material-UI theme enriched by the aesthetics of
+      Bootstrap Italia, tailored for application components. It's an integration
+      that brings new design elements into Material-UI, offering a seamless
+      approach to styling web applications.
+
+
+      To leverage this package, integrate it into your application via \*npm\*
+      or \*yarn\*. The theme acts as a wrapper, overriding default parameters
+      like colors, font families, and padding sizes. The goal is to minimize
+      custom styles and instead utilize the standard library and this themed
+      framework. Notably, it introduces a specific 'Italia' color with a 'blu
+      italia palette' for components.
+
+
+      The CLI commands included in the package.json facilitate various tasks
+      like linting, building, running Storybook, and performing checks with
+      Chromatic for visual regressions. Storybook serves as a comprehensive
+      guide to visualize and interact with the available components.
+
+
+      Contributions are welcome, emphasizing the creation of versatile, reusable
+      components that align with design guidelines. Two paths are outlined for
+      contributors: building generic components or composing components using
+      the library's existing ones. Key guidelines revolve around visual
+      consistency, version control, Storybook/Chromatic integration,
+      accessibility, and cross-browser compatibility.
+
+    shortDescription: |-
+      MUI Italia: Material-UI theme inspired by Bootstrap Italia
+developmentStatus: stable
+intendedAudience:
+  scope:
+    - science-and-technology
+it:
+  conforme:
+    gdpr: true
+    lineeGuidaDesign: true
+    misureMinimeSicurezza: true
+    modelloInteroperabilita: true
+  countryExtensionVersion: '0.2'
+  piattaforme:
+    anpr: false
+    cie: false
+    pagopa: false
+    spid: false
+  riuso:
+    codiceIPA: 5n2tr557
+landingURL: 'http://pagopa.github.io/mui-italia'
+legal:
+  license: MIT
+  mainCopyrightOwner: PagoPA S.p.A
+  repoOwner: PagoPA S.p.A
+localisation:
+  availableLanguages:
+    - it
+    - en
+  localisationReady: false
+maintenance:
+  contacts:
+    - affiliation: PagoPA S.p.A.
+      email: ospo@pagopa.it
+      name: Open Source Program Office
+  type: internal
+name: mui-italia
+platforms:
+  - web
+releaseDate: '2023-10-19'
+softwareType: library
+softwareVersion: 1.0.2
+url: 'https://github.com/pagopa/mui-italia'
