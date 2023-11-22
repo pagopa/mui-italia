@@ -81,7 +81,10 @@ export const AccountDropdown = ({
         sx={{ display: ["flex", "none"] }}
         onClick={handleClick}
       >
-        <AccountCircleRoundedIcon fontSize="inherit" />
+        <AccountCircleRoundedIcon
+          fontSize="inherit"
+          sx={{ color: "text.primary" }}
+        />
       </IconButton>
       {/* END Account Button MOBILE/DESKTOP */}
 
@@ -104,7 +107,17 @@ export const AccountDropdown = ({
               onClick={wrapOnClick(onClick)}
               sx={{ display: "flex" }}
             >
-              {icon && <ListItemIcon>{icon}</ListItemIcon>}
+              {icon && (
+                <ListItemIcon
+                  sx={{
+                    "& .MuiSvgIcon-root": {
+                      color: "text.primary",
+                    },
+                  }}
+                >
+                  {icon}
+                </ListItemIcon>
+              )}
               {label && <ListItemText>{label}</ListItemText>}
             </MenuItem>
           ))}
