@@ -108,7 +108,7 @@ export const HeaderAccount = ({
               <IconButton
                 size="small"
                 aria-label="Documentazione"
-                sx={{ display: ["flex", "none"] }}
+                sx={{ display: ["flex", "none"], color: "text.primary" }}
                 onClick={onDocumentationClick}
               >
                 <MenuBookIcon fontSize="inherit" />
