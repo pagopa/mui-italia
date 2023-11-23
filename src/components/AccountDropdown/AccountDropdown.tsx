@@ -78,13 +78,9 @@ export const AccountDropdown = ({
       <IconButton
         aria-label="Assistenza"
         size="small"
-        sx={{ display: ["flex", "none"] }}
-        onClick={handleClick}
+        sx={{ display: ["flex", "none"], color: "text.primary" }}
       >
-        <AccountCircleRoundedIcon
-          fontSize="inherit"
-          sx={{ color: "text.primary" }}
-        />
+        <AccountCircleRoundedIcon fontSize="inherit" />
       </IconButton>
       {/* END Account Button MOBILE/DESKTOP */}
 
@@ -107,17 +103,7 @@ export const AccountDropdown = ({
               onClick={wrapOnClick(onClick)}
               sx={{ display: "flex" }}
             >
-              {icon && (
-                <ListItemIcon
-                  sx={{
-                    "& .MuiSvgIcon-root": {
-                      color: "text.primary",
-                    },
-                  }}
-                >
-                  {icon}
-                </ListItemIcon>
-              )}
+              {icon && <ListItemIcon>{icon}</ListItemIcon>}
               {label && <ListItemText>{label}</ListItemText>}
             </MenuItem>
           ))}
