@@ -10,15 +10,14 @@ export const TimelineNotificationItem: React.FC<TimelineItemProps> = (
 
   return (
     <TimelineItem
-      sx={[
-        {
-          /* Remove extra space because there's opposite content, but the relative
+      sx={{
+        /* Remove extra space because there's opposite content, but the relative
           prop is not exposed by the component's API */
-          "&:before": {
-            display: "none",
-          },
+        "&:before": {
+          display: "none",
         },
-      ]}
+        ...props.sx,
+      }}
     >
       {children}
     </TimelineItem>
