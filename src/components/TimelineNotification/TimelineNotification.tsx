@@ -13,6 +13,7 @@ export const TimelineNotification: React.FC<TimelineProps> = (
       sx={{
         px: "0",
         py: theme.spacing(2),
+        ...props.sx,
       }}
     >
       {children}

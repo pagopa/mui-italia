@@ -16,12 +16,11 @@ export default {
     },
   },
   argTypes: {
-    env: {
+    bgColor: {
       control: {
         type: "radio",
-        options: ["test", "prod"],
+        options: ["info", "warning"],
       },
-      defaultValue: "test",
     },
     message: {
       control: {
@@ -43,3 +42,6 @@ export const Default: ComponentStory<typeof EnvironmentBanner> = (args) => (
     icon={<WarningAmberIcon fontSize="small" />}
   />
 );
+Default.args = {
+  bgColor: "info",
+};
