@@ -3,6 +3,7 @@
 import { useRef, ChangeEvent, DragEvent, ReactNode, useState } from "react";
 import {
   Box,
+  Button,
   CircularProgress,
   FormControl,
   FormLabel,
@@ -57,6 +58,9 @@ export type SingleFileInputProps = {
   /** The label to be displayed in the dropzone. */
   dropzoneLabel: string;
 
+  /** The button to be displayed in the dropzone. */
+  dropzoneButton: string;
+
   /** The label to be displayed above the spinner on loading state. */
   loadingLabel?: string;
 
@@ -105,8 +109,8 @@ export const SingleFileInput = ({
   onFileSelected,
   onFileRemoved,
   onFileRejected,
-
   dropzoneLabel,
+  dropzoneButton,
   loadingLabel = "Caricamento in corso...",
   rejectedLabel,
 }: SingleFileInputProps): JSX.Element => {
@@ -233,6 +237,9 @@ export const SingleFileInput = ({
                   <Typography display="inline" variant="body2">
                     {dropzoneLabel}
                   </Typography>
+                  <Button sx={{ margin: "0 10px" }} variant="contained">
+                    {dropzoneButton}
+                  </Button>
                 </>
               )}
 

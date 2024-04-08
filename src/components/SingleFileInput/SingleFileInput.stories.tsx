@@ -37,7 +37,8 @@ export const Default: ComponentStory<typeof SingleFileInput> = () => {
       accept={["image/png"]}
       onFileSelected={handleSelect}
       onFileRemoved={handleRemove}
-      dropzoneLabel="Drag and drop your .png image here or click to select from your computer"
+      dropzoneLabel="Drag and drop your .png image here or"
+      dropzoneButton="upload a file"
       rejectedLabel="File type not supported"
     />
   );
@@ -50,6 +51,7 @@ export const Loading: ComponentStory<typeof SingleFileInput> = () => (
     onFileSelected={() => {}}
     onFileRemoved={() => {}}
     dropzoneLabel=""
+    dropzoneButton=""
     loading={true}
   />
 );
@@ -61,7 +63,8 @@ export const Error: ComponentStory<typeof SingleFileInput> = () => (
     error
     onFileSelected={() => {}}
     onFileRemoved={() => {}}
-    dropzoneLabel="Drag and drop your .png image here or click to select from your computer"
+    dropzoneLabel="Drag and drop your .png image here or"
+    dropzoneButton="upload a file"
   />
 );
 
@@ -71,7 +74,8 @@ export const WithFile: ComponentStory<typeof SingleFileInput> = () => (
     value={new File([], "test.png")}
     onFileSelected={() => {}}
     onFileRemoved={() => {}}
-    dropzoneLabel="Drag and drop your .png image here or click to select from your computer"
+    dropzoneLabel="Drag and drop your .png image here or"
+    dropzoneButton="upload a file"
   />
 );
 
@@ -88,6 +92,7 @@ export const WithTruncatedFileName: ComponentStory<
     }
     onFileSelected={() => {}}
     onFileRemoved={() => {}}
-    dropzoneLabel="Drag and drop your .png image here or click to select from your computer"
+    dropzoneLabel="Drag and drop your .png image here or"
+    dropzoneButton="upload a file"
   />
 );
