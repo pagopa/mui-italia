@@ -78,7 +78,7 @@ export const AccountDropdown = ({
       <IconButton
         aria-label="Assistenza"
         size="small"
-        sx={{ display: ["flex", "none"] }}
+        sx={{ display: ["flex", "none"], color: "text.primary" }}
         onClick={handleClick}
       >
         <AccountCircleRoundedIcon fontSize="inherit" />

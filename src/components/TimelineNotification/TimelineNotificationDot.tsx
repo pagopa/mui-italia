@@ -19,6 +19,7 @@ export const TimelineNotificationDot: React.FC<TimelineNotificationDotProps> = (
         my: theme.spacing(0.5),
         padding: size === "small" ? "1px" : "4px",
         alignSelf: "center",
+        ...props.sx,
       }}
     >
       {children}
