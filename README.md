@@ -14,6 +14,7 @@ $ npm install @pagopa/mui-italia @mui/material @emotion/react @emotion/styled
 $ yarn add @pagopa/mui-italia @mui/material @emotion/react @emotion/styled
 ```
 
+
 ## Usage
 
 ```jsx
