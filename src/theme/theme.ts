@@ -455,6 +455,8 @@ export const theme: Theme = createTheme(foundation, {
               0.4
             )}`,
           },
+          minHeight: pxToRem(24),
+          minWidth: pxToRem(24),
         },
         sizeSmall: {
           height: "40px",
@@ -575,6 +577,8 @@ export const theme: Theme = createTheme(foundation, {
         colorPrimary: {
           color: foundation.palette.primary.main,
         },
+        minHeight: pxToRem(24),
+        minWidth: pxToRem(24),
       },
     },
     MuiTooltip: {
@@ -1097,6 +1101,22 @@ export const theme: Theme = createTheme(foundation, {
       styleOverrides: {
         root: {
           fontWeight: foundation.typography.fontWeightMedium,
+        },
+      },
+    },
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          minHeight: pxToRem(24),
+          minWidth: pxToRem(24),
+        },
+      },
+    },
+    MuiSvgIcon: {
+      styleOverrides: {
+        root: {
+          minHeight: pxToRem(24),
+          minWidth: pxToRem(24),
         },
       },
     },
