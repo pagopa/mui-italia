@@ -249,6 +249,9 @@ export const SingleFileInput = ({
                   <Typography color="error" display="inline" variant="body2">
                     {dropzoneLabel}
                   </Typography>
+                  <Button sx={{ margin: "0 10px" }} variant="contained">
+                    {dropzoneButton}
+                  </Button>
                 </>
               )}
 
