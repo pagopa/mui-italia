@@ -12,6 +12,7 @@ export const TimelineNotificationSeparator: React.FC<TimelineSeparatorProps> = (
     <TimelineSeparator
       sx={{
         minWidth: "12px",
+        ...props.sx,
       }}
     >
       {children}

@@ -2,15 +2,21 @@ const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
 module.exports = {
   stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
+
   features: {
+    core: {
+      builder: "webpack5",
+    },
     storyStoreV7: true,
     emotionAlias: false,
   },
+
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-a11y",
   ],
+
   typescript: {
     check: false,
     checkOptions: {},
@@ -25,9 +31,23 @@ module.exports = {
       },
     },
   },
-  framework: "@storybook/react",
+
+  framework: {
+    name: "@storybook/react-webpack5",
+    options: {},
+  },
+
   webpackFinal: async (config) => {
-    config.resolve.plugins.push(new TsconfigPathsPlugin());
+    if (config.resolve.plugins !== undefined) {
+      config.resolve.plugins.push(new TsconfigPathsPlugin({}));
+    } else {
+      config.resolve.plugins = [new TsconfigPathsPlugin({})];
+    }
+
     return config;
+  },
+
+  docs: {
+    autodocs: true,
   },
 };
