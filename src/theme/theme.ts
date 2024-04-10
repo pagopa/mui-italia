@@ -460,6 +460,8 @@ export const theme: Theme = createTheme(foundation, {
             outlineOffset: `${focusButtonOffset}`,
             boxShadow: "none",
           },
+          minHeight: pxToRem(24),
+          minWidth: pxToRem(24),
         },
         sizeSmall: {
           height: "40px",
@@ -583,6 +585,8 @@ export const theme: Theme = createTheme(foundation, {
         colorPrimary: {
           color: foundation.palette.primary.main,
         },
+        minHeight: pxToRem(24),
+        minWidth: pxToRem(24),
       },
     },
     MuiTooltip: {

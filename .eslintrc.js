@@ -18,8 +18,7 @@ module.exports = {
     "@typescript-eslint",
     "react",
     "react-hooks",
-    "import",
-    "functional",
+    "import"
   ],
   rules: {
     "no-case-declarations": "off",
@@ -101,7 +100,10 @@ module.exports = {
       },
     ],
     "react-hooks/rules-of-hooks": "warn",
-    "functional/no-let": "error",
+    "prefer-const": ["error", {
+      "destructuring": "any",
+      "ignoreReadBeforeAssign": false
+    }],
     "@typescript-eslint/no-empty-function": [
       "error",
       {
