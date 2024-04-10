@@ -22,6 +22,7 @@ import ErrorIcon from "@mui/icons-material/Error";
 import {
   generateRandomID,
   getContainerStyle,
+  getColorStyle,
   getStatus,
   truncateFileName,
   verifyAccept,
@@ -58,7 +59,7 @@ export type SingleFileInputProps = {
   /** The label to be displayed in the dropzone. */
   dropzoneLabel: string;
 
-  /** The button to be displayed in the dropzone. */
+  /** The label to be displayed for the upload button in the dropzone. */
   dropzoneButton: string;
 
   /** The label to be displayed above the spinner on loading state. */
@@ -231,22 +232,22 @@ export const SingleFileInput = ({
                 </>
               )}
 
-              {status === UploadStatus.IDLE && (
+              {(status === UploadStatus.IDLE ||
+                status === UploadStatus.ERROR) && (
                 <>
-                  <CloudUploadIcon color="primary" sx={{ margin: "0 10px" }} />
-                  <Typography display="inline" variant="body2">
-                    {dropzoneLabel}
-                  </Typography>
-                  <Button sx={{ margin: "0 10px" }} variant="contained">
-                    {dropzoneButton}
-                  </Button>
-                </>
-              )}
-
-              {status === UploadStatus.ERROR && (
-                <>
-                  <CloudUploadIcon color="error" sx={{ margin: "0 10px" }} />
-                  <Typography color="error" display="inline" variant="body2">
+                  <CloudUploadIcon
+                    color={getColorStyle(status)}
+                    sx={{ margin: "0 10px" }}
+                  />
+                  <Typography
+                    color={
+                      status === UploadStatus.ERROR
+                        ? getColorStyle(status)
+                        : "text." + getColorStyle(status)
+                    }
+                    display="inline"
+                    variant="body2"
+                  >
                     {dropzoneLabel}
                   </Typography>
                   <Button sx={{ margin: "0 10px" }} variant="contained">
