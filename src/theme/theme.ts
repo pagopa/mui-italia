@@ -966,15 +966,15 @@ export const theme: Theme = createTheme(foundation, {
     /** Start SWITCH */
     MuiSwitch: {
       styleOverrides: {
-        root: {
-          "& .MuiSwitch-thumb": {
-            boxShadow: `0px 1px 3px 0px ${alpha(
-              shadowColor,
-              0.1
-            )}, 0px 1px 1px 0px ${alpha(
-              shadowColor,
-              0.05
-            )}, 0px 2px 1px -1px ${alpha(shadowColor, 0.1)}`,
+        switchBase: {
+          padding: 0,
+          top: pxToRem(9),
+          left: pxToRem(9),
+          "&.Mui-focusVisible": {
+            borderRadius: "100% ",
+            outline: `solid ${focusWidth} ${foundation.palette.primary.main}`,
+            outlineOffset: `${focusButtonOffset}`,
+            boxShadow: "none",
           },
         },
       },
@@ -1135,6 +1135,23 @@ export const theme: Theme = createTheme(foundation, {
             outlineOffset: `${focusOffset}`,
             boxShadow: "none",
           },
+        },
+      },
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        formControl: {
+          "&  .MuiInputAdornment-positionEnd": {
+            paddingRight: pxToRem(14),
+          },
+        },
+      },
+    },
+    MuiPickersCalendarHeader: {
+      styleOverrides: {
+        labelContainer: {
+          padding: pxToRem(14),
+          paddingLeft: 0,
         },
       },
     },
