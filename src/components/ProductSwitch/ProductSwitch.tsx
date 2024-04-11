@@ -11,19 +11,12 @@ import {
 import clsx from "clsx";
 import { Menu, MenuItem, Typography } from "@mui/material";
 import { styled } from "@mui/system";
-import { alpha } from "@mui/material/styles";
 import { ButtonProps } from "@mui/base/Button";
 import { useButton } from "@mui/base/useButton";
 import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 
-import {
-  focusBorderRadius,
-  focusOffset,
-  focusWidth,
-  ringWidth,
-  theme,
-} from "@theme";
+import { focusBorderRadius, focusOffset, focusWidth, theme } from "@theme";
 import { LinkType } from "@components/Footer";
 
 export type ProductSwitchItem = {
