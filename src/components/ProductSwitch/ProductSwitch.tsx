@@ -11,13 +11,12 @@ import {
 import clsx from "clsx";
 import { Menu, MenuItem, Typography } from "@mui/material";
 import { styled } from "@mui/system";
-import { alpha } from "@mui/material/styles";
 import { ButtonProps } from "@mui/base/Button";
 import { useButton } from "@mui/base/useButton";
 import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 
-import { ringWidth, theme } from "@theme";
+import { focusBorderRadius, focusOffset, focusWidth, theme } from "@theme";
 import { LinkType } from "@components/Footer";
 
 export type ProductSwitchItem = {
@@ -125,8 +124,10 @@ const StyledSwitcherButton = styled("div")(({ theme }) => ({
   */
 
   "&.focusVisible": {
-    outline: "none",
-    boxShadow: `0 0 0 ${ringWidth} ${alpha(theme.palette.primary.main, 0.4)}`,
+    borderRadius: `${focusBorderRadius}`,
+    outline: `solid ${focusWidth} ${theme.palette.primary.main}`,
+    outlineOffset: `${focusOffset}`,
+    boxShadow: "none",
   },
 
   "&.disabled": {

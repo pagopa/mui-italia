@@ -24,6 +24,11 @@ const colorTextPrimary = "#17324D";
 const colorPrimaryContainedHover = "#0055AA"; // Not exposed by the theme object
 const responsiveBreakpoint = "sm";
 export const ringWidth = "4px";
+const marginLinkSize = "4px";
+export const focusWidth = "2px";
+export const focusBorderRadius = "8px";
+export const focusOffset = "4px";
+const focusButtonOffset = "2px";
 const alertBorderWidth = "4px";
 const backdropBackground = "#17324D";
 const menuItemBackground = "#17324D";
@@ -450,10 +455,10 @@ export const theme: Theme = createTheme(foundation, {
         root: {
           padding: "0 20px",
           "&.Mui-focusVisible": {
-            boxShadow: `0 0 0 ${ringWidth} ${alpha(
-              foundation.palette.primary.main,
-              0.4
-            )}`,
+            borderRadius: `${focusBorderRadius}`,
+            outline: `solid ${focusWidth} ${foundation.palette.primary.main}`,
+            outlineOffset: `${focusButtonOffset}`,
+            boxShadow: "none",
           },
           minHeight: pxToRem(24),
           minWidth: pxToRem(24),
@@ -499,10 +504,10 @@ export const theme: Theme = createTheme(foundation, {
             borderColor: "currentColor",
           },
           "&.Mui-focusVisible": {
-            boxShadow: `0 0 0 ${ringWidth} ${alpha(
-              foundation.palette.error.main,
-              0.4
-            )}`,
+            borderRadius: `${focusBorderRadius}`,
+            outline: `solid ${focusWidth} ${foundation.palette.error.main}`,
+            outlineOffset: `${focusOffset}`,
+            boxShadow: "none",
           },
         },
       },
@@ -519,10 +524,10 @@ export const theme: Theme = createTheme(foundation, {
               backgroundColor: "transparent",
             },
             "&.Mui-focusVisible": {
-              boxShadow: `0 0 0 3px ${alpha(
-                foundation.palette.text.primary,
-                0.2
-              )}`,
+              borderRadius: `${focusBorderRadius}`,
+              outline: `solid ${focusWidth} ${foundation.palette.text.primary}`,
+              outlineOffset: `${focusOffset}`,
+              boxShadow: "none",
             },
           },
         },
@@ -534,10 +539,10 @@ export const theme: Theme = createTheme(foundation, {
               color: colorPrimaryContainedHover,
             },
             "&.Mui-focusVisible": {
-              boxShadow: `0 0 0 3px ${alpha(
-                foundation.palette.primary.main,
-                0.35
-              )}`,
+              borderRadius: `${focusBorderRadius}`,
+              outline: `solid ${focusWidth} ${foundation.palette.primary.main}`,
+              outlineOffset: `${focusButtonOffset}`,
+              boxShadow: "none",
             },
           },
         },
@@ -549,10 +554,10 @@ export const theme: Theme = createTheme(foundation, {
               color: foundation.palette.error.light,
             },
             "&.Mui-focusVisible": {
-              boxShadow: `0 0 0 3px ${alpha(
-                foundation.palette.error.main,
-                0.35
-              )}`,
+              borderRadius: `${focusBorderRadius}`,
+              outline: `solid ${focusWidth} ${foundation.palette.error.main}`,
+              outlineOffset: `${focusButtonOffset}`,
+              boxShadow: "none",
             },
           },
         },
@@ -572,6 +577,9 @@ export const theme: Theme = createTheme(foundation, {
           },
           "&.Mui-focusVisible": {
             backgroundColor: alpha(foundation.palette.primary.main, 0.2),
+            outline: `solid ${focusWidth} ${foundation.palette.primary.main}`,
+            outlineOffset: `${focusButtonOffset}`,
+            boxShadow: "none",
           },
         },
         colorPrimary: {
@@ -958,15 +966,15 @@ export const theme: Theme = createTheme(foundation, {
     /** Start SWITCH */
     MuiSwitch: {
       styleOverrides: {
-        root: {
-          "& .MuiSwitch-thumb": {
-            boxShadow: `0px 1px 3px 0px ${alpha(
-              shadowColor,
-              0.1
-            )}, 0px 1px 1px 0px ${alpha(
-              shadowColor,
-              0.05
-            )}, 0px 2px 1px -1px ${alpha(shadowColor, 0.1)}`,
+        switchBase: {
+          padding: 0,
+          top: pxToRem(9),
+          left: pxToRem(9),
+          "&.Mui-focusVisible": {
+            borderRadius: "100% ",
+            outline: `solid ${focusWidth} ${foundation.palette.primary.main}`,
+            outlineOffset: `${focusButtonOffset}`,
+            boxShadow: "none",
           },
         },
       },
@@ -1095,6 +1103,15 @@ export const theme: Theme = createTheme(foundation, {
       defaultProps: {
         disableRipple: true,
       },
+      styleOverrides: {
+        root: {
+          "&.Mui-focusVisible": {
+            outline: `solid ${focusWidth} `,
+            outlineOffset: `${focusOffset}`,
+            boxShadow: "none",
+          },
+        },
+      },
     },
     /** End SELECT */
     MuiTableHead: {
@@ -1107,16 +1124,34 @@ export const theme: Theme = createTheme(foundation, {
     MuiLink: {
       styleOverrides: {
         root: {
-          minHeight: pxToRem(24),
-          minWidth: pxToRem(24),
+          "&.MuiTypography-root": {
+            marginTop: `${marginLinkSize}`,
+            marginBottom: `${marginLinkSize}`,
+            padding: 0,
+          },
+          "&.Mui-focusVisible": {
+            borderRadius: `${focusBorderRadius}`,
+            outline: `solid ${focusWidth} `,
+            outlineOffset: `${focusOffset}`,
+            boxShadow: "none",
+          },
         },
       },
     },
-    MuiSvgIcon: {
+    MuiInputBase: {
       styleOverrides: {
-        root: {
-          minHeight: pxToRem(24),
-          minWidth: pxToRem(24),
+        formControl: {
+          "&  .MuiInputAdornment-positionEnd": {
+            paddingRight: pxToRem(14),
+          },
+        },
+      },
+    },
+    MuiPickersCalendarHeader: {
+      styleOverrides: {
+        labelContainer: {
+          padding: pxToRem(14),
+          paddingLeft: 0,
         },
       },
     },

@@ -9,7 +9,7 @@ import {
   useState,
 } from "react";
 import clsx from "clsx";
-import { ringWidth, theme } from "@theme";
+import { focusWidth, focusOffset, focusBorderRadius, theme } from "@theme";
 import {
   Box,
   Button,
@@ -19,7 +19,7 @@ import {
   Typography,
   IconButton,
 } from "@mui/material";
-import { alpha, styled } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import { ButtonProps } from "@mui/base/Button";
 import { useButton } from "@mui/base/useButton";
 
@@ -240,8 +240,10 @@ const StyledSwitcherButton = styled("div")(({ theme }) => ({
   transitionProperty: ["color", "background-color", "box-shadow"],
 
   "&.focusVisible": {
-    outline: "none",
-    boxShadow: `0 0 0 ${ringWidth} ${alpha(theme.palette.primary.main, 0.4)}`,
+    borderRadius: `${focusBorderRadius}`,
+    outline: `solid ${focusWidth} ${theme.palette.primary.main}`,
+    outlineOffset: `${focusOffset}`,
+    boxShadow: "none",
   },
 
   "&.disabled": {
