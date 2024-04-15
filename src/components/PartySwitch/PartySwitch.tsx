@@ -10,7 +10,7 @@ import {
   useState,
 } from "react";
 import clsx from "clsx";
-import { focusWidth, focusOffset, focusBorderRadius, theme } from "@theme";
+import { ringWidth, theme } from "@theme";
 import {
   Box,
   Button,
@@ -20,7 +20,7 @@ import {
   Typography,
   IconButton,
 } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { alpha, styled } from "@mui/material/styles";
 import { ButtonProps } from "@mui/base/Button";
 import { useButton } from "@mui/base/useButton";
 
@@ -78,9 +78,7 @@ export const PartySwitch = ({
   const [selectedId, setSelectedId] = useState(currentPartyId);
   const [open, setOpen] = useState(false);
   const [filter, setFilter] = useState("");
-  const [visibleParties, setVisibleParties] = useState<Array<PartySwitchItem>>(
-    []
-  );
+  const [offset, setOffset] = useState(50);
   const [containerRef, setContainerRef] = useState<HTMLDivElement | null>(null);
 
   const mobileHideStyle = useMemo(
@@ -103,10 +101,6 @@ export const PartySwitch = ({
   ) as PartySwitchItem;
 
   useEffect(() => {
-    setVisibleParties(filteredParties.slice(0, 50));
-  }, [filteredParties]);
-
-  useEffect(() => {
     const handleScroll = () => {
       if (
         containerRef &&
@@ -123,7 +117,7 @@ export const PartySwitch = ({
     return () => {
       containerRef?.removeEventListener("scroll", handleScroll);
     };
-  }, [visibleParties, filteredParties, selectedParty, containerRef]);
+  }, [filteredParties, selectedParty, containerRef]);
 
   const toggleDrawer = (openStatus: boolean) => {
     setOpen(openStatus);
@@ -142,10 +136,10 @@ export const PartySwitch = ({
   };
 
   const loadMoreParties = () => {
-    const remainingParties = filteredParties.slice(visibleParties.length);
-    const nextBatch = remainingParties.slice(0, 50);
-    setVisibleParties((prevParties) => [...prevParties, ...nextBatch]);
+    setOffset((prevOffset) => prevOffset + 50);
   };
+
+  const visibleParties = filteredParties.slice(0, offset);
 
   return (
     <Fragment>
@@ -275,10 +269,8 @@ const StyledSwitcherButton = styled("div")(({ theme }) => ({
   transitionProperty: ["color", "background-color", "box-shadow"],
 
   "&.focusVisible": {
-    borderRadius: `${focusBorderRadius}`,
-    outline: `solid ${focusWidth} ${theme.palette.primary.main}`,
-    outlineOffset: `${focusOffset}`,
-    boxShadow: "none",
+    outline: "none",
+    boxShadow: `0 0 0 ${ringWidth} ${alpha(theme.palette.primary.main, 0.4)}`,
   },
 
   "&.disabled": {
