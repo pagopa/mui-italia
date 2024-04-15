@@ -5,6 +5,7 @@ import {
   ForwardedRef,
   forwardRef,
   Fragment,
+  useEffect,
   useMemo,
   useState,
 } from "react";
@@ -77,6 +78,10 @@ export const PartySwitch = ({
   const [selectedId, setSelectedId] = useState(currentPartyId);
   const [open, setOpen] = useState(false);
   const [filter, setFilter] = useState("");
+  const [visibleParties, setVisibleParties] = useState<Array<PartySwitchItem>>(
+    []
+  );
+  const [containerRef, setContainerRef] = useState<HTMLDivElement | null>(null);
 
   const mobileHideStyle = useMemo(
     () => ({ display: { xs: "none", md: "block" } }),
@@ -97,6 +102,29 @@ export const PartySwitch = ({
     [selectedId]
   ) as PartySwitchItem;
 
+  useEffect(() => {
+    setVisibleParties(filteredParties.slice(0, 50));
+  }, [filteredParties]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        containerRef &&
+        containerRef.scrollHeight - containerRef.scrollTop <=
+          containerRef.clientHeight + 20 &&
+        filteredParties.length > visibleParties.length
+      ) {
+        loadMoreParties();
+      }
+    };
+
+    containerRef?.addEventListener("scroll", handleScroll);
+
+    return () => {
+      containerRef?.removeEventListener("scroll", handleScroll);
+    };
+  }, [visibleParties, filteredParties, selectedParty, containerRef]);
+
   const toggleDrawer = (openStatus: boolean) => {
     setOpen(openStatus);
   };
@@ -111,6 +139,12 @@ export const PartySwitch = ({
 
   const handleFilterChange = (e: ChangeEvent) => {
     setFilter((e.target as any).value);
+  };
+
+  const loadMoreParties = () => {
+    const remainingParties = filteredParties.slice(visibleParties.length);
+    const nextBatch = remainingParties.slice(0, 50);
+    setVisibleParties((prevParties) => [...prevParties, ...nextBatch]);
   };
 
   return (
@@ -157,6 +191,7 @@ export const PartySwitch = ({
         }}
         onClose={() => toggleDrawer(false)}
         tabIndex={0}
+        PaperProps={{ ref: (ref: HTMLDivElement) => setContainerRef(ref) }}
       >
         <Box sx={{ textAlign: "center", margin: "10px 0" }}>
           <Typography variant="overline">Accedi per un altro ente</Typography>
@@ -187,8 +222,8 @@ export const PartySwitch = ({
           onChange={handleFilterChange}
           value={filter}
         />
-        {filteredParties.length > 0 &&
-          filteredParties.map((e) => (
+        {visibleParties.length > 0 &&
+          visibleParties.map((e) => (
             <PartyAccountItemButton
               key={e.id}
               partyName={e.name}
