@@ -106,6 +106,17 @@ export function getContainerStyle(status: UploadStatus): SxProps {
   }
 }
 
+export function getColorStyle(status: UploadStatus): "primary" | "error" {
+  switch (status) {
+    case UploadStatus.IDLE:
+      return "primary";
+    case UploadStatus.ERROR:
+      return "error";
+    default:
+      return "primary";
+  }
+}
+
 export function generateRandomID(): string {
   /* eslint-disable no-bitwise */
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
@@ -117,4 +128,3 @@ export function generateRandomID(): string {
     return v.toString(16);
   });
 }
-
