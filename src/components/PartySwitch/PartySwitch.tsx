@@ -5,11 +5,12 @@ import {
   ForwardedRef,
   forwardRef,
   Fragment,
+  useEffect,
   useMemo,
   useState,
 } from "react";
 import clsx from "clsx";
-import { focusWidth, focusOffset, focusBorderRadius, theme } from "@theme";
+import { ringWidth, theme } from "@theme";
 import {
   Box,
   Button,
@@ -19,7 +20,7 @@ import {
   Typography,
   IconButton,
 } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { alpha, styled } from "@mui/material/styles";
 import { ButtonProps } from "@mui/base/Button";
 import { useButton } from "@mui/base/useButton";
 
@@ -77,6 +78,8 @@ export const PartySwitch = ({
   const [selectedId, setSelectedId] = useState(currentPartyId);
   const [open, setOpen] = useState(false);
   const [filter, setFilter] = useState("");
+  const [offset, setOffset] = useState(50);
+  const [containerRef, setContainerRef] = useState<HTMLDivElement | null>(null);
 
   const mobileHideStyle = useMemo(
     () => ({ display: { xs: "none", md: "block" } }),
@@ -97,6 +100,25 @@ export const PartySwitch = ({
     [selectedId]
   ) as PartySwitchItem;
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        containerRef &&
+        containerRef.scrollHeight - containerRef.scrollTop <=
+          containerRef.clientHeight + 20 &&
+        filteredParties.length > visibleParties.length
+      ) {
+        loadMoreParties();
+      }
+    };
+
+    containerRef?.addEventListener("scroll", handleScroll);
+
+    return () => {
+      containerRef?.removeEventListener("scroll", handleScroll);
+    };
+  }, [filteredParties, selectedParty, containerRef]);
+
   const toggleDrawer = (openStatus: boolean) => {
     setOpen(openStatus);
   };
@@ -112,6 +134,12 @@ export const PartySwitch = ({
   const handleFilterChange = (e: ChangeEvent) => {
     setFilter((e.target as any).value);
   };
+
+  const loadMoreParties = () => {
+    setOffset((prevOffset) => prevOffset + 50);
+  };
+
+  const visibleParties = filteredParties.slice(0, offset);
 
   return (
     <Fragment>
@@ -157,6 +185,7 @@ export const PartySwitch = ({
         }}
         onClose={() => toggleDrawer(false)}
         tabIndex={0}
+        PaperProps={{ ref: (ref: HTMLDivElement) => setContainerRef(ref) }}
       >
         <Box sx={{ textAlign: "center", margin: "10px 0" }}>
           <Typography variant="overline">Accedi per un altro ente</Typography>
@@ -187,8 +216,8 @@ export const PartySwitch = ({
           onChange={handleFilterChange}
           value={filter}
         />
-        {filteredParties.length > 0 &&
-          filteredParties.map((e) => (
+        {visibleParties.length > 0 &&
+          visibleParties.map((e) => (
             <PartyAccountItemButton
               key={e.id}
               partyName={e.name}
@@ -240,10 +269,8 @@ const StyledSwitcherButton = styled("div")(({ theme }) => ({
   transitionProperty: ["color", "background-color", "box-shadow"],
 
   "&.focusVisible": {
-    borderRadius: `${focusBorderRadius}`,
-    outline: `solid ${focusWidth} ${theme.palette.primary.main}`,
-    outlineOffset: `${focusOffset}`,
-    boxShadow: "none",
+    outline: "none",
+    boxShadow: `0 0 0 ${ringWidth} ${alpha(theme.palette.primary.main, 0.4)}`,
   },
 
   "&.disabled": {
