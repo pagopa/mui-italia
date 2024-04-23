@@ -25,6 +25,7 @@ const colorPrimaryContainedHover = "#0055AA"; // Not exposed by the theme object
 const responsiveBreakpoint = "sm";
 export const ringWidth = "4px";
 const marginLinkSize = "4px";
+const paddingLinkSize = "1px";
 export const focusWidth = "2px";
 export const focusBorderRadius = "8px";
 export const focusOffset = "4px";
@@ -1127,7 +1128,8 @@ export const theme: Theme = createTheme(foundation, {
           "&.MuiTypography-root": {
             marginTop: `${marginLinkSize}`,
             marginBottom: `${marginLinkSize}`,
-            padding: 0,
+            paddingTop: `${paddingLinkSize}`,
+            paddingBottom: `${paddingLinkSize}`,
           },
           "&.Mui-focusVisible": {
             borderRadius: `${focusBorderRadius}`,
