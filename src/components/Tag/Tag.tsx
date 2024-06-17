@@ -41,19 +41,18 @@ export const Tag = ({
   variant = "default",
   ...rest
 }: TagProps): JSX.Element => {
-  const tagNeutralBg =
-    variant === "light" ? theme.palette.grey[100] : theme.palette.grey[200];
+  const tagNeutralBg = theme.palette.grey[100];
   const tagBgColor =
     color !== "default"
       ? variant === "light"
-        ? alpha(theme.palette[color].main, 0.1)
-        : theme.palette[color].main
+        ? alpha(theme.palette[color][100], 0.1)
+        : theme.palette[color][100]
       : tagNeutralBg;
 
   const tagTextColor =
-    variant === "default" && color === "primary"
-      ? theme.palette.primary.contrastText
-      : theme.palette.text.primary;
+    color === "default" || color === "primary"
+      ? theme.palette.text.primary
+      : theme.palette[color][850];
 
   return (
     <StyledTag

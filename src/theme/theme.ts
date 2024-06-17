@@ -106,6 +106,8 @@ declare module "@mui/material/styles" {
 
   interface PaletteColor {
     extraLight?: string;
+    100: string;
+    850: string;
   }
 
   /* Add new extraLight key to the colours */
@@ -115,6 +117,8 @@ declare module "@mui/material/styles" {
     light?: string;
     contrastText?: string;
     extraLight?: string;
+    100?: string;
+    850?: string;
   }
 }
 
@@ -210,6 +214,7 @@ const foundation: Theme = createTheme({
       light: "#2185E9",
       dark: "#0062C3",
       contrastText: "#FFFFFF",
+      100: "#C4DCF5",
     },
     secondary: {
       main: "#00C5CA",
@@ -264,6 +269,8 @@ const foundation: Theme = createTheme({
       light: "#FE7A7A",
       extraLight: "#FB9EAC",
       contrastText: colorTextPrimary,
+      100: "#FFE0E0",
+      850: "#761F1F",
     },
     info: {
       main: "#6BCFFB",
@@ -271,6 +278,8 @@ const foundation: Theme = createTheme({
       light: "#7ED5FC",
       extraLight: "#86E1FD",
       contrastText: colorTextPrimary,
+      100: "#E1F5FE",
+      850: "#215C76",
     },
     success: {
       main: "#6CC66A",
@@ -278,6 +287,8 @@ const foundation: Theme = createTheme({
       light: "#7FCD7D",
       extraLight: "#B5E2B4",
       contrastText: colorTextPrimary,
+      100: "#E1F4E1",
+      850: "#224021",
     },
     warning: {
       main: "#FFCB46",
@@ -285,6 +296,8 @@ const foundation: Theme = createTheme({
       light: "#FFD25E",
       extraLight: "#FFE5A3",
       contrastText: colorTextPrimary,
+      100: "#FFF5DA",
+      850: "#614C15",
     },
   },
   typography: {
@@ -835,61 +848,107 @@ export const theme: Theme = createTheme(foundation, {
         },
         outlined: {
           borderRadius: foundation.spacing(5),
+          "&.MuiChip-outlinedDefault": {
+            color: colorTextPrimary,
+            borderColor: "#0000003B",
+            "& .MuiChip-avatar": {
+              backgroundColor: foundation.palette.grey[400],
+              color: "#17324D",
+            },
+          },
+          "&.MuiChip-outlinedPrimary": {
+            color: colorTextPrimary,
+            borderColor: colorTextPrimary,
+          },
         },
-        colorSecondary: {
-          "&.MuiChip-filled": {
+        filled: {
+          "&.MuiChip-colorDefault": {
+            backgroundColor: foundation.palette.grey[200],
+            color: foundation.palette.text.primary,
+          },
+          "&.MuiChip-colorPrimary": {
+            backgroundColor: foundation.palette.primary[100],
+            color: colorTextPrimary,
+          },
+          "&.MuiChip-colorSecondary": {
             backgroundColor: alpha(foundation.palette.secondary.main, 0.5),
             color: foundation.palette.text.primary,
           },
+          "&.MuiChip-colorInfo": {
+            backgroundColor: foundation.palette.info[100],
+            color: foundation.palette.info[850],
+          },
+          "&.MuiChip-colorError": {
+            backgroundColor: foundation.palette.error[100],
+            color: foundation.palette.error[850],
+          },
+          "&.MuiChip-colorSuccess": {
+            backgroundColor: foundation.palette.success[100],
+            color: foundation.palette.success[850],
+          },
+          "&.MuiChip-colorWarning": {
+            backgroundColor: foundation.palette.warning[100],
+            color: foundation.palette.warning[850],
+          },
+        },
+        colorDefault: {
+          "& .MuiChip-avatar": {
+            backgroundColor: foundation.palette.grey[400],
+            color: foundation.palette.grey[700],
+          },
+          "& .MuiChip-deleteIcon": {
+            color: alpha(foundation.palette.text.primary, 0.23),
+          },
+        },
+        colorPrimary: {
+          "& .MuiChip-avatar": {
+            backgroundColor: foundation.palette.primary.light,
+            color: foundation.palette.primary.contrastText,
+          },
+          "& .MuiChip-deleteIcon": {
+            color: colorTextPrimary,
+          },
+        },
+        colorSecondary: {
+          "& .MuiChip-deleteIcon": {
+            color: colorTextPrimary,
+          },
         },
         colorInfo: {
-          "&.MuiChip-filled": {
+          "& .MuiChip-avatar": {
             backgroundColor: foundation.palette.info.light,
-            /* color: foundation.palette.text.primary, */
+            color: foundation.palette.info[850],
           },
-          /* "& .MuiChip-avatar": {
-            backgroundColor: foundation.palette.info.dark,
-            color: foundation.palette.info.contrastText,
-          }, */
+          "& .MuiChip-deleteIcon": {
+            color: foundation.palette.info[850],
+          },
         },
         colorError: {
-          "&.MuiChip-filled": {
+          "& .MuiChip-avatar": {
             backgroundColor: foundation.palette.error.light,
-            /*  color: foundation.palette.text.primary, */
-            /* color: foundation.palette.getContrastText(
-              foundation.palette.error.extraLight as string
-            ), */
+            color: foundation.palette.error[850],
           },
-          /* "& .MuiChip-avatar": {
-            backgroundColor: foundation.palette.error.dark,
-            color: foundation.palette.error.contrastText,
-          }, */
+          "& .MuiChip-deleteIcon": {
+            color: foundation.palette.error[850],
+          },
         },
         colorSuccess: {
-          "&.MuiChip-filled": {
+          "& .MuiChip-avatar": {
             backgroundColor: foundation.palette.success.light,
-            /* color: foundation.palette.text.primary, */
-            /* color: foundation.palette.getContrastText(
-              foundation.palette.success.extraLight as string
-            ), */
+            color: foundation.palette.success[850],
           },
-          /* "& .MuiChip-avatar": {
-            backgroundColor: foundation.palette.success.dark,
-            color: foundation.palette.success.contrastText,
-          }, */
+          "& .MuiChip-deleteIcon": {
+            color: foundation.palette.success[850],
+          },
         },
         colorWarning: {
-          "&.MuiChip-filled": {
+          "& .MuiChip-avatar": {
             backgroundColor: foundation.palette.warning.light,
-            /* color: foundation.palette.text.primary, */
-            /* color: foundation.palette.getContrastText(
-              foundation.palette.warning.extraLight as string
-            ), */
+            color: foundation.palette.warning[850],
           },
-          /* "& .MuiChip-avatar": {
-            backgroundColor: foundation.palette.warning.dark,
-            color: foundation.palette.warning.contrastText,
-          }, */
+          "& .MuiChip-deleteIcon": {
+            color: foundation.palette.warning[850],
+          },
         },
       },
     },
