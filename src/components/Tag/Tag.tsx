@@ -41,7 +41,7 @@ export const Tag = ({
   variant = "default",
   ...rest
 }: TagProps): JSX.Element => {
-  const tagNeutralBg = variant === theme.palette.grey[100];
+  const tagNeutralBg = theme.palette.grey[100];
   const tagBgColor =
     color !== "default"
       ? variant === "light"

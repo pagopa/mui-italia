@@ -106,8 +106,8 @@ declare module "@mui/material/styles" {
 
   interface PaletteColor {
     extraLight?: string;
-    100?: string;
-    850?: string;
+    100: string;
+    850: string;
   }
 
   /* Add new extraLight key to the colours */
