@@ -2,6 +2,7 @@
 
 import { SxProps, styled } from "@mui/system";
 import { alpha } from "@mui/material/styles";
+import { useMemo } from "react";
 
 import { theme, pxToRem } from "@theme";
 
@@ -41,6 +42,7 @@ export const Tag = ({
   value,
   color = "default",
   variant = "default",
+  sx = {},
   ...rest
 }: TagProps): JSX.Element => {
   const tagNeutralBg = theme.palette.grey[100];
@@ -56,18 +58,21 @@ export const Tag = ({
       ? theme.palette.text.primary
       : theme.palette[color][850];
 
+  const style = useMemo(
+    () => ({
+      userSelect: "none",
+      py: 0.5,
+      px: 0.75,
+      backgroundColor: tagBgColor,
+      color: tagTextColor,
+      fontFamily: theme.typography.fontFamily,
+      borderRadius: theme.spacing(0.5),
+      ...sx,
+    }),
+    []
+  ) as SxProps;
   return (
-    <StyledTag
-      sx={{
-        py: 0.5,
-        px: 0.75,
-        backgroundColor: tagBgColor,
-        color: tagTextColor,
-        fontFamily: theme.typography.fontFamily,
-        borderRadius: theme.spacing(0.5),
-      }}
-      {...rest}
-    >
+    <StyledTag sx={style} {...rest}>
       {value}
     </StyledTag>
   );
