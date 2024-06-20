@@ -1,6 +1,6 @@
 "use client";
 
-import { styled } from "@mui/system";
+import { SxProps, styled } from "@mui/system";
 import { alpha } from "@mui/material/styles";
 
 import { theme, pxToRem } from "@theme";
@@ -23,6 +23,8 @@ export interface TagProps {
   /** Color of the component. It supports default neutral color,
    * primary color and status colours (warning, info, etc…). */
   color?: Colors;
+  /* Style to override tag style */
+  sx?: SxProps;
 }
 
 /* Transform HTML component into MUI Styled Component
