@@ -1,6 +1,6 @@
 "use client";
 
-import { styled } from "@mui/system";
+import { SxProps, styled } from "@mui/system";
 import { alpha } from "@mui/material/styles";
 
 import { theme, pxToRem } from "@theme";
@@ -23,6 +23,8 @@ export interface TagProps {
   /** Color of the component. It supports default neutral color,
    * primary color and status colours (warning, info, etc…). */
   color?: Colors;
+  /* Style to override tag style */
+  sx?: SxProps;
 }
 
 /* Transform HTML component into MUI Styled Component
@@ -39,6 +41,7 @@ export const Tag = ({
   value,
   color = "default",
   variant = "default",
+  sx = {},
   ...rest
 }: TagProps): JSX.Element => {
   const tagNeutralBg = theme.palette.grey[100];
@@ -54,18 +57,18 @@ export const Tag = ({
       ? theme.palette.text.primary
       : theme.palette[color][850];
 
+  const style = {
+    userSelect: "none",
+    py: 0.5,
+    px: 0.75,
+    backgroundColor: tagBgColor,
+    color: tagTextColor,
+    fontFamily: theme.typography.fontFamily,
+    borderRadius: theme.spacing(0.5),
+    ...sx,
+  } as SxProps;
   return (
-    <StyledTag
-      sx={{
-        py: 0.5,
-        px: 0.75,
-        backgroundColor: tagBgColor,
-        color: tagTextColor,
-        fontFamily: theme.typography.fontFamily,
-        borderRadius: theme.spacing(0.5),
-      }}
-      {...rest}
-    >
+    <StyledTag sx={style} {...rest}>
       {value}
     </StyledTag>
   );
