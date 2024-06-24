@@ -49,7 +49,8 @@ export const PartyAccountItemButton = ({
   return (
     <Box
       sx={{
-        p: 1.5,
+        py: 2,
+        px: 3,
         width: "100%",
         backgroundColor: "background.paper",
         color: "text.primary",
@@ -66,7 +67,7 @@ export const PartyAccountItemButton = ({
         ...(selectedItem && {
           boxShadow: `inset 2px 0 0 0 ${theme.palette.primary.main}`,
           backgroundColor: theme.palette.primaryAction.selected,
-          color: theme.palette.primary.main,
+          color: theme.palette.text.primary,
           "&:hover": {
             backgroundColor: theme.palette.primaryAction.hover,
           },
@@ -127,7 +128,7 @@ export const PartyAccountItemButton = ({
                 component="h6"
                 color="inherit"
                 sx={{
-                  fontWeight: theme.typography.fontWeightBold,
+                  fontWeight: "600",
                   lineHeight: 1.25,
                   ...(maxCharacter && {
                     ...truncatedText,
