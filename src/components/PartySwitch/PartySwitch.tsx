@@ -193,7 +193,7 @@ export const PartySwitch = ({
         >
           <Typography variant="overline">Accedi per un altro ente</Typography>
           <IconButton onClick={() => toggleDrawer(false)}>
-            <CloseIcon aria-label="chiudi" width={3} height={3} />
+            <CloseIcon aria-label="chiudi" />
           </IconButton>
         </Box>
         <TextField
