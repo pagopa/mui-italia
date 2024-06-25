@@ -58,9 +58,14 @@ const CustomDrawer = styled(Drawer)(() => ({
       width: "100vw",
     },
   },
-  ["@media only screen and (min-width: 600px)"]: {
+  ["@media only screen and (min-width: 600px) and (max-width: 1536px)"]: {
     "& .MuiDrawer-paper": {
-      width: "417px",
+      width: "420px",
+    },
+  },
+  ["@media only screen and (min-width: 1536px)"]: {
+    "& .MuiDrawer-paper": {
+      width: "35vw",
     },
   },
 }));
