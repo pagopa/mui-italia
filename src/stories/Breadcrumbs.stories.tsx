@@ -25,7 +25,7 @@ export const TwoItems: ComponentStory<typeof Breadcrumbs> = () => (
       color="inherit"
       fontWeight={600}
     >
-      Dettaglio Notifica
+      Dettagli Notifica
     </Typography>
   </Breadcrumbs>
 );
