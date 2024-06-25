@@ -19,6 +19,7 @@ parameters:
       - major
       - minor
       - patch
+      - prerelease
     default: minor
 
 # Only manual activations are intended
