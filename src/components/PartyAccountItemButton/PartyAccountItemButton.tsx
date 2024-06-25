@@ -128,7 +128,7 @@ export const PartyAccountItemButton = ({
                 component="h6"
                 color="inherit"
                 sx={{
-                  fontWeight: "600",
+                  fontWeight: theme.typography.fontWeightMedium,
                   lineHeight: 1.25,
                   ...(maxCharacter && {
                     ...truncatedText,
