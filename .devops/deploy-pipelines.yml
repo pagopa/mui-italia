@@ -34,7 +34,8 @@ resources:
     - repository: pagopaCommons
       type: github
       name: pagopa/azure-pipeline-templates
-      ref: refs/tags/v6.7.1
+      # ref: refs/tags/v6.7.1
+      ref: refs/branch/pasqualedevita-patch-1
       endpoint: 'io-azure-devops-github-ro'
 
 stages:
