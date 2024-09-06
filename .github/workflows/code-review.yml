@@ -1,0 +1,46 @@
+name: Code Review
+
+on:
+  workflow_call:
+
+jobs:
+  js_code_review:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Check-out code
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
+        with:
+          node-version-file: ".node-version"
+          cache: "yarn"
+
+      - name: Install dependencies
+        run: yarn install --immutable
+        working-directory: .
+
+      - name: Build
+        run: yarn build
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Generate definitions
+        run: yarn generate
+
+      - name: Unit tests exec
+        run: yarn test:coverage
+
+      # Codecov provides reports and metrics about test coverage data.
+      # To enable set CODECOV_TOKEN secret at repo level and make sure
+      # that your "code-review" script creates a "coverage/" folder in
+      # the root workspace.
+      - name: Upload coverage report to codecov.io
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        if: ${{ env.CODECOV_TOKEN != '' }}
+        uses: codecov/codecov-action@84508663e988701840491b86de86b666e8a86bed # v4.3.0
+        with:
+          token: ${{ env.CODECOV_TOKEN }}

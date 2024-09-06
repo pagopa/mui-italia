@@ -1,0 +1,19 @@
+name: "[PROD] Deploy Pipelines - Release and Publish"
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*-RELEASE'  # Matches tags in the form v{version}-RELEASE
+
+jobs:
+  release_and_publish:
+    uses: ./.github/workflows/deploy-pipelines.yml
+    name: Deploy Pipelines - Release and Publish
+    secrets: inherit
+    with:
+      environment: prod
+      release_branch: main
+      release_semver: minor

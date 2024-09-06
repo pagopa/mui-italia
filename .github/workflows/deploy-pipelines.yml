@@ -1,0 +1,219 @@
+name: Deploy Pipelines - Release and Publish
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        description: Environment where the artifact will be deployed.
+        type: string
+        required: true
+      npm_registry:
+        required: false
+        default: https://registry.npmjs.org/
+        type: string
+      release_branch:
+        required: false
+        description: Define the release branch
+        type: string
+        default: main
+      release_semver:
+        required: false
+        description: Define the version bump to apply
+        type: choice
+        default: minor
+        options:
+          - major
+          - minor
+          - patch
+          - prerelease
+
+env:
+  BUNDLE_NAME: bundle
+
+concurrency:
+  group: ${{ github.workflow }}-cd
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: github.ref == format('refs/heads/{0}', inputs.release_branch) || startsWith(github.ref, 'refs/tags/v') && endsWith(github.ref, '-RELEASE')
+    runs-on: ubuntu-22.04
+    permissions:
+      id-token: write
+      contents: read
+      actions: write
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Check-out code
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
+        with:
+          node-version-file: ".node-version"
+          cache: "yarn"
+          cache-dependency-path: "yarn.lock"
+
+      - name: Install dependencies
+        run: |
+          yarn install
+
+      - name: Get latest release version
+        id: get_latest_release
+        run: |
+          latest_release=$(gh api repos/${{ github.repository }}/releases/latest --jq .tag_name)
+          echo "Latest release: $latest_release"
+          echo "latest_release=$latest_release" >> $GITHUB_OUTPUT
+
+      - name: Get workflow data
+        id: workflow_data
+        run: |
+          workflow=$(gh api \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            /repos/${{ github.repository }}/actions/runs/${{ github.run_id }})
+
+          committer_name=$(echo $workflow | jq -r '.head_commit.committer.name')
+          committer_email=$(echo $workflow | jq -r '.head_commit.committer.email')
+
+          echo "Current committer: $committer_name ($committer_email)"
+
+          echo "committer_name=${committer_name}"  >> $GITHUB_OUTPUT
+          echo "committer_email=${committer_email}"  >> $GITHUB_OUTPUT
+
+      - name: Bump version
+        id: bump_version
+        run: |
+          # Install semver tool
+          npm install -g semver
+          
+          # Extract the version number from the tag (remove 'v' if present)
+          current_version=${{ steps.get_latest_release.outputs.latest_release }}
+          if [[ $current_version == v* ]]; then
+            current_version=${current_version:1}
+          fi
+          
+          # Bump the version according to the release_semver input
+          new_version=$(semver $current_version -i ${{ inputs.release_semver }})
+
+          echo "New version: $new_version"
+          echo "new_version=$new_version" >> $GITHUB_OUTPUT
+
+      - name: Configure git
+        run: |
+          git config --global user.email "${{ steps.workflow_data.outputs.committer_email }}"
+          git config --global user.name "${{ steps.workflow_data.outputs.committer_name }}"
+
+      - name: Commit version bump
+        run: |
+          yarn version --new-version ${{ steps.bump_version.outputs.new_version }}
+          git push origin ${{ inputs.release_branch }} --tags
+
+      - name: Create GitHub Release
+        run: |
+          gh release create v${{ steps.bump_version.outputs.new_version }} \
+            --title "v${{ steps.bump_version.outputs.new_version }}" \
+            --notes "Release of version ${{ steps.bump_version.outputs.new_version }}" \
+            $([[ "${{ inputs.release_semver }}" == "prerelease" ]] && echo "--prerelease")
+
+  build:
+    needs: release
+    runs-on: ubuntu-22.04
+    env:
+      WORKSPACE: ${{ github.workspace }}
+
+    steps:
+      - name: Check-out code
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
+        with:
+          node-version-file: ".node-version"
+          cache: "yarn"
+          cache-dependency-path: "yarn.lock"
+
+      - name: Install dependencies
+        run: yarn install --immutable
+        working-directory: .
+
+      - name: Build
+        run: yarn build
+        working-directory: .
+
+      - name: Copy deploy files
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea #v7.0.1
+        env:
+          TARGET_FOLDER: "${{ github.workspace }}/${{ env.BUNDLE_NAME }}"
+          SOURCE_FOLDER: "${{ github.workspace }}"
+          CONTENTS: |
+            README.md
+            LICENSE
+            CHANGELOG
+            package.json
+            dist/**
+            !dist/stories/**/*
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+          script: |-
+            const fs = require('fs').promises
+            const path = require('path')
+            const target = path.resolve(process.env.TARGET_FOLDER)
+
+            process.chdir(process.env.SOURCE_FOLDER || '.')
+
+            if (process.env.CLEAN_TARGET_FOLDER === 'true') await io.rmRF(target)
+            const flattenFolders = process.env.FLATTEN_FOLDERS === 'true'
+            const options = {force: process.env.OVERWRITE === 'true'}
+            const globber = await glob.create(process.env.CONTENTS || '**')
+
+            for await (const file of globber.globGenerator()) {
+              if ((await fs.lstat(file)).isDirectory()) continue
+              const filename = flattenFolders ? path.basename(file) : file.substring(process.cwd().length)
+              const dest = path.join(target, filename)
+              await io.mkdirP(path.dirname(dest))
+              await io.cp(file, dest, options)
+            }
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@0b2256b8c012f0828dc542b3febcab082c67f72b # v4.3.4
+        with:
+          name: ${{ env.BUNDLE_NAME }}
+          path: ${{ env.BUNDLE_NAME }}
+          if-no-files-found: error
+          retention-days: 7
+
+  deploy:
+    if: ${{ !github.event.act }}
+    needs: [build]
+    runs-on: 'ubuntu-22.04'
+    environment: ${{ inputs.environment }}-cd
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+
+      - name: Download Artifact
+        uses: actions/download-artifact@6b208ae046db98c579e8a3aa621ab581ff575935 # v4.1.1
+        with:
+          name: ${{ env.BUNDLE_NAME }}
+          path: ${{ env.BUNDLE_NAME }}
+
+      ## DELETE AFTER TESTS
+      - name: Publish
+        run: npm publish --access public --registry ${{ inputs.npm_registry }} --verbose --dry-run
+        working-directory: "${{ env.BUNDLE_NAME }}"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Add secret on GitHub Environment
+
+      ## UNCOMMENT AFTER TESTS
+      # - name: Publish
+      #   run: npm publish --access public --registry ${{ inputs.npm_registry }} --verbose
+      #   working-directory: "${{ env.BUNDLE_NAME }}"
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
