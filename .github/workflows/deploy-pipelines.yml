@@ -19,13 +19,15 @@ on:
       release_semver:
         required: false
         description: Define the version bump to apply
-        type: choice
+        type: string
         default: minor
-        options:
-          - major
-          - minor
-          - patch
-          - prerelease
+        # type: choice
+        # default: minor
+        # options:
+        #   - major
+        #   - minor
+        #   - patch
+        #   - prerelease
 
 env:
   BUNDLE_NAME: bundle
