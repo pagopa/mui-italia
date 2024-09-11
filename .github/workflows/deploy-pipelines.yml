@@ -136,9 +136,10 @@ jobs:
       - name: Commit version bump
         run: |
           # Install semver tool
-          # npm install -g semver
+          npm install -g semver
 
           # Bump the version according to the release input
+          yarn plugin import version
           yarn version --new-version ${{ env.next_version }}
 
           # Push the branch and tags
