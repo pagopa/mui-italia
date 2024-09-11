@@ -128,7 +128,7 @@ jobs:
             fi
             timestamp=$(date +'%Y%m%d%H%M%S')
             echo "next_tag=v${major}.${minor}.${patch}-${{ env.PRERELEASE }}.${timestamp}" >> $GITHUB_ENV
-            echo "next_version=${major}.${minor}.${patch}" >> $GITHUB_ENV
+            echo "next_version=${major}.${minor}.${patch}-${{ env.PRERELEASE }}.${timestamp}" >> $GITHUB_ENV
             echo "prerelease_enabled=true" >> $GITHUB_ENV
             echo "release_name=Pre-Release ${major}.${minor}.${patch}-${{ env.PRERELEASE }} - $(date +'%Y-%m-%d')" >> $GITHUB_ENV
           else
@@ -170,7 +170,7 @@ jobs:
         run: |
           echo "## Changes:" > CHANGELOG.md
           echo "Auto-generated release for ${{ github.ref }}" >> CHANGELOG.md
-          if [ "${{ env.latest_tag }}" == "0.0.0" ]; then
+          if [ "v${{ env.latest_tag }}" == "0.0.0" ]; then
             echo "Initial commit" >> CHANGELOG.md
           else
             echo "$(git log ${latest_tag}..HEAD --pretty=format:"* %h %s" --abbrev-commit --no-merges)" >> CHANGELOG.md
