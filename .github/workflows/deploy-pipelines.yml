@@ -10,6 +10,9 @@ name: Deploy Pipelines - Release and Publish
 #       in case of prerelease the tag will be in the form X.Y.Z-PRERELEASE_TYPE.TIMESTAMP
 
 on:
+  push:
+    branches:
+      - migrate-devops-to-github-actions 
   workflow_dispatch:
     inputs:
       environment:
