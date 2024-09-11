@@ -2,9 +2,6 @@ name: Code Review
 
 on:
   workflow_call:
-  push:
-    branches:
-      -  migrate-devops-to-github-actions
 
 jobs:
   js_code_review:
@@ -31,7 +28,7 @@ jobs:
         run: yarn lint
 
       # - name: Unit tests exec
-      #   run: yarn test
+      #   run: yarn test:coverage
 
       # Codecov provides reports and metrics about test coverage data.
       # To enable set CODECOV_TOKEN secret at repo level and make sure
