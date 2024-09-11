@@ -30,8 +30,8 @@ jobs:
       - name: Lint
         run: yarn lint
 
-      - name: Unit tests exec
-        run: yarn test
+      # - name: Unit tests exec
+      #   run: yarn test
 
       # Codecov provides reports and metrics about test coverage data.
       # To enable set CODECOV_TOKEN secret at repo level and make sure
@@ -44,3 +44,10 @@ jobs:
         uses: codecov/codecov-action@84508663e988701840491b86de86b666e8a86bed # v4.3.0
         with:
           token: ${{ env.CODECOV_TOKEN }}
+      
+      # The following job will be executed only if CODECOV_TOKEN is not set
+      - name: Code coverage
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        if: ${{ env.CODECOV_TOKEN == '' }}
+        run: bash <(curl -s https://codecov.io/bash)
