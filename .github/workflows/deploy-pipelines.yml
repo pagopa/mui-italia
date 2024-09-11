@@ -1,34 +1,44 @@
 name: Deploy Pipelines - Release and Publish
 
+# Release Method:
+# Only Manual
+# Define if is a major, minor or path
+# if is a prerelease name of the branch have to start with release-**
+#    set the prerelease input with the right version (alpha, beta, rc)
+# if is an official release name of the branch have to be main
+# NOTE: in case of official release the tag will be in the form X.Y.Z
+#       in case of prerelease the tag will be in the form X.Y.Z-PRERELEASE_TYPE.TIMESTAMP
+
 on:
-  workflow_call:
+  workflow_dispatch:
     inputs:
       environment:
         description: Environment where the artifact will be deployed.
         type: string
         required: true
+        default: prod
       npm_registry:
         required: false
         default: https://registry.npmjs.org/
         type: string
-      release_branch:
-        required: false
-        description: Define the release branch
-        type: string
-        default: main
-      release_semver:
+      release_type:
         required: false
         description: Define the version bump to apply
-        type: string
+        type: choice
         default: minor
-        # type: choice
-        # default: minor
-        # options:
-        #   - major
-        #   - minor
-        #   - patch
-        #   - prerelease
-
+        options:
+          - major
+          - minor
+          - patch
+      prerelease:
+        required: false
+        description: Define if it's a pre-release
+        type: choice
+        default: alpha
+        options:
+          - alpha
+          - beta
+          - rc
 env:
   BUNDLE_NAME: bundle
 
@@ -38,18 +48,24 @@ concurrency:
 
 jobs:
   release:
-    if: github.ref == format('refs/heads/{0}', inputs.release_branch) || startsWith(github.ref, 'refs/tags/v') && endsWith(github.ref, '-RELEASE')
+    if: github.ref == format('refs/heads/main') || startsWith(github.ref, 'refs/heads/release-')
     runs-on: ubuntu-22.04
+    environment: ${{ inputs.environment }}-cd
     permissions:
-      id-token: write
-      contents: read
+      contents: write
       actions: write
+      id-token: write
+      pull-requests: write
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      RELEASE_TYPE: ${{ inputs.release_type || 'minor' }}
+      PRERELEASE: ${{ inputs.prerelease || 'alpha' }}
 
     steps:
       - name: Check-out code
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
@@ -62,63 +78,79 @@ jobs:
         run: |
           yarn install
 
-      - name: Get latest release version
-        id: get_latest_release
+      - name: Get latest tag
+        id: get_tag
         run: |
-          latest_release=$(gh api repos/${{ github.repository }}/releases/latest --jq .tag_name)
-          echo "Latest release: $latest_release"
-          echo "latest_release=$latest_release" >> $GITHUB_OUTPUT
-
-      - name: Get workflow data
-        id: workflow_data
-        run: |
-          workflow=$(gh api \
-            -H "Accept: application/vnd.github+json" \
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-            /repos/${{ github.repository }}/actions/runs/${{ github.run_id }})
-
-          committer_name=$(echo $workflow | jq -r '.head_commit.committer.name')
-          committer_email=$(echo $workflow | jq -r '.head_commit.committer.email')
-
-          echo "Current committer: $committer_name ($committer_email)"
-
-          echo "committer_name=${committer_name}"  >> $GITHUB_OUTPUT
-          echo "committer_email=${committer_email}"  >> $GITHUB_OUTPUT
-
-      - name: Bump version
-        id: bump_version
-        run: |
-          # Install semver tool
-          npm install -g semver
-          
-          # Extract the version number from the tag (remove 'v' if present)
-          current_version=${{ steps.get_latest_release.outputs.latest_release }}
-          if [[ $current_version == v* ]]; then
-            current_version=${current_version:1}
+          latest_tag=$(git tag --list '[0-9]*.[0-9]*.[0-9]*' --sort=-v:refname | head -n 1)
+          if [[ -z "$latest_tag" ]]; then
+            latest_tag="0.0.0"
           fi
-          
-          # Bump the version according to the release_semver input
-          new_version=$(semver $current_version -i ${{ inputs.release_semver }})
+          echo "latest_tag=$latest_tag" >> $GITHUB_ENV
+          echo "Latest tag: $latest_tag"
 
-          echo "New version: $new_version"
-          echo "new_version=$new_version" >> $GITHUB_OUTPUT
-
-      - name: Configure git
+      # Determine the next tag
+      - name: Determine next tag
+        id: next_tag
         run: |
-          git config --global user.email "${{ steps.workflow_data.outputs.committer_email }}"
-          git config --global user.name "${{ steps.workflow_data.outputs.committer_name }}"
+          IFS='.' read -r major minor patch <<< "${{ env.latest_tag }}"
+          
+          # Check if it's a pre-release or official release
+          if [[ "${{ github.ref }}" == refs/heads/main ]]; then
+            # Official release - determine if it's a major, minor, or patch
+            if [[ ${{ env.RELEASE_TYPE }} == "major" ]]; then
+              major=$((major + 1))
+              minor=0
+              patch=0
+            elif [[ ${{ env.RELEASE_TYPE }} == "minor" ]]; then
+              minor=$((minor + 1))
+              patch=0
+            else
+              patch=$((patch + 1))
+            fi
+            echo "next_tag=${major}.${minor}.${patch}" >> $GITHUB_ENV
+            echo "next_version=${major}.${minor}.${patch}" >> $GITHUB_ENV
+            echo "prerelease_enabled=false" >> $GITHUB_ENV
+            echo "release_name=Official Release ${major}.${minor}.${patch} - $(date +'%Y-%m-%d')" >> $GITHUB_ENV
+          elif [[ "${{ github.ref }}" == refs/heads/release-* ]]; then
+            # Pre-release - use same logic but append '-alpha/beta/rc.timestamp'
+            if [[ ${{ env.RELEASE_TYPE }} == "major" ]]; then
+              major=$((major + 1))
+              minor=0
+              patch=0
+            elif [[ ${{ env.RELEASE_TYPE }} == "minor" ]]; then
+              minor=$((minor + 1))
+              patch=0
+            else
+              patch=$((patch + 1))
+            fi
+            timestamp=$(date +'%Y%m%d%H%M%S')
+            echo "next_tag=${major}.${minor}.${patch}-${{ env.PRERELEASE }}.${timestamp}" >> $GITHUB_ENV
+            echo "next_version=${major}.${minor}.${patch}" >> $GITHUB_ENV
+            echo "prerelease_enabled=true" >> $GITHUB_ENV
+            echo "release_name=Pre-Release ${major}.${minor}.${patch}-${{ env.PRERELEASE }} - $(date +'%Y-%m-%d')" >> $GITHUB_ENV
+          else
+            echo "This branch does not match the release criteria."
+            exit 1
+          fi
 
       - name: Commit version bump
         run: |
-          yarn version --new-version ${{ steps.bump_version.outputs.new_version }}
-          git push origin ${{ inputs.release_branch }} --tags
+          # Install semver tool
+          npm install -g semver
 
-      - name: Create GitHub Release
+          # Bump the version according to the release input
+          yarn version --new-version ${{ env.next_version }}
+          git push origin HEAD --tags
+
+      # Create the release (pre-release for branches like 'release-**', official for 'main')
+      - name: Create Release
         run: |
-          gh release create v${{ steps.bump_version.outputs.new_version }} \
-            --title "v${{ steps.bump_version.outputs.new_version }}" \
-            --notes "Release of version ${{ steps.bump_version.outputs.new_version }}" \
-            $([[ "${{ inputs.release_semver }}" == "prerelease" ]] && echo "--prerelease")
+          gh release create \
+          ${{ env.next_tag }} \
+          --target ${{ github.sha }} \
+          --title "${{ env.release_name }}" \
+          --notes "Auto-generated release for ${{ github.ref }}" \
+          $(if [[ "${{ env.prerelease_enabled }}" == "true" ]]; then echo "--prerelease"; fi)
 
   build:
     needs: release
