@@ -145,9 +145,9 @@ jobs:
           npm version ${{ env.next_version }} -m "Bump version to ${{ env.next_version }}"
 
           # Push the branch and tags
-          git tag ${{ env.next_tag }}
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
+          git tag ${{ env.next_tag }}
           git push origin ${{ github.ref }} && git push --tags
 
       # Generate changelog
