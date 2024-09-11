@@ -81,9 +81,12 @@ jobs:
       - name: Get latest tag
         id: get_tag
         run: |
-          latest_tag=$(git tag --list '[0-9]*.[0-9]*.[0-9]' --sort=-v:refname | head -n 1)
+          latest_tag=$(git tag --list 'v[0-9]*.[0-9]*.[0-9]' --sort=-v:refname | head -n 1)
           if [[ -z "$latest_tag" ]]; then
             latest_tag="0.0.0"
+          fi
+          if [[ $latest_tag == v* ]]; then
+            latest_tag=${latest_tag:1}
           fi
           echo "latest_tag=$latest_tag" >> $GITHUB_ENV
           echo "Latest tag: $latest_tag"
@@ -107,7 +110,7 @@ jobs:
             else
               patch=$((patch + 1))
             fi
-            echo "next_tag=${major}.${minor}.${patch}" >> $GITHUB_ENV
+            echo "next_tag=v${major}.${minor}.${patch}" >> $GITHUB_ENV
             echo "next_version=${major}.${minor}.${patch}" >> $GITHUB_ENV
             echo "prerelease_enabled=false" >> $GITHUB_ENV
             echo "release_name=Release ${major}.${minor}.${patch} - $(date +'%Y-%m-%d')" >> $GITHUB_ENV
@@ -124,7 +127,7 @@ jobs:
               patch=$((patch + 1))
             fi
             timestamp=$(date +'%Y%m%d%H%M%S')
-            echo "next_tag=${major}.${minor}.${patch}-${{ env.PRERELEASE }}.${timestamp}" >> $GITHUB_ENV
+            echo "next_tag=v${major}.${minor}.${patch}-${{ env.PRERELEASE }}.${timestamp}" >> $GITHUB_ENV
             echo "next_version=${major}.${minor}.${patch}" >> $GITHUB_ENV
             echo "prerelease_enabled=true" >> $GITHUB_ENV
             echo "release_name=Pre-Release ${major}.${minor}.${patch}-${{ env.PRERELEASE }} - $(date +'%Y-%m-%d')" >> $GITHUB_ENV
@@ -139,13 +142,13 @@ jobs:
           npm install -g semver
 
           # Bump the version according to the release input
-          yarn plugin import version
-          yarn version --new-version ${{ env.next_version }}
+          npm version ${{ env.next_version }} -m "Bump version to ${{ env.next_version }}"
 
           # Push the branch and tags
+          git tag ${{ env.next_tag }}
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git push origin ${{ github.ref }} --tags
+          git push origin ${{ github.ref }} && git push --tags
 
       # Generate changelog
       - name: Generate changelog
