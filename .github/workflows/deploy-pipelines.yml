@@ -81,7 +81,7 @@ jobs:
       - name: Get latest tag
         id: get_tag
         run: |
-          latest_tag=$(git tag --list '[0-9]*.[0-9]*.[0-9]*' --sort=-v:refname | head -n 1)
+          latest_tag=$(git tag --list '[0-9]*.[0-9]*.[0-9]' --sort=-v:refname | head -n 1)
           if [[ -z "$latest_tag" ]]; then
             latest_tag="0.0.0"
           fi
@@ -142,6 +142,18 @@ jobs:
           yarn version --new-version ${{ env.next_version }}
           git push origin HEAD --tags
 
+      # Generate changelog
+      - name: Generate changelog
+        id: changelog
+        run: |
+          echo "## Changes:" > CHANGELOG.md
+          echo "Auto-generated release for ${{ github.ref }}" >> CHANGELOG.md
+          if [ "${{ env.latest_tag }}" == "0.0.0" ]; then
+            echo "Initial commit" >> CHANGELOG.md
+          else
+            echo "$(git log ${latest_tag}..HEAD --pretty=format:"* %h %s" --abbrev-commit --no-merges)" >> CHANGELOG.md
+          fi
+
       # Create the release (pre-release for branches like 'release-**', official for 'main')
       - name: Create Release
         run: |
@@ -149,7 +161,7 @@ jobs:
           ${{ env.next_tag }} \
           --target ${{ github.sha }} \
           --title "${{ env.release_name }}" \
-          --notes "Auto-generated release for ${{ github.ref }}" \
+          --notes-file CHANGELOG.md \
           $(if [[ "${{ env.prerelease_enabled }}" == "true" ]]; then echo "--prerelease"; fi)
 
   build:
