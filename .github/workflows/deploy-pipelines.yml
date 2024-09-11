@@ -14,8 +14,8 @@ name: Deploy Pipelines - Release and Publish
 #         major rc    -> v1.0.0-rc.20240911132220
 #         minor beta  -> v0.3.0-beta.20240911132220
 #         patch alpha -> v0.2.1-alpha.20240911132220
-# NOTE: in case of official release the tag will be in the form X.Y.Z
-#       in case of prerelease the tag will be in the form X.Y.Z-PRERELEASE_TYPE.TIMESTAMP
+# NOTE: in case of official release the tag will be in the form vX.Y.Z
+#       in case of prerelease the tag will be in the form vX.Y.Z-PRERELEASE_TYPE.TIMESTAMP
 
 on:
   workflow_dispatch:
