@@ -227,6 +227,8 @@ jobs:
     permissions:
       id-token: write
       contents: read
+    env:
+      NPM_REGISTRY: ${{ inputs.npm_registry || 'https://registry.npmjs.org' }}
 
     steps:
       - name: checkout
@@ -240,14 +242,14 @@ jobs:
 
       ## DELETE AFTER TESTS
       - name: Publish
-        run: npm publish --access public --registry ${{ inputs.npm_registry }} --verbose --dry-run
+        run: npm publish --access public --registry ${{ env.NPM_REGISTRY }} --verbose --dry-run
         working-directory: "${{ env.BUNDLE_NAME }}"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Add secret on GitHub Environment
 
       ## UNCOMMENT AFTER TESTS
       # - name: Publish
-      #   run: npm publish --access public --registry ${{ inputs.npm_registry }} --verbose
+      #   run: npm publish --access public --registry ${{ env.NPM_REGISTRY }} --verbose
       #   working-directory: "${{ env.BUNDLE_NAME }}"
       #   env:
       #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
