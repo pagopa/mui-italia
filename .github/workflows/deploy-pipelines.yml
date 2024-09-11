@@ -136,6 +136,22 @@ jobs:
             exit 1
           fi
 
+      - name: Configure Git
+        id: workflow_data
+        run: |
+          workflow=$(gh api \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            /repos/${{ github.repository }}/actions/runs/${{ github.run_id }})
+
+          committer_name=$(echo $workflow | jq -r '.head_commit.committer.name')
+          committer_email=$(echo $workflow | jq -r '.head_commit.committer.email')
+
+          echo "Current committer: $committer_name ($committer_email)"
+
+          git config --global user.email "$committer_name"
+          git config --global user.name "$committer_email}"
+
       - name: Commit version bump
         run: |
           # Install semver tool
@@ -145,8 +161,6 @@ jobs:
           npm version ${{ env.next_version }} -m "Bump version to ${{ env.next_version }}"
 
           # Push the branch and tags
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
           git tag ${{ env.next_tag }}
           git push origin ${{ github.ref }} && git push --tags
 
