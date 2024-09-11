@@ -3,6 +3,10 @@ name: Deploy Pipelines - Release and Publish
 # Release Method:
 # Only Manual
 # Define if is a major, minor or path
+# E.g. If latest tag is v0.0.0
+#      minor -> v0.1.0
+#      patch -> v0.0.1
+#      major -> v1.0.0 
 # if is a prerelease name of the branch have to start with release-**
 #    set the prerelease input with the right version (alpha, beta, rc)
 # if is an official release name of the branch have to be main
@@ -161,7 +165,6 @@ jobs:
           npm version ${{ env.next_version }} -m "Bump version to ${{ env.next_version }}"
 
           # Push the branch and tags
-          # git tag ${{ env.next_tag }}
           git push origin ${{ github.ref }} && git push --tags
 
       # Generate changelog
@@ -170,10 +173,10 @@ jobs:
         run: |
           echo "## Changes:" > CHANGELOG.md
           echo "Auto-generated release for ${{ github.ref }}" >> CHANGELOG.md
-          if [ "v${{ env.latest_tag }}" == "0.0.0" ]; then
+          if [ "${{ env.latest_tag }}" == "0.0.0" ]; then
             echo "Initial commit" >> CHANGELOG.md
           else
-            echo "$(git log ${latest_tag}..HEAD --pretty=format:"* %h %s" --abbrev-commit --no-merges)" >> CHANGELOG.md
+            echo "$(git log v${latest_tag}..HEAD --pretty=format:"* %h %s" --abbrev-commit --no-merges)" >> CHANGELOG.md
           fi
 
       # Create the release (pre-release for branches like 'release-**', official for 'main')
