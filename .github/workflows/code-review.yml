@@ -2,6 +2,9 @@ name: Code Review
 
 on:
   workflow_call:
+  push:
+    branches:
+      -  migrate-devops-to-github-actions
 
 jobs:
   js_code_review:
