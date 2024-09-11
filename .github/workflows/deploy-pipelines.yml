@@ -110,7 +110,7 @@ jobs:
             echo "next_tag=${major}.${minor}.${patch}" >> $GITHUB_ENV
             echo "next_version=${major}.${minor}.${patch}" >> $GITHUB_ENV
             echo "prerelease_enabled=false" >> $GITHUB_ENV
-            echo "release_name=Official Release ${major}.${minor}.${patch} - $(date +'%Y-%m-%d')" >> $GITHUB_ENV
+            echo "release_name=Release ${major}.${minor}.${patch} - $(date +'%Y-%m-%d')" >> $GITHUB_ENV
           elif [[ "${{ github.ref }}" == refs/heads/release-* ]]; then
             # Pre-release - use same logic but append '-alpha/beta/rc.timestamp'
             if [[ ${{ env.RELEASE_TYPE }} == "major" ]]; then
@@ -136,7 +136,7 @@ jobs:
       - name: Commit version bump
         run: |
           # Install semver tool
-          npm install -g semver
+          # npm install -g semver
 
           # Bump the version according to the release input
           yarn version --new-version ${{ env.next_version }}
