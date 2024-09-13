@@ -15,7 +15,7 @@ name: Deploy Pipelines - Release and Publish
 #         minor beta  -> v0.3.0-beta.20240911132220
 #         patch alpha -> v0.2.1-alpha.20240911132220
 # NOTE: in case of official release the tag will be in the form vX.Y.Z
-#       in case of prerelease the tag will be in the form vX.Y.Z-PRERELEASE_TYPE.TIMESTAMP
+#       in case of prerelease the tag will be in the form vX.Y.Z-PRERELEASE_SEMVER.TIMESTAMP
 
 on:
   workflow_dispatch:
@@ -29,7 +29,7 @@ on:
         required: false
         default: https://registry.npmjs.org/
         type: string
-      release_type:
+      release_semver:
         required: false
         description: Define the version bump to apply
         type: choice
@@ -66,7 +66,7 @@ jobs:
       pull-requests: write
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      RELEASE_TYPE: ${{ inputs.release_type || 'minor' }}
+      RELEASE_SEMVER: ${{ inputs.release_semver || 'minor' }}
       PRERELEASE: ${{ inputs.prerelease || 'alpha' }}
 
     steps:
@@ -108,11 +108,11 @@ jobs:
           # Check if it's a pre-release or official release
           if [[ "${{ github.ref }}" == refs/heads/main ]]; then
             # Official release - determine if it's a major, minor, or patch
-            if [[ ${{ env.RELEASE_TYPE }} == "major" ]]; then
+            if [[ ${{ env.RELEASE_SEMVER }} == "major" ]]; then
               major=$((major + 1))
               minor=0
               patch=0
-            elif [[ ${{ env.RELEASE_TYPE }} == "minor" ]]; then
+            elif [[ ${{ env.RELEASE_SEMVER }} == "minor" ]]; then
               minor=$((minor + 1))
               patch=0
             else
@@ -124,11 +124,11 @@ jobs:
             echo "release_name=Release ${major}.${minor}.${patch} - $(date +'%Y-%m-%d')" >> $GITHUB_ENV
           elif [[ "${{ github.ref }}" == refs/heads/release-* ]]; then
             # Pre-release - use same logic but append '-alpha/beta/rc.timestamp'
-            if [[ ${{ env.RELEASE_TYPE }} == "major" ]]; then
+            if [[ ${{ env.RELEASE_SEMVER }} == "major" ]]; then
               major=$((major + 1))
               minor=0
               patch=0
-            elif [[ ${{ env.RELEASE_TYPE }} == "minor" ]]; then
+            elif [[ ${{ env.RELEASE_SEMVER }} == "minor" ]]; then
               minor=$((minor + 1))
               patch=0
             else
