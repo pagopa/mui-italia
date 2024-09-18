@@ -157,8 +157,8 @@ jobs:
 
           echo "Current committer: $committer_name ($committer_email)"
 
-          git config --global user.email "$committer_name"
-          git config --global user.name "$committer_email}"
+          git config --global user.name "$committer_name"
+          git config --global user.email "$committer_email"
 
       - name: Commit version bump
         run: |
