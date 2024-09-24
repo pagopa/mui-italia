@@ -165,7 +165,7 @@ jobs:
         run: |
           # Install semver tool
           npm install -g semver
-
+          git status
           # Bump the version according to the release input
           npm version ${{ env.next_version }} -m "Bump version to ${{ env.next_version }}"
 
