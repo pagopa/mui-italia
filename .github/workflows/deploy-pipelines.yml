@@ -25,10 +25,6 @@ on:
         type: string
         required: true
         default: prod
-      npm_registry:
-        required: false
-        default: https://registry.npmjs.org/
-        type: string
       release_semver:
         required: false
         description: Define the version bump to apply
@@ -270,7 +266,7 @@ jobs:
       id-token: write
       contents: read
     env:
-      NPM_REGISTRY: ${{ inputs.npm_registry || 'https://registry.npmjs.org' }}
+      NPM_REGISTRY: 'https://registry.npmjs.org'
 
     steps:
       - name: checkout
