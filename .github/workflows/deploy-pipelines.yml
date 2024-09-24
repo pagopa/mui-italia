@@ -17,7 +17,6 @@ name: Deploy Pipelines - Release and Publish
 # NOTE: in case of official release the tag will be in the form vX.Y.Z
 #       in case of prerelease the tag will be in the form vX.Y.Z-PRERELEASE_SEMVER.TIMESTAMP
 
-
 on:
   workflow_dispatch:
     inputs:
@@ -165,8 +164,9 @@ jobs:
         run: |
           # Install semver tool
           npm install -g semver
-          git status
+
           # Bump the version according to the release input
+          git restore package.json
           npm version ${{ env.next_version }} -m "Bump version to ${{ env.next_version }}"
 
           # Push the branch and tags
