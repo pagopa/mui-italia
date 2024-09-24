@@ -17,6 +17,7 @@ name: Deploy Pipelines - Release and Publish
 # NOTE: in case of official release the tag will be in the form vX.Y.Z
 #       in case of prerelease the tag will be in the form vX.Y.Z-PRERELEASE_SEMVER.TIMESTAMP
 
+
 on:
   workflow_dispatch:
     inputs:
