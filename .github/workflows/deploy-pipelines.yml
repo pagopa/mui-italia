@@ -166,6 +166,7 @@ jobs:
           npm install -g semver
 
           # Bump the version according to the release input
+          git restore package.json
           npm version ${{ env.next_version }} -m "Bump version to ${{ env.next_version }}"
 
           # Push the branch and tags
@@ -281,16 +282,8 @@ jobs:
           name: ${{ env.BUNDLE_NAME }}
           path: ${{ env.BUNDLE_NAME }}
 
-      ## DELETE AFTER TESTS
       - name: Publish
-        run: npm publish --access public --registry ${{ env.NPM_REGISTRY }} --verbose --dry-run
+        run: npm publish --access public --registry ${{ env.NPM_REGISTRY }} --verbose
         working-directory: "${{ env.BUNDLE_NAME }}"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Add secret on GitHub Environment
-
-      ## UNCOMMENT AFTER TESTS
-      # - name: Publish
-      #   run: npm publish --access public --registry ${{ env.NPM_REGISTRY }} --verbose
-      #   working-directory: "${{ env.BUNDLE_NAME }}"
-      #   env:
-      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
