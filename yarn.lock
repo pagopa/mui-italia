@@ -2915,7 +2915,7 @@ __metadata:
     react-dom: ^18.2.0
     rimraf: ^3.0.2
     storybook: ^7.5.0
-    tsc-alias: ^1.8.3
+    tsc-alias: ^1.8.10
     tsconfig: "*"
     tsconfig-paths-webpack-plugin: ^4.0.0
     typescript: ^4.9.4
@@ -13367,9 +13367,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsc-alias@npm:^1.8.3":
-  version: 1.8.7
-  resolution: "tsc-alias@npm:1.8.7"
+"tsc-alias@npm:^1.8.10":
+  version: 1.8.10
+  resolution: "tsc-alias@npm:1.8.10"
   dependencies:
     chokidar: ^3.5.3
     commander: ^9.0.0
@@ -13379,7 +13379,7 @@ __metadata:
     plimit-lit: ^1.2.6
   bin:
     tsc-alias: dist/bin/index.js
-  checksum: 77f721ea797a62a7cc74acda0baf928bb654bccb210471b63fef1e70a27a823c60f5832f51aa5976d573412bc90731e90774abf9127f3b6b13f284839f988d47
+  checksum: 4301767afb5b24ad354267790fb98b8df7ed41ff6a6d151c5e664c6b8b7717cd8753c790d67e5a0dbd731c3a4d85e57eca2429ff750b99d79c38300de7eb8d94
   languageName: node
   linkType: hard
 
