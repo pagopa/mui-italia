@@ -266,7 +266,7 @@ jobs:
       id-token: write
       contents: read
     env:
-      NPM_REGISTRY: 'https://registry.npmjs.org'
+      NPM_REGISTRY: 'registry.npmjs.org'
 
     steps:
       - name: checkout
@@ -279,7 +279,7 @@ jobs:
           path: ${{ env.BUNDLE_NAME }}
 
       - name: Publish
-        run: npm publish --access public --registry ${{ env.NPM_REGISTRY }} --verbose
+        run: |
+          npm config set //${{ env.NPM_REGISTRY }}/:_authToken=${{ secrets.NPM_TOKEN }}
+          npm publish --access public --registry https://${{ env.NPM_REGISTRY }} --verbose
         working-directory: "${{ env.BUNDLE_NAME }}"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Add secret on GitHub Environment
