@@ -386,6 +386,12 @@ export const theme: Theme = createTheme(foundation, {
         lineHeight: 1.35 /* ~32px */,
       },
     },
+    "body-mono": {
+      fontSize: pxToRem(16),
+      lineHeight: 1.32 /* 21px */,
+      fontWeight: foundation.typography.fontWeightMedium,
+      fontFamily: monospacedTypeface,
+    },
     "body-big": {
       fontSize: pxToRem(16),
       lineHeight: 1.5 /* 24px */,
