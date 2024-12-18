@@ -333,59 +333,174 @@ export const theme: Theme = createTheme(foundation, {
       fontWeight: foundation.typography.fontWeightBold,
     },
     h1: {
-      fontSize: pxToRem(42),
-      lineHeight: 1.1 /* 46px */,
+      fontSize: pxToRem(40),
+      lineHeight: 1.325 /* 53px */,
       fontWeight: foundation.typography.fontWeightBold,
       [foundation.breakpoints.up(responsiveBreakpoint)]: {
         fontSize: pxToRem(50),
-        lineHeight: 1.08 /* 54px */,
+        lineHeight: 1.32 /* 66px */,
       },
     },
     h2: {
       fontSize: pxToRem(36),
-      lineHeight: 1.1 /* ~40px */,
+      lineHeight: 1.333 /* ~48px */,
       fontWeight: foundation.typography.fontWeightBold,
       [foundation.breakpoints.up(responsiveBreakpoint)]: {
         fontSize: pxToRem(44),
-        lineHeight: 1.09 /* ~48px */,
+        lineHeight: 1.32 /* ~58px */,
       },
     },
     h3: {
       fontSize: pxToRem(32),
-      lineHeight: 1.125 /* 36px */,
+      lineHeight: 1.3 /* ~42px */,
       fontWeight: foundation.typography.fontWeightBold,
       [foundation.breakpoints.up(responsiveBreakpoint)]: {
         fontSize: pxToRem(38),
-        lineHeight: 1.1 /* ~42px */,
+        lineHeight: 1.315 /* ~50px */,
       },
     },
     h4: {
       fontSize: pxToRem(28),
-      lineHeight: 1.15 /* ~32px */,
+      lineHeight: 1.32 /* ~37px */,
       fontWeight: foundation.typography.fontWeightBold,
       [foundation.breakpoints.up(responsiveBreakpoint)]: {
         fontSize: pxToRem(32),
-        lineHeight: 1.125 /* 36px */,
+        lineHeight: 1.312 /* ~42px */,
       },
     },
     h5: {
       fontSize: pxToRem(24),
-      lineHeight: 1.15 /* ~28px */,
-      fontWeight: foundation.typography.fontWeightMedium,
+      lineHeight: 1.33 /* ~32px */,
+      fontWeight: foundation.typography.fontWeightBold,
       [foundation.breakpoints.up(responsiveBreakpoint)]: {
         fontSize: pxToRem(28),
-        lineHeight: 1.5 /* 42px */,
+        lineHeight: 1.32 /* ~37px */,
       },
     },
     h6: {
       fontSize: pxToRem(22),
-      lineHeight: 1.18 /* ~26px */,
-      fontWeight: foundation.typography.fontWeightMedium,
+      lineHeight: 1.32 /* ~29px */,
+      fontWeight: foundation.typography.fontWeightBold,
       [foundation.breakpoints.up(responsiveBreakpoint)]: {
         fontSize: pxToRem(24),
-        lineHeight: 1.15 /* ~28px */,
+        lineHeight: 1.35 /* ~32px */,
       },
     },
+    "body-big": {
+      fontSize: pxToRem(16),
+      lineHeight: 1.5 /* 24px */,
+      fontWeight: foundation.typography.fontWeightRegular,
+    },
+    body: {
+      fontSize: pxToRem(16),
+      lineHeight: 1.32 /* 21px */,
+      fontWeight: foundation.typography.fontWeightRegular,
+    },
+    "body-small": {
+      fontSize: pxToRem(14),
+      lineHeight: 1.3 /* ~18px */,
+      fontWeight: foundation.typography.fontWeightRegular,
+    },
+    "button-bold": {
+      fontSize: pxToRem(16),
+      lineHeight: 1.32 /* 21px */,
+      fontWeight: foundation.typography.fontWeightBold,
+    },
+    "button-regular": {
+      fontSize: pxToRem(16),
+      lineHeight: 1.32 /* 21px */,
+      fontWeight: foundation.typography.fontWeightRegular,
+    },
+    "label-sb": {
+      fontSize: pxToRem(18),
+      lineHeight: 1.32 /* ~24px */,
+      fontWeight: foundation.typography.fontWeightBold,
+    },
+    "label-regular": {
+      fontSize: pxToRem(18),
+      lineHeight: 1.32 /* ~24px */,
+      fontWeight: foundation.typography.fontWeightRegular,
+    },
+    "label-link": {
+      fontSize: pxToRem(18),
+      lineHeight: 1.32 /* ~24px */,
+      fontWeight: foundation.typography.fontWeightMedium,
+      textDecoration: "underline",
+      color: foundation.palette.primary.main,
+    },
+    "label-sb-small": {
+      fontSize: pxToRem(16),
+      lineHeight: 1.32 /* 21px */,
+      fontWeight: foundation.typography.fontWeightBold,
+    },
+    "label-regular-small": {
+      fontSize: pxToRem(16),
+      lineHeight: 1.32 /* 21px */,
+      fontWeight: foundation.typography.fontWeightRegular,
+    },
+    "label-link-small": {
+      fontSize: pxToRem(16),
+      lineHeight: 1.32 /* 21px */,
+      fontWeight: foundation.typography.fontWeightMedium,
+      textDecoration: "underline",
+      color: foundation.palette.primary.main,
+    },
+    "label-sb-mini": {
+      fontSize: pxToRem(14),
+      lineHeight: 1.32 /* ~18px */,
+      fontWeight: foundation.typography.fontWeightBold,
+    },
+    "label-regular-mini": {
+      fontSize: pxToRem(14),
+      lineHeight: 1.32 /* ~18px */,
+      fontWeight: foundation.typography.fontWeightRegular,
+    },
+    "label-link-mini": {
+      fontSize: pxToRem(14),
+      lineHeight: 1.32 /* ~18px */,
+      fontWeight: foundation.typography.fontWeightMedium,
+      textDecoration: "underline",
+      color: foundation.palette.primary.main,
+    },
+    "label-overline": {
+      fontSize: pxToRem(14),
+      lineHeight: 1.32 /* ~18px */,
+      fontWeight: foundation.typography.fontWeightMedium,
+      textTransform: "uppercase",
+      letterSpacing: "1px",
+    },
+    "caption-sb-small": {
+      fontSize: pxToRem(14),
+      lineHeight: 1.32 /* ~18px */,
+      fontWeight: foundation.typography.fontWeightMedium,
+    },
+    "caption-regular-small": {
+      fontSize: pxToRem(14),
+      lineHeight: 1.32 /* ~18px */,
+      fontWeight: foundation.typography.fontWeightRegular,
+    },
+    "caption-sb-mini": {
+      fontSize: pxToRem(12),
+      lineHeight: 1.32 /* ~16px */,
+      fontWeight: foundation.typography.fontWeightMedium,
+    },
+    "caption-regular-mini": {
+      fontSize: pxToRem(12),
+      lineHeight: 1.32 /* ~16px */,
+      fontWeight: foundation.typography.fontWeightRegular,
+    },
+    tooltip: {
+      fontSize: pxToRem(10),
+      lineHeight: 1.4 /* 14px */,
+      fontWeight: foundation.typography.fontWeightRegular,
+    },
+    avatar: {
+      fontSize: pxToRem(20),
+      lineHeight: 1 /* 20px */,
+      fontWeight: foundation.typography.fontWeightRegular,
+    },
+
+    /* Start: DEPRECATED */
     sidenav: {
       fontFamily: mainTypeface,
       fontSize: pxToRem(18),
@@ -458,6 +573,7 @@ export const theme: Theme = createTheme(foundation, {
       fontWeight: foundation.typography.fontWeightMedium,
     },
     /* End: To be revised */
+    /* End: DEPRECATED */
   },
   components: {
     MuiButton: {
