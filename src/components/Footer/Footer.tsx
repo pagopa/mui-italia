@@ -5,6 +5,7 @@ import { FooterLegal } from "@components/FooterLegal";
 import { FooterPostLogin } from "@components/FooterPostLogin";
 import { FooterPreLogin } from "@components/FooterPreLogin";
 import { LangSwitchProps } from "@components/LangSwitch";
+import { CompanyLogoProps } from "@components/CompanyLogo";
 
 // We need to validate this. It might be possible that the fields differ from product to product
 /* type JwtUser = {
@@ -68,6 +69,7 @@ export type PreLoginFooterLinksType = {
 export type CompanyLinkType = {
   /** the url to witch the user will be redirect */
   href?: string;
+  image?: CompanyLogoProps;
   ariaLabel: string;
   /** if defined it will override the href behavior */
   onClick?: () => void;
