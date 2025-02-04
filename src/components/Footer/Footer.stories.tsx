@@ -2,6 +2,8 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { FooterCheckout } from "@components/FooterCheckout";
 import { breakpointsChromaticValues } from "@theme";
+import LogoIOApp from "@assets/LogoIOApp/originals/LogoIOApp.svg";
+import { MonogramPagoPACompany } from "@assets/MonogramPagoPACompany";
 
 import {
   Footer,
@@ -9,6 +11,8 @@ import {
   FooterLinksType,
   CompanyLinkType,
 } from "./Footer";
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/system/Stack";
 
 export default {
   title: "Components/Footer (WIP)",
@@ -49,7 +53,7 @@ const companyLegalInfo = (
   </>
 );
 
-/* 
+/*
 Languages Section
 */
 const LANGUAGES = {
@@ -309,6 +313,79 @@ export const PostLogin: ComponentStory<typeof Footer> = () => (
     hideProductsColumn={false}
   />
 );
+
+export const CustomImage: ComponentStory<typeof Footer> = () => {
+  const companyLinkWithImage: CompanyLinkType = {
+    href: "https://www.pagopa.it/",
+    ariaLabel: "Link: vai al sito di PagoPA S.p.A.",
+    image: {
+      src: LogoIOApp,
+      alt: "Link: vai all App Ik",
+      placeholder: "Link: vai all App IO",
+      style: { width: 70, color: "blue" },
+    },
+  };
+
+  return (
+    /* const { lang, setLang } = useState<LangCode>("it"); */
+
+    <Footer
+      loggedUser={false}
+      companyLink={companyLinkWithImage}
+      legalInfo={companyLegalInfo}
+      postLoginLinks={postLoginLinks}
+      preLoginLinks={preLoginLinks}
+      currentLangCode={"it"}
+      onLanguageChanged={
+        (/* newLang */) => {
+          console.log("Changed Language");
+        }
+      }
+      languages={LANGUAGES}
+      onExit={(exitAction) => {
+        console.log("Executing exit Action");
+        exitAction();
+      }}
+      productsJsonUrl="https://dev.selfcare.pagopa.it/assets/products.json"
+      hideProductsColumn={false}
+    />
+  );
+};
+
+export const CustomImageElement: ComponentStory<typeof Footer> = () => {
+  const companyLinkWithImage: CompanyLinkType = {
+    href: "https://www.pagopa.it/",
+    ariaLabel: "Link: vai al sito di PagoPA S.p.A.",
+    image: {
+      element: <MonogramPagoPACompany color="primary" shape="circle" />,
+    },
+  };
+
+  return (
+    /* const { lang, setLang } = useState<LangCode>("it"); */
+
+    <Footer
+      loggedUser={false}
+      companyLink={companyLinkWithImage}
+      legalInfo={companyLegalInfo}
+      postLoginLinks={postLoginLinks}
+      preLoginLinks={preLoginLinks}
+      currentLangCode={"it"}
+      onLanguageChanged={
+        (/* newLang */) => {
+          console.log("Changed Language");
+        }
+      }
+      languages={LANGUAGES}
+      onExit={(exitAction) => {
+        console.log("Executing exit Action");
+        exitAction();
+      }}
+      productsJsonUrl="https://dev.selfcare.pagopa.it/assets/products.json"
+      hideProductsColumn={false}
+    />
+  );
+};
 
 export const Checkout: ComponentStory<typeof FooterCheckout> = () => (
   /* const { lang, setLang } = useState<LangCode>("it"); */

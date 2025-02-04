@@ -4,8 +4,8 @@ import { Stack, Box, Link } from "@mui/material";
 import { CompanyLinkType, FooterLinksType } from "@components/Footer";
 import { LangSwitch, LangSwitchProps } from "@components/LangSwitch";
 
-import { LogoPagoPACompany } from "@assets/LogoPagoPACompany";
 import { hrefNoOp, wrapHandleExitAction } from "utils/ts-utils";
+import { CompanyLogo } from "@components/CompanyLogo";
 
 type FooterCheckoutProps = LangSwitchProps & {
   companyLink: CompanyLinkType;
@@ -60,7 +60,7 @@ export const FooterCheckout = ({
           )}
           sx={{ display: "inline-flex" }}
         >
-          <LogoPagoPACompany size={70} />
+          <CompanyLogo {...companyLink?.image} />
         </Link>
       )}
     </Stack>

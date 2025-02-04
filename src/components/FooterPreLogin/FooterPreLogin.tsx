@@ -12,10 +12,10 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import LinkedIcon from "@mui/icons-material/LinkedIn";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import { MediumIcon } from "@icons/MediumIcon";
-import { LogoPagoPACompany } from "@assets/LogoPagoPACompany";
 import { FundedByNextGenerationEU } from "@assets/FundedByNextGenerationEU";
 
 /* Enum */
+import { CompanyLogo } from "@components/CompanyLogo";
 import { FooterLinksType } from "..";
 import { ProductArrayType } from "./ProductType";
 
@@ -93,7 +93,7 @@ export const FooterPreLogin = ({
                   )}
                   sx={{ display: "inline-flex" }}
                 >
-                  <LogoPagoPACompany />
+                  <CompanyLogo {...companyLink?.image} />
                 </Link>
               )}
 
