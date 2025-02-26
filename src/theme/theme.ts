@@ -479,8 +479,7 @@ export const theme: Theme = createTheme(foundation, {
           '&.MuiButton-text': {
             '&:hover': {
               backgroundColor: "transparent",
-              border: `1px solid ${foundation.palette.primary.main}`,
-              borderWidth: "2px",
+              color: "#0055AA"
             },
           },
         },
