@@ -4,7 +4,7 @@ import { useRef, ChangeEvent, DragEvent, ReactNode, useState } from "react";
 import {
   Box,
   Button,
-  CircularProgress,
+  LinearProgress,
   FormControl,
   FormLabel,
   IconButton,
@@ -86,6 +86,8 @@ const OrientedBox = ({
     alignItems="center"
     flexDirection={vertical ? "column" : "row"}
     margin="auto"
+    flex={1}
+    p={3}
   >
     {children}
   </Box>
@@ -207,11 +209,10 @@ export const SingleFileInput = ({
         {showDropzone && (
           <Box
             sx={{
-              position: "absolute",
-              inset: 0,
               cursor: "pointer",
               backgroundColor: "transparent",
               border: "none",
+              flex: 1,
             }}
             onDragOver={handleDragOver}
             onDrop={handleDrop}
@@ -225,7 +226,13 @@ export const SingleFileInput = ({
             <OrientedBox vertical={vertical}>
               {status === UploadStatus.REJECTED && (
                 <>
-                  <ErrorIcon color="error" sx={{ margin: "0 10px" }} />
+                  <ErrorIcon
+                    color="error"
+                    sx={{
+                      mb: vertical ? "10px" : 0,
+                      mr: vertical ? 0 : "10px",
+                    }}
+                  />
                   <Typography color="error" display="inline" variant="body2">
                     {rejectedLabel}
                   </Typography>
@@ -235,10 +242,7 @@ export const SingleFileInput = ({
               {(status === UploadStatus.IDLE ||
                 status === UploadStatus.ERROR) && (
                 <>
-                  <CloudUploadIcon
-                    color={getColorStyle(status)}
-                    sx={{ margin: "0 10px" }}
-                  />
+                  <CloudUploadIcon color={getColorStyle(status)} />
                   <Typography
                     color={
                       status === UploadStatus.ERROR
@@ -247,12 +251,14 @@ export const SingleFileInput = ({
                     }
                     display="inline"
                     variant="body2"
+                    sx={{
+                      my: vertical ? "10px" : 0,
+                      mx: vertical ? 0 : "10px",
+                    }}
                   >
                     {dropzoneLabel}
                   </Typography>
-                  <Button sx={{ margin: "0 10px" }} variant="contained">
-                    {dropzoneButton}
-                  </Button>
+                  <Button variant="contained">{dropzoneButton}</Button>
                 </>
               )}
 
@@ -270,12 +276,29 @@ export const SingleFileInput = ({
         )}
 
         {status === UploadStatus.LOADING && (
-          <OrientedBox>
-            <CircularProgress sx={{ mr: 2 }} />
-
-            <Typography display="inline" variant="body2">
+          <OrientedBox vertical={vertical}>
+            <Typography display="inline-block" variant="body2" component="span">
               {loadingLabel}
             </Typography>
+
+            <LinearProgress
+              variant="indeterminate"
+              sx={
+                vertical
+                  ? {
+                      ml: 0,
+                      mt: 2,
+                      width: "100%",
+                    }
+                  : {
+                      ml: 2,
+                      mt: 0,
+                      display: "flex",
+                      flexDirection: "row",
+                      flex: 1,
+                    }
+              }
+            />
           </OrientedBox>
         )}
 
