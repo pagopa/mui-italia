@@ -43,6 +43,11 @@ on:
           - alpha
           - beta
           - rc
+      is_stable_release:
+        required: false
+        description: Set to true to create a stable release from a release-* branch
+        type: boolean
+        default: false
 env:
   BUNDLE_NAME: bundle
 
@@ -95,50 +100,50 @@ jobs:
           echo "latest_tag=$latest_tag" >> $GITHUB_ENV
           echo "Latest tag: $latest_tag"
 
-      # Determine the next tag
       - name: Determine next tag
         id: next_tag
         run: |
           IFS='.' read -r major minor patch <<< "${{ env.latest_tag }}"
+
+          if [[ ${{ env.RELEASE_SEMVER }} == "major" ]]; then
+            major=$((major + 1))
+            minor=0
+            patch=0
+          elif [[ ${{ env.RELEASE_SEMVER }} == "minor" ]]; then
+            minor=$((minor + 1))
+            patch=0
+          else
+            patch=$((patch + 1))
+          fi
           
-          # Check if it's a pre-release or official release
           if [[ "${{ github.ref }}" == refs/heads/main ]]; then
-            # Official release - determine if it's a major, minor, or patch
-            if [[ ${{ env.RELEASE_SEMVER }} == "major" ]]; then
-              major=$((major + 1))
-              minor=0
-              patch=0
-            elif [[ ${{ env.RELEASE_SEMVER }} == "minor" ]]; then
-              minor=$((minor + 1))
-              patch=0
-            else
-              patch=$((patch + 1))
-            fi
+            # Release ufficiale da main - da togliere
             echo "next_tag=v${major}.${minor}.${patch}" >> $GITHUB_ENV
             echo "next_version=${major}.${minor}.${patch}" >> $GITHUB_ENV
             echo "prerelease_enabled=false" >> $GITHUB_ENV
             echo "release_name=Release ${major}.${minor}.${patch} - $(date +'%Y-%m-%d')" >> $GITHUB_ENV
+
           elif [[ "${{ github.ref }}" == refs/heads/release-* ]]; then
-            # Pre-release - use same logic but append '-alpha/beta/rc.timestamp'
-            if [[ ${{ env.RELEASE_SEMVER }} == "major" ]]; then
-              major=$((major + 1))
-              minor=0
-              patch=0
-            elif [[ ${{ env.RELEASE_SEMVER }} == "minor" ]]; then
-              minor=$((minor + 1))
-              patch=0
+            # Branch di release: determinare se è prerelease o stabile
+            if [[ "${{ inputs.is_stable_release }}" == "true" ]]; then
+              echo "next_tag=v${major}.${minor}.${patch}" >> $GITHUB_ENV
+              echo "next_version=${major}.${minor}.${patch}" >> $GITHUB_ENV
+              echo "prerelease_enabled=false" >> $GITHUB_ENV
+              echo "release_name=Release ${major}.${minor}.${patch} - $(date +'%Y-%m-%d')" >> $GITHUB_ENV
             else
-              patch=$((patch + 1))
+              # Prerelease (comportamento attuale)
+              timestamp=$(date +'%Y%m%d%H%M%S')
+              echo "next_tag=v${major}.${minor}.${patch}-${{ env.PRERELEASE }}.${timestamp}" >> $GITHUB_ENV
+              echo "next_version=${major}.${minor}.${patch}-${{ env.PRERELEASE }}.${timestamp}" >> $GITHUB_ENV
+              echo "prerelease_enabled=true" >> $GITHUB_ENV
+              echo "release_name=Pre-Release ${major}.${minor}.${patch}-${{ env.PRERELEASE }} - $(date +'%Y-%m-%d')" >> $GITHUB_ENV
             fi
-            timestamp=$(date +'%Y%m%d%H%M%S')
-            echo "next_tag=v${major}.${minor}.${patch}-${{ env.PRERELEASE }}.${timestamp}" >> $GITHUB_ENV
-            echo "next_version=${major}.${minor}.${patch}-${{ env.PRERELEASE }}.${timestamp}" >> $GITHUB_ENV
-            echo "prerelease_enabled=true" >> $GITHUB_ENV
-            echo "release_name=Pre-Release ${major}.${minor}.${patch}-${{ env.PRERELEASE }} - $(date +'%Y-%m-%d')" >> $GITHUB_ENV
+
           else
             echo "This branch does not match the release criteria."
             exit 1
           fi
+
 
       - name: Configure Git
         id: workflow_data
