@@ -482,6 +482,11 @@ export const theme: Theme = createTheme(foundation, {
               color: "#0055AA"
             },
           },
+          '&.MuiButton-contained': {
+            '&:hover': {
+              backgroundColor: colorPrimaryContainedHover
+            },
+          },
         },
         sizeSmall: {
           height: "40px",
