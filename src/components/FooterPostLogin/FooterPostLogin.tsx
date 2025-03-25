@@ -4,8 +4,8 @@ import { Stack, Box, Container, Link } from "@mui/material";
 import { CompanyLinkType, FooterLinksType } from "@components/Footer";
 import { LangSwitch, LangSwitchProps } from "@components/LangSwitch";
 
-import { LogoPagoPACompany } from "@assets/LogoPagoPACompany";
 import { hrefNoOp, wrapHandleExitAction } from "utils/ts-utils";
+import { CompanyLogo } from "@components/CompanyLogo";
 
 type FooterPostLoginProps = LangSwitchProps & {
   companyLink: CompanyLinkType;
@@ -44,7 +44,7 @@ export const FooterPostLogin = ({
             )}
             sx={{ display: "inline-flex" }}
           >
-            <LogoPagoPACompany />
+            <CompanyLogo {...companyLink?.image} />
           </Link>
         )}
 
