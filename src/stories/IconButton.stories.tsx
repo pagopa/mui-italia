@@ -1,4 +1,4 @@
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { StoryObj, Meta } from "@storybook/react";
 
 import { IconButton } from "@mui/material";
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
@@ -36,12 +36,11 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof IconButton>;
+} as Meta<typeof IconButton>;
 
-const Template: ComponentStory<typeof IconButton> = (args) => (
-  <IconButton aria-label="Scarica" {...args}>
-    <DownloadRoundedIcon />
-  </IconButton>
-);
-
-export const Default = Template.bind({});
+export const Default: StoryObj<typeof IconButton> = {
+  args: {
+    "aria-label": "Scarica",
+    children: <DownloadRoundedIcon />,
+  },
+};
