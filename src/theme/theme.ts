@@ -1,5 +1,5 @@
-import { createTheme, Theme, alpha } from "@mui/material/styles";
 import { indigo } from "@mui/material/colors";
+import { alpha, createTheme, Theme } from "@mui/material/styles";
 
 /* Design Tokens */
 import { italia } from "@tokens";
@@ -594,6 +594,8 @@ export const theme: Theme = createTheme(foundation, {
       },
       styleOverrides: {
         root: {
+          color: foundation.palette.primary.main,
+          backgroundColor: foundation.palette.background.paper,
           "&:hover": {
             backgroundColor: alpha(foundation.palette.primary.main, 0.08),
           },
@@ -608,7 +610,12 @@ export const theme: Theme = createTheme(foundation, {
           },
         },
         colorPrimary: {
-          color: foundation.palette.primary.main,
+          color: foundation.palette.primary.contrastText,
+          backgroundColor: foundation.palette.primary.main,
+          "&:hover": {
+            backgroundColor: alpha(foundation.palette.primary.main, 0.08),
+            color: foundation.palette.primary.main,
+          },
         },
         minHeight: pxToRem(24),
         minWidth: pxToRem(24),
