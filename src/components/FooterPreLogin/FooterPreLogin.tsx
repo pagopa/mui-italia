@@ -18,6 +18,8 @@ import { FundedByNextGenerationEU } from "@assets/FundedByNextGenerationEU";
 /* Enum */
 import { FooterLinksType } from "..";
 import { ProductArrayType } from "./ProductType";
+import { ThreadsIcon } from "@icons/ThreadsIcon";
+import { YoutubeIcon } from "@icons/YoutubeIcon";
 
 type FooterPreLoginProps = LangSwitchProps & {
   companyLink: CompanyLinkType;
@@ -65,9 +67,11 @@ export const FooterPreLogin = ({
 
   const iconMap: iconMapObject = {
     linkedin: <LinkedIcon />,
-    twitter: <TwitterIcon />,
+    //twitter: <TwitterIcon />,
     instagram: <InstagramIcon />,
-    medium: <MediumIcon />,
+    //medium: <MediumIcon />,
+    threads: <ThreadsIcon />,
+    youtube: <YoutubeIcon />,
   };
 
   return (
