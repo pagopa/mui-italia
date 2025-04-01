@@ -234,24 +234,12 @@ const preLoginLinks: PreLoginFooterLinksType = {
         href: "https://www.linkedin.com/company/pagopa/",
         ariaLabel: "Link: vai al sito LinkedIn di PagoPA S.p.A.",
       },
-      // {
-      //   title: "Twitter",
-      //   icon: "twitter",
-      //   href: "https://twitter.com/pagopa",
-      //   ariaLabel: "Link: vai al sito Twitter di PagoPA S.p.A.",
-      // },
       {
         icon: "instagram",
         title: "Instagram",
         href: "https://www.instagram.com/pagopa/",
         ariaLabel: "Link: vai al sito Instagram di PagoPA S.p.A.",
       },
-      // {
-      //   icon: "medium",
-      //   title: "Medium",
-      //   href: "https://medium.com/pagopa",
-      //   ariaLabel: "Link: vai al sito Medium di PagoPA S.p.A.",
-      // },
       {
         icon: "threads",
         title: "Threads",

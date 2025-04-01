@@ -65,9 +65,7 @@ export const FooterPreLogin = ({
 
   const iconMap: iconMapObject = {
     linkedin: <LinkedIcon />,
-    //twitter: <TwitterIcon />,
     instagram: <InstagramIcon />,
-    //medium: <MediumIcon />,
     threads: <ThreadsIcon />,
     youtube: <YoutubeIcon />,
   };
