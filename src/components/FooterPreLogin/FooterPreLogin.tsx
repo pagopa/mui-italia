@@ -12,12 +12,12 @@ import LinkedIcon from "@mui/icons-material/LinkedIn";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import { LogoPagoPACompany } from "@assets/LogoPagoPACompany";
 import { FundedByNextGenerationEU } from "@assets/FundedByNextGenerationEU";
+import { ThreadsIcon } from "@icons/ThreadsIcon";
+import { YoutubeIcon } from "@icons/YoutubeIcon";
 
 /* Enum */
 import { FooterLinksType } from "..";
 import { ProductArrayType } from "./ProductType";
-import { ThreadsIcon } from "@icons/ThreadsIcon";
-import { YoutubeIcon } from "@icons/YoutubeIcon";
 
 type FooterPreLoginProps = LangSwitchProps & {
   companyLink: CompanyLinkType;
