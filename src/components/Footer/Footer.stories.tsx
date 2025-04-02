@@ -237,7 +237,7 @@ const preLoginLinks: PreLoginFooterLinksType = {
       {
         icon: "instagram",
         title: "Instagram",
-        href: "https://www.instagram.com/pagopa/",
+        href: "https://www.instagram.com/pagopaspa/",
         ariaLabel: "Link: vai al sito Instagram di PagoPA S.p.A.",
       },
       {
@@ -249,7 +249,7 @@ const preLoginLinks: PreLoginFooterLinksType = {
       {
         icon: "youtube",
         title: "Youtube",
-        href: "TODO",
+        href: "https://www.youtube.com/channel/UCFBGOEJUPQ6t3xtZFc_UIEQ",
         ariaLabel: "Link: vai al sito Youtube di PagoPA S.p.A.",
       },
     ],
