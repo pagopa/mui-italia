@@ -35,7 +35,7 @@ const defaultTranslationsMap = {
   logOut: "Esci",
   assistance: "Assistenza",
   documentation: "Manuale operativo",
-}
+};
 
 type HeaderAccountProps = {
   rootLink: RootLinkType;
@@ -49,10 +49,10 @@ type HeaderAccountProps = {
   enableAssistanceButton?: boolean;
   onDocumentationClick?: () => void;
   translationsMap?: {
-    logIn?: string,
-    logOut?: string,
-    assistance?: string,
-    documentation?: string,}
+    logIn?: string;
+    logOut?: string;
+    assistance?: string;
+    documentation?: string;};
 };
 
 export const HeaderAccount = ({
