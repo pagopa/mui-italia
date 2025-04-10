@@ -143,3 +143,41 @@ export const WithDocumentation: ComponentStory<typeof HeaderAccount> = () => (
     }}
   />
 );
+
+export const fullyLocalizedHeaderAccount: ComponentStory<
+  typeof HeaderAccount
+> = () => (
+  <HeaderAccount
+    enableDropdown
+    rootLink={pagoPALink}
+    loggedUser={user}
+    onAssistanceClick={() => {
+      console.log("Clicked/Tapped on Assistance");
+    }}
+    onDocumentationClick={() => {
+      console.log("Clicked/Tapped on Assistance");
+    }}
+    onLogin={() => {
+      console.log("User login");
+    }}
+    userActions={[
+      {
+        id: "profile",
+        label: "Profile",
+        onClick: () => {
+          console.log("Clicked/Tapped on Profile");
+        },
+        icon: <SettingsIcon fontSize="small" color="inherit" />,
+      },
+      {
+        id: "logout",
+        label: "Logout",
+        onClick: () => {
+          console.log("User logged out");
+        },
+        icon: <LogoutRoundedIcon fontSize="small" color="inherit" />,
+      },
+    ]}
+    translationsMap={{ assistance: "Help", documentation: "Documentation" }}
+  />
+);
