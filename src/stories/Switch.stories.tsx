@@ -1,6 +1,7 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import { Switch, FormGroup, FormControlLabel } from "@mui/material";
+import { CustomSwitch } from "@components/CustomSwitch";
 
 export default {
   title: "MUI Components/Inputs/Switch",
@@ -56,5 +57,14 @@ export const DisabledWithLabel: ComponentStory<
 > = () => (
   <FormGroup>
     <FormControlLabel disabled control={<Switch />} label="Label" />
+  </FormGroup>
+);
+
+export const CustomElement: ComponentStory<typeof FormControlLabel> = () => (
+  <FormGroup>
+    <FormControlLabel
+      control={<CustomSwitch sx={{ my: 1, mx: 2 }} defaultChecked />}
+      label="Custom Element"
+    />
   </FormGroup>
 );
