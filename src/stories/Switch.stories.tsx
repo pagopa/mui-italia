@@ -1,6 +1,11 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import { Switch, FormGroup, FormControlLabel } from "@mui/material";
+import {
+  Switch,
+  FormGroup,
+  FormControlLabel,
+  FormHelperText,
+} from "@mui/material";
 import { CustomSwitch } from "@components/CustomSwitch";
 
 export default {
@@ -11,7 +16,7 @@ export default {
   },
   argTypes: {
     color: {
-      options: ["default", "primary"],
+      options: ["default", "primary", "error"],
       control: { type: "radio" },
       table: {
         type: { summary: "string" },
@@ -29,7 +34,9 @@ export default {
   },
 } as ComponentMeta<typeof Switch>;
 
-const Template: ComponentStory<typeof Switch> = (args) => <Switch {...args} />;
+const Template: ComponentStory<typeof Switch> = (args) => (
+  <CustomSwitch {...args} />
+);
 
 export const Standard = Template.bind({});
 Standard.args = {
@@ -48,7 +55,10 @@ Disabled.args = {
 
 export const WithLabel: ComponentStory<typeof FormControlLabel> = () => (
   <FormGroup>
-    <FormControlLabel control={<Switch defaultChecked />} label="Label" />
+    <FormControlLabel
+      control={<CustomSwitch sx={{ mx: 1.5 }} defaultChecked />}
+      label="Label"
+    />
   </FormGroup>
 );
 
@@ -56,15 +66,22 @@ export const DisabledWithLabel: ComponentStory<
   typeof FormControlLabel
 > = () => (
   <FormGroup>
-    <FormControlLabel disabled control={<Switch />} label="Label" />
+    <FormControlLabel
+      disabled
+      control={<CustomSwitch sx={{ mx: 1.5 }} />}
+      label="Label"
+    />
   </FormGroup>
 );
 
-export const CustomElement: ComponentStory<typeof FormControlLabel> = () => (
+export const ErrorWithHelperText: ComponentStory<
+  typeof FormControlLabel
+> = () => (
   <FormGroup>
     <FormControlLabel
-      control={<CustomSwitch sx={{ my: 1, mx: 2 }} defaultChecked />}
-      label="Custom Element"
+      control={<CustomSwitch color="error" sx={{ mx: 1.5 }} />}
+      label="Label"
     />
+    <FormHelperText error>Helper Text</FormHelperText>
   </FormGroup>
 );

@@ -1,7 +1,7 @@
 "use client";
 
 import Switch, { SwitchProps } from "@mui/material/Switch";
-import { styled } from "@mui/material/styles";
+import { alpha, styled } from "@mui/material/styles";
 
 export const CustomSwitch = styled((props: SwitchProps) => (
   <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
@@ -14,12 +14,17 @@ export const CustomSwitch = styled((props: SwitchProps) => (
     margin: 2,
     transitionDuration: "300ms",
     transform: "translate(-9px, -9px)",
+    ":hover": {
+      boxShadow: `0 0 0 8px ${theme.palette.action.hover}`,
+    },
     "&.Mui-checked": {
       transform: "translate(7px, -9px)",
       color: "#fff",
+      ":hover": {
+        boxShadow: `0 0 0 10px ${theme.palette.primaryAction.hover}`,
+      },
       "& + .MuiSwitch-track": {
-        backgroundColor:
-          theme.palette.mode === "dark" ? "#2ECA45" : theme.palette.primary,
+        backgroundColor: theme.palette.primary,
         opacity: 1,
         border: 0,
       },
@@ -27,8 +32,15 @@ export const CustomSwitch = styled((props: SwitchProps) => (
         opacity: 0.5,
       },
     },
+    "&.MuiSwitch-colorError + .MuiSwitch-track": {
+      backgroundColor: theme.palette.error.dark,
+    },
+    "&.MuiSwitch-colorError:hover": {
+      boxShadow: `0 0 0 10px ${alpha(theme.palette.error.dark, 0.08)}`,
+    },
+
     "&.Mui-focusVisible .MuiSwitch-thumb": {
-      color: "#33cf4d",
+      color: theme.palette.error,
       border: "6px solid #fff",
     },
     "&.Mui-disabled .MuiSwitch-thumb": {
@@ -38,17 +50,26 @@ export const CustomSwitch = styled((props: SwitchProps) => (
           : theme.palette.grey[600],
     },
     "&.Mui-disabled + .MuiSwitch-track": {
-      opacity: theme.palette.mode === "light" ? 0.7 : 0.3,
+      opacity: 0.2,
     },
   },
+
+  "& .MuiSwitch-colorError.Mui-checked  + .MuiSwitch-track": {
+    backgroundColor: theme.palette.error.dark,
+  },
+
   "& .MuiSwitch-thumb": {
     boxSizing: "border-box",
     width: 22,
     height: 22,
   },
+
   "& .MuiSwitch-track": {
     borderRadius: 26 / 2,
-    backgroundColor: theme.palette.mode === "light" ? "#E9E9EA" : "#39393D",
+    backgroundColor:
+      theme.palette.mode === "light"
+        ? theme.palette.grey[700]
+        : theme.palette.primary,
     opacity: 1,
     transition: theme.transitions.create(["background-color"], {
       duration: 500,
