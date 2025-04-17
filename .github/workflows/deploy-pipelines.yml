@@ -285,11 +285,11 @@ jobs:
           ref: github.ref 
           fetch-depth: 0
 
-      - name: Download Artifact
-        uses: actions/download-artifact@6b208ae046db98c579e8a3aa621ab581ff575935 # v4.1.1
-        with:
-          name: ${{ env.BUNDLE_NAME }}
-          path: ${{ env.BUNDLE_NAME }}
+      # - name: Download Artifact
+      #  uses: actions/download-artifact@6b208ae046db98c579e8a3aa621ab581ff575935 # v4.1.1
+      #  with:
+      #    name: ${{ env.BUNDLE_NAME }}
+      #    path: ${{ env.BUNDLE_NAME }}
 
       # - name: Publish
       #  run: |
