@@ -57,7 +57,7 @@ concurrency:
 
 jobs:
   release:
-    if: github.ref == format('refs/heads/main') || startsWith(github.ref, 'refs/heads/release-')
+    if: github.ref == format('refs/heads/main') || startsWith(github.ref, 'refs/heads/release-') || github.ref == format('refs/heads/test/action-release')
     runs-on: ubuntu-22.04
     environment: ${{ inputs.environment }}-cd
     permissions:
