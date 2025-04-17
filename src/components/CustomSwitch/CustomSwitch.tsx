@@ -32,17 +32,28 @@ export const CustomSwitch = styled((props: SwitchProps) => (
         opacity: 0.5,
       },
     },
+    "&.Mui-focusVisible .MuiSwitch-thumb": {
+      color:
+        theme.palette.mode === "light"
+          ? theme.palette.grey[700]
+          : theme.palette.primary,
+      border: `6px solid #fff`,
+    },
+    "&.Mui-focusVisible.Mui-checked .MuiSwitch-thumb": {
+      color: theme.palette.primary.main,
+      border: `6px solid #fff`,
+    },
     "&.MuiSwitch-colorError + .MuiSwitch-track": {
       backgroundColor: theme.palette.error.dark,
+    },
+    "&.MuiSwitch-colorError.Mui-focusVisible .MuiSwitch-thumb": {
+      color: theme.palette.error.dark,
+      border: `6px solid #fff`,
     },
     "&.MuiSwitch-colorError:hover": {
       boxShadow: `0 0 0 10px ${alpha(theme.palette.error.dark, 0.08)}`,
     },
 
-    "&.Mui-focusVisible .MuiSwitch-thumb": {
-      color: theme.palette.error,
-      border: "6px solid #fff",
-    },
     "&.Mui-disabled .MuiSwitch-thumb": {
       color:
         theme.palette.mode === "light"

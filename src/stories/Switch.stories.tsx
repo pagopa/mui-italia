@@ -16,7 +16,7 @@ export default {
   },
   argTypes: {
     color: {
-      options: ["default", "primary", "error"],
+      options: ["primary", "error"],
       control: { type: "radio" },
       table: {
         type: { summary: "string" },
@@ -37,11 +37,6 @@ export default {
 const Template: ComponentStory<typeof Switch> = (args) => (
   <CustomSwitch {...args} />
 );
-
-export const Standard = Template.bind({});
-Standard.args = {
-  color: "default",
-};
 
 export const Primary = Template.bind({});
 Primary.args = {

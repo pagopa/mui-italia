@@ -1050,8 +1050,6 @@ export const theme: Theme = createTheme(foundation, {
           left: pxToRem(9),
           "&.Mui-focusVisible": {
             borderRadius: "100% ",
-            outline: `solid ${focusWidth} ${foundation.palette.primary.main}`,
-            outlineOffset: `${focusButtonOffset}`,
             boxShadow: "none",
           },
         },
