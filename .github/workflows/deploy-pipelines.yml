@@ -74,7 +74,7 @@ jobs:
       - name: Check-out code
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
-          ref: github.ref 
+          ref: ${{ github.ref }}
           fetch-depth: 0
 
       - name: Setup Node.js
@@ -207,7 +207,7 @@ jobs:
       - name: Check-out code
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
-          ref: github.ref 
+          ref: ${{ github.ref }} 
           fetch-depth: 0
 
       - name: Setup Node.js
@@ -282,7 +282,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
-          ref: github.ref 
+          ref: ${{ github.ref }}
           fetch-depth: 0
 
       # - name: Download Artifact
