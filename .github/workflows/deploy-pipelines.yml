@@ -124,7 +124,23 @@ jobs:
             echo "prerelease_enabled=false" >> $GITHUB_ENV
             echo "release_name=Release ${major}.${minor}.${patch} - $(date +'%Y-%m-%d')" >> $GITHUB_ENV
 
-          elif [[ "${{ github.ref }}" == refs/heads/release-* || "${{ github.ref }}" == refs/heads/test/action-release ]]; then
+          elif [[ "${{ github.ref }}" == refs/heads/release-* ]]; then
+            # Branch di release: determinare se è prerelease o stabile
+            if [[ "${{ inputs.is_stable_release }}" == "true" ]]; then
+              echo "next_tag=v${major}.${minor}.${patch}" >> $GITHUB_ENV
+              echo "next_version=${major}.${minor}.${patch}" >> $GITHUB_ENV
+              echo "prerelease_enabled=false" >> $GITHUB_ENV
+              echo "release_name=Release ${major}.${minor}.${patch} - $(date +'%Y-%m-%d')" >> $GITHUB_ENV
+            else
+              # Prerelease (comportamento attuale)
+              timestamp=$(date +'%Y%m%d%H%M%S')
+              echo "next_tag=v${major}.${minor}.${patch}-${{ env.PRERELEASE }}.${timestamp}" >> $GITHUB_ENV
+              echo "next_version=${major}.${minor}.${patch}-${{ env.PRERELEASE }}.${timestamp}" >> $GITHUB_ENV
+              echo "prerelease_enabled=true" >> $GITHUB_ENV
+              echo "release_name=Pre-Release ${major}.${minor}.${patch}-${{ env.PRERELEASE }} - $(date +'%Y-%m-%d')" >> $GITHUB_ENV
+            fi
+
+          elif [[ "${{ github.ref }}" == refs/heads/test/action-release ]]; then
             # Branch di release: determinare se è prerelease o stabile
             if [[ "${{ inputs.is_stable_release }}" == "true" ]]; then
               echo "next_tag=v${major}.${minor}.${patch}" >> $GITHUB_ENV
