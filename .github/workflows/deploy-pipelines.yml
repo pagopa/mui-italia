@@ -226,7 +226,7 @@ jobs:
       - name: Check-out code
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
-          ref: ${{env.LATEST_COMMIT}}
+          ref: ${{ env.LATEST_COMMIT }}
 
       - name: Setup Node.js
         uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
@@ -287,7 +287,7 @@ jobs:
 
       - name: Print package
         run: |
-          echo "Latest commit: $LATEST_COMMIT"
+          echo "Latest commit: ${{env.LATEST_COMMIT}}"
           cat package.json
 
   deploy:
@@ -305,7 +305,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
-          ref: ${{env.LATEST_COMMIT}}
+          ref: ${{ env.LATEST_COMMIT }}
 
       # - name: Download Artifact
       #  uses: actions/download-artifact@6b208ae046db98c579e8a3aa621ab581ff575935 # v4.1.1
