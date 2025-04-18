@@ -50,7 +50,6 @@ on:
         default: false
 env:
   BUNDLE_NAME: bundle
-  BRANCH_NAME: ${{github.ref##"refs/heads/"}}
 
 concurrency:
   group: ${{ github.workflow }}-cd
@@ -72,6 +71,10 @@ jobs:
       PRERELEASE: ${{ inputs.prerelease || 'alpha' }}
 
     steps:
+      - name: Get branch name
+        run: |
+          echo BRANCH_NAME=${github.ref##'refs/heads/s'} >> $GITHUB_ENV
+          echo ${BRANCH_NAME}
       - name: Check-out code
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
