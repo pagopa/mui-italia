@@ -70,7 +70,7 @@ jobs:
       RELEASE_SEMVER: ${{ inputs.release_semver || 'minor' }}
       PRERELEASE: ${{ inputs.prerelease || 'alpha' }}
 
-    steps:      
+    steps:
       - name: Check-out code
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
@@ -116,14 +116,14 @@ jobs:
             patch=$((patch + 1))
           fi
           
-          if [[ "${{github.ref}}" == refs/heads/main ]]; then
+          if [[ "${{ github.ref }}" == refs/heads/main ]]; then
             # Release ufficiale da main - da togliere
             echo "next_tag=v${major}.${minor}.${patch}" >> $GITHUB_ENV
             echo "next_version=${major}.${minor}.${patch}" >> $GITHUB_ENV
             echo "prerelease_enabled=false" >> $GITHUB_ENV
             echo "release_name=Release ${major}.${minor}.${patch} - $(date +'%Y-%m-%d')" >> $GITHUB_ENV
 
-          elif [[ "${{github.ref}}" == refs/heads/release-* ]]; then
+          elif [[ "${{ github.ref }}" == refs/heads/release-* ]]; then
             # Branch di release: determinare se è prerelease o stabile
             if [[ "${{ inputs.is_stable_release }}" == "true" ]]; then
               echo "next_tag=v${major}.${minor}.${patch}" >> $GITHUB_ENV
@@ -186,15 +186,20 @@ jobs:
           npm version ${{ env.next_version }} -m "Bump version to ${{ env.next_version }}"
 
           # Push the branch and tags
-          # git push origin ${{github.ref}} && git push --tags
+          # git push origin ${{ github.ref }} && git push --tags
           git push origin ${{github.ref}}
+
+          # Get last commit
+          latest_commit=$(git rev-parse HEAD)
+          echo "Latest commit: $latest_commit"
+          echo "LATEST_COMMIT=$latest_commit" >> $GITHUB_ENV
 
       # Generate changelog
       # - name: Generate changelog
       #  id: changelog
       #  run: |
       #    echo "## Changes:" > CHANGELOG.md
-      #    echo "Auto-generated release for ${{github.ref}}" >> CHANGELOG.md
+      #    echo "Auto-generated release for ${{ github.ref }}" >> CHANGELOG.md
       #    if [ "${{ env.latest_tag }}" == "0.0.0" ]; then
       #      echo "Initial commit" >> CHANGELOG.md
       #    else
@@ -217,18 +222,11 @@ jobs:
     env:
       WORKSPACE: ${{ github.workspace }}
 
-    steps:
-      - name: Get current commit
-        run: |
-          latest_commit=$(git rev-parse HEAD)
-          echo "Latest commit: $latest_commit"
-          echo "LATEST_COMMIT=$latest_commit" >> $GITHUB_ENV
-
+    steps:          
       - name: Check-out code
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           ref: ${{env.LATEST_COMMIT}}
-          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
@@ -303,7 +301,6 @@ jobs:
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           ref: ${{env.LATEST_COMMIT}}
-          fetch-depth: 0
 
       # - name: Download Artifact
       #  uses: actions/download-artifact@6b208ae046db98c579e8a3aa621ab581ff575935 # v4.1.1
