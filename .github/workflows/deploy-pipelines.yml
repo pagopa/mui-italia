@@ -222,7 +222,7 @@ jobs:
     env:
       WORKSPACE: ${{ github.workspace }}
 
-    steps:          
+    steps:
       - name: Check-out code
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
@@ -284,6 +284,10 @@ jobs:
       #    path: ${{ env.BUNDLE_NAME }}
       #    if-no-files-found: error
       #    retention-days: 7
+
+      - name: Print package
+        run: |
+          cat package.json
 
   deploy:
     if: ${{ !github.event.act }}
