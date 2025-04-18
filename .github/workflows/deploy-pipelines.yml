@@ -69,7 +69,8 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       RELEASE_SEMVER: ${{ inputs.release_semver || 'minor' }}
       PRERELEASE: ${{ inputs.prerelease || 'alpha' }}
-
+    outputs:
+      latest_commit: ${{ steps.version_bump.outputs.latest_commit }}
     steps:
       - name: Check-out code
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
@@ -177,6 +178,7 @@ jobs:
           git config --global user.email "$committer_email"
 
       - name: Commit version bump
+        id: version_bump
         run: |
           # Install semver tool
           npm install -g semver
@@ -193,7 +195,7 @@ jobs:
           # latest_commit=$(git rev-parse HEAD)
           # echo "Latest commit: $latest_commit"
           # echo "LATEST_COMMIT=${latest_commit}" >> $GITHUB_OUTPUT
-          echo "latest_commit=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+          echo "latest_commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
       # Generate changelog
       # - name: Generate changelog
@@ -288,6 +290,7 @@ jobs:
 
       - name: Print package
         run: |
+          echo '${{ toJSON(needs.release.outputs) }}'
           cat package.json
 
   deploy:
