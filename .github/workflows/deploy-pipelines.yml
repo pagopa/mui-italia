@@ -192,10 +192,10 @@ jobs:
           git restore package.json
           npm --no-git-tag-version version ${{ env.next_version }} -m "Bump version to ${{ env.next_version }}"
 
-          git rev-parse --abbrev-ref HEAD
-
           # Push the branch and tags
           # git push origin ${{env.BRANCH_NAME}} && git push --tags
+          git add *
+          git commit -m "Bump version to ${{ env.next_version }}"
           git push origin ${{env.BRANCH_NAME}}
 
       # Generate changelog
