@@ -73,9 +73,12 @@ jobs:
     steps:
       - name: Get branch name
         run: |
-          branch_name=${github.ref#refs/heads/}
+          echo ${github.head_ref}
+          echo ${github.ref_name}
+          branch_name=${github.ref#refs\/heads\/}
           echo "BRANCH_NAME=$branch_name" >> $GITHUB_ENV
           echo ${BRANCH_NAME}
+      
       - name: Check-out code
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
