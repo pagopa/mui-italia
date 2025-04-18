@@ -192,7 +192,7 @@ jobs:
           # Get last commit
           latest_commit=$(git rev-parse HEAD)
           echo "Latest commit: $latest_commit"
-          echo "LATEST_COMMIT=$latest_commit" >> $GITHUB_ENV
+          echo "LATEST_COMMIT=${latest_commit}" >> $GITHUB_ENV
 
       # Generate changelog
       # - name: Generate changelog
