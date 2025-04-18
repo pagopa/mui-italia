@@ -73,9 +73,7 @@ jobs:
     steps:
       - name: Get branch name
         run: |
-          echo "$github" | jq -r '.head_ref'
-          echo "$github" | jq -r '.ref_name'
-          branch_name=${github.ref#refs\/heads\/}
+          branch_name=${GITHUB_REF#refs/heads/}
           echo "BRANCH_NAME=$branch_name" >> $GITHUB_ENV
           echo ${BRANCH_NAME}
       
