@@ -58,7 +58,7 @@ concurrency:
 
 jobs:
   release:
-    if: env.BRANCH_NAME == format('main') || startsWith(env.BRANCH_NAME, 'release-') || env.BRANCH_NAME == format('test/action-release')
+    if: github.ref == format('refs/heads/main') || startsWith(github.ref, 'refs/heads/release-') || github.ref == format('refs/heads/test/action-release')
     runs-on: ubuntu-22.04
     environment: ${{ inputs.environment }}-cd
     permissions:
