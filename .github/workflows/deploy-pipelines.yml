@@ -50,7 +50,7 @@ on:
         default: false
 env:
   BUNDLE_NAME: bundle
-  BRANCH_NAME: ${github.ref##"refs/heads/"}
+  BRANCH_NAME: ${{github.ref##"refs/heads/"}}
 
 concurrency:
   group: ${{ github.workflow }}-cd
