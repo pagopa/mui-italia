@@ -75,7 +75,7 @@ jobs:
         run: |
           branch_name=${GITHUB_REF#refs/heads/}
           echo "BRANCH_NAME=$branch_name" >> $GITHUB_ENV
-          echo ${BRANCH_NAME}
+          echo $branch_name
       
       - name: Check-out code
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
@@ -192,6 +192,8 @@ jobs:
           # Bump the version according to the release input
           git restore package.json
           npm --no-git-tag-version version ${{ env.next_version }} -m "Bump version to ${{ env.next_version }}"
+
+          git log
 
           # Push the branch and tags
           # git push origin ${{env.BRANCH_NAME}} && git push --tags
