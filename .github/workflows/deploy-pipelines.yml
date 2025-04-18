@@ -167,7 +167,6 @@ jobs:
             exit 1
           fi
 
-
       - name: Configure Git
         id: workflow_data
         run: |
@@ -193,7 +192,7 @@ jobs:
           git restore package.json
           npm --no-git-tag-version version ${{ env.next_version }} -m "Bump version to ${{ env.next_version }}"
 
-          git log
+          git rev-parse --abbrev-ref HEAD
 
           # Push the branch and tags
           # git push origin ${{env.BRANCH_NAME}} && git push --tags
