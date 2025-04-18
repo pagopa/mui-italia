@@ -190,9 +190,10 @@ jobs:
           git push origin ${{github.ref}}
 
           # Get last commit
-          latest_commit=$(git rev-parse HEAD)
-          echo "Latest commit: $latest_commit"
-          echo "LATEST_COMMIT=${latest_commit}" >> $GITHUB_OUTPUT
+          # latest_commit=$(git rev-parse HEAD)
+          # echo "Latest commit: $latest_commit"
+          # echo "LATEST_COMMIT=${latest_commit}" >> $GITHUB_OUTPUT
+          echo "latest_commit=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
 
       # Generate changelog
       # - name: Generate changelog
@@ -226,7 +227,7 @@ jobs:
       - name: Check-out code
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
-          ref: ${{ needs.release.outputs.LATEST_COMMIT }}
+          ref: ${{ needs.release.outputs.latest_commit }}
 
       - name: Setup Node.js
         uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
@@ -304,7 +305,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
-          ref: ${{ needs.release.outputs.LATEST_COMMIT }}
+          ref: ${{ needs.release.outputs.latest_commit }}
 
       # - name: Download Artifact
       #  uses: actions/download-artifact@6b208ae046db98c579e8a3aa621ab581ff575935 # v4.1.1
