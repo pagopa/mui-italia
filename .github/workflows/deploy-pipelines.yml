@@ -69,7 +69,8 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       RELEASE_SEMVER: ${{ inputs.release_semver || 'minor' }}
       PRERELEASE: ${{ inputs.prerelease || 'alpha' }}
-
+    outputs:
+      latest_commit: ${{ steps.version_bump.outputs.latest_commit }}
     steps:
       - name: Check-out code
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
@@ -144,7 +145,6 @@ jobs:
             exit 1
           fi
 
-
       - name: Configure Git
         id: workflow_data
         run: |
@@ -162,6 +162,7 @@ jobs:
           git config --global user.email "$committer_email"
 
       - name: Commit version bump
+        id: version_bump
         run: |
           # Install semver tool
           npm install -g semver
@@ -172,6 +173,9 @@ jobs:
 
           # Push the branch and tags
           git push origin ${{ github.ref }} && git push --tags
+
+          # Get last commit
+          echo "latest_commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
       # Generate changelog
       - name: Generate changelog
@@ -204,6 +208,8 @@ jobs:
     steps:
       - name: Check-out code
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+        with:
+          ref: ${{ needs.release.outputs.latest_commit }}
 
       - name: Setup Node.js
         uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
@@ -264,7 +270,7 @@ jobs:
 
   deploy:
     if: ${{ !github.event.act }}
-    needs: [build]
+    needs: [release, build]
     runs-on: 'ubuntu-22.04'
     environment: ${{ inputs.environment }}-cd
     permissions:
@@ -276,6 +282,8 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+        with:
+          ref: ${{ needs.release.outputs.latest_commit }}
 
       - name: Download Artifact
         uses: actions/download-artifact@6b208ae046db98c579e8a3aa621ab581ff575935 # v4.1.1
