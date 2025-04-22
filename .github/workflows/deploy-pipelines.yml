@@ -57,7 +57,7 @@ concurrency:
 
 jobs:
   release:
-    if: github.ref == format('refs/heads/main') || startsWith(github.ref, 'refs/heads/release-') || github.ref == format('refs/heads/test/action-release')
+    if: github.ref == format('refs/heads/main') || startsWith(github.ref, 'refs/heads/release-')
     runs-on: ubuntu-22.04
     environment: ${{ inputs.environment }}-cd
     permissions:
@@ -140,22 +140,6 @@ jobs:
               echo "release_name=Pre-Release ${major}.${minor}.${patch}-${{ env.PRERELEASE }} - $(date +'%Y-%m-%d')" >> $GITHUB_ENV
             fi
 
-          elif [[ "${{github.ref}}" == "refs/heads/test/action-release" ]]; then
-            # Branch di release: determinare se è prerelease o stabile
-            if [[ "${{ inputs.is_stable_release }}" == "true" ]]; then
-              echo "next_tag=v${major}.${minor}.${patch}" >> $GITHUB_ENV
-              echo "next_version=${major}.${minor}.${patch}" >> $GITHUB_ENV
-              echo "prerelease_enabled=false" >> $GITHUB_ENV
-              echo "release_name=Release ${major}.${minor}.${patch} - $(date +'%Y-%m-%d')" >> $GITHUB_ENV
-            else
-              # Prerelease (comportamento attuale)
-              timestamp=$(date +'%Y%m%d%H%M%S')
-              echo "next_tag=v${major}.${minor}.${patch}-${{ env.PRERELEASE }}.${timestamp}" >> $GITHUB_ENV
-              echo "next_version=${major}.${minor}.${patch}-${{ env.PRERELEASE }}.${timestamp}" >> $GITHUB_ENV
-              echo "prerelease_enabled=true" >> $GITHUB_ENV
-              echo "release_name=Pre-Release ${major}.${minor}.${patch}-${{ env.PRERELEASE }} - $(date +'%Y-%m-%d')" >> $GITHUB_ENV
-            fi
-
           else
             echo "This branch does not match the release criteria."
             exit 1
@@ -188,36 +172,32 @@ jobs:
           npm version ${{ env.next_version }} -m "Bump version to ${{ env.next_version }}"
 
           # Push the branch and tags
-          # git push origin ${{ github.ref }} && git push --tags
-          git push origin ${{github.ref}}
+          git push origin ${{ github.ref }} && git push --tags
 
           # Get last commit
-          # latest_commit=$(git rev-parse HEAD)
-          # echo "Latest commit: $latest_commit"
-          # echo "LATEST_COMMIT=${latest_commit}" >> $GITHUB_OUTPUT
           echo "latest_commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
       # Generate changelog
-      # - name: Generate changelog
-      #  id: changelog
-      #  run: |
-      #    echo "## Changes:" > CHANGELOG.md
-      #    echo "Auto-generated release for ${{ github.ref }}" >> CHANGELOG.md
-      #    if [ "${{ env.latest_tag }}" == "0.0.0" ]; then
-      #      echo "Initial commit" >> CHANGELOG.md
-      #    else
-      #      echo "$(git log v${latest_tag}..HEAD --pretty=format:"* %h %s" --abbrev-commit --no-merges)" >> CHANGELOG.md
-      #    fi
+      - name: Generate changelog
+        id: changelog
+        run: |
+          echo "## Changes:" > CHANGELOG.md
+          echo "Auto-generated release for ${{ github.ref }}" >> CHANGELOG.md
+          if [ "${{ env.latest_tag }}" == "0.0.0" ]; then
+            echo "Initial commit" >> CHANGELOG.md
+          else
+            echo "$(git log v${latest_tag}..HEAD --pretty=format:"* %h %s" --abbrev-commit --no-merges)" >> CHANGELOG.md
+          fi
 
       # Create the release (pre-release for branches like 'release-**', official for 'main')
-      #- name: Create Release
-      #  run: |
-      #    gh release create \
-      #    ${{ env.next_tag }} \
-      #    --target ${{ github.sha }} \
-      #    --title "${{ env.release_name }}" \
-      #    --notes-file CHANGELOG.md \
-      #    $(if [[ "${{ env.prerelease_enabled }}" == "true" ]]; then echo "--prerelease"; fi)
+      - name: Create Release
+        run: |
+          gh release create \
+          ${{ env.next_tag }} \
+          --target ${{ github.sha }} \
+          --title "${{ env.release_name }}" \
+          --notes-file CHANGELOG.md \
+          $(if [[ "${{ env.prerelease_enabled }}" == "true" ]]; then echo "--prerelease"; fi)
 
   build:
     needs: release
@@ -280,13 +260,13 @@ jobs:
               await io.cp(file, dest, options)
             }
 
-      # - name: Upload Artifact
-      #  uses: actions/upload-artifact@0b2256b8c012f0828dc542b3febcab082c67f72b # v4.3.4
-      #  with:
-      #    name: ${{ env.BUNDLE_NAME }}
-      #    path: ${{ env.BUNDLE_NAME }}
-      #    if-no-files-found: error
-      #    retention-days: 7
+      - name: Upload Artifact
+        uses: actions/upload-artifact@0b2256b8c012f0828dc542b3febcab082c67f72b # v4.3.4
+        with:
+          name: ${{ env.BUNDLE_NAME }}
+          path: ${{ env.BUNDLE_NAME }}
+          if-no-files-found: error
+          retention-days: 7
 
       - name: Print package
         run: |
@@ -310,14 +290,14 @@ jobs:
         with:
           ref: ${{ needs.release.outputs.latest_commit }}
 
-      # - name: Download Artifact
-      #  uses: actions/download-artifact@6b208ae046db98c579e8a3aa621ab581ff575935 # v4.1.1
-      #  with:
-      #    name: ${{ env.BUNDLE_NAME }}
-      #    path: ${{ env.BUNDLE_NAME }}
+      - name: Download Artifact
+        uses: actions/download-artifact@6b208ae046db98c579e8a3aa621ab581ff575935 # v4.1.1
+        with:
+          name: ${{ env.BUNDLE_NAME }}
+          path: ${{ env.BUNDLE_NAME }}
 
-      # - name: Publish
-      #  run: |
-      #    npm config set //${{ env.NPM_REGISTRY }}/:_authToken=${{ secrets.NPM_TOKEN }}
-      #    npm publish --access public --registry https://${{ env.NPM_REGISTRY }} --verbose
-      #  working-directory: "${{ env.BUNDLE_NAME }}"
+      - name: Publish
+        run: |
+          npm config set //${{ env.NPM_REGISTRY }}/:_authToken=${{ secrets.NPM_TOKEN }}
+          npm publish --access public --registry https://${{ env.NPM_REGISTRY }} --verbose
+        working-directory: "${{ env.BUNDLE_NAME }}"
