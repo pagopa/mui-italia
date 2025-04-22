@@ -268,11 +268,6 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
-      - name: Print package
-        run: |
-          echo '${{ toJSON(needs.release.outputs) }}'
-          cat package.json
-
   deploy:
     if: ${{ !github.event.act }}
     needs: [release, build]
