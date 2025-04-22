@@ -3,7 +3,7 @@
 import { SxProps, styled } from "@mui/system";
 import { alpha } from "@mui/material/styles";
 
-import { theme, pxToRem } from "@theme";
+import { pxToRem, theme } from "@theme";
 
 export type Variants = "default" | "light";
 export type Colors =

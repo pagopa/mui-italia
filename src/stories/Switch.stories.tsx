@@ -1,46 +1,38 @@
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import {
-  Switch,
-  FormGroup,
-  FormControlLabel,
-  FormHelperText,
-} from "@mui/material";
-import { CustomSwitch } from "@components/CustomSwitch";
+import { Switch, FormGroup, FormControlLabel, FormHelperText } from '@mui/material';
 
 export default {
-  title: "MUI Components/Inputs/Switch",
+  title: 'MUI Components/Inputs/Switch',
   component: Switch,
   args: {
-    color: "default",
+    color: 'default',
   },
   argTypes: {
     color: {
-      options: ["primary", "error"],
-      control: { type: "radio" },
+      options: ['primary', 'error'],
+      control: { type: 'radio' },
       table: {
-        type: { summary: "string" },
-        defaultValue: { summary: "default" },
+        type: { summary: 'string' },
+        defaultValue: { summary: 'default' },
       },
     },
     size: {
-      options: ["medium", "small"],
-      control: { type: "radio" },
+      options: ['medium', 'small'],
+      control: { type: 'radio' },
       table: {
-        type: { summary: "string" },
-        defaultValue: { summary: "medium" },
+        type: { summary: 'string' },
+        defaultValue: { summary: 'medium' },
       },
     },
   },
 } as ComponentMeta<typeof Switch>;
 
-const Template: ComponentStory<typeof Switch> = (args) => (
-  <CustomSwitch {...args} />
-);
+const Template: ComponentStory<typeof Switch> = (args) => <Switch {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
-  color: "primary",
+  color: 'primary',
 };
 
 export const Disabled = Template.bind({});
@@ -50,33 +42,19 @@ Disabled.args = {
 
 export const WithLabel: ComponentStory<typeof FormControlLabel> = () => (
   <FormGroup>
-    <FormControlLabel
-      control={<CustomSwitch sx={{ mx: 1.5 }} defaultChecked />}
-      label="Label"
-    />
+    <FormControlLabel control={<Switch sx={{ mx: 1.5 }} defaultChecked />} label="Label" />
   </FormGroup>
 );
 
-export const DisabledWithLabel: ComponentStory<
-  typeof FormControlLabel
-> = () => (
+export const DisabledWithLabel: ComponentStory<typeof FormControlLabel> = () => (
   <FormGroup>
-    <FormControlLabel
-      disabled
-      control={<CustomSwitch sx={{ mx: 1.5 }} />}
-      label="Label"
-    />
+    <FormControlLabel disabled control={<Switch sx={{ mx: 1.5 }} />} label="Label" />
   </FormGroup>
 );
 
-export const ErrorWithHelperText: ComponentStory<
-  typeof FormControlLabel
-> = () => (
+export const ErrorWithHelperText: ComponentStory<typeof FormControlLabel> = () => (
   <FormGroup>
-    <FormControlLabel
-      control={<CustomSwitch color="error" sx={{ mx: 1.5 }} />}
-      label="Label"
-    />
+    <FormControlLabel control={<Switch color="error" sx={{ mx: 1.5 }} />} label="Label" />
     <FormHelperText error>Helper Text</FormHelperText>
   </FormGroup>
 );
