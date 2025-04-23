@@ -12,7 +12,6 @@ const muiSwitch = {
       width: 42,
       height: 26,
       padding: 0,
-      margin: 15,
       overflow: 'visible',
     },
     switchBase: {
