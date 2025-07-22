@@ -30,6 +30,13 @@ export type RootLinkType = {
   title: string;
 };
 
+const defaultTranslationsMap = {
+  logIn: "Accedi",
+  logOut: "Esci",
+  assistance: "Assistenza",
+  documentation: "Manuale operativo",
+};
+
 type HeaderAccountProps = {
   rootLink: RootLinkType;
   loggedUser?: JwtUser | false;
@@ -41,6 +48,11 @@ type HeaderAccountProps = {
   enableLogin?: boolean;
   enableAssistanceButton?: boolean;
   onDocumentationClick?: () => void;
+  translationsMap?: {
+    logIn?: string;
+    logOut?: string;
+    assistance?: string;
+    documentation?: string;};
 };
 
 export const HeaderAccount = ({
@@ -54,6 +66,7 @@ export const HeaderAccount = ({
   enableDropdown = false,
   enableLogin = true,
   enableAssistanceButton = true,
+  translationsMap = defaultTranslationsMap,
 }: HeaderAccountProps) => (
   <Stack
     component="div"
@@ -103,7 +116,7 @@ export const HeaderAccount = ({
                 sx={{ display: ["none", "flex"] }}
                 weight="default"
               >
-                Manuale operativo
+                {translationsMap.documentation || defaultTranslationsMap.documentation}
               </ButtonNaked>
               <IconButton
                 size="small"
@@ -128,7 +141,7 @@ export const HeaderAccount = ({
                 sx={{ display: ["none", "flex"] }}
                 weight="default"
               >
-                Assistenza
+                {translationsMap.assistance || defaultTranslationsMap.assistance}
               </ButtonNaked>
               <IconButton
                 size="small"
@@ -152,7 +165,7 @@ export const HeaderAccount = ({
           {/* 2. Logged User with Logout CTA */}
           {enableLogin && loggedUser && !enableDropdown && (
             <Button variant="text" size="small" onClick={onLogout} title="Esci">
-              Esci
+              {translationsMap.logOut || defaultTranslationsMap.logOut}
             </Button>
           )}
 
@@ -164,7 +177,7 @@ export const HeaderAccount = ({
               onClick={onLogin}
               title="Accedi"
             >
-              Accedi
+              {translationsMap.logIn || defaultTranslationsMap.logIn}
             </Button>
           )}
         </Stack>

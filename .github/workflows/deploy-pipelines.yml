@@ -43,6 +43,11 @@ on:
           - alpha
           - beta
           - rc
+      is_stable_release:
+        required: false
+        description: Set to true to create a stable release from a release-* branch
+        type: boolean
+        default: false
 env:
   BUNDLE_NAME: bundle
 
@@ -64,7 +69,8 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       RELEASE_SEMVER: ${{ inputs.release_semver || 'minor' }}
       PRERELEASE: ${{ inputs.prerelease || 'alpha' }}
-
+    outputs:
+      latest_commit: ${{ steps.version_bump.outputs.latest_commit }}
     steps:
       - name: Check-out code
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
@@ -95,46 +101,45 @@ jobs:
           echo "latest_tag=$latest_tag" >> $GITHUB_ENV
           echo "Latest tag: $latest_tag"
 
-      # Determine the next tag
       - name: Determine next tag
         id: next_tag
         run: |
           IFS='.' read -r major minor patch <<< "${{ env.latest_tag }}"
+
+          if [[ ${{ env.RELEASE_SEMVER }} == "major" ]]; then
+            major=$((major + 1))
+            minor=0
+            patch=0
+          elif [[ ${{ env.RELEASE_SEMVER }} == "minor" ]]; then
+            minor=$((minor + 1))
+            patch=0
+          else
+            patch=$((patch + 1))
+          fi
           
-          # Check if it's a pre-release or official release
           if [[ "${{ github.ref }}" == refs/heads/main ]]; then
-            # Official release - determine if it's a major, minor, or patch
-            if [[ ${{ env.RELEASE_SEMVER }} == "major" ]]; then
-              major=$((major + 1))
-              minor=0
-              patch=0
-            elif [[ ${{ env.RELEASE_SEMVER }} == "minor" ]]; then
-              minor=$((minor + 1))
-              patch=0
-            else
-              patch=$((patch + 1))
-            fi
+            # Release ufficiale da main - da togliere
             echo "next_tag=v${major}.${minor}.${patch}" >> $GITHUB_ENV
             echo "next_version=${major}.${minor}.${patch}" >> $GITHUB_ENV
             echo "prerelease_enabled=false" >> $GITHUB_ENV
             echo "release_name=Release ${major}.${minor}.${patch} - $(date +'%Y-%m-%d')" >> $GITHUB_ENV
+
           elif [[ "${{ github.ref }}" == refs/heads/release-* ]]; then
-            # Pre-release - use same logic but append '-alpha/beta/rc.timestamp'
-            if [[ ${{ env.RELEASE_SEMVER }} == "major" ]]; then
-              major=$((major + 1))
-              minor=0
-              patch=0
-            elif [[ ${{ env.RELEASE_SEMVER }} == "minor" ]]; then
-              minor=$((minor + 1))
-              patch=0
+            # Branch di release: determinare se è prerelease o stabile
+            if [[ "${{ inputs.is_stable_release }}" == "true" ]]; then
+              echo "next_tag=v${major}.${minor}.${patch}" >> $GITHUB_ENV
+              echo "next_version=${major}.${minor}.${patch}" >> $GITHUB_ENV
+              echo "prerelease_enabled=false" >> $GITHUB_ENV
+              echo "release_name=Release ${major}.${minor}.${patch} - $(date +'%Y-%m-%d')" >> $GITHUB_ENV
             else
-              patch=$((patch + 1))
+              # Prerelease (comportamento attuale)
+              timestamp=$(date +'%Y%m%d%H%M%S')
+              echo "next_tag=v${major}.${minor}.${patch}-${{ env.PRERELEASE }}.${timestamp}" >> $GITHUB_ENV
+              echo "next_version=${major}.${minor}.${patch}-${{ env.PRERELEASE }}.${timestamp}" >> $GITHUB_ENV
+              echo "prerelease_enabled=true" >> $GITHUB_ENV
+              echo "release_name=Pre-Release ${major}.${minor}.${patch}-${{ env.PRERELEASE }} - $(date +'%Y-%m-%d')" >> $GITHUB_ENV
             fi
-            timestamp=$(date +'%Y%m%d%H%M%S')
-            echo "next_tag=v${major}.${minor}.${patch}-${{ env.PRERELEASE }}.${timestamp}" >> $GITHUB_ENV
-            echo "next_version=${major}.${minor}.${patch}-${{ env.PRERELEASE }}.${timestamp}" >> $GITHUB_ENV
-            echo "prerelease_enabled=true" >> $GITHUB_ENV
-            echo "release_name=Pre-Release ${major}.${minor}.${patch}-${{ env.PRERELEASE }} - $(date +'%Y-%m-%d')" >> $GITHUB_ENV
+
           else
             echo "This branch does not match the release criteria."
             exit 1
@@ -157,6 +162,7 @@ jobs:
           git config --global user.email "$committer_email"
 
       - name: Commit version bump
+        id: version_bump
         run: |
           # Install semver tool
           npm install -g semver
@@ -167,6 +173,9 @@ jobs:
 
           # Push the branch and tags
           git push origin ${{ github.ref }} && git push --tags
+
+          # Get last commit
+          echo "latest_commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
       # Generate changelog
       - name: Generate changelog
@@ -199,6 +208,8 @@ jobs:
     steps:
       - name: Check-out code
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+        with:
+          ref: ${{ needs.release.outputs.latest_commit }}
 
       - name: Setup Node.js
         uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
@@ -259,18 +270,20 @@ jobs:
 
   deploy:
     if: ${{ !github.event.act }}
-    needs: [build]
+    needs: [release, build]
     runs-on: 'ubuntu-22.04'
     environment: ${{ inputs.environment }}-cd
     permissions:
       id-token: write
       contents: read
     env:
-      NPM_REGISTRY: 'https://registry.npmjs.org'
+      NPM_REGISTRY: 'registry.npmjs.org'
 
     steps:
       - name: checkout
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+        with:
+          ref: ${{ needs.release.outputs.latest_commit }}
 
       - name: Download Artifact
         uses: actions/download-artifact@6b208ae046db98c579e8a3aa621ab581ff575935 # v4.1.1
@@ -279,7 +292,7 @@ jobs:
           path: ${{ env.BUNDLE_NAME }}
 
       - name: Publish
-        run: npm publish --access public --registry ${{ env.NPM_REGISTRY }} --verbose
+        run: |
+          npm config set //${{ env.NPM_REGISTRY }}/:_authToken=${{ secrets.NPM_TOKEN }}
+          npm publish --access public --registry https://${{ env.NPM_REGISTRY }} --verbose
         working-directory: "${{ env.BUNDLE_NAME }}"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Add secret on GitHub Environment

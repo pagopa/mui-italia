@@ -235,22 +235,22 @@ const preLoginLinks: PreLoginFooterLinksType = {
         ariaLabel: "Link: vai al sito LinkedIn di PagoPA S.p.A.",
       },
       {
-        title: "Twitter",
-        icon: "twitter",
-        href: "https://twitter.com/pagopa",
-        ariaLabel: "Link: vai al sito Twitter di PagoPA S.p.A.",
-      },
-      {
         icon: "instagram",
         title: "Instagram",
-        href: "https://www.instagram.com/pagopa/",
+        href: "https://www.instagram.com/pagopaspa/",
         ariaLabel: "Link: vai al sito Instagram di PagoPA S.p.A.",
       },
       {
-        icon: "medium",
-        title: "Medium",
-        href: "https://medium.com/pagopa",
-        ariaLabel: "Link: vai al sito Medium di PagoPA S.p.A.",
+        icon: "threads",
+        title: "Threads",
+        href: "https://www.threads.net/@pagopaspa",
+        ariaLabel: "Link: vai al sito Threads di PagoPA S.p.A.",
+      },
+      {
+        icon: "youtube",
+        title: "Youtube",
+        href: "https://www.youtube.com/channel/UCFBGOEJUPQ6t3xtZFc_UIEQ",
+        ariaLabel: "Link: vai al sito Youtube di PagoPA S.p.A.",
       },
     ],
     links: [
