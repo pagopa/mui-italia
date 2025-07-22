@@ -8,12 +8,12 @@ import { isRight, toError } from "fp-ts/lib/Either";
 import { hrefNoOp, wrapHandleExitAction } from "utils/ts-utils";
 
 /* Icons */
-import TwitterIcon from "@mui/icons-material/Twitter";
 import LinkedIcon from "@mui/icons-material/LinkedIn";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import { MediumIcon } from "@icons/MediumIcon";
 import { LogoPagoPACompany } from "@assets/LogoPagoPACompany";
 import { FundedByNextGenerationEU } from "@assets/FundedByNextGenerationEU";
+import { ThreadsIcon } from "@icons/ThreadsIcon";
+import { YoutubeIcon } from "@icons/YoutubeIcon";
 
 /* Enum */
 import { FooterLinksType } from "..";
@@ -65,9 +65,9 @@ export const FooterPreLogin = ({
 
   const iconMap: iconMapObject = {
     linkedin: <LinkedIcon />,
-    twitter: <TwitterIcon />,
     instagram: <InstagramIcon />,
-    medium: <MediumIcon />,
+    threads: <ThreadsIcon />,
+    youtube: <YoutubeIcon />,
   };
 
   return (
