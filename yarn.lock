@@ -3921,7 +3921,7 @@ __metadata:
     "@storybook/react": ^7.5.0
     "@storybook/react-webpack5": ^7.5.0
     "@types/node": ^18.16.20
-    "@types/react": ^18.2.33
+    "@types/react": ^18.3.1
     "@types/react-dom": ^18.2.7
     "@typescript-eslint/eslint-plugin": ^5.47.1
     "@typescript-eslint/parser": ^5.39.0
@@ -3941,7 +3941,7 @@ __metadata:
     fp-ts: ^2.12.3
     io-ts: ^2.2.18
     prettier: ^2.7.1
-    react: ^18.2.0
+    react: ^18.3.1
     react-docgen-typescript: ^2.2.2
     react-dom: ^18.2.0
     rimraf: ^3.0.2
@@ -3951,7 +3951,7 @@ __metadata:
     tsconfig-paths-webpack-plugin: ^4.0.0
     typescript: ^4.9.4
   peerDependencies:
-    react: ^18.2.0
+    react: ^18.3.1
     react-dom: ^18.2.0
   languageName: unknown
   linkType: soft
@@ -5996,14 +5996,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:^18.2.33":
-  version: 18.2.33
-  resolution: "@types/react@npm:18.2.33"
+"@types/react@npm:^18.3.1":
+  version: 18.3.1
+  resolution: "@types/react@npm:18.3.1"
   dependencies:
     "@types/prop-types": "*"
-    "@types/scheduler": "*"
     csstype: ^3.0.2
-  checksum: 75903c4d53898c69dd23d0b2730eac4676dc5ade15c25c793dec855f0d7c650cb823832bb1dd881efe8895724f15b06d4bf7081ea0b82391aa3059512ad49ccf
+  checksum: 9224ef319a0c2b7f66e7e7f06012aa5eb638a6c76c9742843eab1a5d243f2bed5ff829ddbb41efd60d33a266420528adfcb84cb93f238b00e905f98c3a355768
   languageName: node
   linkType: hard
 
@@ -13255,12 +13254,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^18.2.0":
-  version: 18.2.0
-  resolution: "react@npm:18.2.0"
+"react@npm:^18.3.1":
+  version: 18.3.1
+  resolution: "react@npm:18.3.1"
   dependencies:
     loose-envify: ^1.1.0
-  checksum: 88e38092da8839b830cda6feef2e8505dec8ace60579e46aa5490fc3dc9bba0bd50336507dc166f43e3afc1c42939c09fe33b25fae889d6f402721dcd78fca1b
+  checksum: a27bcfa8ff7c15a1e50244ad0d0c1cb2ad4375eeffefd266a64889beea6f6b64c4966c9b37d14ee32d6c9fcd5aa6ba183b6988167ab4d127d13e7cb5b386a376
   languageName: node
   linkType: hard
 
