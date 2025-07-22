@@ -19,6 +19,7 @@ parameters:
       - major
       - minor
       - patch
+      - prerelease
     default: minor
 
 # Only manual activations are intended
@@ -33,7 +34,7 @@ resources:
     - repository: pagopaCommons
       type: github
       name: pagopa/azure-pipeline-templates
-      ref: refs/tags/v19
+      ref: refs/tags/v6.7.1
       endpoint: 'io-azure-devops-github-ro'
 
 stages:

@@ -1,37 +1,37 @@
 "use client";
 
-import {
-  ChangeEvent,
-  ForwardedRef,
-  forwardRef,
-  Fragment,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
-import clsx from "clsx";
-import { ringWidth, theme } from "@theme";
+import { ButtonProps } from "@mui/base/Button";
+import { useButton } from "@mui/base/useButton";
 import {
   Box,
   Button,
   Drawer,
+  IconButton,
   InputAdornment,
   TextField,
   Typography,
-  IconButton,
 } from "@mui/material";
 import { alpha, styled } from "@mui/material/styles";
-import { ButtonProps } from "@mui/base/Button";
-import { useButton } from "@mui/base/useButton";
-
-import SearchIcon from "@mui/icons-material/Search";
-import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
-import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
-import SentimentDissatisfied from "@mui/icons-material/SentimentDissatisfied";
-import CloseIcon from "@mui/icons-material/Close";
+import { ringWidth, theme } from "@theme";
+import clsx from "clsx";
+import {
+  ChangeEvent,
+  ForwardedRef,
+  Fragment,
+  forwardRef,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 import { PartyAccountItem } from "@components/PartyAccountItem";
 import { PartyAccountItemButton } from "@components/PartyAccountItemButton";
+import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
+import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
+import CloseIcon from "@mui/icons-material/Close";
+import SearchIcon from "@mui/icons-material/Search";
+import SentimentDissatisfied from "@mui/icons-material/SentimentDissatisfied";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 export type PartySwitchItem = {
   id: string;
@@ -53,17 +53,19 @@ export type PartySwitchProps = {
 };
 
 const CustomDrawer = styled(Drawer)(() => ({
-  "& .MuiDrawer-paper": {
-    width: "30vw",
-  },
-  ["@media only screen and (max-width: 576px)"]: {
+  ["@media only screen and (max-width: 599px)"]: {
     "& .MuiDrawer-paper": {
-      width: "90vw",
+      width: "100vw",
     },
   },
-  ["@media only screen and (min-width: 577px) and (max-width: 992px)"]: {
+  ["@media only screen and (min-width: 600px) and (max-width: 1536px)"]: {
     "& .MuiDrawer-paper": {
-      width: "40vw",
+      width: "420px",
+    },
+  },
+  ["@media only screen and (min-width: 1536px)"]: {
+    "& .MuiDrawer-paper": {
+      width: "35vw",
     },
   },
 }));
@@ -80,6 +82,7 @@ export const PartySwitch = ({
   const [filter, setFilter] = useState("");
   const [offset, setOffset] = useState(50);
   const [containerRef, setContainerRef] = useState<HTMLDivElement | null>(null);
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const mobileHideStyle = useMemo(
     () => ({ display: { xs: "none", md: "block" } }),
@@ -187,8 +190,16 @@ export const PartySwitch = ({
         tabIndex={0}
         PaperProps={{ ref: (ref: HTMLDivElement) => setContainerRef(ref) }}
       >
-        <Box sx={{ textAlign: "center", margin: "10px 0" }}>
+        <Box
+          m={3}
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+        >
           <Typography variant="overline">Accedi per un altro ente</Typography>
+          <IconButton onClick={() => toggleDrawer(false)}>
+            <CloseIcon aria-label="chiudi" />
+          </IconButton>
         </Box>
         <TextField
           label="Cerca ente"
@@ -198,7 +209,7 @@ export const PartySwitch = ({
                 <SearchIcon />
               </InputAdornment>
             ),
-            endAdornment: filter && (
+            endAdornment: filter && isMobile && (
               <InputAdornment
                 position="end"
                 onClick={() => setFilter("")}
@@ -212,7 +223,7 @@ export const PartySwitch = ({
           }}
           variant="outlined"
           size="small"
-          sx={{ margin: "10px 20px" }}
+          sx={{ mx: 3, mb: 1 }}
           onChange={handleFilterChange}
           value={filter}
         />
@@ -237,11 +248,10 @@ export const PartySwitch = ({
               sx={{
                 flexDirection: "row",
                 justifyContent: "center",
-                margin: "25px 0",
+                my: 2.5,
               }}
             >
               <SentimentDissatisfied
-                color="primary"
                 sx={{ verticalAlign: "middle", margin: "0 10px" }}
               />
               <Typography variant="body2" fontWeight={700} fontSize={18}>
@@ -249,7 +259,7 @@ export const PartySwitch = ({
               </Typography>
             </Box>
             <Button variant="contained" sx={{ margin: "0 20px" }}>
-              Aderisci per conto di un nuovo ente
+              Registra un nuovo ente
             </Button>
           </Fragment>
         )}
