@@ -23,4 +23,3 @@ jobs:
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           onlyChanged: '!(dependabot/*|renovate/pin-dependencies)'
-          dryRun: true
