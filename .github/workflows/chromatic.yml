@@ -22,4 +22,4 @@ jobs:
         uses: chromaui/action@4d8ebd13658d795114f8051e25c28d66f14886c6 # v13.1.2
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          onlyChanged: '!(dependabot/*|renovate/pin-dependencies)'
+          onlyChanged: '!(dependabot/*|renovate/pin-dependencies|chore/*)'
