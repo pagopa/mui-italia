@@ -33,9 +33,11 @@ const CodeInput = ({
   const id = idProp ?? generatedId;
   const helperTextId = helperText ? `${id}-helper-text` : undefined;
 
+  const sanitizedValue = value.slice(0, length);
+
   const hiddenInputRef = useRef<HTMLInputElement>(null);
   const [isFocused, setIsFocused] = useState(false);
-  const [cursorIndex, setCursorIndex] = useState(value.length);
+  const [cursorIndex, setCursorIndex] = useState(sanitizedValue.length);
 
   const fontSize = '16px';
   const fontFamily = "'Titillium Web', sans-serif";
@@ -44,14 +46,15 @@ const CodeInput = ({
 
   const mainColor = theme.palette.text.primary;
   const borderColor = error ? theme.palette.error.main : theme.palette.grey[400];
+  const borderSize = error ? 2 : 1;
   const helperTextColor = error ? theme.palette.error.main : mainColor;
 
   useLayoutEffect(() => {
     if (hiddenInputRef.current) {
-      const pos = hiddenInputRef.current.selectionStart ?? value.length;
+      const pos = hiddenInputRef.current.selectionStart ?? sanitizedValue.length;
       setCursorIndex(pos);
     }
-  }, [value]);
+  }, [sanitizedValue]);
 
   useEffect(() => {
     hiddenInputRef.current?.focus();
@@ -72,7 +75,7 @@ const CodeInput = ({
   const handleKeyUp = () => {
     const input = hiddenInputRef.current;
     if (input) {
-      const pos = input.selectionStart ?? value.length;
+      const pos = input.selectionStart ?? sanitizedValue.length;
       setCursorIndex(pos);
     }
   };
@@ -82,7 +85,7 @@ const CodeInput = ({
   };
 
   const handleCharClick = (index: number) => {
-    const pos = index > value.length ? value.length : index;
+    const pos = index > sanitizedValue.length ? sanitizedValue.length : index;
     hiddenInputRef.current?.focus();
     hiddenInputRef.current?.setSelectionRange(pos, pos);
     setCursorIndex(pos);
@@ -97,7 +100,7 @@ const CodeInput = ({
           cursor: 'text',
           px: 3,
           py: 2,
-          border: `1px solid ${borderColor}`,
+          border: `${borderSize}px solid ${borderColor}`,
           borderRadius: 1,
         }}
       >
@@ -108,7 +111,7 @@ const CodeInput = ({
           type="text"
           inputMode={inputMode}
           autoComplete="one-time-code"
-          value={value}
+          value={sanitizedValue}
           onChange={handleChange}
           onKeyUp={handleKeyUp}
           maxLength={length}
@@ -141,18 +144,21 @@ const CodeInput = ({
           aria-hidden
         >
           {Array.from({ length }).map((_, i) => {
-            const char = value[i] || '';
+            const char = sanitizedValue[i] || '';
             const displayedChar = encrypted && char ? '•' : char;
 
             const isEndOfValue =
-              value.length === length && cursorIndex === length && i === length - 1;
+              sanitizedValue.length === length && cursorIndex === length && i === length - 1;
             const isNextEmptyBox =
               isFocused &&
-              cursorIndex === value.length &&
-              value.length < length &&
-              i === value.length;
+              cursorIndex === sanitizedValue.length &&
+              sanitizedValue.length < length &&
+              i === sanitizedValue.length;
             const isCursorHere =
-              isFocused && cursorIndex === i && !isNextEmptyBox && !(isEndOfValue && value[i]);
+              isFocused &&
+              cursorIndex === i &&
+              !isNextEmptyBox &&
+              !(isEndOfValue && sanitizedValue[i]);
 
             return (
               <Box

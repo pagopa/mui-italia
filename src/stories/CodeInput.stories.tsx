@@ -12,30 +12,39 @@ const meta: Meta<typeof CodeInput> = {
 export default meta;
 type Story = StoryObj<typeof CodeInput>;
 
-const StatefulTemplate = (args: CodeInputProps) => {
-  const [value, setValue] = useState('');
-  const [status, setStatus] = useState<CodeInputStatus>('incomplete');
+type ExtendedArgs = CodeInputProps & {
+  getHelperText?: (status: CodeInputStatus) => string;
+  showError?: boolean;
+  initialValue?: string;
+  initialStatus?: CodeInputStatus;
+};
 
-  const getHelperText = (status: CodeInputStatus): string => {
-    switch (status) {
-      case 'invalid-char':
-        return 'Inserisci solo cifre';
-      default:
-        return '';
-    }
-  };
+const StatefulTemplate = (args: ExtendedArgs) => {
+  const {
+    getHelperText,
+    showError,
+    initialValue = '',
+    initialStatus = 'incomplete',
+    ...codeInputProps
+  } = args;
+
+  const [value, setValue] = useState(initialValue);
+  const [status, setStatus] = useState<CodeInputStatus>(initialStatus);
+
+  const helperText = getHelperText ? getHelperText(status) : '';
+  const error = showError ? status === 'invalid-char' : false;
 
   return (
     <Box>
       <CodeInput
-        {...args}
+        {...codeInputProps}
         value={value}
-        onChange={(val, stat) => {
-          setValue(val);
-          setStatus(stat);
+        onChange={(value, status) => {
+          setValue(value);
+          setStatus(status);
         }}
-        helperText={status === 'invalid-char' ? getHelperText(status) : ''}
-        error={status === 'invalid-char'}
+        helperText={helperText}
+        error={error}
       />
       <Box mt={2} fontSize="0.875rem" color="text.secondary">
         <div>
@@ -50,145 +59,84 @@ const StatefulTemplate = (args: CodeInputProps) => {
 };
 
 export const Default: Story = {
-  render: (args) => {
-    const [value, setValue] = useState('');
-    const [status, setStatus] = useState<CodeInputStatus>('incomplete');
-
-    return (
-      <CodeInput
-        {...args}
-        value={value}
-        onChange={(val, stat) => {
-          setValue(val);
-          setStatus(stat);
-        }}
-        helperText=""
-        error={false}
-      />
-    );
-  },
+  render: StatefulTemplate,
   args: {
-    length: 6,
+    length: 5,
   },
 };
 
 export const Encrypted: Story = {
-  render: (args) => {
-    const [value, setValue] = useState('');
-    const [status, setStatus] = useState<CodeInputStatus>('incomplete');
-
-    return (
-      <CodeInput
-        {...args}
-        value={value}
-        onChange={(val, stat) => {
-          setValue(val);
-          setStatus(stat);
-        }}
-        helperText=""
-        error={false}
-      />
-    );
-  },
+  render: StatefulTemplate,
   args: {
-    length: 6,
+    length: 5,
     encrypted: true,
   },
 };
 
-export const WithHelperText: Story = {
-  render: (args) => {
-    const [value, setValue] = useState('');
-    const [status, setStatus] = useState<CodeInputStatus>('incomplete');
-
-    const getHelperText = (status: CodeInputStatus): string => {
-      if (status === 'incomplete') {
-        return 'Completa il codice per proseguire';
-      }
-      if (status === 'invalid-char') {
-        return 'Inserisci solo cifre';
-      }
-      return '';
-    };
-
-    return (
-      <CodeInput
-        {...args}
-        value={value}
-        onChange={(val, stat) => {
-          setValue(val);
-          setStatus(stat);
-        }}
-        helperText={getHelperText(status)}
-        error={status === 'invalid-char'}
-      />
-    );
-  },
+export const Prefilled: Story = {
+  render: (args) => (
+    <StatefulTemplate
+      {...args}
+      initialValue="12345"
+      initialStatus="valid"
+      getHelperText={(status) => {
+        if (status === 'incomplete') {
+          return 'Completa il codice per proseguire';
+        }
+        if (status === 'invalid-char') {
+          return 'Inserisci solo cifre';
+        }
+        return '';
+      }}
+    />
+  ),
   args: {
-    length: 6,
+    length: 5,
+  },
+};
+
+export const LongCode: Story = {
+  render: StatefulTemplate,
+  args: {
+    length: 10,
   },
 };
 
 export const WithError: Story = {
-  render: StatefulTemplate,
+  render: (args) => (
+    <StatefulTemplate
+      {...args}
+      getHelperText={(status) => {
+        if (status === 'invalid-char') {
+          return 'Inserisci solo cifre';
+        }
+        return '';
+      }}
+      showError
+    />
+  ),
   args: {
     length: 6,
   },
 };
 
-export const LongerCode: Story = {
-  render: (args) => {
-    const [value, setValue] = useState('');
-    const [status, setStatus] = useState<CodeInputStatus>('incomplete');
-
-    return (
-      <CodeInput
-        {...args}
-        value={value}
-        onChange={(val, stat) => {
-          setValue(val);
-          setStatus(stat);
-        }}
-        helperText=""
-        error={false}
-      />
-    );
-  },
+export const WithHelperText: Story = {
+  render: (args) => (
+    <StatefulTemplate
+      {...args}
+      getHelperText={(status) => {
+        if (status === 'incomplete') {
+          return 'Completa il codice per proseguire';
+        }
+        if (status === 'invalid-char') {
+          return 'Inserisci solo cifre';
+        }
+        return '';
+      }}
+      showError
+    />
+  ),
   args: {
-    length: 8,
-  },
-};
-
-export const Prefilled: Story = {
-  render: (args) => {
-    const initialValue = '123456';
-    const [value, setValue] = useState(initialValue);
-    const [status, setStatus] = useState<CodeInputStatus>('valid');
-
-    const getHelperText = (status: CodeInputStatus): string => {
-      if (status === 'incomplete') {
-        return 'Completa il codice per proseguire';
-      }
-      if (status === 'invalid-char') {
-        return 'Inserisci solo cifre';
-      }
-      return '';
-    };
-
-    return (
-      <CodeInput
-        {...args}
-        value={value}
-        onChange={(val, stat) => {
-          setValue(val);
-          setStatus(stat);
-        }}
-        helperText={getHelperText(status)}
-        error={status === 'invalid-char'}
-      />
-    );
-  },
-  args: {
-    length: 6,
+    length: 5,
   },
 };
