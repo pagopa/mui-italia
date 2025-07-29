@@ -27,13 +27,13 @@ jobs:
         run: |
           echo "Getting branch name..."
           echo "BRANCH_NAME=${GITHUB_REF##*/}" >> "$GITHUB_ENV"
-          echo "Current branch: env.BRANCH_NAME"
+          echo "Current branch: ${{env.BRANCH_NAME}}"
         shell: bash
       - name: Set allowed scopes
         run: |
           echo "Calculating scopes based on branch name..."
           echo "ALLOWED_SCOPES=dynamic value" >> "$GITHUB_ENV"
-          echo "Allowed scopes: env.ALLOWED_SCOPES"
+          echo "Allowed scopes: ${{env.ALLOWED_SCOPES}}"
         shell: bash
       - uses: amannn/action-semantic-pull-request@0723387faaf9b38adef4775cd42cfd5155ed6017 # v5.5.3
         env:
