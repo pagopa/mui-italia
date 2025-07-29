@@ -26,9 +26,9 @@ jobs:
       # Add `Button` component -> subject
       - name: Set allowed scopes
         run: |
-          echo "Calculating scopes based on branch name..." \
-          echo "BRANCH_NAME=${GITHUB_REF##*/}"" >> $GITHUB_ENV \
-          echo "Current branch: $BRANCH_NAME" \
+          echo "Calculating scopes based on branch name..."
+          echo "BRANCH_NAME=${GITHUB_REF##*/}"" >> $GITHUB_ENV
+          echo "Current branch: $BRANCH_NAME"
           echo "ALLOWED_SCOPES=dynamic value" >> $GITHUB_ENV
       - uses: amannn/action-semantic-pull-request@0723387faaf9b38adef4775cd42cfd5155ed6017 # v5.5.3
         env:
