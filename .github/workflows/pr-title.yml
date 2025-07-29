@@ -2,7 +2,7 @@ name: 'Validate PR title'
 
 # Event for the workflow
 on:
-  pull_request_target:
+  pull_request:
     branches-ignore:
       - 'release*'
       - 'hotfix*'
