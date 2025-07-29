@@ -1,0 +1,67 @@
+name: 'Validate PR title'
+
+# Event for the workflow
+on:
+  pull_request_target:
+    branches-ignore:
+      - 'release*'
+      - 'hotfix*'
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+
+# List of jobs
+jobs:
+  validate-pr-title:
+    if: ${{ github.ref != 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    steps:
+      # feat(mui-123): Add `Button` component
+      # feat -> type
+      # mui-123 -> scope
+      # Add `Button` component -> subject
+      - name: Set allowed scopes
+        run: |
+          echo "Calculating scopes based on branch name..." \
+          echo "BRANCH_NAME=${GITHUB_REF##*/}"" >> $GITHUB_ENV \
+          echo "Current branch: $BRANCH_NAME" \
+          echo "ALLOWED_SCOPES=dynamic value" >> $GITHUB_ENV
+      - uses: amannn/action-semantic-pull-request@0723387faaf9b38adef4775cd42cfd5155ed6017 # v5.5.3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # Configure which types are allowed.
+          # Default: https://github.com/commitizen/conventional-commit-types
+          types: |
+            fix
+            feat
+            build
+            chore
+            docs
+            refactor
+            breaking
+          # Configure which scopes are allowed (newline-delimited).
+          # These are regex patterns auto-wrapped in `^ $`.
+          scopes: |
+            (?:MUI|mui)-\d+
+            deps-dev
+          # Configure that a scope must always be provided.
+          requireScope: true
+          # Configure which scopes are disallowed in PR titles (newline-delimited).
+          # These are regex patterns auto-wrapped in `^ $`.
+          disallowScopes: |
+            release
+            hotfix
+            feature
+          # When using "Squash and merge" on a PR with only one commit, GitHub
+          # will suggest using that commit message instead of the PR title for the
+          # merge commit, and it's easy to commit this by mistake. Enable this option
+          # to also validate the commit message for one commit PRs.
+          validateSingleCommit: false
+          # Related to `validateSingleCommit` you can opt-in to validate that the PR
+          # title matches a single commit to avoid confusion.
+          validateSingleCommitMatchesPrTitle: false
