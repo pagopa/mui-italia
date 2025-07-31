@@ -1,39 +1,83 @@
 import { Box, Stack, Typography, useTheme } from '@mui/material';
 import { useRef, useLayoutEffect, useEffect, useState, useId } from 'react';
 
+/**
+ * Type representing the current status of the code input
+ * - `valid`: the code is complete and valid
+ * - `incomplete`: the code is not complete yet
+ * - `invalid-char`: contains invalid characters (e.g. letters)
+ */
 export type CodeInputStatus = 'valid' | 'incomplete' | 'invalid-char';
 
+/**
+ *  CodeInput Props
+ *
+ * @typedef {Object} CodeInputProps
+ * @property {number} length - Required number of characters for the code
+ * @property {(value: string, status: CodeInputStatus) => void} onChange - Callback triggered on every input change
+ * @property {string} value - Current code value, could be used for a controlled behaviour
+ * @property {string} [id] - Optional ID for the input. If not provided, a unique one is generated
+ * @property {string} [name='otp'] - Name of the input field
+ * @property {boolean} [encrypted=false] - If `true`, hides the actual characters using dots instead
+ * @property {boolean} [error=false] - Displays error state layout
+ * @property {string} [helperText] - Helper text, displayed below the input
+ * @property {string} [ariaLabelledby] - ID of an element that labels the input (for accessibility)
+ * @property {string} [ariaDescribedby] - ID of an element providing additional description (e.g. helper text)
+ */
 export interface CodeInputProps {
+  length: number;
+  onChange: (value: string, status: CodeInputStatus) => void;
+  value?: string;
   id?: string;
   name?: string;
-  ariaLabelledby?: string;
-  ariaDescribedby?: string;
-  value: string;
-  onChange: (value: string, status: CodeInputStatus) => void;
-  length: number;
+  encrypted?: boolean;
   error?: boolean;
   helperText?: string;
-  encrypted?: boolean;
+  ariaLabelledby?: string;
+  ariaDescribedby?: string;
 }
 
+/**
+ * CodeInput – React component for entering OTP or PIN codes.
+ *
+ * Displays a sequence of visually separated character boxes, simulating individual inputs,
+ * with a hidden `input` field handling the real input logic.
+ * It supports both controlled and uncontrolled usage.
+ *
+ * @component
+ * @example
+ * ```tsx
+ * <CodeInput
+ *   value={code}
+ *   onChange={(val, status) => setCode(val)}
+ *   length={6}
+ *   error={hasError}
+ *   helperText="Enter the code"
+ *   encrypted
+ * />
+ * ```
+ */
 const CodeInput = ({
+  length,
+  onChange,
+  value,
   id: idProp,
   name = 'otp',
-  ariaLabelledby,
-  ariaDescribedby,
-  value,
-  onChange,
-  length,
+  encrypted = false,
   error = false,
   helperText,
-  encrypted = false,
+  ariaLabelledby,
+  ariaDescribedby,
 }: CodeInputProps) => {
   const theme = useTheme();
   const generatedId = useId();
   const id = idProp ?? generatedId;
   const helperTextId = helperText ? `${id}-helper-text` : undefined;
 
-  const sanitizedValue = value.slice(0, length);
+  const isControlled = value !== undefined;
+  const [internalValue, setInternalValue] = useState('');
+  const currentValue = isControlled ? value : internalValue;
+  const sanitizedValue = currentValue.slice(0, length);
 
   const hiddenInputRef = useRef<HTMLInputElement>(null);
   const [isFocused, setIsFocused] = useState(false);
@@ -45,7 +89,8 @@ const CodeInput = ({
   const inputMode = 'numeric';
 
   const mainColor = theme.palette.text.primary;
-  const borderColor = error ? theme.palette.error.main : theme.palette.grey[400];
+  const underlineColor = theme.palette.neutral[700];
+  const borderColor = error ? theme.palette.error[600] : theme.palette.neutral[100];
   const borderSize = error ? 2 : 1;
   const helperTextColor = error ? theme.palette.error.main : mainColor;
 
@@ -65,11 +110,19 @@ const CodeInput = ({
     const filtered = raw.replace(/\s/g, '').slice(0, length);
 
     const allDigits = filtered.split('').every((c) => /^[0-9]$/.test(c));
-    const status = !allDigits ? 'invalid-char' : filtered.length < length ? 'incomplete' : 'valid';
+    const status: CodeInputStatus = !allDigits
+      ? 'invalid-char'
+      : filtered.length < length
+      ? 'incomplete'
+      : 'valid';
 
     const caretPos = e.target.selectionStart ?? filtered.length;
     setCursorIndex(caretPos);
-    onChange(filtered, status);
+
+    if (!isControlled) {
+      setInternalValue(filtered);
+    }
+    onChange?.(filtered, status);
   };
 
   const handleKeyUp = () => {
@@ -99,9 +152,9 @@ const CodeInput = ({
           display: 'inline-block',
           cursor: 'text',
           px: 3,
-          py: 2,
+          py: 1.5,
           border: `${borderSize}px solid ${borderColor}`,
-          borderRadius: 1,
+          borderRadius: '8px',
         }}
       >
         <input
@@ -148,7 +201,10 @@ const CodeInput = ({
             const displayedChar = encrypted && char ? '•' : char;
 
             const isEndOfValue =
-              sanitizedValue.length === length && cursorIndex === length && i === length - 1;
+              isFocused &&
+              sanitizedValue.length === length &&
+              cursorIndex === length &&
+              i === length - 1;
             const isNextEmptyBox =
               isFocused &&
               cursorIndex === sanitizedValue.length &&
@@ -167,7 +223,7 @@ const CodeInput = ({
                 sx={{
                   width: '1em',
                   height: '1.5em',
-                  borderBottom: `1px solid ${mainColor}`,
+                  borderBottom: `1px solid ${underlineColor}`,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -176,45 +232,18 @@ const CodeInput = ({
                 }}
               >
                 {displayedChar && <Box component="span">{displayedChar}</Box>}
-                {isCursorHere && (
+                {(isCursorHere || isNextEmptyBox || isEndOfValue) && (
                   <Box
                     sx={{
                       position: 'absolute',
-                      left: '-1px',
                       top: '50%',
                       transform: 'translateY(-50%)',
                       width: '1px',
                       height: '1em',
                       backgroundColor: mainColor,
                       animation: 'blink 1s step-start infinite',
-                    }}
-                  />
-                )}
-                {isNextEmptyBox && (
-                  <Box
-                    sx={{
-                      position: 'absolute',
-                      left: '50%',
-                      top: '50%',
-                      transform: 'translate(-50%, -50%)',
-                      width: '1px',
-                      height: '1em',
-                      backgroundColor: mainColor,
-                      animation: 'blink 1s step-start infinite',
-                    }}
-                  />
-                )}
-                {isEndOfValue && (
-                  <Box
-                    sx={{
-                      position: 'absolute',
-                      right: '-1px',
-                      top: '50%',
-                      transform: 'translateY(-50%)',
-                      width: '1px',
-                      height: '1em',
-                      backgroundColor: mainColor,
-                      animation: 'blink 1s step-start infinite',
+                      left: isNextEmptyBox ? '50%' : isEndOfValue ? 'calc(100% + 1px)' : '-1px',
+                      transformOrigin: 'center',
                     }}
                   />
                 )}
@@ -236,6 +265,7 @@ const CodeInput = ({
         <Typography
           id={helperTextId}
           mt={1}
+          ml={3}
           fontSize="14px"
           lineHeight="1rem"
           color={helperTextColor}

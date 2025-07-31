@@ -98,6 +98,7 @@ const foundation: Theme = createTheme({
       extraLight: '#FB9EAC',
       contrastText: colorTextPrimary,
       100: '#FFE0E0',
+      600: '#D13333',
       850: '#761F1F',
     },
     info: {
@@ -126,6 +127,10 @@ const foundation: Theme = createTheme({
       contrastText: colorTextPrimary,
       100: '#FFF5DA',
       850: '#614C15',
+    },
+    neutral: {
+      100: '#E8EBF1',
+      700: '#555C70',
     },
   },
   typography: {

@@ -140,3 +140,29 @@ export const WithHelperText: Story = {
     length: 5,
   },
 };
+
+export const Uncontrolled: Story = {
+  render: () => {
+    const [value, setValue] = useState<string>('');
+    const [status, setStatus] = useState<CodeInputStatus>('incomplete');
+
+    const handleChange = (value: string, status: CodeInputStatus) => {
+      setValue(value);
+      setStatus(status);
+    };
+
+    return (
+      <Box>
+        <CodeInput length={5} onChange={handleChange} />
+        <Box mt={2} fontSize="0.875rem" color="text.secondary">
+          <div>
+            <strong>Value:</strong> {value}
+          </div>
+          <div>
+            <strong>Status:</strong> {status}
+          </div>
+        </Box>
+      </Box>
+    );
+  },
+};

@@ -67,6 +67,7 @@ declare module '@mui/material/styles' {
     primaryAction: Palette['action'];
     negative: PaletteColorOptions;
     indigo: Palette['primary'];
+    neutral: PaletteColorOptions;
   }
   interface PaletteOptions {
     pagoPA?: PaletteOptions['primary'];
@@ -76,11 +77,13 @@ declare module '@mui/material/styles' {
     primaryAction: PaletteOptions['action'];
     negative: PaletteColorOptions;
     indigo: PaletteColorOptions;
+    neutral: PaletteColorOptions;
   }
 
   interface PaletteColor {
     extraLight?: string;
     100: string;
+    600: string;
     850: string;
   }
 
@@ -92,6 +95,8 @@ declare module '@mui/material/styles' {
     contrastText?: string;
     extraLight?: string;
     100?: string;
+    600?: string;
+    700?: string;
     850?: string;
   }
 }
