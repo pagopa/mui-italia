@@ -153,7 +153,7 @@ export const Uncontrolled: Story = {
 
     return (
       <Box>
-        <CodeInput length={5} onChange={handleChange} />
+        <CodeInput ariaLabel="Codice OTP" length={5} onChange={handleChange} />
         <Box mt={2} fontSize="0.875rem" color="text.secondary">
           <div>
             <strong>Value:</strong> {value}

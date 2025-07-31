@@ -22,6 +22,7 @@ export type CodeInputStatus = 'valid' | 'incomplete' | 'invalid-char';
  * @property {boolean} [encrypted=false] - If `true`, hides the actual characters using dots instead
  * @property {boolean} [error=false] - Displays error state layout
  * @property {string} [helperText] - Helper text, displayed below the input
+ * @property {string} [ariaLabel] - Aria label associated to the input
  * @property {string} [ariaLabelledby] - ID of an element that labels the input (for accessibility)
  * @property {string} [ariaDescribedby] - ID of an element providing additional description (e.g. helper text)
  */
@@ -34,6 +35,7 @@ export interface CodeInputProps {
   encrypted?: boolean;
   error?: boolean;
   helperText?: string;
+  ariaLabel?: string;
   ariaLabelledby?: string;
   ariaDescribedby?: string;
 }
@@ -67,6 +69,7 @@ const CodeInput = ({
   encrypted = false,
   error = false,
   helperText,
+  ariaLabel,
   ariaLabelledby,
   ariaDescribedby,
 }: CodeInputProps) => {
@@ -180,7 +183,7 @@ const CodeInput = ({
           onChange={handleChange}
           onKeyUp={handleKeyUp}
           maxLength={length}
-          aria-label="Code input"
+          {...(ariaLabel && { 'aria-label': ariaLabel })}
           {...(ariaLabelledby && { 'aria-labelledby': ariaLabelledby })}
           {...(helperTextId || ariaDescribedby
             ? {
