@@ -1,5 +1,6 @@
 import { Box, Stack, Typography, useTheme } from '@mui/material';
 import { useRef, useLayoutEffect, useEffect, useState, useId } from 'react';
+import { error as errorColor, neutral as neutralColor } from './../../theme/colors';
 
 /**
  * Type representing the current status of the code input
@@ -69,6 +70,9 @@ const CodeInput = ({
   ariaLabelledby,
   ariaDescribedby,
 }: CodeInputProps) => {
+  const codeBoxRef = useRef<HTMLDivElement>(null);
+  const [codeBoxWidth, setCodeBoxWidth] = useState<number>();
+
   const theme = useTheme();
   const generatedId = useId();
   const id = idProp ?? generatedId;
@@ -89,10 +93,10 @@ const CodeInput = ({
   const inputMode = 'numeric';
 
   const mainColor = theme.palette.text.primary;
-  const underlineColor = theme.palette.neutral[700];
-  const borderColor = error ? theme.palette.error[600] : theme.palette.neutral[100];
+  const underlineColor = neutralColor[700];
+  const borderColor = error ? errorColor[600] : neutralColor[100];
   const borderSize = error ? 2 : 1;
-  const helperTextColor = error ? theme.palette.error.main : mainColor;
+  const helperTextColor = error ? errorColor[600] : mainColor;
 
   useLayoutEffect(() => {
     if (hiddenInputRef.current) {
@@ -104,6 +108,12 @@ const CodeInput = ({
   useEffect(() => {
     hiddenInputRef.current?.focus();
   }, []);
+
+  useLayoutEffect(() => {
+    if (codeBoxRef.current) {
+      setCodeBoxWidth(codeBoxRef.current.offsetWidth);
+    }
+  }, [sanitizedValue.length, length]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const raw = e.target.value;
@@ -145,14 +155,16 @@ const CodeInput = ({
   };
 
   return (
-    <Box>
+    <Box sx={{ display: 'inline-block' }}>
       <Box
+        ref={codeBoxRef}
         onClick={handleContainerClick}
         sx={{
           display: 'inline-block',
           cursor: 'text',
           px: 3,
-          py: 1.5,
+          pt: 1.5,
+          pb: 2,
           border: `${borderSize}px solid ${borderColor}`,
           borderRadius: '8px',
         }}
@@ -223,6 +235,9 @@ const CodeInput = ({
                 sx={{
                   width: '1em',
                   height: '1.5em',
+                  lineHeight: '1.5em',
+                  pb: '2px',
+                  mb: '4px',
                   borderBottom: `1px solid ${underlineColor}`,
                   display: 'flex',
                   alignItems: 'center',
@@ -265,10 +280,17 @@ const CodeInput = ({
         <Typography
           id={helperTextId}
           mt={1}
-          ml={3}
           fontSize="14px"
-          lineHeight="1rem"
+          lineHeight="1em"
           color={helperTextColor}
+          alignSelf="stretch"
+          sx={{
+            width: codeBoxWidth ?? 'auto',
+            maxWidth: '100%',
+            wordBreak: 'break-word',
+            boxSizing: 'border-box',
+            px: 3,
+          }}
         >
           {helperText}
         </Typography>

@@ -126,7 +126,7 @@ export const WithHelperText: Story = {
       {...args}
       getHelperText={(status) => {
         if (status === 'incomplete') {
-          return 'Completa il codice per proseguire';
+          return 'Completa il codice, inserendo un valore numerico, per proseguire';
         }
         if (status === 'invalid-char') {
           return 'Inserisci solo cifre';
