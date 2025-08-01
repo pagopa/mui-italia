@@ -15,7 +15,7 @@
     "url": "https://github.com/pagopa/mui-italia/issues"
   },
   "dependencies": {
-    "@fontsource/dm-mono": "^4.5.10",
+    "@fontsource/dm-mono": "^5.2.6",
     "@fontsource/titillium-web": "^4.5.9",
     "clsx": "^1.2.1",
     "fp-ts": "^2.12.3",
