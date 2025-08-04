@@ -1,6 +1,6 @@
 import { Box, Stack, Typography, useTheme } from '@mui/material';
 import { useRef, useLayoutEffect, useEffect, useState, useId } from 'react';
-import { error as errorColor, neutral as neutralColor } from './../../theme/colors';
+import { blue, error as errorColor, neutral as neutralColor } from './../../theme/colors';
 
 /**
  * Type representing the current status of the code input
@@ -90,12 +90,13 @@ const CodeInput = ({
   const [isFocused, setIsFocused] = useState(false);
   const [cursorIndex, setCursorIndex] = useState(sanitizedValue.length);
 
-  const fontSize = '16px';
+  const fontSize = encrypted ? '1.5em' : '1em';
   const fontFamily = "'Titillium Web', sans-serif";
-  const fontWeight = 500;
+  const fontWeight = 600;
   const inputMode = 'numeric';
 
   const mainColor = theme.palette.text.primary;
+  const caretColor = blue[500];
   const underlineColor = neutralColor[700];
   const borderColor = error ? errorColor[600] : neutralColor[100];
   const borderSize = error ? 2 : 1;
@@ -176,7 +177,7 @@ const CodeInput = ({
           id={id}
           name={name}
           ref={hiddenInputRef}
-          type="text"
+          type={encrypted ? 'password' : 'text'}
           inputMode={inputMode}
           autoComplete="one-time-code"
           value={sanitizedValue}
@@ -256,9 +257,10 @@ const CodeInput = ({
                       position: 'absolute',
                       top: '50%',
                       transform: 'translateY(-50%)',
-                      width: '1px',
+                      width: '2px',
+                      borderRadius: '2px',
                       height: '1em',
-                      backgroundColor: mainColor,
+                      backgroundColor: caretColor,
                       animation: 'blink 1s step-start infinite',
                       left: isNextEmptyBox ? '50%' : isEndOfValue ? 'calc(100% + 1px)' : '-1px',
                       transformOrigin: 'center',
