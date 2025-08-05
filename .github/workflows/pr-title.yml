@@ -4,8 +4,9 @@ name: 'Validate PR title'
 on:
   pull_request:
     branches-ignore:
-      - 'release*'
-      - 'hotfix*'
+      - release*
+      - hotfix*
+      - dependabot*
     types:
       - opened
       - edited
@@ -23,18 +24,6 @@ jobs:
       # feat -> type
       # mui-123 -> scope
       # Add `Button` component -> subject
-      - name: Get branch name
-        run: |
-          echo "Getting branch name..."
-          echo "BRANCH_NAME=${GITHUB_REF##*/}" >> "$GITHUB_ENV"
-          echo "Current branch: ${{env.BRANCH_NAME}}"
-        shell: bash
-      - name: Set allowed scopes
-        run: |
-          echo "Calculating scopes based on branch name..."
-          echo "ALLOWED_SCOPES=dynamic value" >> "$GITHUB_ENV"
-          echo "Allowed scopes: ${{env.ALLOWED_SCOPES}}"
-        shell: bash
       - uses: amannn/action-semantic-pull-request@0723387faaf9b38adef4775cd42cfd5155ed6017 # v5.5.3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -48,20 +37,16 @@ jobs:
             chore
             docs
             refactor
-            breaking
+            style
+            ci
+            perf
+            test
           # Configure which scopes are allowed (newline-delimited).
           # These are regex patterns auto-wrapped in `^ $`.
           scopes: |
-            (?:MUI|mui)-\d+
-            deps-dev
+            (?:MUI|mui|M20DS)-\d+
           # Configure that a scope must always be provided.
           requireScope: true
-          # Configure which scopes are disallowed in PR titles (newline-delimited).
-          # These are regex patterns auto-wrapped in `^ $`.
-          disallowScopes: |
-            release
-            hotfix
-            feature
           # When using "Squash and merge" on a PR with only one commit, GitHub
           # will suggest using that commit message instead of the PR title for the
           # merge commit, and it's easy to commit this by mistake. Enable this option
