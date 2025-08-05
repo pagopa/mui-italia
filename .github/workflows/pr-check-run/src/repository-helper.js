@@ -7,12 +7,12 @@ async function getLastCommitSha(octokit) {
     const { data: commit } = await octokit.rest.repos.listCommits({
       owner: github.context.repo.owner,
       repo: github.context.repo.repo,
-      //sha: github.context.
+      sha: github.context.payload.pull_request.head.ref,
       per_page: 1,
     });
-    core.info('-------------------- ' + JSON.stringify(github.context.head_ref));
-    core.debug(`Last commit retrieved`);
-    return commit[0].sha;
+    const sha = commit[0].sha;
+    core.debug(`Retrieved last commit with sha ${sha}`);
+    return sha;
   } catch (error) {
     throw new Error(`Failed to get last commit: ${error}`);
   }
@@ -25,13 +25,12 @@ async function createCheckRun(octokit, id) {
       throw new Error(`Failed to create check run: id required`);
     }
     const commitSha = await getLastCommitSha(octokit);
-    /*await octokit.rest.checks.create({
+    await octokit.rest.checks.create({
       owner: github.context.repo.owner,
       repo: github.context.repo.repo,
       name: id,
       head_sha: commitSha,
     });
-    */
     core.info(`Check run with ${id} created`);
   } catch (error) {
     throw new Error(`Failed to create check run: ${error}`);

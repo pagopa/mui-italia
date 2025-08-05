@@ -13,12 +13,14 @@ on:
       - reopened
       - synchronize
 
+permissions:
+  pull-requests: write
+  checks: write # Questo è il permesso necessario per i check run
+
 # List of jobs
 jobs:
   validate-pr-title:
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
