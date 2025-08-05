@@ -10,7 +10,7 @@ async function getLastCommitSha(octokit) {
       //sha: github.context.
       per_page: 1,
     });
-    core.info('-------------------- ' + JSON.stringify(github));
+    core.info('-------------------- ' + JSON.stringify(github.context.head_ref));
     core.debug(`Last commit retrieved`);
     return commit[0].sha;
   } catch (error) {
