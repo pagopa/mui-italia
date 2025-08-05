@@ -1,0 +1,17 @@
+name: 'pr-check-run'
+description: 'Manage pr check run'
+
+inputs:
+  token:
+    description: 'GitHub token'
+    required: true
+  id:
+    description: 'The id of the message'
+    reqyured: true
+  show:
+    description: 'Show the message'
+    required: true
+
+runs:
+  using: 'node20'
+  main: 'src/index.js'

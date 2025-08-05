@@ -1,0 +1,11 @@
+{
+  "name": "pr-check-run",
+  "version": "1.0.0",
+  "description": "Manage pr check run",
+  "main": "src/index.js",
+  "author": "Andrea Cimini",
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@actions/github": "^6.0.1"
+  }
+}

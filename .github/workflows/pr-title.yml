@@ -18,8 +18,16 @@ jobs:
   validate-pr-title:
     runs-on: ubuntu-latest
     permissions:
-      pull-requests: read
+      pull-requests: write
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Git Config
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+      - name: Install Packages
+        run: cd .github/workflows/pr-check-run && npm install
       # feat(mui-123): Add `Button` component
       # feat -> type
       # mui-123 -> scope
@@ -56,9 +64,10 @@ jobs:
           # Related to `validateSingleCommit` you can opt-in to validate that the PR
           # title matches a single commit to avoid confusion.
           validateSingleCommitMatchesPrTitle: false
-      - name: print_message
-        # When the previous steps fails, the workflow would stop. By adding this
-        # condition you can continue the execution with the populated error message.
-        if: always() && steps.lint_pr_title.outputs.error_message != null
-        run: |
-          echo '::error::${{ steps.lint_pr_title.outputs.error_message }}'
+      - name: Manage pr chek run
+        if: always()
+        uses: ./.github/workflows/pr-check-run
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          id: 'pr-title-validation'
+          show: ${{steps.lint_pr_title.outputs.error_message != null}}
