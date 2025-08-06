@@ -1,11 +1,11 @@
 const github = require('@actions/github');
 const core = require('@actions/core');
-const _ = require('lodash');
+const safeRegex = require('safe-regex');
 
 const checkRunName = 'validate-pr-title';
 
 async function findReview(octokit) {
-  core.debug(`Finding review opened by github-actions[bot] and in status CHANGES_REQUESTED`);
+  core.info(`Finding review opened by github-actions[bot] and in status CHANGES_REQUESTED`);
   try {
     const prNumber = github.context.payload.pull_request.number;
     if (!prNumber) {
@@ -16,6 +16,7 @@ async function findReview(octokit) {
       repo: github.context.repo.repo,
       pull_number: prNumber,
     });
+    core.info(JSON.stringify(reviews));
     const currentReview = reviews.find(
       (review) =>
         review.user.login === 'github-actions[bot]' && review.state === 'CHANGES_REQUESTED'
@@ -50,12 +51,16 @@ async function getLastCommitSha(octokit) {
 
 function validatePullRequestTitle(prTitle, types, scopes) {
   core.info(`Validate pr title "${prTitle}"`);
-  const safeTypes = types.map((type) => _.escapeRegExp(type));
-  const safeScopes = scopes.map((scope) => _.escapeRegExp(scope));
   const prTitleRegex = new RegExp(
-    `^(?:${safeTypes.join('|')})(?:\\(${safeScopes.join('|')}\\)):\\s(?:.+)$`,
+    `^(?:${types.join('|')})(?:\\(${scopes.join('|')}\\)):\\s(?:.+)$`,
     'g'
   );
+  const isSafe = safeRegex(prTitleRegex);
+  if (!isSafe) {
+    throw new Error(
+      `The regular expresson ${prTitleRegex.toString()} is not safe against ReDoS attack`
+    );
+  }
   core.debug(`Calculated regexp: ${prTitleRegex.toString()}`);
   const result = prTitleRegex.test(prTitle);
   if (result) {
