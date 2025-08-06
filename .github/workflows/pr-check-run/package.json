@@ -6,6 +6,7 @@
   "author": "Andrea Cimini",
   "dependencies": {
     "@actions/core": "^1.11.1",
-    "@actions/github": "^6.0.1"
+    "@actions/github": "^6.0.1",
+    "lodash": "^4.17.21"
   }
 }

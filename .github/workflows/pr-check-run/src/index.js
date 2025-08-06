@@ -20,6 +20,7 @@ async function run() {
       const result = await checkPullRequestTitle(octokit, types, scopes);
       // update check run
       await updateCheckRun(octokit, id, result ? 'success' : 'failure');
+      return;
     }
     throw new Error(`No GitHub token specified`);
   } catch (error) {

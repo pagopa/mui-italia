@@ -1,5 +1,6 @@
 const github = require('@actions/github');
 const core = require('@actions/core');
+const _ = require('lodash');
 
 const checkRunName = 'validate-pr-title';
 
@@ -43,8 +44,10 @@ async function createCheckRun(octokit) {
 
 function validatePullRequestTitle(prTitle, types, scopes) {
   core.info(`Validate pr title "${prTitle}"`);
+  const safeTypes = types.map((type) => _.escapeRegExp(type));
+  const safeScopes = scopes.map((scope) => _.escapeRegExp(scope));
   const prTitleRegex = new RegExp(
-    `^(?<type>${types.join('|')})(?<scope>\\(${scopes.join('|')}\\)):\\s(?<subject>.+)$`,
+    `^(?<type>${safeTypes.join('|')})(?<scope>\\(${safeScopes.join('|')}\\)):\\s(?<subject>.+)$`,
     'g'
   );
   core.debug(`Calculated regexp: ${prTitleRegex.toString()}`);
@@ -97,8 +100,8 @@ async function updateCheckRun(octokit, checkRunId, conclusion) {
           ? null
           : {
               title: "Your pr title doesn't follow the conventional commit specification",
-              summary: '',
-              text: '',
+              summary: 'Questo è un riassunto di prova',
+              text: 'Anche qui sto mettendo cose a caso',
             },
     });
     core.info(`Check run with ${checkRunId} created`);
