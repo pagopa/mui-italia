@@ -42,7 +42,7 @@ async function createCheckRun(octokit) {
 }
 
 function validatePullRequestTitle(prTitle, types, scopes) {
-  core.info(`Validate pr title ${prTitle}`);
+  core.info(`Validate pr title "${prTitle}"`);
   const prTitleRegex = new RegExp(
     `^(?<type>${types.join('|')})(?<scope>\\(${scopes.join('|')}\\)):\\s(?<subject>.+)$`,
     'g'
@@ -50,9 +50,9 @@ function validatePullRequestTitle(prTitle, types, scopes) {
   core.debug(`Calculated regexp: ${prTitleRegex.toString()}`);
   const result = prTitleRegex.test(prTitle);
   if (result) {
-    core.info(`Pr title ${prTitle} valid`);
+    core.info(`Pr title "${prTitle}" valid`);
   } else {
-    core.info(`Pr title ${prTitle} invalid`);
+    core.info(`Pr title "${prTitle}" invalid`);
   }
   return result;
 }
@@ -83,9 +83,11 @@ async function updateCheckRun(octokit, checkRunId, conclusion) {
     if (!checkRunId) {
       throw new Error(`Failed to update check run: id required`);
     }
+    const commitSha = await getLastCommitSha(octokit);
     await octokit.rest.checks.create({
       owner: github.context.repo.owner,
       repo: github.context.repo.repo,
+      head_sha: commitSha,
       check_run_id: checkRunId,
       name: checkRunName,
       status: 'completed',
