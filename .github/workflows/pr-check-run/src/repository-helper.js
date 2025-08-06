@@ -1,6 +1,8 @@
 const github = require('@actions/github');
 const core = require('@actions/core');
 
+const checkRunName = 'validate-pr-title';
+
 async function getLastCommitSha(octokit) {
   core.debug(`Get last commit`);
   try {
@@ -18,20 +20,86 @@ async function getLastCommitSha(octokit) {
   }
 }
 
-async function createCheckRun(octokit, id) {
-  core.info(`Creating check run with id ${id}`);
+async function createCheckRun(octokit) {
+  core.info(`Creating check run with name ${checkRunName}`);
   try {
-    if (!id) {
-      throw new Error(`Failed to create check run: id required`);
+    if (!checkRunName) {
+      throw new Error(`Failed to create check run: name required`);
     }
     const commitSha = await getLastCommitSha(octokit);
+    const { data: checkRun } = await octokit.rest.checks.create({
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
+      name: checkRunName,
+      head_sha: commitSha,
+    });
+    const checkRunId = checkRun.id;
+    core.info(`Check run ${checkRunName} with id ${checkRunId} created`);
+    return checkRunId;
+  } catch (error) {
+    throw new Error(`Failed to create check run: ${error}`);
+  }
+}
+
+function validatePullRequestTitle(prTitle, types, scopes) {
+  core.info(`Validate pr title ${prTitle}`);
+  const prTitleRegex = new RegExp(
+    `^(?<type>${types.join('|')})(?<scope>\\(${scopes.join('|')}\\)):\\s(?<subject>.+)$`,
+    'g'
+  );
+  core.debug(`Calculated regexp: ${prTitleRegex.toString()}`);
+  const result = prTitleRegex.test(prTitle);
+  if (result) {
+    core.info(`Pr title ${prTitle} valid`);
+  } else {
+    core.info(`Pr title ${prTitle} invalid`);
+  }
+  return result;
+}
+
+async function checkPullRequestTitle(octokit, types, scopes) {
+  const prNumber = github.context.payload.pull_request.number;
+  core.info(`Getting pull request with number ${prNumber}`);
+  try {
+    if (!prNumber) {
+      throw new Error(`Failed getting pull request: pr number required`);
+    }
+    const { data: pullRequest } = await octokit.rest.pulls.get({
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
+      pull_number: prNumber,
+    });
+    core.info(`Pull request with number ${prNumber} retrieved`);
+    const prTitle = pullRequest.title;
+    return validatePullRequestTitle(prTitle, types, scopes);
+  } catch (error) {
+    throw new Error(`Failed getting pull request: ${error}`);
+  }
+}
+
+async function updateCheckRun(octokit, checkRunId, conclusion) {
+  core.info(`Updating check run with id ${checkRunId}`);
+  try {
+    if (!checkRunId) {
+      throw new Error(`Failed to update check run: id required`);
+    }
     await octokit.rest.checks.create({
       owner: github.context.repo.owner,
       repo: github.context.repo.repo,
-      name: id,
-      head_sha: commitSha,
+      check_run_id: checkRunId,
+      name: checkRunName,
+      status: 'completed',
+      conclusion,
+      output:
+        conclusion === 'success'
+          ? null
+          : {
+              title: "Your pr title doesn't follow the conventional commit specification",
+              summary: '',
+              text: '',
+            },
     });
-    core.info(`Check run with ${id} created`);
+    core.info(`Check run with ${checkRunId} created`);
   } catch (error) {
     throw new Error(`Failed to create check run: ${error}`);
   }
@@ -39,4 +107,6 @@ async function createCheckRun(octokit, id) {
 
 module.exports = {
   createCheckRun,
+  checkPullRequestTitle,
+  updateCheckRun,
 };

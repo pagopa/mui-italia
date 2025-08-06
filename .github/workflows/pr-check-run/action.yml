@@ -4,12 +4,15 @@ description: 'Manage pr check run'
 inputs:
   token:
     description: 'GitHub token'
+    type: string
     required: true
-  id:
-    description: 'The id of the message'
-    reqyured: true
-  show:
-    description: 'Show the message'
+  types:
+    description: 'Conventional commit types'
+    type: string
+    required: true
+  scopes:
+    description: 'Conventional commit scopes'
+    type: string
     required: true
 
 runs:
