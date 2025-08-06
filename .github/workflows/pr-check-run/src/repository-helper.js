@@ -16,7 +16,6 @@ async function findReview(octokit) {
       repo: github.context.repo.repo,
       pull_number: prNumber,
     });
-    core.info(JSON.stringify(reviews));
     const currentReview = reviews.find(
       (review) =>
         review.user.login === 'github-actions[bot]' && review.state === 'CHANGES_REQUESTED'
@@ -91,9 +90,9 @@ async function checkPullRequestTitle(octokit, types, scopes) {
   }
 }
 
-async function createReview(octokit, reviewBody) {
+async function createReview(octokit, reviewBody, status) {
   const prNumber = github.context.payload.pull_request.number;
-  core.info(`Creating review`);
+  core.info(`Creating review with status ${status}`);
   try {
     if (!prNumber) {
       throw new Error(`Failed creating review: pr number required`);
@@ -102,11 +101,10 @@ async function createReview(octokit, reviewBody) {
       owner: github.context.repo.owner,
       repo: github.context.repo.repo,
       pull_number: prNumber,
-      event: 'REQUEST_CHANGES',
+      event: status,
       body: reviewBody,
     });
-    core.info(JSON.stringify(review));
-    core.info(`Review created with id ${review.id}`);
+    core.info(`Review created with id ${review.id} and status ${status}`);
   } catch (error) {
     throw new Error(`Failed creating review: ${error}`);
   }

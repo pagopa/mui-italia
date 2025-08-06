@@ -1,6 +1,6 @@
 ### 🚨 PR title not valid 🚨
 
-The pr title doesn't meet the conventional commit specification.
+The pr title doesn't meet the conventional commit specifications.
 
 **Rules to follow:**
 

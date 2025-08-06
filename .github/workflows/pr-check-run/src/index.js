@@ -3,13 +3,7 @@ const github = require('@actions/github');
 const path = require('path');
 const fs = require('fs');
 
-const {
-  createCheckRun,
-  checkPullRequestTitle,
-  updateCheckRun,
-  findReview,
-  createReview,
-} = require('./repository-helper');
+const { checkPullRequestTitle, findReview, createReview } = require('./repository-helper');
 const { parseEnum } = require('./input-helper');
 
 async function run() {
@@ -26,13 +20,22 @@ async function run() {
       const review = await findReview(octokit);
       // check pr title
       const result = await checkPullRequestTitle(octokit, types, scopes);
-      // create review if it doesn't exist and if the check on pr title fails
+      // 1. create review if it doesn't exist and if the check on pr title fails
+      // 2. if review exists and the check on pr title fails, we mustn't do anything
+      // 3. approve review if it exists and the check on pr title succeeds
       if (!review && !result) {
         // first read the review template
         const templatePath = path.join(__dirname, 'review-template.md');
         const reviewBody = fs.readFileSync(templatePath, 'utf8');
         // create review
-        await createReview(octokit, reviewBody);
+        await createReview(octokit, reviewBody, 'REQUEST_CHANGES');
+      } else if (review && result) {
+        // approve review
+        await createReview(
+          octokit,
+          'The pr title follow the conventional commit specifications',
+          'APPROVE'
+        );
       }
       /*
       // create check run
@@ -41,7 +44,7 @@ async function run() {
       // update check run
       await updateCheckRun(octokit, id, result ? 'success' : 'failure');
       if (!result) {
-        throw new Error(`Pr title doesn't follow the conventional commit specification`);
+        throw new Error(`Pr title doesn't follow the conventional commit specifications`);
       }
         */
       return;
