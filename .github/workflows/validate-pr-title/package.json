@@ -1,5 +1,5 @@
 {
-  "name": "pr-check-run",
+  "name": "validate-pr-title",
   "version": "1.0.0",
   "description": "Manage pr check run",
   "main": "src/index.js",

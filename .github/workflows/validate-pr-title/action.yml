@@ -1,4 +1,4 @@
-name: 'pr-check-run'
+name: 'validate-pr-title'
 description: 'Manage pr check run'
 
 inputs:

@@ -29,13 +29,13 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
       - name: Install Packages
-        run: cd .github/workflows/pr-check-run && npm install
+        run: cd .github/workflows/validate-pr-title && npm install
       # feat(mui-123): Add `Button` component
       # feat -> type
       # mui-123 -> scope
       # Add `Button` component -> subject
       - name: Validate pr title
-        uses: ./.github/workflows/pr-check-run
+        uses: ./.github/workflows/validate-pr-title
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           # Configure which types are allowed.
