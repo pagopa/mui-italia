@@ -42,12 +42,6 @@ async function run() {
           'The pr title follow the conventional commit specifications'
         );
       }
-      /*
-      // create check run
-      const id = await createCheckRun(octokit);
-      
-      // update check run
-      await updateCheckRun(octokit, id, result ? 'success' : 'failure');*/
       if (!result) {
         throw new Error(`Pr title doesn't follow the conventional commit specifications`);
       }

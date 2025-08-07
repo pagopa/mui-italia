@@ -2,8 +2,6 @@ const github = require('@actions/github');
 const core = require('@actions/core');
 const RE2 = require('re2');
 
-const checkRunName = 'validate-pr-title';
-
 async function findReview(octokit) {
   core.info(`Finding review opened by github-actions[bot] and in status CHANGES_REQUESTED`);
   try {
@@ -28,23 +26,6 @@ async function findReview(octokit) {
     return currentReview;
   } catch (error) {
     throw new Error(`Failed to get review: ${error}`);
-  }
-}
-
-async function getLastCommitSha(octokit) {
-  core.debug(`Get last commit`);
-  try {
-    const { data: commit } = await octokit.rest.repos.listCommits({
-      owner: github.context.repo.owner,
-      repo: github.context.repo.repo,
-      sha: github.context.payload.pull_request.head.ref,
-      per_page: 1,
-    });
-    const sha = commit[0].sha;
-    core.debug(`Retrieved last commit with sha ${sha}`);
-    return sha;
-  } catch (error) {
-    throw new Error(`Failed to get last commit: ${error}`);
   }
 }
 
@@ -124,54 +105,9 @@ async function dismissReview(octokit, id, reviewBody) {
   }
 }
 
-async function createCheckRun(octokit) {
-  core.info(`Creating check run with name ${checkRunName}`);
-  try {
-    if (!checkRunName) {
-      throw new Error(`Failed to create check run: name required`);
-    }
-    const commitSha = await getLastCommitSha(octokit);
-    const { data: checkRun } = await octokit.rest.checks.create({
-      owner: github.context.repo.owner,
-      repo: github.context.repo.repo,
-      name: checkRunName,
-      head_sha: commitSha,
-    });
-    const checkRunId = checkRun.id;
-    core.info(`Check run ${checkRunName} with id ${checkRunId} created`);
-    return checkRunId;
-  } catch (error) {
-    throw new Error(`Failed to create check run: ${error}`);
-  }
-}
-
-async function updateCheckRun(octokit, checkRunId, conclusion) {
-  core.info(`Updating check run with id ${checkRunId}`);
-  try {
-    if (!checkRunId) {
-      throw new Error(`Failed to update check run: id required`);
-    }
-    const commitSha = await getLastCommitSha(octokit);
-    await octokit.rest.checks.create({
-      owner: github.context.repo.owner,
-      repo: github.context.repo.repo,
-      head_sha: commitSha,
-      check_run_id: checkRunId,
-      name: checkRunName,
-      status: 'completed',
-      conclusion,
-    });
-    core.info(`Check run with ${checkRunId} created`);
-  } catch (error) {
-    throw new Error(`Failed to create check run: ${error}`);
-  }
-}
-
 module.exports = {
   findReview,
   checkPullRequestTitle,
   createReview,
   dismissReview,
-  createCheckRun,
-  updateCheckRun,
 };
