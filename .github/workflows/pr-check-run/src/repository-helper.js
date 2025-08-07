@@ -1,6 +1,6 @@
 const github = require('@actions/github');
 const core = require('@actions/core');
-const safeRegex = require('safe-regex');
+const RE2 = require('re2');
 
 const checkRunName = 'validate-pr-title';
 
@@ -50,24 +50,18 @@ async function getLastCommitSha(octokit) {
 
 function validatePullRequestTitle(prTitle, types, scopes) {
   core.info(`Validate pr title "${prTitle}"`);
-  const prTitleRegex = new RegExp(
-    `^(?:${types.join('|')})(?:\\(${scopes.join('|')}\\)):\\s(?:.+)$`,
-    'g'
-  );
-  const isSafe = safeRegex(prTitleRegex);
-  if (!isSafe) {
-    throw new Error(
-      `The regular expresson ${prTitleRegex.toString()} is not safe against ReDoS attack`
-    );
+  try {
+    const re = new RE2(`^(?:${types.join('|')})(?:\\(${scopes.join('|')}\\)):\\s(?:.+)$`, 'g');
+    const result = re.test(prTitle);
+    if (result) {
+      core.info(`Pr title "${prTitle}" valid`);
+    } else {
+      core.info(`Pr title "${prTitle}" invalid`);
+    }
+    return result;
+  } catch (error) {
+    throw new Error(`Error in the reqular expression used for validation: ${error}`);
   }
-  core.debug(`Calculated regexp: ${prTitleRegex.toString()}`);
-  const result = prTitleRegex.test(prTitle);
-  if (result) {
-    core.info(`Pr title "${prTitle}" valid`);
-  } else {
-    core.info(`Pr title "${prTitle}" invalid`);
-  }
-  return result;
 }
 
 async function checkPullRequestTitle(octokit, types, scopes) {
@@ -107,6 +101,26 @@ async function createReview(octokit, reviewBody, status) {
     core.info(`Review created with id ${review.id} and status ${status}`);
   } catch (error) {
     throw new Error(`Failed creating review: ${error}`);
+  }
+}
+
+async function dismissReview(octokit, id, reviewBody) {
+  const prNumber = github.context.payload.pull_request.number;
+  core.info(`Dismissing review with id ${id}`);
+  try {
+    if (!prNumber) {
+      throw new Error(`Failed dismissing review: pr number required`);
+    }
+    const { data: review } = await octokit.rest.pulls.dismissReview({
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
+      pull_number: prNumber,
+      review_id: id,
+      message: reviewBody,
+    });
+    core.info(`Review with id ${review.id} dismissed`);
+  } catch (error) {
+    throw new Error(`Failed dismissing review with id ${id}: ${error}`);
   }
 }
 
@@ -157,6 +171,7 @@ module.exports = {
   findReview,
   checkPullRequestTitle,
   createReview,
+  dismissReview,
   createCheckRun,
   updateCheckRun,
 };

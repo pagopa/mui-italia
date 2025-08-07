@@ -7,6 +7,6 @@
   "dependencies": {
     "@actions/core": "^1.11.1",
     "@actions/github": "^6.0.1",
-    "safe-regex": "^2.1.1"
+    "re2": "^1.22.1"
   }
 }

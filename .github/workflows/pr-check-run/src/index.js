@@ -3,7 +3,12 @@ const github = require('@actions/github');
 const path = require('path');
 const fs = require('fs');
 
-const { checkPullRequestTitle, findReview, createReview } = require('./repository-helper');
+const {
+  checkPullRequestTitle,
+  findReview,
+  createReview,
+  dismissReview,
+} = require('./repository-helper');
 const { parseEnum } = require('./input-helper');
 
 async function run() {
@@ -22,7 +27,7 @@ async function run() {
       const result = await checkPullRequestTitle(octokit, types, scopes);
       // 1. create review if it doesn't exist and if the check on pr title fails
       // 2. if review exists and the check on pr title fails, we mustn't do anything
-      // 3. approve review if it exists and the check on pr title succeeds
+      // 3. dismiss review if it exists and the check on pr title succeeds
       if (!review && !result) {
         // first read the review template
         const templatePath = path.join(__dirname, 'review-template.md');
@@ -30,11 +35,11 @@ async function run() {
         // create review
         await createReview(octokit, reviewBody, 'REQUEST_CHANGES');
       } else if (review && result) {
-        // approve review
-        await createReview(
+        // dismiss review
+        await dismissReview(
           octokit,
-          'The pr title follow the conventional commit specifications',
-          'APPROVE'
+          review.id,
+          'The pr title follow the conventional commit specifications'
         );
       }
       /*
@@ -42,11 +47,10 @@ async function run() {
       const id = await createCheckRun(octokit);
       
       // update check run
-      await updateCheckRun(octokit, id, result ? 'success' : 'failure');
+      await updateCheckRun(octokit, id, result ? 'success' : 'failure');*/
       if (!result) {
         throw new Error(`Pr title doesn't follow the conventional commit specifications`);
       }
-        */
       return;
     }
     throw new Error(`No GitHub token specified`);
