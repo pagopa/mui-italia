@@ -1,24 +1,29 @@
-import { Box, Stack, Typography, useTheme } from '@mui/material';
+import { Box, Stack, Typography, useTheme, styled, keyframes } from '@mui/material';
 import { useRef, useLayoutEffect, useEffect, useState, useId } from 'react';
 import { blue, error as errorColor, neutral as neutralColor } from './../../theme/colors';
 
 /**
- * Type representing the current status of the code input
- * - `valid`: the code is complete and valid
- * - `incomplete`: the code is not complete yet
- * - `invalid-char`: contains invalid characters (e.g. letters)
+ * Constants used to size each character box and the spacing between them.
+ * These values are used for styling CharBox elements, controlling the horizontal spacing in the Stack,
+ * and for computing the total width of the code box to align the helper text accordingly.
  */
-export type CodeInputStatus = 'valid' | 'incomplete' | 'invalid-char';
+const charBoxWidth = 16;
+const charBoxSpacing = 16;
 
 /**
  *  CodeInput Props
  *
  * @typedef {Object} CodeInputProps
  * @property {number} length - Required number of characters for the code
- * @property {(value: string, status: CodeInputStatus) => void} onChange - Callback triggered on every input change
+ * @property {(value: string) => void} onChange - Callback triggered on every input change
+ * @property {'text' | 'numeric'} [inputMode] - Input mode applied to the internal HTML input element.
+ *                                              Useful for customizing the keyboard on mobile devices.
+ *                                              - 'text': shows the default alphanumeric keyboard.
+ *                                              - 'numeric': shows a numeric keypad (recommended for numeric codes).
+ *                                              Default: 'text'.
  * @property {string} value - Current code value, could be used for a controlled behaviour
  * @property {string} [id] - Optional ID for the input. If not provided, a unique one is generated
- * @property {string} [name='otp'] - Name of the input field
+ * @property {string} [name] - Optional name of the input field
  * @property {boolean} [encrypted=false] - If `true`, hides the actual characters using dots instead
  * @property {boolean} [error=false] - Displays error state layout
  * @property {string} [helperText] - Helper text, displayed below the input
@@ -28,7 +33,8 @@ export type CodeInputStatus = 'valid' | 'incomplete' | 'invalid-char';
  */
 export interface CodeInputProps {
   length: number;
-  onChange: (value: string, status: CodeInputStatus) => void;
+  onChange: (value: string) => void;
+  inputMode?: 'text' | 'numeric';
   value?: string;
   id?: string;
   name?: string;
@@ -39,6 +45,58 @@ export interface CodeInputProps {
   ariaLabelledby?: string;
   ariaDescribedby?: string;
 }
+
+const blink = keyframes`
+  50% { opacity: 0; }
+`;
+
+const Caret = styled('div')(() => ({
+  position: 'absolute',
+  top: '50%',
+  transform: 'translateY(-50%)',
+  width: '2px',
+  borderRadius: '2px',
+  height: '1em',
+  backgroundColor: blue[500],
+  animation: `${blink} 1s step-start infinite`,
+  transformOrigin: 'center',
+}));
+
+const CodeBox = styled(Box)<{ error?: boolean }>(({ error }) => ({
+  display: 'inline-block',
+  cursor: 'text',
+  padding: '12px 24px 16px',
+  border: `${error ? 2 : 1}px solid ${error ? errorColor[600] : neutralColor[100]}`,
+  borderRadius: '8px',
+}));
+
+const CharBox = styled(Box)(() => ({
+  width: `${charBoxWidth}px`,
+  height: '1.5em',
+  lineHeight: '1.5em',
+  paddingBottom: '2px',
+  marginBottom: '4px',
+  borderBottom: `1px solid ${neutralColor[700]}`,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  position: 'relative',
+  marginInline: '1px',
+}));
+
+const HelperText = styled(Typography)<{ error?: boolean }>(({ error, theme }) => ({
+  marginTop: theme.spacing(1),
+  fontSize: '14px',
+  lineHeight: '1em',
+  alignSelf: 'stretch',
+  width: 'auto',
+  maxWidth: '100%',
+  wordBreak: 'break-word',
+  boxSizing: 'content-box',
+  paddingLeft: theme.spacing(3),
+  paddingRight: theme.spacing(3),
+  color: error ? errorColor[600] : theme.palette.text.primary,
+}));
 
 /**
  * CodeInput – React component for entering OTP or PIN codes.
@@ -63,9 +121,10 @@ export interface CodeInputProps {
 const CodeInput = ({
   length,
   onChange,
+  inputMode = 'text',
   value,
   id: idProp,
-  name = 'otp',
+  name,
   encrypted = false,
   error = false,
   helperText,
@@ -74,7 +133,6 @@ const CodeInput = ({
   ariaDescribedby,
 }: CodeInputProps) => {
   const codeBoxRef = useRef<HTMLDivElement>(null);
-  const [codeBoxWidth, setCodeBoxWidth] = useState<number>();
 
   const theme = useTheme();
   const generatedId = useId();
@@ -90,17 +148,7 @@ const CodeInput = ({
   const [isFocused, setIsFocused] = useState(false);
   const [cursorIndex, setCursorIndex] = useState(sanitizedValue.length);
 
-  const fontSize = encrypted ? '1.5em' : '1em';
-  const fontFamily = "'Titillium Web', sans-serif";
-  const fontWeight = 600;
-  const inputMode = 'numeric';
-
-  const mainColor = theme.palette.text.primary;
-  const caretColor = blue[500];
-  const underlineColor = neutralColor[700];
-  const borderColor = error ? errorColor[600] : neutralColor[100];
-  const borderSize = error ? 2 : 1;
-  const helperTextColor = error ? errorColor[600] : mainColor;
+  const codeBoxWidth = length * charBoxWidth + (length - 1) * charBoxSpacing;
 
   useLayoutEffect(() => {
     if (hiddenInputRef.current) {
@@ -113,22 +161,9 @@ const CodeInput = ({
     hiddenInputRef.current?.focus();
   }, []);
 
-  useLayoutEffect(() => {
-    if (codeBoxRef.current) {
-      setCodeBoxWidth(codeBoxRef.current.offsetWidth);
-    }
-  }, [sanitizedValue.length, length]);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const raw = e.target.value;
-    const filtered = raw.replace(/\s/g, '').slice(0, length);
-
-    const allDigits = filtered.split('').every((c) => /^[0-9]$/.test(c));
-    const status: CodeInputStatus = !allDigits
-      ? 'invalid-char'
-      : filtered.length < length
-      ? 'incomplete'
-      : 'valid';
+    const filtered = raw.slice(0, length);
 
     const caretPos = e.target.selectionStart ?? filtered.length;
     setCursorIndex(caretPos);
@@ -136,7 +171,7 @@ const CodeInput = ({
     if (!isControlled) {
       setInternalValue(filtered);
     }
-    onChange?.(filtered, status);
+    onChange?.(filtered);
   };
 
   const handleKeyUp = () => {
@@ -160,22 +195,10 @@ const CodeInput = ({
 
   return (
     <Box sx={{ display: 'inline-block' }}>
-      <Box
-        ref={codeBoxRef}
-        onClick={handleContainerClick}
-        sx={{
-          display: 'inline-block',
-          cursor: 'text',
-          px: 3,
-          pt: 1.5,
-          pb: 2,
-          border: `${borderSize}px solid ${borderColor}`,
-          borderRadius: '8px',
-        }}
-      >
+      <CodeBox ref={codeBoxRef} onClick={handleContainerClick} error={error}>
         <input
           id={id}
-          name={name}
+          {...(name && { name })}
           ref={hiddenInputRef}
           type={encrypted ? 'password' : 'text'}
           inputMode={inputMode}
@@ -208,8 +231,13 @@ const CodeInput = ({
 
         <Stack
           direction="row"
-          spacing={2}
-          sx={{ fontSize, fontFamily, fontWeight, color: mainColor }}
+          spacing={`${charBoxSpacing}px`}
+          sx={{
+            fontSize: encrypted ? '1.5em' : '1em',
+            fontFamily: `'Titillium Web', sans-serif`,
+            fontWeight: 600,
+            color: theme.palette.text.primary,
+          }}
           aria-hidden
         >
           {Array.from({ length }).map((_, i) => {
@@ -233,72 +261,25 @@ const CodeInput = ({
               !(isEndOfValue && sanitizedValue[i]);
 
             return (
-              <Box
-                key={i}
-                onClick={() => handleCharClick(i)}
-                sx={{
-                  width: '1em',
-                  height: '1.5em',
-                  lineHeight: '1.5em',
-                  pb: '2px',
-                  mb: '4px',
-                  borderBottom: `1px solid ${underlineColor}`,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  position: 'relative',
-                  mx: '1px',
-                }}
-              >
+              <CharBox key={i} onClick={() => handleCharClick(i)}>
                 {displayedChar && <Box component="span">{displayedChar}</Box>}
                 {(isCursorHere || isNextEmptyBox || isEndOfValue) && (
-                  <Box
+                  <Caret
                     sx={{
-                      position: 'absolute',
-                      top: '50%',
-                      transform: 'translateY(-50%)',
-                      width: '2px',
-                      borderRadius: '2px',
-                      height: '1em',
-                      backgroundColor: caretColor,
-                      animation: 'blink 1s step-start infinite',
                       left: isNextEmptyBox ? '50%' : isEndOfValue ? 'calc(100% + 1px)' : '-1px',
-                      transformOrigin: 'center',
                     }}
                   />
                 )}
-              </Box>
+              </CharBox>
             );
           })}
         </Stack>
-
-        <style>
-          {`
-            @keyframes blink {
-              50% { opacity: 0; }
-            }
-          `}
-        </style>
-      </Box>
+      </CodeBox>
 
       {helperText && (
-        <Typography
-          id={helperTextId}
-          mt={1}
-          fontSize="14px"
-          lineHeight="1em"
-          color={helperTextColor}
-          alignSelf="stretch"
-          sx={{
-            width: codeBoxWidth ?? 'auto',
-            maxWidth: '100%',
-            wordBreak: 'break-word',
-            boxSizing: 'border-box',
-            px: 3,
-          }}
-        >
+        <HelperText id={helperTextId} error={error} sx={{ width: codeBoxWidth }}>
           {helperText}
-        </Typography>
+        </HelperText>
       )}
     </Box>
   );
