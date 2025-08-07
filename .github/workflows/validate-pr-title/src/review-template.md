@@ -11,6 +11,8 @@ It must be written in the form `type(scope): subject`, where type is for the typ
 <details>
 <summary>Click here to see the Rules of Thumb 💡</summary>
 
+<br />
+
 **feat: A new feature for the user**
 Rule of Thumb: Does this change introduce a new capability, screen, or piece of functionality that the end-user can directly see or interact with?
 
