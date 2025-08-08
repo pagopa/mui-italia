@@ -4,7 +4,7 @@ The pr title doesn't meet the conventional commit specifications.
 
 **Rules to follow:**
 
-It must be written in the form `type(scope): subject`, where type is for the type of the changes (feta, fix, chore, ecc...), scope is the code of the issue on jira (mui-123) and tge subject is a short description of what has been done in the pr.
+It must be written in the form `type(scope): subject`, where type is for the type of the changes (feat, fix, chore, ecc...), scope is the code of the issue on jira (mui-123) and the subject is a short description of what has been done in the pr.
 
 ⚠️ If you don't know which type to choose, follow the Rules of Thumb below.
 
