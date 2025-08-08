@@ -1,0 +1,20 @@
+name: 'validate-pr-title'
+description: 'Manage pr check run'
+
+inputs:
+  token:
+    description: 'GitHub token'
+    type: string
+    required: true
+  types:
+    description: 'Conventional commit types'
+    type: string
+    required: true
+  scopes:
+    description: 'Conventional commit scopes'
+    type: string
+    required: true
+
+runs:
+  using: 'node20'
+  main: 'src/index.js'

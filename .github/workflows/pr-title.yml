@@ -1,0 +1,56 @@
+name: 'Validate PR title'
+
+# Event for the workflow
+on:
+  pull_request:
+    branches-ignore:
+      - release*
+      - hotfix*
+      - dependabot*
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+
+permissions:
+  pull-requests: write
+  checks: write # Questo è il permesso necessario per i check run
+
+# List of jobs
+jobs:
+  validate-pr-title:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Git Config
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+      - name: Install Packages
+        run: cd .github/workflows/validate-pr-title && npm install
+      # feat(mui-123): Add `Button` component
+      # feat -> type
+      # mui-123 -> scope
+      # Add `Button` component -> subject
+      - name: Validate pr title
+        uses: ./.github/workflows/validate-pr-title
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # Configure which types are allowed.
+          # Default: https://github.com/commitizen/conventional-commit-types
+          types: |
+            fix
+            feat
+            build
+            chore
+            docs
+            refactor
+            style
+            ci
+            perf
+            test
+          # Configure which scopes are allowed (newline-delimited).
+          scopes: |
+            (?:MUI|mui|M20DS)-\d+
