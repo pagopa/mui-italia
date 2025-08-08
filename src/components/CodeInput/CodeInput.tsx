@@ -3,12 +3,18 @@ import { useRef, useLayoutEffect, useEffect, useState, useId } from 'react';
 import { blue, error as errorColor, neutral as neutralColor } from './../../theme/colors';
 
 /**
- * Constants used to size each character box and the spacing between them.
- * These values are used for styling CharBox elements, controlling the horizontal spacing in the Stack,
- * and for computing the total width of the code box to align the helper text accordingly.
+ * Layout constants used to size the code input component.
+ * All values are expressed in theme spacing units.
+ * These control the size and spacing of character boxes,
+ * as well as the padding and border radius of the container.
  */
-const charBoxWidth = 16;
-const charBoxSpacing = 16;
+const charBoxWidth = 2; // 2 * 8px = 16px
+const charBoxSpacing = 2;
+const codeBoxPaddingX = 3;
+const codeBoxPaddingTop = 1.5;
+const codeBoxPaddingBottom = 2;
+const codeBoxBorderRadius = 1;
+const codeBoxErrorBorder = 0.25;
 
 /**
  *  CodeInput Props
@@ -46,11 +52,16 @@ export interface CodeInputProps {
   ariaDescribedby?: string;
 }
 
+type CaretPosition = {
+  index: number;
+  position: 'start' | 'center' | 'end';
+};
+
 const blink = keyframes`
   50% { opacity: 0; }
 `;
 
-const Caret = styled('div')(() => ({
+const Caret = styled('div')<{ position: CaretPosition['position'] }>(({ position }) => ({
   position: 'absolute',
   top: '50%',
   transform: 'translateY(-50%)',
@@ -60,28 +71,33 @@ const Caret = styled('div')(() => ({
   backgroundColor: blue[500],
   animation: `${blink} 1s step-start infinite`,
   transformOrigin: 'center',
+  left: position === 'center' ? '50%' : position === 'end' ? 'calc(100% + 1px)' : '-1px',
 }));
 
-const CodeBox = styled(Box)<{ error?: boolean }>(({ error }) => ({
+const CodeBox = styled(Box)<{ error?: boolean }>(({ theme, error }) => ({
   display: 'inline-block',
   cursor: 'text',
-  padding: '12px 24px 16px',
-  border: `${error ? 2 : 1}px solid ${error ? errorColor[600] : neutralColor[100]}`,
-  borderRadius: '8px',
+  padding: `${theme.spacing(codeBoxPaddingTop)} ${theme.spacing(codeBoxPaddingX)} ${theme.spacing(
+    codeBoxPaddingBottom
+  )}`,
+  border: `${theme.spacing(error ? codeBoxErrorBorder : 0.125)} solid ${
+    error ? errorColor[600] : neutralColor[100]
+  }`,
+  borderRadius: theme.spacing(codeBoxBorderRadius),
 }));
 
-const CharBox = styled(Box)(() => ({
-  width: `${charBoxWidth}px`,
+const CharBox = styled(Box)(({ theme }) => ({
+  width: theme.spacing(charBoxWidth),
   height: '1.5em',
   lineHeight: '1.5em',
-  paddingBottom: '2px',
-  marginBottom: '4px',
+  paddingBottom: theme.spacing(0.25),
+  marginBottom: theme.spacing(0.5),
   borderBottom: `1px solid ${neutralColor[700]}`,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   position: 'relative',
-  marginInline: '1px',
+  marginInline: theme.spacing(0.125),
 }));
 
 const HelperText = styled(Typography)<{ error?: boolean }>(({ error, theme }) => ({
@@ -146,55 +162,75 @@ const CodeInput = ({
 
   const hiddenInputRef = useRef<HTMLInputElement>(null);
   const [isFocused, setIsFocused] = useState(false);
-  const [cursorIndex, setCursorIndex] = useState(sanitizedValue.length);
+  const [caretPosition, setCaretPosition] = useState<CaretPosition | null>(null);
 
-  const codeBoxWidth = length * charBoxWidth + (length - 1) * charBoxSpacing;
+  const codeBoxContentWidth = length * charBoxWidth + (length - 1) * charBoxSpacing;
+
+  const containerWidth = theme.spacing(
+    codeBoxContentWidth + 2 * codeBoxPaddingX + 2 * codeBoxErrorBorder
+  );
 
   useLayoutEffect(() => {
-    if (hiddenInputRef.current) {
-      const pos = hiddenInputRef.current.selectionStart ?? sanitizedValue.length;
-      setCursorIndex(pos);
+    if (!isFocused || !hiddenInputRef.current) {
+      return;
     }
-  }, [sanitizedValue]);
+
+    const pos = hiddenInputRef.current.selectionStart ?? sanitizedValue.length;
+
+    if (caretPosition?.index !== pos) {
+      updateCaretPosition(pos);
+    }
+  }, [sanitizedValue, isFocused]);
 
   useEffect(() => {
     hiddenInputRef.current?.focus();
   }, []);
+
+  const updateCaretPosition = (pos: number) => {
+    if (!isFocused || pos < 0 || pos > length) {
+      return;
+    }
+    if (sanitizedValue.length === length && pos === length) {
+      setCaretPosition({ index: length - 1, position: 'end' });
+    } else if (pos === sanitizedValue.length) {
+      setCaretPosition({ index: sanitizedValue.length, position: 'center' });
+    } else {
+      setCaretPosition({ index: pos, position: 'start' });
+    }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const raw = e.target.value;
     const filtered = raw.slice(0, length);
 
     const caretPos = e.target.selectionStart ?? filtered.length;
-    setCursorIndex(caretPos);
 
     if (!isControlled) {
       setInternalValue(filtered);
     }
     onChange?.(filtered);
+    updateCaretPosition(caretPos);
   };
 
   const handleKeyUp = () => {
-    const input = hiddenInputRef.current;
-    if (input) {
-      const pos = input.selectionStart ?? sanitizedValue.length;
-      setCursorIndex(pos);
-    }
-  };
-
-  const handleContainerClick = () => {
-    hiddenInputRef.current?.focus();
+    const pos = hiddenInputRef.current?.selectionStart ?? sanitizedValue.length;
+    updateCaretPosition(pos);
   };
 
   const handleCharClick = (index: number) => {
     const pos = index > sanitizedValue.length ? sanitizedValue.length : index;
     hiddenInputRef.current?.focus();
     hiddenInputRef.current?.setSelectionRange(pos, pos);
-    setCursorIndex(pos);
+    setIsFocused(true);
+    updateCaretPosition(pos);
+  };
+
+  const handleContainerClick = () => {
+    hiddenInputRef.current?.focus();
   };
 
   return (
-    <Box sx={{ display: 'inline-block' }}>
+    <Box sx={{ display: 'inline-block', width: containerWidth }}>
       <CodeBox ref={codeBoxRef} onClick={handleContainerClick} error={error}>
         <input
           id={id}
@@ -225,13 +261,17 @@ const CodeInput = ({
             const pos = e.target.value.length;
             e.target.setSelectionRange(pos, pos);
             setIsFocused(true);
+            updateCaretPosition(pos);
           }}
-          onBlur={() => setIsFocused(false)}
+          onBlur={() => {
+            setIsFocused(false);
+            setCaretPosition(null);
+          }}
         />
 
         <Stack
           direction="row"
-          spacing={`${charBoxSpacing}px`}
+          spacing={theme.spacing(charBoxSpacing)}
           sx={{
             fontSize: encrypted ? '1.5em' : '1em',
             fontFamily: `'Titillium Web', sans-serif`,
@@ -244,32 +284,10 @@ const CodeInput = ({
             const char = sanitizedValue[i] || '';
             const displayedChar = encrypted && char ? '•' : char;
 
-            const isEndOfValue =
-              isFocused &&
-              sanitizedValue.length === length &&
-              cursorIndex === length &&
-              i === length - 1;
-            const isNextEmptyBox =
-              isFocused &&
-              cursorIndex === sanitizedValue.length &&
-              sanitizedValue.length < length &&
-              i === sanitizedValue.length;
-            const isCursorHere =
-              isFocused &&
-              cursorIndex === i &&
-              !isNextEmptyBox &&
-              !(isEndOfValue && sanitizedValue[i]);
-
             return (
               <CharBox key={i} onClick={() => handleCharClick(i)}>
                 {displayedChar && <Box component="span">{displayedChar}</Box>}
-                {(isCursorHere || isNextEmptyBox || isEndOfValue) && (
-                  <Caret
-                    sx={{
-                      left: isNextEmptyBox ? '50%' : isEndOfValue ? 'calc(100% + 1px)' : '-1px',
-                    }}
-                  />
-                )}
+                {caretPosition?.index === i && <Caret position={caretPosition.position} />}
               </CharBox>
             );
           })}
@@ -277,7 +295,7 @@ const CodeInput = ({
       </CodeBox>
 
       {helperText && (
-        <HelperText id={helperTextId} error={error} sx={{ width: codeBoxWidth }}>
+        <HelperText id={helperTextId} error={error}>
           {helperText}
         </HelperText>
       )}
