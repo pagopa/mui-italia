@@ -148,8 +148,6 @@ const CodeInput = ({
   ariaLabelledby,
   ariaDescribedby,
 }: CodeInputProps) => {
-  const codeBoxRef = useRef<HTMLDivElement>(null);
-
   const theme = useTheme();
   const generatedId = useId();
   const id = idProp ?? generatedId;
@@ -231,7 +229,7 @@ const CodeInput = ({
 
   return (
     <Box sx={{ display: 'inline-block', width: containerWidth }}>
-      <CodeBox ref={codeBoxRef} onClick={handleContainerClick} error={error}>
+      <CodeBox onClick={handleContainerClick} error={error}>
         <input
           id={id}
           {...(name && { name })}
