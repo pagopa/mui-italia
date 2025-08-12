@@ -53,7 +53,9 @@ export const AccountDropdown = ({ user, userActions }: AccountDropdownProps) => 
       {/* START Account Button MOBILE/DESKTOP */}
       <ButtonNaked
         size="small"
-        aria-label="party-menu-button"
+        aria-label={
+          user.name && user.surname ? `Profilo di ${user.name} ${user.surname}` : 'Profilo utente'
+        }
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
