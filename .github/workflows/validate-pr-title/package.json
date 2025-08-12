@@ -1,0 +1,12 @@
+{
+  "name": "validate-pr-title",
+  "version": "1.0.0",
+  "description": "Manage pr check run",
+  "main": "src/index.js",
+  "author": "Andrea Cimini",
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@actions/github": "^6.0.1",
+    "re2": "^1.22.1"
+  }
+}
