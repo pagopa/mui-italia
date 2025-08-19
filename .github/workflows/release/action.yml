@@ -1,0 +1,23 @@
+name: 'release'
+description: 'Manage release flow'
+
+inputs:
+  token:
+    description: 'GitHub token'
+    type: string
+    required: true
+  ref:
+    description: 'Branch from which create the release'
+    required: true
+  type:
+    description: 'Define if it is a release or an hotfix'
+    type: string
+    required: true
+  final_release:
+    description: 'Flag to set if the current release is a final release'
+    type: boolean
+    required: false
+
+runs:
+  using: 'node20'
+  main: 'src/index.js'
