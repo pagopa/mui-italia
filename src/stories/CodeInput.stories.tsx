@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { Box } from '@mui/material';
-import CodeInput, { CodeInputProps, CodeInputStatus } from '../components/CodeInput/CodeInput';
+import CodeInput, { CodeInputProps } from '../components/CodeInput/CodeInput';
 
 const meta: Meta<typeof CodeInput> = {
   title: 'Components/CodeInput',
@@ -12,46 +12,15 @@ const meta: Meta<typeof CodeInput> = {
 export default meta;
 type Story = StoryObj<typeof CodeInput>;
 
-type ExtendedArgs = CodeInputProps & {
-  getHelperText?: (status: CodeInputStatus) => string;
-  showError?: boolean;
-  initialValue?: string;
-  initialStatus?: CodeInputStatus;
-};
-
-const StatefulTemplate = (args: ExtendedArgs) => {
-  const {
-    getHelperText,
-    showError,
-    initialValue = '',
-    initialStatus = 'incomplete',
-    ...codeInputProps
-  } = args;
-
-  const [value, setValue] = useState(initialValue);
-  const [status, setStatus] = useState<CodeInputStatus>(initialStatus);
-
-  const helperText = getHelperText ? getHelperText(status) : '';
-  const error = showError ? status === 'invalid-char' : false;
+const StatefulTemplate = (args: CodeInputProps) => {
+  const [value, setValue] = useState(args.value ?? '');
 
   return (
     <Box>
-      <CodeInput
-        {...codeInputProps}
-        value={value}
-        onChange={(value, status) => {
-          setValue(value);
-          setStatus(status);
-        }}
-        helperText={helperText}
-        error={error}
-      />
-      <Box mt={2} fontSize="0.875rem" color="text.secondary">
+      <CodeInput {...args} value={value} onChange={setValue} />
+      <Box mt={2} fontSize="0.75rem" color="text.secondary">
         <div>
           <strong>Value:</strong> {value}
-        </div>
-        <div>
-          <strong>Status:</strong> {status}
         </div>
       </Box>
     </Box>
@@ -73,25 +42,20 @@ export const Encrypted: Story = {
   },
 };
 
+export const NumericInputMode: Story = {
+  render: StatefulTemplate,
+  args: {
+    length: 6,
+    inputMode: 'numeric',
+    helperText: 'Only numbers allowed – mobile keyboard test',
+  },
+};
+
 export const Prefilled: Story = {
-  render: (args) => (
-    <StatefulTemplate
-      {...args}
-      initialValue="12345"
-      initialStatus="valid"
-      getHelperText={(status) => {
-        if (status === 'incomplete') {
-          return 'Completa il codice per proseguire';
-        }
-        if (status === 'invalid-char') {
-          return 'Inserisci solo cifre';
-        }
-        return '';
-      }}
-    />
-  ),
+  render: StatefulTemplate,
   args: {
     length: 5,
+    value: '12345',
   },
 };
 
@@ -103,63 +67,68 @@ export const LongCode: Story = {
 };
 
 export const WithError: Story = {
-  render: (args) => (
-    <StatefulTemplate
-      {...args}
-      getHelperText={(status) => {
-        if (status === 'invalid-char') {
-          return 'Inserisci solo cifre';
-        }
-        return '';
-      }}
-      showError
-    />
-  ),
+  render: (args) => {
+    const [value, setValue] = useState('ab');
+    const [error, setError] = useState(true);
+
+    const handleChange = (val: string) => {
+      setValue(val);
+      const isNumericOnly = /^\d*$/.test(val);
+      setError(!isNumericOnly);
+    };
+
+    return (
+      <Box>
+        <CodeInput
+          {...args}
+          value={value}
+          onChange={handleChange}
+          error={error}
+          helperText={error ? 'Invalid code format' : 'Insert a numeri value'}
+        />
+        <Box mt={2} fontSize="0.75rem" color="text.secondary">
+          <div>
+            <strong>Value:</strong> {value}
+          </div>
+          <div>
+            <strong>Error:</strong> {error ? 'true' : 'false'}
+          </div>
+        </Box>
+      </Box>
+    );
+  },
   args: {
     length: 6,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'This story starts with an invalid value (`"ab"`) to show the error layout. The error dynamically updates based on whether the entered code is numeric.',
+      },
+    },
   },
 };
 
 export const WithHelperText: Story = {
-  render: (args) => (
-    <StatefulTemplate
-      {...args}
-      getHelperText={(status) => {
-        if (status === 'incomplete') {
-          return 'Completa il codice, inserendo un valore numerico, per proseguire';
-        }
-        if (status === 'invalid-char') {
-          return 'Inserisci solo cifre';
-        }
-        return '';
-      }}
-      showError
-    />
-  ),
+  render: StatefulTemplate,
   args: {
     length: 5,
+    value: '',
+    helperText: 'Enter the verification code sent via SMS',
   },
 };
 
 export const Uncontrolled: Story = {
   render: () => {
-    const [value, setValue] = useState<string>('');
-    const [status, setStatus] = useState<CodeInputStatus>('incomplete');
-
-    const handleChange = (value: string, status: CodeInputStatus) => {
-      setValue(value);
-      setStatus(status);
-    };
+    const [value, setValue] = useState('');
 
     return (
       <Box>
-        <CodeInput ariaLabel="Codice OTP" length={5} onChange={handleChange} />
-        <Box mt={2} fontSize="0.875rem" color="text.secondary">
+        <CodeInput ariaLabel="Codice OTP" length={5} onChange={setValue} />
+        <Box mt={2} fontSize="0.75rem" color="text.secondary">
           <div>
             <strong>Value:</strong> {value}
-          </div>
-          <div>
-            <strong>Status:</strong> {status}
           </div>
         </Box>
       </Box>
