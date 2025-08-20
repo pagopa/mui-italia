@@ -1,7 +1,7 @@
-const core = require('@actions/core');
-const github = require('@actions/github');
+import core from '@actions/core';
+import github from '@actions/github';
 
-async function checkIfRefExists(octokit, ref) {
+export async function checkIfRefExists(octokit, ref) {
   core.debug(`Checking if ref ${ref} exists`);
   try {
     const { data: reference } = await octokit.rest.git.getRef({
@@ -16,7 +16,7 @@ async function checkIfRefExists(octokit, ref) {
   }
 }
 
-async function getLatestTag(octokit, branchName) {
+export async function getLatestTag(octokit, branchName) {
   core.info(`Getting the latest release in the history of the branch ${branchName}`);
   try {
     // retrieve branch commits
@@ -55,8 +55,3 @@ async function getLatestTag(octokit, branchName) {
     throw new Error(`Error during release retrieving: ${error}`);
   }
 }
-
-module.exports = {
-  checkIfRefExists,
-  getLatestTag,
-};

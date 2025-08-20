@@ -1,8 +1,9 @@
-const core = require('@actions/core');
-const github = require('@actions/github');
+import core from '@actions/core';
+import github from '@actions/github';
 
-const { checkInputs } = require('./input-helper');
-const { getLatestTag, checkIfRefExists } = require('./repository-helper');
+import { checkInputs } from './input-helper.js';
+import { getLatestTag, checkIfRefExists } from './repository-helper.js';
+import { calcNextTag } from './utility-helper.js';
 
 async function run() {
   try {
@@ -17,9 +18,10 @@ async function run() {
       await checkIfRefExists(octokit, `heads/${refBranch}`);
       // get the latest tag linked to current branch
       const latestTag = await getLatestTag(octokit, refBranch);
-      // checkout to the current tag
+      // calc the new tag
+      const nextTag = await calcNextTag(latestTag.tag, type, finalRelease);
 
-      core.info(JSON.stringify(currentTag));
+      core.info(nextTag);
       return;
     }
     throw new Error(`No GitHub token specified`);

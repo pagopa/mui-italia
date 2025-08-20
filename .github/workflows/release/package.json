@@ -4,11 +4,11 @@
   "description": "Action to manage the release flow",
   "main": "src/index.js",
   "author": "Andrea Cimini",
+  "type": "module",
   "dependencies": {
     "@actions/core": "^1.11.1",
     "@actions/github": "^6.0.1",
-    "conventional-changelog-core": "^9.0.0",
-    "conventional-commits-parser": "^6.2.0",
+    "conventional-changelog-angular": "^8.0.0",
     "conventional-recommended-bump": "^11.2.0",
     "re2": "^1.22.1"
   }

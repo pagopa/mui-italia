@@ -1,10 +1,10 @@
-const core = require('@actions/core');
+import core from '@actions/core';
 
-function checkInputs() {
+export function checkInputs() {
   // get user inputs
   const refBranch = core.getInput('ref');
   const type = core.getInput('type');
-  const finalRelease = core.getInput('final_release');
+  const finalRelease = Boolean(core.getInput('final_release'));
 
   if (type !== 'release' && type !== 'hotfix') {
     throw new Error(`Type ${type} is not among those allowed`);
@@ -12,7 +12,3 @@ function checkInputs() {
 
   return { refBranch, type, finalRelease };
 }
-
-module.exports = {
-  checkInputs,
-};
