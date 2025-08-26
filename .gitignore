@@ -34,3 +34,7 @@ yarn-error.log*
 yarn.lock
 .vercel
 build-storybook.log
+
+# github action
+.actrc
+pr_event.json
