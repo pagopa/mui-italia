@@ -119,6 +119,38 @@ export const WithHelperText: Story = {
   },
 };
 
+export const ReadOnly: Story = {
+  render: (args) => (
+    <Box>
+      <CodeInput
+        {...args}
+        onChange={() => {
+          /* noop in read-only */
+        }}
+      />
+      <Box mt={2} fontSize="0.75rem" color="text.secondary">
+        <div>
+          <strong>Value:</strong> {args.value}
+        </div>
+      </Box>
+    </Box>
+  ),
+  args: {
+    length: 5,
+    value: '12345',
+    readOnly: true,
+    helperText: 'Code is read-only',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Displays a pre-filled code in read-only mode. The input is non-editable and no caret is shown.',
+      },
+    },
+  },
+};
+
 export const Uncontrolled: Story = {
   render: () => {
     const [value, setValue] = useState('');

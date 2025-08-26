@@ -28,6 +28,7 @@ const codeBoxErrorBorder = 0.25;
  *                                              - 'numeric': shows a numeric keypad (recommended for numeric codes).
  *                                              Default: 'text'.
  * @property {string} value - Current code value, could be used for a controlled behaviour
+ * @property {boolean} [readOnly=false] - If `true`, the input is non-editable but still accessible for screen readers
  * @property {string} [id] - Optional ID for the input. If not provided, a unique one is generated
  * @property {string} [name] - Optional name of the input field
  * @property {boolean} [encrypted=false] - If `true`, hides the actual characters using dots instead
@@ -42,6 +43,7 @@ export interface CodeInputProps {
   onChange: (value: string) => void;
   inputMode?: 'text' | 'numeric';
   value?: string;
+  readOnly?: boolean;
   id?: string;
   name?: string;
   encrypted?: boolean;
@@ -74,7 +76,9 @@ const Caret = styled('div')<{ position: CaretPosition['position'] }>(({ position
   left: position === 'center' ? '50%' : position === 'end' ? 'calc(100% + 1px)' : '-1px',
 }));
 
-const CodeBox = styled(Box)<{ error?: boolean }>(({ theme, error }) => ({
+const CodeBox = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'error',
+})<{ error?: boolean }>(({ theme, error }) => ({
   display: 'inline-block',
   cursor: 'text',
   padding: `${theme.spacing(codeBoxPaddingTop)} ${theme.spacing(codeBoxPaddingX)} ${theme.spacing(
@@ -100,7 +104,9 @@ const CharBox = styled(Box)(({ theme }) => ({
   marginInline: theme.spacing(0.125),
 }));
 
-const HelperText = styled(Typography)<{ error?: boolean }>(({ error, theme }) => ({
+const HelperText = styled(Typography, {
+  shouldForwardProp: (prop) => prop !== 'error',
+})<{ error?: boolean }>(({ error, theme }) => ({
   marginTop: theme.spacing(1),
   fontSize: '14px',
   lineHeight: '1em',
@@ -139,6 +145,7 @@ const CodeInput = ({
   onChange,
   inputMode = 'text',
   value,
+  readOnly = false,
   id: idProp,
   name,
   encrypted = false,
@@ -169,7 +176,7 @@ const CodeInput = ({
   );
 
   useLayoutEffect(() => {
-    if (!isFocused || !hiddenInputRef.current) {
+    if (readOnly || !isFocused || !hiddenInputRef.current) {
       return;
     }
 
@@ -178,14 +185,16 @@ const CodeInput = ({
     if (caretPosition?.index !== pos) {
       updateCaretPosition(pos);
     }
-  }, [sanitizedValue, isFocused]);
+  }, [sanitizedValue, isFocused, readOnly]);
 
   useEffect(() => {
-    hiddenInputRef.current?.focus();
-  }, []);
+    if (!readOnly) {
+      hiddenInputRef.current?.focus();
+    }
+  }, [readOnly]);
 
   const updateCaretPosition = (pos: number) => {
-    if (!isFocused || pos < 0 || pos > length) {
+    if (readOnly || !isFocused || pos < 0 || pos > length) {
       return;
     }
     if (sanitizedValue.length === length && pos === length) {
@@ -198,6 +207,9 @@ const CodeInput = ({
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (readOnly) {
+      return;
+    }
     const raw = e.target.value;
     const filtered = raw.slice(0, length);
 
@@ -211,11 +223,17 @@ const CodeInput = ({
   };
 
   const handleKeyUp = () => {
+    if (readOnly) {
+      return;
+    }
     const pos = hiddenInputRef.current?.selectionStart ?? sanitizedValue.length;
     updateCaretPosition(pos);
   };
 
   const handleCharClick = (index: number) => {
+    if (readOnly) {
+      return;
+    }
     const pos = index > sanitizedValue.length ? sanitizedValue.length : index;
     hiddenInputRef.current?.focus();
     hiddenInputRef.current?.setSelectionRange(pos, pos);
@@ -229,7 +247,11 @@ const CodeInput = ({
 
   return (
     <Box sx={{ display: 'inline-block', width: containerWidth }}>
-      <CodeBox onClick={handleContainerClick} error={error}>
+      <CodeBox
+        onClick={handleContainerClick}
+        error={error}
+        sx={{ cursor: readOnly ? 'default' : 'text' }}
+      >
         <input
           id={id}
           {...(name && { name })}
@@ -241,6 +263,8 @@ const CodeInput = ({
           onChange={handleChange}
           onKeyUp={handleKeyUp}
           maxLength={length}
+          readOnly={readOnly}
+          tabIndex={0}
           {...(ariaLabel && { 'aria-label': ariaLabel })}
           {...(ariaLabelledby && { 'aria-labelledby': ariaLabelledby })}
           {...(helperTextId || ariaDescribedby
@@ -256,6 +280,11 @@ const CodeInput = ({
             width: 0,
           }}
           onFocus={(e) => {
+            if (readOnly) {
+              setIsFocused(false);
+              setCaretPosition(null);
+              return;
+            }
             const pos = e.target.value.length;
             e.target.setSelectionRange(pos, pos);
             setIsFocused(true);
@@ -281,11 +310,12 @@ const CodeInput = ({
           {Array.from({ length }).map((_, i) => {
             const char = sanitizedValue[i] || '';
             const displayedChar = encrypted && char ? '•' : char;
+            const showCaret = !readOnly && caretPosition?.index === i;
 
             return (
               <CharBox key={i} onClick={() => handleCharClick(i)}>
                 {displayedChar && <Box component="span">{displayedChar}</Box>}
-                {caretPosition?.index === i && <Caret position={caretPosition.position} />}
+                {showCaret && <Caret position={caretPosition.position} />}
               </CharBox>
             );
           })}
