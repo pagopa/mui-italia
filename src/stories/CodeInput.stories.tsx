@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import CodeInput, { CodeInputProps } from '../components/CodeInput/CodeInput';
 
@@ -14,6 +14,11 @@ type Story = StoryObj<typeof CodeInput>;
 
 const StatefulTemplate = (args: CodeInputProps) => {
   const [value, setValue] = useState(args.value ?? '');
+
+  // Keeps the state in sync when the value is changed using Storybook Controls
+  useEffect(() => {
+    setValue(args.value ?? '');
+  }, [args.value]);
 
   return (
     <Box>
@@ -120,21 +125,7 @@ export const WithHelperText: Story = {
 };
 
 export const ReadOnly: Story = {
-  render: (args) => (
-    <Box>
-      <CodeInput
-        {...args}
-        onChange={() => {
-          /* noop in read-only */
-        }}
-      />
-      <Box mt={2} fontSize="0.75rem" color="text.secondary">
-        <div>
-          <strong>Value:</strong> {args.value}
-        </div>
-      </Box>
-    </Box>
-  ),
+  render: StatefulTemplate,
   args: {
     length: 5,
     value: '12345',

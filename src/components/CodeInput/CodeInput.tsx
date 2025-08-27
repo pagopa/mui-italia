@@ -1,5 +1,5 @@
 import { Box, Stack, Typography, useTheme, styled, keyframes } from '@mui/material';
-import { useRef, useLayoutEffect, useEffect, useState, useId } from 'react';
+import { useRef, useLayoutEffect, useState, useId } from 'react';
 import { blue, error as errorColor, neutral as neutralColor } from './../../theme/colors';
 
 /**
@@ -187,12 +187,6 @@ const CodeInput = ({
     }
   }, [sanitizedValue, isFocused, readOnly]);
 
-  useEffect(() => {
-    if (!readOnly) {
-      hiddenInputRef.current?.focus();
-    }
-  }, [readOnly]);
-
   const updateCaretPosition = (pos: number) => {
     if (readOnly || !isFocused || pos < 0 || pos > length) {
       return;
@@ -264,7 +258,7 @@ const CodeInput = ({
           onKeyUp={handleKeyUp}
           maxLength={length}
           readOnly={readOnly}
-          tabIndex={0}
+          aria-invalid={error || undefined}
           {...(ariaLabel && { 'aria-label': ariaLabel })}
           {...(ariaLabelledby && { 'aria-labelledby': ariaLabelledby })}
           {...(helperTextId || ariaDescribedby
