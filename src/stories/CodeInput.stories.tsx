@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import CodeInput, { CodeInputProps } from '../components/CodeInput/CodeInput';
 
@@ -20,6 +20,11 @@ type Story = StoryObj<typeof CodeInput>;
 
 const StatefulTemplate = (args: CodeInputProps) => {
   const [value, setValue] = useState(args.value ?? '');
+
+  // Keeps the state in sync when the value is changed using Storybook Controls
+  useEffect(() => {
+    setValue(args.value ?? '');
+  }, [args.value]);
 
   return (
     <Box>
@@ -90,6 +95,24 @@ export const WithHelperText: Story = {
     length: 5,
     value: '',
     helperText: 'Enter the verification code sent via SMS',
+  },
+};
+
+export const ReadOnly: Story = {
+  render: StatefulTemplate,
+  args: {
+    length: 5,
+    value: '12345',
+    readOnly: true,
+    helperText: 'Code is read-only',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Displays a pre-filled code in read-only mode. The input is non-editable and no caret is shown.',
+      },
+    },
   },
 };
 
