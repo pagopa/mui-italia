@@ -1,5 +1,5 @@
 import { Box, Stack, Typography, useTheme, styled, keyframes } from '@mui/material';
-import { useRef, useLayoutEffect, useState, useId } from 'react';
+import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { blue, error as errorColor, neutral as neutralColor } from './../../theme/colors';
 
 /**
@@ -175,6 +175,13 @@ const CodeInput = ({
     codeBoxContentWidth + 2 * codeBoxPaddingX + 2 * codeBoxErrorBorder
   );
 
+  useEffect(() => {
+    if (readOnly) {
+      setIsFocused(false);
+      setCaretPosition(null);
+    }
+  }, [readOnly]);
+
   useLayoutEffect(() => {
     if (readOnly || !isFocused || !hiddenInputRef.current) {
       return;
@@ -225,13 +232,13 @@ const CodeInput = ({
   };
 
   const handleCharClick = (index: number) => {
+    hiddenInputRef.current?.focus();
+    setIsFocused(true);
     if (readOnly) {
       return;
     }
     const pos = index > sanitizedValue.length ? sanitizedValue.length : index;
-    hiddenInputRef.current?.focus();
     hiddenInputRef.current?.setSelectionRange(pos, pos);
-    setIsFocused(true);
     updateCaretPosition(pos);
   };
 
@@ -274,14 +281,12 @@ const CodeInput = ({
             width: 0,
           }}
           onFocus={(e) => {
+            setIsFocused(true);
             if (readOnly) {
-              setIsFocused(false);
-              setCaretPosition(null);
               return;
             }
             const pos = e.target.value.length;
             e.target.setSelectionRange(pos, pos);
-            setIsFocused(true);
             updateCaretPosition(pos);
           }}
           onBlur={() => {
