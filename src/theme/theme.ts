@@ -440,7 +440,6 @@ export const theme: Theme = createTheme(foundation, {
       styleOverrides: {
         root: {
           color: foundation.palette.primary.main,
-          backgroundColor: foundation.palette.background.paper,
           '&:hover': {
             backgroundColor: alpha(foundation.palette.primary.main, 0.08),
           },
