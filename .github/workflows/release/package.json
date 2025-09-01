@@ -9,7 +9,6 @@
     "@actions/core": "^1.11.1",
     "@actions/github": "^6.0.1",
     "conventional-changelog": "^7.1.1",
-    "conventional-changelog-angular": "^8.0.0",
     "conventional-recommended-bump": "^11.2.0",
     "re2": "^1.22.1"
   }

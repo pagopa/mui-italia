@@ -46,16 +46,17 @@ async function run() {
           // before continuing, we have to merge the ref branch into the release branch
           await mergeBranch(octokit, refBranch, releaseBranch);
         } else {
-          releaseBranchSha = await createBranch(
+          /*releaseBranchSha = await createBranch(
             octokit,
             startingBranchRef.object.sha,
             `${type}/${nextFinalTag}`
-          );
+          );*/
         }
       }
 
       // generate changelog and update package
-      generateChangelog();
+      const changeLog = await generateChangelog(releaseBranch, latestTag);
+      core.info(changeLog);
       return;
     }
     throw new Error(`No GitHub token specified`);

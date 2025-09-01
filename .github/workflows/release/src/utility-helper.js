@@ -1,11 +1,12 @@
 import RE2 from 're2';
 import { Bumper } from 'conventional-recommended-bump';
 import core from '@actions/core';
+import muiPreset from '../mui-preset/index.js';
 
 export async function calcNextTag(latestTag, type, finalRelease) {
   core.info(`Calculating next tag starting from ${latestTag}`);
   try {
-    const rcRegex = new RE2(/^v(\d+)\.(\d+)\.(\d+)(?:-RC\.(\d+))?$/);
+    const rcRegex = new RE2(/^v(\d+)\.(\d+)\.(\d+)(?:-RC|-rc\.(\d+))?$/);
     const match = latestTag.match(rcRegex);
     // match returns an array in witch the first element is the string itslef
     // the second element is the major, the third is the minor and the fourth is the path
@@ -37,13 +38,21 @@ export async function calcNextTag(latestTag, type, finalRelease) {
       nextPatch++;
       nextCandidate = finalRelease === true ? null : 0; // we have to specify the === true, otherwise it doesn't work
     } else {
-      const bumper = new Bumper().loadPreset('angular');
+      const bumper = new Bumper()
+        .commits({
+          from: latestTag,
+          to: 'HEAD',
+        })
+        .loadPreset('mui-preset', () => muiPreset);
       const recommendation = await bumper.bump();
       const releaseType = recommendation.releaseType;
       if (releaseType === 'major') {
         nextMajor++;
+        nextMinor = 0;
+        nextPatch = 0;
       } else if (releaseType === 'minor') {
         nextMinor++;
+        nextPatch = 0;
       } else {
         nextPatch++;
       }
@@ -59,6 +68,6 @@ export async function calcNextTag(latestTag, type, finalRelease) {
 }
 
 export function calcNextFinalTag(nextTag) {
-  const rcRegex = new RE2(/-RC\.\d+$/);
+  const rcRegex = new RE2(/-RC|-rc\.\d+$/);
   return nextTag.replace('v', '').replace(rcRegex, '');
 }
