@@ -2890,7 +2890,7 @@ __metadata:
     "@storybook/react": ^7.5.0
     "@storybook/react-webpack5": ^7.5.0
     "@types/node": ^18.16.20
-    "@types/react": ^18.2.33
+    "@types/react": 18.2.33
     "@types/react-dom": ^18.2.7
     "@typescript-eslint/eslint-plugin": ^5.47.1
     "@typescript-eslint/parser": ^5.39.0
@@ -2915,7 +2915,7 @@ __metadata:
     react-dom: ^18.2.0
     rimraf: ^3.0.2
     storybook: ^7.5.0
-    tsc-alias: ^1.8.3
+    tsc-alias: 1.8.7
     tsconfig: "*"
     tsconfig-paths-webpack-plugin: ^4.0.0
     typescript: ^4.9.4
@@ -4955,6 +4955,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react@npm:18.2.33":
+  version: 18.2.33
+  resolution: "@types/react@npm:18.2.33"
+  dependencies:
+    "@types/prop-types": "*"
+    "@types/scheduler": "*"
+    csstype: ^3.0.2
+  checksum: 75903c4d53898c69dd23d0b2730eac4676dc5ade15c25c793dec855f0d7c650cb823832bb1dd881efe8895724f15b06d4bf7081ea0b82391aa3059512ad49ccf
+  languageName: node
+  linkType: hard
+
 "@types/react@npm:>=16":
   version: 18.2.75
   resolution: "@types/react@npm:18.2.75"
@@ -4962,16 +4973,6 @@ __metadata:
     "@types/prop-types": "*"
     csstype: ^3.0.2
   checksum: f77322720744beba6650462c0d75ccc0be27c176bd7b2aff32039ea30e498a78fe6dbce4a1c3fdbf592ccc01286059f332a294a3b6975dbb0d8d5999718ece38
-  languageName: node
-  linkType: hard
-
-"@types/react@npm:^18.2.33":
-  version: 18.3.24
-  resolution: "@types/react@npm:18.3.24"
-  dependencies:
-    "@types/prop-types": "*"
-    csstype: ^3.0.2
-  checksum: 852fd0430d721ceb431662ac90b6b41d6473ea55d29b5d92f7a81f4c6c397eb3b26a904fdd276fb71a5fad318d0d79cc0072867024611716bfb85e6b4907ae68
   languageName: node
   linkType: hard
 
@@ -8592,15 +8593,6 @@ __metadata:
     call-bind: ^1.0.2
     get-intrinsic: ^1.1.1
   checksum: 9ceff8fe968f9270a37a1f73bf3f1f7bda69ca80f4f80850670e0e7b9444ff99323f7ac52f96567f8b5f5fbe7ac717a0d81d3407c7313e82810c6199446a5247
-  languageName: node
-  linkType: hard
-
-"get-tsconfig@npm:^4.10.0":
-  version: 4.10.1
-  resolution: "get-tsconfig@npm:4.10.1"
-  dependencies:
-    resolve-pkg-maps: ^1.0.0
-  checksum: 22925debda6bd0992171a44ee79a22c32642063ba79534372c4d744e0c9154abe2c031659da0fb86bc9e73fc56a3b76b053ea5d24ca3ac3da43d2e6f7d1c3c33
   languageName: node
   linkType: hard
 
@@ -12413,13 +12405,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve-pkg-maps@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "resolve-pkg-maps@npm:1.0.0"
-  checksum: 1012afc566b3fdb190a6309cc37ef3b2dcc35dff5fa6683a9d00cd25c3247edfbc4691b91078c97adc82a29b77a2660c30d791d65dab4fc78bfc473f60289977
-  languageName: node
-  linkType: hard
-
 "resolve@npm:^1.10.0, resolve@npm:^1.14.2, resolve@npm:^1.19.0, resolve@npm:^1.22.1":
   version: 1.22.2
   resolution: "resolve@npm:1.22.2"
@@ -13382,20 +13367,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsc-alias@npm:^1.8.3":
-  version: 1.8.16
-  resolution: "tsc-alias@npm:1.8.16"
+"tsc-alias@npm:1.8.7":
+  version: 1.8.7
+  resolution: "tsc-alias@npm:1.8.7"
   dependencies:
     chokidar: ^3.5.3
     commander: ^9.0.0
-    get-tsconfig: ^4.10.0
     globby: ^11.0.4
     mylas: ^2.1.9
     normalize-path: ^3.0.0
     plimit-lit: ^1.2.6
   bin:
     tsc-alias: dist/bin/index.js
-  checksum: 7bae356371fbd110768d0865d6740f670128f192a409901b698ea4d6787bb942282148faed4bb753c420cb94df016ac0d9da63b8bb28d7c83fcf83d658150616
+  checksum: 77f721ea797a62a7cc74acda0baf928bb654bccb210471b63fef1e70a27a823c60f5832f51aa5976d573412bc90731e90774abf9127f3b6b13f284839f988d47
   languageName: node
   linkType: hard
 
