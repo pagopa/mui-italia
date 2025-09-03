@@ -10,7 +10,11 @@
 {{~else}}
   {{~@root.repoUrl}}
 {{~/if~}}
-/releases/tag/v{{currentTag}})
+{{~#if currentTag}}
+/releases/tag/v{{currentTag}}
+{{~else}}
+/releases/tag/v{{version}}
+{{~/if~}})
 {{~#if title}}
   "{{title}}"
 {{~/if}}

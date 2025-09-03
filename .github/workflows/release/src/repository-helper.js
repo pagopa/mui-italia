@@ -103,3 +103,90 @@ export async function mergeBranch(octokit, sBranchName, dBranchName) {
     throw new Error(`Error during branch merging: ${error}`);
   }
 }
+
+async function createBlob(octokit, fileContent) {
+  core.debug(`Creating blob from file content`);
+  try {
+    const { data: blob } = await octokit.rest.git.createBlob({
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
+      content: fileContent,
+    });
+    core.debug(`Blob created with sha ${blob.sha}`);
+    return blob;
+  } catch (error) {
+    throw new Error(`Error during blob creation: ${error}`);
+  }
+}
+
+async function createBranchTree(octokit, branchSha, files) {
+  core.debug(`Creating branch tree`);
+  const shaFiles = [];
+  for (const file of files) {
+    const blob = await createBlob(octokit, file.content);
+    shaFiles.push({
+      path: file.path,
+      sha: blob.sha,
+    });
+  }
+  try {
+    const { data: branchTree } = await octokit.rest.git.createTree({
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
+      tree: shaFiles.map((file) => ({
+        path: file.path,
+        mode: '100644',
+        type: 'blob',
+        sha: file.sha,
+      })),
+      base_tree: branchSha,
+    });
+    core.debug(`Branch tree created`);
+    return branchTree;
+  } catch (error) {
+    throw new Error(`Error during branch tree creation: ${error}`);
+  }
+}
+
+export async function commitChanges(octokit, branchName, branchSha, files, message) {
+  if (files.length === 0) {
+    core.info(`Nothing to commit on branch ${branchName}`);
+    return;
+  }
+  core.info(`Committing changes on branch ${branchName}`);
+  // get branch tree
+  const branchTree = await createBranchTree(octokit, branchSha, files);
+  core.debug(`Branch tree sha ${branchTree.sha}`);
+  try {
+    const response = await octokit.rest.git.createCommit({
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
+      message,
+      tree: branchTree.sha,
+      parents: [branchSha],
+    });
+    core.info(`Changes on branch ${branchName} committed with sha ${commit.sha}`);
+    return response.data;
+  } catch (error) {
+    throw new Error(`Error during commit creation: ${error}`);
+  }
+  // core.info(`Pushing changes on branch ${branchName}`);
+  // await updateBranchRef(branchName, commit.sha);
+  // core.info(`Changes on branch ${branchName} pushed`);
+}
+
+export async function updateRef(octokit, ref, commitSha) {
+  const type = ref.startsWith('heads') ? 'branch' : 'tag';
+  core.info(`Updating ${type} ${ref}`);
+  try {
+    await octokit.rest.git.updateRef({
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
+      ref,
+      sha: commitSha,
+    });
+    core.info(`${String(type).charAt(0).toUpperCase() + String(type).slice(1)} ${ref} updated`);
+  } catch (error) {
+    throw new Error(`Error during ${type} ${ref} updating: ${error}`);
+  }
+}

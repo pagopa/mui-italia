@@ -81,11 +81,17 @@ function getWriterOpts() {
         subject,
       };
     },
-    /*
-    finalizeContext: (context, _writerOpts, _filteredCommits, _keyCommit, _originalCommits) => {
+    /*finalizeContext: (context, _writerOpts, _filteredCommits, _keyCommit, _originalCommits) => {
+      const { commitGroups } = context;
+      if (!commitGroups || commitGroups.length === 0) {
+        const versionBumpCommit = {
+          title: 'Chore',
+          commits: [{ subject: 'Version bump ' }],
+        };
+        context.commitGroups = [versionBumpCommit];
+      }
       return context;
-    },
-    */
+    },*/
     groupBy: 'type',
     commitsSort: (a, b) => {
       const dateA = new Date(a.committerDate).getTime();

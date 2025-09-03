@@ -2,9 +2,20 @@ import core from '@actions/core';
 import github from '@actions/github';
 
 import { checkInputs } from './input-helper.js';
-import { getLatestTag, checkIfRefExists, createBranch, mergeBranch } from './repository-helper.js';
+import {
+  getLatestTag,
+  checkIfRefExists,
+  createBranch,
+  mergeBranch,
+  commitChanges,
+  updateRef,
+} from './repository-helper.js';
 import { calcNextTag, calcNextFinalTag } from './utility-helper.js';
-import { generateChangelog } from './file-helper.js';
+import {
+  generateChangelog,
+  generateChangelogSection,
+  updatePackageVersion,
+} from './file-helper.js';
 
 async function run() {
   try {
@@ -46,17 +57,36 @@ async function run() {
           // before continuing, we have to merge the ref branch into the release branch
           await mergeBranch(octokit, refBranch, releaseBranch);
         } else {
-          /*releaseBranchSha = await createBranch(
+          releaseBranchSha = await createBranch(
             octokit,
             startingBranchRef.object.sha,
             `${type}/${nextFinalTag}`
-          );*/
+          );
         }
       }
 
-      // generate changelog and update package
-      const changeLog = await generateChangelog(releaseBranch, latestTag);
-      core.info(changeLog);
+      // update package and commit changes
+      const packageJson = updatePackageVersion(nextTag);
+      await commitChanges(
+        releaseBranch,
+        releaseBranchSha,
+        [packageJson],
+        `chore(release-${nextTag}): Bump version to ${nextTag}`
+      );
+
+      // generate changelog and commit changes
+      const changelogSection = await generateChangelogSection(releaseBranch, latestTag.tag);
+      // the changelog generated is only the last section (from last tag to current last commit) and not the whole file,
+      // so we need to prepend the section generated to the current changelog
+      const changelog = generateChangelog(changelogSection);
+      const commit = await commitChanges(
+        releaseBranch,
+        releaseBranchSha,
+        [changeLog],
+        `chore(release-${nextTag}): Bump version to ${nextTag}`
+      );
+      // push changes
+      await updateRef(octokit, `heads/${releaseBranch}`, commit.sha);
       return;
     }
     throw new Error(`No GitHub token specified`);
