@@ -26,3 +26,4 @@ export * from './TOSAgreement';
 export * from './SingleFileInput';
 export * from './CopyToClipboardButton';
 export * from './EnvironmentBanner';
+export * from './CodeInput';
