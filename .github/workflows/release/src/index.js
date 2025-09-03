@@ -82,7 +82,7 @@ async function run() {
       const commit = await commitChanges(
         releaseBranch,
         releaseBranchSha,
-        [changeLog],
+        [changelog],
         `chore(release-${nextTag}): Bump version to ${nextTag}`
       );
       // push changes
