@@ -1,6 +1,6 @@
 {
   "name": "@pagopa/mui-italia",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "author": {
     "name": "PagoPA"
   },
@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.23.2",
-    "@babel/preset-env": "^7.23.2",
+    "@babel/preset-env": "^7.26.0",
     "@babel/preset-react": "^7.22.15",
     "@babel/preset-typescript": "^7.23.2",
     "@emotion/react": "^11.11.1",
