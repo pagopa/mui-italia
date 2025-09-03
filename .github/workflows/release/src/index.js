@@ -67,6 +67,7 @@ async function run() {
 
       // update package and commit changes
       const packageJson = updatePackageVersion(nextTag);
+      // we need to commit changes to correctly generate the changelog
       await commitChanges(
         releaseBranch,
         releaseBranchSha,
@@ -79,6 +80,7 @@ async function run() {
       // the changelog generated is only the last section (from last tag to current last commit) and not the whole file,
       // so we need to prepend the section generated to the current changelog
       const changelog = generateChangelog(changelogSection);
+      // here we do a commit ammend
       const commit = await commitChanges(
         releaseBranch,
         releaseBranchSha,
