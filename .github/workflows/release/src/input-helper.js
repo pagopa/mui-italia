@@ -2,7 +2,7 @@ import core from '@actions/core';
 
 export function checkInputs() {
   // get user inputs
-  const refBranch = core.getInput('ref', { required: true });
+  const ref = core.getInput('ref', { required: true });
   const type = core.getInput('type', { required: true });
   const finalRelease = core.getInput('final_release') === 'true';
 
@@ -10,5 +10,5 @@ export function checkInputs() {
     throw new Error(`Type ${type} is not among those allowed`);
   }
 
-  return { refBranch, type, finalRelease };
+  return { ref, type, finalRelease };
 }

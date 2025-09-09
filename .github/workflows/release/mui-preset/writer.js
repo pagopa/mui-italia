@@ -86,12 +86,19 @@ function getWriterOpts() {
       if (!commitGroups || commitGroups.length === 0) {
         const versionBumpCommit = {
           title: 'Chore',
-          commits: [{ subject: 'Version bump ' }],
+          commits: [
+            {
+              scope: 'chore',
+              type: `release-${context.version}`,
+              subject: `Bump version to v${context.version}`,
+            },
+          ],
         };
         context.commitGroups = [versionBumpCommit];
       }
       return context;
-    },*/
+    },
+    */
     groupBy: 'type',
     commitsSort: (a, b) => {
       const dateA = new Date(a.committerDate).getTime();

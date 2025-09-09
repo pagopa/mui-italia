@@ -1,9 +1,52 @@
 import RE2 from 're2';
-import { Bumper } from 'conventional-recommended-bump';
 import core from '@actions/core';
-import muiPreset from '../mui-preset/index.js';
 
-export async function calcNextTag(latestTag, type, finalRelease) {
+export function toSentenceCase(word) {
+  return String(word).charAt(0).toUpperCase() + String(word).slice(1);
+}
+
+export function isTagOrBranch(ref) {
+  const tagRegex = new RE2(/^v(\d+)\.(\d+)\.(\d+)(?:-RC|-rc\.(\d+))?$/);
+  if (ref.match(tagRegex)) {
+    return 'tag';
+  }
+  return 'branch';
+}
+
+export function parseCommits(commits) {
+  const parsedCommits = [];
+  const commitRegexp = new RE2(/^(\w*)(?:\((.*)\))?!?:\s(.*)$/);
+  const revertRegexp = new RE2(
+    /^(?:Revert|revert:)\s"?([\s\S]+?)"?\s*This reverts commit (\w*)\./i
+  );
+  for (const commit of commits) {
+    // first exclude merge commits
+    // commits with more than one parent are merge commits
+    if (commit.parents.length > 1) {
+      continue;
+    }
+    const parsedCommit = {
+      message: commit.commit.message,
+      hash: commit.sha,
+      date: commit.commit.committer.date,
+    };
+    // extract conventional commits data
+    const match = parsedCommit.message.match(commitRegexp);
+    if (match) {
+      parsedCommit.type = match[0];
+      parsedCommit.scope = match[1];
+      parsedCommit.subject = match[2];
+    }
+    // check if the commit is a revert commit
+    const isRevert = revertRegexp.test(parsedCommit.message);
+    parseCommit.revert = isRevert;
+  }
+  return parsedCommits;
+}
+
+function bumpVersion(commits) {}
+
+export async function calcNextTag(latestTag, type, finalRelease, commits) {
   core.info(`Calculating next tag starting from ${latestTag}`);
   try {
     const rcRegex = new RE2(/^v(\d+)\.(\d+)\.(\d+)(?:-RC|-rc\.(\d+))?$/);
@@ -38,12 +81,12 @@ export async function calcNextTag(latestTag, type, finalRelease) {
       nextPatch++;
       nextCandidate = finalRelease === true ? null : 0; // we have to specify the === true, otherwise it doesn't work
     } else {
-      const bumper = new Bumper()
+      /*const bumper = new Bumper()
         .commits({
           from: latestTag,
           to: 'HEAD',
         })
-        .loadPreset('mui-preset', () => muiPreset);
+        .loadPreset('mui-preset', () => muiPreset);*/
       const recommendation = await bumper.bump();
       const releaseType = recommendation.releaseType;
       if (releaseType === 'major') {
@@ -59,8 +102,8 @@ export async function calcNextTag(latestTag, type, finalRelease) {
       nextCandidate = finalRelease === true ? null : 0; // we have to specify the === true, otherwise it doesn't work
     }
     const candidateSuffix = nextCandidate !== null ? `-RC.${nextCandidate}` : '';
-    const nextTag = `v${nextMajor}.${nextMinor}.${nextPatch}${candidateSuffix}`;
-    core.info(`Next tag ${nextTag}`);
+    const nextTag = `${nextMajor}.${nextMinor}.${nextPatch}${candidateSuffix}`;
+    core.info(`Next tag v${nextTag}`);
     return nextTag;
   } catch (error) {
     throw new Error(`Error during next tag calculation: ${error}`);
@@ -68,6 +111,6 @@ export async function calcNextTag(latestTag, type, finalRelease) {
 }
 
 export function calcNextFinalTag(nextTag) {
-  const rcRegex = new RE2(/-RC|-rc\.\d+$/);
-  return nextTag.replace('v', '').replace(rcRegex, '');
+  const rcRegex = new RE2(/-RC\.\d+$/);
+  return nextTag.replace(rcRegex, '');
 }

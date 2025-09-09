@@ -16,22 +16,20 @@ export function updatePackageVersion(nextTag) {
     core.info(`Version updated`);
     const packageJsonPath = join(process.env.GITHUB_WORKSPACE, 'package.json');
     const packageJson = fs.readFileSync(packageJsonPath, 'utf-8');
-    core.info(packageJson);
+    return packageJson;
   } catch (error) {
     throw new Error(`Error during the update of the package.json version: ${error}`);
   }
 }
 
-export function generateChangelogSection(releaseBranch, latestTag) {
-  core.info(
-    `Generating CHANGELOG section from tag ${latestTag} to latest commit in ${releaseBranch}`
-  );
+export function generateChangelogSection(latestTag) {
+  core.info(`Generating CHANGELOG section from tag ${latestTag}`);
   try {
     const chunks = [];
     const generator = new ConventionalChangelog()
+      .options({ releaseCount: 0 })
       .commits({
         from: latestTag,
-        to: releaseBranch,
       })
       .readPackage()
       .loadPreset('mui-preset', () => muiPreset);
