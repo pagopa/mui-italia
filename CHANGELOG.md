@@ -1,3 +1,175 @@
+# [1.7.1](https://github.com/pagopa/mui-italia/releases/tag/v1.7.1) (2025-09-03)
+ 
+### Others
+ 
+* Bump version to 1.7.1 ([433e0a8](https://github.com/pagopa/mui-italia/commit/433e0a8656fc256cceff060e0a3bf779c214d23a))
+
+
+
+
+# [1.7.1-rc.20250903124844](https://github.com/pagopa/mui-italia/releases/tag/v1.7.1-rc.20250903124844) (2025-09-03)
+
+
+### Bug Fixes
+
+* **M20DS-34:** prevent CodeInput caret jump while typing or deleting ([#569](https://github.com/pagopa/mui-italia/issues/569)) ([9a19e77](https://github.com/pagopa/mui-italia/commit/9a19e772e4004118cefb30367917bbca837a2459))
+
+
+
+### Others
+
+* Bump version to 1.7.1-rc.20250903124844 ([51c168d](https://github.com/pagopa/mui-italia/commit/51c168d36a40f16390feb675c5cdf9dc18e528f6))
+
+* fixed typo ([6500424](https://github.com/pagopa/mui-italia/commit/6500424db0e4360dfc127f06e251383bc8ea198a))
+
+* update package.json, generate changelog and push ([0b80775](https://github.com/pagopa/mui-italia/commit/0b80775fb3e61d756fd1b818a12872a964c6d09e))
+
+
+
+
+# [1.7.1-rc.20250903085304](https://github.com/pagopa/mui-italia/releases/tag/v1.7.1-rc.20250903085304) (2025-09-03)
+
+
+### Bug Fixes
+
+* **M20DS-34:** show CodeInput caret immediately on focus ([#568](https://github.com/pagopa/mui-italia/issues/568)) ([e50b526](https://github.com/pagopa/mui-italia/commit/e50b526944e5152bb36809e581c6ba473ebf06cb))
+
+
+
+### Others
+
+* Bump version to 1.7.1-rc.20250903085304 ([391babd](https://github.com/pagopa/mui-italia/commit/391babdd55c5c11d9d04eee6cfaa33f48ad4074e))
+
+
+
+
+# [1.7.1-rc.20250902070302](https://github.com/pagopa/mui-italia/releases/tag/v1.7.1-rc.20250902070302) (2025-09-02)
+
+
+### Others
+
+* Bump version to 1.7.1-rc.20250902070302 ([10b08e1](https://github.com/pagopa/mui-italia/commit/10b08e164db90e417f819d2fbce730c6dddfd5ba))
+
+* **deps:** downgrade babel and tsc-alias ([#563](https://github.com/pagopa/mui-italia/issues/563)) ([4595b22](https://github.com/pagopa/mui-italia/commit/4595b223321177734b9f12a36c4506b378629147))
+
+* **deps:** downgrade babel and tsc-alias ([#563](https://github.com/pagopa/mui-italia/issues/563)) ([8699e35](https://github.com/pagopa/mui-italia/commit/8699e35cd44b1fd4a42ae9a6b4cf212a64cfb38a))
+
+
+
+
+# [1.7.1-rc.20250901160927](https://github.com/pagopa/mui-italia/releases/tag/v1.7.1-rc.20250901160927) (2025-09-01)
+
+
+### Others
+
+* Bump version to 1.7.1-rc.20250901160927 ([a9fb343](https://github.com/pagopa/mui-italia/commit/a9fb3439c1961310947f525d22843a413428e524))
+
+
+
+
+# [1.7.1-rc.20250901151032](https://github.com/pagopa/mui-italia/releases/tag/v1.7.1-rc.20250901151032) (2025-09-01)
+
+
+### Others
+
+* Bump version to 1.7.1-rc.20250901151032 ([5e932c3](https://github.com/pagopa/mui-italia/commit/5e932c3b42bff9737d3c727e7f622e1b02bfae87))
+
+* **deps:** fixed react version ([#560](https://github.com/pagopa/mui-italia/issues/560)) ([4a2734f](https://github.com/pagopa/mui-italia/commit/4a2734fdd9cae5f9dbefbd1f675c474d086e761d))
+
+
+
+
+# [1.7.1-rc.20250901142409](https://github.com/pagopa/mui-italia/releases/tag/v1.7.1-rc.20250901142409) (2025-09-01)
+
+
+### Features
+
+* **M20DS-34:** Add readOnly mode to CodeInput component ([#554](https://github.com/pagopa/mui-italia/issues/554)) ([e2cd3e5](https://github.com/pagopa/mui-italia/commit/e2cd3e5cdd9e3903cb30a61815733f86af165a0a))
+
+* **M20DS-34:** add CodeInput component ([#542](https://github.com/pagopa/mui-italia/issues/542)) ([d413ee4](https://github.com/pagopa/mui-italia/commit/d413ee44b3571149179a1faaacdd93f5a09c1487))
+
+* **M20DS-34:** Add readOnly mode to CodeInput component ([#554](https://github.com/pagopa/mui-italia/issues/554)) ([c970895](https://github.com/pagopa/mui-italia/commit/c97089560aefb18ddd069d523237e01972352ab9))
+
+* **M20DS-34:** add CodeInput component ([#542](https://github.com/pagopa/mui-italia/issues/542)) ([d57fd98](https://github.com/pagopa/mui-italia/commit/d57fd98f731ccf48eade6dd42a0848b3e62c2f09))
+
+
+
+### Bug Fixes
+
+* **M20DS-34:** Expose CodeInput as a named export from package entry ([#556](https://github.com/pagopa/mui-italia/issues/556)) ([0eb4f4f](https://github.com/pagopa/mui-italia/commit/0eb4f4f577d0b7ede288237d7b7c99c7071ca4e1))
+
+* **MUI-230:** remove white background in icon button ([#550](https://github.com/pagopa/mui-italia/issues/550)) ([53df1b1](https://github.com/pagopa/mui-italia/commit/53df1b15473b89ef9275747c5a052cbb1b74c168))
+
+* **M20DS-34:** Expose CodeInput as a named export from package entry ([#556](https://github.com/pagopa/mui-italia/issues/556)) ([bcccbdf](https://github.com/pagopa/mui-italia/commit/bcccbdf844e71addeb1dbf1fd1b760be68d10b25))
+
+* **MUI-230:** remove white background in icon button ([#550](https://github.com/pagopa/mui-italia/issues/550)) ([4949677](https://github.com/pagopa/mui-italia/commit/494967795caccdff6201788861e059ea406ceb0c))
+
+
+
+### Chores
+
+* **MUI-229:** added action to validate pr title ([#543](https://github.com/pagopa/mui-italia/issues/543)) ([c0e2493](https://github.com/pagopa/mui-italia/commit/c0e2493f3d9e4241fd81ea5a46b7b7ce9e742551))
+
+* clean repo ([#541](https://github.com/pagopa/mui-italia/issues/541)) ([dc7e42d](https://github.com/pagopa/mui-italia/commit/dc7e42dab8c45731c7354709773c680b7d3f08af))
+
+* **MUI-229:** added action to validate pr title ([#543](https://github.com/pagopa/mui-italia/issues/543)) ([073e3ae](https://github.com/pagopa/mui-italia/commit/073e3ae2d096b9b4cd5fd053647f243f377e895c))
+
+* clean repo ([#541](https://github.com/pagopa/mui-italia/issues/541)) ([675a01b](https://github.com/pagopa/mui-italia/commit/675a01bcd485cd3825baf1148cbc4e939c663390))
+
+
+
+### Build System
+
+* **deps-dev:** bump react and @types/react ([#492](https://github.com/pagopa/mui-italia/issues/492)) ([2a576e7](https://github.com/pagopa/mui-italia/commit/2a576e7f7960b5a76d0012e540de5092aeb90eb2))
+
+* **deps-dev:** bump tsc-alias from 1.8.7 to 1.8.10 ([#494](https://github.com/pagopa/mui-italia/issues/494)) ([00d7148](https://github.com/pagopa/mui-italia/commit/00d714873d62a6e6b1d32a266ff9e61168c2f593))
+
+* **deps-dev:** bump @babel/preset-env from 7.24.4 to 7.26.0 ([#517](https://github.com/pagopa/mui-italia/issues/517)) ([0fdf986](https://github.com/pagopa/mui-italia/commit/0fdf986183d0cac6e8c0fbcdc343db092eedc02b))
+
+* **deps-dev:** bump react and @types/react ([#492](https://github.com/pagopa/mui-italia/issues/492)) ([e695f8c](https://github.com/pagopa/mui-italia/commit/e695f8c90325a5177ccad61821786929bccb481d))
+
+* **deps-dev:** bump tsc-alias from 1.8.7 to 1.8.10 ([#494](https://github.com/pagopa/mui-italia/issues/494)) ([0e76585](https://github.com/pagopa/mui-italia/commit/0e76585d383fa288d42478dd6f60819e079c1d78))
+
+* **deps-dev:** bump @babel/preset-env from 7.24.4 to 7.26.0 ([#517](https://github.com/pagopa/mui-italia/issues/517)) ([adaaee0](https://github.com/pagopa/mui-italia/commit/adaaee021cc60b0e6876c78b6c1363ffd51530d4))
+
+
+
+### Documentation
+
+* **M20DS-34:** updated storybook for chromatic visual tests ([#552](https://github.com/pagopa/mui-italia/issues/552)) ([73244a1](https://github.com/pagopa/mui-italia/commit/73244a13b972996f78948fbfb43a41bc9903a491))
+
+* **M20DS-34:** updated storybook for chromatic visual tests ([#552](https://github.com/pagopa/mui-italia/issues/552)) ([b8ad96a](https://github.com/pagopa/mui-italia/commit/b8ad96af5134ff1e3e93508fbff652a70c580015))
+
+
+
+### Others
+
+* Bump version to 1.7.1-rc.20250901142409 ([5be0b66](https://github.com/pagopa/mui-italia/commit/5be0b66f538406f6cdea3f879b8a4ccd91420eb9))
+
+* Bump version to 1.7.0 ([5bf9b8b](https://github.com/pagopa/mui-italia/commit/5bf9b8b914da5cb17d0ab6fd6626af6623aabd62))
+
+* Bump version to 1.7.0-rc.20250829144757 ([d8545ec](https://github.com/pagopa/mui-italia/commit/d8545ece7ff2211e393f50abed7db25a2cbc6f2d))
+
+* Bump version to 1.7.0 ([9b4d5ed](https://github.com/pagopa/mui-italia/commit/9b4d5eda3efe08f4f0aedcccc7633296af4eeef4))
+
+* Bump version to 1.7.0-rc.20250829144757 ([2411eeb](https://github.com/pagopa/mui-italia/commit/2411eeb5a832966c565b14d16c0faa99bf9579a6))
+
+* **deps:** downgrade react ([#559](https://github.com/pagopa/mui-italia/issues/559)) ([5575730](https://github.com/pagopa/mui-italia/commit/5575730c50220839512b992537aa6f14bab08cae))
+
+* generate changelog ([3e7082e](https://github.com/pagopa/mui-italia/commit/3e7082ebdda1069bcf7d4ec91e0c522fa0dfde8d))
+
+* generate changelog ([c39941b](https://github.com/pagopa/mui-italia/commit/c39941b7bfe7f20ce250dd9ebe3a439d7154b369))
+
+* merge branch ([e2fad3d](https://github.com/pagopa/mui-italia/commit/e2fad3d2f0a02f96fd7f3298f715f92ddd1c39cb))
+
+* calculate next tag ([5e4869f](https://github.com/pagopa/mui-italia/commit/5e4869fb12574bf7f949b42d2e496569789f8042))
+
+* release action (calc starting tag) ([7d38e3e](https://github.com/pagopa/mui-italia/commit/7d38e3e7b77143c1ba9aed92d6c72fe9a69f7a73))
+
+
+
+
+
 # [1.6.0](https://github.com/pagopa/mui-italia/releases/tag/v1.6.0) (2025-08-28)
 
 
