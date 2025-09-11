@@ -60,7 +60,9 @@ type CaretPosition = {
 };
 
 const blink = keyframes`
-  50% { opacity: 0; }
+  0%   { opacity: 0; }
+  50%  { opacity: 1; }
+  100% { opacity: 0; }
 `;
 
 const Caret = styled('div')<{ position: CaretPosition['position'] }>(({ position }) => ({
@@ -194,14 +196,14 @@ const CodeInput = ({
     }
   }, [sanitizedValue, isFocused, readOnly]);
 
-  const updateCaretPosition = (pos: number) => {
+  const updateCaretPosition = (pos: number, valueLen: number = sanitizedValue.length) => {
     if (readOnly || !isFocused || pos < 0 || pos > length) {
       return;
     }
-    if (sanitizedValue.length === length && pos === length) {
+    if (valueLen === length && pos === length) {
       setCaretPosition({ index: length - 1, position: 'end' });
-    } else if (pos === sanitizedValue.length) {
-      setCaretPosition({ index: sanitizedValue.length, position: 'center' });
+    } else if (pos === valueLen) {
+      setCaretPosition({ index: valueLen, position: 'center' });
     } else {
       setCaretPosition({ index: pos, position: 'start' });
     }
@@ -220,7 +222,7 @@ const CodeInput = ({
       setInternalValue(filtered);
     }
     onChange?.(filtered);
-    updateCaretPosition(caretPos);
+    updateCaretPosition(caretPos, filtered.length);
   };
 
   const handleKeyUp = () => {
@@ -237,9 +239,11 @@ const CodeInput = ({
     if (readOnly) {
       return;
     }
-    const pos = index > sanitizedValue.length ? sanitizedValue.length : index;
+
+    const valueLen = sanitizedValue.length;
+    const pos = index > valueLen ? valueLen : index;
     hiddenInputRef.current?.setSelectionRange(pos, pos);
-    updateCaretPosition(pos);
+    updateCaretPosition(pos, valueLen);
   };
 
   const handleContainerClick = () => {
