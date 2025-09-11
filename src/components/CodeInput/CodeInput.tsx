@@ -260,6 +260,9 @@ const CodeInput = ({
           type={encrypted ? 'password' : 'text'}
           inputMode={inputMode}
           autoComplete="one-time-code"
+          autoCorrect="off"
+          autoCapitalize="off"
+          spellCheck={false}
           value={sanitizedValue}
           onChange={handleChange}
           onKeyUp={handleKeyUp}
@@ -276,9 +279,15 @@ const CodeInput = ({
           style={{
             position: 'absolute',
             opacity: 0,
-            pointerEvents: 'none',
-            height: 0,
-            width: 0,
+            height: 1,
+            width: 1,
+            padding: 0,
+            border: 0,
+            margin: 0,
+            clip: 'rect(0 0 0 0)',
+            clipPath: 'inset(50%)',
+            overflow: 'hidden',
+            whiteSpace: 'nowrap',
           }}
           onFocus={(e) => {
             setIsFocused(true);
