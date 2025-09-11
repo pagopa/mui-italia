@@ -1,5 +1,13 @@
 import { Box, Stack, Typography, useTheme, styled, keyframes } from '@mui/material';
-import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type FormEvent,
+} from 'react';
 import { blue, error as errorColor, neutral as neutralColor } from './../../theme/colors';
 
 /**
@@ -171,6 +179,41 @@ const CodeInput = ({
   const [isFocused, setIsFocused] = useState(false);
   const [caretPosition, setCaretPosition] = useState<CaretPosition | null>(null);
 
+  // Track whether the keyboard/IME (composition) is active: do not touch the caret while composing
+  const isComposingRef = useRef(false);
+
+  // "Intended" caret computed BEFORE the mutation (onBeforeInput), to be restored AFTER render
+  const pendingCaretRef = useRef<number | null>(null);
+
+  type BeforeInputEvt = FormEvent<HTMLInputElement> & {
+    nativeEvent: InputEvent & { data?: string | null; inputType: string };
+  };
+
+  /* Restore the real caret AFTER React/IME are done (next frame),
+  to prevent the browser from overriding selection right after onChange */
+  const restoreCaretIfNeeded = useCallback(() => {
+    requestAnimationFrame(() => {
+      const el = hiddenInputRef.current;
+      const caret = pendingCaretRef.current;
+
+      /* Guard: run only when the hidden input is focused, not composing,
+      and we have a pending caret to restore. */
+      if (!el || document.activeElement !== el || isComposingRef.current || caret == null) {
+        return;
+      }
+
+      const pos = Math.min(caret, el.value.length);
+      try {
+        el.setSelectionRange(pos, pos);
+      } catch {
+        // Safe-guard: prevent runtime errors from stopping the input flow
+      }
+
+      // Clear pending so we don't attempt to restore again next frame
+      pendingCaretRef.current = null;
+    });
+  }, []);
+
   const codeBoxContentWidth = length * charBoxWidth + (length - 1) * charBoxSpacing;
 
   const containerWidth = theme.spacing(
@@ -184,6 +227,7 @@ const CodeInput = ({
     }
   }, [readOnly]);
 
+  // After each value update, sync the virtual caret with the native selection (when focused)
   useLayoutEffect(() => {
     if (readOnly || !isFocused || !hiddenInputRef.current) {
       return;
@@ -196,6 +240,14 @@ const CodeInput = ({
     }
   }, [sanitizedValue, isFocused, readOnly]);
 
+  // If we have a "pending" caret to restore (from beforeinput), do it after the value update
+  useLayoutEffect(() => {
+    if (pendingCaretRef.current != null) {
+      restoreCaretIfNeeded();
+    }
+  }, [sanitizedValue, restoreCaretIfNeeded]);
+
+  // Update the virtual caret state (index + how to render it)
   const updateCaretPosition = (pos: number, valueLen: number = sanitizedValue.length) => {
     if (readOnly || !isFocused || pos < 0 || pos > length) {
       return;
@@ -209,6 +261,19 @@ const CodeInput = ({
     }
   };
 
+  // onBeforeInput: snapshot the user's intent BEFORE the browser/IME mutates the value,
+  // computing the expected caret position after the insertion (start + delta)
+  const handleBeforeInput = (e: BeforeInputEvt) => {
+    const el = e.currentTarget;
+    const start = el.selectionStart ?? 0;
+    const end = el.selectionEnd ?? start;
+    const added = e.nativeEvent.data?.length ?? 0;
+    const delta = added - (end - start);
+    pendingCaretRef.current = Math.max(0, start + delta);
+  };
+
+  // onChange: update the value and derive a robust caret position
+  // Prefer pendingCaretRef (intent), otherwise selectionStart; last fallback: end of text
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (readOnly) {
       return;
@@ -216,15 +281,25 @@ const CodeInput = ({
     const raw = e.target.value;
     const filtered = raw.slice(0, length);
 
-    const caretPos = e.target.selectionStart ?? filtered.length;
+    let caretPos = e.target.selectionStart;
+    const pending = pendingCaretRef.current;
+
+    if ((caretPos == null || caretPos === 0) && pending != null) {
+      caretPos = pending;
+    } else if (caretPos == null) {
+      caretPos = filtered.length;
+    }
+    pendingCaretRef.current = caretPos;
 
     if (!isControlled) {
       setInternalValue(filtered);
     }
     onChange?.(filtered);
     updateCaretPosition(caretPos, filtered.length);
+    restoreCaretIfNeeded();
   };
 
+  // KeyUp: align the virtual caret to the most recent native selection
   const handleKeyUp = () => {
     if (readOnly) {
       return;
@@ -233,6 +308,7 @@ const CodeInput = ({
     updateCaretPosition(pos);
   };
 
+  // Click on a code "box": move the real cursor there and update the virtual caret
   const handleCharClick = (index: number) => {
     hiddenInputRef.current?.focus();
     setIsFocused(true);
@@ -250,6 +326,22 @@ const CodeInput = ({
     hiddenInputRef.current?.focus();
   };
 
+  // Keep the virtual caret in sync even when the browser fires async selectionchange events
+  useEffect(() => {
+    const handleSelectionChange = () => {
+      const inputElement = hiddenInputRef.current;
+      if (!inputElement || document.activeElement !== inputElement) {
+        return;
+      }
+      const pos = inputElement.selectionStart ?? inputElement.value.length;
+      updateCaretPosition(pos, inputElement.value.length);
+    };
+    document.addEventListener('selectionchange', handleSelectionChange);
+    return () => {
+      document.removeEventListener('selectionchange', handleSelectionChange);
+    };
+  }, []);
+
   return (
     <Box sx={{ display: 'inline-block', width: containerWidth }}>
       <CodeBox
@@ -264,9 +356,25 @@ const CodeInput = ({
           type={encrypted ? 'password' : 'text'}
           inputMode={inputMode}
           autoComplete="one-time-code"
+          /* Disable mobile keyboard features that can change caret/value on Android (Gboard)
+          This field is an OTP/PIN, not natural text; we want raw keystrokes without “smart” edits */
+          autoCorrect="off"
+          autoCapitalize="off"
+          spellCheck={false}
           value={sanitizedValue}
+          onBeforeInput={handleBeforeInput}
           onChange={handleChange}
           onKeyUp={handleKeyUp}
+          onCompositionStart={() => {
+            isComposingRef.current = true;
+          }}
+          onCompositionEnd={(e) => {
+            isComposingRef.current = false;
+            // At the end of composition, store current selection and restore it on the next frame
+            pendingCaretRef.current =
+              e.currentTarget.selectionStart ?? e.currentTarget.value.length;
+            restoreCaretIfNeeded();
+          }}
           maxLength={length}
           readOnly={readOnly}
           aria-invalid={error || undefined}
@@ -277,13 +385,26 @@ const CodeInput = ({
                 'aria-describedby': [helperTextId, ariaDescribedby].filter(Boolean).join(' '),
               }
             : {})}
+          // Visually hidden input: invisible but focusable with working selection (not 0×0)
           style={{
             position: 'absolute',
             opacity: 0,
-            pointerEvents: 'none',
-            height: 0,
-            width: 0,
+            /* Keep a minimal box (1x1) so Android/Chrome respects selection APIs
+            0x0 inputs can make setSelectionRange unreliable on some devices
+            Remove extra box metrics */
+            width: 1,
+            height: 1,
+            padding: 0,
+            border: 0,
+            margin: 0,
+            /* Clip the element to ensure nothing is painted (classic a11y pattern) */
+            clip: 'rect(0 0 0 0)',
+            clipPath: 'inset(50%)',
+            /* Prevent any accidental scrollbars or line wrapping */
+            overflow: 'hidden',
+            whiteSpace: 'nowrap',
           }}
+          // Focus: place the cursor at the end, update the virtual caret immediately, and schedule a restore
           onFocus={(e) => {
             setIsFocused(true);
             if (readOnly) {
@@ -292,10 +413,13 @@ const CodeInput = ({
             const pos = e.target.value.length;
             e.target.setSelectionRange(pos, pos);
             updateCaretPosition(pos);
+            pendingCaretRef.current = pos;
+            restoreCaretIfNeeded();
           }}
           onBlur={() => {
             setIsFocused(false);
             setCaretPosition(null);
+            pendingCaretRef.current = null;
           }}
         />
 
