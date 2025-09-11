@@ -16,13 +16,14 @@ import {
   calcNextFinalTag,
   isTagOrBranch,
   toSentenceCase,
-  parseCommits,
+  // parseCommits,
 } from './utility-helper.js';
 import {
   generateChangelog,
   generateChangelogSection,
   updatePackageVersion,
 } from './file-helper.js';
+import { checkout } from './git-helper.js';
 
 async function run() {
   try {
@@ -48,25 +49,28 @@ async function run() {
       const latestRelease = await getLatestRelease(octokit, ref);
       // calc the new tag
       // first get all commits from the latest tag that is in the history of the current branch
-      let commits = await getCommits(octokit, ref, latestRelease.tag_name);
+      /*let commits = await getCommits(octokit, ref, latestRelease.tag_name);
       commits = parseCommits(commits);
-      // const nextTag = await calcNextTag(latestRelease.tag_name, type, finalRelease, commits);
+      if (commits.length === 0) {
+        throw new Error(`From tag ${latestRelease.tag_name} there is no meaningful commit`);
+      }*/
+      const nextTag = await calcNextTag(latestRelease.tag_name, type, finalRelease);
       // check if a release branch already exists
       // for hotfix we will have hotfix/{tag_final}
       // for release we will have release/{tag_final}
-      // const nextFinalTag = calcNextFinalTag(nextTag);
+      const nextFinalTag = calcNextFinalTag(nextTag);
       // first check if we are already on the release branch
-      /*const releaseBranch = `${type}/${nextFinalTag}`;
+      const releaseBranch = `${type}/${nextFinalTag}`;
       let releaseBranchSha = null;
-      if (releaseBranch === refBranch) {
+      if (releaseBranch === ref) {
         releaseBranchSha = startingRef.object.sha;
       } else {
-        const releaseBranchRef = await checkIfRefExists(octokit, `heads/${type}/${nextFinalTag}`);
+        const releaseBranchRef = await getRef(octokit, releaseBranch);
         if (releaseBranchRef) {
           releaseBranchSha = releaseBranchRef.object.sha;
           // if the release branch already exists and it is different from the starting branch, we must be sure that it is updated
           // before continuing, we have to merge the ref branch into the release branch
-          await mergeBranch(octokit, refBranch, releaseBranch);
+          await mergeBranch(octokit, ref, releaseBranch);
         } else {
           releaseBranchSha = await createBranch(
             octokit,
@@ -74,7 +78,10 @@ async function run() {
             `${type}/${nextFinalTag}`
           );
         }
-      }*/
+      }
+
+      // checkout to release branch
+      await checkout(releaseBranch);
 
       // first get all commits from the last tag
       // const commits = await getCommits(octokit, releaseBranchSha, latestRelease.created_at);
@@ -85,24 +92,22 @@ async function run() {
       core.info(JSON.stringify(commits, null, 2));*/
 
       // update package and commit changes
-      // const packageJson = updatePackageVersion(nextTag);
+      const packageJson = updatePackageVersion(nextTag);
       // we need to commit changes to correctly generate the changelog
-      /*let commit = await commitChanges(
+      let commit = await commitChanges(
         octokit,
         releaseBranch,
         releaseBranchSha,
         [{ path: 'package.json', content: packageJson }],
         `chore(release-${nextTag}): Bump version to v${nextTag}`
       );
-      */
       // generate changelog and commit changes
-      // const changelogSection = await generateChangelogSection(releaseBranchSha);
+      const changelogSection = await generateChangelogSection(latestRelease.tag_name);
       // the changelog generated is only the last section (from last tag) and not the whole file,
       // so we need to prepend the section generated to the current changelog
-      // const changelog = generateChangelog(changelogSection);
-      // core.info(changelogSection);
+      const changelog = generateChangelog(changelogSection);
       // here we do a commit ammend
-      /*commit = await commitChanges(
+      commit = await commitChanges(
         octokit,
         releaseBranch,
         commit.sha,
@@ -111,7 +116,6 @@ async function run() {
       );
       // push changes
       await updateRef(octokit, `heads/${releaseBranch}`, commit.sha);
-      */
       return;
     }
     throw new Error(`No GitHub token specified`);

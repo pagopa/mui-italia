@@ -1,5 +1,8 @@
 import RE2 from 're2';
 import core from '@actions/core';
+import { Bumper } from 'conventional-recommended-bump';
+
+import muiPreset from '../mui-preset/index.js';
 
 export function toSentenceCase(word) {
   return String(word).charAt(0).toUpperCase() + String(word).slice(1);
@@ -13,40 +16,87 @@ export function isTagOrBranch(ref) {
   return 'branch';
 }
 
+/*
+function trimNewLines(input) {
+  // To escape ReDos we should escape String#replace with regex.
+  const matches = input.match(/[^\r\n]/);
+
+  if (typeof matches?.index !== 'number') {
+    return '';
+  }
+
+  const firstIndex = matches.index;
+  let lastIndex = input.length - 1;
+
+  while (input[lastIndex] === '\r' || input[lastIndex] === '\n') {
+    lastIndex--;
+  }
+
+  return input.substring(firstIndex, lastIndex + 1);
+}
+
 export function parseCommits(commits) {
   const parsedCommits = [];
-  const commitRegexp = new RE2(/^(\w*)(?:\((.*)\))?!?:\s(.*)$/);
+  const commitRegexp = new RE2(/^(\w*)(?:\((.*)\))?!?:\s?(.*)$/);
   const revertRegexp = new RE2(
     /^(?:Revert|revert:)\s"?([\s\S]+?)"?\s*This reverts commit (\w*)\./i
   );
+  const breakingChangesRegexp = new RE2(/^(\w*\(.*\)?!:\s?.*)|BREAKING CHANGES|BREAKING_CHANGES$/);
   for (const commit of commits) {
     // first exclude merge commits
     // commits with more than one parent are merge commits
     if (commit.parents.length > 1) {
       continue;
     }
+    // commit message can have multiple rows
+    const commitMessageRows = trimNewLines(commit.commit.message)
+      .split(/\r?\n/)
+      .filter((m) => m);
+
     const parsedCommit = {
-      message: commit.commit.message,
+      message: commitMessageRows[0],
       hash: commit.sha,
       date: commit.commit.committer.date,
     };
     // extract conventional commits data
     const match = parsedCommit.message.match(commitRegexp);
     if (match) {
-      parsedCommit.type = match[0];
-      parsedCommit.scope = match[1];
-      parsedCommit.subject = match[2];
+      parsedCommit.type = match[1];
+      parsedCommit.scope = match[2];
+      parsedCommit.subject = match[3];
     }
     // check if the commit is a revert commit
     const isRevert = revertRegexp.test(parsedCommit.message);
-    parseCommit.revert = isRevert;
+    parsedCommit.revert = isRevert;
+    // check if the commit is a breaking changes
+    let isBreakingChanges = breakingChangesRegexp.test(parsedCommit.message);
+    parsedCommit.breakingChanges = isBreakingChanges;
+    core.info(JSON.stringify(match, null, 2));
   }
   return parsedCommits;
 }
 
-function bumpVersion(commits) {}
+function bumpVersion(commits) {
+  let level = 'patch';
 
-export async function calcNextTag(latestTag, type, finalRelease, commits) {
+  for (const commit of commits) {
+    // if there is a breaking changes, the parser automatically fills the notes array
+    if (commit.breakingChanges) {
+      level = 'major';
+      break;
+    } else if (commit.type === 'feat') {
+      if (level === 2) {
+        level = 'minor';
+        break;
+      }
+    }
+  }
+
+  return level;
+}
+*/
+
+export async function calcNextTag(latestTag, type, finalRelease) {
   core.info(`Calculating next tag starting from ${latestTag}`);
   try {
     const rcRegex = new RE2(/^v(\d+)\.(\d+)\.(\d+)(?:-RC|-rc\.(\d+))?$/);
@@ -81,14 +131,15 @@ export async function calcNextTag(latestTag, type, finalRelease, commits) {
       nextPatch++;
       nextCandidate = finalRelease === true ? null : 0; // we have to specify the === true, otherwise it doesn't work
     } else {
-      /*const bumper = new Bumper()
+      const bumper = new Bumper()
         .commits({
           from: latestTag,
           to: 'HEAD',
         })
-        .loadPreset('mui-preset', () => muiPreset);*/
+        .loadPreset('mui-preset', () => muiPreset);
       const recommendation = await bumper.bump();
       const releaseType = recommendation.releaseType;
+      // const releaseType = bumpVersion(commits);
       if (releaseType === 'major') {
         nextMajor++;
         nextMinor = 0;
