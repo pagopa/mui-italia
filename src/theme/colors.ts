@@ -1,3 +1,5 @@
+import { hexToRgb, rgbToHex } from '@mui/system';
+
 export const colorTextPrimary = '#17324D';
 export const shadowColor = '#002B55';
 export const backdropBackground = '#17324D';
@@ -89,7 +91,7 @@ export const purple = {
 
 export const opacity = {
   black: {
-    20: '#0f101533', // #0E0F13 · 20%
+    20: `rgba(${hexToRgb(neutral.black)}, 0.2)`, // #0E0F13 · 20%
     60: '#0f101599', // #0E0F13 · 60%
   },
   blue: {
@@ -111,52 +113,4 @@ export const surface = {
   skeletonOpacity: neutral[450],
   placeholder: neutral[50],
   blueItalia: blueitalia[50],
-};
-
-export const badge = {
-  default: { filled: blue[50], filledText: blue[850], outline: blue[600] },
-  warning: { filled: warning[100], filledText: warning[850], outline: warning[850] },
-  success: { filled: success[100], filledText: success[850], outline: success[850] },
-  error: { filled: error[100], filledText: error[850], outline: error[600] },
-  highlighted: { filled: turquoise[50], filledText: turquoise[850], outline: turquoise[850] },
-};
-
-export const icon = {
-  active: neutral.black,
-  decorative: neutral[300],
-  action: blue[500],
-  success: success[700],
-  info: info[700],
-  warning: warning[700],
-  error: error[600],
-  navbar: neutral[850],
-  button: opacity.black[60],
-};
-
-export const button = {
-  primary: {
-    text: {
-      default: neutral.white, // text button primary
-      contrast: text.description, // text button primary contrast
-    },
-    button: blue[500], // button primary
-    contrast: neutral.white, //  button primary contrast
-    pressed: {
-      default: blue[600], // button primary pressed
-      contrast: blue[50], // button primary contrast pressed
-    },
-  },
-  secondary: {
-    contrast: {
-      pressed: surface.overlay, // button primary contrast pressed
-    },
-  },
-  tertiary: {
-    button: blue[500], // button tertiary
-  },
-  disabled: {
-    text: text.description, // text button disabled
-    button: neutral[200], //  button primary disabled
-    contrast: blue[200], //  button primary contrast disabled
-  },
 };
