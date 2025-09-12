@@ -264,6 +264,8 @@ const CodeInput = ({
           type={encrypted ? 'password' : 'text'}
           inputMode={inputMode}
           autoComplete="one-time-code"
+          /* Disable mobile keyboard features that can change caret/value on Android (Gboard)
+          This field is an OTP/PIN, not natural text; we want raw keystrokes without “smart” edits */
           autoCorrect="off"
           autoCapitalize="off"
           spellCheck={false}
@@ -283,13 +285,18 @@ const CodeInput = ({
           style={{
             position: 'absolute',
             opacity: 0,
+            /* Keep a minimal box (1x1) so Android/Chrome respects selection APIs
+            0x0 inputs can make setSelectionRange unreliable on some devices
+            Remove extra box metrics */
             height: 1,
             width: 1,
             padding: 0,
             border: 0,
             margin: 0,
+            /* Clip the element to ensure nothing is painted (classic a11y pattern) */
             clip: 'rect(0 0 0 0)',
             clipPath: 'inset(50%)',
+            /* Prevent any accidental scrollbars or line wrapping */
             overflow: 'hidden',
             whiteSpace: 'nowrap',
           }}
