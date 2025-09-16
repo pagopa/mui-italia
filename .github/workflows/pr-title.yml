@@ -14,10 +14,6 @@ on:
       - reopened
       - synchronize
 
-concurrency:
-  group: ${{ github.workflow }}-cd
-  cancel-in-progress: false
-
 permissions:
   pull-requests: write
 
