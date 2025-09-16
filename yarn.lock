@@ -3918,7 +3918,7 @@ __metadata:
     "@storybook/addon-essentials": ^7.5.0
     "@storybook/addon-links": ^7.5.0
     "@storybook/addon-mdx-gfm": ^7.5.0
-    "@storybook/react": ^7.5.0
+    "@storybook/react": ^9.1.6
     "@storybook/react-webpack5": ^7.5.0
     "@types/node": ^18.16.20
     "@types/react": 18.2.33
@@ -5308,6 +5308,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@storybook/react-dom-shim@npm:9.1.6":
+  version: 9.1.6
+  resolution: "@storybook/react-dom-shim@npm:9.1.6"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
+    storybook: ^9.1.6
+  checksum: 516a3e38158b575114fa035ed8198df9f83ec3cf38bdc81cce138032cc78fa9ace62a6bfa765cadcb1bb48650491762243244a55facdb17581869b5e0b73eb09
+  languageName: node
+  linkType: hard
+
 "@storybook/react-webpack5@npm:^7.5.0":
   version: 7.6.17
   resolution: "@storybook/react-webpack5@npm:7.6.17"
@@ -5330,7 +5341,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/react@npm:7.6.17, @storybook/react@npm:^7.5.0":
+"@storybook/react@npm:7.6.17":
   version: 7.6.17
   resolution: "@storybook/react@npm:7.6.17"
   dependencies:
@@ -5363,6 +5374,24 @@ __metadata:
     typescript:
       optional: true
   checksum: 4c2bc6a26208e06004a212e485c2a8f24ddec1a53777c04ded415bd2eb32981209f641fe72fb5f951760b0018d4cc2639d74f9997f4967852b03e29292c3ce73
+  languageName: node
+  linkType: hard
+
+"@storybook/react@npm:^9.1.6":
+  version: 9.1.6
+  resolution: "@storybook/react@npm:9.1.6"
+  dependencies:
+    "@storybook/global": ^5.0.0
+    "@storybook/react-dom-shim": 9.1.6
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
+    storybook: ^9.1.6
+    typescript: ">= 4.9.x"
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 100af3d6d6f66bee8d659b87453f3a829660c6c43b0293fe413db02e62cfbe6d9318e5d1ba55471ccdd7fd55a5c4467ff1069a0204c8bcacaeeb6117717fb5b1
   languageName: node
   linkType: hard
 
