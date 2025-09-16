@@ -6,6 +6,7 @@ export async function checkout(branchName) {
   try {
     // -q is to suppress feedback messages.
     //
+    await exec('git', ['fetch', 'origin', branchName], { silent: true });
     await exec('git', ['checkout', branchName, '-q'], { silent: true });
   } catch (error) {
     throw new Error(`Error during checkout: ${error}`);

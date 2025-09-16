@@ -55,6 +55,10 @@ jobs:
         with:
           ref: ${{inputs.ref}}
           fetch-depth: 0
+          sparse-checkout: |
+            .github
+            package.json
+            CHANGELOG.md
 
       - name: Setup Git Config
         run: |
