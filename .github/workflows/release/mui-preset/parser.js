@@ -1,8 +1,8 @@
 export function createParserOpts() {
   return {
     // regexp used to break down commit message
-    headerPattern: /^(\w*)(?:\((.*)\))?!?: (.*)$/,
-    breakingHeaderPattern: /^(\w*)(?:\((.*)\))?!: (.*)$/,
+    headerPattern: /^(\w*)(?:\((.*)\))?!?:\s?(.*)$/,
+    breakingHeaderPattern: /^(\w*)(?:\((.*)\))?!:\s?(.*)$/,
     // maps the regexp group into specific variable
     headerCorrespondence: ['type', 'scope', 'subject'],
     // define the key words for the breaking changes
