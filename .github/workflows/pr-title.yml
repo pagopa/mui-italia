@@ -15,7 +15,7 @@ on:
       - synchronize
 
 concurrency:
-  group: ${{ github.workflow }}-cd
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: false
 
 permissions:
