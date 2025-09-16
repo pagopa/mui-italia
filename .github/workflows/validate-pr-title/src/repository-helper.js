@@ -2,7 +2,7 @@ const github = require('@actions/github');
 const core = require('@actions/core');
 const RE2 = require('re2');
 
-export async function getPullRequestNumber(octokit) {
+async function getPullRequestNumber(octokit) {
   core.info(`Getting the pull request number`);
   try {
     // Get the current event
@@ -141,4 +141,5 @@ module.exports = {
   checkPullRequestTitle,
   createReview,
   dismissReview,
+  getPullRequestNumber,
 };

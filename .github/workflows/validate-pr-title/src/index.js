@@ -8,6 +8,7 @@ const {
   findReview,
   createReview,
   dismissReview,
+  getPullRequestNumber,
 } = require('./repository-helper');
 const { parseEnum } = require('./input-helper');
 
