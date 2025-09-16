@@ -2,45 +2,10 @@ const github = require('@actions/github');
 const core = require('@actions/core');
 const RE2 = require('re2');
 
-async function getPullRequestNumber(octokit) {
-  core.info(`Getting the pull request number`);
-  try {
-    // Get the current event
-    const eventName = github.context.eventName;
-
-    // Check that the current event is a pull_request event
-    if (eventName !== 'pull_request') {
-      throw new Error(`This action requests a pull_request event. Current event: ${eventName}`);
-    }
-
-    // 1. Get the unique ID of the check suite
-    core.info(JSON.stringify(github.context.payload, null, 2));
-    const checkSuiteId = github.context.payload.check_suite.id;
-
-    // 2. Use the api to get the current check suite
-    const { data: checkSuite } = await octokit.rest.checks.getCheckSuite({
-      owner: github.context.repo.owner,
-      repo: github.context.repo.repo,
-      check_suite_id: checkSuiteId,
-    });
-
-    // 3. Get the pr number
-    const pr = checkSuite.pull_requests[0];
-    if (!pr) {
-      throw new Error(`No pull request found for the current check suite`);
-    }
-
-    const prNumber = pr.number;
-    core.info(`Pr number: ${prNumber}`);
-    return prNumber;
-  } catch (error) {
-    core.setFailed(`Error during pr number retrieving: ${error}`);
-  }
-}
-
-async function findReview(octokit, prNumber) {
+async function findReview(octokit) {
   core.info(`Finding review opened by github-actions[bot] and in status CHANGES_REQUESTED`);
   try {
+    const prNumber = github.context.payload.pull_request.number;
     if (!prNumber) {
       throw new Error(`Failed getting pull request: pr number required`);
     }
@@ -80,7 +45,8 @@ function validatePullRequestTitle(prTitle, types, scopes) {
   }
 }
 
-async function checkPullRequestTitle(octokit, prNumber, types, scopes) {
+async function checkPullRequestTitle(octokit, types, scopes) {
+  const prNumber = github.context.payload.pull_request.number;
   core.info(`Getting pull request with number ${prNumber}`);
   try {
     if (!prNumber) {
@@ -99,7 +65,8 @@ async function checkPullRequestTitle(octokit, prNumber, types, scopes) {
   }
 }
 
-async function createReview(octokit, prNumber, reviewBody, status) {
+async function createReview(octokit, reviewBody, status) {
+  const prNumber = github.context.payload.pull_request.number;
   core.info(`Creating review with status ${status}`);
   try {
     if (!prNumber) {
@@ -118,7 +85,8 @@ async function createReview(octokit, prNumber, reviewBody, status) {
   }
 }
 
-async function dismissReview(octokit, prNumber, id, reviewBody) {
+async function dismissReview(octokit, id, reviewBody) {
+  const prNumber = github.context.payload.pull_request.number;
   core.info(`Dismissing review with id ${id}`);
   try {
     if (!prNumber) {
@@ -142,5 +110,4 @@ module.exports = {
   checkPullRequestTitle,
   createReview,
   dismissReview,
-  getPullRequestNumber,
 };
