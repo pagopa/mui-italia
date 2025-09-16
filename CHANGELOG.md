@@ -1,3 +1,27 @@
+# [1.7.2](https://github.com/pagopa/mui-italia/releases/tag/v1.7.2) (2025-09-15)
+ 
+### Others
+ 
+* Bump version to 1.7.2 ([4a3649b](https://github.com/pagopa/mui-italia/commit/4a3649bf9e9e9abfa3d7c952e503bee228f6cbe8))
+
+
+
+
+# [1.7.2-rc.20250912131604](https://github.com/pagopa/mui-italia/releases/tag/1.7.2-rc.20250912131604) (2025-09-12)
+
+
+### Bug Fixes
+
+* **M20DS-34:** prevent CodeInput caret jumping on Android ([#574](https://github.com/pagopa/mui-italia/issues/574)) ([5390432](https://github.com/pagopa/mui-italia/commit/53904322fc708eb1a0a05c8828aafd16ecf228ce))
+
+
+
+### Others
+
+* Bump version to 1.7.2-rc.20250912131604 ([117ec55](https://github.com/pagopa/mui-italia/commit/117ec55c9c0238e2815e6f5d33f50b5b08172300))
+
+
+
 # [1.7.1](https://github.com/pagopa/mui-italia/releases/tag/v1.7.1) (2025-09-03)
  
 ### Others
@@ -165,7 +189,6 @@
 * calculate next tag ([5e4869f](https://github.com/pagopa/mui-italia/commit/5e4869fb12574bf7f949b42d2e496569789f8042))
 
 * release action (calc starting tag) ([7d38e3e](https://github.com/pagopa/mui-italia/commit/7d38e3e7b77143c1ba9aed92d6c72fe9a69f7a73))
-
 
 
 
