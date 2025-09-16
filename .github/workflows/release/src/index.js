@@ -115,7 +115,7 @@ async function run() {
         `chore(release-${nextTag}): Bump version to v${nextTag}`
       );
       // push changes
-      await updateRef(octokit, `heads/${releaseBranch}`, commit.sha);
+      await updateRef(octokit, releaseBranch, commit.sha);
       return;
     }
     throw new Error(`No GitHub token specified`);
