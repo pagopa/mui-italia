@@ -14,6 +14,7 @@ async function getPullRequestNumber(octokit) {
     }
 
     // 1. Get the unique ID of the check suite
+    core.info(JSON.stringify(github.context.payload, null, 2));
     const checkSuiteId = github.context.payload.check_suite.id;
 
     // 2. Use the api to get the current check suite
