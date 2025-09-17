@@ -97,7 +97,7 @@ async function run() {
       const releaseName = `${finalRelease ? '' : 'Pre-'}Release ${nextTag} - ${date}`;
       const logs = await log(
         latestRelease.tag_name,
-        '--pretty=format:"* %h %s"',
+        '--pretty=format:* %h %s',
         '--abbrev-commit',
         '--no-merges'
       );
