@@ -233,7 +233,7 @@ export async function updateRef(octokit, ref, commitSha) {
 export async function createRelease(octokit, tag, commitSha, name, body, isPrerelease) {
   core.info(`Creating release from tag ${tag}`);
   try {
-    await octokit.rest.git.createRelease({
+    await octokit.rest.repos.createRelease({
       owner: github.context.repo.owner,
       repo: github.context.repo.repo,
       tag_name: tag,
