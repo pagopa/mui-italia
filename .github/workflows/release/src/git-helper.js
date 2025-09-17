@@ -13,10 +13,20 @@ export async function checkout(branchName) {
   }
 }
 
-export async function log(from, ...options) {
+export async function log(from, ...logOptions) {
   core.info(`Getting logs from ${from}`);
   try {
-    await exec('git', ['log', `${from}..HEAD`, options], { silent: true });
+    let myOutput = '';
+    const options = {
+      silent: true,
+    };
+    options.listeners = {
+      stdout: (data) => {
+        myOutput += data.toString();
+      },
+    };
+    await exec('git', ['log', `${from}..HEAD`, ...logOptions], options);
+    return myOutput;
   } catch (error) {
     throw new Error(`Error during getting logs: ${error}`);
   }

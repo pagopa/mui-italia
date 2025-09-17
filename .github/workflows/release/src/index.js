@@ -101,15 +101,14 @@ async function run() {
         '--abbrev-commit',
         '--no-merges'
       );
-      core.info(logs);
-      /*await createRelease(
+      await createRelease(
         octokit,
         `v${nextTag}`,
         commit.sha,
         releaseName,
-        changelogSection,
+        '## Changes:\n\r' + logs,
         !finalRelease
-      );*/
+      );
       return;
     }
     throw new Error(`No GitHub token specified`);
