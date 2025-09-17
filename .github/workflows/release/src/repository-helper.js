@@ -132,8 +132,8 @@ export async function mergeBranch(octokit, sBranchName, dBranchName) {
     await octokit.rest.repos.merge({
       owner: github.context.repo.owner,
       repo: github.context.repo.repo,
-      base: sBranchName,
-      head: dBranchName,
+      base: dBranchName,
+      head: sBranchName,
     });
     core.info(`Branch ${sBranchName} merged into ${dBranchName}`);
   } catch (error) {
