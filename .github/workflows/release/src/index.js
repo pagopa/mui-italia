@@ -5,19 +5,13 @@ import { checkInputs } from './input-helper.js';
 import {
   getLatestRelease,
   getRef,
-  createBranch,
+  createRef,
   mergeBranch,
   commitChanges,
-  getCommits,
   updateRef,
+  createTag,
 } from './repository-helper.js';
-import {
-  calcNextTag,
-  calcNextFinalTag,
-  isTagOrBranch,
-  toSentenceCase,
-  // parseCommits,
-} from './utility-helper.js';
+import { calcNextTag, calcNextFinalTag, toSentenceCase } from './utility-helper.js';
 import {
   generateChangelog,
   generateChangelogSection,
@@ -48,12 +42,6 @@ async function run() {
       // to get the latest tag we need to get the latest release and check what is the tag linked to it
       const latestRelease = await getLatestRelease(octokit, ref);
       // calc the new tag
-      // first get all commits from the latest tag that is in the history of the current branch
-      /*let commits = await getCommits(octokit, ref, latestRelease.tag_name);
-      commits = parseCommits(commits);
-      if (commits.length === 0) {
-        throw new Error(`From tag ${latestRelease.tag_name} there is no meaningful commit`);
-      }*/
       const nextTag = await calcNextTag(latestRelease.tag_name, type, finalRelease);
       // check if a release branch already exists
       // for hotfix we will have hotfix/{tag_final}
@@ -72,7 +60,7 @@ async function run() {
           // before continuing, we have to merge the ref branch into the release branch
           await mergeBranch(octokit, ref, releaseBranch);
         } else {
-          releaseBranchSha = await createBranch(
+          releaseBranchSha = await createRef(
             octokit,
             startingRef.object.sha,
             `${type}/${nextFinalTag}`
@@ -83,39 +71,38 @@ async function run() {
       // checkout to release branch
       await checkout(releaseBranch);
 
-      // first get all commits from the last tag
-      // const commits = await getCommits(octokit, releaseBranchSha, latestRelease.created_at);
-      // release candidate must have at least one commit
-      /*if (commits.length === 0 && !finalRelease) {
-        throw new Error(`No commit found: release candidate must have at least one commit`);
-      }
-      core.info(JSON.stringify(commits, null, 2));*/
-
-      // update package and commit changes
+      // update package
       const packageJson = updatePackageVersion(nextTag);
-      // we need to commit changes to correctly generate the changelog
-      let commit = await commitChanges(
-        octokit,
-        releaseBranch,
-        releaseBranchSha,
-        [{ path: 'package.json', content: packageJson }],
-        `chore(release-${nextTag}): Bump version to v${nextTag}`
-      );
       // generate changelog and commit changes
       const changelogSection = await generateChangelogSection(latestRelease.tag_name);
       // the changelog generated is only the last section (from last tag) and not the whole file,
       // so we need to prepend the section generated to the current changelog
       const changelog = generateChangelog(changelogSection);
-      // here we do a commit ammend
-      commit = await commitChanges(
+      // here we do the commit
+      const commit = await commitChanges(
         octokit,
         releaseBranch,
-        commit.sha,
-        [{ path: 'CHANGELOG.md', content: changelog }],
+        releaseBranchSha,
+        [
+          { path: 'CHANGELOG.md', content: changelog },
+          { path: 'package.json', content: packageJson },
+        ],
         `chore(release-${nextTag}): Bump version to v${nextTag}`
       );
       // push changes
       await updateRef(octokit, releaseBranch, commit.sha);
+      // create release
+      const today = new Date();
+      const date = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
+      const releaseName = `${finalRelease ? '' : 'Pre-'}Release ${nextTag} - ${date}`;
+      await createRelease(
+        octokit,
+        `v${nextTag}`,
+        commit.sha,
+        releaseName,
+        changelogSection,
+        !finalRelease
+      );
       return;
     }
     throw new Error(`No GitHub token specified`);

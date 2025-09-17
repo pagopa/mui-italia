@@ -104,22 +104,23 @@ export async function getCommits(octokit, branchName, tag) {
   }
 }
 
-export async function createBranch(octokit, baseBranchSha, branchName) {
-  core.info(`Creating branch ${branchName}`);
-  // Create a new branch based on the base branch
+export async function createRef(octokit, sha, ref) {
+  const type = isTagOrBranch(ref);
+  core.info(`Creating ${type} ${ref}`);
+  // Create a new ref
   try {
     const { data: branchRef } = await octokit.rest.git.createRef({
       owner: github.context.repo.owner,
       repo: github.context.repo.repo,
-      ref: `refs/heads/${branchName}`,
-      sha: baseBranchSha,
+      ref: `refs/${type === 'tag' ? 'tags' : 'heads'}/${ref}`,
+      sha,
     });
     const branchSha = branchRef.object.sha;
-    core.debug(`Branch sha ${branchSha}`);
-    core.info(`Branch ${branchName} created`);
+    core.debug(`${toSentenceCase(type)} sha ${branchSha}`);
+    core.info(`${toSentenceCase(type)} ${ref} created`);
     return branchSha;
   } catch (error) {
-    throw new Error(`Error during branch creation: ${error}`);
+    throw new Error(`Error during ${toSentenceCase(type)} creation: ${error}`);
   }
 }
 
@@ -226,5 +227,25 @@ export async function updateRef(octokit, ref, commitSha) {
     core.info(`${toSentenceCase(type)} ${ref} updated`);
   } catch (error) {
     throw new Error(`Error during ${type} ${ref} updating: ${error}`);
+  }
+}
+
+export async function createRelease(octokit, tag, commitSha, name, body, isPrerelease) {
+  core.info(`Creating release from tag ${tag}`);
+  try {
+    await octokit.rest.git.createRelease({
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
+      tag_name: tag,
+      target_commitish: commitSha,
+      name,
+      body,
+      prerelease: isPrerelease,
+      generate_release_notes: true,
+      make_latest: !isPrerelease,
+    });
+    core.info(`Release created`);
+  } catch (error) {
+    throw new Error(`Error during release creation: ${error}`);
   }
 }

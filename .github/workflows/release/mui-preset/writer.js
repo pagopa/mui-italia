@@ -81,21 +81,8 @@ function getWriterOpts() {
         subject,
       };
     },
-    /*finalizeContext: (context, _writerOpts, _filteredCommits, _keyCommit, _originalCommits) => {
-      const { commitGroups } = context;
-      if (!commitGroups || commitGroups.length === 0) {
-        const versionBumpCommit = {
-          title: 'Chore',
-          commits: [
-            {
-              scope: 'chore',
-              type: `release-${context.version}`,
-              subject: `Bump version to v${context.version}`,
-            },
-          ],
-        };
-        context.commitGroups = [versionBumpCommit];
-      }
+    /*
+    finalizeContext: (context, _writerOpts, _filteredCommits, _keyCommit, _originalCommits) => {
       return context;
     },
     */

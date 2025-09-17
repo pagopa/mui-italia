@@ -22,7 +22,7 @@ export function updatePackageVersion(nextTag) {
   }
 }
 
-export function generateChangelogSection(latestTag) {
+export function generateChangelogSection(latestTag, additionalCommits) {
   core.info(`Generating CHANGELOG section from tag ${latestTag}`);
   try {
     const chunks = [];
@@ -32,7 +32,13 @@ export function generateChangelogSection(latestTag) {
         from: latestTag,
       })
       .readPackage()
-      .loadPreset('mui-preset', () => muiPreset);
+      .loadPreset(
+        {
+          name: 'mui-preset',
+          additionalCommits,
+        },
+        () => muiPreset
+      );
     return new Promise((resolve, reject) => {
       generator
         .writeStream()
