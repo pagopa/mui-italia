@@ -9,7 +9,7 @@ import {
   mergeBranch,
   commitChanges,
   updateRef,
-  createTag,
+  createRelease,
 } from './repository-helper.js';
 import { calcNextTag, calcNextFinalTag, toSentenceCase } from './utility-helper.js';
 import {
