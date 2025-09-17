@@ -17,7 +17,7 @@ import {
   generateChangelogSection,
   updatePackageVersion,
 } from './file-helper.js';
-import { checkout } from './git-helper.js';
+import { checkout, log } from './git-helper.js';
 
 async function run() {
   try {
@@ -87,7 +87,7 @@ async function run() {
           { path: 'CHANGELOG.md', content: changelog },
           { path: 'package.json', content: packageJson },
         ],
-        `chore(release-${nextTag}): Bump version to v${nextTag}`
+        `chore: Bump version to v${nextTag}`
       );
       // push changes
       await updateRef(octokit, releaseBranch, commit.sha);
@@ -95,14 +95,21 @@ async function run() {
       const today = new Date();
       const date = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
       const releaseName = `${finalRelease ? '' : 'Pre-'}Release ${nextTag} - ${date}`;
-      await createRelease(
+      const logs = await log(
+        latestRelease.tag_name,
+        '--pretty=format:"* %h %s"',
+        '--abbrev-commit',
+        '--no-merges'
+      );
+      core.info(logs);
+      /*await createRelease(
         octokit,
         `v${nextTag}`,
         commit.sha,
         releaseName,
         changelogSection,
         !finalRelease
-      );
+      );*/
       return;
     }
     throw new Error(`No GitHub token specified`);

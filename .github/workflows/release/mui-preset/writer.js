@@ -13,8 +13,8 @@ const sectionsMap = {
   build: 'Build System',
   refactor: 'Code Refactoring',
   perf: 'Performance Improvements',
-  chore: 'Chores',
   style: 'Styles',
+  chore: 'Chores',
   fix: 'Bug Fixes',
   feat: 'Features',
 };
@@ -43,6 +43,11 @@ function getWriterOpts() {
       const scope = commit.scope === '*' ? '' : commit.scope;
 
       const type = getCommitType(commit);
+
+      // exclude those commits that don't have type
+      if (!type) {
+        return;
+      }
 
       const shortHash =
         typeof commit.hash === 'string'
@@ -118,5 +123,5 @@ function getWriterOpts() {
 function getCommitType(commit) {
   let section = commit.revert ? 'Reverts' : sectionsMap[commit.type];
 
-  return section ? section : 'Others';
+  return section;
 }

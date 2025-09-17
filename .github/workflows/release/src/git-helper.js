@@ -12,3 +12,12 @@ export async function checkout(branchName) {
     throw new Error(`Error during checkout: ${error}`);
   }
 }
+
+export async function log(from, ...options) {
+  core.info(`Getting logs from ${from}`);
+  try {
+    await exec('git', ['log', `${from}..HEAD`, options], { silent: true });
+  } catch (error) {
+    throw new Error(`Error during getting logs: ${error}`);
+  }
+}
