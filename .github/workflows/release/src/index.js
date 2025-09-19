@@ -11,7 +11,7 @@ import {
   updateRef,
   createRelease,
 } from './repository-helper.js';
-import { calcNextTag, calcNextFinalTag, toSentenceCase } from './utility-helper.js';
+import { calcNextTag, toSentenceCase } from './utility-helper.js';
 import {
   generateChangelog,
   generateChangelogSection,
