@@ -80,8 +80,3 @@ export async function calcNextTag(latestTag, type, finalRelease) {
     throw new Error(`Error during next tag calculation: ${error}`);
   }
 }
-
-export function calcNextFinalTag(nextTag) {
-  const rcRegex = new RE2(/-RC\.\d+$/);
-  return nextTag.replace(rcRegex, '');
-}

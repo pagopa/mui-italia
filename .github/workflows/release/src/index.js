@@ -40,13 +40,12 @@ async function run() {
       }
       // get the latest tag that is in the history of the current branch
       // to get the latest tag we need to get the latest release and check what is the tag linked to it
-      const latestRelease = await getLatestRelease(octokit, ref);
-      // calc the new tag
-      const nextTag = await calcNextTag(latestRelease.tag_name, type, finalRelease);
+      let latestRelease = await getLatestRelease(octokit, ref);
+      // calc the next final tag
+      const nextFinalTag = calcNextTag(latestRelease.tag_name, type, true);
       // check if a release branch already exists
       // for hotfix we will have hotfix/{tag_final}
       // for release we will have release/{tag_final}
-      const nextFinalTag = calcNextFinalTag(nextTag);
       // first check if we are already on the release branch
       const releaseBranch = `${type}/${nextFinalTag}`;
       let releaseBranchSha = null;
@@ -59,6 +58,9 @@ async function run() {
           // if the release branch already exists and it is different from the starting branch, we must be sure that it is updated
           // before continuing, we have to merge the ref branch into the release branch
           await mergeBranch(octokit, ref, releaseBranch);
+          // if the release branch already exists we are in the RC case and we have to get again the cuurrent release,
+          // because the starting branch doesn't have the last RC tag
+          latestRelease = await getLatestRelease(octokit, releaseBranchRef);
         } else {
           releaseBranchSha = await createRef(
             octokit,
@@ -67,10 +69,10 @@ async function run() {
           );
         }
       }
-
       // checkout to release branch
       await checkout(releaseBranch);
-
+      // calc the new tag
+      const nextTag = await calcNextTag(latestRelease.tag_name, type, finalRelease);
       // update package
       const packageJson = updatePackageVersion(nextTag);
       // generate changelog and commit changes
