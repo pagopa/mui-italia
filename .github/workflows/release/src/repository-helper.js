@@ -241,7 +241,7 @@ export async function createRelease(octokit, tag, commitSha, name, body, isPrere
       name,
       body,
       prerelease: isPrerelease,
-      generate_release_notes: false,
+      generate_release_notes: true,
       make_latest: (!isPrerelease).toString(),
     });
     core.info(`Release created`);

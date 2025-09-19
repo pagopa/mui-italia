@@ -19,7 +19,7 @@ export function isTagOrBranch(ref) {
 export async function calcNextTag(latestTag, type, finalRelease) {
   core.info(`Calculating next tag starting from ${latestTag}`);
   try {
-    const rcRegex = new RE2(/^v(\d+)\.(\d+)\.(\d+)(?:-RC|-rc\.(\d+))?$/);
+    const rcRegex = new RE2(/^v(\d+)\.(\d+)\.(\d+)(?:(?:-RC|-rc)\.(\d+))?$/);
     const match = latestTag.match(rcRegex);
     // match returns an array in witch the first element is the string itslef
     // the second element is the major, the third is the minor and the fourth is the path

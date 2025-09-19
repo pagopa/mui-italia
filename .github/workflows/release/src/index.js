@@ -106,7 +106,7 @@ async function run() {
         `v${nextTag}`,
         commit.sha,
         releaseName,
-        '## Changes:\n\r' + logs,
+        "## What's Changed:\n\r" + logs,
         !finalRelease
       );
       return;
