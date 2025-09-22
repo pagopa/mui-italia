@@ -1,0 +1,12 @@
+{
+  "name": "build",
+  "version": "1.0.0",
+  "description": "Action to manage the release flow",
+  "main": "src/index.js",
+  "author": "Andrea Cimini",
+   "type": "module",
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@actions/github": "^6.0.1"
+  }
+}

@@ -17,6 +17,14 @@ inputs:
     description: 'Flag to set if the current release is a final release'
     type: boolean
     required: false
+  main_branch:
+    description: 'The name of the branch to which to open the merge pr with the release branch'
+    type: string
+    required: true
+
+outputs:
+  release_branch: # id of output
+    description: The release branch
 
 runs:
   using: 'node20'

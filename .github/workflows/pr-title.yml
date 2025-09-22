@@ -19,7 +19,7 @@ permissions:
 
 jobs:
   validate-pr-title:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -31,13 +31,13 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
       - name: Install Packages
-        run: cd .github/workflows/validate-pr-title && npm install
+        run: cd .github/workflows/actions/validate-pr-title && npm install
       # feat(mui-123): Add `Button` component
       # feat -> type
       # mui-123 -> scope
       # Add `Button` component -> subject
       - name: Validate pr title
-        uses: ./.github/workflows/validate-pr-title
+        uses: ./.github/workflows/actions/validate-pr-title
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           # Configure which types are allowed.

@@ -1,0 +1,12 @@
+name: 'build'
+description: 'Manage package build'
+
+inputs:
+  token:
+    description: 'GitHub token'
+    type: string
+    required: true
+
+runs:
+  using: 'node20'
+  main: 'src/index.js'

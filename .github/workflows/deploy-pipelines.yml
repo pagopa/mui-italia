@@ -47,8 +47,10 @@ permissions:
 
 jobs:
   release:
-    runs-on: ubuntu-latest
-    # environment: prod-cd
+    runs-on: ubuntu-22.04
+    environment: prod-cd
+    outputs:
+      release_branch: ${{ steps.release.outputs.release_branch }}
     steps:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -66,12 +68,31 @@ jobs:
           git config user.email "<>"
 
       - name: Install Packages
-        run: cd .github/workflows/release && npm install
+        run: cd .github/workflows/actions/release && npm install
 
       - name: Release
-        uses: ./.github/workflows/release
+        id: release
+        uses: ./.github/workflows/actions/release
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           ref: ${{inputs.ref}}
           type: ${{inputs.type}}
           final_release: ${{inputs.final_release}}
+          main_branch: main
+  build:
+    needs: release
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check-out code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+          ref: ${{ needs.release.outputs.release_branch }}
+
+      - name: Install Packages
+        run: cd .github/workflows/actions/build && npm install
+
+      - name: Build
+        uses: ./.github/workflows/actions/build
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}

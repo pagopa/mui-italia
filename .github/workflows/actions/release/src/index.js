@@ -10,6 +10,7 @@ import {
   commitChanges,
   updateRef,
   createRelease,
+  createPullRequest,
 } from './repository-helper.js';
 import { calcNextTag, toSentenceCase } from './utility-helper.js';
 import {
@@ -27,7 +28,7 @@ async function run() {
     if (token) {
       const octokit = github.getOctokit(token);
       // get user inputs
-      const { ref, type, finalRelease } = checkInputs();
+      const { ref, type, finalRelease, mainBranch } = checkInputs();
       core.info(
         `Releasing a new ${
           finalRelease ? 'final' : 'candidate'
@@ -62,11 +63,7 @@ async function run() {
           // because the starting branch doesn't have the last RC tag
           latestRelease = await getLatestRelease(octokit, releaseBranch);
         } else {
-          releaseBranchSha = await createRef(
-            octokit,
-            startingRef.object.sha,
-            `${type}/${nextFinalTag}`
-          );
+          releaseBranchSha = await createRef(octokit, startingRef.object.sha, releaseBranch);
         }
       }
       // checkout to release branch
@@ -108,10 +105,20 @@ async function run() {
         `v${nextTag}`,
         commit.sha,
         releaseName,
-        '',
-        //"## What's Changed:\n\r" + logs,
+        "## What's Changed:\n\r" + logs,
         !finalRelease
       );
+      // if it is a final release, we create the pr from the release branch to the main branch
+      if (finalRelease) {
+        createPullRequest(
+          octokit,
+          releaseBranch,
+          mainBranch,
+          `[${mainBranch.toUpperCase()}] Release ${nextTag}`
+        );
+      }
+      // send data outside the action
+      core.setOutput('release_branch', releaseBranch);
       return;
     }
     throw new Error(`No GitHub token specified`);

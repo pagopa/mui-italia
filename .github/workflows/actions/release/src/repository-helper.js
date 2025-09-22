@@ -242,11 +242,27 @@ export async function createRelease(octokit, tag, commitSha, name, body, isPrere
       name,
       body,
       prerelease: isPrerelease,
-      generate_release_notes: true,
+      generate_release_notes: false,
       make_latest: (!isPrerelease).toString(),
     });
     core.info(`Release created`);
   } catch (error) {
     throw new Error(`Error during release creation: ${error}`);
+  }
+}
+
+export async function createPullRequest(octokit, from, to, title, body) {
+  core.info(`Creating pull request from ${from} to ${to}`);
+  try {
+    octokit.rest.pulls.create({
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
+      head: from,
+      base: to,
+      title,
+      body,
+    });
+  } catch (error) {
+    throw new Error(`Error during pull request creation: ${error}`);
   }
 }
