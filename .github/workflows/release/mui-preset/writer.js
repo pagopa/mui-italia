@@ -86,7 +86,6 @@ function getWriterOpts() {
         subject,
       };
     },
-    /*
     finalizeContext: (context, _writerOpts, _filteredCommits, _keyCommit, _originalCommits) => {
       const { commitGroups } = context;
       if (!commitGroups || commitGroups.length === 0) {
@@ -95,7 +94,7 @@ function getWriterOpts() {
           commits: [
             {
               scope: 'chore',
-              type: `release-${context.version}`,
+              type: ``,
               subject: `Bump version to v${context.version}`,
             },
           ],
@@ -104,7 +103,6 @@ function getWriterOpts() {
       }
       return context;
     },
-    */
     groupBy: 'type',
     commitsSort: (a, b) => {
       const dateA = new Date(a.committerDate).getTime();
