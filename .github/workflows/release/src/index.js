@@ -60,7 +60,7 @@ async function run() {
           await mergeBranch(octokit, ref, releaseBranch);
           // if the release branch already exists we are in the RC case and we have to get again the cuurrent release,
           // because the starting branch doesn't have the last RC tag
-          latestRelease = await getLatestRelease(octokit, releaseBranchRef);
+          latestRelease = await getLatestRelease(octokit, releaseBranch);
         } else {
           releaseBranchSha = await createRef(
             octokit,
