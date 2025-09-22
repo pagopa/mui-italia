@@ -129,13 +129,14 @@ export async function mergeBranch(octokit, sBranchName, dBranchName) {
   // dBranchName is the destination branch
   core.info(`Merging branch ${sBranchName} into ${dBranchName}`);
   try {
-    await octokit.rest.repos.merge({
+    const { data: merge } = await octokit.rest.repos.merge({
       owner: github.context.repo.owner,
       repo: github.context.repo.repo,
       base: dBranchName,
       head: sBranchName,
     });
     core.info(`Branch ${sBranchName} merged into ${dBranchName}`);
+    return merge;
   } catch (error) {
     if (error.status === 409) {
       throw new Error(
