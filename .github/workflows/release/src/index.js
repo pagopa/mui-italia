@@ -42,7 +42,7 @@ async function run() {
       // to get the latest tag we need to get the latest release and check what is the tag linked to it
       let latestRelease = await getLatestRelease(octokit, ref);
       // calc the next final tag
-      const nextFinalTag = calcNextTag(latestRelease.tag_name, type, true);
+      const nextFinalTag = await calcNextTag(latestRelease.tag_name, type, true);
       // check if a release branch already exists
       // for hotfix we will have hotfix/{tag_final}
       // for release we will have release/{tag_final}
