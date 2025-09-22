@@ -5,7 +5,7 @@
   {{~header}}
 {{~/if}}
 
-{{~!-- commit link --}}
+{{~!-- commit link --}} {{#if hash~}}
  ([{{shortHash}}](
   {{~#if @root.repository}}
     {{~#if @root.host}}
@@ -19,4 +19,5 @@
     {{~@root.repoUrl}}
   {{~/if}}/
   {{~@root.commit}}/{{hash}}))
+{{~/if}}
 

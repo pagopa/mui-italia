@@ -93,8 +93,8 @@ function getWriterOpts() {
           title: 'Chore',
           commits: [
             {
-              scope: 'chore',
-              type: ``,
+              scope: '',
+              type: `chore`,
               subject: `Bump version to v${context.version}`,
             },
           ],
