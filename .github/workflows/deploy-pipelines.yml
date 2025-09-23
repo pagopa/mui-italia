@@ -68,7 +68,8 @@ jobs:
           git config user.email "<>"
 
       - name: Install Packages
-        run: cd .github/workflows/actions/release && npm install
+        run: npm install
+        working-directory: .github/workflows/actions/release
 
       - name: Release
         id: release
@@ -91,14 +92,8 @@ jobs:
           ref: ${{ needs.release.outputs.release_branch }}
 
       - name: Install Packages
-        run: cd .github/workflows/actions/build && npm install
-
-      - name: Setup Node.js
-        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
-        with:
-          node-version-file: '.node-version'
-          cache: 'yarn'
-          cache-dependency-path: 'yarn.lock'
+        run: npm install
+        working-directory: .github/workflows/actions/build
 
       - name: Build
         uses: ./.github/workflows/actions/build
