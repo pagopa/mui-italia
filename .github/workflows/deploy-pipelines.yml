@@ -91,6 +91,13 @@ jobs:
           fetch-depth: 0
           ref: ${{ needs.release.outputs.release_branch }}
 
+      - name: Setup Node.js
+        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
+        with:
+          node-version-file: '.node-version'
+          cache: 'yarn'
+          cache-dependency-path: 'yarn.lock'
+
       - name: Install Packages
         run: npm install
         working-directory: .github/workflows/actions/build
