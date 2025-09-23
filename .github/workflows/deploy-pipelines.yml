@@ -79,6 +79,7 @@ jobs:
           type: ${{inputs.type}}
           final_release: ${{inputs.final_release}}
           main_branch: main
+
   build:
     needs: release
     runs-on: ubuntu-22.04
