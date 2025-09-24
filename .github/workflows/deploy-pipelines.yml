@@ -96,6 +96,12 @@ jobs:
         with:
           node-version: '20'
           cache: 'yarn'
+          cache-dependency-path: 'yarn.lock'
+
+      # this is to try the action locally with nekos/act
+      - name: Update PATH variable to use Yarn commands
+        if: ${{ github.event.act }}
+        run: echo "~/.yarn/bin" >> $GITHUB_PATH
 
       - name: Install Packages
         run: npm install
