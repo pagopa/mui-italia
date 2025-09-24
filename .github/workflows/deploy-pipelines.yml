@@ -91,17 +91,19 @@ jobs:
           fetch-depth: 0
           ref: ${{ needs.release.outputs.release_branch }}
 
+      # the action setup-node fails if it tries to install yarn while running locally with nekos/act
+      # so we need to skip the yarn installation and do it manually in the next step
       - name: Setup Node.js
         uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
         with:
           node-version: '20'
-          cache: 'yarn'
-          cache-dependency-path: 'yarn.lock'
+          cache: ${{ !github.event.act && 'yarn' || '' }}
+          cache-dependency-path: ${{ !github.event.act && 'yarn.lock' || '' }}
 
       # this is to try the action locally with nekos/act
-      - name: Update PATH variable to use Yarn commands
+      - name: Install Yarn globally
         if: ${{ github.event.act }}
-        run: echo "~/.yarn/bin" >> $GITHUB_PATH
+        run: npm install -g yarn
 
       - name: Install Packages
         run: npm install
