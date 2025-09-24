@@ -91,16 +91,12 @@ jobs:
           fetch-depth: 0
           ref: ${{ needs.release.outputs.release_branch }}
 
-      - name: Install Packages
-        run: npm install
-        working-directory: .github/workflows/actions/build
-
       - name: Setup Node.js
         uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
         with:
           node-version: '20'
+          cache: 'yarn'
 
-      - name: Build
-        uses: ./.github/workflows/actions/build
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install dependencies
+        run: yarn install --immutable
+        working-directory: .
