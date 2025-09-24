@@ -97,6 +97,11 @@ jobs:
           node-version: '20'
           cache: 'yarn'
 
-      - name: Install dependencies
-        run: yarn install --immutable
-        working-directory: .
+      - name: Install Packages
+        run: npm install
+        working-directory: .github/workflows/actions/build
+
+      - name: Build
+        uses: ./.github/workflows/actions/build
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
