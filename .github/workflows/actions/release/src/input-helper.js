@@ -1,11 +1,11 @@
-import core from '@actions/core';
+import { getInput } from '@actions/core';
 
 export function checkInputs() {
   // get user inputs
-  const ref = core.getInput('ref', { required: true });
-  const type = core.getInput('type', { required: true });
-  const finalRelease = core.getInput('final_release') === 'true';
-  const mainBranch = core.getInput('main_branch');
+  const ref = getInput('ref', { required: true });
+  const type = getInput('type', { required: true });
+  const finalRelease = getInput('final_release') === 'true';
+  const mainBranch = getInput('main_branch');
 
   if (type !== 'release' && type !== 'hotfix') {
     throw new Error(`Type ${type} is not among those allowed`);

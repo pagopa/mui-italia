@@ -1,5 +1,5 @@
 import RE2 from 're2';
-import core from '@actions/core';
+import { info } from '@actions/core';
 import { Bumper } from 'conventional-recommended-bump';
 
 import muiPreset from '../mui-preset/index.js';
@@ -17,7 +17,7 @@ export function isTagOrBranch(ref) {
 }
 
 export async function calcNextTag(latestTag, type, finalRelease) {
-  core.info(`Calculating next tag starting from ${latestTag}`);
+  info(`Calculating next tag starting from ${latestTag}`);
   try {
     const rcRegex = new RE2(/^v(\d+)\.(\d+)\.(\d+)(?:(?:-RC|-rc)\.(\d+))?$/);
     const match = latestTag.match(rcRegex);
@@ -74,7 +74,7 @@ export async function calcNextTag(latestTag, type, finalRelease) {
     }
     const candidateSuffix = nextCandidate !== null ? `-RC.${nextCandidate}` : '';
     const nextTag = `${nextMajor}.${nextMinor}.${nextPatch}${candidateSuffix}`;
-    core.info(`Next tag v${nextTag}`);
+    info(`Next tag v${nextTag}`);
     return nextTag;
   } catch (error) {
     throw new Error(`Error during next tag calculation: ${error}`);

@@ -1,5 +1,5 @@
-import core from '@actions/core';
-import github from '@actions/github';
+import { debug, info, getInput, setFailed, setOutput } from '@actions/core';
+import { getOctokit } from '@actions/github';
 
 import { checkInputs } from './input-helper.js';
 import {
@@ -22,14 +22,14 @@ import { checkout, log } from './git-helper.js';
 
 async function run() {
   try {
-    core.debug(`Init octokit client`);
+    debug(`Init octokit client`);
     // initialize Octokit client
-    const token = core.getInput('token');
+    const token = getInput('token');
     if (token) {
-      const octokit = github.getOctokit(token);
+      const octokit = getOctokit(token);
       // get user inputs
       const { ref, type, finalRelease, mainBranch } = checkInputs();
-      core.info(
+      info(
         `Releasing a new ${
           finalRelease ? 'final' : 'candidate'
         } ${type} version starting from branch ${ref}`
@@ -118,12 +118,12 @@ async function run() {
         );
       }
       // send data outside the action
-      core.setOutput('release_branch', releaseBranch);
+      setOutput('release_branch', releaseBranch);
       return;
     }
     throw new Error(`No GitHub token specified`);
   } catch (error) {
-    core.setFailed(error.message);
+    setFailed(error.message);
   }
 }
 

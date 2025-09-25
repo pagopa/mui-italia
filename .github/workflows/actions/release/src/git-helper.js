@@ -1,8 +1,8 @@
 import { exec } from '@actions/exec';
-import core from '@actions/core';
+import { info } from '@actions/core';
 
 export async function checkout(branchName) {
-  core.info(`Checking out to branch ${branchName}`);
+  info(`Checking out to branch ${branchName}`);
   try {
     // -q is to suppress feedback messages.
     //
@@ -14,7 +14,7 @@ export async function checkout(branchName) {
 }
 
 export async function log(from, ...logOptions) {
-  core.info(`Getting logs from ${from}`);
+  info(`Getting logs from ${from}`);
   try {
     let myOutput = '';
     const options = {
