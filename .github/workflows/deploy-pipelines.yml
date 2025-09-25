@@ -121,14 +121,17 @@ jobs:
             import { mkdirSync, cpSync, copyFileSync } from 'fs';
 
             // create bundle dir
+            console.log("Create bundle dir")
             mkdirSync('bundle');
             // copy dist file into it
             // exclude stories dir from copy
+            console.log("Copy dist content into bundle dir")
             cpSync('dist', 'bundle', {
               recursive: true,
               filter: (src) => !src.endsWith('stories'),
             });
             // copy additional files
+            console.log("Copy package.json and other")
             const additionalFiles = ['README.md', 'LICENSE', 'CHANGELOG.md', 'package.json'];
             for (const file of additionalFiles) {
               const destPathFile = join(bundleDir, file);
