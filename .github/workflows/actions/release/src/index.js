@@ -100,7 +100,7 @@ async function run() {
         '--abbrev-commit',
         '--no-merges'
       );
-      await createRelease(
+      const release = await createRelease(
         octokit,
         `v${nextTag}`,
         commit.sha,
@@ -119,6 +119,7 @@ async function run() {
       }
       // send data outside the action
       setOutput('release_branch', releaseBranch);
+      setOutput('release_id', release.id);
       return;
     }
     throw new Error(`No GitHub token specified`);

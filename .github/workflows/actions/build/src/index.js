@@ -1,7 +1,8 @@
-import { getState, setFailed, info } from '@actions/core';
+import { getState, setFailed, getInput, debug } from '@actions/core';
+import { getOctokit, context } from '@actions/github';
 import { exec } from '@actions/exec';
 import { resolve, join } from 'path';
-import { mkdirSync, cpSync, readdirSync, copyFileSync } from 'fs';
+import { mkdirSync, cpSync, copyFileSync } from 'fs';
 
 async function run() {
   try {
@@ -27,10 +28,17 @@ async function run() {
       const destPathFile = join(bundleDir, file);
       copyFileSync(srcPathFile, destPathFile);
     }
-    // log file list
-    readdirSync(bundleDir).forEach((file) => {
-      // will also include directory names
-      info(file);
+    // upload artifact to release
+    debug(`Init octokit client`);
+    const token = getInput('token');
+    const releaseId = getInput('release_id');
+    const octokit = getOctokit(token);
+    octokit.rest.repos.uploadReleaseAsset({
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      release_id: releaseId,
+      name: 'bundle',
+      data,
     });
   } catch (error) {
     setFailed(error.message);

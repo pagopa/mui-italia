@@ -6,6 +6,10 @@ inputs:
     description: 'GitHub token'
     type: string
     required: true
+  release_id:
+    description: 'Newly release id'
+    type: string
+    required: true
 
 runs:
   using: 'node20'

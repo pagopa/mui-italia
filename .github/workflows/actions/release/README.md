@@ -31,6 +31,7 @@ This action is typically used in a workflow that triggers manually or on a speci
 | Parameter       | Description                                              |
 | :-------------- | :------------------------------------------------------- |
 | `release_branch`| The name of the newly created release or hotfix branch.  |
+| `release_id`    | The id of the newly created release.  |
 
 ## Workflow Example
 

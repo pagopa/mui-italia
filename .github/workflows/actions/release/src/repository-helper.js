@@ -237,7 +237,7 @@ export async function updateRef(octokit, ref, commitSha) {
 export async function createRelease(octokit, tag, commitSha, name, body, isPrerelease) {
   info(`Creating release from tag ${tag}`);
   try {
-    await octokit.rest.repos.createRelease({
+    const { data: release } = await octokit.rest.repos.createRelease({
       owner: github.context.repo.owner,
       repo: github.context.repo.repo,
       tag_name: tag,
@@ -249,6 +249,7 @@ export async function createRelease(octokit, tag, commitSha, name, body, isPrere
       make_latest: (!isPrerelease).toString(),
     });
     info(`Release created`);
+    return release;
   } catch (error) {
     throw new Error(`Error during release creation: ${error}`);
   }

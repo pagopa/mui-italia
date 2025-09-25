@@ -51,6 +51,7 @@ jobs:
     environment: prod-cd
     outputs:
       release_branch: ${{ steps.release.outputs.release_branch }}
+      release_id: ${{ steps.release.outputs.release_id }}
     steps:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -105,11 +106,30 @@ jobs:
         if: ${{ github.event.act }}
         run: npm install -g yarn
 
-      - name: Install Packages
-        run: npm install
-        working-directory: .github/workflows/actions/build
+      - name: Install dependencies
+        run: yarn install --immutable
+        working-directory: .
 
       - name: Build
-        uses: ./.github/workflows/actions/build
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+        run: yarn build
+        working-directory: .
+
+      - name: Copy deploy files
+        run: |-
+          import { join } from 'path';
+          import { mkdirSync, cpSync, copyFileSync } from 'fs';
+
+          // create bundle dir
+          mkdirSync('bundle');
+          // copy dist file into it
+          // exclude stories dir from copy
+          cpSync('dist', 'bundle', {
+            recursive: true,
+            filter: (src) => !src.endsWith('stories'),
+          });
+          // copy additional files
+          const additionalFiles = ['README.md', 'LICENSE', 'CHANGELOG.md', 'package.json'];
+          for (const file of additionalFiles) {
+            const destPathFile = join(bundleDir, file);
+            copyFileSync(file, destPathFile);
+          }

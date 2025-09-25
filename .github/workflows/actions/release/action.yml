@@ -23,8 +23,10 @@ inputs:
     required: true
 
 outputs:
-  release_branch: # id of output
+  release_branch:
     description: The release branch
+  release_id:
+    description: The release id
 
 runs:
   using: 'node20'
