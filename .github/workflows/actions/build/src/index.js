@@ -16,7 +16,13 @@ async function run() {
     // copy dist file into it
     const distDir = join(cwd, 'dist');
     // exclude stories dir from copy
-    cpSync(distDir, bundleDir, { recursive: true, filter: (src) => src !== 'stories' });
+    cpSync(distDir, bundleDir, {
+      recursive: true,
+      filter: (src) => {
+        core.info(src);
+        return src !== 'stories';
+      },
+    });
     // copy additional files
     const additionalFiles = ['README.md', 'LICENSE', 'CHANGELOG.md', 'package.json'];
     for (const file of additionalFiles) {
