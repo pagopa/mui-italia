@@ -18,10 +18,7 @@ async function run() {
     // exclude stories dir from copy
     cpSync(distDir, bundleDir, {
       recursive: true,
-      filter: (src) => {
-        info(src);
-        return src !== 'stories';
-      },
+      filter: (src) => !src.endsWith('stories'),
     });
     // copy additional files
     const additionalFiles = ['README.md', 'LICENSE', 'CHANGELOG.md', 'package.json'];
