@@ -1,4 +1,4 @@
-import { getState, setFailed } from '@actions/core';
+import { getState, setFailed, info } from '@actions/core';
 import { exec } from '@actions/exec';
 import { resolve, join } from 'path';
 import { mkdirSync, cpSync, readdirSync, copyFileSync } from 'fs';
@@ -27,7 +27,7 @@ async function run() {
     // log file list
     readdirSync(bundleDir).forEach((file) => {
       // will also include directory names
-      core.info(file);
+      info(file);
     });
   } catch (error) {
     setFailed(error.message);
