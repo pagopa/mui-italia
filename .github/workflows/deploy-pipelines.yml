@@ -118,8 +118,8 @@ jobs:
         run: |
           # Write the script in a temporary file
           cat <<EOF > script.js
-            import { join } from 'path';
-            import { mkdirSync, cpSync, copyFileSync } from 'fs';
+            const { join } = require('path');
+            const { mkdirSync, cpSync, copyFileSync } = require('fs');
 
             // create bundle dir
             console.log("Create bundle dir")
@@ -143,10 +143,32 @@ jobs:
           # Execute the file
           node script.js
 
+      # the upload of the artifcat cannot be done locally with nekos/act
       - name: Upload Artifact
+        if: ${{ !github.event.act }}
         uses: actions/upload-artifact@0b2256b8c012f0828dc542b3febcab082c67f72b # v4.3.4
         with:
           name: 'bundle'
           path: 'bundle'
           if-no-files-found: error
           retention-days: 7
+
+  deploy:
+    if: ${{ !github.event.act }}
+    needs: [release, build]
+    runs-on: 'ubuntu-22.04'
+    environment: prod-cd
+    env:
+      NPM_REGISTRY: 'registry.npmjs.org'
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@6b208ae046db98c579e8a3aa621ab581ff575935 # v4.1.1
+        with:
+          name: 'bundle'
+          path: 'bundle'
+
+      - name: Publish
+        run: |
+          npm config set //${{ env.NPM_REGISTRY }}/:_authToken=${{ secrets.NPM_TOKEN }}
+          npm publish --access public --registry https://${{ env.NPM_REGISTRY }} --verbose
+        working-directory: 'bundle'
