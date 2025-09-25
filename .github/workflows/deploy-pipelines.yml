@@ -115,21 +115,23 @@ jobs:
         working-directory: .
 
       - name: Copy deploy files
-        run: |-
-          import { join } from 'path';
-          import { mkdirSync, cpSync, copyFileSync } from 'fs';
+        run: |
+          node - e "
+            import { join } from 'path';
+            import { mkdirSync, cpSync, copyFileSync } from 'fs';
 
-          // create bundle dir
-          mkdirSync('bundle');
-          // copy dist file into it
-          // exclude stories dir from copy
-          cpSync('dist', 'bundle', {
-            recursive: true,
-            filter: (src) => !src.endsWith('stories'),
-          });
-          // copy additional files
-          const additionalFiles = ['README.md', 'LICENSE', 'CHANGELOG.md', 'package.json'];
-          for (const file of additionalFiles) {
-            const destPathFile = join(bundleDir, file);
-            copyFileSync(file, destPathFile);
-          }
+            // create bundle dir
+            mkdirSync('bundle');
+            // copy dist file into it
+            // exclude stories dir from copy
+            cpSync('dist', 'bundle', {
+              recursive: true,
+              filter: (src) => !src.endsWith('stories'),
+            });
+            // copy additional files
+            const additionalFiles = ['README.md', 'LICENSE', 'CHANGELOG.md', 'package.json'];
+            for (const file of additionalFiles) {
+              const destPathFile = join(bundleDir, file);
+              copyFileSync(file, destPathFile);
+            }
+          "
