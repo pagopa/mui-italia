@@ -116,7 +116,8 @@ jobs:
 
       - name: Copy deploy files
         run: |
-          node - e "
+          # Write the script in a temporary file
+          cat <<EOF > script.js
             import { join } from 'path';
             import { mkdirSync, cpSync, copyFileSync } from 'fs';
 
@@ -137,4 +138,7 @@ jobs:
               const destPathFile = join(bundleDir, file);
               copyFileSync(file, destPathFile);
             }
-          "
+          EOF
+
+          # Execute the file
+          node script.js
