@@ -19,7 +19,7 @@ async function run() {
     cpSync(distDir, bundleDir, {
       recursive: true,
       filter: (src) => {
-        core.info(src);
+        info(src);
         return src !== 'stories';
       },
     });
