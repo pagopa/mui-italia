@@ -135,7 +135,7 @@ jobs:
             console.log("Copy package.json and other")
             const additionalFiles = ['README.md', 'LICENSE', 'CHANGELOG.md', 'package.json'];
             for (const file of additionalFiles) {
-              const destPathFile = join(bundleDir, file);
+              const destPathFile = join('bundle', file);
               copyFileSync(file, destPathFile);
             }
           EOF
