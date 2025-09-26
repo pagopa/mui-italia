@@ -170,5 +170,5 @@ jobs:
       - name: Publish
         run: |
           npm config set //${{ env.NPM_REGISTRY }}/:_authToken=${{ secrets.NPM_TOKEN }}
-          npm publish --access public --registry https://${{ env.NPM_REGISTRY }} --verbose
+          npm publish --access public --registry https://${{ env.NPM_REGISTRY }} --verbose --tag ${{ inputs.final_release && 'latest' || 'next' }}
         working-directory: 'bundle'
