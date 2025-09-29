@@ -2,12 +2,11 @@
 # metadata file that makes public software easily discoverable.
 # More info at https://github.com/italia/publiccode.yml
 
-publiccodeYmlVersion: '0.3'
+publiccodeYmlVersion: '0.4'
 categories:
   - website-builder
 description:
   en:
-    documentation: 'http://pagopa.github.io/mui-italia'
     features:
       - Design System
     longDescription: |
@@ -58,7 +57,6 @@ it:
     spid: false
   riuso:
     codiceIPA: 5n2tr557
-landingURL: 'http://pagopa.github.io/mui-italia'
 legal:
   license: MIT
   mainCopyrightOwner: PagoPA S.p.A
