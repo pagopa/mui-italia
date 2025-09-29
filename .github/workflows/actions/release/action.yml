@@ -1,0 +1,33 @@
+name: 'release'
+description: 'Manage release flow'
+
+inputs:
+  token:
+    description: 'GitHub token'
+    type: string
+    required: true
+  ref:
+    description: 'Branch from which create the release'
+    required: true
+  type:
+    description: 'Define if it is a release or an hotfix'
+    type: string
+    required: true
+  final_release:
+    description: 'Flag to set if the current release is a final release'
+    type: boolean
+    required: false
+  main_branch:
+    description: 'The name of the branch to which to open the merge pr with the release branch'
+    type: string
+    required: true
+
+outputs:
+  release_branch:
+    description: The release branch
+  release_id:
+    description: The release id
+
+runs:
+  using: 'node20'
+  main: 'src/index.js'
