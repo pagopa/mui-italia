@@ -1,3 +1,12 @@
+# [1.8.0-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v1.8.0-RC.1) (2025-10-20)
+
+
+### Chores
+
+* **MUI-229:** release action - fixed artifact build ([#585](https://github.com/pagopa/mui-italia/issues/585)) ([e7cea26](https://github.com/pagopa/mui-italia/commit/e7cea26a9abdec8d66f0809e80fa0523d6764020))
+
+
+
 # [1.8.0-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v1.8.0-RC.0) (2025-10-15)
 
 
