@@ -21,7 +21,7 @@ export async function calcNextTag(latestTag, type, finalRelease) {
   try {
     const rcRegex = new RE2(/^v(\d+)\.(\d+)\.(\d+)(?:(?:-RC|-rc)\.(\d+))?$/);
     const match = latestTag.match(rcRegex);
-    // match returns an array in witch the first element is the string itslef
+    // match returns an array in which the first element is the string itslef
     // the second element is the major, the third is the minor and the fourth is the path
     // the fifth element is the relese candidate number and it can be null
     if (!match) {
