@@ -23,7 +23,7 @@ on:
     inputs:
       ref:
         required: true
-        description: Branch from witch do the release
+        description: Branch from which do the release
         type: string
       type:
         required: false
@@ -127,7 +127,7 @@ jobs:
             // copy dist file into it
             // exclude stories dir from copy
             console.log("Copy dist content into bundle dir")
-            cpSync('dist', 'bundle', {
+            cpSync('dist', 'bundle/dist', {
               recursive: true,
               filter: (src) => !src.endsWith('stories'),
             });
