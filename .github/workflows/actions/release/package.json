@@ -1,0 +1,16 @@
+{
+  "name": "release",
+  "version": "1.0.0",
+  "description": "Action to manage the release flow",
+  "main": "src/index.js",
+  "author": "Andrea Cimini",
+  "type": "module",
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@actions/exec": "^1.1.1",
+    "@actions/github": "^6.0.1",
+    "conventional-changelog": "^7.1.1",
+    "conventional-recommended-bump": "^11.2.0",
+    "re2": "^1.22.1"
+  }
+}

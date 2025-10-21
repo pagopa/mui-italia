@@ -32,7 +32,7 @@ async function findReview(octokit) {
 function validatePullRequestTitle(prTitle, types, scopes) {
   core.info(`Validate pr title "${prTitle}"`);
   try {
-    const re = new RE2(`^(?:${types.join('|')})(?:\\(${scopes.join('|')}\\)):\\s(?:.+)$`, 'g');
+    const re = new RE2(`^(?:${types.join('|')})(?:\\(${scopes.join('|')}\\))!?:\\s(?:.+)$`, 'g');
     const result = re.test(prTitle);
     if (result) {
       core.info(`Pr title "${prTitle}" valid`);
