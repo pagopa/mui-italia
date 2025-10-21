@@ -1,3 +1,12 @@
+# [1.8.0](https://github.com/pagopa/mui-italia/releases/tag/v1.8.0) (2025-10-21)
+
+
+### Chores
+
+* **MUI-229:** release action - not trigger error when there is nothing to merge ([#586](https://github.com/pagopa/mui-italia/issues/586)) ([b8477bd](https://github.com/pagopa/mui-italia/commit/b8477bd4747dab841e6834b152fe3f5c39250ea8))
+
+
+
 # [1.8.0-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v1.8.0-RC.1) (2025-10-20)
 
 
