@@ -3279,10 +3279,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fontsource/dm-mono@npm:^4.5.10":
-  version: 4.5.10
-  resolution: "@fontsource/dm-mono@npm:4.5.10"
-  checksum: 7416479b1e5bcc792d95423263fbdba4f7209121675b99339ce4c04d83bae0d79ca72912eef2ef4ae03c3d72147fa685e511c6f700a1bda1b7a34d54286cd7ec
+"@fontsource/dm-mono@npm:^5.2.7":
+  version: 5.2.7
+  resolution: "@fontsource/dm-mono@npm:5.2.7"
+  checksum: 323ac05cfe27d48f1c4ef96cef4d031daef9c7524abbd5f7202a67cda0a7a3cad4f64713c9e856835addd858c7798d1bafa4da19c7cb1ae184aad1ec4486bfd0
   languageName: node
   linkType: hard
 
@@ -3905,7 +3905,7 @@ __metadata:
     "@babel/preset-typescript": ^7.23.2
     "@emotion/react": ^11.11.1
     "@emotion/styled": ^11.11.0
-    "@fontsource/dm-mono": ^4.5.10
+    "@fontsource/dm-mono": ^5.2.7
     "@fontsource/titillium-web": ^4.5.9
     "@mui/icons-material": ^5.14.3
     "@mui/lab": ^5.0.0-alpha.140
