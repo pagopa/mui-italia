@@ -42,7 +42,7 @@
     "@babel/preset-typescript": "^7.23.2",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@mui/icons-material": "^5.14.3",
+    "@mui/icons-material": "^7.3.4",
     "@mui/lab": "^5.0.0-alpha.140",
     "@mui/material": "^5.14.5",
     "@mui/system": "^5.14.5",
