@@ -1,7 +1,7 @@
 {
   "name": "validate-pr-title",
   "version": "1.0.0",
-  "description": "Manage pr check run",
+  "description": "Action to validate pr title against conventional commit specification",
   "main": "src/index.js",
   "author": "Andrea Cimini",
   "dependencies": {

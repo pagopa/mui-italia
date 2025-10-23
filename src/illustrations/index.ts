@@ -15,3 +15,6 @@ export * from "./DataSecurity";
 export * from "./Simplify";
 export * from "./PaymentCompleted";
 export * from "./InProgress";
+export * from "./Umbrella";
+export * from "./AlarmClock";
+export * from "./UserUnauthorized";
