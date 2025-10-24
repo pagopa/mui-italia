@@ -1,4 +1,4 @@
-import { hexToRgb } from '@mui/system';
+import { border, hexToRgb } from '@mui/system';
 
 export const colorTextPrimary = '#17324D';
 export const shadowColor = '#002B55';
@@ -134,26 +134,30 @@ export const divider = {
   default: neutral.grey[100],
 };
 
-export const badge = {
+export const chip = {
   default: {
     filled: { background: blue[50], text: blue[850] },
-    outlined: { background: blue[600], text: {} },
+    outlined: { background: 'transparent', text: blue[600], border: blue[600] },
   },
   warning: {
     filled: { background: warning[100], text: warning[850] },
-    outlined: { background: warning[850], text: {} },
+    outlined: { background: 'transparent', text: warning[850], border: warning[850] },
   },
   success: {
-    filled: { background: success[100], text: success[850] },
-    outlined: { background: success[850], text: {} },
+    filled: { background: success[100], text: warning[850] },
+    outlined: { background: 'transparent', text: warning[850] },
   },
   error: {
     filled: { background: error[100], text: error[850] },
-    outlined: { background: error[600], text: {} },
+    outlined: { background: 'transparent', text: error[600] },
   },
   highlighted: {
     filled: { background: turquoise[50], text: turquoise[850] },
-    outlined: { background: turquoise[850], text: {} },
+    outlined: { background: 'transparent', text: turquoise[850] },
+  },
+  neutral: {
+    filled: { background: neutral.grey[100], text: neutral.black },
+    outlined: { background: 'transparent', text: neutral.black, border: neutral.black },
   },
 };
 
@@ -164,23 +168,48 @@ export const progress = {
 
 export const button = {
   primary: {
-    default: { background: blueitalia[500], text: neutral.white },
-    hover: { background: blueitalia[600], text: neutral.white },
-    disabled: { background: neutral.grey[200], text: neutral.grey[700] },
+    default: { background: blue[500], text: neutral.white },
+    hover: { background: blue[600], text: neutral.white },
+    disabled: {
+      background: `rgba(${hexToRgb(neutral.grey[200])}, 0.5)`,
+      text: `rgba(${hexToRgb(neutral.grey[700])}, 0.5)`,
+    },
     contrast: {
-      default: { background: neutral.white, text: neutral.grey[700] },
-      hover: { background: neutral.grey[50], text: neutral.grey[700] },
-      disabled: { background: blue[200], text: neutral.grey[300] },
+      default: { background: neutral.white, text: blue[500] },
+      hover: { background: blue[50], text: blue[600] },
+      disabled: {
+        background: `rgba(${hexToRgb(blue[200])}, 0.5)`,
+        text: `rgba(${hexToRgb(neutral.grey[700])}, 0.5)`,
+      },
     },
   },
   secondary: {
-    default: { background: {}, text: {} },
-    hover: { background: {}, text: {} },
-    disabled: { background: {}, text: {} },
+    default: { background: 'transparent', text: blue[500], border: blue[500] },
+    hover: { background: blue[50], text: blue[600], border: blue[600] },
+    disabled: {
+      background: `rgba(${hexToRgb(neutral.grey[700])}, 0.5)`,
+      text: `rgba(${hexToRgb(neutral.grey[200])}, 0.5)`,
+    },
+    contrast: {
+      default: { background: 'transparent', text: neutral.white },
+      hover: { background: blue[600], text: neutral.white },
+      disabled: {
+        background: 'transparent',
+        text: `rgba(${hexToRgb(blue[200])}, 0.5)`,
+      },
+    },
   },
   tertiary: {
-    default: { background: {}, text: {} },
-    hover: { background: {}, text: {} },
-    disabled: { background: {}, text: {} },
+    default: { background: 'transparent', text: blue[500] },
+    hover: { background: 'transparent', text: blue[600] },
+    disabled: { background: 'transparent', text: `rgba(${hexToRgb(neutral.grey[700])}, 0.5)` },
+    contrast: {
+      default: { background: 'transparent', text: neutral.white },
+      hover: { background: 'transparent', text: neutral.white },
+      disabled: {
+        background: 'transparent',
+        text: `rgba(${hexToRgb(blue[200])}, 0.5)`,
+      },
+    },
   },
 };
