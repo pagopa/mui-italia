@@ -1,7 +1,7 @@
 import { hexToRgb } from '@mui/system';
 import { palette } from '../foundations/colors';
 
-export const button = {
+const colors = {
   primary: {
     default: { background: palette.blue[500], text: palette.neutral.white },
     hover: { background: palette.blue[600], text: palette.neutral.white },

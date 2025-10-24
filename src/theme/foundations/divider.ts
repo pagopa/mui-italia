@@ -1,5 +1,5 @@
 import { palette } from './colors';
 
-export const divider = {
+const colors = {
   default: palette.neutral.grey[100],
 };

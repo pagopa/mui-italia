@@ -1,6 +1,6 @@
 import { alpha } from '@mui/material/styles';
-import foundation from './foundation';
-import { pxToRem } from './utility';
+import { pxToRem } from '../utility';
+import foundation from '../foundation';
 
 const muiSwitch = {
   defaultProps: {

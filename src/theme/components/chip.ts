@@ -1,6 +1,6 @@
 import { palette } from '../foundations/colors';
 
-export const chip = {
+const colors = {
   default: {
     filled: { background: palette.blue[50], text: palette.blue[850] },
     outlined: { background: 'transparent', text: palette.blue[600], border: palette.blue[600] },

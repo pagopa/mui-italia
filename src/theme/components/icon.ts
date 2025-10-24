@@ -1,7 +1,7 @@
 import { palette } from '../foundations/colors';
 import { opacity } from '../foundations/opacity';
 
-export const icon = {
+const colors = {
   active: palette.neutral.black,
   decorative: palette.neutral.grey[300],
   action: palette.blue[500],

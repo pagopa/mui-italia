@@ -1,7 +1,6 @@
 import { hexToRgb } from '@mui/system';
-import { palette } from './foundations/colors';
+import { palette } from './colors';
 
-// elements colors
 export const opacity = {
   black: {
     20: `rgba(${hexToRgb(palette.neutral.black)}, 0.2)`, // #0E0F13 · 20%
