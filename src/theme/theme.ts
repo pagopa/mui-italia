@@ -6,13 +6,13 @@ import { italia } from '@tokens';
 import muiSwitch from './muiSwitch';
 import { pxToRem } from './utility';
 import foundation from './foundation';
-import { mainTypeface, monospacedTypeface } from './fonts';
+import { mainTypeface, monospacedTypeface } from './foundations/fonts';
 import {
   backdropBackground,
   colorPrimaryContainedHover,
   colorTextPrimary,
   menuItemBackground,
-} from './colors';
+} from './foundations/colors';
 
 /* Basic Configuration */
 

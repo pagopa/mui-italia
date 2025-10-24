@@ -1,8 +1,8 @@
 import { alpha, createTheme, Theme } from '@mui/material/styles';
 
 import { indigo } from '@mui/material/colors';
-import { shadowColor, colorTextPrimary } from './colors';
-import { mainTypeface } from './fonts';
+import { shadowColor, colorTextPrimary } from './foundations/colors';
+import { mainTypeface } from './foundations/fonts';
 
 const shadowValues = {
   /* Elevation 4 */
