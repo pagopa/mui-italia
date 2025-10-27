@@ -1,4 +1,4 @@
-import { Box, Stack, Typography, useTheme, styled, keyframes } from '@mui/material';
+import { Box, Stack, Typography, useTheme, styled, keyframes, alpha } from '@mui/material';
 import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { blue, error as errorColor, neutral as neutralColor } from './../../theme/colors';
 
@@ -78,9 +78,46 @@ const Caret = styled('div')<{ position: CaretPosition['position'] }>(({ position
   left: position === 'center' ? '50%' : position === 'end' ? 'calc(100% + 1px)' : '-1px',
 }));
 
+const OverlayInput = styled('input')(({ theme }) => ({
+  position: 'absolute',
+  inset: 0,
+  width: '100%',
+  height: '100%',
+  boxSizing: 'border-box',
+  background: 'transparent',
+  border: 0,
+  outline: 'none',
+
+  // metrics tuned to align native selection with virtual boxes
+  fontFamily: 'monospace',
+  fontSize: '1em',
+  letterSpacing: 'calc(var(--char-box-w) + var(--char-gap) - 1ch)',
+  paddingLeft: 'calc(var(--pad-x) - (var(--char-gap) / 2))',
+  paddingRight: 'calc(var(--pad-x) - (var(--char-gap) / 2))',
+  paddingTop: theme.spacing(codeBoxPaddingTop),
+  paddingBottom: theme.spacing(codeBoxPaddingBottom),
+  lineHeight: '1.5em',
+
+  // hide text and native caret
+  color: 'transparent',
+  caretColor: 'transparent',
+  zIndex: 1,
+
+  // highlight selection (no text, background only)
+  '::selection': {
+    background: alpha(theme.palette.primary.main, 0.35),
+    color: 'transparent',
+  },
+  '::-moz-selection': {
+    background: alpha(theme.palette.primary.main, 0.35),
+    color: 'transparent',
+  },
+}));
+
 const CodeBox = styled(Box, {
   shouldForwardProp: (prop) => prop !== 'error',
 })<{ error?: boolean }>(({ theme, error }) => ({
+  position: 'relative',
   display: 'inline-block',
   cursor: 'text',
   padding: `${theme.spacing(codeBoxPaddingTop)} ${theme.spacing(codeBoxPaddingX)} ${theme.spacing(
@@ -90,6 +127,12 @@ const CodeBox = styled(Box, {
     error ? errorColor[600] : neutralColor[100]
   }`,
   borderRadius: theme.spacing(codeBoxBorderRadius),
+  // Shared layout variables for OverlayInput and CharBox.
+  // Define box width, gap, and horizontal padding to keep
+  // visual boxes and native selection perfectly aligned.
+  '--char-box-w': theme.spacing(charBoxWidth),
+  '--char-gap': theme.spacing(charBoxSpacing),
+  '--pad-x': theme.spacing(codeBoxPaddingX),
 }));
 
 const CharBox = styled(Box)(({ theme }) => ({
@@ -103,7 +146,6 @@ const CharBox = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   position: 'relative',
-  marginInline: theme.spacing(0.125),
 }));
 
 const HelperText = styled(Typography, {
@@ -216,48 +258,64 @@ const CodeInput = ({
     const raw = e.target.value;
     const filtered = raw.slice(0, length);
 
-    const caretPos = e.target.selectionStart ?? filtered.length;
-
     if (!isControlled) {
       setInternalValue(filtered);
     }
     onChange?.(filtered);
-    updateCaretPosition(caretPos, filtered.length);
+    syncCaretFromInput(e.target, filtered.length);
   };
 
-  const handleKeyUp = () => {
+  /**
+   * Synchronizes the virtual caret position with the real input's selection.
+   * Reads the current cursor (selectionStart) from the native input element
+   * and updates the visual caret position accordingly.
+   *
+   * @param el - The native input element reference.
+   * @param valueLen - The current length of the input value (defaults to sanitizedValue.length).
+   */
+  const syncCaretFromInput = (
+    el: HTMLInputElement | null | undefined,
+    valueLen: number = sanitizedValue.length
+  ) => {
+    if (!el) {
+      setCaretPosition(null);
+      return;
+    }
+
+    const start = el.selectionStart ?? valueLen;
+    const end = el.selectionEnd ?? start;
+
+    // do not show the caret with an active selection
+    if (start !== end) {
+      setCaretPosition(null);
+      return;
+    }
+
+    updateCaretPosition(start, valueLen);
+  };
+
+  /**
+   * If the component is editable, read the native input selection
+   * and sync the virtual caret accordingly.
+   */
+  const syncCaretIfEditable = (e: React.SyntheticEvent<HTMLInputElement>) => {
     if (readOnly) {
       return;
     }
-    const pos = hiddenInputRef.current?.selectionStart ?? sanitizedValue.length;
-    updateCaretPosition(pos);
-  };
+    const el = e.currentTarget;
 
-  const handleCharClick = (index: number) => {
-    hiddenInputRef.current?.focus();
-    setIsFocused(true);
-    if (readOnly) {
-      return;
-    }
-
-    const valueLen = sanitizedValue.length;
-    const pos = index > valueLen ? valueLen : index;
-    hiddenInputRef.current?.setSelectionRange(pos, pos);
-    updateCaretPosition(pos, valueLen);
-  };
-
-  const handleContainerClick = () => {
-    hiddenInputRef.current?.focus();
+    // Defer caret sync to the end of the event loop.
+    // Reason: the native input updates selectionStart/End after mouseup/keyup/select/focus.
+    // Using requestAnimationFrame ensures we read the final selection and keep the virtual caret in sync.
+    // Without this defer, reading selectionStart/End happens too early and,
+    // after clearing a selection via keyboard/mouse, the virtual caret would not update.
+    requestAnimationFrame(() => syncCaretFromInput(el));
   };
 
   return (
     <Box sx={{ display: 'inline-block', width: containerWidth }}>
-      <CodeBox
-        onClick={handleContainerClick}
-        error={error}
-        sx={{ cursor: readOnly ? 'default' : 'text' }}
-      >
-        <input
+      <CodeBox error={error} sx={{ cursor: readOnly ? 'default' : 'text' }}>
+        <OverlayInput
           id={id}
           {...(name && { name })}
           ref={hiddenInputRef}
@@ -265,13 +323,11 @@ const CodeInput = ({
           inputMode={inputMode}
           autoComplete="one-time-code"
           /* Disable mobile keyboard features that can change caret/value on Android (Gboard)
-          This field is an OTP/PIN, not natural text; we want raw keystrokes without “smart” edits */
+          This field is an OTP/PIN, not natural text; we want raw keystrokes without "smart" edits */
           autoCorrect="off"
           autoCapitalize="off"
           spellCheck={false}
           value={sanitizedValue}
-          onChange={handleChange}
-          onKeyUp={handleKeyUp}
           maxLength={length}
           readOnly={readOnly}
           aria-invalid={error || undefined}
@@ -282,37 +338,19 @@ const CodeInput = ({
                 'aria-describedby': [helperTextId, ariaDescribedby].filter(Boolean).join(' '),
               }
             : {})}
-          style={{
-            position: 'absolute',
-            opacity: 0,
-            /* Keep a minimal box (1x1) so Android/Chrome respects selection APIs
-            0x0 inputs can make setSelectionRange unreliable on some devices
-            Remove extra box metrics */
-            height: 1,
-            width: 1,
-            padding: 0,
-            border: 0,
-            margin: 0,
-            /* Clip the element to ensure nothing is painted (classic a11y pattern) */
-            clip: 'rect(0 0 0 0)',
-            clipPath: 'inset(50%)',
-            /* Prevent any accidental scrollbars or line wrapping */
-            overflow: 'hidden',
-            whiteSpace: 'nowrap',
-          }}
+          onChange={handleChange}
+          onKeyUp={syncCaretIfEditable}
+          onMouseUp={syncCaretIfEditable}
+          onSelect={syncCaretIfEditable}
           onFocus={(e) => {
             setIsFocused(true);
-            if (readOnly) {
-              return;
-            }
-            const pos = e.target.value.length;
-            e.target.setSelectionRange(pos, pos);
-            updateCaretPosition(pos);
+            syncCaretIfEditable(e);
           }}
           onBlur={() => {
             setIsFocused(false);
             setCaretPosition(null);
           }}
+          sx={encrypted ? { fontSize: '1.5em' } : undefined}
         />
 
         <Stack
@@ -323,6 +361,9 @@ const CodeInput = ({
             fontFamily: `'Titillium Web', sans-serif`,
             fontWeight: 600,
             color: theme.palette.text.primary,
+            position: 'relative',
+            zIndex: 0,
+            pointerEvents: 'none',
           }}
           aria-hidden
         >
@@ -332,7 +373,7 @@ const CodeInput = ({
             const showCaret = !readOnly && caretPosition?.index === i;
 
             return (
-              <CharBox key={i} onClick={() => handleCharClick(i)}>
+              <CharBox key={i}>
                 {displayedChar && <Box component="span">{displayedChar}</Box>}
                 {showCaret && <Caret position={caretPosition.position} />}
               </CharBox>
