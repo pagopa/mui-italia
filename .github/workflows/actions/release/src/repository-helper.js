@@ -136,7 +136,7 @@ export async function mergeBranch(octokit, sBranchName, dBranchName) {
       head: sBranchName,
     });
     if (!merge) {
-      throw new Error(`${sBranchName} doesn't have any changes to merge into ${dBranchName}`);
+      info(`${sBranchName} doesn't have any changes to merge into ${dBranchName}`);
     }
     info(`Branch ${sBranchName} merged into ${dBranchName}`);
     return merge;
