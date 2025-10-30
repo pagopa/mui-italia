@@ -62,79 +62,10 @@ export const chip = {
       padding: `${foundation.spacing(0.5)} ${foundation.spacing(1)}` /* 4px 8px */,
     },
     deleteIcon: {
-      color: 'currentColor',
-      opacity: '0.7',
-      '&:hover': {
-        color: 'currentColor',
-        opacity: 1,
-      },
-    },
-    avatar: {
-      fontWeight: foundation.typography.fontWeightRegular,
+      color: palette.blue[500],
     },
     outlined: {
       borderRadius: foundation.spacing(5),
-      '&.MuiChip-outlinedDefault': {
-        '& .MuiChip-avatar': {
-          backgroundColor: foundation.palette.grey[400],
-          color: '#17324D',
-        },
-      },
-    },
-    colorDefault: {
-      '& .MuiChip-avatar': {
-        backgroundColor: foundation.palette.grey[400],
-        color: foundation.palette.grey[700],
-      },
-      '& .MuiChip-deleteIcon': {
-        color: alpha(foundation.palette.text.primary, 0.23),
-      },
-    },
-    colorPrimary: {
-      '& .MuiChip-avatar': {
-        backgroundColor: foundation.palette.primary.light,
-        color: foundation.palette.primary.contrastText,
-      },
-      '& .MuiChip-deleteIcon': {
-        color: colorTextPrimary,
-      },
-    },
-    colorSecondary: {
-      '& .MuiChip-deleteIcon': {
-        color: colorTextPrimary,
-      },
-    },
-    colorInfo: {
-      '& .MuiChip-avatar': {
-        backgroundColor: foundation.palette.info.light,
-        color: foundation.palette.info[850],
-      },
-      '& .MuiChip-deleteIcon': {
-        color: foundation.palette.info[850],
-      },
-    },
-    colorError: {
-      '& .MuiChip-deleteIcon': {
-        color: foundation.palette.error[850],
-      },
-    },
-    colorSuccess: {
-      '& .MuiChip-avatar': {
-        backgroundColor: foundation.palette.success.light,
-        color: foundation.palette.success[850],
-      },
-      '& .MuiChip-deleteIcon': {
-        color: foundation.palette.success[850],
-      },
-    },
-    colorWarning: {
-      '& .MuiChip-avatar': {
-        backgroundColor: foundation.palette.warning.light,
-        color: foundation.palette.warning[850],
-      },
-      '& .MuiChip-deleteIcon': {
-        color: foundation.palette.warning[850],
-      },
     },
   },
   variants: [
