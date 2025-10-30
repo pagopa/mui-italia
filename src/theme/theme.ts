@@ -3,16 +3,16 @@ import { alpha, createTheme, Theme } from '@mui/material/styles';
 /* Design Tokens */
 import { italia } from '@tokens';
 
-import muiSwitch from './muiSwitch';
+import muiSwitch from './components/muiSwitch';
 import { pxToRem } from './utility';
 import foundation from './foundation';
-import { mainTypeface, monospacedTypeface } from './fonts';
+import { mainTypeface, monospacedTypeface } from './foundations/fonts';
 import {
   backdropBackground,
   colorPrimaryContainedHover,
   colorTextPrimary,
   menuItemBackground,
-} from './colors';
+} from './foundations/colors';
 
 /* Basic Configuration */
 
