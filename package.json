@@ -22,12 +22,6 @@
     "build-storybook": "storybook build",
     "chromatic": "chromatic --only-changed"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
   "devDependencies": {
     "@babel/cli": "^7.28.3",
     "@babel/core": "^7.28.5",
