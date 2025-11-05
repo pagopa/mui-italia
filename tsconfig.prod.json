@@ -1,6 +1,8 @@
 {
   "extends": "./tsconfig",
   "exclude": [
+    "dist",
+    "node_modules",
     "src/**/stories/**/*",
     "src/**/*.stories.ts",
     "src/**/*.stories.tsx",
