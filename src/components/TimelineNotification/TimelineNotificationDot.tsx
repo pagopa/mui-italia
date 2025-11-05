@@ -1,24 +1,22 @@
-"use client";
+'use client';
 
-import React from "react";
-import { TimelineDot, TimelineDotProps } from "@mui/lab";
-import { theme } from "@theme";
+import { FC, ReactElement } from 'react';
+import { TimelineDot, TimelineDotProps } from '@mui/lab';
+import { theme } from '@theme';
 
-interface TimelineNotificationDotProps extends Omit<TimelineDotProps, "size"> {
-  size?: "small" | "default";
+interface TimelineNotificationDotProps extends Omit<TimelineDotProps, 'size'> {
+  size?: 'small' | 'default';
 }
 
-export const TimelineNotificationDot: React.FC<TimelineNotificationDotProps> = (
-  props
-): React.ReactElement => {
+export const TimelineNotificationDot: FC<TimelineNotificationDotProps> = (props): ReactElement => {
   const { children, size } = props;
   return (
     <TimelineDot
       {...props}
       sx={{
         my: theme.spacing(0.5),
-        padding: size === "small" ? "1px" : "4px",
-        alignSelf: "center",
+        padding: size === 'small' ? '1px' : '4px',
+        alignSelf: 'center',
         ...props.sx,
       }}
     >

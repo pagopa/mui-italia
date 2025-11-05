@@ -1,27 +1,21 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { useState, MouseEvent } from 'react';
+import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import {
-  Menu,
-  MenuItem,
-  Button,
-  ListItemIcon,
-  ListItemText,
-} from "@mui/material";
+import { Menu, MenuItem, Button, ListItemIcon, ListItemText } from '@mui/material';
 
-import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
+import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 
 /* Icons */
 
 export default {
-  title: "MUI Components/Navigation/Menu",
+  title: 'MUI Components/Navigation/Menu',
   component: Menu,
 } as ComponentMeta<typeof Menu>;
 
 export const Default: ComponentStory<typeof Menu> = () => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
@@ -33,9 +27,9 @@ export const Default: ComponentStory<typeof Menu> = () => {
       <Button
         variant="contained"
         id="basic-button"
-        aria-controls={open ? "basic-menu" : undefined}
+        aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
+        aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
         Action Menu
@@ -46,7 +40,7 @@ export const Default: ComponentStory<typeof Menu> = () => {
         open={open}
         onClose={handleClose}
         MenuListProps={{
-          "aria-labelledby": "basic-button",
+          'aria-labelledby': 'basic-button',
         }}
       >
         <MenuItem onClick={handleClose}>A very looooong item</MenuItem>

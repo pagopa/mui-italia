@@ -1,4 +1,3 @@
-import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { breakpointsChromaticValues } from '@theme';
@@ -6,6 +5,7 @@ import { breakpointsChromaticValues } from '@theme';
 import { FormControlLabel, Link, Switch, Typography } from '@mui/material';
 
 import { TOSAgreement } from './TOSAgreement';
+import { useState } from 'react';
 
 export default {
   title: 'Components/TOSAgreement',
@@ -18,7 +18,7 @@ export default {
 } as ComponentMeta<typeof TOSAgreement>;
 
 export const Default: ComponentStory<typeof TOSAgreement> = () => {
-  const [accepted, setAccepted] = React.useState<boolean>(false);
+  const [accepted, setAccepted] = useState<boolean>(false);
 
   const handleChange = () => {
     setAccepted((prev) => !prev);

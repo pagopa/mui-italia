@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { ButtonProps } from "@mui/base/Button";
-import { useButton } from "@mui/base/useButton";
+import { ButtonProps } from '@mui/base/Button';
+import { useButton } from '@mui/base/useButton';
 import {
   Box,
   Button,
@@ -10,10 +10,10 @@ import {
   InputAdornment,
   TextField,
   Typography,
-} from "@mui/material";
-import { alpha, styled } from "@mui/material/styles";
-import { ringWidth, theme } from "@theme";
-import clsx from "clsx";
+} from '@mui/material';
+import { alpha, styled } from '@mui/material/styles';
+import { ringWidth, theme } from '@theme';
+import clsx from 'clsx';
 import {
   ChangeEvent,
   ForwardedRef,
@@ -22,16 +22,17 @@ import {
   useEffect,
   useMemo,
   useState,
-} from "react";
+  KeyboardEvent,
+} from 'react';
 
-import { PartyAccountItem } from "@components/PartyAccountItem";
-import { PartyAccountItemButton } from "@components/PartyAccountItemButton";
-import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
-import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
-import CloseIcon from "@mui/icons-material/Close";
-import SearchIcon from "@mui/icons-material/Search";
-import SentimentDissatisfied from "@mui/icons-material/SentimentDissatisfied";
-import useMediaQuery from "@mui/material/useMediaQuery";
+import { PartyAccountItem } from '@components/PartyAccountItem';
+import { PartyAccountItemButton } from '@components/PartyAccountItemButton';
+import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
+import ArrowDropUpRoundedIcon from '@mui/icons-material/ArrowDropUpRounded';
+import CloseIcon from '@mui/icons-material/Close';
+import SearchIcon from '@mui/icons-material/Search';
+import SentimentDissatisfied from '@mui/icons-material/SentimentDissatisfied';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export type PartySwitchItem = {
   id: string;
@@ -53,19 +54,19 @@ export type PartySwitchProps = {
 };
 
 const CustomDrawer = styled(Drawer)(() => ({
-  ["@media only screen and (max-width: 599px)"]: {
-    "& .MuiDrawer-paper": {
-      width: "100vw",
+  ['@media only screen and (max-width: 599px)']: {
+    '& .MuiDrawer-paper': {
+      width: '100vw',
     },
   },
-  ["@media only screen and (min-width: 600px) and (max-width: 1536px)"]: {
-    "& .MuiDrawer-paper": {
-      width: "420px",
+  ['@media only screen and (min-width: 600px) and (max-width: 1536px)']: {
+    '& .MuiDrawer-paper': {
+      width: '420px',
     },
   },
-  ["@media only screen and (min-width: 1536px)"]: {
-    "& .MuiDrawer-paper": {
-      width: "35vw",
+  ['@media only screen and (min-width: 1536px)']: {
+    '& .MuiDrawer-paper': {
+      width: '35vw',
     },
   },
 }));
@@ -79,23 +80,18 @@ export const PartySwitch = ({
 }: PartySwitchProps) => {
   const [selectedId, setSelectedId] = useState(currentPartyId);
   const [open, setOpen] = useState(false);
-  const [filter, setFilter] = useState("");
+  const [filter, setFilter] = useState('');
   const [offset, setOffset] = useState(50);
   const [containerRef, setContainerRef] = useState<HTMLDivElement | null>(null);
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const mobileHideStyle = useMemo(
-    () => ({ display: { xs: "none", md: "block" } }),
-    []
-  );
+  const mobileHideStyle = useMemo(() => ({ display: { xs: 'none', md: 'block' } }), []);
 
   const filteredParties = useMemo(() => {
     if (!filter) {
       return parties;
     }
-    return parties.filter(
-      (e) => e.name.toLowerCase().indexOf(filter.toLowerCase()) > -1
-    );
+    return parties.filter((e) => e.name.toLowerCase().indexOf(filter.toLowerCase()) > -1);
   }, [filter, parties]);
 
   const selectedParty = useMemo(
@@ -107,18 +103,17 @@ export const PartySwitch = ({
     const handleScroll = () => {
       if (
         containerRef &&
-        containerRef.scrollHeight - containerRef.scrollTop <=
-          containerRef.clientHeight + 20 &&
+        containerRef.scrollHeight - containerRef.scrollTop <= containerRef.clientHeight + 20 &&
         filteredParties.length > visibleParties.length
       ) {
         loadMoreParties();
       }
     };
 
-    containerRef?.addEventListener("scroll", handleScroll);
+    containerRef?.addEventListener('scroll', handleScroll);
 
     return () => {
-      containerRef?.removeEventListener("scroll", handleScroll);
+      containerRef?.removeEventListener('scroll', handleScroll);
     };
   }, [filteredParties, selectedParty, containerRef]);
 
@@ -148,9 +143,9 @@ export const PartySwitch = ({
     <Fragment>
       <PartySwitchButton
         aria-describedby="party-selection"
-        aria-controls={open ? "party-selection" : undefined}
+        aria-controls={open ? 'party-selection' : undefined}
         aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
+        aria-expanded={open ? 'true' : undefined}
         onClick={() => toggleDrawer(true)}
       >
         <PartyAccountItem
@@ -170,14 +165,11 @@ export const PartySwitch = ({
       <CustomDrawer
         anchor="right"
         open={open}
-        onKeyDownCapture={(e: React.KeyboardEvent) => {
-          if (e.key === "Enter") {
+        onKeyDownCapture={(e: KeyboardEvent) => {
+          if (e.key === 'Enter') {
             const partySelected = e.target;
             const selectedParty = filteredParties.find((p: PartySwitchItem) => {
-              if (
-                "textContent" in partySelected &&
-                typeof partySelected.textContent === "string"
-              ) {
+              if ('textContent' in partySelected && typeof partySelected.textContent === 'string') {
                 partySelected.textContent.includes(p.name);
               }
             });
@@ -190,12 +182,7 @@ export const PartySwitch = ({
         tabIndex={0}
         PaperProps={{ ref: (ref: HTMLDivElement) => setContainerRef(ref) }}
       >
-        <Box
-          m={3}
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-        >
+        <Box m={3} display="flex" justifyContent="space-between" alignItems="center">
           <Typography variant="overline">Accedi per un altro ente</Typography>
           <IconButton onClick={() => toggleDrawer(false)}>
             <CloseIcon aria-label="chiudi" />
@@ -212,8 +199,8 @@ export const PartySwitch = ({
             endAdornment: filter && isMobile && (
               <InputAdornment
                 position="end"
-                onClick={() => setFilter("")}
-                sx={{ cursor: "pointer" }}
+                onClick={() => setFilter('')}
+                sx={{ cursor: 'pointer' }}
               >
                 <IconButton aria-label="elimina">
                   <CloseIcon />
@@ -246,19 +233,17 @@ export const PartySwitch = ({
               component="div"
               display="flex"
               sx={{
-                flexDirection: "row",
-                justifyContent: "center",
+                flexDirection: 'row',
+                justifyContent: 'center',
                 my: 2.5,
               }}
             >
-              <SentimentDissatisfied
-                sx={{ verticalAlign: "middle", margin: "0 10px" }}
-              />
+              <SentimentDissatisfied sx={{ verticalAlign: 'middle', margin: '0 10px' }} />
               <Typography variant="body2" fontWeight={700} fontSize={18}>
                 Nessun ente trovato
               </Typography>
             </Box>
-            <Button variant="contained" sx={{ margin: "0 20px" }}>
+            <Button variant="contained" sx={{ margin: '0 20px' }}>
               Registra un nuovo ente
             </Button>
           </Fragment>
@@ -268,24 +253,24 @@ export const PartySwitch = ({
   );
 };
 
-const StyledSwitcherButton = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
+const StyledSwitcherButton = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
   borderRadius: theme.spacing(1),
-  backgroundColor: "transparent",
+  backgroundColor: 'transparent',
   padding: 0,
-  cursor: "pointer",
-  border: "none",
-  transitionProperty: ["color", "background-color", "box-shadow"],
+  cursor: 'pointer',
+  border: 'none',
+  transitionProperty: ['color', 'background-color', 'box-shadow'],
 
-  "&.focusVisible": {
-    outline: "none",
+  '&.focusVisible': {
+    outline: 'none',
     boxShadow: `0 0 0 ${ringWidth} ${alpha(theme.palette.primary.main, 0.4)}`,
   },
 
-  "&.disabled": {
-    opacity: "0.5",
-    cursor: "default",
+  '&.disabled': {
+    opacity: '0.5',
+    cursor: 'default',
   },
 }));
 

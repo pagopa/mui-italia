@@ -52,7 +52,7 @@ async function babelBuild(sourceDir, buildDir) {
 
 async function createTypes() {
   return new Promise((resolve, reject) => {
-    exec(`tsc`, (error) => {
+    exec(`tsc --project tsconfig.prod.json`, (error) => {
       if (error) {
         reject(error);
         throw new Error(error);
