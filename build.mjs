@@ -10,7 +10,7 @@ import {
   cpSync,
   writeFileSync,
 } from 'fs';
-import { exec } from 'child_process';
+import { execFile } from 'child_process';
 
 const TO_TRANSFORM_EXTENSIONS = ['.js', '.jsx', '.ts', '.tsx'];
 
@@ -34,11 +34,17 @@ async function babelBuild(sourceDir, buildDir) {
   // get config file
   const configFile = join(cwd, '.babelrc.mjs');
   return new Promise((resolve, reject) => {
-    exec(
-      `babel ${sourceDir}\
-    --out-dir ${buildDir}\
-    --config-file ${configFile}\
-    --extensions ${TO_TRANSFORM_EXTENSIONS.join(',')}`,
+    execFile(
+      'babel',
+      [
+        sourceDir,
+        '--out-dir',
+        buildDir,
+        '--config-file',
+        configFile,
+        '--extensions',
+        TO_TRANSFORM_EXTENSIONS.join(','),
+      ],
       (error) => {
         if (error) {
           reject(error);
@@ -52,7 +58,7 @@ async function babelBuild(sourceDir, buildDir) {
 
 async function createTypes() {
   return new Promise((resolve, reject) => {
-    exec(`tsc --project tsconfig.prod.json`, (error) => {
+    execFile(['tsc', '--project', 'tsconfig.prod.json'], (error) => {
       if (error) {
         reject(error);
         throw new Error(error);
