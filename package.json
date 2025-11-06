@@ -19,7 +19,7 @@
     "build": "build",
     "lint": "eslint . -c .eslintrc.js --ext .ts,.tsx",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
+    "build-storybook": "STORYBOOK_BUILD=true storybook build",
     "chromatic": "chromatic --only-changed"
   },
   "devDependencies": {

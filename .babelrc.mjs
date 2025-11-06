@@ -22,25 +22,7 @@ export default function getBabelConfig(api) {
       safari: 15,
       firefox: 91,
     },
-    presets: ['@babel/preset-typescript'],
-    plugins: [],
-  };
-  // set caching method
-  // invalidate cache only if NODE_ENV change
-  api.cache.using(() => process.env.NODE_ENV);
-  // set configuration based on environment
-  const isProduction = api.env('production');
-  console.log('-------------------------');
-  console.log(process.env.NODE_ENV);
-  if (isProduction) {
-    config.sourceType = 'module';
-    config.ignore = [
-      'node_modules/**/*',
-      // exclude stories folder
-      'src/**/stories/**/*',
-      // exclude all stories files
-      'src/**/*.stories.ts',
-      'src/**/*.stories.tsx',
+    ignore: [
       // exclude all test files
       'src/**/*.test.ts',
       'src/**/*.test.tsx',
@@ -51,7 +33,26 @@ export default function getBabelConfig(api) {
       // exclude typing files
       'src/**/*.d.ts',
       'src/**/*.d.tsx',
-    ];
+    ],
+    presets: ['@babel/preset-typescript'],
+    plugins: [],
+  };
+  // set caching method
+  // invalidate cache only if NODE_ENV change
+  api.cache.using(() => process.env.NODE_ENV && process.env.STORYBOOK_BUILD);
+  // set configuration based on environment
+  const isProduction = api.env('production');
+  const isStoryBookBuild = Boolean(process.env.STORYBOOK_BUILD);
+  if (isProduction && !isStoryBookBuild) {
+    config.sourceType = 'module';
+    config.ignore.push(
+      'node_modules/**/*',
+      // exclude stories folder
+      'src/**/stories/**/*',
+      // exclude all stories files
+      'src/**/*.stories.ts',
+      'src/**/*.stories.tsx'
+    );
     config.plugins.push([
       'babel-plugin-module-resolver',
       {
