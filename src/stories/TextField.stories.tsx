@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import {
   TextField,
@@ -63,9 +63,9 @@ export default {
   parameters: {
     layout: 'padded',
   },
-} as ComponentMeta<typeof TextField>;
+} as Meta<typeof TextField>;
 
-const Template: ComponentStory<typeof TextField> = (args) => <TextField {...args} />;
+const Template: StoryFn<typeof TextField> = (args) => <TextField {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
@@ -129,7 +129,7 @@ StateSuccess.argTypes = {
   error: { table: { disable: true } },
 };
 
-export const DefaultSelect: ComponentStory<typeof TextField> = (args) => {
+export const DefaultSelect: StoryFn<typeof TextField> = (args) => {
   const [state, setState] = useState('');
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {

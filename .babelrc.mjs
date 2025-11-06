@@ -16,12 +16,25 @@ function resolveAliases() {
 }
 
 export default function getBabelConfig(api) {
+  const config = {
+    targets: {
+      chrome: 100,
+      safari: 15,
+      firefox: 91,
+    },
+    presets: ['@babel/preset-typescript'],
+    plugins: [],
+  };
   // set caching method
-  api.cache(false);
-  // return configuration
-  return {
-    sourceType: 'module',
-    ignore: [
+  // invalidate cache only if NODE_ENV change
+  api.cache.using(() => process.env.NODE_ENV);
+  // set configuration based on environment
+  const isProduction = api.env('production');
+  console.log('-------------------------');
+  console.log(process.env.NODE_ENV);
+  if (isProduction) {
+    config.sourceType = 'module';
+    config.ignore = [
       'node_modules/**/*',
       // exclude stories folder
       'src/**/stories/**/*',
@@ -38,31 +51,25 @@ export default function getBabelConfig(api) {
       // exclude typing files
       'src/**/*.d.ts',
       'src/**/*.d.tsx',
-    ],
-    targets: {
-      chrome: 100,
-      safari: 15,
-      firefox: 91,
-    },
-    presets: [
+    ];
+    config.plugins.push([
+      'babel-plugin-module-resolver',
+      {
+        root: ['./'],
+        alias: resolveAliases(),
+      },
+    ]);
+    config.presets.push(
       ['@babel/preset-env', { modules: false }], // modules false preserve es modules
-      '@babel/preset-typescript',
       [
         '@babel/preset-react',
         {
           runtime: 'automatic',
         },
       ],
-      'minify',
-    ],
-    plugins: [
-      [
-        'babel-plugin-module-resolver',
-        {
-          root: ['./'],
-          alias: resolveAliases(),
-        },
-      ],
-    ],
-  };
+      'minify'
+    );
+  }
+  // return configuration
+  return config;
 }

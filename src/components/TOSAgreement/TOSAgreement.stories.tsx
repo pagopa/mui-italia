@@ -1,4 +1,4 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { breakpointsChromaticValues } from '@theme';
 
@@ -15,9 +15,9 @@ export default {
       viewports: breakpointsChromaticValues,
     },
   },
-} as ComponentMeta<typeof TOSAgreement>;
+} as Meta<typeof TOSAgreement>;
 
-export const Default: ComponentStory<typeof TOSAgreement> = () => {
+export const Default: StoryFn<typeof TOSAgreement> = () => {
   const [accepted, setAccepted] = useState<boolean>(false);
 
   const handleChange = () => {

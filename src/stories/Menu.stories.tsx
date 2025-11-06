@@ -1,5 +1,5 @@
 import { useState, MouseEvent } from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { Menu, MenuItem, Button, ListItemIcon, ListItemText } from '@mui/material';
 
@@ -10,9 +10,9 @@ import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 export default {
   title: 'MUI Components/Navigation/Menu',
   component: Menu,
-} as ComponentMeta<typeof Menu>;
+} as Meta<typeof Menu>;
 
-export const Default: ComponentStory<typeof Menu> = () => {
+export const Default: StoryFn<typeof Menu> = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {

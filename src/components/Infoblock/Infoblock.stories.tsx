@@ -1,5 +1,5 @@
 import { SyntheticEvent } from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 
 import { breakpointsChromaticValues } from '@theme';
 
@@ -37,12 +37,12 @@ export default {
     imageShadow: true,
     imageType: 'circle',
   },
-} as ComponentMeta<typeof Infoblock>;
+} as Meta<typeof Infoblock>;
 
-export const AspectRatio_4_3: ComponentStory<typeof Infoblock> = (args) => (
+export const AspectRatio_4_3: StoryFn<typeof Infoblock> = (args) => (
   <Infoblock {...args} aspectRatio={'4/3'} />
 );
 
-export const AspectRatio_9_16: ComponentStory<typeof Infoblock> = (args) => (
+export const AspectRatio_9_16: StoryFn<typeof Infoblock> = (args) => (
   <Infoblock {...args} aspectRatio={'9/16'} />
 );

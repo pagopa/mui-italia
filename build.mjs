@@ -45,10 +45,22 @@ async function babelBuild(sourceDir, buildDir) {
         '--extensions',
         TO_TRANSFORM_EXTENSIONS.join(','),
       ],
-      (error) => {
+      {
+        env: {
+          ...process.env,
+          NODE_ENV: 'production',
+        },
+      },
+      (error, stdout, stderr) => {
         if (error) {
           reject(error);
           throw new Error(error);
+        }
+        if (stdout) {
+          console.log(stdout);
+        }
+        if (stderr) {
+          console.error(stderr);
         }
         resolve();
       }
@@ -58,13 +70,29 @@ async function babelBuild(sourceDir, buildDir) {
 
 async function createTypes() {
   return new Promise((resolve, reject) => {
-    execFile(['tsc', '--project', 'tsconfig.prod.json'], (error) => {
-      if (error) {
-        reject(error);
-        throw new Error(error);
+    execFile(
+      'tsc',
+      ['--project', 'tsconfig.prod.json'],
+      {
+        env: {
+          ...process.env,
+          NODE_ENV: 'production',
+        },
+      },
+      (error, stdout, stderr) => {
+        if (error) {
+          reject(error);
+          throw new Error(error);
+        }
+        if (stdout) {
+          console.log(stdout);
+        }
+        if (stderr) {
+          console.error(stderr);
+        }
+        resolve();
       }
-      resolve();
-    });
+    );
   });
 }
 

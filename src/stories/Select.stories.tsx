@@ -1,4 +1,4 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 import { useState } from 'react';
 
 import {
@@ -37,9 +37,9 @@ export default {
   parameters: {
     layout: 'padded',
   },
-} as ComponentMeta<typeof FormControl>;
+} as Meta<typeof FormControl>;
 
-export const Default: ComponentStory<typeof FormControl> = (args) => {
+export const Default: StoryFn<typeof FormControl> = (args) => {
   const [state, setState] = useState('');
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -92,7 +92,7 @@ Default.argTypes = {
   },
 };
 
-export const Error: ComponentStory<typeof FormControl> = (args) => (
+export const Error: StoryFn<typeof FormControl> = (args) => (
   <Box
     sx={{
       width: 200,

@@ -1,5 +1,5 @@
 import { Fragment, SyntheticEvent, useState } from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { Snackbar, IconButton, Button, Alert, Stack } from '@mui/material';
 
@@ -9,9 +9,9 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 export default {
   title: 'MUI Components/Feedback/Snackbar',
   component: Snackbar,
-} as ComponentMeta<typeof Snackbar>;
+} as Meta<typeof Snackbar>;
 
-export const Default: ComponentStory<typeof Snackbar> = () => {
+export const Default: StoryFn<typeof Snackbar> = () => {
   const [open, setOpen] = useState(false);
 
   const handleClick = () => {
@@ -51,7 +51,7 @@ Default.parameters = {
   controls: { hideNoControlsWarning: true },
 };
 
-export const WithStatus: ComponentStory<typeof Alert> = (args) => {
+export const WithStatus: StoryFn<typeof Alert> = (args) => {
   const [open, setOpen] = useState(false);
 
   const handleClick = () => {

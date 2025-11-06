@@ -1,4 +1,4 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 import { useState } from 'react';
 
 import { breakpointsChromaticValues } from '@theme';
@@ -15,9 +15,9 @@ export default {
       viewports: breakpointsChromaticValues.filter((resolution) => resolution <= componentMaxWidth),
     },
   },
-} as ComponentMeta<typeof SingleFileInput>;
+} as Meta<typeof SingleFileInput>;
 
-export const Default: ComponentStory<typeof SingleFileInput> = () => {
+export const Default: StoryFn<typeof SingleFileInput> = () => {
   const [file, setFile] = useState<File | null>(null);
 
   const handleSelect = (file: File) => {
@@ -42,7 +42,7 @@ export const Default: ComponentStory<typeof SingleFileInput> = () => {
   );
 };
 
-export const Loading: ComponentStory<typeof SingleFileInput> = () => (
+export const Loading: StoryFn<typeof SingleFileInput> = () => (
   <SingleFileInput
     label="Document (required)"
     value={null}
@@ -54,7 +54,7 @@ export const Loading: ComponentStory<typeof SingleFileInput> = () => (
   />
 );
 
-export const Error: ComponentStory<typeof SingleFileInput> = () => (
+export const Error: StoryFn<typeof SingleFileInput> = () => (
   <SingleFileInput
     label="Document (required)"
     value={null}
@@ -66,7 +66,7 @@ export const Error: ComponentStory<typeof SingleFileInput> = () => (
   />
 );
 
-export const WithFile: ComponentStory<typeof SingleFileInput> = () => (
+export const WithFile: StoryFn<typeof SingleFileInput> = () => (
   <SingleFileInput
     label="Document (required)"
     value={new File([], 'test.png')}
@@ -77,7 +77,7 @@ export const WithFile: ComponentStory<typeof SingleFileInput> = () => (
   />
 );
 
-export const WithTruncatedFileName: ComponentStory<typeof SingleFileInput> = () => (
+export const WithTruncatedFileName: StoryFn<typeof SingleFileInput> = () => (
   <SingleFileInput
     label="Document (required)"
     value={new File([], 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.docx')}

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import {
   List,
@@ -26,9 +26,9 @@ export default {
   title: 'Composition/Sidenav',
   component: List,
   parameters: { controls: { sort: 'size' } },
-} as ComponentMeta<typeof List>;
+} as Meta<typeof List>;
 
-export const Default: ComponentStory<typeof List> = () => {
+export const Default: StoryFn<typeof List> = () => {
   const [selectedIndex, setSelectedIndex] = useState(1);
 
   const handleListItemClick = (index: number) => {
@@ -105,7 +105,7 @@ Default.decorators = [
   ),
 ];
 
-export const Nested: ComponentStory<typeof List> = () => {
+export const Nested: StoryFn<typeof List> = () => {
   const [selectedTarget, setSelectedTarget] = useState('delegations');
   const [open, setOpen] = useState(true);
 

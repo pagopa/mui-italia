@@ -1,5 +1,5 @@
 import { SyntheticEvent } from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 
 import { breakpointsChromaticValues } from '@theme';
 
@@ -60,9 +60,9 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof Hero>;
+} as Meta<typeof Hero>;
 
-export const WithImage: ComponentStory<typeof Hero> = (args) => <Hero {...args} />;
+export const WithImage: StoryFn<typeof Hero> = (args) => <Hero {...args} />;
 export const WithImageProps = WithImage.bind({});
 WithImage.args = {
   type: 'image',
@@ -70,7 +70,7 @@ WithImage.args = {
   altText: 'altText',
 };
 
-export const JustText: ComponentStory<typeof Hero> = (args) => <Hero {...args} />;
+export const JustText: StoryFn<typeof Hero> = (args) => <Hero {...args} />;
 export const JustTextProps = JustText.bind({});
 JustText.args = {
   type: 'text',
