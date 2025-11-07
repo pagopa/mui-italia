@@ -10,9 +10,8 @@ import {
   MouseEvent,
 } from 'react';
 import clsx from 'clsx';
-import { Menu, MenuItem, Typography } from '@mui/material';
+import { Menu, MenuItem, Typography, ButtonProps } from '@mui/material';
 import { styled } from '@mui/system';
-import { ButtonProps } from '@mui/base/Button';
 import { useButton } from '@mui/base/useButton';
 import ArrowDropUpRoundedIcon from '@mui/icons-material/ArrowDropUpRounded';
 import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';

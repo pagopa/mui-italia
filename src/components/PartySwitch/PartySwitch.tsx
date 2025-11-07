@@ -1,6 +1,5 @@
 'use client';
 
-import { ButtonProps } from '@mui/base/Button';
 import { useButton } from '@mui/base/useButton';
 import {
   Box,
@@ -10,6 +9,7 @@ import {
   InputAdornment,
   TextField,
   Typography,
+  ButtonProps,
 } from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
 import { ringWidth, theme } from '@theme';

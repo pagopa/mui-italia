@@ -1,11 +1,9 @@
 import { StoryFn, Meta } from '@storybook/react';
+import { FormControlLabel, Link, Switch, Typography } from '@mui/material';
+import { useState } from 'react';
 
 import { breakpointsChromaticValues } from '@theme';
-
-import { FormControlLabel, Link, Switch, Typography } from '@mui/material';
-
 import { TOSAgreement } from './TOSAgreement';
-import { useState } from 'react';
 
 export default {
   title: 'Components/TOSAgreement',
