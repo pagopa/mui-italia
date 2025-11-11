@@ -1,5 +1,5 @@
 import { Box, Stack, Typography, useTheme, styled, keyframes, alpha } from '@mui/material';
-import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { blue, error as errorColor, neutral as neutralColor } from './../../theme/colors';
 
 /**
@@ -210,7 +210,6 @@ const CodeInput = ({
   const sanitizedValue = currentValue.slice(0, length);
 
   const hiddenInputRef = useRef<HTMLInputElement>(null);
-  const [isFocused, setIsFocused] = useState(false);
   const [caretPosition, setCaretPosition] = useState<CaretPosition | null>(null);
 
   const codeBoxContentWidth = length * charBoxWidth + (length - 1) * charBoxSpacing;
@@ -221,25 +220,58 @@ const CodeInput = ({
 
   useEffect(() => {
     if (readOnly) {
-      setIsFocused(false);
       setCaretPosition(null);
+      return;
     }
-  }, [readOnly]);
-
-  useLayoutEffect(() => {
-    if (readOnly || !isFocused || !hiddenInputRef.current) {
+    const input = hiddenInputRef.current;
+    if (!input) {
       return;
     }
 
-    const pos = hiddenInputRef.current.selectionStart ?? sanitizedValue.length;
+    let rafId = 0;
+    const scheduleCaretSync = () => {
+      // if a sync has already been scheduled, do nothing
+      if (rafId) {
+        return;
+      }
+      // Use rAF to read selectionStart/End after the browser has applied
+      // the final caret/selection changes
+      rafId = requestAnimationFrame(() => {
+        rafId = 0;
+        syncCaretFromInput(input, sanitizedValue.length);
+      });
+    };
 
-    if (caretPosition?.index !== pos) {
-      updateCaretPosition(pos);
-    }
-  }, [sanitizedValue, isFocused, readOnly]);
+    const onSelectionChange = () => {
+      if (document.activeElement === input) {
+        scheduleCaretSync();
+      }
+    };
+
+    // We need this because focusing via TAB/SHIFT+TAB may not emit a selectionchange.
+    // Scheduling a sync on focus ensures the virtual caret is aligned immediately when
+    // the field receives the focus.
+    const onFocus = () => scheduleCaretSync();
+    const onBlur = () => setCaretPosition(null);
+
+    document.addEventListener('selectionchange', onSelectionChange);
+    input.addEventListener('focus', onFocus);
+    input.addEventListener('blur', onBlur);
+
+    return () => {
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+      }
+      document.removeEventListener('selectionchange', onSelectionChange);
+      input.removeEventListener('focus', onFocus);
+      input.removeEventListener('blur', onBlur);
+    };
+  }, [readOnly, sanitizedValue.length]);
 
   const updateCaretPosition = (pos: number, valueLen: number = sanitizedValue.length) => {
-    if (readOnly || !isFocused || pos < 0 || pos > length) {
+    const el = hiddenInputRef.current;
+    const isActive = el && document.activeElement === el;
+    if (readOnly || !isActive || pos < 0 || pos > length) {
       return;
     }
     if (valueLen === length && pos === length) {
@@ -262,7 +294,6 @@ const CodeInput = ({
       setInternalValue(filtered);
     }
     onChange?.(filtered);
-    syncCaretFromInput(e.target, filtered.length);
   };
 
   /**
@@ -294,24 +325,6 @@ const CodeInput = ({
     updateCaretPosition(start, valueLen);
   };
 
-  /**
-   * If the component is editable, read the native input selection
-   * and sync the virtual caret accordingly.
-   */
-  const syncCaretIfEditable = (e: React.SyntheticEvent<HTMLInputElement>) => {
-    if (readOnly) {
-      return;
-    }
-    const el = e.currentTarget;
-
-    // Defer caret sync to the end of the event loop.
-    // Reason: the native input updates selectionStart/End after mouseup/keyup/select/focus.
-    // Using requestAnimationFrame ensures we read the final selection and keep the virtual caret in sync.
-    // Without this defer, reading selectionStart/End happens too early and,
-    // after clearing a selection via keyboard/mouse, the virtual caret would not update.
-    requestAnimationFrame(() => syncCaretFromInput(el));
-  };
-
   return (
     <Box sx={{ display: 'inline-block', width: containerWidth }}>
       <CodeBox error={error} sx={{ cursor: readOnly ? 'default' : 'text' }}>
@@ -339,17 +352,6 @@ const CodeInput = ({
               }
             : {})}
           onChange={handleChange}
-          onKeyUp={syncCaretIfEditable}
-          onMouseUp={syncCaretIfEditable}
-          onSelect={syncCaretIfEditable}
-          onFocus={(e) => {
-            setIsFocused(true);
-            syncCaretIfEditable(e);
-          }}
-          onBlur={() => {
-            setIsFocused(false);
-            setCaretPosition(null);
-          }}
           sx={encrypted ? { fontSize: '1.5em' } : undefined}
         />
 
