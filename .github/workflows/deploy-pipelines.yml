@@ -114,35 +114,6 @@ jobs:
         run: yarn build
         working-directory: .
 
-      - name: Copy deploy files
-        run: |
-          # Write the script in a temporary file
-          cat <<EOF > script.js
-            const { join } = require('path');
-            const { mkdirSync, cpSync, copyFileSync } = require('fs');
-
-            // create bundle dir
-            console.log("Create bundle dir")
-            mkdirSync('bundle');
-            // copy dist file into it
-            // exclude stories dir from copy
-            console.log("Copy dist content into bundle dir")
-            cpSync('dist', 'bundle/dist', {
-              recursive: true,
-              filter: (src) => !src.endsWith('stories'),
-            });
-            // copy additional files
-            console.log("Copy package.json and other")
-            const additionalFiles = ['README.md', 'LICENSE', 'CHANGELOG.md', 'package.json'];
-            for (const file of additionalFiles) {
-              const destPathFile = join('bundle', file);
-              copyFileSync(file, destPathFile);
-            }
-          EOF
-
-          # Execute the file
-          node script.js
-
       # the upload of the artifcat cannot be done locally with nekos/act
       - name: Upload Artifact
         if: ${{ !github.event.act }}

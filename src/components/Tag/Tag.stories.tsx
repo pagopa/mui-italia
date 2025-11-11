@@ -1,17 +1,17 @@
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { StoryFn, Meta } from '@storybook/react';
 
-import { Tag } from "./Tag";
+import { Tag } from './Tag';
 
 export default {
-  title: "Components/Tag",
+  title: 'Components/Tag',
   component: Tag,
   args: {
-    value: "Tag Content",
-    variant: "default",
-    color: "default",
+    value: 'Tag Content',
+    variant: 'default',
+    color: 'default',
   },
-} as ComponentMeta<typeof Tag>;
+} as Meta<typeof Tag>;
 
-const Template: ComponentStory<typeof Tag> = (args) => <Tag {...args} />;
+const Template: StoryFn<typeof Tag> = (args) => <Tag {...args} />;
 
 export const Default = Template.bind({});
