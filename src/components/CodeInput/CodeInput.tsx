@@ -1,5 +1,5 @@
 import { Box, Stack, Typography, useTheme, styled, keyframes, alpha } from '@mui/material';
-import { useEffect, useId, useRef, useState } from 'react';
+import { useId, useLayoutEffect, useRef, useState } from 'react';
 import { blue, error as errorColor, neutral as neutralColor } from './../../theme/colors';
 
 /**
@@ -218,55 +218,47 @@ const CodeInput = ({
     codeBoxContentWidth + 2 * codeBoxPaddingX + 2 * codeBoxErrorBorder
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (readOnly) {
       setCaretPosition(null);
       return;
     }
     const input = hiddenInputRef.current;
-    if (!input) {
-      return;
-    }
-
-    let rafId = 0;
-    const scheduleCaretSync = () => {
-      // if a sync has already been scheduled, do nothing
-      if (rafId) {
-        return;
-      }
-      // Use rAF to read selectionStart/End after the browser has applied
-      // the final caret/selection changes
-      rafId = requestAnimationFrame(() => {
-        rafId = 0;
-        syncCaretFromInput(input, sanitizedValue.length);
-      });
-    };
 
     const onSelectionChange = () => {
       if (document.activeElement === input) {
-        scheduleCaretSync();
+        syncCaretFromInput(input, sanitizedValue.length);
       }
     };
 
-    // We need this because focusing via TAB/SHIFT+TAB may not emit a selectionchange.
-    // Scheduling a sync on focus ensures the virtual caret is aligned immediately when
-    // the field receives the focus.
-    const onFocus = () => scheduleCaretSync();
-    const onBlur = () => setCaretPosition(null);
-
+    /**
+     * We subscribe to the native `selectionchange` event at the document level
+     * to keep the virtual caret in sync with the browser's native selection.
+     *
+     * React doesn't provide a reliable equivalent event: built-in handlers like
+     * `onSelect` or `onChange` only capture a subset of user interactions and
+     * often fire too late to reflect the caret movement in real time.
+     *
+     * The `selectionchange` event fires whenever the browser updates the text
+     * selection or caret position, covering cases such as:
+     *
+     * - Arrow keys and `HOME`/`END` navigation
+     * - Mouse clicks and drag selections
+     * - Cursor move/selection on mobile devices
+     *
+     * We attach the listener to `document` rather than to the specific `input`
+     * because browser support for `selectionchange` on individual inputs is
+     * relatively recent and showed inconsistent behavior in our tests,
+     * especially on mobile.
+     *
+     * Maurizio Flauti, November 12th, 2025
+     */
     document.addEventListener('selectionchange', onSelectionChange);
-    input.addEventListener('focus', onFocus);
-    input.addEventListener('blur', onBlur);
 
     return () => {
-      if (rafId) {
-        cancelAnimationFrame(rafId);
-      }
       document.removeEventListener('selectionchange', onSelectionChange);
-      input.removeEventListener('focus', onFocus);
-      input.removeEventListener('blur', onBlur);
     };
-  }, [readOnly, sanitizedValue.length]);
+  }, [readOnly, sanitizedValue]);
 
   const updateCaretPosition = (pos: number, valueLen: number = sanitizedValue.length) => {
     const el = hiddenInputRef.current;
@@ -302,7 +294,7 @@ const CodeInput = ({
    * and updates the visual caret position accordingly.
    *
    * @param el - The native input element reference.
-   * @param valueLen - The current length of the input value (defaults to sanitizedValue.length).
+   * @param valueLen - The current value length (defaults to `sanitizedValue.length`).
    */
   const syncCaretFromInput = (
     el: HTMLInputElement | null | undefined,
@@ -352,6 +344,27 @@ const CodeInput = ({
               }
             : {})}
           onChange={handleChange}
+          /**
+           * We rely on the `onKeyUp` handler to trigger a caret sync in a few cases
+           * that are not reliably covered by the native `selectionchange` event.
+           *
+           * Specifically, the following line ensures proper caret updates when:
+           *
+           * - the user navigates out of and back into the field using `TAB`/`SHIFT+TAB`
+           *   (this interaction doesn't emit a `selectionchange` event)
+           * - the user performs undo actions (e.g., `CTRL+Z`/`CMD+Z`) after pasting
+           *   some text. In this case, `selectionchange` does not fire and the
+           *   virtual caret remains in its old position (after paste).
+           *
+           * We use `onKeyUp` (instead of `onFocus`) because it runs after the browser
+           * has finalized the key handling and the selection state is stable.
+           * This avoids reading transient states and prevents stale or flickering
+           * caret positions.
+           *
+           * Maurizio Flauti, November 12th, 2025
+           */
+          onKeyUp={() => syncCaretFromInput(hiddenInputRef.current, sanitizedValue.length)}
+          onBlur={() => setCaretPosition(null)}
           sx={encrypted ? { fontSize: '1.5em' } : undefined}
         />
 
