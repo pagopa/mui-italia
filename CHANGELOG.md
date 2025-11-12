@@ -1,3 +1,12 @@
+# [2.0.0-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v2.0.0-RC.1) (2025-11-12)
+
+
+### Build System
+
+* **mui-233:** migrated to esm import for mui icons ([#593](https://github.com/pagopa/mui-italia/issues/593)) ([7b01870](https://github.com/pagopa/mui-italia/commit/7b01870f5154fd1aec7b349adc81699c401435a5))
+
+
+
 # [2.0.0-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.0.0-RC.0) (2025-11-12)
 
 
