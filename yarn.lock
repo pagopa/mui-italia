@@ -5,6 +5,18 @@ __metadata:
   version: 6
   cacheKey: 8
 
+"@-xun/debug@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "@-xun/debug@npm:2.0.2"
+  dependencies:
+    "@types/debug": ^4.1.12
+    debug: ^4.4.1
+    supports-color: ^8.1.1
+    type-fest: ^4.41.0
+  checksum: 8c05416f3db1527466d10b04ba0f1e91e4ffe9d80acabb6780516f271297e82234cf0f8dd1c924f2ce8d7007e813931211750ea156acf84e3795f5e24b2e20a6
+  languageName: node
+  linkType: hard
+
 "@aashutoshrathi/word-wrap@npm:^1.2.3":
   version: 1.2.6
   resolution: "@aashutoshrathi/word-wrap@npm:1.2.6"
@@ -4176,6 +4188,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.47.1
     "@typescript-eslint/parser": ^5.39.0
     babel-plugin-module-resolver: ^5.0.2
+    babel-plugin-transform-rewrite-imports: ^1.5.4
     babel-preset-minify: ^0.5.2
     chromatic: ^6.17.2
     clsx: ^1.2.1
@@ -5877,7 +5890,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/debug@npm:^4.0.0":
+"@types/debug@npm:^4.0.0, @types/debug@npm:^4.1.12":
   version: 4.1.12
   resolution: "@types/debug@npm:4.1.12"
   dependencies:
@@ -7413,6 +7426,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"babel-plugin-transform-rewrite-imports@npm:^1.5.4":
+  version: 1.5.4
+  resolution: "babel-plugin-transform-rewrite-imports@npm:1.5.4"
+  dependencies:
+    "@babel/template": ^7.27.2
+    "@babel/types": ^7.28.2
+    core-js: ^3.45.1
+    rejoinder: ^2.0.3
+  peerDependencies:
+    "@babel/core": ">=7.11.6"
+  checksum: 454845820c21b12c54f70e66cc98df1fc91bff7da4bab0a95ffec2a5f0efe7b4c2d5f85b6b71f1bdfa996ca6964c42aa97f08aac4543ce7884993dc643975697
+  languageName: node
+  linkType: hard
+
 "babel-plugin-transform-simplify-comparison-operators@npm:^6.9.4":
   version: 6.9.4
   resolution: "babel-plugin-transform-simplify-comparison-operators@npm:6.9.4"
@@ -7829,6 +7856,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"chalk@npm:^5.6.0":
+  version: 5.6.2
+  resolution: "chalk@npm:5.6.2"
+  checksum: 4ee2d47a626d79ca27cb5299ecdcce840ef5755e287412536522344db0fc51ca0f6d6433202332c29e2288c6a90a2b31f3bd626bc8c14743b6b6ee28abd3b796
+  languageName: node
+  linkType: hard
+
 "character-entities@npm:^2.0.0":
   version: 2.0.2
   resolution: "character-entities@npm:2.0.2"
@@ -8228,6 +8262,13 @@ __metadata:
   version: 3.31.1
   resolution: "core-js-pure@npm:3.31.1"
   checksum: 93c3dd28471755cb81ec4828f5617bd32a7c682295d88671534a6733a0d41dae9e28f8f8000ddd1f1e597a3bec4602db5f906a03c9ba1a360534f7ae2519db7c
+  languageName: node
+  linkType: hard
+
+"core-js@npm:^3.45.1":
+  version: 3.46.0
+  resolution: "core-js@npm:3.46.0"
+  checksum: 03a3f1b094e8d8baa78081cdcbe2d49b608d612d2f940668c9063e43e52ff19d8e1c8137bdf79734a39445482f981e8d52653f8879539aaff49cf5d85e7183cc
   languageName: node
   linkType: hard
 
@@ -9475,6 +9516,13 @@ __metadata:
     signal-exit: ^4.1.0
     strip-final-newline: ^3.0.0
   checksum: cac1bf86589d1d9b73bdc5dda65c52012d1a9619c44c526891956745f7b366ca2603d29fe3f7460bacc2b48c6eab5d6a4f7afe0534b31473d3708d1265545e1f
+  languageName: node
+  linkType: hard
+
+"exit-hook@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "exit-hook@npm:4.0.0"
+  checksum: 5aa8b4e45fa943e7e174c25329750a0ffefb593ccc2eafd5d67e1d734b114c93cb36b5714548fb1c2a1dd90f3e9cdc606b5e788f428f780708774da444021fdc
   languageName: node
   linkType: hard
 
@@ -13894,6 +13942,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rejoinder@npm:^2.0.3":
+  version: 2.1.0
+  resolution: "rejoinder@npm:2.1.0"
+  dependencies:
+    "@-xun/debug": ^2.0.2
+    chalk: ^5.6.0
+    core-js: ^3.45.1
+    exit-hook: ^4.0.0
+  checksum: 44d86725cfee9d7f629f1f7e05635d9e1b57bcae35320d22beb31fc80017fad5f1a5a44af4c42361aeaec3303e3696916e6fa58b79222ba15278819f38c7d160
+  languageName: node
+  linkType: hard
+
 "relateurl@npm:^0.2.7":
   version: 0.2.7
   resolution: "relateurl@npm:0.2.7"
@@ -14725,7 +14785,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"supports-color@npm:^8.0.0":
+"supports-color@npm:^8.0.0, supports-color@npm:^8.1.1":
   version: 8.1.1
   resolution: "supports-color@npm:8.1.1"
   dependencies:
@@ -15081,6 +15141,13 @@ __metadata:
   version: 2.19.0
   resolution: "type-fest@npm:2.19.0"
   checksum: a4ef07ece297c9fba78fc1bd6d85dff4472fe043ede98bd4710d2615d15776902b595abf62bd78339ed6278f021235fb28a96361f8be86ed754f778973a0d278
+  languageName: node
+  linkType: hard
+
+"type-fest@npm:^4.41.0":
+  version: 4.41.0
+  resolution: "type-fest@npm:4.41.0"
+  checksum: 7055c0e3eb188425d07403f1d5dc175ca4c4f093556f26871fe22041bc93d137d54bef5851afa320638ca1379106c594f5aa153caa654ac1a7f22c71588a4e80
   languageName: node
   linkType: hard
 

@@ -53,6 +53,7 @@ async function babelBuild(sourceDir, buildDir) {
       },
       (error, stdout, stderr) => {
         if (error) {
+          console.error(error);
           reject(error);
           throw new Error(error);
         }
@@ -81,6 +82,7 @@ async function createTypes() {
       },
       (error, stdout, stderr) => {
         if (error) {
+          console.error(error);
           reject(error);
           throw new Error(error);
         }
