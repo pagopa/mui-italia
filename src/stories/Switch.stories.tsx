@@ -1,4 +1,4 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import { Switch, FormGroup, FormControlLabel, FormHelperText } from '@mui/material';
 
@@ -26,9 +26,9 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof Switch>;
+} as Meta<typeof Switch>;
 
-const Template: ComponentStory<typeof Switch> = (args) => <Switch {...args} />;
+const Template: StoryFn<typeof Switch> = (args) => <Switch {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
@@ -40,19 +40,19 @@ Disabled.args = {
   disabled: true,
 };
 
-export const WithLabel: ComponentStory<typeof FormControlLabel> = () => (
+export const WithLabel: StoryFn<typeof FormControlLabel> = () => (
   <FormGroup>
     <FormControlLabel control={<Switch sx={{ mx: 1.5 }} defaultChecked />} label="Label" />
   </FormGroup>
 );
 
-export const DisabledWithLabel: ComponentStory<typeof FormControlLabel> = () => (
+export const DisabledWithLabel: StoryFn<typeof FormControlLabel> = () => (
   <FormGroup>
     <FormControlLabel disabled control={<Switch sx={{ mx: 1.5 }} />} label="Label" />
   </FormGroup>
 );
 
-export const ErrorWithHelperText: ComponentStory<typeof FormControlLabel> = () => (
+export const ErrorWithHelperText: StoryFn<typeof FormControlLabel> = () => (
   <FormGroup>
     <FormControlLabel control={<Switch color="error" sx={{ mx: 1.5 }} />} label="Label" />
     <FormHelperText error>Helper Text</FormHelperText>

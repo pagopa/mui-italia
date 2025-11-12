@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { Stack, Box, Container, Link } from "@mui/material";
-import { CompanyLinkType, FooterLinksType } from "@components/Footer";
-import { LangSwitch, LangSwitchProps } from "@components/LangSwitch";
+import { Stack, Box, Container, Link } from '@mui/material';
+import { CompanyLinkType, FooterLinksType } from '@components/Footer';
+import { LangSwitch, LangSwitchProps } from '@components/LangSwitch';
 
-import { LogoPagoPACompany } from "@assets/LogoPagoPACompany";
-import { hrefNoOp, wrapHandleExitAction } from "utils/ts-utils";
+import { LogoPagoPACompany } from '@assets/LogoPagoPACompany';
+import { hrefNoOp, wrapHandleExitAction } from '../../utils/ts-utils';
 
 type FooterPostLoginProps = LangSwitchProps & {
   companyLink: CompanyLinkType;
@@ -22,16 +22,16 @@ export const FooterPostLogin = ({
   <Box
     sx={{
       borderTop: 1,
-      borderColor: "divider",
-      backgroundColor: "background.paper",
+      borderColor: 'divider',
+      backgroundColor: 'background.paper',
     }}
   >
     <Container maxWidth={false} sx={{ py: { xs: 3, md: 2 } }}>
       <Stack
         spacing={{ xs: 4, md: 3 }}
-        direction={{ xs: "column", md: "row" }}
+        direction={{ xs: 'column', md: 'row' }}
         justifyContent="space-between"
-        sx={{ alignItems: "center" }}
+        sx={{ alignItems: 'center' }}
       >
         {companyLink && (
           <Link
@@ -42,7 +42,7 @@ export const FooterPostLogin = ({
               companyLink.onClick,
               onExit
             )}
-            sx={{ display: "inline-flex" }}
+            sx={{ display: 'inline-flex' }}
           >
             <LogoPagoPACompany />
           </Link>
@@ -50,8 +50,8 @@ export const FooterPostLogin = ({
 
         <Stack
           spacing={{ xs: 1, md: 3 }}
-          direction={{ xs: "column", md: "row" }}
-          sx={{ alignItems: "center" }}
+          direction={{ xs: 'column', md: 'row' }}
+          sx={{ alignItems: 'center' }}
         >
           {links.map(({ href = hrefNoOp, label, ariaLabel, onClick }, i) => (
             <Link
@@ -61,7 +61,7 @@ export const FooterPostLogin = ({
               key={i}
               underline="none"
               color="text.primary"
-              sx={{ display: "inline-block" }}
+              sx={{ display: 'inline-block' }}
               variant="subtitle2"
             >
               {label}

@@ -1,5 +1,5 @@
 import { Box, Stack, Typography, useTheme, styled, keyframes, alpha } from '@mui/material';
-import { useId, useLayoutEffect, useRef, useState } from 'react';
+import { ChangeEvent, useId, useLayoutEffect, useRef, useState } from 'react';
 import { blue, error as errorColor, neutral as neutralColor } from './../../theme/colors';
 
 /**
@@ -275,7 +275,7 @@ const CodeInput = ({
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (readOnly) {
       return;
     }
