@@ -1,3 +1,13 @@
+# [2.0.0-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.0.0-RC.0) (2025-11-12)
+
+
+### Build System
+
+* **mui-233:** changed artifact directory ([#592](https://github.com/pagopa/mui-italia/issues/592)) ([0569322](https://github.com/pagopa/mui-italia/commit/05693222e45772ca3c845a5faa65d72fdbd22b97))
+* **mui-233:** reworked build system ([#591](https://github.com/pagopa/mui-italia/issues/591)) ([d7a5821](https://github.com/pagopa/mui-italia/commit/d7a5821e62084eb3ef6cfe1ecfd3ef4b44fb6aae))
+
+
+
 # [1.8.0](https://github.com/pagopa/mui-italia/releases/tag/v1.8.0) (2025-10-21)
 
 
