@@ -15,15 +15,14 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   label,
   placeholder,
   multiple = false,
-  hideArrow = false,
   avoidLocalFiltering = false,
   noResultsText = 'Non ci sono corrispondenze da mostrare',
   disabled = false,
   required = false,
   loading = false,
+  loadingAriaLabel = 'Loading',
   slots = {},
   slotProps = {},
-  ariaLabels = {},
   value,
   renderOption,
   onInputChange,
@@ -41,31 +40,23 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   const listboxId = 'autocomplete-listbox';
   const inputId = 'autocomplete-input';
 
-  const {
-    startIcon: StartIcon,
-    clearIcon: ClearIcon = Close,
-    expandIcon: ExpandIcon = KeyboardArrowDown,
-    collapseIcon: CollapseIcon = KeyboardArrowUp,
-    emptyState: EmptyState,
-    loadingSkeleton: LoadingSkeleton,
-  } = slots;
+  const { startIcon: StartIcon, loadingSkeleton: LoadingSkeleton } = slots;
 
   const {
     startIcon: startIconProps = {},
     clearIcon: clearIconProps = {},
     expandIcon: expandIconProps = {},
     collapseIcon: collapseIconProps = {},
-    emptyState: emptyStateProps = {},
     input: inputProps = {},
     loadingSkeleton: loadingSkeletonProps = {},
+    selectionBox: selectionBoxProps = {},
+    hideArrows = false,
   } = slotProps;
 
-  const clearButtonLabel = slotProps.clearIcon?.['aria-label'] ?? 'Cancella il testo inserito';
-  const collapseButtonLabel = slotProps.collapseIcon?.['aria-label'] ?? 'Chiudi il menu a tendina';
-  const expandButtonLabel = slotProps.expandIcon?.['aria-label'] ?? 'Apri il menu a tendina';
-
-  const { loadingLabel = 'Caricamento in corso', selectedOptionsLabel = 'Opzioni selezionate' } =
-    ariaLabels;
+  const clearButtonLabel = clearIconProps?.['aria-label'] ?? 'Clear the entered text';
+  const collapseButtonLabel = collapseIconProps?.['aria-label'] ?? 'Close the dropdown menu';
+  const expandButtonLabel = expandIconProps?.['aria-label'] ?? 'Open the dropdown menu';
+  const selectedOptionsLabel = selectionBoxProps?.['aria-label'] ?? 'Selected options';
 
   const filteredOptions =
     inputValue.trim() === '' || avoidLocalFiltering
@@ -246,7 +237,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
 
   const getEndInputAdornment = () => {
     const showCloseIcon = inputValue && !disabled;
-    const showArrowIcon = !hideArrow;
+    const showArrowIcon = !hideArrows;
 
     if (!showCloseIcon && !showArrowIcon) {
       return null;
@@ -272,7 +263,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
               color: 'text.secondary',
             }}
           >
-            <ClearIcon sx={{ ...clearIconProps.sx }} {...clearIconProps} />
+            <Close {...clearIconProps} />
           </IconButton>
         )}
         {showArrowIcon && (
@@ -287,19 +278,15 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
               cursor: disabled ? 'default' : 'pointer',
             }}
           >
-            {isOpen ? <CollapseIcon {...collapseIconProps} /> : <ExpandIcon {...expandIconProps} />}
+            {isOpen ? (
+              <KeyboardArrowUp {...collapseIconProps} />
+            ) : (
+              <KeyboardArrowDown {...expandIconProps} />
+            )}
           </IconButton>
         )}
       </Box>
     );
-  };
-
-  const renderEmptyState = () => {
-    if (EmptyState) {
-      return <EmptyState {...emptyStateProps} />;
-    }
-
-    return <DefaultEmptyState noResultsText={noResultsText} />;
   };
 
   useEffect(() => {
@@ -422,7 +409,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
                 loadingSkeletonProps={loadingSkeletonProps}
               />
             ) : (
-              renderEmptyState()
+              <DefaultEmptyState noResultsText={noResultsText} />
             )}
           </Paper>
         </Popper>
@@ -434,7 +421,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
       </Box>
 
       <Box aria-live="polite" sx={visuallyHidden}>
-        {loading && loadingLabel}
+        {loading && loadingAriaLabel}
       </Box>
     </>
   );

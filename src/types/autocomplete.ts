@@ -9,37 +9,21 @@ export type OptionType = {
 interface AutocompleteSlots {
   /** Icon displayed at the start of the input field */
   startIcon?: ComponentType<SvgIconProps>;
-  /** Icon displayed at the end of the input field */
-  endIcon?: ComponentType<SvgIconProps>;
-  /** Icon for the clear button (defaults to Close icon) */
-  clearIcon?: ComponentType<SvgIconProps>;
-  /** Icon shown when the dropdown is collapsed (defaults to KeyboardArrowDown) */
-  expandIcon?: ComponentType<SvgIconProps>;
-  /** Icon shown when the dropdown is expanded (defaults to KeyboardArrowUp) */
-  collapseIcon?: ComponentType<SvgIconProps>;
-  /** Custom component to display when no results are found */
-  emptyState?: ComponentType;
   /** Custom loading skeleton component shown during loading state */
   loadingSkeleton?: ComponentType;
 }
 
 interface AutocompleteSlotProps {
   startIcon?: SvgIconProps;
-  endIcon?: SvgIconProps;
   clearIcon?: SvgIconProps;
   expandIcon?: SvgIconProps;
   collapseIcon?: SvgIconProps;
-  emptyState?: Record<string, any>;
   input?: Partial<OutlinedInputProps>;
   loadingSkeleton?: Record<string, any>;
-}
-
-interface AutocompleteAriaLabels {
-  clearButtonLabel?: string;
-  collapseButtonLabel?: string;
-  expandButtonLabel?: string;
-  loadingLabel?: string;
-  selectedOptionsLabel?: string;
+  selectionBox?: {
+    ['aria-label']?: string;
+  };
+  hideArrows?: boolean;
 }
 
 export interface AutocompleteProps {
@@ -54,9 +38,6 @@ export interface AutocompleteProps {
 
   /** Enable multi-select mode with chips for selected options */
   multiple?: boolean;
-
-  /** Hide the expand/collapse arrow icon */
-  hideArrow?: boolean;
 
   /** Disable local filtering and rely on external filtering through onInputChange */
   avoidLocalFiltering?: boolean;
@@ -73,14 +54,14 @@ export interface AutocompleteProps {
   /** Show loading state with skeleton */
   loading?: boolean;
 
+  /** Aria Label for loading state */
+  loadingAriaLabel?: string;
+
   /** Custom components to replace default icons and states */
   slots?: AutocompleteSlots;
 
   /** Props to pass to the custom slot components */
   slotProps?: AutocompleteSlotProps;
-
-  /** Custom aria-labels for accessibility */
-  ariaLabels?: AutocompleteAriaLabels;
 
   /** Controlled input value that overrides internal state */
   value?: string;
