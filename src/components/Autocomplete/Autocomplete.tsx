@@ -4,11 +4,11 @@ import { Close, KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 import { Box, IconButton, Paper, Popper, TextField } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
 import React, { useEffect, useRef, useState } from 'react';
+import { AutocompleteProps, OptionType } from 'types/autocomplete';
+import { isIosDevice } from 'utils/device';
 import AutocompleteContent from './AutocompleteContent';
 import DefaultEmptyState from './DefaultEmptyState';
 import MultiSelectChips from './MultiSelectChips';
-import { isIosDevice } from './utils/helpers';
-import { AutocompleteProps, OptionType } from './utils/types';
 
 const Autocomplete: React.FC<AutocompleteProps> = ({
   options,
@@ -16,24 +16,21 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   placeholder,
   multiple = false,
   hideArrow = false,
-  hasClearIcon = false,
   avoidLocalFiltering = false,
   noResultsText = 'Non ci sono corrispondenze da mostrare',
   disabled = false,
   required = false,
   loading = false,
-  sx,
-  inputStyle,
   slots = {},
   slotProps = {},
   ariaLabels = {},
-  overridenInputvalue,
+  value,
   renderOption,
   onInputChange,
   onSelect,
   setInputValueOnSelect,
 }) => {
-  const [inputValue, setInputValue] = useState<string>(overridenInputvalue || '');
+  const [inputValue, setInputValue] = useState<string>(value || '');
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [activeIndex, setActiveIndex] = useState<number>(-1);
   const [selectedOptions, setSelectedOptions] = useState<Array<OptionType>>([]);
@@ -63,13 +60,12 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
     loadingSkeleton: loadingSkeletonProps = {},
   } = slotProps;
 
-  const {
-    clearButtonLabel = 'Cancella il testo inserito',
-    collapseButtonLabel = 'Chiudi il menu a tendina',
-    expandButtonLabel = 'Apri il menu a tendina',
-    loadingLabel = 'Caricamento in corso',
-    selectedOptionsLabel = 'Opzioni selezionate',
-  } = ariaLabels;
+  const clearButtonLabel = slotProps.clearIcon?.['aria-label'] ?? 'Cancella il testo inserito';
+  const collapseButtonLabel = slotProps.collapseIcon?.['aria-label'] ?? 'Chiudi il menu a tendina';
+  const expandButtonLabel = slotProps.expandIcon?.['aria-label'] ?? 'Apri il menu a tendina';
+
+  const { loadingLabel = 'Caricamento in corso', selectedOptionsLabel = 'Opzioni selezionate' } =
+    ariaLabels;
 
   const filteredOptions =
     inputValue.trim() === '' || avoidLocalFiltering
@@ -249,7 +245,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   };
 
   const getEndInputAdornment = () => {
-    const showCloseIcon = hasClearIcon && inputValue && !disabled;
+    const showCloseIcon = inputValue && !disabled;
     const showArrowIcon = !hideArrow;
 
     if (!showCloseIcon && !showArrowIcon) {
@@ -320,14 +316,14 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   }, [activeIndex, isOpen, disabled]);
 
   useEffect(() => {
-    if (overridenInputvalue !== undefined) {
-      setInputValue(overridenInputvalue);
+    if (value !== undefined) {
+      setInputValue(value);
     }
-  }, [overridenInputvalue]);
+  }, [value]);
 
   return (
     <>
-      <Box position="relative" width="100%" ref={containerRef} sx={sx}>
+      <Box position="relative" width="100%" ref={containerRef}>
         <TextField
           fullWidth
           inputRef={inputRef}
@@ -377,7 +373,6 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
               padding: '8px 0',
               boxSizing: 'border-box',
             },
-            ...inputStyle,
           }}
         />
 

@@ -8,7 +8,7 @@ import {
   Skeleton,
 } from '@mui/material';
 import React, { MouseEvent } from 'react';
-import { OptionType } from './utils/types';
+import { OptionType } from 'types/autocomplete';
 
 type Props = {
   multiple: boolean;

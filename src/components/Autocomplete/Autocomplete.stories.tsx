@@ -1,8 +1,8 @@
 import { LocationOn, Place } from '@mui/icons-material';
 import { Box, Skeleton, Typography } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react';
+import { OptionType } from 'types/autocomplete';
 import Autocomplete from './Autocomplete';
-import { OptionType } from './utils/types';
 
 const meta: Meta<typeof Autocomplete> = {
   title: 'Components/Autocomplete',
@@ -83,22 +83,12 @@ export const WithStartIcon: Story = {
   },
 };
 
-export const WithClearIcon: Story = {
-  args: {
-    options: cities,
-    label: 'Seleziona una città',
-    placeholder: 'Cerca...',
-    hasClearIcon: true,
-  },
-};
-
 export const MultiSelect: Story = {
   args: {
     options: cities,
     label: 'Seleziona le città',
     placeholder: 'Seleziona più città...',
     multiple: true,
-    hasClearIcon: true,
   },
 };
 
@@ -108,7 +98,6 @@ export const MultiSelectWithIcon: Story = {
     label: 'Seleziona le città',
     placeholder: 'Seleziona più città...',
     multiple: true,
-    hasClearIcon: true,
     slots: {
       startIcon: LocationOn,
     },
@@ -121,7 +110,6 @@ export const NoArrow: Story = {
     label: 'Seleziona una città',
     placeholder: 'Cerca...',
     hideArrow: true,
-    hasClearIcon: true,
   },
 };
 

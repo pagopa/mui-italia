@@ -1,6 +1,6 @@
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Button } from '@mui/material';
-import { OptionType } from './utils/types';
+import { OptionType } from 'types/autocomplete';
 
 interface Props {
   selectedOptions: Array<OptionType>;
@@ -9,9 +9,9 @@ interface Props {
   selectedOptionsLabel: string;
 }
 
-// Qui abbiamo bisogno di un Box con display "contents" per fare in modo che i bottoni
-// vengano renderizzati come se fossero figli diretti del Box contenitore.
-// In questo modo, i bottoni si dispongono correttamente all'interno del TextField.
+// Here we need a Box with a ‘contents’ display to ensure that the buttons
+// are rendered as if they were direct children of the container Box.
+// This way, the buttons are positioned correctly within the TextField.
 const MultiSelectChips: React.FC<Props> = ({
   selectedOptions,
   disabled,

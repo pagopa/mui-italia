@@ -1,4 +1,4 @@
-import { OutlinedInputProps, SvgIconProps, SxProps, Theme } from '@mui/material';
+import { OutlinedInputProps, SvgIconProps } from '@mui/material';
 import { ComponentType, ReactNode } from 'react';
 
 export type OptionType = {
@@ -58,9 +58,6 @@ export interface AutocompleteProps {
   /** Hide the expand/collapse arrow icon */
   hideArrow?: boolean;
 
-  /** Show a clear button icon when input has value */
-  hasClearIcon?: boolean;
-
   /** Disable local filtering and rely on external filtering through onInputChange */
   avoidLocalFiltering?: boolean;
 
@@ -76,12 +73,6 @@ export interface AutocompleteProps {
   /** Show loading state with skeleton */
   loading?: boolean;
 
-  /** MUI sx prop for styling the container */
-  sx?: SxProps<Theme>;
-
-  /** MUI sx prop for styling the input field */
-  inputStyle?: SxProps<Theme>;
-
   /** Custom components to replace default icons and states */
   slots?: AutocompleteSlots;
 
@@ -92,7 +83,7 @@ export interface AutocompleteProps {
   ariaLabels?: AutocompleteAriaLabels;
 
   /** Controlled input value that overrides internal state */
-  overridenInputvalue?: string;
+  value?: string;
 
   /** Custom render function for each option in the dropdown */
   renderOption?: (value: OptionType, index: number) => ReactNode;
