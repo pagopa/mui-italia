@@ -1,3 +1,12 @@
+# [2.0.0-RC.2](https://github.com/pagopa/mui-italia/releases/tag/v2.0.0-RC.2) (2025-11-13)
+
+
+### Build System
+
+* **mui-233:** fixed alias in type definitions ([#594](https://github.com/pagopa/mui-italia/issues/594)) ([26c28d6](https://github.com/pagopa/mui-italia/commit/26c28d6678fe7d99948ea9b5e1be758e6f2c7ccf))
+
+
+
 # [2.0.0-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v2.0.0-RC.1) (2025-11-12)
 
 
