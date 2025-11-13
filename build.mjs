@@ -10,7 +10,7 @@ import {
   cpSync,
   writeFileSync,
 } from 'fs';
-import { execFile } from 'child_process';
+import { execFileSync } from 'child_process';
 
 const TO_TRANSFORM_EXTENSIONS = ['.js', '.jsx', '.ts', '.tsx'];
 
@@ -33,8 +33,8 @@ async function babelBuild(sourceDir, buildDir) {
   const cwd = process.cwd();
   // get config file
   const configFile = join(cwd, '.babelrc.mjs');
-  return new Promise((resolve, reject) => {
-    execFile(
+  try {
+    const result = execFileSync(
       'babel',
       [
         sourceDir,
@@ -50,52 +50,38 @@ async function babelBuild(sourceDir, buildDir) {
           ...process.env,
           NODE_ENV: 'production',
         },
-      },
-      (error, stdout, stderr) => {
-        if (error) {
-          console.error(error);
-          reject(error);
-          throw new Error(error);
-        }
-        if (stdout) {
-          console.log(stdout);
-        }
-        if (stderr) {
-          console.error(stderr);
-        }
-        resolve();
+        encoding: 'utf8',
       }
     );
-  });
+    console.log(result);
+  } catch (error) {
+    console.error(error);
+    throw new Error(error);
+  }
 }
 
 async function createTypes() {
-  return new Promise((resolve, reject) => {
-    execFile(
-      'tsc',
-      ['--project', 'tsconfig.prod.json'],
-      {
-        env: {
-          ...process.env,
-          NODE_ENV: 'production',
-        },
+  try {
+    const tscResult = execFileSync('tsc', ['--project', 'tsconfig.prod.json'], {
+      env: {
+        ...process.env,
+        NODE_ENV: 'production',
       },
-      (error, stdout, stderr) => {
-        if (error) {
-          console.error(error);
-          reject(error);
-          throw new Error(error);
-        }
-        if (stdout) {
-          console.log(stdout);
-        }
-        if (stderr) {
-          console.error(stderr);
-        }
-        resolve();
-      }
-    );
-  });
+      encoding: 'utf8',
+    });
+    console.log(tscResult);
+    const tscAliasResult = execFileSync('tsc-alias', ['-p', 'tsconfig.prod.json'], {
+      env: {
+        ...process.env,
+        NODE_ENV: 'production',
+      },
+      encoding: 'utf8',
+    });
+    console.log(tscAliasResult);
+  } catch (error) {
+    console.error(error);
+    throw new Error(error);
+  }
 }
 
 function copyFiles(sourceDir, buildDir) {
@@ -185,9 +171,9 @@ async function build() {
   rmSync(buildDir, { recursive: true, force: true });
   // build
   const sourceDir = join(cwd, 'src');
-  await babelBuild(sourceDir, buildDir);
+  babelBuild(sourceDir, buildDir);
   // create types
-  await createTypes();
+  createTypes();
   // copy static files
   copyFiles(cwd, buildDir);
   // create package.json for the builded library
