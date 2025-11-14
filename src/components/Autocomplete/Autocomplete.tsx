@@ -4,14 +4,16 @@ import { Close, KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 import { Box, IconButton, Paper, Popper, TextField } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
 import React, { useEffect, useRef, useState } from 'react';
-import { AutocompleteProps, OptionType } from 'types/autocomplete';
+import { AutocompleteProps } from 'types/autocomplete';
 import { isIosDevice } from 'utils/device';
 import AutocompleteContent from './AutocompleteContent';
 import DefaultEmptyState from './DefaultEmptyState';
 import MultiSelectChips from './MultiSelectChips';
 
-const Autocomplete: React.FC<AutocompleteProps> = ({
+const Autocomplete = <T,>({
   options,
+  getOptionLabel = (option: any) => option.label ?? option,
+  isOptionEqualToValue = (option, value) => option === value,
   label,
   placeholder,
   multiple = false,
@@ -28,11 +30,11 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   onInputChange,
   onSelect,
   setInputValueOnSelect,
-}) => {
+}: AutocompleteProps<T>) => {
   const [inputValue, setInputValue] = useState<string>(value || '');
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [activeIndex, setActiveIndex] = useState<number>(-1);
-  const [selectedOptions, setSelectedOptions] = useState<Array<OptionType>>([]);
+  const [selectedOptions, setSelectedOptions] = useState<Array<T>>([]);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -62,7 +64,9 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
     ? handleFiltering(inputValue, options)
     : inputValue.trim() === ''
     ? options
-    : options.filter((option) => option.label.toLowerCase().includes(inputValue.toLowerCase()));
+    : options.filter((option) =>
+        getOptionLabel(option).toLowerCase().includes(inputValue.toLowerCase())
+      );
 
   const handleInputBlur = () => {
     if (disabled) {
@@ -87,17 +91,21 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
     onInputChange?.(e.target.value);
   };
 
-  const handleOptionSelect = (option: OptionType) => {
+  const handleOptionSelect = (option: T) => {
     if (disabled) {
       return;
     }
 
     if (multiple) {
-      const isAlreadySelected = selectedOptions.some((selected) => selected.id === option.id);
+      const isAlreadySelected = selectedOptions.some((selected) =>
+        isOptionEqualToValue(selected, option)
+      );
 
-      let newSelectedOptions: Array<OptionType>;
+      let newSelectedOptions: Array<T>;
       if (isAlreadySelected) {
-        newSelectedOptions = selectedOptions.filter((selected) => selected.id !== option.id);
+        newSelectedOptions = selectedOptions.filter(
+          (selected) => !isOptionEqualToValue(selected, option)
+        );
       } else {
         newSelectedOptions = [...selectedOptions, option];
       }
@@ -117,17 +125,19 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
           setInputValue(newValue);
         }
       } else {
-        setInputValue(option.label);
+        setInputValue(getOptionLabel(option));
       }
     }
   };
 
-  const handleChipDelete = (optionToRemove: OptionType) => {
+  const handleChipDelete = (optionToRemove: T) => {
     if (disabled) {
       return;
     }
 
-    const newSelectedOptions = selectedOptions.filter((option) => option.id !== optionToRemove.id);
+    const newSelectedOptions = selectedOptions.filter(
+      (option) => !isOptionEqualToValue(option, optionToRemove)
+    );
     setSelectedOptions(newSelectedOptions);
     onSelect?.(newSelectedOptions);
   };
@@ -230,6 +240,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
             handleChipDelete={handleChipDelete}
             disabled={disabled}
             selectedOptionsLabel={selectedOptionsLabel}
+            getOptionLabel={getOptionLabel}
           />
         )}
       </>
@@ -237,10 +248,10 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   };
 
   const getEndInputAdornment = () => {
-    const showCloseIcon = inputValue && !disabled;
+    const showClearIcon = inputValue;
     const showArrowIcon = !hideArrows;
 
-    if (!showCloseIcon && !showArrowIcon) {
+    if ((!showClearIcon && !showArrowIcon) || disabled) {
       return null;
     }
 
@@ -252,7 +263,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
           gap: 0.5,
         }}
       >
-        {showCloseIcon && (
+        {showClearIcon && (
           <IconButton
             size="small"
             onClick={handleClearValue}
@@ -397,7 +408,6 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
                 multiple={multiple}
                 filteredOptions={filteredOptions}
                 selectedOptions={selectedOptions}
-                isOptionSelected={() => false}
                 handleOptionSelect={handleOptionSelect}
                 listboxId={listboxId}
                 listboxRef={listboxRef}
@@ -408,6 +418,8 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
                 loading={loading}
                 LoadingSkeleton={LoadingSkeleton}
                 loadingSkeletonProps={loadingSkeletonProps}
+                getOptionLabel={getOptionLabel}
+                isOptionEqualToValue={isOptionEqualToValue}
               />
             ) : (
               <DefaultEmptyState noResultsText={noResultsText} />
@@ -418,7 +430,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
 
       <Box aria-live="polite" sx={visuallyHidden}>
         {selectedOptions.length > 0 &&
-          `${selectedOptions.map((opt) => opt.label).join(', ')} selected`}
+          `${selectedOptions.map((opt) => getOptionLabel(opt)).join(', ')} selected`}
       </Box>
 
       <Box aria-live="polite" sx={visuallyHidden}>

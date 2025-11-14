@@ -8,21 +8,21 @@ import {
   Skeleton,
 } from '@mui/material';
 import React, { MouseEvent } from 'react';
-import { OptionType } from 'types/autocomplete';
 
-type Props = {
+type Props<T> = {
   multiple: boolean;
-  filteredOptions: Array<OptionType>;
-  selectedOptions?: Array<OptionType>;
+  filteredOptions: Array<T>;
+  selectedOptions: Array<T>;
   inputValue?: string;
-  isOptionSelected: (option: OptionType) => boolean;
-  handleOptionSelect: (option: OptionType) => void;
+  getOptionLabel: (option: T) => string;
+  isOptionEqualToValue?: (option: T, value: T) => boolean;
+  handleOptionSelect: (option: T) => void;
   listboxId: string;
   listboxRef: React.RefObject<HTMLUListElement>;
   inputId: string;
   activeIndex: number;
   setActiveIndex: (index: number) => void;
-  renderOption?: (option: OptionType, index: number) => React.ReactNode;
+  renderOption?: (option: T, index: number) => React.ReactNode;
   loading?: boolean;
   LoadingSkeleton?: React.ComponentType;
   loadingSkeletonProps?: Record<string, any>;
@@ -40,11 +40,13 @@ const DefaultLoadingSkeleton: React.FC = () => (
   </ListItem>
 );
 
-const AutocompleteContent: React.FC<Props> = ({
+const AutocompleteContent = <T,>({
   multiple,
   filteredOptions,
   selectedOptions = [],
   inputValue = '',
+  getOptionLabel,
+  isOptionEqualToValue,
   handleOptionSelect,
   listboxId,
   listboxRef,
@@ -55,7 +57,7 @@ const AutocompleteContent: React.FC<Props> = ({
   loading = false,
   LoadingSkeleton,
   loadingSkeletonProps = {},
-}) => {
+}: Props<T>) => {
   const handleOptionMouseDown = (event: MouseEvent<HTMLDivElement>) => {
     // Safari triggers focusOut before click, but if you
     // preventDefault on mouseDown, you can stop that from happening.
@@ -66,16 +68,16 @@ const AutocompleteContent: React.FC<Props> = ({
     event.preventDefault();
   };
 
-  const handleOptionClick = (event: MouseEvent<HTMLDivElement>, option: OptionType) => {
+  const handleOptionClick = (event: MouseEvent<HTMLDivElement>, option: T) => {
     event.preventDefault();
     event.stopPropagation();
     handleOptionSelect(option);
   };
 
-  const isOptionSelected = (option: OptionType) =>
+  const isOptionSelectedInternal = (option: T) =>
     multiple
-      ? selectedOptions.some((selected) => selected.id === option.id)
-      : inputValue === option.label;
+      ? selectedOptions.some((selected) => isOptionEqualToValue?.(selected, option))
+      : inputValue === getOptionLabel(option);
 
   const SkeletonComponent = LoadingSkeleton || DefaultLoadingSkeleton;
 
@@ -85,49 +87,52 @@ const AutocompleteContent: React.FC<Props> = ({
         ? Array.from({ length: 4 }).map((_, index) => (
             <SkeletonComponent key={`skeleton-${index}`} {...loadingSkeletonProps} />
           ))
-        : filteredOptions.map((option, index) => (
-            <ListItem
-              key={option.id}
-              disablePadding
-              sx={{
-                backgroundColor: index === activeIndex ? 'rgba(0, 0, 0, 0.08)' : 'transparent',
-              }}
-            >
-              <ListItemButton
-                id={`${listboxId}-option-${index}`}
-                role="option"
-                tabIndex={-1}
-                aria-selected={isOptionSelected(option)}
-                onClick={(event) => handleOptionClick(event, option)}
-                onMouseOver={() => setActiveIndex(index)}
-                onMouseDown={handleOptionMouseDown}
-                aria-posinset={index + 1}
-                aria-setsize={filteredOptions.length}
+        : filteredOptions.map((option, index) => {
+            const optionLabel = getOptionLabel(option);
+            const isSelected = isOptionSelectedInternal(option);
+
+            return (
+              <ListItem
+                key={`option-${index}-${optionLabel}`}
+                disablePadding
                 sx={{
-                  py: 1,
-                  px: 2,
-                  cursor: 'pointer',
-                  backgroundColor: isOptionSelected(option)
-                    ? 'rgba(25, 118, 210, 0.08)'
-                    : 'transparent',
-                  '&:hover': {
-                    backgroundColor: 'rgba(0, 0, 0, 0.04)',
-                  },
-                  ...(multiple && { pr: 6 }),
+                  backgroundColor: index === activeIndex ? 'rgba(0, 0, 0, 0.08)' : 'transparent',
                 }}
               >
-                <ListItemText
-                  primary={renderOption ? renderOption(option, index) : option.label}
-                  sx={{ margin: 0 }}
-                />
-                {multiple && (
-                  <ListItemSecondaryAction>
-                    <Checkbox checked={isOptionSelected(option)} size="small" sx={{ p: 0 }} />
-                  </ListItemSecondaryAction>
-                )}
-              </ListItemButton>
-            </ListItem>
-          ))}
+                <ListItemButton
+                  id={`${listboxId}-option-${index}`}
+                  role="option"
+                  tabIndex={-1}
+                  aria-selected={isSelected}
+                  onClick={(event) => handleOptionClick(event, option)}
+                  onMouseOver={() => setActiveIndex(index)}
+                  onMouseDown={handleOptionMouseDown}
+                  aria-posinset={index + 1}
+                  aria-setsize={filteredOptions.length}
+                  sx={{
+                    py: 1,
+                    px: 2,
+                    cursor: 'pointer',
+                    backgroundColor: isSelected ? 'rgba(25, 118, 210, 0.08)' : 'transparent',
+                    '&:hover': {
+                      backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                    },
+                    ...(multiple && { pr: 6 }),
+                  }}
+                >
+                  <ListItemText
+                    primary={renderOption ? renderOption(option, index) : optionLabel}
+                    sx={{ margin: 0 }}
+                  />
+                  {multiple && (
+                    <ListItemSecondaryAction>
+                      <Checkbox checked={isSelected} size="small" sx={{ p: 0 }} />
+                    </ListItemSecondaryAction>
+                  )}
+                </ListItemButton>
+              </ListItem>
+            );
+          })}
     </List>
   );
 };

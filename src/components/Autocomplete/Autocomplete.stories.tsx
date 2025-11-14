@@ -1,8 +1,12 @@
 import { LocationOn, Place } from '@mui/icons-material';
 import { Box, Skeleton, Typography } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react';
-import { OptionType } from 'types/autocomplete';
 import Autocomplete from './Autocomplete';
+
+type City = {
+  id: number;
+  label: string;
+};
 
 const meta: Meta<typeof Autocomplete> = {
   title: 'Components/Autocomplete',
@@ -30,9 +34,10 @@ const meta: Meta<typeof Autocomplete> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof Autocomplete>;
 
-const cities: Array<OptionType> = [
+type Story<T = City> = StoryObj<typeof Autocomplete<T>>;
+
+const cities: Array<City> = [
   { id: 1, label: 'Milano' },
   { id: 2, label: 'Verona' },
   { id: 3, label: 'Roma' },
@@ -78,6 +83,7 @@ export const MultiSelect: Story = {
     label: 'Seleziona le città',
     placeholder: 'Seleziona più città...',
     multiple: true,
+    isOptionEqualToValue: (option, value) => option.id === value.id,
   },
 };
 
@@ -87,6 +93,7 @@ export const MultiSelectWithIcon: Story = {
     label: 'Seleziona le città',
     placeholder: 'Seleziona più città...',
     multiple: true,
+    isOptionEqualToValue: (option, value) => option.id === value.id,
     slots: {
       startIcon: LocationOn,
     },
@@ -157,7 +164,7 @@ export const CustomRenderOption: Story = {
     options: cities,
     label: 'Seleziona una città',
     placeholder: 'Cerca...',
-    renderOption: (option) => (
+    renderOption: (option: City) => (
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
         <Place fontSize="small" color="action" />
         <Typography variant="body1">{option.label}</Typography>
@@ -177,5 +184,21 @@ export const WithError: Story = {
         helperText: 'Campo obbligatorio',
       },
     },
+  },
+};
+
+export const WithCustomOptions: Story<{ key: number; value: string }> = {
+  args: {
+    options: [
+      { key: 1, value: 'Italia' },
+      { key: 2, value: 'Francia' },
+      { key: 3, value: 'UK' },
+      { key: 4, value: 'Germania' },
+    ],
+    label: 'Seleziona una nazione',
+    placeholder: 'Cerca...',
+    multiple: true,
+    getOptionLabel: (option) => option.value,
+    isOptionEqualToValue: (option, value) => option.key === value.key,
   },
 };
