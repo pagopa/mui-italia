@@ -15,7 +15,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   label,
   placeholder,
   multiple = false,
-  avoidLocalFiltering = false,
+  handleFiltering,
   noResultsText = 'Non ci sono corrispondenze da mostrare',
   disabled = false,
   required = false,
@@ -58,10 +58,11 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   const expandButtonLabel = expandIconProps?.['aria-label'] ?? 'Open the dropdown menu';
   const selectedOptionsLabel = selectionBoxProps?.['aria-label'] ?? 'Selected options';
 
-  const filteredOptions =
-    inputValue.trim() === '' || avoidLocalFiltering
-      ? options
-      : options.filter((option) => option.label.toLowerCase().includes(inputValue.toLowerCase()));
+  const filteredOptions = handleFiltering
+    ? handleFiltering(inputValue, options)
+    : inputValue.trim() === ''
+    ? options
+    : options.filter((option) => option.label.toLowerCase().includes(inputValue.toLowerCase()));
 
   const handleInputBlur = () => {
     if (disabled) {
@@ -339,7 +340,6 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
           InputProps={{
             startAdornment: getStartInputAdornment(),
             endAdornment: getEndInputAdornment(),
-            ...inputProps,
           }}
           sx={{
             '& .MuiInputBase-root': {
@@ -361,6 +361,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
               boxSizing: 'border-box',
             },
           }}
+          {...inputProps}
         />
 
         <Popper

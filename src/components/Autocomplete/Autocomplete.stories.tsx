@@ -45,17 +45,6 @@ const cities: Array<OptionType> = [
   { id: 10, label: 'Palermo' },
 ];
 
-const CustomEmptyState = () => (
-  <Box sx={{ p: 3, textAlign: 'center' }}>
-    <Typography variant="body2" color="text.secondary">
-      Empty state personalizzato
-    </Typography>
-    <Typography variant="caption" color="text.secondary">
-      Prova con un altro termine di ricerca
-    </Typography>
-  </Box>
-);
-
 const CustomLoadingSkeleton = () => (
   <Box sx={{ p: 2 }}>
     {[1, 2, 3].map((i) => (
@@ -109,7 +98,9 @@ export const NoArrow: Story = {
     options: cities,
     label: 'Seleziona una città',
     placeholder: 'Cerca...',
-    hideArrow: true,
+    slotProps: {
+      hideArrows: true,
+    },
   },
 };
 
@@ -137,17 +128,6 @@ export const Loading: Story = {
     label: 'Seleziona una città',
     placeholder: 'Caricamento...',
     loading: true,
-  },
-};
-
-export const CustomEmpty: Story = {
-  args: {
-    options: [],
-    label: 'Select Country',
-    placeholder: 'Search...',
-    slots: {
-      emptyState: CustomEmptyState,
-    },
   },
 };
 
@@ -183,5 +163,19 @@ export const CustomRenderOption: Story = {
         <Typography variant="body1">{option.label}</Typography>
       </Box>
     ),
+  },
+};
+
+export const WithError: Story = {
+  args: {
+    options: cities,
+    label: 'Seleziona una città',
+    placeholder: 'Cerca...',
+    slotProps: {
+      input: {
+        error: true,
+        helperText: 'Campo obbligatorio',
+      },
+    },
   },
 };

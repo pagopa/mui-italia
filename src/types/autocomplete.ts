@@ -1,4 +1,4 @@
-import { OutlinedInputProps, SvgIconProps } from '@mui/material';
+import { SvgIconProps, TextFieldProps } from '@mui/material';
 import { ComponentType, ReactNode } from 'react';
 
 export type OptionType = {
@@ -18,7 +18,7 @@ interface AutocompleteSlotProps {
   clearIcon?: SvgIconProps;
   expandIcon?: SvgIconProps;
   collapseIcon?: SvgIconProps;
-  input?: Partial<OutlinedInputProps>;
+  input?: TextFieldProps;
   loadingSkeleton?: Record<string, any>;
   selectionBox?: {
     ['aria-label']?: string;
@@ -39,8 +39,8 @@ export interface AutocompleteProps {
   /** Enable multi-select mode with chips for selected options */
   multiple?: boolean;
 
-  /** Disable local filtering and rely on external filtering through onInputChange */
-  avoidLocalFiltering?: boolean;
+  /** Custom filtering function that overrides the default filtering behavior */
+  handleFiltering?: (inputValue: string, options: Array<OptionType>) => Array<OptionType>;
 
   /** Text displayed when no options are available */
   noResultsText?: string;
