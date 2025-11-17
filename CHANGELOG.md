@@ -1,3 +1,12 @@
+# [1.8.1-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v1.8.1-RC.0) (2025-11-17)
+
+
+### Bug Fixes
+
+* **M20DS-34:** CodeInput now supports native text selection and clipboard via overlay input ([#590](https://github.com/pagopa/mui-italia/issues/590)) ([ff46bb3](https://github.com/pagopa/mui-italia/commit/ff46bb3aba9edf71941af159b8934abeece989f9))
+
+
+
 # [1.8.0](https://github.com/pagopa/mui-italia/releases/tag/v1.8.0) (2025-10-21)
 
 
