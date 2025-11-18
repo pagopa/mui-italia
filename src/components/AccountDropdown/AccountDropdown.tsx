@@ -53,9 +53,7 @@ export const AccountDropdown = ({ user, userActions }: AccountDropdownProps) => 
       {/* START Account Button MOBILE/DESKTOP */}
       <ButtonNaked
         size="small"
-        aria-label={
-          user.name && user.surname ? `Profilo di ${user.name} ${user.surname}` : 'Profilo utente'
-        }
+        aria-label={`Area utente di ${user.name || ''} ${user.surname || ''}`}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
@@ -67,7 +65,7 @@ export const AccountDropdown = ({ user, userActions }: AccountDropdownProps) => 
         {user.name && user.surname ? `${user.name} ${user.surname}` : 'Utente'}
       </ButtonNaked>
       <IconButton
-        aria-label="Assistenza"
+        aria-label={`Area utente di ${user.name || ''} ${user.surname || ''}`}
         size="small"
         sx={{ display: ['flex', 'none'], color: 'text.primary' }}
         onClick={handleClick}
