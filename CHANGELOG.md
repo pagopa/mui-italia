@@ -1,3 +1,12 @@
+# [1.8.1-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v1.8.1-RC.1) (2025-11-21)
+
+
+### Bug Fixes
+
+* **M20DS-34:** improved input selection and fixed problems on mobile ([#595](https://github.com/pagopa/mui-italia/issues/595)) ([d7bbc27](https://github.com/pagopa/mui-italia/commit/d7bbc2724f3341cce942a5b2d33b70448962f251))
+
+
+
 # [1.8.1-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v1.8.1-RC.0) (2025-11-17)
 
 
