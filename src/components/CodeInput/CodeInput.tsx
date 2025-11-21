@@ -206,7 +206,6 @@ const CodeInput = ({
 
   const isControlled = value !== undefined;
   const [internalValue, setInternalValue] = useState('');
-  const [isFocused, setIsFocused] = useState(false);
   const currentValue = isControlled ? value : internalValue;
   const sanitizedValue = currentValue.slice(0, length);
 
@@ -234,9 +233,7 @@ const CodeInput = ({
   };
 
   const updateCaretPosition = (pos: number, valueLen: number = sanitizedValue.length) => {
-    const el = hiddenInputRef.current;
-    const isActive = el && document.activeElement === el;
-    if (readOnly || !isActive || pos < 0 || pos > length) {
+    if (pos < 0 || pos > length) {
       return;
     }
     if (valueLen === length && pos === length) {
@@ -250,7 +247,7 @@ const CodeInput = ({
 
   const shouldShowCaret = () => {
     const el = hiddenInputRef.current;
-    if (!el || readOnly || !isFocused) {
+    if (!el || readOnly || document.activeElement !== el) {
       return false;
     }
 
@@ -269,13 +266,14 @@ const CodeInput = ({
    * @param valueLen - The current value length (defaults to `sanitizedValue.length`).
    */
   const syncCaretFromInput = (valueLen: number = sanitizedValue.length) => {
-    if (readOnly) {
+    const el = hiddenInputRef.current;
+
+    if (!el) {
+      setCaretPosition(null);
       return;
     }
 
-    const el = hiddenInputRef.current;
-    if (!el) {
-      setCaretPosition(null);
+    if (readOnly || document.activeElement !== el) {
       return;
     }
 
@@ -369,7 +367,6 @@ const CodeInput = ({
               }
             : {})}
           onFocus={() => {
-            setIsFocused(true);
             // We use a 0ms timeout to ensure the browser has properly updated
             // focus and selection before reading the caret position
             setTimeout(() => {
@@ -377,7 +374,6 @@ const CodeInput = ({
             }, 0);
           }}
           onBlur={() => {
-            setIsFocused(false);
             setCaretPosition(null); // Avoid showing a stale caret when re-focusing after a reset
           }}
           onChange={handleChange}
