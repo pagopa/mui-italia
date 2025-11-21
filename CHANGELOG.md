@@ -1,3 +1,17 @@
+# [2.0.0-RC.4](https://github.com/pagopa/mui-italia/releases/tag/v2.0.0-RC.4) (2025-11-21)
+
+
+### Features
+
+* **M20DS-34:** improved input selection and fixed problems on mobile ([#595](https://github.com/pagopa/mui-italia/issues/595)) ([5a882fb](https://github.com/pagopa/mui-italia/commit/5a882fb877c600d0a43c59ac75620f0c8354839f))
+
+
+### Build System
+
+* **mui-229:** fixed next tag calculation ([#596](https://github.com/pagopa/mui-italia/issues/596)) ([01ad3ae](https://github.com/pagopa/mui-italia/commit/01ad3ae9dd151e03c5d702109d7fd8550177f02c))
+
+
+
 # [2.0.0-RC.3](https://github.com/pagopa/mui-italia/releases/tag/v2.0.0-RC.3) (2025-11-17)
 
 
