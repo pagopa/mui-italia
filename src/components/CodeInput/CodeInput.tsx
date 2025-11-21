@@ -1,5 +1,5 @@
 import { Box, Stack, Typography, useTheme, styled, keyframes, alpha } from '@mui/material';
-import { useId, useLayoutEffect, useRef, useState } from 'react';
+import { ChangeEvent, useId, useLayoutEffect, useRef, useState } from 'react';
 import { blue, error as errorColor, neutral as neutralColor } from './../../theme/colors';
 
 /**
@@ -218,16 +218,96 @@ const CodeInput = ({
     codeBoxContentWidth + 2 * codeBoxPaddingX + 2 * codeBoxErrorBorder
   );
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    // Fires immediately when the input’s value is changed by the user (for example, it fires on every keystroke)
+    const raw = e.target.value;
+    const filtered = raw.slice(0, length);
+
+    if (!isControlled) {
+      setInternalValue(filtered);
+    }
+    // we need to immediatly update the caret to avoid a flickering in the caret update
+    // so we can't do the update in the onSelect callback
+    syncCaretFromInput(filtered.length);
+    onChange?.(filtered);
+  };
+
+  const updateCaretPosition = (pos: number, valueLen: number = sanitizedValue.length) => {
+    if (pos < 0 || pos > length) {
+      return;
+    }
+    if (valueLen === length && pos === length) {
+      setCaretPosition({ index: length - 1, position: 'end' });
+    } else if (pos === valueLen) {
+      setCaretPosition({ index: valueLen, position: 'center' });
+    } else {
+      setCaretPosition({ index: pos, position: 'start' });
+    }
+  };
+
+  const shouldShowCaret = () => {
+    const el = hiddenInputRef.current;
+    if (!el || readOnly || document.activeElement !== el) {
+      return false;
+    }
+
+    const start = el.selectionStart;
+    const end = el.selectionEnd;
+
+    return start === end;
+  };
+
+  /**
+   * Synchronizes the virtual caret position with the real input's selection.
+   * Reads the current cursor (selectionStart) from the native input element
+   * and updates the visual caret position accordingly.
+   *
+   * @param el - The native input element reference.
+   * @param valueLen - The current value length (defaults to `sanitizedValue.length`).
+   */
+  const syncCaretFromInput = (valueLen: number = sanitizedValue.length) => {
+    const el = hiddenInputRef.current;
+
+    if (!el) {
+      setCaretPosition(null);
+      return;
+    }
+
+    if (readOnly || document.activeElement !== el) {
+      return;
+    }
+
+    const start = el.selectionStart ?? valueLen;
+    const end = el.selectionEnd ?? start;
+
+    // do not show the caret with an active selection
+    if (start !== end) {
+      setCaretPosition(null);
+      return;
+    }
+
+    updateCaretPosition(start, valueLen);
+  };
+
   useLayoutEffect(() => {
+    // If readOnly becomes true we want to:
+    // - stop listening to `selectionchange`
+    // - reset the caret
     if (readOnly) {
       setCaretPosition(null);
       return;
     }
     const input = hiddenInputRef.current;
 
+    // Re-sync the caret immediately. This allows iOS to behave correctly when
+    // `selectionchange` is not emitted on programmatic value updates
+    if (input && document.activeElement === input) {
+      syncCaretFromInput(sanitizedValue.length);
+    }
+
     const onSelectionChange = () => {
       if (document.activeElement === input) {
-        syncCaretFromInput(input, sanitizedValue.length);
+        syncCaretFromInput(sanitizedValue.length);
       }
     };
 
@@ -260,63 +340,6 @@ const CodeInput = ({
     };
   }, [readOnly, sanitizedValue]);
 
-  const updateCaretPosition = (pos: number, valueLen: number = sanitizedValue.length) => {
-    const el = hiddenInputRef.current;
-    const isActive = el && document.activeElement === el;
-    if (readOnly || !isActive || pos < 0 || pos > length) {
-      return;
-    }
-    if (valueLen === length && pos === length) {
-      setCaretPosition({ index: length - 1, position: 'end' });
-    } else if (pos === valueLen) {
-      setCaretPosition({ index: valueLen, position: 'center' });
-    } else {
-      setCaretPosition({ index: pos, position: 'start' });
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (readOnly) {
-      return;
-    }
-    const raw = e.target.value;
-    const filtered = raw.slice(0, length);
-
-    if (!isControlled) {
-      setInternalValue(filtered);
-    }
-    onChange?.(filtered);
-  };
-
-  /**
-   * Synchronizes the virtual caret position with the real input's selection.
-   * Reads the current cursor (selectionStart) from the native input element
-   * and updates the visual caret position accordingly.
-   *
-   * @param el - The native input element reference.
-   * @param valueLen - The current value length (defaults to `sanitizedValue.length`).
-   */
-  const syncCaretFromInput = (
-    el: HTMLInputElement | null | undefined,
-    valueLen: number = sanitizedValue.length
-  ) => {
-    if (!el) {
-      setCaretPosition(null);
-      return;
-    }
-
-    const start = el.selectionStart ?? valueLen;
-    const end = el.selectionEnd ?? start;
-
-    // do not show the caret with an active selection
-    if (start !== end) {
-      setCaretPosition(null);
-      return;
-    }
-
-    updateCaretPosition(start, valueLen);
-  };
-
   return (
     <Box sx={{ display: 'inline-block', width: containerWidth }}>
       <CodeBox error={error} sx={{ cursor: readOnly ? 'default' : 'text' }}>
@@ -343,28 +366,17 @@ const CodeInput = ({
                 'aria-describedby': [helperTextId, ariaDescribedby].filter(Boolean).join(' '),
               }
             : {})}
+          onFocus={() => {
+            // We use a 0ms timeout to ensure the browser has properly updated
+            // focus and selection before reading the caret position
+            setTimeout(() => {
+              syncCaretFromInput();
+            }, 0);
+          }}
+          onBlur={() => {
+            setCaretPosition(null); // Avoid showing a stale caret when re-focusing after a reset
+          }}
           onChange={handleChange}
-          /**
-           * We rely on the `onKeyUp` handler to trigger a caret sync in a few cases
-           * that are not reliably covered by the native `selectionchange` event.
-           *
-           * Specifically, the following line ensures proper caret updates when:
-           *
-           * - the user navigates out of and back into the field using `TAB`/`SHIFT+TAB`
-           *   (this interaction doesn't emit a `selectionchange` event)
-           * - the user performs undo actions (e.g., `CTRL+Z`/`CMD+Z`) after pasting
-           *   some text. In this case, `selectionchange` does not fire and the
-           *   virtual caret remains in its old position (after paste).
-           *
-           * We use `onKeyUp` (instead of `onFocus`) because it runs after the browser
-           * has finalized the key handling and the selection state is stable.
-           * This avoids reading transient states and prevents stale or flickering
-           * caret positions.
-           *
-           * Maurizio Flauti, November 12th, 2025
-           */
-          onKeyUp={() => syncCaretFromInput(hiddenInputRef.current, sanitizedValue.length)}
-          onBlur={() => setCaretPosition(null)}
           sx={encrypted ? { fontSize: '1.5em' } : undefined}
         />
 
@@ -385,7 +397,7 @@ const CodeInput = ({
           {Array.from({ length }).map((_, i) => {
             const char = sanitizedValue[i] || '';
             const displayedChar = encrypted && char ? '•' : char;
-            const showCaret = !readOnly && caretPosition?.index === i;
+            const showCaret = shouldShowCaret() && caretPosition?.index === i;
 
             return (
               <CharBox key={i}>
