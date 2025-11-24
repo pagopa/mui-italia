@@ -1,3 +1,12 @@
+# [1.8.1](https://github.com/pagopa/mui-italia/releases/tag/v1.8.1) (2025-11-24)
+
+
+### Chores
+
+* **MUI-229:** fixed release script when there is nothing to merge ([#597](https://github.com/pagopa/mui-italia/issues/597)) ([c6b6419](https://github.com/pagopa/mui-italia/commit/c6b64199dd6bdb6e39aa48e6344feb4aebe0ef5d))
+
+
+
 # [1.8.1-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v1.8.1-RC.1) (2025-11-21)
 
 
