@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import React from "react";
-import { Container, Button, Stack, IconButton } from "@mui/material";
-import { ButtonNaked } from "@components/ButtonNaked";
-import { AccountDropdown } from "@components/AccountDropdown";
+import { ReactNode } from 'react';
+import { Container, Button, Stack, IconButton } from '@mui/material';
+import { ButtonNaked } from '@components/ButtonNaked';
+import { AccountDropdown } from '@components/AccountDropdown';
 
 /* Icons */
-import HelpOutlineRoundedIcon from "@mui/icons-material/HelpOutlineRounded";
-import MenuBookIcon from "@mui/icons-material/MenuBook";
+import HelpOutlineRoundedIcon from '@mui/icons-material/HelpOutlineRounded';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 
 export type JwtUser = {
   id: string;
@@ -18,7 +18,7 @@ export type JwtUser = {
 
 export type UserAction = {
   id: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
   label: string;
   onClick: () => void;
 };
@@ -31,10 +31,10 @@ export type RootLinkType = {
 };
 
 const defaultTranslationsMap = {
-  logIn: "Accedi",
-  logOut: "Esci",
-  assistance: "Assistenza",
-  documentation: "Manuale operativo",
+  logIn: 'Accedi',
+  logOut: 'Esci',
+  assistance: 'Assistenza',
+  documentation: 'Manuale operativo',
 };
 
 type HeaderAccountProps = {
@@ -52,7 +52,8 @@ type HeaderAccountProps = {
     logIn?: string;
     logOut?: string;
     assistance?: string;
-    documentation?: string;};
+    documentation?: string;
+  };
 };
 
 export const HeaderAccount = ({
@@ -73,18 +74,13 @@ export const HeaderAccount = ({
     justifyContent="center"
     sx={{
       borderBottom: 1,
-      borderColor: "divider",
-      backgroundColor: "background.paper",
-      minHeight: "48px",
+      borderColor: 'divider',
+      backgroundColor: 'background.paper',
+      minHeight: '48px',
     }}
   >
     <Container maxWidth={false}>
-      <Stack
-        spacing={2}
-        direction="row"
-        justifyContent="space-between"
-        alignItems="center"
-      >
+      <Stack spacing={2} direction="row" justifyContent="space-between" alignItems="center">
         {rootLink && (
           <ButtonNaked
             component="a"
@@ -94,17 +90,13 @@ export const HeaderAccount = ({
             target="_blank"
             rel="noreferrer"
             title={rootLink?.title}
-            sx={{ fontWeight: "bold" }}
+            sx={{ fontWeight: 'bold' }}
           >
             {rootLink?.label}
           </ButtonNaked>
         )}
 
-        <Stack
-          direction="row"
-          alignItems="center"
-          spacing={{ xs: 1, sm: 3, md: 4 }}
-        >
+        <Stack direction="row" alignItems="center" spacing={{ xs: 1, sm: 3, md: 4 }}>
           {/* START Documentation MOBILE/DESKTOP */}
           {onDocumentationClick && (
             <>
@@ -113,7 +105,7 @@ export const HeaderAccount = ({
                 component="button"
                 onClick={onDocumentationClick}
                 startIcon={<MenuBookIcon />}
-                sx={{ display: ["none", "flex"] }}
+                sx={{ display: ['none', 'flex'] }}
                 weight="default"
               >
                 {translationsMap.documentation || defaultTranslationsMap.documentation}
@@ -121,7 +113,7 @@ export const HeaderAccount = ({
               <IconButton
                 size="small"
                 aria-label="Documentazione"
-                sx={{ display: ["flex", "none"], color: "text.primary" }}
+                sx={{ display: ['flex', 'none'], color: 'text.primary' }}
                 onClick={onDocumentationClick}
               >
                 <MenuBookIcon fontSize="inherit" />
@@ -138,7 +130,7 @@ export const HeaderAccount = ({
                 component="button"
                 onClick={onAssistanceClick}
                 startIcon={<HelpOutlineRoundedIcon />}
-                sx={{ display: ["none", "flex"] }}
+                sx={{ display: ['none', 'flex'] }}
                 weight="default"
               >
                 {translationsMap.assistance || defaultTranslationsMap.assistance}
@@ -146,7 +138,7 @@ export const HeaderAccount = ({
               <IconButton
                 size="small"
                 aria-label="Assistenza"
-                sx={{ display: ["flex", "none"], color: "text.primary" }}
+                sx={{ display: ['flex', 'none'], color: 'text.primary' }}
                 onClick={onAssistanceClick}
               >
                 <HelpOutlineRoundedIcon fontSize="inherit" />
@@ -171,12 +163,7 @@ export const HeaderAccount = ({
 
           {/* 3. User not logged with Login CTA */}
           {enableLogin && !loggedUser && (
-            <Button
-              variant="contained"
-              size="small"
-              onClick={onLogin}
-              title="Accedi"
-            >
+            <Button variant="contained" size="small" onClick={onLogin} title="Accedi">
               {translationsMap.logIn || defaultTranslationsMap.logIn}
             </Button>
           )}

@@ -1,41 +1,33 @@
-import {
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Button,
-  Typography,
-} from "@mui/material";
+import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@mui/material';
 
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { StoryFn, Meta } from '@storybook/react';
 
 export default {
-  title: "Mui Components/Surfaces/Card",
+  title: 'Mui Components/Surfaces/Card',
   component: Card,
-  parameters: { controls: { sort: "size" } },
+  parameters: { controls: { sort: 'size' } },
   decorators: [
     (Story) => (
       <div
         style={{
-          padding: "2em",
-          backgroundColor: "#F5F5F5",
+          padding: '2em',
+          backgroundColor: '#F5F5F5',
         }}
       >
         <Story />
       </div>
     ),
   ],
-} as ComponentMeta<typeof Card>;
+} as Meta<typeof Card>;
 
-export const Default: ComponentStory<typeof Card> = () => (
+export const Default: StoryFn<typeof Card> = () => (
   <Card sx={{ minWidth: 275, maxWidth: 300 }}>
     <CardContent>
       <Typography variant="h6" gutterBottom>
         Check IBAN
       </Typography>
       <Typography variant="body2">
-        Verifica l&apos;abbinamento di un IBAN ad un CF di un cittadino o di
-        un&apos;impresa.
+        Verifica l&apos;abbinamento di un IBAN ad un CF di un cittadino o di un&apos;impresa.
       </Typography>
     </CardContent>
     <CardActions>
@@ -50,15 +42,14 @@ Default.parameters = {
   controls: { hideNoControlsWarning: true },
 };
 
-export const Raised: ComponentStory<typeof Card> = () => (
+export const Raised: StoryFn<typeof Card> = () => (
   <Card raised sx={{ minWidth: 275, maxWidth: 300 }}>
     <CardContent>
       <Typography variant="h6" gutterBottom>
         Check IBAN
       </Typography>
       <Typography variant="body2">
-        Verifica l&apos;abbinamento di un IBAN ad un CF di un cittadino o di
-        un&apos;impresa.
+        Verifica l&apos;abbinamento di un IBAN ad un CF di un cittadino o di un&apos;impresa.
       </Typography>
     </CardContent>
     <CardActions>
@@ -73,7 +64,7 @@ Raised.parameters = {
   controls: { hideNoControlsWarning: true },
 };
 
-export const WithMedia: ComponentStory<typeof Card> = () => (
+export const WithMedia: StoryFn<typeof Card> = () => (
   <Card raised sx={{ maxWidth: 300 }}>
     <CardMedia
       component="img"
@@ -86,8 +77,7 @@ export const WithMedia: ComponentStory<typeof Card> = () => (
         Check IBAN
       </Typography>
       <Typography variant="body2">
-        Verifica l&apos;abbinamento di un IBAN ad un CF di un cittadino o di
-        un&apos;impresa.
+        Verifica l&apos;abbinamento di un IBAN ad un CF di un cittadino o di un&apos;impresa.
       </Typography>
     </CardContent>
     <CardActions>

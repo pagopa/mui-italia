@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Box } from '@mui/material';
 import CodeInput, { CodeInputProps } from '../components/CodeInput/CodeInput';
 
@@ -128,6 +128,56 @@ export const Uncontrolled: Story = {
             <strong>Value:</strong> {value}
           </div>
         </Box>
+      </Box>
+    );
+  },
+};
+
+// Stories added for debug purposes
+export const ResetWhileFocused: Story = {
+  render: (args) => {
+    const [value, setValue] = useState('1234');
+
+    return (
+      <Box>
+        <CodeInput
+          {...args}
+          length={6}
+          value={value}
+          onChange={setValue}
+          helperText="Click reset while caret is inside"
+        />
+
+        <Box mt={2} display="flex" gap={1}>
+          <button onClick={() => setValue('')}>Reset value to empty</button>
+          <button onClick={() => setValue('9876')}>Set value to 9876</button>
+        </Box>
+
+        <Box mt={1} fontSize="0.75rem" color="text.secondary">
+          <strong>Value:</strong> {value}
+        </Box>
+      </Box>
+    );
+  },
+};
+
+export const ProgrammaticUpdateWhileFocused: Story = {
+  render: (args) => {
+    const [value, setValue] = useState('1234');
+
+    useEffect(() => {
+      const id = setTimeout(() => {
+        // simulate an external update (e.g., from WebSocket / API)
+        setValue('987');
+      }, 5000);
+
+      return () => clearTimeout(id);
+    }, []);
+
+    return (
+      <Box>
+        <p>Place the caret inside the CodeInput and wait 5 seconds.</p>
+        <CodeInput {...args} length={6} value={value} onChange={setValue} />
       </Box>
     );
   },

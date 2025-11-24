@@ -1,18 +1,12 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import {
-  Menu,
-  MenuItem,
-  IconButton,
-  ListItemIcon,
-  ListItemText,
-} from "@mui/material";
-import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
-import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
-import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
+import { Fragment, ReactNode, SyntheticEvent, useState } from 'react';
+import { Menu, MenuItem, IconButton, ListItemIcon, ListItemText } from '@mui/material';
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
+import ArrowDropUpRoundedIcon from '@mui/icons-material/ArrowDropUpRounded';
+import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
 
-import { ButtonNaked } from "@components/ButtonNaked";
+import { ButtonNaked } from '@components/ButtonNaked';
 
 type JwtUser = {
   id: string;
@@ -23,7 +17,7 @@ type JwtUser = {
 
 type UserAction = {
   id: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
   label: string;
   onClick: () => void;
 };
@@ -33,14 +27,11 @@ type AccountDropdownProps = {
   userActions?: Array<UserAction>;
 };
 
-export const AccountDropdown = ({
-  user,
-  userActions,
-}: AccountDropdownProps) => {
+export const AccountDropdown = ({ user, userActions }: AccountDropdownProps) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   const open = Boolean(anchorEl);
-  const handleClick = (e: React.SyntheticEvent) => {
+  const handleClick = (e: SyntheticEvent) => {
     const currentTarget = e.currentTarget as HTMLButtonElement;
     setAnchorEl(currentTarget);
   };
@@ -48,7 +39,7 @@ export const AccountDropdown = ({
     setAnchorEl(null);
   };
 
-  const wrapOnClick = (onClick: () => void) => (e: React.SyntheticEvent) => {
+  const wrapOnClick = (onClick: () => void) => (e: SyntheticEvent) => {
     if (e) {
       e.preventDefault();
     }
@@ -58,27 +49,25 @@ export const AccountDropdown = ({
   };
 
   return (
-    <React.Fragment>
+    <Fragment>
       {/* START Account Button MOBILE/DESKTOP */}
       <ButtonNaked
         size="small"
         aria-label="party-menu-button"
         aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
+        aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
         startIcon={<AccountCircleRoundedIcon />}
-        endIcon={
-          open ? <ArrowDropUpRoundedIcon /> : <ArrowDropDownRoundedIcon />
-        }
-        sx={{ display: ["none", "flex"] }}
+        endIcon={open ? <ArrowDropUpRoundedIcon /> : <ArrowDropDownRoundedIcon />}
+        sx={{ display: ['none', 'flex'] }}
         weight="default"
       >
-        {user.name && user.surname ? `${user.name} ${user.surname}` : "Utente"}
+        {user.name && user.surname ? `${user.name} ${user.surname}` : 'Utente'}
       </ButtonNaked>
       <IconButton
         aria-label="Assistenza"
         size="small"
-        sx={{ display: ["flex", "none"], color: "text.primary" }}
+        sx={{ display: ['flex', 'none'], color: 'text.primary' }}
         onClick={handleClick}
       >
         <AccountCircleRoundedIcon fontSize="inherit" />
@@ -88,28 +77,24 @@ export const AccountDropdown = ({
       {userActions && Boolean(userActions.length > 0) && (
         <Menu
           /* PaperProps={{ style: { maxHeight: 220, width: 200 } }} */
-          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
           transformOrigin={{
             vertical: -8,
-            horizontal: "right",
+            horizontal: 'right',
           }}
           anchorEl={anchorEl}
           open={open}
           onClose={handleClose}
-          MenuListProps={{ "aria-labelledby": "party-menu-button" }}
+          MenuListProps={{ 'aria-labelledby': 'party-menu-button' }}
         >
           {userActions.map(({ id, label, onClick, icon }) => (
-            <MenuItem
-              key={id}
-              onClick={wrapOnClick(onClick)}
-              sx={{ display: "flex" }}
-            >
+            <MenuItem key={id} onClick={wrapOnClick(onClick)} sx={{ display: 'flex' }}>
               {icon && <ListItemIcon>{icon}</ListItemIcon>}
               {label && <ListItemText>{label}</ListItemText>}
             </MenuItem>
           ))}
         </Menu>
       )}
-    </React.Fragment>
+    </Fragment>
   );
 };
