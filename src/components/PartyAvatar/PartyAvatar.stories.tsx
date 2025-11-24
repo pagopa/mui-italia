@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { StoryFn, Meta } from '@storybook/react';
 
-import { Button, Stack, Typography } from "@mui/material";
+import { Button, Stack, Typography } from '@mui/material';
 
-import { PartyAvatar } from "./PartyAvatar";
+import { PartyAvatar } from './PartyAvatar';
 
 type PartyImage = {
   name: string;
@@ -12,28 +12,28 @@ type PartyImage = {
   image: string | undefined;
 };
 
-const cdnPath = "https://assets.cdn.io.italia.it/logos/organizations/";
+const cdnPath = 'https://assets.cdn.io.italia.it/logos/organizations/';
 
 const partyMockImages: Array<PartyImage> = [
   {
     image: `${cdnPath}1199250158.png`,
-    name: "Comune di Milano",
+    name: 'Comune di Milano',
   },
   {
     image: `${cdnPath}2438750586.png`,
-    name: "Comune di Roma",
+    name: 'Comune di Roma',
   },
   {
     image: `${cdnPath}162210348.png`,
-    name: "Comune di Parma",
+    name: 'Comune di Parma',
   },
   {
     image: `${cdnPath}82003830161.png`,
-    name: "Comune di Sotto il Monte Giovanni XXIII",
+    name: 'Comune di Sotto il Monte Giovanni XXIII',
   },
   {
     image: `${cdnPath}172960361.png`,
-    name: "Comune di Castelfranco Emilia",
+    name: 'Comune di Castelfranco Emilia',
   },
   {
     image: `${cdnPath}82001510492.png`,
@@ -41,31 +41,31 @@ const partyMockImages: Array<PartyImage> = [
   },
   {
     image: `${cdnPath}117100537.png`,
-    name: "Comune di Castiglione della Pescaia",
+    name: 'Comune di Castiglione della Pescaia',
   },
   {
     image: `${cdnPath}142680669.png`,
-    name: "Comune di Pescasseroli",
+    name: 'Comune di Pescasseroli',
   },
   {
     image: `${cdnPath}81000410688.png`,
-    name: "Comune di San Valentino in Abruzzo Citeriore",
+    name: 'Comune di San Valentino in Abruzzo Citeriore',
   },
   {
     image: `${cdnPath}189800204.png`,
-    name: "Comune di Mantova",
+    name: 'Comune di Mantova',
   },
   {
     image: `${cdnPath}82002590105.png`,
-    name: "Comune di Ne",
+    name: 'Comune di Ne',
   },
   {
     image: `${cdnPath}74260845.png`,
-    name: "Comune di Agrigento",
+    name: 'Comune di Agrigento',
   },
   {
     image: undefined,
-    name: "Ente senza stemma",
+    name: 'Ente senza stemma',
   },
 ];
 
@@ -86,23 +86,23 @@ const randomValueFromArray = (array: Array<PartyImage>) => {
 };
 
 export default {
-  title: "Components/PartyAvatar",
+  title: 'Components/PartyAvatar',
   component: PartyAvatar,
   decorators: [
     (Story) => (
       <div
         style={{
-          padding: "1em",
-          backgroundColor: "#F5F5F5",
+          padding: '1em',
+          backgroundColor: '#F5F5F5',
         }}
       >
         <Story />
       </div>
     ),
   ],
-} as ComponentMeta<typeof PartyAvatar>;
+} as Meta<typeof PartyAvatar>;
 
-export const Default: ComponentStory<typeof PartyAvatar> = () => {
+export const Default: StoryFn<typeof PartyAvatar> = () => {
   const [randomIndex, setRandomIndex] = useState(0);
   const item = partyMockImages[randomIndex];
 
@@ -116,9 +116,7 @@ export const Default: ComponentStory<typeof PartyAvatar> = () => {
       <PartyAvatar customSrc={item.image} customAlt={item.name} />
       <div>
         <Typography variant="overline">Party:</Typography>
-        <Typography variant="h6">
-          {partyMockImages[randomIndex].name}
-        </Typography>
+        <Typography variant="h6">{partyMockImages[randomIndex].name}</Typography>
       </div>
       <Button variant="contained" onClick={getRandomParty}>
         Get random Party
