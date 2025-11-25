@@ -10,6 +10,7 @@ import {
   Stack,
 } from '@mui/material';
 import { ComponentType, FC, MouseEvent, ReactNode, RefObject } from 'react';
+import DefaultEmptyState from './DefaultEmptyState';
 
 type Props<T> = {
   multiple: boolean;
@@ -29,6 +30,7 @@ type Props<T> = {
   slots?: {
     loadingSkeleton?: ComponentType;
   };
+  noResultsText: string;
 };
 
 const DefaultLoadingSkeleton: FC = () => (
@@ -58,6 +60,7 @@ const AutocompleteContent = <T,>({
   renderOption,
   loading = false,
   slots,
+  noResultsText,
 }: Props<T>) => {
   const handleOptionMouseDown = (event: MouseEvent<HTMLDivElement>) => {
     // Safari triggers focusOut before click, but if you
@@ -91,54 +94,73 @@ const AutocompleteContent = <T,>({
           role="listbox"
           aria-labelledby={inputId}
           sx={{ p: 0 }}
-          onBlur={() => setActiveIndex(-1)}
+          onMouseLeave={() => setActiveIndex(-1)}
         >
-          {filteredOptions.map((option, index) => {
-            const optionLabel = getOptionLabel(option);
-            const isSelected = isOptionSelectedInternal(option);
-
-            return (
-              <ListItem
-                key={`option-${index}-${optionLabel}`}
-                disablePadding
-                sx={{
-                  backgroundColor: index === activeIndex ? 'rgba(0, 0, 0, 0.08)' : 'transparent',
-                }}
+          {filteredOptions.length === 0 && (
+            <ListItem
+              disablePadding
+              sx={{
+                backgroundColor: 0 === activeIndex ? 'rgba(0, 0, 0, 0.08)' : 'transparent',
+              }}
+            >
+              <ListItemButton
+                id={`${listboxId}-option-0`}
+                role="option"
+                tabIndex={-1}
+                sx={{ p: 0 }}
+                aria-selected={false}
               >
-                <ListItemButton
-                  id={`${listboxId}-option-${index}`}
-                  role="option"
-                  tabIndex={-1}
-                  aria-selected={isSelected}
-                  onClick={(event) => handleOptionClick(event, option)}
-                  onMouseOver={() => setActiveIndex(index)}
-                  onMouseDown={handleOptionMouseDown}
-                  aria-posinset={index + 1}
-                  aria-setsize={filteredOptions.length}
+                <DefaultEmptyState noResultsText={noResultsText} />
+              </ListItemButton>
+            </ListItem>
+          )}
+          {filteredOptions.length > 0 &&
+            filteredOptions.map((option, index) => {
+              const optionLabel = getOptionLabel(option);
+              const isSelected = isOptionSelectedInternal(option);
+
+              return (
+                <ListItem
+                  key={`option-${index}-${optionLabel}`}
+                  disablePadding
                   sx={{
-                    py: 1,
-                    px: 2,
-                    cursor: 'pointer',
-                    backgroundColor: isSelected ? 'rgba(25, 118, 210, 0.08)' : 'transparent',
-                    '&:hover': {
-                      backgroundColor: 'rgba(0, 0, 0, 0.04)',
-                    },
-                    ...(multiple && { pr: 6 }),
+                    backgroundColor: index === activeIndex ? 'rgba(0, 0, 0, 0.08)' : 'transparent',
                   }}
                 >
-                  <ListItemText
-                    primary={renderOption ? renderOption(option, index) : optionLabel}
-                    sx={{ margin: 0 }}
-                  />
-                  {multiple && (
-                    <ListItemSecondaryAction>
-                      <Checkbox checked={isSelected} size="small" sx={{ p: 0 }} />
-                    </ListItemSecondaryAction>
-                  )}
-                </ListItemButton>
-              </ListItem>
-            );
-          })}
+                  <ListItemButton
+                    id={`${listboxId}-option-${index}`}
+                    role="option"
+                    tabIndex={-1}
+                    aria-selected={isSelected}
+                    onClick={(event) => handleOptionClick(event, option)}
+                    onMouseOver={() => setActiveIndex(index)}
+                    onMouseDown={handleOptionMouseDown}
+                    aria-posinset={index + 1}
+                    aria-setsize={filteredOptions.length}
+                    sx={{
+                      py: 1,
+                      px: 2,
+                      cursor: 'pointer',
+                      backgroundColor: isSelected ? 'rgba(25, 118, 210, 0.08)' : 'transparent',
+                      '&:hover': {
+                        backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                      },
+                      ...(multiple && { pr: 6 }),
+                    }}
+                  >
+                    <ListItemText
+                      primary={renderOption ? renderOption(option, index) : optionLabel}
+                      sx={{ margin: 0 }}
+                    />
+                    {multiple && (
+                      <ListItemSecondaryAction>
+                        <Checkbox checked={isSelected} size="small" sx={{ p: 0 }} />
+                      </ListItemSecondaryAction>
+                    )}
+                  </ListItemButton>
+                </ListItem>
+              );
+            })}
         </List>
       )}
       {loading && <SkeletonComponent />}

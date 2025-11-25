@@ -28,7 +28,7 @@ const MultiSelectChips = <T,>({
   };
 
   return (
-    <List sx={{ display: 'flex', flexDirection: 'row', gap: 1 }} disablePadding {...slotProps.list}>
+    <List sx={{ display: 'contents', gap: 1 }} disablePadding {...slotProps.list}>
       {selectedOptions.map((option, index) => (
         <ListItem key={getOptionKey(option, index)} disablePadding>
           <Chip
