@@ -1,12 +1,15 @@
-import CloseIcon from '@mui/icons-material/Close';
-import { Box, Button } from '@mui/material';
+import { Chip } from '@components/Chip';
+import { ChipProps, List, ListItem, ListProps } from '@mui/material';
 
 interface Props<T> {
   selectedOptions: Array<T>;
   getOptionLabel: (option: T) => string;
   disabled?: boolean;
   handleChipDelete: (option: T) => void;
-  selectedOptionsLabel: string;
+  slotProps: {
+    list?: ListProps;
+    chip?: ChipProps;
+  };
 }
 
 // Here we need a Box with a ‘contents’ display to ensure that the buttons
@@ -17,7 +20,7 @@ const MultiSelectChips = <T,>({
   getOptionLabel,
   disabled,
   handleChipDelete,
-  selectedOptionsLabel,
+  slotProps,
 }: Props<T>) => {
   const getOptionKey = (option: T, index: number): string => {
     const label = getOptionLabel(option);
@@ -25,31 +28,18 @@ const MultiSelectChips = <T,>({
   };
 
   return (
-    <Box component="span" role="group" aria-label={selectedOptionsLabel} display="contents">
+    <List sx={{ display: 'flex', flexDirection: 'row', gap: 1 }} disablePadding {...slotProps.list}>
       {selectedOptions.map((option, index) => (
-        <Button
-          key={getOptionKey(option, index)}
-          variant="contained"
-          size="small"
-          endIcon={<CloseIcon sx={{ color: '#0B3EE3' }} />}
-          onClick={() => handleChipDelete(option)}
-          disabled={disabled}
-          sx={{
-            borderRadius: 8,
-            alignItems: 'center',
-            backgroundColor: '#E8EBF1',
-            color: 'text.primary',
-            height: 32,
-            px: 1,
-            '&:hover': {
-              backgroundColor: '#D1D7E0 !important',
-            },
-          }}
-        >
-          {getOptionLabel(option)}
-        </Button>
+        <ListItem key={getOptionKey(option, index)} disablePadding>
+          <Chip
+            label={getOptionLabel(option)}
+            onDelete={() => handleChipDelete(option)}
+            disabled={disabled}
+            {...slotProps.chip}
+          />
+        </ListItem>
       ))}
-    </Box>
+    </List>
   );
 };
 

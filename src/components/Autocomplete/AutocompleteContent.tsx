@@ -1,4 +1,5 @@
 import {
+  Box,
   Checkbox,
   List,
   ListItem,
@@ -6,8 +7,9 @@ import {
   ListItemSecondaryAction,
   ListItemText,
   Skeleton,
+  Stack,
 } from '@mui/material';
-import React, { MouseEvent } from 'react';
+import { ComponentType, FC, MouseEvent, ReactNode, RefObject } from 'react';
 
 type Props<T> = {
   multiple: boolean;
@@ -18,26 +20,26 @@ type Props<T> = {
   isOptionEqualToValue?: (option: T, value: T) => boolean;
   handleOptionSelect: (option: T) => void;
   listboxId: string;
-  listboxRef: React.RefObject<HTMLUListElement>;
+  listboxRef: RefObject<HTMLUListElement>;
   inputId: string;
   activeIndex: number;
   setActiveIndex: (index: number) => void;
-  renderOption?: (option: T, index: number) => React.ReactNode;
+  renderOption?: (option: T, index: number) => ReactNode;
   loading?: boolean;
-  LoadingSkeleton?: React.ComponentType;
-  loadingSkeletonProps?: Record<string, any>;
+  slots?: {
+    loadingSkeleton?: ComponentType;
+  };
 };
 
-const DefaultLoadingSkeleton: React.FC = () => (
-  <ListItem disablePadding>
-    <ListItemButton sx={{ py: 1, px: 2, cursor: 'default' }}>
-      <ListItemText
-        primary={<Skeleton variant="text" width="40%" sx={{ borderRadius: 8 }} />}
-        secondary={<Skeleton variant="text" width="80%" sx={{ borderRadius: 8 }} />}
-        sx={{ margin: 0 }}
-      />
-    </ListItemButton>
-  </ListItem>
+const DefaultLoadingSkeleton: FC = () => (
+  <Stack width="100%">
+    {Array.from({ length: 4 }).map((_, index) => (
+      <Box key={`skeleton-${index}`} sx={{ py: 1, px: 2 }}>
+        <Skeleton variant="text" width="40%" sx={{ borderRadius: 8, lineHeight: 1.5 }} />
+        <Skeleton variant="text" width="80%" sx={{ borderRadius: 8, lineHeight: 1.4 }} />
+      </Box>
+    ))}
+  </Stack>
 );
 
 const AutocompleteContent = <T,>({
@@ -55,8 +57,7 @@ const AutocompleteContent = <T,>({
   setActiveIndex,
   renderOption,
   loading = false,
-  LoadingSkeleton,
-  loadingSkeletonProps = {},
+  slots,
 }: Props<T>) => {
   const handleOptionMouseDown = (event: MouseEvent<HTMLDivElement>) => {
     // Safari triggers focusOut before click, but if you
@@ -79,15 +80,20 @@ const AutocompleteContent = <T,>({
       ? selectedOptions.some((selected) => isOptionEqualToValue?.(selected, option))
       : inputValue === getOptionLabel(option);
 
-  const SkeletonComponent = LoadingSkeleton || DefaultLoadingSkeleton;
+  const SkeletonComponent = slots?.loadingSkeleton || DefaultLoadingSkeleton;
 
   return (
-    <List id={listboxId} ref={listboxRef} role="listbox" aria-labelledby={inputId} sx={{ p: 0 }}>
-      {loading
-        ? Array.from({ length: 4 }).map((_, index) => (
-            <SkeletonComponent key={`skeleton-${index}`} {...loadingSkeletonProps} />
-          ))
-        : filteredOptions.map((option, index) => {
+    <>
+      {!loading && (
+        <List
+          id={listboxId}
+          ref={listboxRef}
+          role="listbox"
+          aria-labelledby={inputId}
+          sx={{ p: 0 }}
+          onBlur={() => setActiveIndex(-1)}
+        >
+          {filteredOptions.map((option, index) => {
             const optionLabel = getOptionLabel(option);
             const isSelected = isOptionSelectedInternal(option);
 
@@ -133,7 +139,10 @@ const AutocompleteContent = <T,>({
               </ListItem>
             );
           })}
-    </List>
+        </List>
+      )}
+      {loading && <SkeletonComponent />}
+    </>
   );
 };
 

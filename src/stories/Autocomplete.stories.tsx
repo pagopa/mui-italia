@@ -1,7 +1,8 @@
+import { useEffect, useState } from 'react';
 import { LocationOn, Place } from '@mui/icons-material';
 import { Box, Skeleton, Typography } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react';
-import Autocomplete from './Autocomplete';
+import Autocomplete from '../components/Autocomplete/Autocomplete';
 
 type City = {
   id: number;
@@ -106,7 +107,7 @@ export const NoArrow: Story = {
     label: 'Seleziona una città',
     placeholder: 'Cerca...',
     slotProps: {
-      hideArrows: true,
+      toggleButton: { hidden: true },
     },
   },
 };
@@ -178,12 +179,8 @@ export const WithError: Story = {
     options: cities,
     label: 'Seleziona una città',
     placeholder: 'Cerca...',
-    slotProps: {
-      input: {
-        error: true,
-        helperText: 'Campo obbligatorio',
-      },
-    },
+    error: true,
+    helperText: 'Campo obbligatorio',
   },
 };
 

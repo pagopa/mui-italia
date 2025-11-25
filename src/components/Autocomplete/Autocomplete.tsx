@@ -3,12 +3,20 @@
 import { Close, KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 import { Box, IconButton, Paper, Popper, TextField } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
-import React, { useEffect, useRef, useState } from 'react';
+import {
+  ChangeEvent,
+  useEffect,
+  useRef,
+  useState,
+  KeyboardEvent,
+  MouseEvent,
+  FocusEvent,
+} from 'react';
 import { AutocompleteProps } from 'types/autocomplete';
-import { isIosDevice } from 'utils/device';
+// import { isIosDevice } from 'utils/device';
 import AutocompleteContent from './AutocompleteContent';
-import DefaultEmptyState from './DefaultEmptyState';
 import MultiSelectChips from './MultiSelectChips';
+import DefaultEmptyState from './DefaultEmptyState';
 
 const Autocomplete = <T,>({
   options,
@@ -21,8 +29,9 @@ const Autocomplete = <T,>({
   noResultsText = 'Non ci sono corrispondenze da mostrare',
   disabled = false,
   required = false,
+  error = false,
+  helperText,
   loading = false,
-  loadingAriaLabel = 'Loading',
   slots = {},
   slotProps = {},
   value,
@@ -45,20 +54,19 @@ const Autocomplete = <T,>({
   const { startIcon: StartIcon, loadingSkeleton: LoadingSkeleton } = slots;
 
   const {
-    startIcon: startIconProps = {},
-    clearIcon: clearIconProps = {},
-    expandIcon: expandIconProps = {},
-    collapseIcon: collapseIconProps = {},
-    input: inputProps = {},
-    loadingSkeleton: loadingSkeletonProps = {},
-    selectionBox: selectionBoxProps = {},
-    hideArrows = false,
+    clearButton: clearButtonProps = { 'aria-label': 'Clear the entered text' },
+    toggleButton: toggleButtonProps = {
+      hidden: false,
+      'open-aria-label': 'Open the dropdown menu',
+      'close-aria-label': 'Close the dropdown menu',
+    },
+    loadingBox: loadingBoxProps = {
+      'ongoing-aria-label': 'Loading',
+      'completed-aria-label': '%s results found',
+    },
+    selectionBox: selectionBoxProps = { 'aria-label': 'Selected options' },
+    selectionChip: selectionChipProps = {},
   } = slotProps;
-
-  const clearButtonLabel = clearIconProps?.['aria-label'] ?? 'Clear the entered text';
-  const collapseButtonLabel = collapseIconProps?.['aria-label'] ?? 'Close the dropdown menu';
-  const expandButtonLabel = expandIconProps?.['aria-label'] ?? 'Open the dropdown menu';
-  const selectedOptionsLabel = selectionBoxProps?.['aria-label'] ?? 'Selected options';
 
   const filteredOptions = handleFiltering
     ? handleFiltering(inputValue, options)
@@ -68,6 +76,10 @@ const Autocomplete = <T,>({
         getOptionLabel(option).toLowerCase().includes(inputValue.toLowerCase())
       );
 
+  // this is the old implementation of the input blur
+  // it resolves a bug with IOS devices
+  // we have to test te new handleBlur function to check if it is still needed
+  /*
   const handleInputBlur = () => {
     if (disabled) {
       return;
@@ -79,8 +91,9 @@ const Autocomplete = <T,>({
       setIsOpen(false);
     }
   };
+  */
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (disabled) {
       return;
     }
@@ -140,6 +153,7 @@ const Autocomplete = <T,>({
     );
     setSelectedOptions(newSelectedOptions);
     onSelect?.(newSelectedOptions);
+    inputRef.current?.focus();
   };
 
   const setInputFocus = (open: boolean = true) => {
@@ -151,7 +165,7 @@ const Autocomplete = <T,>({
     setIsOpen(open);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (disabled) {
       return;
     }
@@ -208,7 +222,7 @@ const Autocomplete = <T,>({
     onInputChange?.('');
   };
 
-  const handleToggleOpen = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleToggleOpen = (e: MouseEvent<HTMLButtonElement>) => {
     if (disabled) {
       return;
     }
@@ -216,6 +230,19 @@ const Autocomplete = <T,>({
     e.preventDefault();
     e.stopPropagation();
     setIsOpen((prev) => !prev);
+  };
+
+  const handleBlur = (event: FocusEvent<HTMLDivElement>) => {
+    if (disabled) {
+      return;
+    }
+
+    // If the newly focused element isn't in autocomplete component, we can close the dropdown
+    // and deselect the option
+    if (!containerRef.current?.contains(event.relatedTarget)) {
+      setIsOpen(false);
+      setActiveIndex(-1);
+    }
   };
 
   const getStartInputAdornment = () => {
@@ -229,9 +256,7 @@ const Autocomplete = <T,>({
           <StartIcon
             sx={{
               color: disabled ? 'text.disabled' : 'text.secondary',
-              ...startIconProps.sx,
             }}
-            {...startIconProps}
           />
         )}
         {multiple && selectedOptions.length > 0 && (
@@ -239,8 +264,11 @@ const Autocomplete = <T,>({
             selectedOptions={selectedOptions}
             handleChipDelete={handleChipDelete}
             disabled={disabled}
-            selectedOptionsLabel={selectedOptionsLabel}
             getOptionLabel={getOptionLabel}
+            slotProps={{
+              list: { 'aria-label': selectionBoxProps['aria-label'] },
+              chip: { 'aria-label': selectionChipProps['aria-label'] },
+            }}
           />
         )}
       </>
@@ -249,7 +277,7 @@ const Autocomplete = <T,>({
 
   const getEndInputAdornment = () => {
     const showClearIcon = inputValue;
-    const showArrowIcon = !hideArrows;
+    const showArrowIcon = !toggleButtonProps.hidden;
 
     if ((!showClearIcon && !showArrowIcon) || disabled) {
       return null;
@@ -268,21 +296,23 @@ const Autocomplete = <T,>({
             size="small"
             onClick={handleClearValue}
             onMouseDown={(e) => e.preventDefault()}
-            aria-label={clearButtonLabel}
+            aria-label={clearButtonProps['aria-label']}
             disabled={disabled}
             sx={{
               padding: 0,
               color: 'text.secondary',
             }}
           >
-            <Close {...clearIconProps} />
+            <Close />
           </IconButton>
         )}
         {showArrowIcon && (
           <IconButton
             size="small"
             onClick={handleToggleOpen}
-            aria-label={isOpen ? collapseButtonLabel : expandButtonLabel}
+            aria-label={
+              isOpen ? toggleButtonProps['close-aria-label'] : toggleButtonProps['open-aria-label']
+            }
             disabled={disabled}
             sx={{
               padding: 0,
@@ -290,11 +320,7 @@ const Autocomplete = <T,>({
               cursor: disabled ? 'default' : 'pointer',
             }}
           >
-            {isOpen ? (
-              <KeyboardArrowUp {...collapseIconProps} />
-            ) : (
-              <KeyboardArrowDown {...expandIconProps} />
-            )}
+            {isOpen ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
           </IconButton>
         )}
       </Box>
@@ -322,24 +348,25 @@ const Autocomplete = <T,>({
 
   return (
     <>
-      <Box position="relative" width="100%" ref={containerRef}>
+      <Box position="relative" width="100%" ref={containerRef} onBlur={handleBlur}>
         <TextField
+          id={inputId}
           fullWidth
           inputRef={inputRef}
           value={inputValue}
           onChange={handleInputChange}
           onClick={() => setInputFocus(true)}
           onKeyDown={handleKeyDown}
-          onBlur={handleInputBlur}
           label={label}
           placeholder={multiple && selectedOptions.length > 0 ? '' : placeholder}
           variant="outlined"
           autoComplete="off"
           disabled={disabled}
           required={required}
+          error={error}
+          helperText={helperText}
           inputProps={{
             role: 'combobox',
-            id: inputId,
             'aria-expanded': isOpen,
             'aria-controls': listboxId,
             'aria-autocomplete': 'list',
@@ -372,7 +399,6 @@ const Autocomplete = <T,>({
               boxSizing: 'border-box',
             },
           }}
-          {...inputProps}
         />
 
         <Popper
@@ -416,8 +442,7 @@ const Autocomplete = <T,>({
                 setActiveIndex={setActiveIndex}
                 renderOption={renderOption}
                 loading={loading}
-                LoadingSkeleton={LoadingSkeleton}
-                loadingSkeletonProps={loadingSkeletonProps}
+                slots={{ loadingSkeleton: LoadingSkeleton }}
                 getOptionLabel={getOptionLabel}
                 isOptionEqualToValue={isOptionEqualToValue}
               />
@@ -428,13 +453,17 @@ const Autocomplete = <T,>({
         </Popper>
       </Box>
 
-      <Box aria-live="polite" sx={visuallyHidden}>
+      <Box aria-live="polite" role="status" aria-atomic="true" sx={visuallyHidden}>
         {selectedOptions.length > 0 &&
           `${selectedOptions.map((opt) => getOptionLabel(opt)).join(', ')} selected`}
-      </Box>
-
-      <Box aria-live="polite" sx={visuallyHidden}>
-        {loading && loadingAriaLabel}
+        {loading && loadingBoxProps?.['ongoing-aria-label']}
+        {!loading && filteredOptions.length === 0 && noResultsText}
+        {!loading &&
+          filteredOptions.length > 0 &&
+          loadingBoxProps?.['completed-aria-label']?.replace(
+            '%s',
+            filteredOptions.length.toString()
+          )}
       </Box>
     </>
   );

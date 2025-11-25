@@ -1,4 +1,4 @@
-import { SvgIconProps, TextFieldProps } from '@mui/material';
+import { SvgIconProps } from '@mui/material';
 import { ComponentType, ReactNode } from 'react';
 
 interface AutocompleteSlots {
@@ -9,16 +9,22 @@ interface AutocompleteSlots {
 }
 
 interface AutocompleteSlotProps {
-  startIcon?: SvgIconProps;
-  clearIcon?: SvgIconProps;
-  expandIcon?: SvgIconProps;
-  collapseIcon?: SvgIconProps;
-  input?: TextFieldProps;
-  loadingSkeleton?: Record<string, any>;
-  selectionBox?: {
-    ['aria-label']?: string;
+  clearButton?: { 'aria-label': string };
+  toggleButton?: {
+    hidden?: boolean;
+    'close-aria-label'?: string;
+    'open-aria-label'?: string;
   };
-  hideArrows?: boolean;
+  loadingBox?: {
+    'ongoing-aria-label'?: string;
+    'completed-aria-label'?: string;
+  };
+  selectionBox?: {
+    'aria-label'?: string;
+  };
+  selectionChip?: {
+    'aria-label'?: string;
+  };
 }
 
 export interface AutocompleteProps<T> {
@@ -52,11 +58,14 @@ export interface AutocompleteProps<T> {
   /** Mark the field as required */
   required?: boolean;
 
+  /** Set the field in error */
+  error?: boolean;
+
+  /** Set the helper text */
+  helperText?: string;
+
   /** Show loading state with skeleton */
   loading?: boolean;
-
-  /** Aria Label for loading state */
-  loadingAriaLabel?: string;
 
   /** Custom components to replace default icons and states */
   slots?: AutocompleteSlots;
