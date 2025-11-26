@@ -1,3 +1,18 @@
+# [2.1.0-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.1.0-RC.0) (2025-11-26)
+
+
+### Features
+
+* **M20DS-45:** create autocomplete component ([#589](https://github.com/pagopa/mui-italia/issues/589)) ([fbe0c19](https://github.com/pagopa/mui-italia/commit/fbe0c197499b3254e98d2ac47a1b0ec7e76770bc))
+
+
+### Bug Fixes
+
+* **M20DS-45:** fixed build problems ([#602](https://github.com/pagopa/mui-italia/issues/602)) ([346cf97](https://github.com/pagopa/mui-italia/commit/346cf9726cd34b842f39c425a884d48965ba2187))
+* **PN-16589:** aria-label in header dropdown for a11y ([#599](https://github.com/pagopa/mui-italia/issues/599)) ([98eea8e](https://github.com/pagopa/mui-italia/commit/98eea8e0cad8b3889669c44fe5bebe5fe6a64f29))
+
+
+
 # [2.0.0](https://github.com/pagopa/mui-italia/releases/tag/v2.0.0) (2025-11-26)
 
 
