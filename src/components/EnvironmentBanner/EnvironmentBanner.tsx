@@ -1,26 +1,22 @@
-"use client";
+'use client';
 
-import React from "react";
-import { Alert, Typography } from "@mui/material";
+import { ReactNode } from 'react';
+import { Alert, Typography } from '@mui/material';
 export interface EnvironmentBannerProps {
-  bgColor: "warning" | "info";
+  bgColor: 'warning' | 'info';
   message: string;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
 }
 
-export const EnvironmentBanner = ({
-  bgColor,
-  message,
-  icon,
-}: EnvironmentBannerProps) => (
+export const EnvironmentBanner = ({ bgColor, message, icon }: EnvironmentBannerProps) => (
   <Alert
     sx={{
-      borderLeft: "none",
+      borderLeft: 'none',
       borderRadius: 0,
-      alignItems: "center",
-      justifyContent: "center",
+      alignItems: 'center',
+      justifyContent: 'center',
       bgcolor: `${bgColor}.extraLight`,
-      "&.MuiPaper-root": {
+      '&.MuiPaper-root': {
         px: { xs: 1, sm: 3 },
         py: 1,
       },
@@ -29,7 +25,7 @@ export const EnvironmentBanner = ({
   >
     <Typography
       variant="body2"
-      sx={{ maxWidth: 480, textAlign: "center", wordBreak: "break-word" }}
+      sx={{ maxWidth: 480, textAlign: 'center', wordBreak: 'break-word' }}
     >
       {message}
     </Typography>

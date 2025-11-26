@@ -1,43 +1,43 @@
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { StoryFn, Meta } from '@storybook/react';
 
-import { Button } from "@mui/material";
-import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
-import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
-import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
+import { Button } from '@mui/material';
+import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
+import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
+import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "MUI Components/Inputs/Button",
+  title: 'MUI Components/Inputs/Button',
   component: Button,
   args: {
-    variant: "contained",
-    children: "Press me",
+    variant: 'contained',
+    children: 'Press me',
     fullWidth: false,
     disabled: false,
   },
   argTypes: {
     size: {
-      options: ["small", "medium", "large"],
-      control: { type: "radio" },
+      options: ['small', 'medium', 'large'],
+      control: { type: 'radio' },
       table: {
-        type: { summary: "string" },
-        defaultValue: { summary: "medium" },
+        type: { summary: 'string' },
+        defaultValue: { summary: 'medium' },
       },
     },
     fullWidth: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       table: {
-        type: { summary: "boolean" },
+        type: { summary: 'boolean' },
         defaultValue: { summary: false },
       },
     },
     /* Disabled controls */
     variant: {
-      options: ["contained", "outlined", "text"],
-      control: { type: "radio" },
+      options: ['contained', 'outlined', 'text'],
+      control: { type: 'radio' },
       table: {
-        type: { summary: "string" },
-        defaultValue: { summary: "contained" },
+        type: { summary: 'string' },
+        defaultValue: { summary: 'contained' },
       },
     },
     color: {
@@ -46,27 +46,27 @@ export default {
       },
     },
   },
-  parameters: { controls: { sort: "size" } },
-} as ComponentMeta<typeof Button>;
+  parameters: { controls: { sort: 'size' } },
+} as Meta<typeof Button>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
+const Template: StoryFn<typeof Button> = (args) => <Button {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  variant: "contained",
-  size: "medium",
+  variant: 'contained',
+  size: 'medium',
 };
 
 export const WithEndIcon = Template.bind({});
-WithEndIcon.storyName = "Default + End Icon";
+WithEndIcon.storyName = 'Default + End Icon';
 WithEndIcon.args = {
   ...Default.args,
   endIcon: <ArrowForwardRoundedIcon />,
 };
 
 export const WithStartIcon = Template.bind({});
-WithStartIcon.storyName = "Default + Start Icon";
+WithStartIcon.storyName = 'Default + Start Icon';
 WithStartIcon.args = {
   ...Default.args,
   startIcon: <ArrowBackRoundedIcon />,
@@ -74,17 +74,17 @@ WithStartIcon.args = {
 
 export const Danger = Template.bind({});
 Danger.args = {
-  variant: "outlined",
-  color: "error",
-  size: "medium",
-  children: "Delete",
+  variant: 'outlined',
+  color: 'error',
+  size: 'medium',
+  children: 'Delete',
 };
 Danger.argTypes = {
   variant: { table: { disable: true } },
 };
 
 export const DangerWithEndIcon = Template.bind({});
-DangerWithEndIcon.storyName = "Danger + End Icon";
+DangerWithEndIcon.storyName = 'Danger + End Icon';
 DangerWithEndIcon.args = {
   ...Danger.args,
   endIcon: <DeleteOutlineRoundedIcon />,
@@ -94,7 +94,7 @@ DangerWithEndIcon.argTypes = {
 };
 
 export const DangerWithStartIcon = Template.bind({});
-DangerWithStartIcon.storyName = "Danger + Start Icon";
+DangerWithStartIcon.storyName = 'Danger + Start Icon';
 DangerWithStartIcon.args = {
   ...Danger.args,
   startIcon: <DeleteOutlineRoundedIcon />,

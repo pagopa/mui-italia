@@ -1,27 +1,27 @@
-import { useState } from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { useState } from 'react';
+import { StoryFn, Meta } from '@storybook/react';
 
-import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 export default {
-  title: "MUI Components/Lab/Desktop Date Picker",
+  title: 'MUI Components/Lab/Desktop Date Picker',
   component: DesktopDatePicker,
-  parameters: { controls: { sort: "size" } },
+  parameters: { controls: { sort: 'size' } },
   decorators: [
     (Story) => (
       <div
         style={{
-          padding: "1em",
+          padding: '1em',
         }}
       >
         <Story />
       </div>
     ),
   ],
-} as ComponentMeta<typeof DesktopDatePicker>;
+} as Meta<typeof DesktopDatePicker>;
 
-export const Default: ComponentStory<typeof DesktopDatePicker> = () => {
+export const Default: StoryFn<typeof DesktopDatePicker> = () => {
   const [value, setValue] = useState<Date>(new Date(2022, 0, 17));
 
   const onChangeHandler = (_date: Date | null) => {
@@ -39,7 +39,7 @@ export const Default: ComponentStory<typeof DesktopDatePicker> = () => {
         onChange={onChangeHandler}
         slotProps={{
           textField: {
-            inputProps: { placeholder: "dd/mm/aaaa" },
+            inputProps: { placeholder: 'dd/mm/aaaa' },
           },
         }}
       />

@@ -1,3 +1,63 @@
+# [2.0.0](https://github.com/pagopa/mui-italia/releases/tag/v2.0.0) (2025-11-26)
+
+
+### Chores
+
+* **MUI-229:** fixed release script when there is nothing to merge ([#597](https://github.com/pagopa/mui-italia/issues/597)) ([b26792c](https://github.com/pagopa/mui-italia/commit/b26792c9f027944b0849f8108d19f36e70c71269))
+
+
+
+# [2.0.0-RC.4](https://github.com/pagopa/mui-italia/releases/tag/v2.0.0-RC.4) (2025-11-21)
+
+
+### Features
+
+* **M20DS-34:** improved input selection and fixed problems on mobile ([#595](https://github.com/pagopa/mui-italia/issues/595)) ([5a882fb](https://github.com/pagopa/mui-italia/commit/5a882fb877c600d0a43c59ac75620f0c8354839f))
+
+
+### Build System
+
+* **mui-229:** fixed next tag calculation ([#596](https://github.com/pagopa/mui-italia/issues/596)) ([01ad3ae](https://github.com/pagopa/mui-italia/commit/01ad3ae9dd151e03c5d702109d7fd8550177f02c))
+
+
+
+# [2.0.0-RC.3](https://github.com/pagopa/mui-italia/releases/tag/v2.0.0-RC.3) (2025-11-17)
+
+
+### Bug Fixes
+
+* **M20DS-34:** CodeInput now supports native text selection and clipboard via overlay input ([#590](https://github.com/pagopa/mui-italia/issues/590)) ([faf69de](https://github.com/pagopa/mui-italia/commit/faf69de57b39cc77c483b5394000dfc3c5729b29))
+
+
+
+# [2.0.0-RC.2](https://github.com/pagopa/mui-italia/releases/tag/v2.0.0-RC.2) (2025-11-13)
+
+
+### Build System
+
+* **mui-233:** fixed alias in type definitions ([#594](https://github.com/pagopa/mui-italia/issues/594)) ([26c28d6](https://github.com/pagopa/mui-italia/commit/26c28d6678fe7d99948ea9b5e1be758e6f2c7ccf))
+
+
+
+# [2.0.0-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v2.0.0-RC.1) (2025-11-12)
+
+
+### Build System
+
+* **mui-233:** migrated to esm import for mui icons ([#593](https://github.com/pagopa/mui-italia/issues/593)) ([7b01870](https://github.com/pagopa/mui-italia/commit/7b01870f5154fd1aec7b349adc81699c401435a5))
+
+
+
+# [2.0.0-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.0.0-RC.0) (2025-11-12)
+
+
+### Build System
+
+* **mui-233:** changed artifact directory ([#592](https://github.com/pagopa/mui-italia/issues/592)) ([0569322](https://github.com/pagopa/mui-italia/commit/05693222e45772ca3c845a5faa65d72fdbd22b97))
+* **mui-233:** reworked build system ([#591](https://github.com/pagopa/mui-italia/issues/591)) ([d7a5821](https://github.com/pagopa/mui-italia/commit/d7a5821e62084eb3ef6cfe1ecfd3ef4b44fb6aae))
+
+
+
 # [1.8.0](https://github.com/pagopa/mui-italia/releases/tag/v1.8.0) (2025-10-21)
 
 
