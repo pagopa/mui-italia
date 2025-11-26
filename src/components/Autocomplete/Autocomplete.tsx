@@ -249,13 +249,11 @@ const Autocomplete = <T, M extends boolean | undefined>({
       return;
     }
 
-    /*
     const focusingAnOption = activeIndex !== -1;
-    const keepMenuOpen = isOpen && isIosDevice();
+    const keepMenuOpen = isOpen && isMobileDevice();
     if (focusingAnOption && keepMenuOpen) {
       return;
     }
-      */
 
     // If the newly focused element isn't in the autocomplete component, we can close the dropdown
     // and deselect the option

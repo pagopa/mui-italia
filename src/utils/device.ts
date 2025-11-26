@@ -1,4 +1,4 @@
-export function isIosDevice() {
+export function isMobileDevice() {
   return (
     typeof navigator !== 'undefined' &&
     !!(
