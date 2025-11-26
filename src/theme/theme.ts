@@ -3,7 +3,6 @@ import { CSSProperties } from 'react';
 
 /* Design Tokens */
 import { italia } from '@tokens';
-import { ChipSanitizer } from '@components/Chip';
 
 import muiSwitch from './muiSwitch';
 import { pxToRem } from './utility';

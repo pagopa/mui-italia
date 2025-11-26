@@ -1,5 +1,5 @@
 import { Chip } from '@components/Chip';
-import { Box, ChipProps, List, ListItem, ListProps } from '@mui/material';
+import { Box, ChipProps, ListProps } from '@mui/material';
 
 interface Props<T> {
   selectedOptions: Array<T>;
