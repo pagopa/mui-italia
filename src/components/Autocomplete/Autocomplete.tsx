@@ -51,6 +51,10 @@ const Autocomplete = <T, M extends boolean | undefined>({
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const listboxRef = useRef<HTMLUListElement>(null);
+  // this is used to fix the problem on the mobile devices
+  // when and user use a screen reader the tap on the option emits a blur event
+  // this closes the dropdown even if we don't want
+  const isInteractingWithOption = useRef(false);
   const listboxId = 'autocomplete-listbox';
   const inputId = 'autocomplete-input';
 
@@ -155,6 +159,7 @@ const Autocomplete = <T, M extends boolean | undefined>({
       }
       setAutocompleteValue(option);
     }
+    isInteractingWithOption.current = false;
   };
 
   const handleChipDelete = (optionToRemove: T) => {
@@ -249,9 +254,8 @@ const Autocomplete = <T, M extends boolean | undefined>({
       return;
     }
 
-    const focusingAnOption = activeIndex !== -1;
     const keepMenuOpen = isOpen && isMobileDevice();
-    if (focusingAnOption && keepMenuOpen) {
+    if (isInteractingWithOption.current && keepMenuOpen) {
       return;
     }
 
@@ -460,6 +464,7 @@ const Autocomplete = <T, M extends boolean | undefined>({
                 slots={{ loadingSkeleton: LoadingSkeleton }}
                 getOptionLabel={getOptionLabel}
                 isOptionEqualToValue={isOptionEqualToValue}
+                isInteractingWithOption={isInteractingWithOption}
               />
             )}
             {filteredOptions.length === 0 && (
