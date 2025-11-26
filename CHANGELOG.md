@@ -1,3 +1,12 @@
+# [2.1.0-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v2.1.0-RC.1) (2025-11-26)
+
+
+### Bug Fixes
+
+* **M20DS-45:** barrel export for autocomplete ([#603](https://github.com/pagopa/mui-italia/issues/603)) ([9cc1ebe](https://github.com/pagopa/mui-italia/commit/9cc1ebe5c64d6c27981063cdf8ea3f6f9b876b08))
+
+
+
 # [2.1.0-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.1.0-RC.0) (2025-11-26)
 
 
