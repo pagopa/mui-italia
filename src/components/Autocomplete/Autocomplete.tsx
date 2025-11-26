@@ -1,0 +1,492 @@
+'use client';
+
+import { Close, KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
+import { Box, IconButton, Paper, Popper, TextField } from '@mui/material';
+import { visuallyHidden } from '@mui/utils';
+import {
+  ChangeEvent,
+  useEffect,
+  useRef,
+  useState,
+  KeyboardEvent,
+  MouseEvent,
+  FocusEvent,
+} from 'react';
+import { AutocompleteProps, AutocompleteValue } from 'types/autocomplete';
+import { isMobileDevice } from 'utils/device';
+import { filterOptionsInternal } from 'utils/autocomplete';
+import AutocompleteContent from './AutocompleteContent';
+import MultiSelectChips from './MultiSelectChips';
+import DefaultEmptyState from './DefaultEmptyState';
+
+const Autocomplete = <T, M extends boolean | undefined>({
+  options,
+  getOptionLabel = (option: any) => option.label ?? option,
+  isOptionEqualToValue = (option, value) => option === value,
+  label,
+  placeholder,
+  multiple = false,
+  handleFiltering = filterOptionsInternal,
+  disabled = false,
+  required = false,
+  error = false,
+  helperText,
+  loading = false,
+  slots = {},
+  slotProps = {},
+  value,
+  inputValue,
+  renderOption,
+  onChange,
+  onInputChange,
+  setInputValueOnSelect,
+}: AutocompleteProps<T, M>) => {
+  const [inputInternalValue, setInputInternalValue] = useState<string>('');
+  const [internalValue, setInternalValue] = useState<Array<T> | T>(
+    (multiple ? [] : null) as Array<T> | T
+  );
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [activeIndex, setActiveIndex] = useState<number>(-1);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const listboxRef = useRef<HTMLUListElement>(null);
+  const listboxId = 'autocomplete-listbox';
+  const inputId = 'autocomplete-input';
+
+  const currentInputValue = inputValue ?? inputInternalValue;
+  const currentValue = value ?? internalValue;
+  const { startIcon: StartIcon, loadingSkeleton: LoadingSkeleton } = slots;
+
+  const {
+    clearButton: clearButtonProps = { 'aria-label': 'Clear the entered text' },
+    toggleButton: toggleButtonProps = {
+      hidden: false,
+      'open-aria-label': 'Open the dropdown menu',
+      'close-aria-label': 'Close the dropdown menu',
+    },
+    announcementBox: announcementBoxProps = {
+      loadingText: 'Loading',
+      noResultsText: 'There are no matches to show',
+      selectionText: '%s selected',
+    },
+    selectionBox: selectionBoxProps = { 'aria-label': 'Selected options' },
+    selectionChip: selectionChipProps = {},
+  } = slotProps;
+
+  const filteredOptions = handleFiltering(options, {
+    inputValue: currentInputValue,
+    getOptionLabel,
+  });
+
+  // it resolves a bug with IOS devices
+  // when user clicks on an option, the dropdown is closed
+  /*
+  const handleInputBlur = () => {
+    if (disabled) {
+      return;
+    }
+
+    const focusingAnOption = activeIndex !== -1;
+    const keepMenuOpen = isOpen && isIosDevice();
+    if (!focusingAnOption && !keepMenuOpen) {
+      setIsOpen(false);
+    }
+  };
+  */
+
+  const setInputValue = (v: string) => {
+    // non controlled input
+    if (inputValue === undefined) {
+      setInputInternalValue(v);
+    }
+    if (v !== currentInputValue) {
+      setActiveIndex(-1);
+    }
+    onInputChange?.(v);
+  };
+
+  const setAutocompleteValue = (v: T | Array<T>) => {
+    // non controlled autocomplete
+    if (value === undefined) {
+      setInternalValue(v);
+    }
+    onChange?.(v as AutocompleteValue<T, M>);
+  };
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (disabled) {
+      return;
+    }
+
+    setInputValue(e.target.value);
+    setIsOpen(true);
+  };
+
+  const handleOptionSelect = (option: T) => {
+    if (disabled) {
+      return;
+    }
+
+    if (multiple && Array.isArray(currentValue)) {
+      const isAlreadySelected = currentValue.some((selected) =>
+        isOptionEqualToValue(selected, option)
+      );
+
+      let newSelectedOptions;
+      if (isAlreadySelected) {
+        newSelectedOptions = currentValue.filter(
+          (selected) => !isOptionEqualToValue(selected, option)
+        );
+      } else {
+        newSelectedOptions = [...currentValue, option];
+      }
+      setInputValue('');
+      setAutocompleteValue(newSelectedOptions);
+    } else {
+      setInputFocus(false);
+      if (setInputValueOnSelect) {
+        const newValue = setInputValueOnSelect(option);
+        if (newValue !== null) {
+          setInputValue(newValue);
+        }
+      } else {
+        setInputValue(getOptionLabel(option));
+      }
+      setAutocompleteValue(option);
+    }
+  };
+
+  const handleChipDelete = (optionToRemove: T) => {
+    if (disabled) {
+      return;
+    }
+
+    if (multiple && Array.isArray(currentValue)) {
+      const newSelectedOptions = currentValue.filter(
+        (option) => !isOptionEqualToValue(option, optionToRemove)
+      );
+      setAutocompleteValue(newSelectedOptions);
+      inputRef.current?.focus();
+    }
+  };
+
+  const setInputFocus = (open: boolean = true) => {
+    if (disabled) {
+      return;
+    }
+
+    inputRef.current?.focus();
+    setIsOpen(open);
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (disabled) {
+      return;
+    }
+
+    if (filteredOptions.length === 0) {
+      if (e.key === 'Escape') {
+        setIsOpen(false);
+      }
+      return;
+    }
+
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        setIsOpen(true);
+        setActiveIndex((prev) => (prev < filteredOptions.length - 1 ? prev + 1 : 0));
+        break;
+
+      case 'ArrowUp':
+        e.preventDefault();
+        setActiveIndex((prev) => (prev > 0 ? prev - 1 : filteredOptions.length - 1));
+        break;
+
+      case 'Enter':
+        e.preventDefault();
+        if (activeIndex >= 0 && filteredOptions[activeIndex]) {
+          handleOptionSelect(filteredOptions[activeIndex]);
+        }
+        break;
+
+      case 'Escape':
+        e.preventDefault();
+        setIsOpen(false);
+        setActiveIndex(-1);
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  const handleClearValue = () => {
+    if (disabled) {
+      return;
+    }
+
+    setInputValue('');
+    if (multiple) {
+      setAutocompleteValue([]);
+    }
+    setIsOpen(false);
+  };
+
+  const handleToggleOpen = (e: MouseEvent<HTMLButtonElement>) => {
+    if (disabled) {
+      return;
+    }
+
+    e.preventDefault();
+    e.stopPropagation();
+    setIsOpen((prev) => !prev);
+  };
+
+  const handleBlur = (event: FocusEvent<HTMLDivElement>) => {
+    if (disabled) {
+      return;
+    }
+
+    const focusingAnOption = activeIndex !== -1;
+    const keepMenuOpen = isOpen && isMobileDevice();
+    if (focusingAnOption && keepMenuOpen) {
+      return;
+    }
+
+    // If the newly focused element isn't in the autocomplete component, we can close the dropdown
+    // and deselect the option
+    if (!containerRef.current?.contains(event.relatedTarget)) {
+      setIsOpen(false);
+      setActiveIndex(-1);
+    }
+  };
+
+  const getStartInputAdornment = () => {
+    if (!StartIcon && (!multiple || (Array.isArray(currentValue) && currentValue.length === 0))) {
+      return undefined;
+    }
+
+    return (
+      <>
+        {StartIcon && (
+          <StartIcon
+            sx={{
+              color: disabled ? 'text.disabled' : 'text.secondary',
+            }}
+          />
+        )}
+        {multiple && Array.isArray(currentValue) && currentValue.length > 0 && (
+          <MultiSelectChips
+            selectedOptions={currentValue}
+            handleChipDelete={handleChipDelete}
+            disabled={disabled}
+            getOptionLabel={getOptionLabel}
+            slotProps={{
+              list: { 'aria-label': selectionBoxProps['aria-label'] },
+              chip: { 'aria-label': selectionChipProps['aria-label'] },
+            }}
+          />
+        )}
+      </>
+    );
+  };
+
+  const getEndInputAdornment = () => {
+    const showClearIcon =
+      currentInputValue || (Array.isArray(currentValue) ? currentValue.length > 0 : currentValue);
+    const showArrowIcon = !toggleButtonProps.hidden;
+
+    if ((!showClearIcon && !showArrowIcon) || disabled) {
+      return null;
+    }
+
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 0.5,
+        }}
+      >
+        {showClearIcon && (
+          <IconButton
+            size="small"
+            onClick={handleClearValue}
+            onMouseDown={(e) => e.preventDefault()}
+            aria-label={clearButtonProps['aria-label']}
+            disabled={disabled}
+            sx={{
+              padding: 0,
+              color: 'text.secondary',
+            }}
+          >
+            <Close />
+          </IconButton>
+        )}
+        {showArrowIcon && (
+          <IconButton
+            size="small"
+            onClick={handleToggleOpen}
+            aria-label={
+              isOpen ? toggleButtonProps['close-aria-label'] : toggleButtonProps['open-aria-label']
+            }
+            disabled={disabled}
+            sx={{
+              padding: 0,
+              color: disabled ? 'text.disabled' : 'text.secondary',
+              cursor: disabled ? 'default' : 'pointer',
+            }}
+          >
+            {isOpen ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+          </IconButton>
+        )}
+      </Box>
+    );
+  };
+
+  useEffect(() => {
+    if (disabled) {
+      setIsOpen(false);
+      setActiveIndex(-1);
+      return;
+    }
+
+    if (isOpen && activeIndex >= 0 && listboxRef.current) {
+      const optionElement = listboxRef.current.querySelector(`#${listboxId}-option-${activeIndex}`);
+      optionElement?.scrollIntoView({ block: 'nearest' });
+    }
+  }, [activeIndex, isOpen, disabled]);
+
+  return (
+    <>
+      <Box position="relative" width="100%" ref={containerRef} onBlur={handleBlur}>
+        <TextField
+          id={inputId}
+          fullWidth
+          inputRef={inputRef}
+          value={currentInputValue}
+          onChange={handleInputChange}
+          onClick={() => setInputFocus(true)}
+          onKeyDown={handleKeyDown}
+          label={label}
+          placeholder={
+            multiple && Array.isArray(currentValue) && currentValue.length > 0 ? '' : placeholder
+          }
+          variant="outlined"
+          autoComplete="off"
+          disabled={disabled}
+          required={required}
+          error={error}
+          helperText={helperText}
+          inputProps={{
+            role: 'combobox',
+            'aria-expanded': isOpen,
+            'aria-controls': listboxId,
+            'aria-autocomplete': 'list',
+            'aria-activedescendant':
+              activeIndex >= 0 ? `${listboxId}-option-${activeIndex}` : undefined,
+            'aria-haspopup': 'listbox',
+            'aria-disabled': disabled,
+          }}
+          InputProps={{
+            startAdornment: getStartInputAdornment(),
+            endAdornment: getEndInputAdornment(),
+          }}
+          sx={{
+            '& .MuiInputBase-root': {
+              display: 'flex',
+              flexWrap: 'wrap',
+              alignItems: 'center',
+              gap: 1,
+              padding: '10px 12px',
+              borderRadius: '8px',
+              borderWidth: '2px',
+              position: 'relative',
+              backgroundColor: disabled ? '#F4F5F8' : 'transparent',
+              minHeight: '60px',
+            },
+            '& .MuiInputBase-input': {
+              flex: '1 1 60px',
+              minWidth: '60px',
+              padding: '8px 0',
+              boxSizing: 'border-box',
+            },
+          }}
+        />
+
+        <Popper
+          open={isOpen && !disabled}
+          anchorEl={containerRef.current}
+          keepMounted
+          placement="bottom-start"
+          modifiers={[
+            {
+              name: 'sameWidth',
+              enabled: true,
+              phase: 'beforeWrite',
+              requires: ['computeStyles'],
+              fn: ({ state }) => {
+                state.styles.popper.width = `${state.rects.reference.width}px`;
+              },
+            },
+          ]}
+          style={{ zIndex: 1300 }}
+          role="presentation"
+        >
+          <Paper
+            elevation={4}
+            variant="elevation"
+            sx={{
+              maxHeight: '240px',
+              overflowY: 'auto',
+              my: 1,
+            }}
+          >
+            {filteredOptions.length > 0 && (
+              <AutocompleteContent
+                multiple={multiple}
+                filteredOptions={filteredOptions}
+                selectedOptions={currentValue}
+                handleOptionSelect={handleOptionSelect}
+                listboxId={listboxId}
+                listboxRef={listboxRef}
+                inputId={inputId}
+                activeIndex={activeIndex}
+                setActiveIndex={setActiveIndex}
+                renderOption={renderOption}
+                loading={loading}
+                slots={{ loadingSkeleton: LoadingSkeleton }}
+                getOptionLabel={getOptionLabel}
+                isOptionEqualToValue={isOptionEqualToValue}
+              />
+            )}
+            {filteredOptions.length === 0 && (
+              <DefaultEmptyState noResultsText={announcementBoxProps.noResultsText ?? ''} />
+            )}
+          </Paper>
+        </Popper>
+      </Box>
+
+      {/*
+        This box is needed to announce the results of search and selection to users with visual impairments.
+        It announces the option selected each time user does a selection.
+        It announces when options are loaded asynchronously and loading state is needed: it announces when loading is shown and
+        when results (or no result) are found.
+       */}
+      <Box aria-live="polite" role="status" sx={visuallyHidden} aria-atomic="true">
+        {!loading && filteredOptions.length === 0 && announcementBoxProps.noResultsText}
+        {loading && announcementBoxProps.loadingText}
+        {Array.isArray(currentValue) &&
+          currentValue.length > 0 &&
+          `${announcementBoxProps.selectionText?.replace(
+            '%s',
+            currentValue.map((opt) => getOptionLabel(opt)).join(', ')
+          )}`}
+      </Box>
+    </>
+  );
+};
+
+export default Autocomplete;
