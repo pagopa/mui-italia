@@ -2,7 +2,6 @@ import { alpha, createTheme, Theme } from '@mui/material/styles';
 
 /* Design Tokens */
 import { italia } from '@tokens';
-import { ChipSanitizer } from '@components/Chip';
 
 import muiSwitch from './muiSwitch';
 import { pxToRem } from './utility';
