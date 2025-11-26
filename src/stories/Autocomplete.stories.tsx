@@ -2,6 +2,7 @@ import { LocationOn, Place } from '@mui/icons-material';
 import { Box, Skeleton, Typography } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react';
 import Autocomplete from '../components/Autocomplete/Autocomplete';
+import { useCallback, useEffect, useState } from 'react';
 
 type City = {
   id: number;
@@ -22,7 +23,7 @@ const meta: Meta<typeof Autocomplete> = {
   },
   args: {
     onInputChange: () => {},
-    onSelect: () => {},
+    onChange: () => {},
   },
   decorators: [
     (Story) => (
@@ -35,7 +36,7 @@ const meta: Meta<typeof Autocomplete> = {
 
 export default meta;
 
-type Story<T = City> = StoryObj<typeof Autocomplete<T>>;
+type Story<T, M extends boolean | undefined> = StoryObj<typeof Autocomplete<T, M>>;
 
 const cities: Array<City> = [
   { id: 1, label: 'Milano' },
@@ -58,7 +59,7 @@ const CustomLoadingSkeleton = () => (
   </Box>
 );
 
-export const Default: Story = {
+export const Default: Story<City, false> = {
   args: {
     options: cities,
     label: 'Seleziona una città',
@@ -66,7 +67,7 @@ export const Default: Story = {
   },
 };
 
-export const WithStartIcon: Story = {
+export const WithStartIcon: Story<City, false> = {
   args: {
     options: cities,
     label: 'Seleziona una città',
@@ -77,7 +78,7 @@ export const WithStartIcon: Story = {
   },
 };
 
-export const MultiSelect: Story = {
+export const MultiSelect: Story<City, true> = {
   args: {
     options: cities,
     label: 'Seleziona le città',
@@ -87,7 +88,7 @@ export const MultiSelect: Story = {
   },
 };
 
-export const MultiSelectWithIcon: Story = {
+export const MultiSelectWithIcon: Story<City, true> = {
   args: {
     options: cities,
     label: 'Seleziona le città',
@@ -100,7 +101,7 @@ export const MultiSelectWithIcon: Story = {
   },
 };
 
-export const NoArrow: Story = {
+export const NoArrow: Story<City, false> = {
   args: {
     options: cities,
     label: 'Seleziona una città',
@@ -111,7 +112,7 @@ export const NoArrow: Story = {
   },
 };
 
-export const Disabled: Story = {
+export const Disabled: Story<City, false> = {
   args: {
     options: cities,
     label: 'Seleziona una città',
@@ -120,7 +121,7 @@ export const Disabled: Story = {
   },
 };
 
-export const Required: Story = {
+export const Required: Story<City, false> = {
   args: {
     options: cities,
     label: 'Seleziona una città',
@@ -129,7 +130,7 @@ export const Required: Story = {
   },
 };
 
-export const Loading: Story = {
+export const Loading: Story<City, false> = {
   args: {
     options: cities,
     label: 'Seleziona una città',
@@ -138,7 +139,7 @@ export const Loading: Story = {
   },
 };
 
-export const CustomLoading: Story = {
+export const CustomLoading: Story<City, false> = {
   args: {
     options: cities,
     label: 'Seleziona una città',
@@ -150,16 +151,20 @@ export const CustomLoading: Story = {
   },
 };
 
-export const CustomNoResults: Story = {
+export const CustomNoResults: Story<City, false> = {
   args: {
     options: [],
     label: 'Seleziona una città',
     placeholder: 'Cerca...',
-    noResultsText: 'Esempio di testo personalizzato per nessun risultato',
+    slotProps: {
+      announcementBox: {
+        noResultsText: 'Esempio di testo personalizzato per nessun risultato',
+      },
+    },
   },
 };
 
-export const CustomRenderOption: Story = {
+export const CustomRenderOption: Story<City, false> = {
   args: {
     options: cities,
     label: 'Seleziona una città',
@@ -173,7 +178,7 @@ export const CustomRenderOption: Story = {
   },
 };
 
-export const WithError: Story = {
+export const WithError: Story<City, false> = {
   args: {
     options: cities,
     label: 'Seleziona una città',
@@ -183,7 +188,7 @@ export const WithError: Story = {
   },
 };
 
-export const WithCustomOptions: Story<{ key: number; value: string }> = {
+export const WithCustomOptions: Story<{ key: number; value: string }, true> = {
   args: {
     options: [
       { key: 1, value: 'Italia' },
@@ -196,5 +201,50 @@ export const WithCustomOptions: Story<{ key: number; value: string }> = {
     multiple: true,
     getOptionLabel: (option) => option.value,
     isOptionEqualToValue: (option, value) => option.key === value.key,
+  },
+};
+
+function sleep(duration: number): Promise<void> {
+  return new Promise<void>((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, duration);
+  });
+}
+
+export const TestAsync: Story<City, true> = {
+  args: {
+    label: 'Seleziona una città',
+    placeholder: 'Cerca...',
+  },
+  render: (args) => {
+    const [loading, setLoading] = useState(false);
+    const [options, setOptions] = useState<Array<City>>([]);
+    const [inputValue, setInputValue] = useState('');
+    const [value, setValue] = useState<Array<City>>([]);
+
+    const handleValueChange = async (inputValue: string) => {
+      setInputValue(inputValue);
+      /*setLoading(true);
+      await sleep(1e3);
+      setLoading(false);*/
+      setOptions(
+        cities.filter((city) => city.label.toLowerCase().includes(inputValue.toLowerCase()))
+      );
+    };
+
+    return (
+      <Autocomplete
+        {...args}
+        options={options}
+        onInputChange={handleValueChange}
+        // handleFiltering={(options) => options}
+        loading={loading}
+        inputValue={inputValue}
+        multiple
+        // onChange={setValue}
+        // value={value}
+      />
+    );
   },
 };

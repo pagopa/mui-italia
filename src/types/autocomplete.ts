@@ -15,9 +15,15 @@ interface AutocompleteSlotProps {
     'close-aria-label'?: string;
     'open-aria-label'?: string;
   };
-  loadingBox?: {
-    'ongoing-aria-label'?: string;
-    'completed-aria-label'?: string;
+  announcementBox?: {
+    /** Text announced when loading is shown */
+    loadingText?: string;
+    /** Text displayed when no options are available */
+    noResultsText?: string;
+    /** Text announced when user do a selection.
+     * Text must be in the form of "%s text you want", where %s is replaced with the list of the options selected.
+     */
+    selectionText?: string;
   };
   selectionBox?: {
     'aria-label'?: string;
@@ -27,7 +33,11 @@ interface AutocompleteSlotProps {
   };
 }
 
-export interface AutocompleteProps<T> {
+// if multiple is true, value is an array of T
+// otherwise we have a single element
+export type AutocompleteValue<T, Multiple> = Multiple extends true ? Array<T> : T;
+
+export interface AutocompleteProps<T, Multiple extends boolean | undefined> {
   /** Array of options to display in the dropdown */
   options: Array<T>;
 
@@ -44,13 +54,16 @@ export interface AutocompleteProps<T> {
   placeholder?: string;
 
   /** Enable multi-select mode with chips for selected options */
-  multiple?: boolean;
+  multiple?: Multiple;
 
-  /** Custom filtering function that overrides the default filtering behavior */
-  handleFiltering?: (inputValue: string, options: Array<T>) => Array<T>;
-
-  /** Text displayed when no options are available */
-  noResultsText?: string;
+  /** Custom filtering function that overrides the default filtering behavior.
+   * This must be an sync function. If you need the async filtering, set this function equal to (opts) => opts,
+   * and use a state to set the options from outside
+   */
+  handleFiltering?: (
+    options: Array<T>,
+    state: { inputValue: string; getOptionLabel: (option: T) => string }
+  ) => Array<T>;
 
   /** Disable the component */
   disabled?: boolean;
@@ -73,17 +86,20 @@ export interface AutocompleteProps<T> {
   /** Props to pass to the custom slot components */
   slotProps?: AutocompleteSlotProps;
 
+  /** Controlled autocomplete value that overrides internal state */
+  value?: AutocompleteValue<T, Multiple>;
+
   /** Controlled input value that overrides internal state */
-  value?: string;
+  inputValue?: string;
 
   /** Custom render function for each option in the dropdown */
   renderOption?: (value: T, index: number) => ReactNode;
 
+  /** Callback fired when the autocomplete value changes */
+  onChange?: (value: AutocompleteValue<T, Multiple>) => void;
+
   /** Callback fired when the input value changes */
   onInputChange?: (value: string) => void;
-
-  /** Callback fired when an option is selected */
-  onSelect?: (value: T | Array<T>) => void;
 
   /** Custom function to determine what value to set in the input after selection (return null to clear input) */
   setInputValueOnSelect?: (option: T) => string | null;
