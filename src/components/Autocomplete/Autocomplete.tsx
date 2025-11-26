@@ -84,8 +84,8 @@ const Autocomplete = <T,>({
 
     const focusingAnOption = activeIndex !== -1;
     const keepMenuOpen = isOpen && isIosDevice();
-    if (focusingAnOption || keepMenuOpen) {
-      return;
+    if (!focusingAnOption && !keepMenuOpen) {
+      setIsOpen(false);
     }
   };
 

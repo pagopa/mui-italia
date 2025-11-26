@@ -97,21 +97,8 @@ const AutocompleteContent = <T,>({
           onMouseLeave={() => setActiveIndex(-1)}
         >
           {filteredOptions.length === 0 && (
-            <ListItem
-              disablePadding
-              sx={{
-                backgroundColor: 0 === activeIndex ? 'rgba(0, 0, 0, 0.08)' : 'transparent',
-              }}
-            >
-              <ListItemButton
-                id={`${listboxId}-option-0`}
-                role="option"
-                tabIndex={-1}
-                sx={{ p: 0 }}
-                aria-selected={false}
-              >
-                <DefaultEmptyState noResultsText={noResultsText} />
-              </ListItemButton>
+            <ListItem disablePadding id={`${listboxId}-option-0`} role="option">
+              <DefaultEmptyState noResultsText={noResultsText} />
             </ListItem>
           )}
           {filteredOptions.length > 0 &&

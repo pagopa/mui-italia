@@ -1,5 +1,5 @@
 import { Chip } from '@components/Chip';
-import { ChipProps, List, ListItem, ListProps } from '@mui/material';
+import { Box, ChipProps, List, ListItem, ListProps } from '@mui/material';
 
 interface Props<T> {
   selectedOptions: Array<T>;
@@ -28,18 +28,20 @@ const MultiSelectChips = <T,>({
   };
 
   return (
-    <List sx={{ display: 'contents', gap: 1 }} disablePadding {...slotProps.list}>
+    <Box display="contents" role="list">
       {selectedOptions.map((option, index) => (
-        <ListItem key={getOptionKey(option, index)} disablePadding>
-          <Chip
-            label={getOptionLabel(option)}
-            onDelete={() => handleChipDelete(option)}
-            disabled={disabled}
-            {...slotProps.chip}
-          />
-        </ListItem>
+        <Chip
+          key={getOptionKey(option, index)}
+          label={getOptionLabel(option)}
+          onDelete={() => handleChipDelete(option)}
+          disabled={disabled}
+          {...slotProps.chip}
+          aria-setsize={selectedOptions.length}
+          aria-posinset={index + 1}
+          role="listitem"
+        />
       ))}
-    </List>
+    </Box>
   );
 };
 

@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { LocationOn, Place } from '@mui/icons-material';
 import { Box, Skeleton, Typography } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react';
