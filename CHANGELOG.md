@@ -1,3 +1,25 @@
+# [1.9.0-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v1.9.0-RC.0) (2025-11-26)
+
+
+### Features
+
+* **M20DS-45:** create autocomplete component ([#589](https://github.com/pagopa/mui-italia/issues/589)) ([a8595e5](https://github.com/pagopa/mui-italia/commit/a8595e59d89f59edbdd30a290f078599f741a96d))
+
+
+### Bug Fixes
+
+* **M20DS-45:** fixed build problems ([#602](https://github.com/pagopa/mui-italia/issues/602)) ([caab00e](https://github.com/pagopa/mui-italia/commit/caab00e86290c631f566dc2adca7565006433863))
+* **PN-16589:** aria-label in header dropdown for a11y ([#599](https://github.com/pagopa/mui-italia/issues/599)) ([f74b368](https://github.com/pagopa/mui-italia/commit/f74b368b35b27ce08c2e4c42e3791583839b1faf))
+* **M20DS-34:** improved input selection and fixed problems on mobile ([#595](https://github.com/pagopa/mui-italia/issues/595)) ([d7bbc27](https://github.com/pagopa/mui-italia/commit/d7bbc2724f3341cce942a5b2d33b70448962f251))
+* **M20DS-34:** CodeInput now supports native text selection and clipboard via overlay input ([#590](https://github.com/pagopa/mui-italia/issues/590)) ([ff46bb3](https://github.com/pagopa/mui-italia/commit/ff46bb3aba9edf71941af159b8934abeece989f9))
+
+
+### Chores
+
+* **MUI-229:** fixed release script when there is nothing to merge ([#597](https://github.com/pagopa/mui-italia/issues/597)) ([c6b6419](https://github.com/pagopa/mui-italia/commit/c6b64199dd6bdb6e39aa48e6344feb4aebe0ef5d))
+
+
+
 # [1.8.0](https://github.com/pagopa/mui-italia/releases/tag/v1.8.0) (2025-10-21)
 
 
