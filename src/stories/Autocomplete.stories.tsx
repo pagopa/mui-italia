@@ -27,7 +27,7 @@ const meta: Meta<typeof Autocomplete> = {
   },
   decorators: [
     (Story) => (
-      <Box sx={{ width: 400 }}>
+      <Box sx={{ width: { lg: 400, xs: 300 } }}>
         <Story />
       </Box>
     ),
