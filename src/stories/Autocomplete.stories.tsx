@@ -1,6 +1,7 @@
 import { LocationOn, Place } from '@mui/icons-material';
 import { Box, Skeleton, Typography } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react';
+import { userEvent, within } from '@storybook/test';
 import Autocomplete from '../components/Autocomplete/Autocomplete';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -65,6 +66,13 @@ export const Default: Story<City, false> = {
     label: 'Seleziona una città',
     placeholder: 'Cerca città...',
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole('combobox');
+    await userEvent.click(input);
+    const options = await canvas.findAllByRole('option');
+    await userEvent.hover(options[0]);
+  },
 };
 
 export const WithStartIcon: Story<City, false> = {
@@ -86,6 +94,14 @@ export const MultiSelect: Story<City, true> = {
     multiple: true,
     isOptionEqualToValue: (option, value) => option.id === value.id,
   },
+  /*
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole('combobox');
+    await userEvent.click(input);
+    await canvas.findByRole('option');
+  },
+  */
 };
 
 export const MultiSelectWithIcon: Story<City, true> = {

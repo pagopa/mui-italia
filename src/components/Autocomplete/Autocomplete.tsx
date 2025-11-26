@@ -13,7 +13,7 @@ import {
   FocusEvent,
 } from 'react';
 import { AutocompleteProps, AutocompleteValue } from 'types/autocomplete';
-import { isIosDevice } from 'utils/device';
+import { isMobileDevice } from 'utils/device';
 import { filterOptionsInternal } from 'utils/autocomplete';
 import AutocompleteContent from './AutocompleteContent';
 import MultiSelectChips from './MultiSelectChips';
