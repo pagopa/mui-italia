@@ -2,7 +2,6 @@ import { LocationOn, Place } from '@mui/icons-material';
 import { Box, Skeleton, Typography } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react';
 import Autocomplete from '../components/Autocomplete/Autocomplete';
-import { useCallback, useEffect, useState } from 'react';
 
 type City = {
   id: number;
@@ -201,50 +200,5 @@ export const WithCustomOptions: Story<{ key: number; value: string }, true> = {
     multiple: true,
     getOptionLabel: (option) => option.value,
     isOptionEqualToValue: (option, value) => option.key === value.key,
-  },
-};
-
-function sleep(duration: number): Promise<void> {
-  return new Promise<void>((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, duration);
-  });
-}
-
-export const TestAsync: Story<City, true> = {
-  args: {
-    label: 'Seleziona una città',
-    placeholder: 'Cerca...',
-  },
-  render: (args) => {
-    const [loading, setLoading] = useState(false);
-    const [options, setOptions] = useState<Array<City>>([]);
-    const [inputValue, setInputValue] = useState('');
-    const [value, setValue] = useState<Array<City>>([]);
-
-    const handleValueChange = async (inputValue: string) => {
-      setInputValue(inputValue);
-      /*setLoading(true);
-      await sleep(1e3);
-      setLoading(false);*/
-      setOptions(
-        cities.filter((city) => city.label.toLowerCase().includes(inputValue.toLowerCase()))
-      );
-    };
-
-    return (
-      <Autocomplete
-        {...args}
-        options={options}
-        onInputChange={handleValueChange}
-        // handleFiltering={(options) => options}
-        loading={loading}
-        inputValue={inputValue}
-        multiple
-        // onChange={setValue}
-        // value={value}
-      />
-    );
   },
 };

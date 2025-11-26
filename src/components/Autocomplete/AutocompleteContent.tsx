@@ -9,7 +9,7 @@ import {
   Skeleton,
   Stack,
 } from '@mui/material';
-import { ComponentType, FC, MouseEvent, MutableRefObject, ReactNode, RefObject } from 'react';
+import { ComponentType, FC, MouseEvent, ReactNode, RefObject } from 'react';
 
 type Props<T> = {
   multiple: boolean;
@@ -28,7 +28,6 @@ type Props<T> = {
   slots?: {
     loadingSkeleton?: ComponentType;
   };
-  isInteractingWithOption: MutableRefObject<boolean>;
 };
 
 const DefaultLoadingSkeleton: FC = () => (
@@ -57,7 +56,6 @@ const AutocompleteContent = <T,>({
   renderOption,
   loading = false,
   slots,
-  isInteractingWithOption,
 }: Props<T>) => {
   const handleOptionMouseDown = (event: MouseEvent<HTMLDivElement>) => {
     // Safari triggers focusOut before click, but if you
@@ -113,9 +111,6 @@ const AutocompleteContent = <T,>({
                   onClick={(event) => handleOptionClick(event, option)}
                   onMouseOver={() => setActiveIndex(index)}
                   onMouseDown={handleOptionMouseDown}
-                  onTouchStart={() => {
-                    isInteractingWithOption.current = true;
-                  }}
                   aria-posinset={index + 1}
                   aria-setsize={filteredOptions.length}
                   sx={{
