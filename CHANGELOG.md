@@ -1,3 +1,12 @@
+# [2.1.0-RC.2](https://github.com/pagopa/mui-italia/releases/tag/v2.1.0-RC.2) (2025-11-27)
+
+
+### Bug Fixes
+
+* **M20DS-45:** fixed autocomplete export and style issues ([#604](https://github.com/pagopa/mui-italia/issues/604)) ([fca8090](https://github.com/pagopa/mui-italia/commit/fca80905cde96bad92d8bc95c7cf019db24f0705))
+
+
+
 # [2.1.0-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v2.1.0-RC.1) (2025-11-26)
 
 
