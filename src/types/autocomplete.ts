@@ -37,7 +37,8 @@ interface AutocompleteSlotProps {
 // otherwise we have a single element
 export type AutocompleteValue<T, Multiple> = Multiple extends true ? Array<T> : T;
 
-export interface AutocompleteProps<T, Multiple extends boolean | undefined> {
+export interface AutocompleteProps<T, Multiple extends boolean | undefined>
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   /** Array of options to display in the dropdown */
   options: Array<T>;
 
