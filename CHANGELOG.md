@@ -1,3 +1,12 @@
+# [2.1.0-RC.3](https://github.com/pagopa/mui-italia/releases/tag/v2.1.0-RC.3) (2025-11-27)
+
+
+### Bug Fixes
+
+* **M20DS-45:** added html default properties ([#605](https://github.com/pagopa/mui-italia/issues/605)) ([513d15c](https://github.com/pagopa/mui-italia/commit/513d15cbe0d6785d9196204752c98af618770df0))
+
+
+
 # [2.1.0-RC.2](https://github.com/pagopa/mui-italia/releases/tag/v2.1.0-RC.2) (2025-11-27)
 
 
