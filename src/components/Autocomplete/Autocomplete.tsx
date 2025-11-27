@@ -11,6 +11,7 @@ import {
   KeyboardEvent,
   MouseEvent,
   FocusEvent,
+  useId,
 } from 'react';
 import { AutocompleteProps, AutocompleteValue } from 'types/autocomplete';
 import { isMobileDevice } from 'utils/device';
@@ -40,6 +41,7 @@ const Autocomplete = <T, M extends boolean | undefined>({
   onChange,
   onInputChange,
   setInputValueOnSelect,
+  sx,
 }: AutocompleteProps<T, M>) => {
   const [inputInternalValue, setInputInternalValue] = useState<string>('');
   const [internalValue, setInternalValue] = useState<Array<T> | T>(
@@ -51,8 +53,8 @@ const Autocomplete = <T, M extends boolean | undefined>({
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const listboxRef = useRef<HTMLUListElement>(null);
-  const listboxId = 'autocomplete-listbox';
-  const inputId = 'autocomplete-input';
+  const inputId = useId();
+  const listboxId = `${inputId}-listbox`;
 
   const currentInputValue = inputValue ?? inputInternalValue;
   const currentValue = value ?? internalValue;
@@ -354,14 +356,16 @@ const Autocomplete = <T, M extends boolean | undefined>({
     }
 
     if (isOpen && activeIndex >= 0 && listboxRef.current) {
-      const optionElement = listboxRef.current.querySelector(`#${listboxId}-option-${activeIndex}`);
+      const optionElement = listboxRef.current.querySelector(
+        CSS.escape(`#${listboxId}-option-${activeIndex}`)
+      );
       optionElement?.scrollIntoView({ block: 'nearest' });
     }
   }, [activeIndex, isOpen, disabled]);
 
   return (
     <>
-      <Box position="relative" width="100%" ref={containerRef} onBlur={handleBlur}>
+      <Box position="relative" ref={containerRef} onBlur={handleBlur} sx={sx}>
         <TextField
           id={inputId}
           fullWidth
@@ -423,12 +427,30 @@ const Autocomplete = <T, M extends boolean | undefined>({
           placement="bottom-start"
           modifiers={[
             {
+              name: 'flip',
+              enabled: true,
+              options: {
+                altBoundary: true,
+                rootBoundary: 'viewport',
+                padding: 8,
+              },
+            },
+            {
               name: 'sameWidth',
               enabled: true,
               phase: 'beforeWrite',
               requires: ['computeStyles'],
               fn: ({ state }) => {
                 state.styles.popper.width = `${state.rects.reference.width}px`;
+              },
+            },
+            {
+              name: 'offset',
+              options: {
+                // [skidding, distance]
+                // skidding: lateral movement (0)
+                // distance: distance from the input (es. 8px)
+                offset: [0, 8],
               },
             },
           ]}
@@ -441,7 +463,6 @@ const Autocomplete = <T, M extends boolean | undefined>({
             sx={{
               maxHeight: '240px',
               overflowY: 'auto',
-              my: 1,
             }}
           >
             {filteredOptions.length > 0 && (

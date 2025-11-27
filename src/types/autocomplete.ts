@@ -1,4 +1,4 @@
-import { SvgIconProps } from '@mui/material';
+import { SvgIconProps, SxProps } from '@mui/material';
 import { ComponentType, ReactNode } from 'react';
 
 interface AutocompleteSlots {
@@ -103,4 +103,7 @@ export interface AutocompleteProps<T, Multiple extends boolean | undefined> {
 
   /** Custom function to determine what value to set in the input after selection (return null to clear input) */
   setInputValueOnSelect?: (option: T) => string | null;
+
+  /** Custom style applied to the root container */
+  sx?: SxProps;
 }
