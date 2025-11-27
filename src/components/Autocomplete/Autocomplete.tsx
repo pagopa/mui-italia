@@ -21,6 +21,7 @@ import MultiSelectChips from './MultiSelectChips';
 import DefaultEmptyState from './DefaultEmptyState';
 
 const Autocomplete = <T, M extends boolean | undefined>({
+  id,
   options,
   getOptionLabel = (option: any) => option.label ?? option,
   isOptionEqualToValue = (option, value) => option === value,
@@ -42,6 +43,7 @@ const Autocomplete = <T, M extends boolean | undefined>({
   onInputChange,
   setInputValueOnSelect,
   sx,
+  ...other // all the HTML default properties (i.e. data-testid)
 }: AutocompleteProps<T, M>) => {
   const [inputInternalValue, setInputInternalValue] = useState<string>('');
   const [internalValue, setInternalValue] = useState<Array<T> | T>(
@@ -53,7 +55,8 @@ const Autocomplete = <T, M extends boolean | undefined>({
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const listboxRef = useRef<HTMLUListElement>(null);
-  const inputId = useId();
+  const generatedId = useId();
+  const inputId = id ?? generatedId;
   const listboxId = `${inputId}-listbox`;
 
   const currentInputValue = inputValue ?? inputInternalValue;
@@ -80,22 +83,6 @@ const Autocomplete = <T, M extends boolean | undefined>({
     inputValue: currentInputValue,
     getOptionLabel,
   });
-
-  // it resolves a bug with IOS devices
-  // when user clicks on an option, the dropdown is closed
-  /*
-  const handleInputBlur = () => {
-    if (disabled) {
-      return;
-    }
-
-    const focusingAnOption = activeIndex !== -1;
-    const keepMenuOpen = isOpen && isIosDevice();
-    if (!focusingAnOption && !keepMenuOpen) {
-      setIsOpen(false);
-    }
-  };
-  */
 
   const setInputValue = (v: string) => {
     // non controlled input
@@ -365,7 +352,7 @@ const Autocomplete = <T, M extends boolean | undefined>({
 
   return (
     <>
-      <Box position="relative" ref={containerRef} onBlur={handleBlur} sx={sx}>
+      <Box position="relative" ref={containerRef} onBlur={handleBlur} sx={sx} {...other}>
         <TextField
           id={inputId}
           fullWidth
