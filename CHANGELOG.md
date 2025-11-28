@@ -1,3 +1,15 @@
+# [1.9.0-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v1.9.0-RC.1) (2025-11-28)
+
+
+### Bug Fixes
+
+* **M20DS-45:** fixed error when initializing component with no option selected ([#606](https://github.com/pagopa/mui-italia/issues/606)) ([426e2c9](https://github.com/pagopa/mui-italia/commit/426e2c945f08565a233ac85e789873a5393c151d))
+* **M20DS-45:** added html default properties ([#605](https://github.com/pagopa/mui-italia/issues/605)) ([5af6a16](https://github.com/pagopa/mui-italia/commit/5af6a16aacf80deb27cef150ef86e957883954f3))
+* **M20DS-45:** fixed autocomplete export and style issues ([#604](https://github.com/pagopa/mui-italia/issues/604)) ([d6aff52](https://github.com/pagopa/mui-italia/commit/d6aff5250a47562047c3422ba8ac251f15054133))
+* **M20DS-45:** barrel export for autocomplete ([#603](https://github.com/pagopa/mui-italia/issues/603)) ([2b7a0a6](https://github.com/pagopa/mui-italia/commit/2b7a0a611c251bdaeea282feaaf5064cb9370451))
+
+
+
 # [1.9.0-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v1.9.0-RC.0) (2025-11-26)
 
 
