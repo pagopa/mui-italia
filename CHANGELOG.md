@@ -1,3 +1,12 @@
+# [2.1.0-RC.4](https://github.com/pagopa/mui-italia/releases/tag/v2.1.0-RC.4) (2025-11-28)
+
+
+### Bug Fixes
+
+* **M20DS-45:** fixed error when initializing component with no option selected ([#606](https://github.com/pagopa/mui-italia/issues/606)) ([12ee20e](https://github.com/pagopa/mui-italia/commit/12ee20ee8fdf9f174dc0af932a653b0ea90ae0fd))
+
+
+
 # [2.1.0-RC.3](https://github.com/pagopa/mui-italia/releases/tag/v2.1.0-RC.3) (2025-11-27)
 
 
