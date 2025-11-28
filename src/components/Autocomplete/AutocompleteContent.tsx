@@ -73,10 +73,15 @@ const AutocompleteContent = <T,>({
     handleOptionSelect(option);
   };
 
-  const isOptionSelectedInternal = (option: T) =>
-    multiple && Array.isArray(selectedOptions)
-      ? selectedOptions.some((selected) => isOptionEqualToValue?.(selected, option))
-      : isOptionEqualToValue?.(selectedOptions as T, option);
+  const isOptionSelectedInternal = (option: T) => {
+    if (multiple && Array.isArray(selectedOptions)) {
+      return selectedOptions.some((selected) => isOptionEqualToValue?.(selected, option));
+    }
+    if (selectedOptions as T) {
+      return isOptionEqualToValue?.(selectedOptions as T, option);
+    }
+    return;
+  };
 
   const SkeletonComponent = slots?.loadingSkeleton || DefaultLoadingSkeleton;
 

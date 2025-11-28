@@ -31,7 +31,7 @@ interface AutocompleteSlotProps {
   selectionChip?: {
     'aria-label'?: string;
   };
-  inputText?: Extract<TextFieldProps, 'name' | 'size'>;
+  inputText?: Pick<TextFieldProps, 'name'>;
 }
 
 /**
