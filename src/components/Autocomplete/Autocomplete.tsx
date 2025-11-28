@@ -13,14 +13,14 @@ import {
   FocusEvent,
   useId,
 } from 'react';
-import { AutocompleteProps, AutocompleteValue } from 'types/autocomplete';
+import { AutocompleteProps, AutocompleteValue, InputChangeReason } from 'types/autocomplete';
 import { isMobileDevice } from 'utils/device';
 import { filterOptionsInternal } from 'utils/autocomplete';
 import AutocompleteContent from './AutocompleteContent';
 import MultiSelectChips from './MultiSelectChips';
 import DefaultEmptyState from './DefaultEmptyState';
 
-const Autocomplete = <T, M extends boolean | undefined>({
+const Autocomplete = <T, M extends boolean | undefined = false>({
   id,
   options,
   getOptionLabel = (option: any) => option.label ?? option,
@@ -77,6 +77,7 @@ const Autocomplete = <T, M extends boolean | undefined>({
     },
     selectionBox: selectionBoxProps = { 'aria-label': 'Selected options' },
     selectionChip: selectionChipProps = {},
+    inputText: inputTextProps = {},
   } = slotProps;
 
   const filteredOptions = handleFiltering(options, {
@@ -84,7 +85,7 @@ const Autocomplete = <T, M extends boolean | undefined>({
     getOptionLabel,
   });
 
-  const setInputValue = (v: string) => {
+  const setInputValue = (v: string, reason: InputChangeReason) => {
     // non controlled input
     if (inputValue === undefined) {
       setInputInternalValue(v);
@@ -92,7 +93,7 @@ const Autocomplete = <T, M extends boolean | undefined>({
     if (v !== currentInputValue) {
       setActiveIndex(-1);
     }
-    onInputChange?.(v);
+    onInputChange?.(v, reason);
   };
 
   const setAutocompleteValue = (v: T | Array<T>) => {
@@ -108,7 +109,7 @@ const Autocomplete = <T, M extends boolean | undefined>({
       return;
     }
 
-    setInputValue(e.target.value);
+    setInputValue(e.target.value, 'input');
     setIsOpen(true);
   };
 
@@ -130,17 +131,17 @@ const Autocomplete = <T, M extends boolean | undefined>({
       } else {
         newSelectedOptions = [...currentValue, option];
       }
-      setInputValue('');
+      setInputValue('', 'selectOption');
       setAutocompleteValue(newSelectedOptions);
     } else {
       setInputFocus(false);
       if (setInputValueOnSelect) {
         const newValue = setInputValueOnSelect(option);
         if (newValue !== null) {
-          setInputValue(newValue);
+          setInputValue(newValue, 'selectOption');
         }
       } else {
-        setInputValue(getOptionLabel(option));
+        setInputValue(getOptionLabel(option), 'selectOption');
       }
       setAutocompleteValue(option);
     }
@@ -216,7 +217,7 @@ const Autocomplete = <T, M extends boolean | undefined>({
       return;
     }
 
-    setInputValue('');
+    setInputValue('', 'clear');
     if (multiple) {
       setAutocompleteValue([]);
     }
@@ -405,6 +406,7 @@ const Autocomplete = <T, M extends boolean | undefined>({
               boxSizing: 'border-box',
             },
           }}
+          {...inputTextProps}
         />
 
         <Popper
