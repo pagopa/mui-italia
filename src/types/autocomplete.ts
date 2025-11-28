@@ -1,4 +1,4 @@
-import { SvgIconProps, SxProps } from '@mui/material';
+import { SvgIconProps, SxProps, TextFieldProps } from '@mui/material';
 import { ComponentType, ReactNode } from 'react';
 
 interface AutocompleteSlots {
@@ -31,7 +31,17 @@ interface AutocompleteSlotProps {
   selectionChip?: {
     'aria-label'?: string;
   };
+  inputText?: Pick<TextFieldProps, 'name'>;
 }
+
+/**
+ * The reason that causes the input change.
+ * Can be:
+ * input (user input)
+ * selectOption (option selected)
+ * clear (when user clicks on clear button)
+ */
+export type InputChangeReason = 'input' | 'clear' | 'selectOption';
 
 // if multiple is true, value is an array of T
 // otherwise we have a single element
@@ -100,7 +110,7 @@ export interface AutocompleteProps<T, Multiple extends boolean | undefined>
   onChange?: (value: AutocompleteValue<T, Multiple>) => void;
 
   /** Callback fired when the input value changes */
-  onInputChange?: (value: string) => void;
+  onInputChange?: (value: string, reason: InputChangeReason) => void;
 
   /** Custom function to determine what value to set in the input after selection (return null to clear input) */
   setInputValueOnSelect?: (option: T) => string | null;
