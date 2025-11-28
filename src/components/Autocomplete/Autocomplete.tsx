@@ -11,15 +11,17 @@ import {
   KeyboardEvent,
   MouseEvent,
   FocusEvent,
+  useId,
 } from 'react';
-import { AutocompleteProps, AutocompleteValue } from 'types/autocomplete';
+import { AutocompleteProps, AutocompleteValue, InputChangeReason } from 'types/autocomplete';
 import { isMobileDevice } from 'utils/device';
 import { filterOptionsInternal } from 'utils/autocomplete';
 import AutocompleteContent from './AutocompleteContent';
 import MultiSelectChips from './MultiSelectChips';
 import DefaultEmptyState from './DefaultEmptyState';
 
-const Autocomplete = <T, M extends boolean | undefined>({
+const Autocomplete = <T, M extends boolean | undefined = false>({
+  id,
   options,
   getOptionLabel = (option: any) => option.label ?? option,
   isOptionEqualToValue = (option, value) => option === value,
@@ -40,6 +42,8 @@ const Autocomplete = <T, M extends boolean | undefined>({
   onChange,
   onInputChange,
   setInputValueOnSelect,
+  sx,
+  ...other // all the HTML default properties (i.e. data-testid)
 }: AutocompleteProps<T, M>) => {
   const [inputInternalValue, setInputInternalValue] = useState<string>('');
   const [internalValue, setInternalValue] = useState<Array<T> | T>(
@@ -51,8 +55,9 @@ const Autocomplete = <T, M extends boolean | undefined>({
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const listboxRef = useRef<HTMLUListElement>(null);
-  const listboxId = 'autocomplete-listbox';
-  const inputId = 'autocomplete-input';
+  const generatedId = useId();
+  const inputId = id ?? generatedId;
+  const listboxId = `${inputId}-listbox`;
 
   const currentInputValue = inputValue ?? inputInternalValue;
   const currentValue = value ?? internalValue;
@@ -72,6 +77,7 @@ const Autocomplete = <T, M extends boolean | undefined>({
     },
     selectionBox: selectionBoxProps = { 'aria-label': 'Selected options' },
     selectionChip: selectionChipProps = {},
+    inputText: inputTextProps = {},
   } = slotProps;
 
   const filteredOptions = handleFiltering(options, {
@@ -79,23 +85,7 @@ const Autocomplete = <T, M extends boolean | undefined>({
     getOptionLabel,
   });
 
-  // it resolves a bug with IOS devices
-  // when user clicks on an option, the dropdown is closed
-  /*
-  const handleInputBlur = () => {
-    if (disabled) {
-      return;
-    }
-
-    const focusingAnOption = activeIndex !== -1;
-    const keepMenuOpen = isOpen && isIosDevice();
-    if (!focusingAnOption && !keepMenuOpen) {
-      setIsOpen(false);
-    }
-  };
-  */
-
-  const setInputValue = (v: string) => {
+  const setInputValue = (v: string, reason: InputChangeReason) => {
     // non controlled input
     if (inputValue === undefined) {
       setInputInternalValue(v);
@@ -103,7 +93,7 @@ const Autocomplete = <T, M extends boolean | undefined>({
     if (v !== currentInputValue) {
       setActiveIndex(-1);
     }
-    onInputChange?.(v);
+    onInputChange?.(v, reason);
   };
 
   const setAutocompleteValue = (v: T | Array<T>) => {
@@ -119,7 +109,7 @@ const Autocomplete = <T, M extends boolean | undefined>({
       return;
     }
 
-    setInputValue(e.target.value);
+    setInputValue(e.target.value, 'input');
     setIsOpen(true);
   };
 
@@ -141,17 +131,17 @@ const Autocomplete = <T, M extends boolean | undefined>({
       } else {
         newSelectedOptions = [...currentValue, option];
       }
-      setInputValue('');
+      setInputValue('', 'selectOption');
       setAutocompleteValue(newSelectedOptions);
     } else {
       setInputFocus(false);
       if (setInputValueOnSelect) {
         const newValue = setInputValueOnSelect(option);
         if (newValue !== null) {
-          setInputValue(newValue);
+          setInputValue(newValue, 'selectOption');
         }
       } else {
-        setInputValue(getOptionLabel(option));
+        setInputValue(getOptionLabel(option), 'selectOption');
       }
       setAutocompleteValue(option);
     }
@@ -227,7 +217,7 @@ const Autocomplete = <T, M extends boolean | undefined>({
       return;
     }
 
-    setInputValue('');
+    setInputValue('', 'clear');
     if (multiple) {
       setAutocompleteValue([]);
     }
@@ -354,14 +344,16 @@ const Autocomplete = <T, M extends boolean | undefined>({
     }
 
     if (isOpen && activeIndex >= 0 && listboxRef.current) {
-      const optionElement = listboxRef.current.querySelector(`#${listboxId}-option-${activeIndex}`);
+      const optionElement = listboxRef.current.querySelector(
+        CSS.escape(`#${listboxId}-option-${activeIndex}`)
+      );
       optionElement?.scrollIntoView({ block: 'nearest' });
     }
   }, [activeIndex, isOpen, disabled]);
 
   return (
     <>
-      <Box position="relative" width="100%" ref={containerRef} onBlur={handleBlur}>
+      <Box position="relative" ref={containerRef} onBlur={handleBlur} sx={sx} {...other}>
         <TextField
           id={inputId}
           fullWidth
@@ -414,6 +406,7 @@ const Autocomplete = <T, M extends boolean | undefined>({
               boxSizing: 'border-box',
             },
           }}
+          {...inputTextProps}
         />
 
         <Popper
@@ -423,12 +416,30 @@ const Autocomplete = <T, M extends boolean | undefined>({
           placement="bottom-start"
           modifiers={[
             {
+              name: 'flip',
+              enabled: true,
+              options: {
+                altBoundary: true,
+                rootBoundary: 'viewport',
+                padding: 8,
+              },
+            },
+            {
               name: 'sameWidth',
               enabled: true,
               phase: 'beforeWrite',
               requires: ['computeStyles'],
               fn: ({ state }) => {
                 state.styles.popper.width = `${state.rects.reference.width}px`;
+              },
+            },
+            {
+              name: 'offset',
+              options: {
+                // [skidding, distance]
+                // skidding: lateral movement (0)
+                // distance: distance from the input (es. 8px)
+                offset: [0, 8],
               },
             },
           ]}
@@ -441,7 +452,6 @@ const Autocomplete = <T, M extends boolean | undefined>({
             sx={{
               maxHeight: '240px',
               overflowY: 'auto',
-              my: 1,
             }}
           >
             {filteredOptions.length > 0 && (
