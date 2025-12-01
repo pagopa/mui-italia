@@ -34,6 +34,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
   error = false,
   helperText,
   loading = false,
+  noResultsText = 'There are no matches to show',
   slots = {},
   slotProps = {},
   value,
@@ -72,12 +73,11 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
     },
     announcementBox: announcementBoxProps = {
       loadingText: 'Loading',
-      noResultsText: 'There are no matches to show',
       selectionText: '%s selected',
     },
     selectionBox: selectionBoxProps = { 'aria-label': 'Selected options' },
     selectionChip: selectionChipProps = {},
-    inputText: inputTextProps = {},
+    textField: textFieldProps = {},
   } = slotProps;
 
   const filteredOptions = handleFiltering(options, {
@@ -395,18 +395,17 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
               padding: '10px 12px',
               borderRadius: '8px',
               borderWidth: '2px',
-              position: 'relative',
               backgroundColor: disabled ? '#F4F5F8' : 'transparent',
               minHeight: '60px',
             },
             '& .MuiInputBase-input': {
               flex: '1 1 60px',
               minWidth: '60px',
-              padding: '8px 0',
+              padding: '0',
               boxSizing: 'border-box',
             },
           }}
-          {...inputTextProps}
+          {...textFieldProps}
         />
 
         <Popper
@@ -468,12 +467,13 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
                 renderOption={renderOption}
                 loading={loading}
                 slots={{ loadingSkeleton: LoadingSkeleton }}
+                slotProps={{ options: slotProps.options }}
                 getOptionLabel={getOptionLabel}
                 isOptionEqualToValue={isOptionEqualToValue}
               />
             )}
             {filteredOptions.length === 0 && (
-              <DefaultEmptyState noResultsText={announcementBoxProps.noResultsText ?? ''} />
+              <DefaultEmptyState noResultsText={noResultsText ?? ''} />
             )}
           </Paper>
         </Popper>
@@ -486,7 +486,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
         when results (or no result) are found.
        */}
       <Box aria-live="polite" role="status" sx={visuallyHidden} aria-atomic="true">
-        {!loading && filteredOptions.length === 0 && announcementBoxProps.noResultsText}
+        {!loading && filteredOptions.length === 0 && noResultsText}
         {loading && announcementBoxProps.loadingText}
         {Array.isArray(currentValue) &&
           currentValue.length > 0 &&

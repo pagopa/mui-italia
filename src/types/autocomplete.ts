@@ -18,8 +18,6 @@ interface AutocompleteSlotProps {
   announcementBox?: {
     /** Text announced when loading is shown */
     loadingText?: string;
-    /** Text displayed when no options are available */
-    noResultsText?: string;
     /** Text announced when user do a selection.
      * Text must be in the form of "%s text you want", where %s is replaced with the list of the options selected.
      */
@@ -31,7 +29,8 @@ interface AutocompleteSlotProps {
   selectionChip?: {
     'aria-label'?: string;
   };
-  inputText?: Pick<TextFieldProps, 'name'>;
+  textField?: Pick<TextFieldProps, 'name'>;
+  options?: {icon: ComponentType<SvgIconProps>};
 }
 
 /**
@@ -90,6 +89,9 @@ export interface AutocompleteProps<T, Multiple extends boolean | undefined>
 
   /** Show loading state with skeleton */
   loading?: boolean;
+
+   /** Text displayed when no options are available */
+  noResultsText?: string;
 
   /** Custom components to replace default icons and states */
   slots?: AutocompleteSlots;

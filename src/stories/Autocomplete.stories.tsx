@@ -155,11 +155,7 @@ export const CustomNoResults: Story<City, false> = {
     options: [],
     label: 'Seleziona una città',
     placeholder: 'Cerca...',
-    slotProps: {
-      announcementBox: {
-        noResultsText: 'Esempio di testo personalizzato per nessun risultato',
-      },
-    },
+    noResultsText: 'Esempio di testo personalizzato per nessun risultato',
   },
 };
 
