@@ -392,17 +392,24 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
               flexWrap: 'wrap',
               alignItems: 'center',
               gap: 1,
-              padding: '10px 12px',
-              borderRadius: '8px',
-              borderWidth: '2px',
+              padding: '0.625rem 0.75rem',
+              borderRadius: '0.5rem',
+              borderWidth: '0.125rem',
               backgroundColor: disabled ? '#F4F5F8' : 'transparent',
-              minHeight: '60px',
+              minHeight: '3rem',
             },
             '& .MuiInputBase-input': {
-              flex: '1 1 60px',
-              minWidth: '60px',
+              flex: '1 1 3.75rem',
+              minWidth: '3.75rem',
               padding: '0',
               boxSizing: 'border-box',
+            },
+            '& .MuiInputLabel-root': {
+              transform: 'translate(0.875rem, 0.663rem) scale(1)',
+
+              '&.MuiInputLabel-shrink': {
+                transform: 'translate(0.875rem, -0.663rem) scale(0.75)',
+              },
             },
           }}
           {...textFieldProps}
@@ -449,7 +456,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
             elevation={4}
             variant="elevation"
             sx={{
-              maxHeight: '240px',
+              maxHeight: '15rem',
               overflowY: 'auto',
             }}
           >
@@ -467,7 +474,6 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
                 renderOption={renderOption}
                 loading={loading}
                 slots={{ loadingSkeleton: LoadingSkeleton }}
-                slotProps={{ options: slotProps.options }}
                 getOptionLabel={getOptionLabel}
                 isOptionEqualToValue={isOptionEqualToValue}
               />

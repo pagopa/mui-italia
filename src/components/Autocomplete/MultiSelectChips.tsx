@@ -35,10 +35,11 @@ const MultiSelectChips = <T,>({
           label={getOptionLabel(option)}
           onDelete={() => handleChipDelete(option)}
           disabled={disabled}
-          {...slotProps.chip}
           aria-setsize={selectedOptions.length}
           aria-posinset={index + 1}
           role="listitem"
+          size="small"
+          {...slotProps.chip}
         />
       ))}
     </Box>

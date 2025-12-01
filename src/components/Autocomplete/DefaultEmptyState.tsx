@@ -17,7 +17,7 @@ const DefaultEmptyState: React.FC<Props> = ({ noResultsText }) => (
     }}
   >
     <ErrorOutlineOutlined sx={{ color: '#D9D9D9' }} />
-    <Typography fontWeight={600} fontSize="18px" color="textSecondary">
+    <Typography fontWeight={600} fontSize="1.125rem" color="textSecondary">
       {noResultsText}
     </Typography>
   </Stack>

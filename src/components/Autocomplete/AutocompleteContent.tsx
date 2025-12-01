@@ -4,12 +4,10 @@ import {
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
   ListItemSecondaryAction,
   ListItemText,
   Skeleton,
   Stack,
-  SvgIconProps,
 } from '@mui/material';
 import { ComponentType, FC, MouseEvent, ReactNode, RefObject } from 'react';
 
@@ -29,9 +27,6 @@ type Props<T> = {
   loading?: boolean;
   slots?: {
     loadingSkeleton?: ComponentType;
-  };
-  slotProps?: {
-    options?: { icon: ComponentType<SvgIconProps> };
   };
 };
 
@@ -61,7 +56,6 @@ const AutocompleteContent = <T,>({
   renderOption,
   loading = false,
   slots,
-  slotProps,
 }: Props<T>) => {
   const handleOptionMouseDown = (event: MouseEvent<HTMLDivElement>) => {
     // Safari triggers focusOut before click, but if you
@@ -90,7 +84,6 @@ const AutocompleteContent = <T,>({
   };
 
   const SkeletonComponent = slots?.loadingSkeleton || DefaultLoadingSkeleton;
-  const OptionIcon = slotProps?.options?.icon;
 
   return (
     <>
@@ -136,11 +129,6 @@ const AutocompleteContent = <T,>({
                     ...(multiple && { pr: 6 }),
                   }}
                 >
-                  {OptionIcon && (
-                    <ListItemIcon>
-                      <OptionIcon />
-                    </ListItemIcon>
-                  )}
                   <ListItemText
                     primary={renderOption ? renderOption(option, index) : optionLabel}
                     sx={{ margin: 0 }}

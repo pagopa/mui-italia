@@ -30,7 +30,6 @@ interface AutocompleteSlotProps {
     'aria-label'?: string;
   };
   textField?: Pick<TextFieldProps, 'name'>;
-  options?: {icon: ComponentType<SvgIconProps>};
 }
 
 /**
