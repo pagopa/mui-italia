@@ -1,3 +1,12 @@
+# [1.9.0-RC.2](https://github.com/pagopa/mui-italia/releases/tag/v1.9.0-RC.2) (2025-12-02)
+
+
+### Bug Fixes
+
+* **M20DS-45:** fix layout, hide clera icon after input clear and make emptyState configurable ([#607](https://github.com/pagopa/mui-italia/issues/607)) ([61b758a](https://github.com/pagopa/mui-italia/commit/61b758a5bc866936fcf241aa3ae382b9c2c7679e))
+
+
+
 # [1.9.0-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v1.9.0-RC.1) (2025-11-28)
 
 
