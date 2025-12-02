@@ -1,3 +1,12 @@
+# [1.9.0-RC.3](https://github.com/pagopa/mui-italia/releases/tag/v1.9.0-RC.3) (2025-12-02)
+
+
+### Bug Fixes
+
+* **M20DS-45:** added id to popper ([#608](https://github.com/pagopa/mui-italia/issues/608)) ([7024945](https://github.com/pagopa/mui-italia/commit/70249457b43e17beaf4af16143f430d5dd29714d))
+
+
+
 # [1.9.0-RC.2](https://github.com/pagopa/mui-italia/releases/tag/v1.9.0-RC.2) (2025-12-02)
 
 
