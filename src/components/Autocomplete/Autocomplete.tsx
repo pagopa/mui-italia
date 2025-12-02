@@ -42,7 +42,6 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
   renderOption,
   onChange,
   onInputChange,
-  setInputValueOnSelect,
   sx,
   ...other // all the HTML default properties (i.e. data-testid)
 }: AutocompleteProps<T, M>) => {
@@ -140,14 +139,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
       setAutocompleteValue(newSelectedOptions);
     } else {
       setInputFocus(false);
-      if (setInputValueOnSelect) {
-        const newValue = setInputValueOnSelect(option);
-        if (newValue !== null) {
-          setInputValue(newValue, 'selectOption');
-        }
-      } else {
-        setInputValue(getOptionLabel(option), 'selectOption');
-      }
+      setInputValue(getOptionLabel(option), 'selectOption');
       setAutocompleteValue(option);
     }
   };
@@ -422,6 +414,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
         />
 
         <Popper
+          id={`${inputId}-popper`}
           ref={popperRef}
           open={isOpen && !disabled}
           anchorEl={containerRef.current}
