@@ -34,6 +34,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
   error = false,
   helperText,
   loading = false,
+  noResultsText = 'There are no matches to show',
   slots = {},
   slotProps = {},
   value,
@@ -46,13 +47,14 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
   ...other // all the HTML default properties (i.e. data-testid)
 }: AutocompleteProps<T, M>) => {
   const [inputInternalValue, setInputInternalValue] = useState<string>('');
-  const [internalValue, setInternalValue] = useState<Array<T> | T>(
-    (multiple ? [] : null) as Array<T> | T
+  const [internalValue, setInternalValue] = useState<Array<T> | T | null>(
+    (multiple ? [] : null) as Array<T> | T | null
   );
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [activeIndex, setActiveIndex] = useState<number>(-1);
 
   const containerRef = useRef<HTMLDivElement>(null);
+  const popperRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const listboxRef = useRef<HTMLUListElement>(null);
   const generatedId = useId();
@@ -61,7 +63,11 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
 
   const currentInputValue = inputValue ?? inputInternalValue;
   const currentValue = value ?? internalValue;
-  const { startIcon: StartIcon, loadingSkeleton: LoadingSkeleton } = slots;
+  const {
+    startIcon: StartIcon,
+    loadingSkeleton: LoadingSkeleton,
+    emptyState: EmptyState = DefaultEmptyState,
+  } = slots;
 
   const {
     clearButton: clearButtonProps = { 'aria-label': 'Clear the entered text' },
@@ -72,12 +78,11 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
     },
     announcementBox: announcementBoxProps = {
       loadingText: 'Loading',
-      noResultsText: 'There are no matches to show',
       selectionText: '%s selected',
     },
     selectionBox: selectionBoxProps = { 'aria-label': 'Selected options' },
     selectionChip: selectionChipProps = {},
-    inputText: inputTextProps = {},
+    textField: textFieldProps = {},
   } = slotProps;
 
   const filteredOptions = handleFiltering(options, {
@@ -96,7 +101,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
     onInputChange?.(v, reason);
   };
 
-  const setAutocompleteValue = (v: T | Array<T>) => {
+  const setAutocompleteValue = (v: T | Array<T> | null) => {
     // non controlled autocomplete
     if (value === undefined) {
       setInternalValue(v);
@@ -218,9 +223,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
     }
 
     setInputValue('', 'clear');
-    if (multiple) {
-      setAutocompleteValue([]);
-    }
+    setAutocompleteValue(multiple ? [] : null);
     setIsOpen(false);
   };
 
@@ -247,7 +250,10 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
 
     // If the newly focused element isn't in the autocomplete component, we can close the dropdown
     // and deselect the option
-    if (!containerRef.current?.contains(event.relatedTarget)) {
+    if (
+      !containerRef.current?.contains(event.relatedTarget) &&
+      !popperRef.current?.contains(event.relatedTarget)
+    ) {
       setIsOpen(false);
       setActiveIndex(-1);
     }
@@ -392,24 +398,31 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
               flexWrap: 'wrap',
               alignItems: 'center',
               gap: 1,
-              padding: '10px 12px',
-              borderRadius: '8px',
-              borderWidth: '2px',
-              position: 'relative',
+              padding: '0.625rem 0.75rem',
+              borderRadius: '0.5rem',
+              borderWidth: '0.125rem',
               backgroundColor: disabled ? '#F4F5F8' : 'transparent',
-              minHeight: '60px',
+              minHeight: '3rem',
             },
             '& .MuiInputBase-input': {
-              flex: '1 1 60px',
-              minWidth: '60px',
-              padding: '8px 0',
+              flex: '1 1 3.75rem',
+              minWidth: '3.75rem',
+              padding: '0',
               boxSizing: 'border-box',
             },
+            '& .MuiInputLabel-root': {
+              transform: 'translate(0.875rem, 0.663rem) scale(1)',
+
+              '&.MuiInputLabel-shrink': {
+                transform: 'translate(0.875rem, -0.663rem) scale(0.75)',
+              },
+            },
           }}
-          {...inputTextProps}
+          {...textFieldProps}
         />
 
         <Popper
+          ref={popperRef}
           open={isOpen && !disabled}
           anchorEl={containerRef.current}
           keepMounted
@@ -450,7 +463,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
             elevation={4}
             variant="elevation"
             sx={{
-              maxHeight: '240px',
+              maxHeight: '15rem',
               overflowY: 'auto',
             }}
           >
@@ -472,9 +485,9 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
                 isOptionEqualToValue={isOptionEqualToValue}
               />
             )}
-            {filteredOptions.length === 0 && (
-              <DefaultEmptyState noResultsText={announcementBoxProps.noResultsText ?? ''} />
-            )}
+            <Box aria-live="polite" role="status">
+              <EmptyState noResultsText={noResultsText} filteredOptions={filteredOptions} />
+            </Box>
           </Paper>
         </Popper>
       </Box>
@@ -486,7 +499,6 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
         when results (or no result) are found.
        */}
       <Box aria-live="polite" role="status" sx={visuallyHidden} aria-atomic="true">
-        {!loading && filteredOptions.length === 0 && announcementBoxProps.noResultsText}
         {loading && announcementBoxProps.loadingText}
         {Array.isArray(currentValue) &&
           currentValue.length > 0 &&

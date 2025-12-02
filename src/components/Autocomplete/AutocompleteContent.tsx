@@ -14,7 +14,7 @@ import { ComponentType, FC, MouseEvent, ReactNode, RefObject } from 'react';
 type Props<T> = {
   multiple: boolean;
   filteredOptions: Array<T>;
-  selectedOptions: T | Array<T>;
+  selectedOptions: T | Array<T> | null;
   getOptionLabel: (option: T) => string;
   isOptionEqualToValue?: (option: T, value: T) => boolean;
   handleOptionSelect: (option: T) => void;
@@ -131,7 +131,7 @@ const AutocompleteContent = <T,>({
                 >
                   <ListItemText
                     primary={renderOption ? renderOption(option, index) : optionLabel}
-                    sx={{ margin: 0 }}
+                    sx={{ margin: 0, wordBreak: 'break-word' }}
                   />
                   {multiple && (
                     <ListItemSecondaryAction>
