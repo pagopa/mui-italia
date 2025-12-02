@@ -120,9 +120,6 @@ export interface AutocompleteProps<T, Multiple extends boolean | undefined>
   /** Callback fired when the input value changes */
   onInputChange?: (value: string, reason: InputChangeReason) => void;
 
-  /** Custom function to determine what value to set in the input after selection (return null to clear input) */
-  setInputValueOnSelect?: (option: T) => string | null;
-
   /** Custom style applied to the root container */
   sx?: SxProps;
 }
