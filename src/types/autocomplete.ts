@@ -1,15 +1,19 @@
 import { SvgIconProps, SxProps, TextFieldProps } from '@mui/material';
-import { ComponentType, ReactNode } from 'react';
+import { ComponentType, JSXElementConstructor, ReactNode } from 'react';
 
-interface AutocompleteSlots {
+interface AutocompleteSlots<T> {
   /** Icon displayed at the start of the input field */
   startIcon?: ComponentType<SvgIconProps>;
   /** Custom loading skeleton component shown during loading state */
   loadingSkeleton?: ComponentType;
+   /** Custom empty state component */
+  emptyState?: JSXElementConstructor<{filteredOptions: Array<T>}>;
 }
 
 interface AutocompleteSlotProps {
+  /** Clear button props */
   clearButton?: { 'aria-label': string };
+  /** Caret button props */
   toggleButton?: {
     hidden?: boolean;
     'close-aria-label'?: string;
@@ -23,12 +27,15 @@ interface AutocompleteSlotProps {
      */
     selectionText?: string;
   };
+  /** Props of the box containing the chips releated to the multiselection */
   selectionBox?: {
     'aria-label'?: string;
   };
+  /** Props of the chips releated to the multiselection */
   selectionChip?: {
     'aria-label'?: string;
   };
+  /** Props of the input field */
   textField?: Pick<TextFieldProps, 'name'>;
 }
 
@@ -93,7 +100,7 @@ export interface AutocompleteProps<T, Multiple extends boolean | undefined>
   noResultsText?: string;
 
   /** Custom components to replace default icons and states */
-  slots?: AutocompleteSlots;
+  slots?: AutocompleteSlots<T>;
 
   /** Props to pass to the custom slot components */
   slotProps?: AutocompleteSlotProps;

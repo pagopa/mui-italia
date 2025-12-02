@@ -47,13 +47,14 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
   ...other // all the HTML default properties (i.e. data-testid)
 }: AutocompleteProps<T, M>) => {
   const [inputInternalValue, setInputInternalValue] = useState<string>('');
-  const [internalValue, setInternalValue] = useState<Array<T> | T>(
-    (multiple ? [] : null) as Array<T> | T
+  const [internalValue, setInternalValue] = useState<Array<T> | T | null>(
+    (multiple ? [] : null) as Array<T> | T | null
   );
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [activeIndex, setActiveIndex] = useState<number>(-1);
 
   const containerRef = useRef<HTMLDivElement>(null);
+  const popperRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const listboxRef = useRef<HTMLUListElement>(null);
   const generatedId = useId();
@@ -62,7 +63,11 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
 
   const currentInputValue = inputValue ?? inputInternalValue;
   const currentValue = value ?? internalValue;
-  const { startIcon: StartIcon, loadingSkeleton: LoadingSkeleton } = slots;
+  const {
+    startIcon: StartIcon,
+    loadingSkeleton: LoadingSkeleton,
+    emptyState: EmptyState = DefaultEmptyState,
+  } = slots;
 
   const {
     clearButton: clearButtonProps = { 'aria-label': 'Clear the entered text' },
@@ -96,7 +101,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
     onInputChange?.(v, reason);
   };
 
-  const setAutocompleteValue = (v: T | Array<T>) => {
+  const setAutocompleteValue = (v: T | Array<T> | null) => {
     // non controlled autocomplete
     if (value === undefined) {
       setInternalValue(v);
@@ -218,9 +223,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
     }
 
     setInputValue('', 'clear');
-    if (multiple) {
-      setAutocompleteValue([]);
-    }
+    setAutocompleteValue(multiple ? [] : null);
     setIsOpen(false);
   };
 
@@ -247,7 +250,10 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
 
     // If the newly focused element isn't in the autocomplete component, we can close the dropdown
     // and deselect the option
-    if (!containerRef.current?.contains(event.relatedTarget)) {
+    if (
+      !containerRef.current?.contains(event.relatedTarget) &&
+      !popperRef.current?.contains(event.relatedTarget)
+    ) {
       setIsOpen(false);
       setActiveIndex(-1);
     }
@@ -416,6 +422,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
         />
 
         <Popper
+          ref={popperRef}
           open={isOpen && !disabled}
           anchorEl={containerRef.current}
           keepMounted
@@ -478,9 +485,9 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
                 isOptionEqualToValue={isOptionEqualToValue}
               />
             )}
-            {filteredOptions.length === 0 && (
-              <DefaultEmptyState noResultsText={noResultsText ?? ''} />
-            )}
+            <Box aria-live="polite" role="status">
+              <EmptyState noResultsText={noResultsText} filteredOptions={filteredOptions} />
+            </Box>
           </Paper>
         </Popper>
       </Box>
@@ -492,7 +499,6 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
         when results (or no result) are found.
        */}
       <Box aria-live="polite" role="status" sx={visuallyHidden} aria-atomic="true">
-        {!loading && filteredOptions.length === 0 && noResultsText}
         {loading && announcementBoxProps.loadingText}
         {Array.isArray(currentValue) &&
           currentValue.length > 0 &&
