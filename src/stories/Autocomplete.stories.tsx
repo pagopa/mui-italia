@@ -1,5 +1,5 @@
-import { LocationOn, Place } from '@mui/icons-material';
-import { Box, Skeleton, Typography } from '@mui/material';
+import { LocationOn, Place, Warning } from '@mui/icons-material';
+import { Box, Button, Skeleton, Stack, Typography } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react';
 import Autocomplete from '../components/Autocomplete/Autocomplete';
 
@@ -155,11 +155,7 @@ export const CustomNoResults: Story<City, false> = {
     options: [],
     label: 'Seleziona una città',
     placeholder: 'Cerca...',
-    slotProps: {
-      announcementBox: {
-        noResultsText: 'Esempio di testo personalizzato per nessun risultato',
-      },
-    },
+    noResultsText: 'Esempio di testo personalizzato per nessun risultato',
   },
 };
 
@@ -200,5 +196,35 @@ export const WithCustomOptions: Story<{ key: number; value: string }, true> = {
     multiple: true,
     getOptionLabel: (option) => option.value,
     isOptionEqualToValue: (option, value) => option.key === value.key,
+  },
+};
+
+export const CustomEmptyState: Story<City, false> = {
+  args: {
+    options: [],
+    label: 'Seleziona una città',
+    placeholder: 'Cerca...',
+    noResultsText: 'Esempio di testo personalizzato per nessun risultato',
+    slots: {
+      emptyState: () => (
+        <Stack
+          spacing={1}
+          alignItems="center"
+          textAlign="center"
+          sx={{
+            backgroundColor: '#F4F5F8',
+            py: 3,
+          }}
+        >
+          <Warning sx={{ color: '#D9D9D9' }} />
+          <Typography fontWeight={600} fontSize="1.125rem" color="textSecondary">
+            Il caricamento delle città è fallito
+          </Typography>
+          <Typography color="textSecondary" variant="body1" fontSize="16px" fontWeight={400}>
+            <Button onClick={(e) => e.stopPropagation()}>Prova di nuovo</Button>
+          </Typography>
+        </Stack>
+      ),
+    },
   },
 };

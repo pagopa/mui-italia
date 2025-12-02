@@ -1,15 +1,19 @@
 import { SvgIconProps, SxProps, TextFieldProps } from '@mui/material';
-import { ComponentType, ReactNode } from 'react';
+import { ComponentType, JSXElementConstructor, ReactNode } from 'react';
 
-interface AutocompleteSlots {
+interface AutocompleteSlots<T> {
   /** Icon displayed at the start of the input field */
   startIcon?: ComponentType<SvgIconProps>;
   /** Custom loading skeleton component shown during loading state */
   loadingSkeleton?: ComponentType;
+   /** Custom empty state component */
+  emptyState?: JSXElementConstructor<{filteredOptions: Array<T>}>;
 }
 
 interface AutocompleteSlotProps {
+  /** Clear button props */
   clearButton?: { 'aria-label': string };
+  /** Caret button props */
   toggleButton?: {
     hidden?: boolean;
     'close-aria-label'?: string;
@@ -18,20 +22,21 @@ interface AutocompleteSlotProps {
   announcementBox?: {
     /** Text announced when loading is shown */
     loadingText?: string;
-    /** Text displayed when no options are available */
-    noResultsText?: string;
     /** Text announced when user do a selection.
      * Text must be in the form of "%s text you want", where %s is replaced with the list of the options selected.
      */
     selectionText?: string;
   };
+  /** Props of the box containing the chips releated to the multiselection */
   selectionBox?: {
     'aria-label'?: string;
   };
+  /** Props of the chips releated to the multiselection */
   selectionChip?: {
     'aria-label'?: string;
   };
-  inputText?: Pick<TextFieldProps, 'name'>;
+  /** Props of the input field */
+  textField?: Pick<TextFieldProps, 'name'>;
 }
 
 /**
@@ -91,8 +96,11 @@ export interface AutocompleteProps<T, Multiple extends boolean | undefined>
   /** Show loading state with skeleton */
   loading?: boolean;
 
+   /** Text displayed when no options are available */
+  noResultsText?: string;
+
   /** Custom components to replace default icons and states */
-  slots?: AutocompleteSlots;
+  slots?: AutocompleteSlots<T>;
 
   /** Props to pass to the custom slot components */
   slotProps?: AutocompleteSlotProps;
