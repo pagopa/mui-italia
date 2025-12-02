@@ -2,7 +2,6 @@ import { LocationOn, Place, Warning } from '@mui/icons-material';
 import { Box, Button, Skeleton, Stack, Typography } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react';
 import Autocomplete from '../components/Autocomplete/Autocomplete';
-import { useState } from 'react';
 
 type City = {
   id: number;
@@ -227,18 +226,5 @@ export const CustomEmptyState: Story<City, false> = {
         </Stack>
       ),
     },
-  },
-};
-
-export const ProgrammaticUpdateWhileFocused: Story<City, false> = {
-  args: {
-    options: cities,
-    label: 'Seleziona una città',
-    placeholder: 'Cerca...',
-  },
-  render: (args) => {
-    const [loading, setLoading] = useState(false);
-
-    return <Autocomplete {...args} loading={loading} onInputChange={() => setLoading(true)} />;
   },
 };
