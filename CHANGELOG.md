@@ -1,3 +1,12 @@
+# [2.1.0-RC.8](https://github.com/pagopa/mui-italia/releases/tag/v2.1.0-RC.8) (2025-12-03)
+
+
+### Bug Fixes
+
+* **M20DS-45:** remove aria-label from chip container ([#611](https://github.com/pagopa/mui-italia/issues/611)) ([7c7305b](https://github.com/pagopa/mui-italia/commit/7c7305b2a998eecf18baa41e75ec04350639065b))
+
+
+
 # [2.1.0-RC.7](https://github.com/pagopa/mui-italia/releases/tag/v2.1.0-RC.7) (2025-12-03)
 
 
