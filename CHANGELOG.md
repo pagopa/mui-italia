@@ -1,3 +1,12 @@
+# [2.1.0-RC.7](https://github.com/pagopa/mui-italia/releases/tag/v2.1.0-RC.7) (2025-12-03)
+
+
+### Bug Fixes
+
+* **M20DS-45:** added added aria label to the multi-select chip ([#609](https://github.com/pagopa/mui-italia/issues/609)) ([7a8c89e](https://github.com/pagopa/mui-italia/commit/7a8c89eb01b46c4da7e38b123b2c622977a9e269))
+
+
+
 # [2.1.0-RC.6](https://github.com/pagopa/mui-italia/releases/tag/v2.1.0-RC.6) (2025-12-02)
 
 
