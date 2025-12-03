@@ -1,6 +1,6 @@
-import { StoryFn, Meta } from '@storybook/react';
+import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
+import { Meta, StoryFn } from '@storybook/react';
 import { breakpointsChromaticValues } from '@theme';
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { EnvironmentBanner } from './EnvironmentBanner';
 
 const componentMaxWidth = 900;
@@ -17,7 +17,7 @@ export default {
     bgColor: {
       control: {
         type: 'radio',
-        options: ['info', 'warning'],
+        options: ['white', 'info', 'warning'],
       },
     },
     message: {
@@ -37,7 +37,9 @@ export const Default: StoryFn<typeof EnvironmentBanner> = (args) => (
   <EnvironmentBanner
     {...args}
     message="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-    icon={<WarningAmberIcon fontSize="small" />}
+    icon={<LightbulbOutlinedIcon fontSize="small" />}
+    onClose={() => {}}
+    actionButton={{ label: 'Scopri di più', onClick: () => {} }}
   />
 );
 Default.args = {
