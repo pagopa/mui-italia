@@ -59,6 +59,7 @@ const Chip: FC<Exclude<ChipProps, 'deleteIcon' | 'label'> & { label: string }> =
       onClick={onClick}
       onDelete={onDelete}
       {...other}
+      aria-label={ariaLabel}
     />
   );
 };
