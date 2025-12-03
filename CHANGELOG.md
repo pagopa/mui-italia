@@ -1,3 +1,13 @@
+# [1.9.0-RC.4](https://github.com/pagopa/mui-italia/releases/tag/v1.9.0-RC.4) (2025-12-03)
+
+
+### Bug Fixes
+
+* **M20DS-45:** remove aria-label from chip container ([#611](https://github.com/pagopa/mui-italia/issues/611)) ([b2ccffc](https://github.com/pagopa/mui-italia/commit/b2ccffc3901b07787b94dff58e687b7f910a727f))
+* **M20DS-45:** added added aria label to the multi-select chip ([#609](https://github.com/pagopa/mui-italia/issues/609)) ([35d64fc](https://github.com/pagopa/mui-italia/commit/35d64fc3e3fae203cd69b196530f8968735d4d12))
+
+
+
 # [1.9.0-RC.3](https://github.com/pagopa/mui-italia/releases/tag/v1.9.0-RC.3) (2025-12-02)
 
 
