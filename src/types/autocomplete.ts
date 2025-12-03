@@ -33,6 +33,9 @@ interface AutocompleteSlotProps {
   };
   /** Props of the chips releated to the multiselection */
   selectionChip?: {
+    /** Text announced when user goes on the remove icon of a chip.
+     * Text must be in the form of "text you want %s", where %s is replaced with the label of the chip.
+     */
     'aria-label'?: string;
   };
   /** Props of the input field */
