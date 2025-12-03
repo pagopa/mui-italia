@@ -80,7 +80,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
       selectionText: '%s selected',
     },
     selectionBox: selectionBoxProps = { 'aria-label': 'Selected options' },
-    selectionChip: selectionChipProps = {},
+    selectionChip: selectionChipProps = { 'aria-label': 'Delete %s' },
     textField: textFieldProps = {},
   } = slotProps;
 
