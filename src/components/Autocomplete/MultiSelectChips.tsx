@@ -1,5 +1,5 @@
 import { Chip } from '@components/Chip';
-import { Box, ChipProps, ListProps } from '@mui/material';
+import { Box } from '@mui/material';
 
 interface Props<T> {
   selectedOptions: Array<T>;
@@ -7,8 +7,8 @@ interface Props<T> {
   disabled?: boolean;
   handleChipDelete: (option: T) => void;
   slotProps: {
-    list?: ListProps;
-    chip?: ChipProps;
+    list?: { 'aria-label'?: string };
+    chip?: { 'aria-label'?: string };
   };
 }
 
@@ -28,7 +28,7 @@ const MultiSelectChips = <T,>({
   };
 
   return (
-    <Box display="contents" role="list">
+    <Box display="contents" role="list" {...slotProps.list}>
       {selectedOptions.map((option, index) => (
         <Chip
           key={getOptionKey(option, index)}
