@@ -10,12 +10,10 @@ import { FC } from 'react';
  * With this component we are going to remove the role button attribute.
  */
 const Chip: FC<Exclude<ChipProps, 'deleteIcon' | 'label'> & { label: string }> = (props) => {
-  const { onDelete, onClick, sx, label, ...other } = props;
+  const { onDelete, onClick, sx, label, 'aria-label': ariaLabel, ...other } = props;
 
   // If onClick is undefined and onDelete is defined, we are in the case of deletable Chip
   const isDeletableOnly = onDelete && !onClick;
-
-  const ariaLabel = other['aria-label'] ?? `Delete %s`;
 
   if (isDeletableOnly) {
     // render a component without those properties that are linked to a button
@@ -36,7 +34,7 @@ const Chip: FC<Exclude<ChipProps, 'deleteIcon' | 'label'> & { label: string }> =
           <CancelIcon
             tabIndex={0}
             role="button"
-            aria-label={ariaLabel.replace('%s', label)}
+            aria-label={(ariaLabel ?? `Delete %s`).replace('%s', label)}
             style={{ cursor: 'pointer' }}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
