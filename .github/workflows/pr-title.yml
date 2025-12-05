@@ -21,6 +21,7 @@ jobs:
     # ignore pr opened from the branches below
     if: |
       !startsWith(github.head_ref, 'renovate/pin-dependencies') &&
+      !startsWith(github.head_ref, 'dependabot') &&
       !startsWith(github.head_ref, 'release/') &&
       !startsWith(github.head_ref, 'hotfix/') &&
       !startsWith(github.head_ref, 'main')
