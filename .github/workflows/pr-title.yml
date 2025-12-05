@@ -3,11 +3,9 @@ name: 'Validate PR title'
 # Event for the workflow
 on:
   pull_request:
+    # ignore pr opened to the branches below
     branches-ignore:
-      - release*
-      - hotfix*
-      - dependabot*
-      - renovate/pin-dependencies
+      - main
     types:
       - opened
       - edited
@@ -20,6 +18,13 @@ permissions:
 jobs:
   validate-pr-title:
     runs-on: ubuntu-22.04
+    # ignore pr opened from the branches below
+    if: |
+      !startsWith(github.head_ref, 'renovate/pin-dependencies') &&
+      !startsWith(github.head_ref, 'dependabot') &&
+      !startsWith(github.head_ref, 'release/') &&
+      !startsWith(github.head_ref, 'hotfix/') &&
+      !startsWith(github.head_ref, 'main')
     steps:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -56,4 +61,4 @@ jobs:
             test
           # Configure which scopes are allowed (newline-delimited).
           scopes: |
-            (?:MUI|mui|M20DS)-\d+
+            (?:\w+)-\d+
