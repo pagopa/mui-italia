@@ -1,3 +1,12 @@
+# [2.2.0-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.2.0-RC.0) (2025-12-05)
+
+
+### Features
+
+* **SELC-8026:** Update Enviroment Banner component layout ([#610](https://github.com/pagopa/mui-italia/issues/610)) ([71d7e7e](https://github.com/pagopa/mui-italia/commit/71d7e7e3665a81f7905378be90ffc36069b2d2d3))
+
+
+
 # [2.1.0](https://github.com/pagopa/mui-italia/releases/tag/v2.1.0) (2025-12-03)
 
 
