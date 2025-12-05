@@ -1,3 +1,74 @@
+# [1.9.0](https://github.com/pagopa/mui-italia/releases/tag/v1.9.0) (2025-12-03)
+
+
+### Chore
+
+* Bump version to v1.9.0 
+
+
+
+# [1.9.0-RC.4](https://github.com/pagopa/mui-italia/releases/tag/v1.9.0-RC.4) (2025-12-03)
+
+
+### Bug Fixes
+
+* **M20DS-45:** remove aria-label from chip container ([#611](https://github.com/pagopa/mui-italia/issues/611)) ([b2ccffc](https://github.com/pagopa/mui-italia/commit/b2ccffc3901b07787b94dff58e687b7f910a727f))
+* **M20DS-45:** added added aria label to the multi-select chip ([#609](https://github.com/pagopa/mui-italia/issues/609)) ([35d64fc](https://github.com/pagopa/mui-italia/commit/35d64fc3e3fae203cd69b196530f8968735d4d12))
+
+
+
+# [1.9.0-RC.3](https://github.com/pagopa/mui-italia/releases/tag/v1.9.0-RC.3) (2025-12-02)
+
+
+### Bug Fixes
+
+* **M20DS-45:** added id to popper ([#608](https://github.com/pagopa/mui-italia/issues/608)) ([7024945](https://github.com/pagopa/mui-italia/commit/70249457b43e17beaf4af16143f430d5dd29714d))
+
+
+
+# [1.9.0-RC.2](https://github.com/pagopa/mui-italia/releases/tag/v1.9.0-RC.2) (2025-12-02)
+
+
+### Bug Fixes
+
+* **M20DS-45:** fix layout, hide clera icon after input clear and make emptyState configurable ([#607](https://github.com/pagopa/mui-italia/issues/607)) ([61b758a](https://github.com/pagopa/mui-italia/commit/61b758a5bc866936fcf241aa3ae382b9c2c7679e))
+
+
+
+# [1.9.0-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v1.9.0-RC.1) (2025-11-28)
+
+
+### Bug Fixes
+
+* **M20DS-45:** fixed error when initializing component with no option selected ([#606](https://github.com/pagopa/mui-italia/issues/606)) ([426e2c9](https://github.com/pagopa/mui-italia/commit/426e2c945f08565a233ac85e789873a5393c151d))
+* **M20DS-45:** added html default properties ([#605](https://github.com/pagopa/mui-italia/issues/605)) ([5af6a16](https://github.com/pagopa/mui-italia/commit/5af6a16aacf80deb27cef150ef86e957883954f3))
+* **M20DS-45:** fixed autocomplete export and style issues ([#604](https://github.com/pagopa/mui-italia/issues/604)) ([d6aff52](https://github.com/pagopa/mui-italia/commit/d6aff5250a47562047c3422ba8ac251f15054133))
+* **M20DS-45:** barrel export for autocomplete ([#603](https://github.com/pagopa/mui-italia/issues/603)) ([2b7a0a6](https://github.com/pagopa/mui-italia/commit/2b7a0a611c251bdaeea282feaaf5064cb9370451))
+
+
+
+# [1.9.0-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v1.9.0-RC.0) (2025-11-26)
+
+
+### Features
+
+* **M20DS-45:** create autocomplete component ([#589](https://github.com/pagopa/mui-italia/issues/589)) ([a8595e5](https://github.com/pagopa/mui-italia/commit/a8595e59d89f59edbdd30a290f078599f741a96d))
+
+
+### Bug Fixes
+
+* **M20DS-45:** fixed build problems ([#602](https://github.com/pagopa/mui-italia/issues/602)) ([caab00e](https://github.com/pagopa/mui-italia/commit/caab00e86290c631f566dc2adca7565006433863))
+* **PN-16589:** aria-label in header dropdown for a11y ([#599](https://github.com/pagopa/mui-italia/issues/599)) ([f74b368](https://github.com/pagopa/mui-italia/commit/f74b368b35b27ce08c2e4c42e3791583839b1faf))
+* **M20DS-34:** improved input selection and fixed problems on mobile ([#595](https://github.com/pagopa/mui-italia/issues/595)) ([d7bbc27](https://github.com/pagopa/mui-italia/commit/d7bbc2724f3341cce942a5b2d33b70448962f251))
+* **M20DS-34:** CodeInput now supports native text selection and clipboard via overlay input ([#590](https://github.com/pagopa/mui-italia/issues/590)) ([ff46bb3](https://github.com/pagopa/mui-italia/commit/ff46bb3aba9edf71941af159b8934abeece989f9))
+
+
+### Chores
+
+* **MUI-229:** fixed release script when there is nothing to merge ([#597](https://github.com/pagopa/mui-italia/issues/597)) ([c6b6419](https://github.com/pagopa/mui-italia/commit/c6b64199dd6bdb6e39aa48e6344feb4aebe0ef5d))
+
+
+
 # [1.8.0](https://github.com/pagopa/mui-italia/releases/tag/v1.8.0) (2025-10-21)
 
 
