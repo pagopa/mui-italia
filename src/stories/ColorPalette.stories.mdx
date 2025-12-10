@@ -1,40 +1,57 @@
-import { Meta, ColorPalette, ColorItem } from "@storybook/addon-docs";
-import { theme } from "@theme";
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs';
+import foundation from 'theme/foundation';
 
 <Meta title="Foundation/Colors" />
-
 
 <h2>Main</h2>
 <br />
 <ColorPalette>
   <ColorItem
     title="Primary"
-    colors={{ Main: theme.palette.primary.main, Light: theme.palette.primary.light,  Dark: theme.palette.primary.dark, ContrastText: theme.palette.primary.contrastText }}
-  />
-  <ColorItem
-    title="Secondary"
-    colors={{ Main: theme.palette.secondary.main, Light: theme.palette.secondary.light,  Dark: theme.palette.secondary.dark, ContrastText: theme.palette.secondary.contrastText }}
+    colors={{
+      Main: foundation.palette.primary.main,
+      Dark: foundation.palette.primary.dark,
+      ContrastText: foundation.palette.primary.contrastText,
+    }}
   />
   <ColorItem
     title="Text"
-    colors={{ Primary: theme.palette.text.primary, Secondary: theme.palette.text.secondary, Disabled: theme.palette.text.disabled }}
+    colors={{
+      Primary: foundation.palette.text.primary,
+      Secondary: foundation.palette.text.secondary,
+      Disabled: foundation.palette.text.disabled,
+    }}
   />
-   <ColorItem
+  <ColorItem
     title="Background"
-    colors={{  Paper: theme.palette.background.paper, Default: theme.palette.background.default,  }}
+    colors={{
+      Paper: foundation.palette.background.paper,
+      Default: foundation.palette.background.default,
+    }}
   />
   <ColorItem
     title="Action"
     subtitle="Fill color for different components in various states"
-    colors={{ Active: theme.palette.action.active, Hover: theme.palette.action.hover, Selected: theme.palette.action.selected, focus: theme.palette.action.focus }}
+    colors={{
+      Active: foundation.palette.action.active,
+      Hover: foundation.palette.action.hover,
+      Selected: foundation.palette.action.selected,
+      focus: foundation.palette.action.focus,
+    }}
   />
   <ColorItem
     title="Action (Primary)"
-    colors={{ Hover:  theme.palette.primaryAction.hover,  Selected: theme.palette.primaryAction.selected }}
+    colors={{
+      Hover: foundation.palette.primaryAction.hover,
+      Selected: foundation.palette.primaryAction.selected,
+    }}
   />
   <ColorItem
     title="Action (Disabled)"
-    colors={{  Disabled: theme.palette.action.disabled, DisabledBackground: theme.palette.action.disabledBackground,  }}
+    colors={{
+      Disabled: foundation.palette.action.disabled,
+      DisabledBackground: foundation.palette.action.disabledBackground,
+    }}
   />
 </ColorPalette>
 
@@ -43,43 +60,71 @@ import { theme } from "@theme";
 <ColorPalette>
   <ColorItem
     title="Error"
-    colors={{ Main: theme.palette.error.main, Light: theme.palette.error.light, ExtraLight: theme.palette.error.extraLight,  Dark: theme.palette.error.dark, ContrastText: theme.palette.error.contrastText }}
+    colors={{
+      Main: foundation.palette.error.main,
+      ContrastText: foundation.palette.error.contrastText,
+    }}
   />
   <ColorItem
     title="Warning"
-    colors={{ Main: theme.palette.warning.main, Light: theme.palette.warning.light, ExtraLight: theme.palette.warning.extraLight,  Dark: theme.palette.warning.dark, ContrastText: theme.palette.warning.contrastText }}
+    colors={{
+      Main: foundation.palette.warning.main,
+      ContrastText: foundation.palette.warning.contrastText,
+    }}
   />
   <ColorItem
     title="Success"
-    colors={{ Main: theme.palette.success.main, Light: theme.palette.success.light, ExtraLight: theme.palette.success.extraLight,  Dark: theme.palette.success.dark, ContrastText: theme.palette.success.contrastText }}
+    colors={{
+      Main: foundation.palette.success.main,
+      ContrastText: foundation.palette.success.contrastText,
+    }}
   />
   <ColorItem
-    title="Info"
-    colors={{ Main: theme.palette.info.main, Light: theme.palette.info.light, ExtraLight: theme.palette.info.extraLight,  Dark: theme.palette.info.dark, ContrastText: theme.palette.info.contrastText }}
+    title="Highlighted"
+    colors={{
+      Main: foundation.palette.highlighted.main,
+      ContrastText: foundation.palette.highlighted.contrastText,
+    }}
+  />
+  <ColorItem
+    title="Neutral"
+    colors={{
+      Main: foundation.palette.neutral.main,
+      ContrastText: foundation.palette.neutral.contrastText,
+    }}
   />
 </ColorPalette>
 
 <h2>Misc</h2>
 <br />
 <ColorPalette>
-  <ColorItem
-    title="Divider"
-    colors={{ Divider: theme.palette.divider }}
-  />
+  <ColorItem title="Divider" colors={{ Divider: foundation.palette.divider }} />
   <ColorItem
     title="pagoPA"
-    colors={{ Main: theme.palette.pagoPA.main, ContrastText: theme.palette.pagoPA.contrastText }}
+    colors={{
+      Main: foundation.palette.pagoPA.main,
+      ContrastText: foundation.palette.pagoPA.contrastText,
+    }}
   />
   <ColorItem
     title="checkIban"
-    colors={{ Main: theme.palette.checkIban.main, ContrastText: theme.palette.checkIban.contrastText }}
+    colors={{
+      Main: foundation.palette.checkIban.main,
+      ContrastText: foundation.palette.checkIban.contrastText,
+    }}
   />
   <ColorItem
     title="European Union"
-    colors={{ Main: theme.palette.europeanUnion.main, ContrastText: theme.palette.europeanUnion.contrastText }}
+    colors={{
+      Main: foundation.palette.europeanUnion.main,
+      ContrastText: foundation.palette.europeanUnion.contrastText,
+    }}
   />
   <ColorItem
     title="Indigo"
-    colors={{ Main: theme.palette.indigo.main, ContrastText: theme.palette.indigo.contrastText }}
+    colors={{
+      Main: foundation.palette.indigo.main,
+      ContrastText: foundation.palette.indigo.contrastText,
+    }}
   />
 </ColorPalette>

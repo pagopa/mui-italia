@@ -3,9 +3,10 @@
 // Components
 import { SvgIcon as MuiSvgIcon, SvgIconProps, styled } from '@mui/material';
 import { ElementType, ReactElement } from 'react';
+import foundation from 'theme/foundation';
 
-const IllustrationSVG = styled(MuiSvgIcon)<SvgIconProps>(({ theme }) => ({
-  fill: theme.palette.secondary.main,
+const IllustrationSVG = styled(MuiSvgIcon)<SvgIconProps>(() => ({
+  fill: foundation.palette.secondary.main,
 }));
 
 IllustrationSVG.defaultProps = {

@@ -1,36 +1,30 @@
 'use client';
 import { ButtonNaked } from '@components/ButtonNaked';
-import CloseIcon from '@mui/icons-material/Close';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { Alert, Box, IconButton, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { ReactNode } from 'react';
-import { blue, divider, decorativeIcon, neutral, warning } from 'theme/colors';
+import foundation from 'theme/foundation';
+import { colors } from 'theme/foundations/colors';
 
 const COLOR_MAP = {
   white: {
-    bg: 'background.paper',
-    border: divider,
-    icon: decorativeIcon,
-    text: neutral.black,
-    action: blue[500],
+    bg: colors.neutral.white,
+    border: colors.neutral.grey[100],
+    icon: colors.neutral.grey[300],
+    text: colors.neutral.black,
+    action: colors.blue[500],
   },
   info: {
-    bg: blue[50],
-    border: blue[100],
-    icon: blue[200],
-    text: neutral.black,
-    action: blue[500],
-  },
-  warning: {
-    bg: warning[100],
-    border: warning[400],
-    icon: warning[850],
-    text: warning[850],
-    action: warning[850],
+    bg: colors.blue[50],
+    border: colors.blue[50],
+    icon: colors.blue[200],
+    text: colors.neutral.black,
+    action: colors.blue[500],
   },
 };
 
 export interface EnvironmentBannerProps {
-  bgColor?: 'white' | 'info' | 'warning';
+  bgColor?: 'white' | 'info';
   title?: string;
   message?: string;
   icon?: ReactNode;
@@ -38,7 +32,6 @@ export interface EnvironmentBannerProps {
   actionButton?: {
     label: string;
     onClick: () => void;
-    color?: string;
   };
 }
 
@@ -78,7 +71,7 @@ export const EnvironmentBanner = ({
                 color: COLOR_MAP.white.text,
               }}
             >
-              <CloseIcon />
+              <CloseRoundedIcon fontSize="small" />
             </IconButton>
           ),
         })}
@@ -143,7 +136,7 @@ export const EnvironmentBanner = ({
                   fontWeight: 'fontWeightMedium',
                   p: 0,
                   minWidth: 'auto',
-                  color: actionButton.color ?? variant.action,
+                  color: foundation.palette.primary.main,
                 }}
               >
                 {actionButton.label}

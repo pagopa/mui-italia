@@ -1,7 +1,5 @@
 // Components
-import { styled } from "@mui/material";
-
-import { theme } from "@theme";
+import { styled } from '@mui/material';
 
 // Partials
 import {
@@ -9,15 +7,16 @@ import {
   SvgOutline,
   SvgColorDark,
   SvgColorLight,
-} from "@assets/FundedByNextGenerationEU/partials";
+} from '@assets/FundedByNextGenerationEU/partials';
+import foundation from 'theme/foundation';
 
-const StyledSvg = styled("svg")({
-  display: "inline-block",
-  userSelect: "none",
+const StyledSvg = styled('svg')({
+  display: 'inline-block',
+  userSelect: 'none',
 });
 
-export type NextGeneratioNEUVariants = "filled" | "outline" | "color";
-export type NextGenerationEUColors = "light" | "dark" | "pantone";
+export type NextGeneratioNEUVariants = 'filled' | 'outline' | 'color';
+export type NextGenerationEUColors = 'light' | 'dark' | 'pantone';
 
 export interface FundedByNextGenerationEUPropsProps {
   /** Provides a human-readable title for the element that contains it. */
@@ -32,9 +31,9 @@ export interface FundedByNextGenerationEUPropsProps {
 }
 
 const colorMap = {
-  dark: theme.palette.text.primary,
-  light: theme.palette.common.white,
-  pantone: theme.palette.europeanUnion.main,
+  dark: foundation.palette.text.primary,
+  light: foundation.palette.common.white,
+  pantone: foundation.palette.europeanUnion.main,
 };
 
 const variantMap = {
@@ -51,8 +50,8 @@ const variantColorMap = {
 export const FundedByNextGenerationEU = ({
   title = "Finanziato dall'Unione Europea · NextGenerationEU",
   size = 200,
-  color = "dark",
-  variant = "outline",
+  color = 'dark',
+  variant = 'outline',
 }: FundedByNextGenerationEUPropsProps): JSX.Element => (
   <StyledSvg
     viewBox="0 0 1174 270"
@@ -64,10 +63,10 @@ export const FundedByNextGenerationEU = ({
       /* If the color variant is set,
       the following property is ignored */
       fill: colorMap[color],
-      maxWidth: "100%",
+      maxWidth: '100%',
     }}
   >
-    {variant === "color" ? variantColorMap[color] : variantMap[variant]}
+    {variant === 'color' ? variantColorMap[color] : variantMap[variant]}
     <title id="logo-next-genEU-titleID">{title}</title>
   </StyledSvg>
 );

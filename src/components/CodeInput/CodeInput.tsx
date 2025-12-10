@@ -1,6 +1,7 @@
 import { Box, Stack, Typography, useTheme, styled, keyframes, alpha } from '@mui/material';
 import { ChangeEvent, useId, useLayoutEffect, useRef, useState } from 'react';
-import { blue, error as errorColor, neutral as neutralColor } from './../../theme/colors';
+import foundation from 'theme/foundation';
+import { colors, customPalette } from 'theme/foundations/colors';
 
 /**
  * Layout constants used to size the code input component.
@@ -72,7 +73,7 @@ const Caret = styled('div')<{ position: CaretPosition['position'] }>(({ position
   width: '2px',
   borderRadius: '2px',
   height: '1em',
-  backgroundColor: blue[500],
+  backgroundColor: colors.blue[500],
   animation: `${blink} 1s step-start infinite`,
   transformOrigin: 'center',
   left: position === 'center' ? '50%' : position === 'end' ? 'calc(100% + 1px)' : '-1px',
@@ -105,11 +106,11 @@ const OverlayInput = styled('input')(({ theme }) => ({
 
   // highlight selection (no text, background only)
   '::selection': {
-    background: alpha(theme.palette.primary.main, 0.35),
+    background: alpha(foundation.palette.primary.main, 0.35),
     color: 'transparent',
   },
   '::-moz-selection': {
-    background: alpha(theme.palette.primary.main, 0.35),
+    background: alpha(foundation.palette.primary.main, 0.35),
     color: 'transparent',
   },
 }));
@@ -124,7 +125,7 @@ const CodeBox = styled(Box, {
     codeBoxPaddingBottom
   )}`,
   border: `${theme.spacing(error ? codeBoxErrorBorder : 0.125)} solid ${
-    error ? errorColor[600] : neutralColor[100]
+    error ? colors.error[600] : colors.neutral.grey[100]
   }`,
   borderRadius: theme.spacing(codeBoxBorderRadius),
   // Shared layout variables for OverlayInput and CharBox.
@@ -141,7 +142,7 @@ const CharBox = styled(Box)(({ theme }) => ({
   lineHeight: '1.5em',
   paddingBottom: theme.spacing(0.25),
   marginBottom: theme.spacing(0.5),
-  borderBottom: `1px solid ${neutralColor[700]}`,
+  borderBottom: `1px solid ${colors.neutral.grey[700]}`,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -161,7 +162,7 @@ const HelperText = styled(Typography, {
   boxSizing: 'content-box',
   paddingLeft: theme.spacing(3),
   paddingRight: theme.spacing(3),
-  color: error ? errorColor[600] : theme.palette.text.primary,
+  color: error ? colors.error[600] : customPalette.text.primary,
 }));
 
 /**
@@ -387,7 +388,7 @@ const CodeInput = ({
             fontSize: encrypted ? '1.5em' : '1em',
             fontFamily: `'Titillium Web', sans-serif`,
             fontWeight: 600,
-            color: theme.palette.text.primary,
+            color: foundation.palette.text.primary,
             position: 'relative',
             zIndex: 0,
             pointerEvents: 'none',

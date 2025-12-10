@@ -1,9 +1,10 @@
 import { StoryFn, Meta } from '@storybook/react';
 
-import { breakpointsChromaticValues, theme } from '@theme';
+import { breakpointsChromaticValues } from '@theme';
 
 import { HeaderProduct, PartyEntity, ProductEntity } from '@components/HeaderProduct';
 import { LogoIOApp } from '@assets/LogoIOApp';
+import foundation from 'theme/foundation';
 
 export default {
   title: 'Components/HeaderProduct (WIP)',
@@ -236,7 +237,7 @@ export const WithPartySelectionWithChip: StoryFn<typeof HeaderProduct> = () => (
 export const WithProductSelectionWithPartySelectionWithChip: StoryFn<typeof HeaderProduct> = () => (
   <HeaderProduct
     borderBottom={3}
-    borderColor={theme.palette.warning.main}
+    borderColor={foundation.palette.warning.main}
     chipColor="warning"
     chipLabel="Collaudo"
     productsList={productsList}
@@ -250,7 +251,7 @@ export const WithProductSelectionWithPartySelectionWithChipAndIconFunction: Stor
 > = () => (
   <HeaderProduct
     borderBottom={3}
-    borderColor={theme.palette.warning.main}
+    borderColor={foundation.palette.warning.main}
     chipColor="warning"
     chipLabel="Collaudo"
     productsList={productsList}
@@ -265,7 +266,7 @@ export const WithProductSelectionWithPartySelectionWithChipWithParentName: Story
 > = () => (
   <HeaderProduct
     borderBottom={3}
-    borderColor={theme.palette.warning.main}
+    borderColor={foundation.palette.warning.main}
     chipColor="warning"
     chipLabel="Collaudo"
     productsList={productsList}

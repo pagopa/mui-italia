@@ -1,15 +1,16 @@
 // Components
-import { styled } from "@mui/material";
+import { styled } from '@mui/material';
 
-import { theme } from "@theme";
+import { theme } from '@theme';
+import foundation from 'theme/foundation';
 
-const StyledSvg = styled("svg")({
-  display: "inline-block",
-  userSelect: "none",
+const StyledSvg = styled('svg')({
+  display: 'inline-block',
+  userSelect: 'none',
 });
 
-export type LogoPACompanyColors = "default" | "light" | "dark";
-export type LogoPACompanyVariants = "default" | "flat";
+export type LogoPACompanyColors = 'default' | 'light' | 'dark';
+export type LogoPACompanyVariants = 'default' | 'flat';
 
 export interface LogoPagoPACompanyProps {
   /** Provides a human-readable title for the element that contains it. */
@@ -22,16 +23,16 @@ export interface LogoPagoPACompanyProps {
 }
 
 const colorMap = {
-  default: theme.palette.secondary.main,
-  dark: theme.palette.common.black,
-  light: theme.palette.common.white,
+  default: foundation.palette.secondary.main,
+  dark: foundation.palette.common.black,
+  light: foundation.palette.common.white,
 };
 
 export const LogoPagoPACompany = ({
-  title = "PagoPA",
+  title = 'PagoPA',
   size = 120,
-  color = "default",
-  variant = "default",
+  color = 'default',
+  variant = 'default',
 }: LogoPagoPACompanyProps): JSX.Element => (
   <StyledSvg
     viewBox="0 0 119 33"
@@ -43,7 +44,7 @@ export const LogoPagoPACompany = ({
       fill: colorMap[color],
     }}
   >
-    {variant === "default" ? <DefaultVariant /> : <FlatVariant />}
+    {variant === 'default' ? <DefaultVariant /> : <FlatVariant />}
 
     <title id="logo-pagoPA-company-titleID">{title}</title>
   </StyledSvg>

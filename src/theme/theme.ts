@@ -4,16 +4,14 @@ import { CSSProperties } from 'react';
 /* Design Tokens */
 import { italia } from '@tokens';
 
-import muiSwitch from './muiSwitch';
+import muiSwitch from './components/muiSwitch';
 import { pxToRem } from './utility';
 import foundation from './foundation';
-import { mainTypeface, monospacedTypeface } from './fonts';
-import {
-  backdropBackground,
-  colorPrimaryContainedHover,
-  colorTextPrimary,
-  menuItemBackground,
-} from './colors';
+import { mainTypeface, monospacedTypeface } from './foundations/fonts';
+import { backdropBackground, colorTextPrimary, menuItemBackground } from './foundations/colors';
+import { chip } from './components/chip';
+import { colors } from './foundations/colors';
+import { color } from '@mui/system';
 
 /* Basic Configuration */
 
@@ -59,6 +57,13 @@ declare module '@mui/material/Badge' {
 }
 
 /* Custom Palette */
+/**
+ * original palette is
+ * main
+ * light
+ * dark
+ * contrastText
+ */
 declare module '@mui/material/styles' {
   interface Palette {
     pagoPA: Palette['primary'];
@@ -156,12 +161,6 @@ declare module '@mui/material/Pagination' {
   }
 }
 
-declare module '@mui/material/Chip' {
-  export interface ChipPropsColorOverrides {
-    indigo: true;
-  }
-}
-
 /*
 Used to generate different snapshots per component
 More info:  https://www.chromatic.com/docs/viewports
@@ -174,12 +173,13 @@ export const theme: Theme = createTheme(foundation, {
     headline: {
       fontSize: pxToRem(58),
       fontFamily: mainTypeface,
-      color: colorTextPrimary,
+      color: foundation.palette.text.primary,
       lineHeight: 1.1 /* ~64px */,
       fontWeight: foundation.typography.fontWeightBold,
     },
     h1: {
       fontSize: pxToRem(42),
+      color: foundation.palette.text.primary,
       lineHeight: 1.1 /* 46px */,
       fontWeight: foundation.typography.fontWeightBold,
       [foundation.breakpoints.up(responsiveBreakpoint)]: {
@@ -189,6 +189,7 @@ export const theme: Theme = createTheme(foundation, {
     },
     h2: {
       fontSize: pxToRem(36),
+      color: foundation.palette.text.primary,
       lineHeight: 1.1 /* ~40px */,
       fontWeight: foundation.typography.fontWeightBold,
       [foundation.breakpoints.up(responsiveBreakpoint)]: {
@@ -198,6 +199,7 @@ export const theme: Theme = createTheme(foundation, {
     },
     h3: {
       fontSize: pxToRem(32),
+      color: foundation.palette.text.primary,
       lineHeight: 1.125 /* 36px */,
       fontWeight: foundation.typography.fontWeightBold,
       [foundation.breakpoints.up(responsiveBreakpoint)]: {
@@ -207,6 +209,7 @@ export const theme: Theme = createTheme(foundation, {
     },
     h4: {
       fontSize: pxToRem(28),
+      color: foundation.palette.text.primary,
       lineHeight: 1.15 /* ~32px */,
       fontWeight: foundation.typography.fontWeightBold,
       [foundation.breakpoints.up(responsiveBreakpoint)]: {
@@ -216,6 +219,7 @@ export const theme: Theme = createTheme(foundation, {
     },
     h5: {
       fontSize: pxToRem(24),
+      color: foundation.palette.text.primary,
       lineHeight: 1.15 /* ~28px */,
       fontWeight: foundation.typography.fontWeightMedium,
       [foundation.breakpoints.up(responsiveBreakpoint)]: {
@@ -225,6 +229,7 @@ export const theme: Theme = createTheme(foundation, {
     },
     h6: {
       fontSize: pxToRem(22),
+      color: foundation.palette.text.primary,
       lineHeight: 1.18 /* ~26px */,
       fontWeight: foundation.typography.fontWeightMedium,
       [foundation.breakpoints.up(responsiveBreakpoint)]: {
@@ -236,11 +241,12 @@ export const theme: Theme = createTheme(foundation, {
       fontFamily: mainTypeface,
       fontSize: pxToRem(18),
       lineHeight: 1.35 /* ~24px */,
-      color: colorTextPrimary,
+      color: foundation.palette.text.primary,
       fontWeight: foundation.typography.fontWeightMedium,
     },
     body1: {
       fontSize: pxToRem(18),
+      color: foundation.palette.text.secondary,
       lineHeight: 1.5 /* ~28px */,
       fontWeight: foundation.typography.fontWeightRegular,
       letterSpacing: 0,
@@ -251,6 +257,7 @@ export const theme: Theme = createTheme(foundation, {
     },
     body2: {
       fontSize: pxToRem(16),
+      color: foundation.palette.text.secondary,
       lineHeight: 1.4 /* ~20px */,
       fontWeight: foundation.typography.fontWeightRegular,
       letterSpacing: 0.15,
@@ -266,6 +273,7 @@ export const theme: Theme = createTheme(foundation, {
     },
     caption: {
       fontSize: pxToRem(14),
+      color: foundation.palette.text.secondary,
       lineHeight: 1.4 /* ~20px */,
       fontWeight: foundation.typography.fontWeightRegular,
     },
@@ -273,19 +281,20 @@ export const theme: Theme = createTheme(foundation, {
       fontFamily: mainTypeface,
       fontSize: pxToRem(14),
       lineHeight: 1.4 /* ~20px */,
-      color: colorTextPrimary,
+      color: foundation.palette.text.primary,
       fontWeight: foundation.typography.fontWeightMedium,
     },
     monospaced: {
       fontFamily: monospacedTypeface,
       fontSize: pxToRem(16),
       lineHeight: 1.4 /* ~22px */,
-      color: colorTextPrimary,
+      color: foundation.palette.text.primary,
       letterSpacing: '0.15px',
       fontWeight: foundation.typography.fontWeightRegular,
     },
     overline: {
       fontSize: pxToRem(14),
+      color: foundation.palette.text.secondary,
       lineHeight: 1.15 /* ~16px */,
       fontWeight: foundation.typography.fontWeightBold,
       letterSpacing: 1,
@@ -300,6 +309,10 @@ export const theme: Theme = createTheme(foundation, {
       fontWeight: foundation.typography.fontWeightMedium,
     },
     subtitle2: {
+      a: {
+        color: italia[500],
+        textDecoration: 'underline',
+      },
       fontSize: pxToRem(14),
       fontWeight: foundation.typography.fontWeightMedium,
     },
@@ -324,13 +337,18 @@ export const theme: Theme = createTheme(foundation, {
           minWidth: pxToRem(24),
           '&.MuiButton-text': {
             '&:hover': {
-              backgroundColor: 'transparent',
-              color: '#0055AA',
+              color: foundation.palette.action.hover,
+              backgroundColor: colors.blue[50],
             },
           },
           '&.MuiButton-contained': {
             '&:hover': {
-              backgroundColor: '#0055AA',
+              backgroundColor: foundation.palette.action.hover,
+            },
+          },
+          '&.MuiButton-outlined': {
+            '&:hover': {
+              backgroundColor: colors.blue[50],
             },
           },
         },
@@ -386,17 +404,17 @@ export const theme: Theme = createTheme(foundation, {
         {
           props: { variant: 'naked' },
           style: {
-            color: foundation.palette.text.primary,
+            color: foundation.palette.primary.main,
             padding: 0,
             height: 'auto',
             minWidth: 'auto',
             '&:hover': {
-              color: alpha(foundation.palette.text.primary, 0.8),
+              color: foundation.palette.primary.dark,
               backgroundColor: 'transparent',
             },
             '&.Mui-focusVisible': {
               borderRadius: `${focusBorderRadius}`,
-              outline: `solid ${focusWidth} ${foundation.palette.text.primary}`,
+              outline: `solid ${focusWidth} ${foundation.palette.primary.main}`,
               outlineOffset: `${focusOffset}`,
               boxShadow: 'none',
             },
@@ -407,7 +425,7 @@ export const theme: Theme = createTheme(foundation, {
           style: {
             color: foundation.palette.primary.main,
             '&:hover': {
-              color: colorPrimaryContainedHover,
+              color: colors.blue[600],
             },
             '&.Mui-focusVisible': {
               borderRadius: `${focusBorderRadius}`,
@@ -561,7 +579,12 @@ export const theme: Theme = createTheme(foundation, {
           },
         },
         standardSuccess: {
-          borderColor: foundation.palette.success.main,
+          borderColor: colors.success[850],
+          backgroundColor: colors.success[100],
+          color: colors.success[850],
+          '& .MuiAlert-icon': {
+            color: colors.success[850],
+          },
         },
         outlinedSuccess: {
           borderColor: foundation.palette.success.main,
@@ -588,12 +611,17 @@ export const theme: Theme = createTheme(foundation, {
           },
         },
         standardWarning: {
-          borderColor: foundation.palette.warning.main,
+          borderColor: colors.warning[400],
+          backgroundColor: colors.warning[100],
+          color: colors.warning[850],
+          '& .MuiAlert-icon': {
+            color: colors.warning[850],
+          },
         },
         outlinedWarning: {
-          borderColor: foundation.palette.warning.main,
+          borderColor: colors.warning[700],
           '& .MuiAlert-icon': {
-            color: foundation.palette.warning.main,
+            color: colors.warning[850],
           },
         },
       },
@@ -671,143 +699,7 @@ export const theme: Theme = createTheme(foundation, {
         },
       },
     },
-    MuiChip: {
-      styleOverrides: {
-        root: {
-          height: 'auto',
-          borderRadius: foundation.spacing(5),
-        },
-        label: {
-          fontSize: pxToRem(14),
-          fontWeight: foundation.typography.fontWeightMedium,
-          lineHeight: 1.3 /* ~18px */,
-          letterSpacing: 0.5,
-          textAlign: 'center',
-          overflowWrap: 'break-word',
-          whiteSpace: 'normal',
-          textOverflow: 'clip',
-          padding: `${foundation.spacing(1)} ${foundation.spacing(1.5)}` /* 8px 12px */,
-        },
-        labelSmall: {
-          padding: `${foundation.spacing(0.5)} ${foundation.spacing(1)}` /* 4px 8px */,
-        },
-        deleteIcon: {
-          color: 'currentColor',
-          opacity: '0.7',
-          '&:hover': {
-            color: 'currentColor',
-            opacity: 1,
-          },
-        },
-        avatar: {
-          fontWeight: foundation.typography.fontWeightRegular,
-        },
-        outlined: {
-          borderRadius: foundation.spacing(5),
-          '&.MuiChip-outlinedDefault': {
-            color: colorTextPrimary,
-            borderColor: '#0000003B',
-            '& .MuiChip-avatar': {
-              backgroundColor: foundation.palette.grey[400],
-              color: '#17324D',
-            },
-          },
-          '&.MuiChip-outlinedPrimary': {
-            color: colorTextPrimary,
-            borderColor: colorTextPrimary,
-          },
-        },
-        filled: {
-          '&.MuiChip-colorDefault': {
-            backgroundColor: foundation.palette.grey[200],
-            color: foundation.palette.text.primary,
-          },
-          '&.MuiChip-colorPrimary': {
-            backgroundColor: foundation.palette.primary[100],
-            color: colorTextPrimary,
-          },
-          '&.MuiChip-colorSecondary': {
-            backgroundColor: alpha(foundation.palette.secondary.main, 0.5),
-            color: foundation.palette.text.primary,
-          },
-          '&.MuiChip-colorInfo': {
-            backgroundColor: foundation.palette.info[100],
-            color: foundation.palette.info[850],
-          },
-          '&.MuiChip-colorError': {
-            backgroundColor: foundation.palette.error[100],
-            color: foundation.palette.error[850],
-          },
-          '&.MuiChip-colorSuccess': {
-            backgroundColor: foundation.palette.success[100],
-            color: foundation.palette.success[850],
-          },
-          '&.MuiChip-colorWarning': {
-            backgroundColor: foundation.palette.warning[100],
-            color: foundation.palette.warning[850],
-          },
-        },
-        colorDefault: {
-          '& .MuiChip-avatar': {
-            backgroundColor: foundation.palette.grey[400],
-            color: foundation.palette.grey[700],
-          },
-          '& .MuiChip-deleteIcon': {
-            color: alpha(foundation.palette.text.primary, 0.23),
-          },
-        },
-        colorPrimary: {
-          '& .MuiChip-avatar': {
-            backgroundColor: foundation.palette.primary.light,
-            color: foundation.palette.primary.contrastText,
-          },
-          '& .MuiChip-deleteIcon': {
-            color: colorTextPrimary,
-          },
-        },
-        colorSecondary: {
-          '& .MuiChip-deleteIcon': {
-            color: colorTextPrimary,
-          },
-        },
-        colorInfo: {
-          '& .MuiChip-avatar': {
-            backgroundColor: foundation.palette.info.light,
-            color: foundation.palette.info[850],
-          },
-          '& .MuiChip-deleteIcon': {
-            color: foundation.palette.info[850],
-          },
-        },
-        colorError: {
-          '& .MuiChip-avatar': {
-            backgroundColor: foundation.palette.error.light,
-            color: foundation.palette.error[850],
-          },
-          '& .MuiChip-deleteIcon': {
-            color: foundation.palette.error[850],
-          },
-        },
-        colorSuccess: {
-          '& .MuiChip-avatar': {
-            backgroundColor: foundation.palette.success.light,
-            color: foundation.palette.success[850],
-          },
-          '& .MuiChip-deleteIcon': {
-            color: foundation.palette.success[850],
-          },
-        },
-        colorWarning: {
-          '& .MuiChip-avatar': {
-            backgroundColor: foundation.palette.warning.light,
-            color: foundation.palette.warning[850],
-          },
-          '& .MuiChip-deleteIcon': {
-            color: foundation.palette.warning[850],
-          },
-        },
-      },
-    },
+    MuiChip: chip,
     /** Start TEXT FIELD */
     MuiInput: {
       styleOverrides: {
@@ -822,7 +714,7 @@ export const theme: Theme = createTheme(foundation, {
           fontWeight: foundation.typography.fontWeightMedium,
           '& .MuiOutlinedInput-notchedOutline': {},
           '&.Mui-error .MuiOutlinedInput-notchedOutline': {
-            borderColor: foundation.palette.error.dark,
+            borderColor: foundation.palette.error.main,
           },
         },
       },
@@ -833,7 +725,7 @@ export const theme: Theme = createTheme(foundation, {
           color: foundation.palette.text.secondary,
           fontWeight: foundation.typography.fontWeightMedium,
           '&.Mui-error': {
-            color: foundation.palette.error.dark,
+            color: foundation.palette.error.main,
           },
         },
       },
@@ -842,7 +734,7 @@ export const theme: Theme = createTheme(foundation, {
       styleOverrides: {
         root: {
           '& .MuiSvgIcon-colorError': {
-            color: `${foundation.palette.error.dark}`,
+            color: `${foundation.palette.error.main}`,
           },
         },
       },
@@ -856,7 +748,7 @@ export const theme: Theme = createTheme(foundation, {
           fontWeight: foundation.typography.fontWeightMedium,
           letterSpacing: 0.5,
           '&.Mui-error': {
-            color: foundation.palette.error.dark,
+            color: foundation.palette.error.main,
           },
         },
       },

@@ -1,13 +1,13 @@
-import { StoryFn, Meta } from '@storybook/react';
-
 import { Chip } from '@mui/material';
+import { Meta, StoryFn } from '@storybook/react';
 
 export default {
   title: 'MUI Components/Data Display/Chips',
   component: Chip,
   argTypes: {
     color: {
-      options: ['default', 'primary', 'warning', 'info', 'error', 'success', 'indigo'],
+      options: ['default', 'warning', 'success', 'error', 'highlighted', 'neutral'],
+      defaultValue: 'default',
       control: { type: 'radio' },
       table: {
         type: { summary: 'string' },
@@ -17,28 +17,28 @@ export default {
     },
     variant: {
       options: ['filled', 'outlined'],
+      defaultValue: 'filled',
       control: { type: 'radio' },
       table: {
-        disable: true,
         type: { summary: 'string' },
         defaultValue: { summary: 'filled' },
       },
     },
-    size: {
-      options: ['small', 'medium'],
-      control: { type: 'radio' },
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: 'medium' },
-      },
-    },
-    disabled: {
-      control: { type: 'boolean' },
-      table: {
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
-      },
-    },
+    // size: {
+    //   options: ['small', 'medium'],
+    //   control: { type: 'radio' },
+    //   table: {
+    //     type: { summary: 'string' },
+    //     defaultValue: { summary: 'medium' },
+    //   },
+    // },
+    // disabled: {
+    //   control: { type: 'boolean' },
+    //   table: {
+    //     type: { summary: 'boolean' },
+    //     defaultValue: { summary: 'false' },
+    //   },
+    // },
   },
   parameters: {
     layout: 'centered',
@@ -58,7 +58,7 @@ Default.args = {
 
 export const Outline = Template.bind({});
 Outline.args = {
-  color: 'primary',
+  color: 'default',
   variant: 'outlined',
   label: 'Consegnata',
 };
@@ -75,7 +75,8 @@ Outline.argTypes = {
 
 export const Deletable = Template.bind({});
 Deletable.args = {
-  ...Default.args,
+  label: 'Chip dismissible',
+  color: 'neutral',
   onDelete: handleDelete,
 };
 Deletable.argTypes = {

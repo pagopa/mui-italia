@@ -1,18 +1,13 @@
-"use client";
+'use client';
 
-import { SxProps, styled } from "@mui/system";
-import { alpha } from "@mui/material/styles";
+import { SxProps, styled } from '@mui/system';
+import { alpha } from '@mui/material/styles';
 
-import { pxToRem, theme } from "@theme";
+import { pxToRem, theme } from '@theme';
+import foundation from 'theme/foundation';
 
-export type Variants = "default" | "light";
-export type Colors =
-  | "default"
-  | "primary"
-  | "warning"
-  | "error"
-  | "info"
-  | "success";
+export type Variants = 'default' | 'light';
+export type Colors = 'default' | 'primary' | 'warning' | 'error' | 'info' | 'success';
 
 export interface TagProps {
   /** Content of the component */
@@ -29,36 +24,36 @@ export interface TagProps {
 
 /* Transform HTML component into MUI Styled Component
 in order to accept `sx` prop */
-const StyledTag = styled("span")({
-  display: "inline-block",
+const StyledTag = styled('span')({
+  display: 'inline-block',
   fontSize: pxToRem(14),
   fontWeight: 600,
   letterSpacing: 0.5,
-  whiteSpace: "nowrap",
+  whiteSpace: 'nowrap',
 });
 
 export const Tag = ({
   value,
-  color = "default",
-  variant = "default",
+  color = 'default',
+  variant = 'default',
   sx = {},
   ...rest
 }: TagProps): JSX.Element => {
-  const tagNeutralBg = theme.palette.grey[100];
+  const tagNeutralBg = foundation.palette.grey[100];
   const tagBgColor =
-    color !== "default"
-      ? variant === "light"
-        ? alpha(theme.palette[color][100], 0.1)
-        : theme.palette[color][100]
+    color !== 'default'
+      ? variant === 'light'
+        ? alpha(foundation.palette[color][100], 0.1)
+        : foundation.palette[color][100]
       : tagNeutralBg;
 
   const tagTextColor =
-    color === "default" || color === "primary"
-      ? theme.palette.text.primary
-      : theme.palette[color][850];
+    color === 'default' || color === 'primary'
+      ? foundation.palette.text.primary
+      : foundation.palette[color][850];
 
   const style = {
-    userSelect: "none",
+    userSelect: 'none',
     py: 0.5,
     px: 0.75,
     backgroundColor: tagBgColor,

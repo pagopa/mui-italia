@@ -33,6 +33,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import SearchIcon from '@mui/icons-material/Search';
 import SentimentDissatisfied from '@mui/icons-material/SentimentDissatisfied';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import foundation from 'theme/foundation';
 
 export type PartySwitchItem = {
   id: string;
@@ -265,7 +266,7 @@ const StyledSwitcherButton = styled('div')(({ theme }) => ({
 
   '&.focusVisible': {
     outline: 'none',
-    boxShadow: `0 0 0 ${ringWidth} ${alpha(theme.palette.primary.main, 0.4)}`,
+    boxShadow: `0 0 0 ${ringWidth} ${alpha(foundation.palette.primary.main, 0.4)}`,
   },
 
   '&.disabled': {

@@ -1,11 +1,10 @@
 import { StoryFn, Meta } from '@storybook/react';
 
-import { theme } from '@theme';
-
 import { Badge } from '@mui/material';
 
 /* Icons */
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
+import foundation from 'theme/foundation';
 
 export default {
   title: 'MUI Components/Data Display/Badge',
@@ -40,7 +39,7 @@ export default {
 
 const Template: StoryFn<typeof Badge> = (args) => (
   <Badge {...args}>
-    <EmailRoundedIcon sx={{ color: theme.palette.text.primary }} />
+    <EmailRoundedIcon sx={{ color: foundation.palette.text.primary }} />
   </Badge>
 );
 
