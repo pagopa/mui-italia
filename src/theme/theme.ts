@@ -173,12 +173,13 @@ export const theme: Theme = createTheme(foundation, {
     headline: {
       fontSize: pxToRem(58),
       fontFamily: mainTypeface,
-      color: colorTextPrimary,
+      color: foundation.palette.text.primary,
       lineHeight: 1.1 /* ~64px */,
       fontWeight: foundation.typography.fontWeightBold,
     },
     h1: {
       fontSize: pxToRem(42),
+      color: foundation.palette.text.primary,
       lineHeight: 1.1 /* 46px */,
       fontWeight: foundation.typography.fontWeightBold,
       [foundation.breakpoints.up(responsiveBreakpoint)]: {
@@ -188,6 +189,7 @@ export const theme: Theme = createTheme(foundation, {
     },
     h2: {
       fontSize: pxToRem(36),
+      color: foundation.palette.text.primary,
       lineHeight: 1.1 /* ~40px */,
       fontWeight: foundation.typography.fontWeightBold,
       [foundation.breakpoints.up(responsiveBreakpoint)]: {
@@ -197,6 +199,7 @@ export const theme: Theme = createTheme(foundation, {
     },
     h3: {
       fontSize: pxToRem(32),
+      color: foundation.palette.text.primary,
       lineHeight: 1.125 /* 36px */,
       fontWeight: foundation.typography.fontWeightBold,
       [foundation.breakpoints.up(responsiveBreakpoint)]: {
@@ -206,6 +209,7 @@ export const theme: Theme = createTheme(foundation, {
     },
     h4: {
       fontSize: pxToRem(28),
+      color: foundation.palette.text.primary,
       lineHeight: 1.15 /* ~32px */,
       fontWeight: foundation.typography.fontWeightBold,
       [foundation.breakpoints.up(responsiveBreakpoint)]: {
@@ -215,6 +219,7 @@ export const theme: Theme = createTheme(foundation, {
     },
     h5: {
       fontSize: pxToRem(24),
+      color: foundation.palette.text.primary,
       lineHeight: 1.15 /* ~28px */,
       fontWeight: foundation.typography.fontWeightMedium,
       [foundation.breakpoints.up(responsiveBreakpoint)]: {
@@ -224,6 +229,7 @@ export const theme: Theme = createTheme(foundation, {
     },
     h6: {
       fontSize: pxToRem(22),
+      color: foundation.palette.text.primary,
       lineHeight: 1.18 /* ~26px */,
       fontWeight: foundation.typography.fontWeightMedium,
       [foundation.breakpoints.up(responsiveBreakpoint)]: {
@@ -235,11 +241,12 @@ export const theme: Theme = createTheme(foundation, {
       fontFamily: mainTypeface,
       fontSize: pxToRem(18),
       lineHeight: 1.35 /* ~24px */,
-      color: colorTextPrimary,
+      color: foundation.palette.text.primary,
       fontWeight: foundation.typography.fontWeightMedium,
     },
     body1: {
       fontSize: pxToRem(18),
+      color: foundation.palette.text.secondary,
       lineHeight: 1.5 /* ~28px */,
       fontWeight: foundation.typography.fontWeightRegular,
       letterSpacing: 0,
@@ -250,6 +257,7 @@ export const theme: Theme = createTheme(foundation, {
     },
     body2: {
       fontSize: pxToRem(16),
+      color: foundation.palette.text.secondary,
       lineHeight: 1.4 /* ~20px */,
       fontWeight: foundation.typography.fontWeightRegular,
       letterSpacing: 0.15,
@@ -265,6 +273,7 @@ export const theme: Theme = createTheme(foundation, {
     },
     caption: {
       fontSize: pxToRem(14),
+      color: foundation.palette.text.secondary,
       lineHeight: 1.4 /* ~20px */,
       fontWeight: foundation.typography.fontWeightRegular,
     },
@@ -272,19 +281,20 @@ export const theme: Theme = createTheme(foundation, {
       fontFamily: mainTypeface,
       fontSize: pxToRem(14),
       lineHeight: 1.4 /* ~20px */,
-      color: colorTextPrimary,
+      color: foundation.palette.text.primary,
       fontWeight: foundation.typography.fontWeightMedium,
     },
     monospaced: {
       fontFamily: monospacedTypeface,
       fontSize: pxToRem(16),
       lineHeight: 1.4 /* ~22px */,
-      color: colorTextPrimary,
+      color: foundation.palette.text.primary,
       letterSpacing: '0.15px',
       fontWeight: foundation.typography.fontWeightRegular,
     },
     overline: {
       fontSize: pxToRem(14),
+      color: foundation.palette.text.secondary,
       lineHeight: 1.15 /* ~16px */,
       fontWeight: foundation.typography.fontWeightBold,
       letterSpacing: 1,
@@ -299,6 +309,10 @@ export const theme: Theme = createTheme(foundation, {
       fontWeight: foundation.typography.fontWeightMedium,
     },
     subtitle2: {
+      a: {
+        color: italia[500],
+        textDecoration: 'underline',
+      },
       fontSize: pxToRem(14),
       fontWeight: foundation.typography.fontWeightMedium,
     },
@@ -324,6 +338,7 @@ export const theme: Theme = createTheme(foundation, {
           '&.MuiButton-text': {
             '&:hover': {
               color: foundation.palette.action.hover,
+              backgroundColor: colors.blue[50],
             },
           },
           '&.MuiButton-contained': {
@@ -389,17 +404,17 @@ export const theme: Theme = createTheme(foundation, {
         {
           props: { variant: 'naked' },
           style: {
-            color: foundation.palette.text.primary,
+            color: foundation.palette.primary.main,
             padding: 0,
             height: 'auto',
             minWidth: 'auto',
             '&:hover': {
-              color: alpha(foundation.palette.text.primary, 0.8),
+              color: foundation.palette.primary.dark,
               backgroundColor: 'transparent',
             },
             '&.Mui-focusVisible': {
               borderRadius: `${focusBorderRadius}`,
-              outline: `solid ${focusWidth} ${foundation.palette.text.primary}`,
+              outline: `solid ${focusWidth} ${foundation.palette.primary.main}`,
               outlineOffset: `${focusOffset}`,
               boxShadow: 'none',
             },

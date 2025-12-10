@@ -1,8 +1,9 @@
 'use client';
 import { ButtonNaked } from '@components/ButtonNaked';
-import CloseIcon from '@mui/icons-material/Close';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { Alert, Box, IconButton, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { ReactNode } from 'react';
+import foundation from 'theme/foundation';
 import { colors } from 'theme/foundations/colors';
 
 const COLOR_MAP = {
@@ -20,17 +21,10 @@ const COLOR_MAP = {
     text: colors.neutral.black,
     action: colors.blue[500],
   },
-  warning: {
-    bg: colors.warning[100],
-    border: colors.warning[400],
-    icon: colors.warning[850],
-    text: colors.warning[850],
-    action: colors.warning[850],
-  },
 };
 
 export interface EnvironmentBannerProps {
-  bgColor?: 'white' | 'info' | 'warning';
+  bgColor?: 'white' | 'info';
   title?: string;
   message?: string;
   icon?: ReactNode;
@@ -38,7 +32,6 @@ export interface EnvironmentBannerProps {
   actionButton?: {
     label: string;
     onClick: () => void;
-    color?: string;
   };
 }
 
@@ -78,7 +71,7 @@ export const EnvironmentBanner = ({
                 color: COLOR_MAP.white.text,
               }}
             >
-              <CloseIcon />
+              <CloseRoundedIcon fontSize="small" />
             </IconButton>
           ),
         })}
@@ -143,7 +136,7 @@ export const EnvironmentBanner = ({
                   fontWeight: 'fontWeightMedium',
                   p: 0,
                   minWidth: 'auto',
-                  color: actionButton.color ?? variant.action,
+                  color: foundation.palette.primary.main,
                 }}
               >
                 {actionButton.label}

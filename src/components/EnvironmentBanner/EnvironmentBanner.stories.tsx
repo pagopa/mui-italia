@@ -17,7 +17,7 @@ export default {
     bgColor: {
       control: {
         type: 'radio',
-        options: ['white', 'info', 'warning'],
+        options: ['white', 'info'],
       },
     },
     message: {
@@ -39,9 +39,13 @@ export const Default: StoryFn<typeof EnvironmentBanner> = (args) => (
     message="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     icon={<LightbulbOutlinedIcon fontSize="small" />}
     onClose={() => {}}
-    actionButton={{ label: 'Scopri di più', onClick: () => {} }}
+    actionButton={{
+      label: 'Scopri di più',
+      onClick: () => {},
+    }}
   />
 );
+
 Default.args = {
   bgColor: 'info',
 };
