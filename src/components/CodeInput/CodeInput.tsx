@@ -1,6 +1,6 @@
 import { Box, Stack, Typography, useTheme, styled, keyframes } from '@mui/material';
 import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
-import { palette } from '../../theme/foundations/colors';
+import { customPalette, palette } from '../../theme/foundations/colors';
 
 /**
  * Layout constants used to size the code input component.
@@ -119,7 +119,7 @@ const HelperText = styled(Typography, {
   boxSizing: 'content-box',
   paddingLeft: theme.spacing(3),
   paddingRight: theme.spacing(3),
-  color: error ? palette.error[600] : theme.palette.text.primary,
+  color: error ? palette.error[600] : customPalette.text.heading,
 }));
 
 /**
@@ -322,7 +322,7 @@ const CodeInput = ({
             fontSize: encrypted ? '1.5em' : '1em',
             fontFamily: `'Titillium Web', sans-serif`,
             fontWeight: 600,
-            color: theme.palette.text.primary,
+            color: customPalette.text.heading,
           }}
           aria-hidden
         >

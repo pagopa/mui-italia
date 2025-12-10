@@ -1,47 +1,26 @@
 import foundation from 'theme/foundation';
-import { palette } from 'theme/foundations/colors';
+import { colors, none } from 'theme/foundations/colors';
 import { pxToRem } from 'theme/utility';
-
-// const colors = {
-//   default: {
-//     filled: { background: palette.blue[50], text: palette.blue[850] },
-//     outlined: { background: 'transparent', text: palette.blue[600], border: palette.blue[600] },
-//   },
-//   warning: {
-//     filled: { background: palette.warning[100], text: palette.warning[850] },
-//     outlined: {
-//       background: 'transparent',
-//       text: palette.warning[850],
-//       border: palette.warning[850],
-//     },
-//   },
-//   success: {
-//     filled: { background: palette.success[100], text: palette.success[850] },
-//     outlined: {
-//       background: 'transparent',
-//       text: palette.success[850],
-//       border: palette.success[850],
-//     },
-//   },
-//   error: {
-//     filled: { background: palette.error[100], text: palette.error[850] },
-//     outlined: { background: 'transparent', text: palette.error[600] },
-//   },
-//   highlighted: {
-//     filled: { background: palette.turquoise[50], text: palette.turquoise[850] },
-//     outlined: { background: 'transparent', text: palette.turquoise[850] },
-//   },
-//   neutral: {
-//     filled: { background: palette.neutral.grey[100], text: palette.neutral.black },
-//     outlined: {
-//       background: 'transparent',
-//       text: palette.neutral.black,
-//       border: palette.neutral.black,
-//     },
-//   },
-// };
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import React from 'react';
+declare module '@mui/material/Chip' {
+  export interface ChipPropsColorOverrides {
+    highlighted: true;
+    neutral: true;
+    primary: false;
+  }
+}
 
 export const chip = {
+  defaultProps: {
+    deleteIcon: React.createElement(CloseRoundedIcon, {
+      fontSize: 'small',
+      sx: {
+        stroke: 'currentColor',
+        strokeWidth: 2,
+      },
+    }),
+  },
   styleOverrides: {
     root: {
       height: 'auto',
@@ -62,7 +41,7 @@ export const chip = {
       padding: `${foundation.spacing(0.5)} ${foundation.spacing(1)}` /* 4px 8px */,
     },
     deleteIcon: {
-      color: palette.blue[500],
+      color: colors.blue[500],
     },
     outlined: {
       borderRadius: foundation.spacing(5),
@@ -73,99 +52,106 @@ export const chip = {
       props: { variant: 'filled', color: 'default' },
       style: {
         border: 'none',
-        color: palette.blue[850],
-        backgroundColor: palette.blue[50],
+        color: colors.blue[850],
+        backgroundColor: colors.blue[50],
       },
     },
     {
       props: { variant: 'outlined', color: 'default' },
       style: {
-        border: `1px solid ${palette.blue[600]}`,
-        backgroundColor: 'transparent',
-        color: palette.blue[600],
+        border: `1px solid ${colors.blue[600]}`,
+        backgroundColor: none,
+        color: colors.blue[600],
       },
     },
     {
       props: { variant: 'filled', color: 'warning' },
       style: {
         border: 'none',
-        color: palette.warning[850],
-        backgroundColor: palette.warning[100],
+        color: colors.warning[850],
+        backgroundColor: colors.warning[100],
       },
     },
     {
       props: { variant: 'outlined', color: 'warning' },
       style: {
-        border: `1px solid ${palette.warning[850]}`,
-        backgroundColor: 'transparent',
-        color: palette.warning[850],
+        border: `1px solid ${colors.warning[850]}`,
+        backgroundColor: none,
+        color: colors.warning[850],
       },
     },
     {
       props: { variant: 'filled', color: 'success' },
       style: {
         border: 'none',
-        color: palette.success[850],
-        backgroundColor: palette.success[100],
+        color: colors.success[850],
+        backgroundColor: colors.success[100],
       },
     },
     {
       props: { variant: 'outlined', color: 'success' },
       style: {
-        border: `1px solid ${palette.success[850]}`,
+        border: `1px solid ${colors.success[850]}`,
         backgroundColor: 'transparent',
-        color: palette.success[850],
+        color: colors.success[850],
       },
     },
     {
       props: { variant: 'filled', color: 'highlighted' },
       style: {
         border: 'none',
-        color: palette.turquoise[850],
-        backgroundColor: palette.turquoise[50],
+        color: colors.turquoise[850],
+        backgroundColor: colors.turquoise[50],
       },
     },
     {
       props: { variant: 'outlined', color: 'highlighted' },
       style: {
-        border: `1px solid ${palette.turquoise[850]}`,
-        backgroundColor: 'transparent',
-        color: palette.turquoise[850],
+        border: `1px solid ${colors.turquoise[850]}`,
+        backgroundColor: none,
+        color: colors.turquoise[850],
       },
     },
     {
       props: { variant: 'filled', color: 'error' },
       style: {
         border: 'none',
-        color: palette.error[850],
-        backgroundColor: palette.error[100],
+        color: colors.error[850],
+        backgroundColor: colors.error[100],
       },
     },
     {
       props: { variant: 'outlined', color: 'error' },
       style: {
-        border: `1px solid ${palette.error[600]}`,
-        backgroundColor: 'transparent',
-        color: palette.error[600],
+        border: `1px solid ${colors.error[600]}`,
+        backgroundColor: none,
+        color: colors.error[600],
       },
     },
     {
       props: { variant: 'filled', color: 'neutral' },
       style: {
         border: 'none',
-        color: palette.neutral.black,
-        backgroundColor: palette.neutral.grey[100],
+        color: colors.neutral.black,
+        backgroundColor: colors.neutral.grey[100],
+      },
+      deleteIcon: {
+        color: colors.blue[500],
+        backgroundColor: none,
       },
     },
     {
       props: { variant: 'outlined', color: 'neutral' },
       style: {
-        border: `1px solid ${palette.neutral.black}`,
-        backgroundColor: 'transparent',
-        color: palette.neutral.black,
+        border: `1px solid ${colors.neutral.black}`,
+        backgroundColor: none,
+        color: colors.neutral.black,
       },
     },
   ],
 };
 
-export const MuiChip = {};
+// to do
+/**
+ * disable primary color chip
+ */
