@@ -1,10 +1,11 @@
-"use client";
+'use client';
 
-import { Avatar } from "@mui/material";
+import { Avatar } from '@mui/material';
 
-import AccountBalanceRoundedIcon from "@mui/icons-material/AccountBalanceRounded";
+import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded';
 
-import { theme } from "@theme";
+import { theme } from '@theme';
+import foundation from 'theme/foundation';
 
 export interface PartyAvatarProps {
   /** The id attribute added to the element */
@@ -30,30 +31,30 @@ export const PartyAvatar = ({
     alt={customAlt}
     src={customSrc}
     sx={{
-      position: "relative",
+      position: 'relative',
       width: size,
       height: size,
       backgroundColor: customSrc
-        ? theme.palette.background.paper
-        : theme.palette.grey[200],
-      boxSizing: "border-box",
+        ? foundation.palette.background.paper
+        : foundation.palette.grey[200],
+      boxSizing: 'border-box',
       padding: theme.spacing(0.75) /* 6px */,
       /* Color of the fallback icon */
-      color: theme.palette.text.disabled,
-      "& .MuiAvatar-img": {
-        objectFit: "contain",
-        objectPosition: "center",
+      color: foundation.palette.text.disabled,
+      '& .MuiAvatar-img': {
+        objectFit: 'contain',
+        objectPosition: 'center',
       },
       /* Inner shadow */
-      "&:after": {
+      '&:after': {
         content: "''",
-        position: "absolute",
+        position: 'absolute',
         left: 0,
         right: 0,
         top: 0,
         bottom: 0,
-        boxShadow: `inset 0 0 0 1px ${theme.palette.divider}`,
-        borderRadius: "inherit",
+        boxShadow: `inset 0 0 0 1px ${foundation.palette.divider}`,
+        borderRadius: 'inherit',
       },
     }}
   >

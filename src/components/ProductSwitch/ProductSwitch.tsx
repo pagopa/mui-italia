@@ -18,6 +18,7 @@ import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
 
 import { focusBorderRadius, focusOffset, focusWidth, theme } from '@theme';
 import { LinkType } from '@components/Footer';
+import foundation from 'theme/foundation';
 
 export type ProductSwitchItem = {
   id: string;
@@ -122,7 +123,7 @@ const StyledSwitcherButton = styled('div')(({ theme }) => ({
 
   '&.focusVisible': {
     borderRadius: `${focusBorderRadius}`,
-    outline: `solid ${focusWidth} ${theme.palette.primary.main}`,
+    outline: `solid ${focusWidth} ${foundation.palette.primary.main}`,
     outlineOffset: `${focusOffset}`,
     boxShadow: 'none',
   },

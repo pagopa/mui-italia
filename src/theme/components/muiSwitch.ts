@@ -22,7 +22,7 @@ const muiSwitch = {
       transitionDuration: '300ms',
       transform: 'translate(-9px, -9px)',
       ':hover': {
-        boxShadow: `0 0 0 8px ${foundation.palette.action.hover}`,
+        boxShadow: `0 0 0 8px ${alpha(foundation.palette.common.black, 0.08)}`,
       },
       '&.Mui-checked': {
         transform: 'translate(7px, -9px)',
@@ -48,21 +48,21 @@ const muiSwitch = {
           foundation.palette.mode === 'light'
             ? foundation.palette.grey[700]
             : foundation.palette.primary,
-        border: `6px solid #fff`,
+        border: `6px solid ${foundation.palette.common.white}`,
       },
       '&.Mui-focusVisible.Mui-checked .MuiSwitch-thumb': {
         color: foundation.palette.primary.main,
-        border: `6px solid #fff`,
+        border: `6px solid ${foundation.palette.common.white}`,
       },
       '&.MuiSwitch-colorError + .MuiSwitch-track': {
-        backgroundColor: foundation.palette.error.dark,
+        backgroundColor: foundation.palette.error.main,
       },
       '&.MuiSwitch-colorError.Mui-focusVisible .MuiSwitch-thumb': {
-        color: foundation.palette.error.dark,
-        border: `6px solid #fff`,
+        color: foundation.palette.error.main,
+        border: `6px solid ${foundation.palette.common.white}`,
       },
       '&.MuiSwitch-colorError:hover': {
-        boxShadow: `0 0 0 10px ${alpha(foundation.palette.error.dark, 0.08)}`,
+        boxShadow: `0 0 0 10px ${alpha(foundation.palette.error.main, 0.08)}`,
       },
 
       '&.Mui-disabled .MuiSwitch-thumb': {

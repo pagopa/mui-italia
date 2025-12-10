@@ -6,6 +6,7 @@ import { Typography, Box, Tooltip } from '@mui/material';
 
 import { PartyAvatar } from '@components/PartyAvatar';
 
+import foundation from 'theme/foundation';
 import { theme } from '@theme';
 
 export interface PartyAccountItemButtonProps {
@@ -60,15 +61,15 @@ export const PartyAccountItemButton = ({
         ...(!disabled && {
           cursor: 'pointer',
           '&:hover': {
-            backgroundColor: theme.palette.action.hover,
+            backgroundColor: foundation.palette.action.hover,
           },
         }),
         ...(selectedItem && {
-          boxShadow: `inset 2px 0 0 0 ${theme.palette.primary.main}`,
-          backgroundColor: theme.palette.primaryAction.selected,
-          color: theme.palette.text.primary,
+          boxShadow: `inset 2px 0 0 0 ${foundation.palette.primary.main}`,
+          backgroundColor: foundation.palette.primaryAction.selected,
+          color: foundation.palette.text.primary,
           '&:hover': {
-            backgroundColor: theme.palette.primaryAction.hover,
+            backgroundColor: foundation.palette.primaryAction.hover,
           },
         }),
       }}
@@ -81,7 +82,7 @@ export const PartyAccountItemButton = ({
         <Box
           sx={{
             ...(disabled && {
-              opacity: theme.palette.action.disabledOpacity,
+              opacity: foundation.palette.action.disabledOpacity,
             }),
             display: 'flex',
             alignItems: 'center',
@@ -96,7 +97,7 @@ export const PartyAccountItemButton = ({
             alignSelf: 'center',
             userSelect: 'text',
             ...(disabled && {
-              opacity: theme.palette.action.disabledOpacity,
+              opacity: foundation.palette.action.disabledOpacity,
               userSelect: 'none',
             }),
           }}

@@ -1,14 +1,14 @@
 // Components
-import { styled } from "@mui/material";
+import { styled } from '@mui/material';
 
-import { theme } from "@theme";
+import foundation from 'theme/foundation';
 
-const StyledSvg = styled("svg")({
-  display: "inline-block",
-  userSelect: "none",
+const StyledSvg = styled('svg')({
+  display: 'inline-block',
+  userSelect: 'none',
 });
 
-export type LogoPagoPAProductColors = "default" | "light" | "dark";
+export type LogoPagoPAProductColors = 'default' | 'light' | 'dark';
 
 export interface LogoPagoPAProductProps {
   /** Provides a human-readable title for the element that contains it. */
@@ -20,15 +20,15 @@ export interface LogoPagoPAProductProps {
 }
 
 const colorMap = {
-  default: theme.palette.pagoPA.main,
-  dark: theme.palette.common.black,
-  light: theme.palette.common.white,
+  default: foundation.palette.pagoPA.main,
+  dark: foundation.palette.common.black,
+  light: foundation.palette.common.white,
 };
 
 export const LogoPagoPAProduct = ({
-  title = "pagoPA",
+  title = 'pagoPA',
   size = 56,
-  color = "default",
+  color = 'default',
 }: LogoPagoPAProductProps): JSX.Element => (
   <StyledSvg
     viewBox="0 0 40 27"
@@ -36,7 +36,7 @@ export const LogoPagoPAProduct = ({
     aria-labelledby="logo-pagoPA-product-titleID"
     role="img"
     sx={{
-      width: size ? size : "auto",
+      width: size ? size : 'auto',
       fill: colorMap[color],
     }}
   >

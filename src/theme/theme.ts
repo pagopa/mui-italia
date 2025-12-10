@@ -8,13 +8,10 @@ import muiSwitch from './components/muiSwitch';
 import { pxToRem } from './utility';
 import foundation from './foundation';
 import { mainTypeface, monospacedTypeface } from './foundations/fonts';
-import {
-  backdropBackground,
-  colorPrimaryContainedHover,
-  colorTextPrimary,
-  menuItemBackground,
-} from './foundations/colors';
+import { backdropBackground, colorTextPrimary, menuItemBackground } from './foundations/colors';
 import { chip } from './components/chip';
+import { colors } from './foundations/colors';
+import { color } from '@mui/system';
 
 /* Basic Configuration */
 
@@ -326,13 +323,17 @@ export const theme: Theme = createTheme(foundation, {
           minWidth: pxToRem(24),
           '&.MuiButton-text': {
             '&:hover': {
-              backgroundColor: 'transparent',
-              color: '#0055AA',
+              color: foundation.palette.action.hover,
             },
           },
           '&.MuiButton-contained': {
             '&:hover': {
-              backgroundColor: '#0055AA',
+              backgroundColor: foundation.palette.action.hover,
+            },
+          },
+          '&.MuiButton-outlined': {
+            '&:hover': {
+              backgroundColor: colors.blue[50],
             },
           },
         },
@@ -409,7 +410,7 @@ export const theme: Theme = createTheme(foundation, {
           style: {
             color: foundation.palette.primary.main,
             '&:hover': {
-              color: colorPrimaryContainedHover,
+              color: colors.blue[600],
             },
             '&.Mui-focusVisible': {
               borderRadius: `${focusBorderRadius}`,
@@ -563,7 +564,12 @@ export const theme: Theme = createTheme(foundation, {
           },
         },
         standardSuccess: {
-          borderColor: foundation.palette.success.main,
+          borderColor: colors.success[850],
+          backgroundColor: colors.success[100],
+          color: colors.success[850],
+          '& .MuiAlert-icon': {
+            color: colors.success[850],
+          },
         },
         outlinedSuccess: {
           borderColor: foundation.palette.success.main,
@@ -590,12 +596,17 @@ export const theme: Theme = createTheme(foundation, {
           },
         },
         standardWarning: {
-          borderColor: foundation.palette.warning.main,
+          borderColor: colors.warning[400],
+          backgroundColor: colors.warning[100],
+          color: colors.warning[850],
+          '& .MuiAlert-icon': {
+            color: colors.warning[850],
+          },
         },
         outlinedWarning: {
-          borderColor: foundation.palette.warning.main,
+          borderColor: colors.warning[700],
           '& .MuiAlert-icon': {
-            color: foundation.palette.warning.main,
+            color: colors.warning[850],
           },
         },
       },
@@ -688,7 +699,7 @@ export const theme: Theme = createTheme(foundation, {
           fontWeight: foundation.typography.fontWeightMedium,
           '& .MuiOutlinedInput-notchedOutline': {},
           '&.Mui-error .MuiOutlinedInput-notchedOutline': {
-            borderColor: foundation.palette.error.dark,
+            borderColor: foundation.palette.error.main,
           },
         },
       },
@@ -699,7 +710,7 @@ export const theme: Theme = createTheme(foundation, {
           color: foundation.palette.text.secondary,
           fontWeight: foundation.typography.fontWeightMedium,
           '&.Mui-error': {
-            color: foundation.palette.error.dark,
+            color: foundation.palette.error.main,
           },
         },
       },
@@ -708,7 +719,7 @@ export const theme: Theme = createTheme(foundation, {
       styleOverrides: {
         root: {
           '& .MuiSvgIcon-colorError': {
-            color: `${foundation.palette.error.dark}`,
+            color: `${foundation.palette.error.main}`,
           },
         },
       },
@@ -722,7 +733,7 @@ export const theme: Theme = createTheme(foundation, {
           fontWeight: foundation.typography.fontWeightMedium,
           letterSpacing: 0.5,
           '&.Mui-error': {
-            color: foundation.palette.error.dark,
+            color: foundation.palette.error.main,
           },
         },
       },

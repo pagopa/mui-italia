@@ -1,5 +1,6 @@
 import { Box, Stack, Typography, useTheme, styled, keyframes, alpha } from '@mui/material';
 import { ChangeEvent, useId, useLayoutEffect, useRef, useState } from 'react';
+import foundation from 'theme/foundation';
 import { colors, customPalette } from 'theme/foundations/colors';
 
 /**
@@ -105,11 +106,11 @@ const OverlayInput = styled('input')(({ theme }) => ({
 
   // highlight selection (no text, background only)
   '::selection': {
-    background: alpha(theme.palette.primary.main, 0.35),
+    background: alpha(foundation.palette.primary.main, 0.35),
     color: 'transparent',
   },
   '::-moz-selection': {
-    background: alpha(theme.palette.primary.main, 0.35),
+    background: alpha(foundation.palette.primary.main, 0.35),
     color: 'transparent',
   },
 }));
@@ -161,7 +162,7 @@ const HelperText = styled(Typography, {
   boxSizing: 'content-box',
   paddingLeft: theme.spacing(3),
   paddingRight: theme.spacing(3),
-  color: error ? colors.error[600] : customPalette.text.heading,
+  color: error ? colors.error[600] : customPalette.text.primary,
 }));
 
 /**
@@ -387,7 +388,7 @@ const CodeInput = ({
             fontSize: encrypted ? '1.5em' : '1em',
             fontFamily: `'Titillium Web', sans-serif`,
             fontWeight: 600,
-            color: theme.palette.text.primary,
+            color: foundation.palette.text.primary,
             position: 'relative',
             zIndex: 0,
             pointerEvents: 'none',

@@ -95,20 +95,21 @@ const purple = {
 
 export const customPalette = {
   background: {
-    default: neutral.white,
+    // default: neutral.white,
     paper: neutral.white,
-    primary: neutral.white,
+    // primary: neutral.white,
     overlay: alpha(neutral.black, 0.2),
     blue: blue[500],
     skeleton: neutral.grey[100],
     opacity: neutral.grey[450],
     placeholder: neutral.grey[50],
-    blueItalia: blueitalia[50],
+    blueitalia: blueitalia[50],
   },
   primary: {
     main: blue[500],
     contrastText: neutral.white,
-    // light: '#2185E9',
+    light: blue[400], // to update with design system
+    dark: blue[600], // to update with design system
   },
   primaryAction: {
     hover: alpha(blue[500], 0.12) /* Primary 12% */,
@@ -117,6 +118,10 @@ export const customPalette = {
   negative: {
     main: neutral.white,
     contrastText: blue[500],
+  },
+  common: {
+    black: neutral.black,
+    white: neutral.white,
   },
 
   // REMOVED in new design system
@@ -130,6 +135,9 @@ export const customPalette = {
     main: '#0066CC',
     contrastText: neutral.white,
   },
+  io: {
+    main: '#0073e6ff',
+  },
   checkIban: {
     main: '#008CA8',
     contrastText: neutral.white,
@@ -142,22 +150,30 @@ export const customPalette = {
     main: indigo[500],
     contrastText: neutral.white,
   },
-  // action: {
-  //   active: '#5C6F82' /* Text/Secondary */,
-  //   hover: 'rgba(23, 50, 77, 0.08)' /* Text/Primary 8% */,
-  //   hoverOpacity: 0.08,
-  //   selected: 'rgba(23, 50, 77, 0.12)' /* Text/Primary 12% */,
-  //   disabled: 'rgba(23, 50, 77, 0.26)' /* Text/Primary 26% */,
-  //   disabledBackground: 'rgba(23, 50, 77, 0.12)' /* Text/Primary 12% */,
-  //   focus: 'rgba(23, 50, 77, 0.12)' /* Text/Primary 12% */,
-  // },
+  action: {
+    active: '#5C6F82' /* Text/Secondary */,
+    hover: blue[600],
+    hoverOpacity: 0.08,
+    selected: 'rgba(23, 50, 77, 0.12)' /* Text/Primary 12% */,
+    disabled: 'rgba(23, 50, 77, 0.26)' /* Text/Primary 26% */,
+    // disabledOpacity: 'rgba(23, 50, 77, 0.26)', // find correct value
+    disabledBackground: 'rgba(23, 50, 77, 0.12)' /* Text/Primary 12% */,
+    focus: 'rgba(23, 50, 77, 0.12)' /* Text/Primary 12% */,
+  },
+  info: {
+    main: '#6BCFFB',
+    dark: '#5BB0D5',
+    light: '#7ED5FC',
+    extraLight: '#86E1FD',
+    contrastText: colorTextPrimary,
+    100: '#E1F5FE',
+    850: '#215C76',
+  },
   // end removed
 
   text: {
-    heading: neutral.black,
-    description: neutral.grey[700],
-    primary: blue[500],
-    secondary: neutral.grey[650],
+    primary: neutral.black,
+    secondary: neutral.grey[700],
     disabled: neutral.grey[300],
   },
 
@@ -165,15 +181,7 @@ export const customPalette = {
   divider: neutral.grey[100],
 
   /* Indicator/Validation */
-  // info: {
-  //   main: '#6BCFFB',
-  //   dark: '#5BB0D5',
-  //   light: '#7ED5FC',
-  //   extraLight: '#86E1FD',
-  //   contrastText: colorTextPrimary,
-  //   100: '#E1F5FE',
-  //   850: '#215C76',
-  // },
+
   warning: {
     main: warning[850],
     contrastText: warning[100],
@@ -193,9 +201,9 @@ export const customPalette = {
     // 850: '#224021',
   },
   error: {
-    main: error[500],
+    main: error[600],
     contrastText: neutral.white,
-    // dark: '#D85757',
+    dark: error[850], // to update with design system
     // light: '#FE7A7A',
     // extraLight: '#FB9EAC',
     // 100: '#FFE0E0',

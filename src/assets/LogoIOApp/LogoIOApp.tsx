@@ -1,14 +1,14 @@
 // Components
-import { styled } from "@mui/material";
+import { styled } from '@mui/material';
 
-import { theme } from "@theme";
+import foundation from 'theme/foundation';
 
-const StyledSvg = styled("svg")({
-  display: "inline-block",
-  userSelect: "none",
+const StyledSvg = styled('svg')({
+  display: 'inline-block',
+  userSelect: 'none',
 });
 
-export type LogoIOAppColors = "default" | "light" | "dark";
+export type LogoIOAppColors = 'default' | 'light' | 'dark';
 
 export interface LogoIOAppProps {
   /** Provides a human-readable title for the element that contains it. */
@@ -20,15 +20,15 @@ export interface LogoIOAppProps {
 }
 
 const colorMap = {
-  default: theme.palette.primary.main,
-  dark: theme.palette.common.black,
-  light: theme.palette.common.white,
+  default: foundation.palette.primary.main,
+  dark: foundation.palette.text.primary,
+  light: foundation.palette.common.white,
 };
 
 export const LogoIOApp = ({
-  title = "App IO",
+  title = 'App IO',
   size = 48,
-  color = "default",
+  color = 'default',
 }: LogoIOAppProps): JSX.Element => (
   <StyledSvg
     viewBox="0 0 106 90"
