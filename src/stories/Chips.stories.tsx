@@ -1,10 +1,7 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-
 import { Chip } from '@mui/material';
-import { Chip } from '@mui/material';
+import { Meta, StoryFn } from '@storybook/react';
 
 export default {
-  title: 'MUI Components/Data Display/Chips',
   title: 'MUI Components/Data Display/Chips',
   component: Chip,
   argTypes: {
@@ -15,10 +12,7 @@ export default {
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: 'default' },
-        type: { summary: 'string' },
-        defaultValue: { summary: 'default' },
       },
-      onDelete: { action: 'Deleted' },
       onDelete: { action: 'Deleted' },
     },
     variant: {
@@ -48,7 +42,6 @@ export default {
   },
   parameters: {
     layout: 'centered',
-    layout: 'centered',
   },
 } as Meta<typeof Chip>;
 
@@ -56,12 +49,10 @@ const Template: StoryFn<typeof Chip> = (args) => <Chip {...args} />;
 
 const handleDelete = () => {
   console.info('You clicked the delete icon.');
-  console.info('You clicked the delete icon.');
 };
 
 export const Default = Template.bind({});
 Default.args = {
-  label: 'Consegnata',
   label: 'Consegnata',
 };
 
@@ -75,11 +66,7 @@ Outline.argTypes = {
   color: {
     options: ['default', 'primary'],
     control: { type: 'radio' },
-    options: ['default', 'primary'],
-    control: { type: 'radio' },
     table: {
-      type: { summary: 'string' },
-      defaultValue: { summary: 'default' },
       type: { summary: 'string' },
       defaultValue: { summary: 'default' },
     },
