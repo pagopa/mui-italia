@@ -1,17 +1,17 @@
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { StoryFn, Meta } from '@storybook/react';
 
-import { Tooltip, Chip } from "@mui/material";
+import { Tooltip, Chip } from '@mui/material';
 
 export default {
-  title: "MUI Components/Data Display/Tooltip",
+  title: 'MUI Components/Data Display/Tooltip',
   component: Tooltip,
   argTypes: {
     placement: {
-      options: ["top", "right", "bottom", "left"],
-      control: { type: "radio" },
+      options: ['top', 'right', 'bottom', 'left'],
+      control: { type: 'radio' },
       table: {
-        type: { summary: "string" },
-        defaultValue: { summary: "bottom" },
+        type: { summary: 'string' },
+        defaultValue: { summary: 'bottom' },
       },
     },
     children: {
@@ -21,15 +21,13 @@ export default {
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-} as ComponentMeta<typeof Tooltip>;
+} as Meta<typeof Tooltip>;
 
-const Template: ComponentStory<typeof Tooltip> = (args) => (
-  <Tooltip {...args} />
-);
+const Template: StoryFn<typeof Tooltip> = (args) => <Tooltip {...args} />;
 
-const tooltipContent = "L’invio della notifica è in corso";
+const tooltipContent = 'L’invio della notifica è in corso';
 const chip: JSX.Element = <Chip label="In inoltro" />;
 
 export const Default = Template.bind({});

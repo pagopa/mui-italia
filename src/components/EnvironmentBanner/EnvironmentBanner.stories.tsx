@@ -1,30 +1,28 @@
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { breakpointsChromaticValues } from "@theme";
-import WarningAmberIcon from "@mui/icons-material/WarningAmber";
-import { EnvironmentBanner } from "./EnvironmentBanner";
+import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
+import { Meta, StoryFn } from '@storybook/react';
+import { breakpointsChromaticValues } from '@theme';
+import { EnvironmentBanner } from './EnvironmentBanner';
 
 const componentMaxWidth = 900;
 
 export default {
-  title: "Components/EnvironmentBanner",
+  title: 'Components/EnvironmentBanner',
   component: EnvironmentBanner,
   parameters: {
     chromatic: {
-      viewports: breakpointsChromaticValues.filter(
-        (resolution) => resolution <= componentMaxWidth
-      ),
+      viewports: breakpointsChromaticValues.filter((resolution) => resolution <= componentMaxWidth),
     },
   },
   argTypes: {
     bgColor: {
       control: {
-        type: "radio",
-        options: ["info", "warning"],
+        type: 'radio',
+        options: ['white', 'info', 'warning'],
       },
     },
     message: {
       control: {
-        type: "text",
+        type: 'text',
       },
     },
     icon: {
@@ -33,15 +31,17 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof EnvironmentBanner>;
+} as Meta<typeof EnvironmentBanner>;
 
-export const Default: ComponentStory<typeof EnvironmentBanner> = (args) => (
+export const Default: StoryFn<typeof EnvironmentBanner> = (args) => (
   <EnvironmentBanner
     {...args}
     message="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-    icon={<WarningAmberIcon fontSize="small" />}
+    icon={<LightbulbOutlinedIcon fontSize="small" />}
+    onClose={() => {}}
+    actionButton={{ label: 'Scopri di più', onClick: () => {} }}
   />
 );
 Default.args = {
-  bgColor: "info",
+  bgColor: 'info',
 };

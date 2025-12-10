@@ -1,4 +1,5 @@
 import { alpha, createTheme, Theme } from '@mui/material/styles';
+import { CSSProperties } from 'react';
 
 /* Design Tokens */
 import { italia } from '@tokens';
@@ -30,17 +31,17 @@ const alertBorderWidth = '4px';
 /* Custom Typography */
 declare module '@mui/material/styles' {
   interface TypographyVariants {
-    headline: React.CSSProperties;
-    sidenav: React.CSSProperties;
-    monospaced: React.CSSProperties;
-    'caption-semibold': React.CSSProperties;
+    headline: CSSProperties;
+    sidenav: CSSProperties;
+    monospaced: CSSProperties;
+    'caption-semibold': CSSProperties;
   }
 
   interface TypographyVariantsOptions {
-    headline?: React.CSSProperties;
-    sidenav?: React.CSSProperties;
-    monospaced?: React.CSSProperties;
-    'caption-semibold'?: React.CSSProperties;
+    headline?: CSSProperties;
+    sidenav?: CSSProperties;
+    monospaced?: CSSProperties;
+    'caption-semibold'?: CSSProperties;
   }
 }
 declare module '@mui/material/Typography' {
