@@ -491,7 +491,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
         It announces when options are loaded asynchronously and loading state is needed: it announces when loading is shown and
         when results (or no result) are found.
        */}
-      <Box aria-live="polite" role="status" sx={visuallyHidden} aria-atomic="true">
+      <Box aria-live="polite" role="status" sx={{ ...visuallyHidden }} aria-atomic="true">
         {loading && announcementBoxProps.loadingText}
         {Array.isArray(currentValue) &&
           currentValue.length > 0 &&
