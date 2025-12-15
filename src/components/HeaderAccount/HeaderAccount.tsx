@@ -91,6 +91,7 @@ export const HeaderAccount = ({
             rel="noreferrer"
             title={rootLink?.title}
             sx={{ fontWeight: 'bold' }}
+            color="text"
           >
             {rootLink?.label}
           </ButtonNaked>

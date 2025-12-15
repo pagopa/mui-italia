@@ -1,5 +1,5 @@
 import { alpha, createTheme, Theme } from '@mui/material/styles';
-import { shadowColor, colorTextPrimary, customPalette } from './foundations/colors';
+import { shadowColor, colorTextPrimary } from './foundations/colors';
 import { mainTypeface } from './foundations/fonts';
 
 const shadowValues = {
@@ -28,10 +28,6 @@ const foundation: Theme = createTheme({
       lg: 1200,
       xl: 1536,
     },
-  },
-  palette: {
-    mode: 'light',
-    ...customPalette,
   },
   typography: {
     /* Using a constant because type variants

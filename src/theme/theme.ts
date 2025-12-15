@@ -8,10 +8,9 @@ import muiSwitch from './components/muiSwitch';
 import { pxToRem } from './utility';
 import foundation from './foundation';
 import { mainTypeface, monospacedTypeface } from './foundations/fonts';
-import { backdropBackground, colorTextPrimary, menuItemBackground } from './foundations/colors';
+import { backdropBackground, colorTextPrimary, customPalette, menuItemBackground } from './foundations/colors';
 import { chip } from './components/chip';
 import { colors } from './foundations/colors';
-import { color } from '@mui/system';
 
 /* Basic Configuration */
 
@@ -166,7 +165,6 @@ Used to generate different snapshots per component
 More info:  https://www.chromatic.com/docs/viewports
 */
 export const breakpointsChromaticValues = [375, 640, 900, 1200, 1600];
-
 export const theme: Theme = createTheme(foundation, {
   typography: {
     /* H1 Large */

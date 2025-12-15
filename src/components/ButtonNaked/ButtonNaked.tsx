@@ -10,6 +10,16 @@ export const ButtonNaked = <C extends ElementType>(
       component?: C;
       buttonRef?: Ref<HTMLButtonElement>;
       weight?: 'default' | 'light';
+      color?:
+        | 'inherit'
+        | 'primary'
+        | 'secondary'
+        | 'success'
+        | 'error'
+        | 'info'
+        | 'warning'
+        | 'text'
+        | 'blueitalia';
     }
   >
 ): ReactElement => {
