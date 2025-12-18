@@ -147,7 +147,6 @@ const foundation: Theme = createTheme({
   shape: {
     borderRadius: 4,
   },
-
   spacing: 8,
 });
 
