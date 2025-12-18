@@ -3,6 +3,7 @@ import { alpha, createTheme, Theme } from '@mui/material/styles';
 import { indigo } from '@mui/material/colors';
 import { shadowColor, colorTextPrimary } from './colors';
 import { mainTypeface } from './fonts';
+import { colors } from './foundations/colors';
 
 const shadowValues = {
   /* Elevation 4 */
@@ -147,6 +148,7 @@ const foundation: Theme = createTheme({
   shape: {
     borderRadius: 4,
   },
+
   spacing: 8,
 });
 

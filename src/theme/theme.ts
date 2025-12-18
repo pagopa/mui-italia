@@ -94,6 +94,7 @@ declare module '@mui/material/styles' {
     extraLight?: string;
     100?: string;
     850?: string;
+    icon?: string;
   }
 }
 

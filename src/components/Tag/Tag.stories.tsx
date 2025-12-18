@@ -1,4 +1,5 @@
 import { StoryFn, Meta } from '@storybook/react';
+import AttachFileRoundedIcon from '@mui/icons-material/AttachFileRounded';
 
 import { Tag } from './Tag';
 
@@ -9,6 +10,7 @@ export default {
     value: 'Tag Content',
     variant: 'default',
     color: 'default',
+    icon: <AttachFileRoundedIcon />,
   },
 } as Meta<typeof Tag>;
 
