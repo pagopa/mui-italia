@@ -10,6 +10,7 @@ import { SxProps, styled } from '@mui/system';
 
 import { pxToRem, theme } from '@theme';
 import { colors } from 'theme/foundations/colors';
+import React from 'react';
 
 export type Variants =
   | 'default'
@@ -29,7 +30,7 @@ export interface TagProps {
   /** Icon in case of default tag element. It is passed
    * as a React Node and it has blue[500] as color.
    */
-  icon?: JSX.Element;
+  icon?: React.ReactElement;
   /* Style to override tag style */
   sx?: SxProps;
 }
@@ -37,11 +38,52 @@ export interface TagProps {
 /* Transform HTML component into MUI Styled Component
 in order to accept `sx` prop */
 const StyledTag = styled('span')({
-  display: 'inline-block',
   fontSize: pxToRem(12),
   fontWeight: 600,
   whiteSpace: 'nowrap',
+  userSelect: 'none',
+  padding: `${pxToRem(4)} ${pxToRem(8)}`,
+  backgroundColor: theme.palette.common.white,
+  color: theme.palette.grey[700],
+  fontFamily: theme.typography.fontFamily,
+  borderRadius: pxToRem(6),
+  border: `1px solid ${theme.palette.grey[100]}`,
+  display: 'inline-flex',
+  alignItems: 'center',
+  gap: theme.spacing(1),
+  lineHeight: pxToRem(18),
+  textTransform: 'uppercase',
 });
+
+const Icon = ({ variant, icon }: { variant: Variants; icon?: React.ReactElement }) => {
+  if (variant === 'info') {
+    return <InfoRoundedIcon sx={{ color: colors.info[700], fontSize: pxToRem(14) }} />;
+  }
+  if (variant === 'warning') {
+    return <ReportProblemRounded sx={{ color: colors.warning[700], fontSize: pxToRem(14) }} />;
+  }
+  if (variant === 'error') {
+    return <ReportRoundedIcon sx={{ color: colors.error[600], fontSize: pxToRem(14) }} />;
+  }
+  if (variant === 'success') {
+    return <CheckCircleRoundedIcon sx={{ color: colors.success[700], fontSize: pxToRem(14) }} />;
+  }
+  if (variant === 'default') {
+    return icon ? (
+      React.cloneElement(icon, {
+        sx: { color: colors.blue[500], fontSize: pxToRem(14), ...(icon.props.sx || {}) },
+      })
+    ) : (
+      <StarOutlineRoundedIcon sx={{ color: colors.blue[500], fontSize: pxToRem(14) }} />
+    );
+  }
+  if (variant === 'only-icon' && icon) {
+    return React.cloneElement(icon, {
+      sx: { fill: colors.neutral.grey[700], fontSize: pxToRem(14), ...(icon.props.sx || {}) },
+    });
+  }
+  return null;
+};
 
 export const Tag = ({
   value,
@@ -50,80 +92,20 @@ export const Tag = ({
   sx = {},
   ...rest
 }: TagProps): JSX.Element => {
-  const style = {
-    userSelect: 'none',
-    px: pxToRem(8),
-    py: pxToRem(4),
-    backgroundColor: theme.palette.common.white,
-    color: theme.palette.grey[700],
-    fontFamily: theme.typography.fontFamily,
-    borderRadius: pxToRem(6),
-    border: `1px solid ${theme.palette.grey[100]}`,
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: theme.spacing(1),
-    fontSize: pxToRem(12),
-    lineHeight: pxToRem(18),
-    fontWeight: 600,
-    textTransform: 'uppercase',
-    ...sx,
-  } as SxProps;
-
-  const getContent = (icon?: JSX.Element) => {
-    if (variant === 'info') {
-      return (
-        <>
-          <InfoRoundedIcon sx={{ color: colors.info[700], fontSize: pxToRem(12) }} />
-          {value}
-        </>
-      );
+  const getContent = (value: string) => {
+    if (variant === 'only-icon') {
+      return null;
     }
-    if (variant === 'warning') {
-      return (
-        <>
-          <ReportProblemRounded sx={{ color: colors.warning[700], fontSize: pxToRem(12) }} />
-          {value}
-        </>
-      );
-    }
-    if (variant === 'error') {
-      return (
-        <>
-          <ReportRoundedIcon sx={{ color: colors.error[600], fontSize: pxToRem(12) }} />
-          {value}
-        </>
-      );
-    }
-    if (variant === 'success') {
-      return (
-        <>
-          <CheckCircleRoundedIcon sx={{ color: colors.success[700], fontSize: pxToRem(12) }} />
-          {value}
-        </>
-      );
-    }
-    if (variant === 'default' && icon) {
-      return (
-        <>
-          {icon ? (
-            icon
-          ) : (
-            <StarOutlineRoundedIcon sx={{ color: colors.blue[500], fontSize: pxToRem(12) }} />
-          )}
-          {value}
-        </>
-      );
-    }
-
     return value;
   };
 
   if (variant === 'only-icon' && icon) {
-    return icon;
+    return <Icon variant={variant} icon={icon} />;
   } else {
     return (
-      <StyledTag sx={style} {...rest}>
-        {getContent(icon)}
+      <StyledTag sx={sx} {...rest}>
+        <Icon variant={variant} icon={icon} />
+        {getContent(value)}
       </StyledTag>
     );
   }
