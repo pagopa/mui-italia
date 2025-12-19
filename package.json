@@ -77,7 +77,7 @@
     "react-docgen-typescript": "^2.2.2",
     "react-dom": "^18.3.1",
     "rimraf": "^3.0.2",
-    "storybook": "^7.5.0",
+    "storybook": "^7.6.21",
     "tsc-alias": "1.8.7",
     "tsconfig": "*",
     "tsconfig-paths-webpack-plugin": "^4.0.0",
