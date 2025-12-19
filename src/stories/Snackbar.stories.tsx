@@ -1,28 +1,25 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { Fragment, SyntheticEvent, useState } from 'react';
+import { StoryFn, Meta } from '@storybook/react';
 
-import { Snackbar, IconButton, Button, Alert, Stack } from "@mui/material";
+import { Snackbar, IconButton, Button, Alert, Stack } from '@mui/material';
 
 /* Icons */
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 
 export default {
-  title: "MUI Components/Feedback/Snackbar",
+  title: 'MUI Components/Feedback/Snackbar',
   component: Snackbar,
-} as ComponentMeta<typeof Snackbar>;
+} as Meta<typeof Snackbar>;
 
-export const Default: ComponentStory<typeof Snackbar> = () => {
-  const [open, setOpen] = React.useState(false);
+export const Default: StoryFn<typeof Snackbar> = () => {
+  const [open, setOpen] = useState(false);
 
   const handleClick = () => {
     setOpen(true);
   };
 
-  const handleClose = (
-    _event: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === "clickaway") {
+  const handleClose = (_event: SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
       return;
     }
 
@@ -30,19 +27,14 @@ export const Default: ComponentStory<typeof Snackbar> = () => {
   };
 
   const action = (
-    <React.Fragment>
+    <Fragment>
       <Button size="small" variant="text">
         Action
       </Button>
-      <IconButton
-        size="small"
-        aria-label="close"
-        color="inherit"
-        onClick={handleClose}
-      >
+      <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
         <CloseRoundedIcon fontSize="small" />
       </IconButton>
-    </React.Fragment>
+    </Fragment>
   );
 
   return (
@@ -50,12 +42,7 @@ export const Default: ComponentStory<typeof Snackbar> = () => {
       <Button variant="contained" onClick={handleClick}>
         Open snackbar
       </Button>
-      <Snackbar
-        open={open}
-        onClose={handleClose}
-        message="Important message"
-        action={action}
-      />
+      <Snackbar open={open} onClose={handleClose} message="Important message" action={action} />
     </div>
   );
 };
@@ -64,18 +51,15 @@ Default.parameters = {
   controls: { hideNoControlsWarning: true },
 };
 
-export const WithStatus: ComponentStory<typeof Alert> = (args) => {
-  const [open, setOpen] = React.useState(false);
+export const WithStatus: StoryFn<typeof Alert> = (args) => {
+  const [open, setOpen] = useState(false);
 
   const handleClick = () => {
     setOpen(true);
   };
 
-  const handleClose = (
-    _event?: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === "clickaway") {
+  const handleClose = (_event?: SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
       return;
     }
 
@@ -87,12 +71,7 @@ export const WithStatus: ComponentStory<typeof Alert> = (args) => {
       <Button size="small" variant="text">
         Action
       </Button>
-      <IconButton
-        size="small"
-        aria-label="close"
-        color="inherit"
-        onClick={handleClose}
-      >
+      <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
         <CloseRoundedIcon fontSize="small" />
       </IconButton>
     </Stack>
@@ -107,7 +86,7 @@ export const WithStatus: ComponentStory<typeof Alert> = (args) => {
         <Alert
           onClose={handleClose}
           variant="outlined"
-          sx={{ width: "100%" }}
+          sx={{ width: '100%' }}
           action={action}
           {...args}
         >
@@ -120,14 +99,14 @@ export const WithStatus: ComponentStory<typeof Alert> = (args) => {
 
 WithStatus.argTypes = {
   severity: {
-    options: ["error", "warning", "info", "success"],
-    control: { type: "radio" },
+    options: ['error', 'warning', 'info', 'success'],
+    control: { type: 'radio' },
     table: {
-      type: { summary: "string" },
+      type: { summary: 'string' },
     },
   },
 };
 
 WithStatus.args = {
-  severity: "success",
+  severity: 'success',
 };

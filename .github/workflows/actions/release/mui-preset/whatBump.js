@@ -13,7 +13,6 @@ export function createWhatBump() {
       } else if (commit.type === 'feat') {
         if (level === 2) {
           level = 1;
-          break;
         }
       }
     }

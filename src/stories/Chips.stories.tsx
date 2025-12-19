@@ -1,82 +1,74 @@
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { StoryFn, Meta } from '@storybook/react';
 
-import { Chip } from "@mui/material";
+import { Chip } from '@mui/material';
 
 export default {
-  title: "MUI Components/Data Display/Chips",
+  title: 'MUI Components/Data Display/Chips',
   component: Chip,
   argTypes: {
     color: {
-      options: [
-        "default",
-        "primary",
-        "warning",
-        "info",
-        "error",
-        "success",
-        "indigo",
-      ],
-      control: { type: "radio" },
+      options: ['default', 'primary', 'warning', 'info', 'error', 'success', 'indigo'],
+      control: { type: 'radio' },
       table: {
-        type: { summary: "string" },
-        defaultValue: { summary: "default" },
+        type: { summary: 'string' },
+        defaultValue: { summary: 'default' },
       },
-      onDelete: { action: "Deleted" },
+      onDelete: { action: 'Deleted' },
     },
     variant: {
-      options: ["filled", "outlined"],
-      control: { type: "radio" },
+      options: ['filled', 'outlined'],
+      control: { type: 'radio' },
       table: {
         disable: true,
-        type: { summary: "string" },
-        defaultValue: { summary: "filled" },
+        type: { summary: 'string' },
+        defaultValue: { summary: 'filled' },
       },
     },
     size: {
-      options: ["small", "medium"],
-      control: { type: "radio" },
+      options: ['small', 'medium'],
+      control: { type: 'radio' },
       table: {
-        type: { summary: "string" },
-        defaultValue: { summary: "medium" },
+        type: { summary: 'string' },
+        defaultValue: { summary: 'medium' },
       },
     },
     disabled: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       table: {
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-} as ComponentMeta<typeof Chip>;
+} as Meta<typeof Chip>;
 
-const Template: ComponentStory<typeof Chip> = (args) => <Chip {...args} />;
+const Template: StoryFn<typeof Chip> = (args) => <Chip {...args} />;
 
 const handleDelete = () => {
-  console.info("You clicked the delete icon.");
+  console.info('You clicked the delete icon.');
 };
 
 export const Default = Template.bind({});
 Default.args = {
-  label: "Consegnata",
+  label: 'Consegnata',
 };
 
 export const Outline = Template.bind({});
 Outline.args = {
-  color: "primary",
-  variant: "outlined",
-  label: "Consegnata",
+  color: 'primary',
+  variant: 'outlined',
+  label: 'Consegnata',
 };
 Outline.argTypes = {
   color: {
-    options: ["default", "primary"],
-    control: { type: "radio" },
+    options: ['default', 'primary'],
+    control: { type: 'radio' },
     table: {
-      type: { summary: "string" },
-      defaultValue: { summary: "default" },
+      type: { summary: 'string' },
+      defaultValue: { summary: 'default' },
     },
   },
 };

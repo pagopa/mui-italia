@@ -1,31 +1,29 @@
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { StoryFn, Meta } from '@storybook/react';
 
-import { LogoIOApp } from "./LogoIOApp";
+import { LogoIOApp } from './LogoIOApp';
 
 export default {
-  title: "Assets/LogoIOApp",
+  title: 'Assets/LogoIOApp',
   component: LogoIOApp,
   args: {
-    color: "dark",
+    color: 'dark',
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-} as ComponentMeta<typeof LogoIOApp>;
+} as Meta<typeof LogoIOApp>;
 
-const Template: ComponentStory<typeof LogoIOApp> = (args) => (
-  <LogoIOApp {...args} />
-);
+const Template: StoryFn<typeof LogoIOApp> = (args) => <LogoIOApp {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  color: "default",
+  color: 'default',
 };
 
 export const Negative = Template.bind({});
 Negative.args = {
-  color: "light",
+  color: 'light',
 };
 Negative.parameters = {
-  theme: "dark",
+  theme: 'dark',
 };

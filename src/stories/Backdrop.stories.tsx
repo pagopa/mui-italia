@@ -1,17 +1,17 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { useState } from 'react';
+import { StoryFn, Meta } from '@storybook/react';
 
-import { Backdrop, Button, Typography } from "@mui/material";
+import { Backdrop, Button, Typography } from '@mui/material';
 
 /* Icons */
 
 export default {
-  title: "MUI Components/Feedback/Backdrop",
+  title: 'MUI Components/Feedback/Backdrop',
   component: Backdrop,
-} as ComponentMeta<typeof Backdrop>;
+} as Meta<typeof Backdrop>;
 
-export const Default: ComponentStory<typeof Backdrop> = () => {
-  const [open, setOpen] = React.useState(false);
+export const Default: StoryFn<typeof Backdrop> = () => {
+  const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);
   };

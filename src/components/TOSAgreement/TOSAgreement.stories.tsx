@@ -1,10 +1,8 @@
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
+import { FormControlLabel, Link, Switch, Typography } from '@mui/material';
+import { useState } from 'react';
 
 import { breakpointsChromaticValues } from '@theme';
-
-import { FormControlLabel, Link, Switch, Typography } from '@mui/material';
-
 import { TOSAgreement } from './TOSAgreement';
 
 export default {
@@ -15,10 +13,10 @@ export default {
       viewports: breakpointsChromaticValues,
     },
   },
-} as ComponentMeta<typeof TOSAgreement>;
+} as Meta<typeof TOSAgreement>;
 
-export const Default: ComponentStory<typeof TOSAgreement> = () => {
-  const [accepted, setAccepted] = React.useState<boolean>(false);
+export const Default: StoryFn<typeof TOSAgreement> = () => {
+  const [accepted, setAccepted] = useState<boolean>(false);
 
   const handleChange = () => {
     setAccepted((prev) => !prev);

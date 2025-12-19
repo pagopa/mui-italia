@@ -1,5 +1,5 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { useState } from 'react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import {
   List,
@@ -10,26 +10,26 @@ import {
   Box,
   Badge,
   Divider,
-} from "@mui/material";
+} from '@mui/material';
 
 /* Icons */
-import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
-import KeyRoundedIcon from "@mui/icons-material/KeyRounded";
-import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
-import PeopleRoundedIcon from "@mui/icons-material/PeopleRounded";
-import SupervisedUserCircleRoundedIcon from "@mui/icons-material/SupervisedUserCircleRounded";
-import ExpandLessRoundedIcon from "@mui/icons-material/ExpandLessRounded";
-import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
-import ExitToAppRoundedIcon from "@mui/icons-material/ExitToAppRounded";
+import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
+import KeyRoundedIcon from '@mui/icons-material/KeyRounded';
+import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
+import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded';
+import SupervisedUserCircleRoundedIcon from '@mui/icons-material/SupervisedUserCircleRounded';
+import ExpandLessRoundedIcon from '@mui/icons-material/ExpandLessRounded';
+import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
+import ExitToAppRoundedIcon from '@mui/icons-material/ExitToAppRounded';
 
 export default {
-  title: "Composition/Sidenav",
+  title: 'Composition/Sidenav',
   component: List,
-  parameters: { controls: { sort: "size" } },
-} as ComponentMeta<typeof List>;
+  parameters: { controls: { sort: 'size' } },
+} as Meta<typeof List>;
 
-export const Default: ComponentStory<typeof List> = () => {
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+export const Default: StoryFn<typeof List> = () => {
+  const [selectedIndex, setSelectedIndex] = useState(1);
 
   const handleListItemClick = (index: number) => {
     setSelectedIndex(index);
@@ -38,34 +38,25 @@ export const Default: ComponentStory<typeof List> = () => {
   return (
     <Box
       sx={{
-        height: "100%",
+        height: '100%',
         maxWidth: 360,
-        backgroundColor: "background.paper",
+        backgroundColor: 'background.paper',
       }}
     >
       <List component="nav" aria-label="main piattaforma-notifiche sender">
-        <ListItemButton
-          selected={selectedIndex === 0}
-          onClick={() => handleListItemClick(0)}
-        >
+        <ListItemButton selected={selectedIndex === 0} onClick={() => handleListItemClick(0)}>
           <ListItemIcon>
             <EmailRoundedIcon fontSize="inherit" />
           </ListItemIcon>
           <ListItemText primary="Notifiche" />
         </ListItemButton>
-        <ListItemButton
-          selected={selectedIndex === 1}
-          onClick={() => handleListItemClick(1)}
-        >
+        <ListItemButton selected={selectedIndex === 1} onClick={() => handleListItemClick(1)}>
           <ListItemIcon>
             <KeyRoundedIcon fontSize="inherit" />
           </ListItemIcon>
           <ListItemText primary="Chiavi API" />
         </ListItemButton>
-        <ListItemButton
-          selected={selectedIndex === 2}
-          onClick={() => handleListItemClick(2)}
-        >
+        <ListItemButton selected={selectedIndex === 2} onClick={() => handleListItemClick(2)}>
           <ListItemIcon>
             <SettingsRoundedIcon fontSize="inherit" />
           </ListItemIcon>
@@ -103,10 +94,10 @@ Default.decorators = [
   (Story) => (
     <div
       style={{
-        display: "grid",
-        height: "100vh",
-        padding: "1em",
-        backgroundColor: "#F5F5F5",
+        display: 'grid',
+        height: '100vh',
+        padding: '1em',
+        backgroundColor: '#F5F5F5',
       }}
     >
       <Story />
@@ -114,9 +105,9 @@ Default.decorators = [
   ),
 ];
 
-export const Nested: ComponentStory<typeof List> = () => {
-  const [selectedTarget, setSelectedTarget] = React.useState("delegations");
-  const [open, setOpen] = React.useState(true);
+export const Nested: StoryFn<typeof List> = () => {
+  const [selectedTarget, setSelectedTarget] = useState('delegations');
+  const [open, setOpen] = useState(true);
 
   const handleCollapseClick = () => {
     setOpen(!open);
@@ -129,9 +120,9 @@ export const Nested: ComponentStory<typeof List> = () => {
   return (
     <Box
       sx={{
-        width: "100%",
+        width: '100%',
         maxWidth: 360,
-        backgroundColor: "background.paper",
+        backgroundColor: 'background.paper',
       }}
     >
       <List component="nav" aria-label="main piattaforma-notifiche sender">
@@ -152,23 +143,23 @@ export const Nested: ComponentStory<typeof List> = () => {
           <List component="div" disablePadding>
             <ListItemButton
               sx={{ pl: 6 }}
-              selected={selectedTarget === "your-notifications"}
-              onClick={() => handleListItemClick("your-notifications")}
+              selected={selectedTarget === 'your-notifications'}
+              onClick={() => handleListItemClick('your-notifications')}
             >
               <ListItemText primary="Le tue notifiche" />
             </ListItemButton>
             <ListItemButton
               sx={{ pl: 6 }}
-              selected={selectedTarget === "giovanni-bianchi"}
-              onClick={() => handleListItemClick("giovanni-bianchi")}
+              selected={selectedTarget === 'giovanni-bianchi'}
+              onClick={() => handleListItemClick('giovanni-bianchi')}
             >
               <ListItemText primary="Giovanni Bianchi" />
               <Badge variant="sidenav" color="primary" badgeContent={23} />
             </ListItemButton>
             <ListItemButton
               sx={{ pl: 6 }}
-              selected={selectedTarget === "maria-rossi"}
-              onClick={() => handleListItemClick("maria-rossi")}
+              selected={selectedTarget === 'maria-rossi'}
+              onClick={() => handleListItemClick('maria-rossi')}
             >
               <ListItemText primary="Maria Rossi" />
               <Badge variant="sidenav" color="primary" badgeContent={2} />
@@ -176,8 +167,8 @@ export const Nested: ComponentStory<typeof List> = () => {
           </List>
         </Collapse>
         <ListItemButton
-          selected={selectedTarget === "delegations"}
-          onClick={() => handleListItemClick("delegations")}
+          selected={selectedTarget === 'delegations'}
+          onClick={() => handleListItemClick('delegations')}
         >
           <ListItemIcon>
             <PeopleRoundedIcon fontSize="inherit" />
@@ -195,10 +186,10 @@ Nested.decorators = [
   (Story) => (
     <div
       style={{
-        display: "grid",
-        height: "100vh",
-        padding: "1em",
-        backgroundColor: "#F5F5F5",
+        display: 'grid',
+        height: '100vh',
+        padding: '1em',
+        backgroundColor: '#F5F5F5',
       }}
     >
       <Story />

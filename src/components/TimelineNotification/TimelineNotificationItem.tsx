@@ -1,11 +1,9 @@
-"use client";
+'use client';
 
-import React from "react";
-import { TimelineItem, TimelineItemProps } from "@mui/lab";
+import { FC, ReactElement } from 'react';
+import { TimelineItem, TimelineItemProps } from '@mui/lab';
 
-export const TimelineNotificationItem: React.FC<TimelineItemProps> = (
-  props
-): React.ReactElement => {
+export const TimelineNotificationItem: FC<TimelineItemProps> = (props): ReactElement => {
   const { children } = props;
 
   return (
@@ -13,8 +11,8 @@ export const TimelineNotificationItem: React.FC<TimelineItemProps> = (
       sx={{
         /* Remove extra space because there's opposite content, but the relative
           prop is not exposed by the component's API */
-        "&:before": {
-          display: "none",
+        '&:before': {
+          display: 'none',
         },
         ...props.sx,
       }}

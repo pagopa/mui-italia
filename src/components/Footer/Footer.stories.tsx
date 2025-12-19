@@ -1,5 +1,5 @@
 /* import { useState } from "react"; */
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 import { FooterCheckout } from '@components/FooterCheckout';
 import { breakpointsChromaticValues } from '@theme';
 
@@ -31,7 +31,7 @@ export default {
         "This URL contains a json with the list of products to list inside the Footer. By default it's set with https://selfcare.pagopa.it/assets/products.json",
     },
   },
-} as ComponentMeta<typeof Footer>;
+} as Meta<typeof Footer>;
 
 const companyLegalInfo = (
   <>
@@ -257,7 +257,7 @@ const preLoginLinks: PreLoginFooterLinksType = {
   },
 };
 
-export const PreLogin: ComponentStory<typeof Footer> = () => (
+export const PreLogin: StoryFn<typeof Footer> = () => (
   /* const { lang, setLang } = useState<LangCode>("it"); */
 
   <Footer
@@ -282,7 +282,7 @@ export const PreLogin: ComponentStory<typeof Footer> = () => (
   />
 );
 
-export const PostLogin: ComponentStory<typeof Footer> = () => (
+export const PostLogin: StoryFn<typeof Footer> = () => (
   /* const { lang, setLang } = useState<LangCode>("it"); */
 
   <Footer
@@ -303,7 +303,7 @@ export const PostLogin: ComponentStory<typeof Footer> = () => (
   />
 );
 
-export const Checkout: ComponentStory<typeof FooterCheckout> = () => (
+export const Checkout: StoryFn<typeof FooterCheckout> = () => (
   /* const { lang, setLang } = useState<LangCode>("it"); */
 
   <FooterCheckout

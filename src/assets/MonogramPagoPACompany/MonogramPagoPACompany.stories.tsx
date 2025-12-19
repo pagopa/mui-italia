@@ -1,32 +1,32 @@
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { StoryFn, Meta } from '@storybook/react';
 
-import { MonogramPagoPACompany } from "./MonogramPagoPACompany";
+import { MonogramPagoPACompany } from './MonogramPagoPACompany';
 
 export default {
-  title: "Assets/PagoPA (Company) Monogram",
+  title: 'Assets/PagoPA (Company) Monogram',
   component: MonogramPagoPACompany,
   args: {
-    color: "primary",
-    shape: "none",
+    color: 'primary',
+    shape: 'none',
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-} as ComponentMeta<typeof MonogramPagoPACompany>;
+} as Meta<typeof MonogramPagoPACompany>;
 
-const Template: ComponentStory<typeof MonogramPagoPACompany> = (args) => (
+const Template: StoryFn<typeof MonogramPagoPACompany> = (args) => (
   <MonogramPagoPACompany {...args} />
 );
 
 export const Default = Template.bind({});
 Default.args = {
-  color: "primary",
+  color: 'primary',
 };
 
 export const Circle = Template.bind({});
 Circle.args = {
-  shape: "circle",
+  shape: 'circle',
 };
 Circle.parameters = {
-  theme: "dark",
+  theme: 'dark',
 };

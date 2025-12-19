@@ -1,17 +1,15 @@
-"use client";
+'use client';
 
-import React from "react";
-import { Timeline, TimelineProps } from "@mui/lab";
-import { theme } from "@theme";
+import { Timeline, TimelineProps } from '@mui/lab';
+import { theme } from '@theme';
+import { FC, ReactElement } from 'react';
 
-export const TimelineNotification: React.FC<TimelineProps> = (
-  props
-): React.ReactElement => {
+export const TimelineNotification: FC<TimelineProps> = (props): ReactElement => {
   const { children } = props;
   return (
     <Timeline
       sx={{
-        px: "0",
+        px: '0',
         py: theme.spacing(2),
         ...props.sx,
       }}

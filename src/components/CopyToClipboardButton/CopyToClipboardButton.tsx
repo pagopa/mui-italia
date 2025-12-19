@@ -1,13 +1,12 @@
-"use client";
+'use client';
 
-import { useState, useRef, useEffect } from "react";
-import { IconButton, Tooltip } from "@mui/material";
-import type { IconButtonProps } from "@mui/material";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import CheckIcon from "@mui/icons-material/Check";
+import { useState, useRef, useEffect, FC } from 'react';
+import { IconButton, Tooltip } from '@mui/material';
+import type { IconButtonProps } from '@mui/material';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import CheckIcon from '@mui/icons-material/Check';
 
-export interface CopyToClipboardProps
-  extends Omit<IconButtonProps, "onClick" | "value"> {
+export interface CopyToClipboardProps extends Omit<IconButtonProps, 'onClick' | 'value'> {
   /** Value or a function that returns what should be copied to clipboard */
   value: (() => string) | string;
   /** If given renders a tooltip with the given message on copy to clipboard button press */
@@ -16,24 +15,24 @@ export interface CopyToClipboardProps
 
 /** @returns copy to clipboard button's localized default aria label values */
 function getDefaultAriaLabels() {
-  if (typeof window !== "undefined") {
+  if (typeof window !== 'undefined') {
     const activeLang = window.document.documentElement.lang;
     switch (activeLang) {
-      case "fr":
-        return { copy: "Copie", copied: "Copié" };
-      case "en":
-        return { copy: "Copy", copied: "Copied" };
-      case "es":
-        return { copy: "Copiar", copied: "Copiado" };
-      case "de":
-        return { copy: "Kopieren", copied: "Kopiert" };
+      case 'fr':
+        return { copy: 'Copie', copied: 'Copié' };
+      case 'en':
+        return { copy: 'Copy', copied: 'Copied' };
+      case 'es':
+        return { copy: 'Copiar', copied: 'Copiado' };
+      case 'de':
+        return { copy: 'Kopieren', copied: 'Kopiert' };
     }
   }
 
-  return { copy: "Copia", copied: "Copiato" };
+  return { copy: 'Copia', copied: 'Copiato' };
 }
 
-export const CopyToClipboardButton: React.FC<CopyToClipboardProps> = ({
+export const CopyToClipboardButton: FC<CopyToClipboardProps> = ({
   value,
   tooltipTitle,
   ...props
@@ -63,7 +62,7 @@ export const CopyToClipboardButton: React.FC<CopyToClipboardProps> = ({
 
   const defaultAriaLabels = getDefaultAriaLabels();
   const ariaLabels = {
-    copy: props["aria-label"] ?? defaultAriaLabels.copy,
+    copy: props['aria-label'] ?? defaultAriaLabels.copy,
     copied: tooltipTitle ?? defaultAriaLabels.copied,
   };
 

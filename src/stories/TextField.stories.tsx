@@ -1,5 +1,5 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { ChangeEvent, useState } from 'react';
+import { StoryFn, Meta } from '@storybook/react';
 
 import {
   TextField,
@@ -8,84 +8,82 @@ import {
   Box,
   ListItemIcon,
   ListItemText,
-} from "@mui/material";
-import ErrorOutlineRoundedIcon from "@mui/icons-material/ErrorOutlineRounded";
-import PersonOutlineRoundedIcon from "@mui/icons-material/PersonOutlineRounded";
-import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
-import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+} from '@mui/material';
+import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
+import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded';
+import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 
 export default {
-  title: "MUI Components/Inputs/Text Field",
+  title: 'MUI Components/Inputs/Text Field',
   component: TextField,
   argTypes: {
     placeholder: {
       table: {
-        type: { summary: "string" },
+        type: { summary: 'string' },
       },
     },
     size: {
-      options: ["small", "medium"],
-      control: { type: "radio" },
+      options: ['small', 'medium'],
+      control: { type: 'radio' },
       table: {
-        type: { summary: "string" },
-        defaultValue: { summary: "medium" },
+        type: { summary: 'string' },
+        defaultValue: { summary: 'medium' },
       },
     },
     error: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       table: {
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
       },
     },
     fullWidth: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       table: {
-        type: { summary: "boolean" },
+        type: { summary: 'boolean' },
         defaultValue: { summary: false },
       },
     },
     required: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       table: {
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
       },
     },
     disabled: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       table: {
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
       },
     },
   },
   parameters: {
-    layout: "padded",
+    layout: 'padded',
   },
-} as ComponentMeta<typeof TextField>;
+} as Meta<typeof TextField>;
 
-const Template: ComponentStory<typeof TextField> = (args) => (
-  <TextField {...args} />
-);
+const Template: StoryFn<typeof TextField> = (args) => <TextField {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  label: "Codice Avviso",
-  placeholder: "Inserisci il codice",
+  label: 'Codice Avviso',
+  placeholder: 'Inserisci il codice',
 };
 
 export const WithHelperText = Template.bind({});
 WithHelperText.args = {
   ...Default.args,
-  helperText: "Inserisci 18 cifre",
+  helperText: 'Inserisci 18 cifre',
 };
 
 export const WithIcon = Template.bind({});
 WithIcon.args = {
   ...Default.args,
-  label: "Nome sulla carta",
-  placeholder: "Mario Rossi",
+  label: 'Nome sulla carta',
+  placeholder: 'Mario Rossi',
   InputProps: {
     startAdornment: (
       <InputAdornment position="start">
@@ -98,10 +96,10 @@ WithIcon.args = {
 export const StateError = Template.bind({});
 StateError.args = {
   ...Default.args,
-  label: "Ripeti di nuovo",
+  label: 'Ripeti di nuovo',
   error: true,
   placeholder: "Ripeti l'indirizzo",
-  helperText: "Gli indirizzi email devono coincidere",
+  helperText: 'Gli indirizzi email devono coincidere',
   InputProps: {
     endAdornment: (
       <InputAdornment position="end">
@@ -117,7 +115,7 @@ StateError.argTypes = {
 export const StateSuccess = Template.bind({});
 StateSuccess.args = {
   ...Default.args,
-  label: "Indirizzo mail",
+  label: 'Indirizzo mail',
   InputProps: {
     endAdornment: (
       <InputAdornment position="end">
@@ -131,10 +129,10 @@ StateSuccess.argTypes = {
   error: { table: { disable: true } },
 };
 
-export const DefaultSelect: ComponentStory<typeof TextField> = (args) => {
-  const [state, setState] = React.useState("");
+export const DefaultSelect: StoryFn<typeof TextField> = (args) => {
+  const [state, setState] = useState('');
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setState(event.target.value as string);
   };
 
@@ -179,10 +177,9 @@ SelectWtihLongOption.args = {
     </MenuItem>,
     <MenuItem key="option-2" value="option-2">
       <ListItemText>
-        Option 2 with a very very very very very very very very very very very
-        very very very very very very very very very very very very very very
-        very very very very very very very very very very very very very very
-        very very very very very very very very very long text
+        Option 2 with a very very very very very very very very very very very very very very very
+        very very very very very very very very very very very very very very very very very very
+        very very very very very very very very very very very very very very very long text
       </ListItemText>
     </MenuItem>,
     <MenuItem key="option-3" value="option-3">

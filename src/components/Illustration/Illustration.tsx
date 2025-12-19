@@ -1,18 +1,17 @@
-"use client";
-
-import React from "react";
+'use client';
 
 // Components
-import { SvgIcon as MuiSvgIcon, SvgIconProps, styled } from "@mui/material";
+import { SvgIcon as MuiSvgIcon, SvgIconProps, styled } from '@mui/material';
+import { ElementType, ReactElement } from 'react';
 
 const IllustrationSVG = styled(MuiSvgIcon)<SvgIconProps>(({ theme }) => ({
   fill: theme.palette.secondary.main,
 }));
 
 IllustrationSVG.defaultProps = {
-  viewBox: "0 0 120 120",
-  focusable: "false",
-  "aria-hidden": "true",
+  viewBox: '0 0 120 120',
+  focusable: 'false',
+  'aria-hidden': 'true',
 };
 
 export interface IllustrationProps {
@@ -20,7 +19,7 @@ export interface IllustrationProps {
   size?: number;
 }
 
-export const Illustration = <C extends React.ElementType>(
+export const Illustration = <C extends ElementType>(
   props: SvgIconProps<
     C,
     {
@@ -28,14 +27,10 @@ export const Illustration = <C extends React.ElementType>(
       name?: string;
     }
   >
-): React.ReactElement => {
+): ReactElement => {
   const { children, name, size = 80, ...rest } = props;
   return (
-    <IllustrationSVG
-      titleAccess={name}
-      sx={{ width: size, height: size }}
-      {...rest}
-    >
+    <IllustrationSVG titleAccess={name} sx={{ width: size, height: size }} {...rest}>
       {children}
     </IllustrationSVG>
   );

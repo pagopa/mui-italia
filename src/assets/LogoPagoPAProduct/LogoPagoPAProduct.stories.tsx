@@ -1,31 +1,29 @@
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { StoryFn, Meta } from '@storybook/react';
 
-import { LogoPagoPAProduct } from "./LogoPagoPAProduct";
+import { LogoPagoPAProduct } from './LogoPagoPAProduct';
 
 export default {
-  title: "Assets/pagoPA (Product)",
+  title: 'Assets/pagoPA (Product)',
   component: LogoPagoPAProduct,
   args: {
-    color: "dark",
+    color: 'dark',
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-} as ComponentMeta<typeof LogoPagoPAProduct>;
+} as Meta<typeof LogoPagoPAProduct>;
 
-const Template: ComponentStory<typeof LogoPagoPAProduct> = (args) => (
-  <LogoPagoPAProduct {...args} />
-);
+const Template: StoryFn<typeof LogoPagoPAProduct> = (args) => <LogoPagoPAProduct {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  color: "default",
+  color: 'default',
 };
 
 export const Negative = Template.bind({});
 Negative.args = {
-  color: "light",
+  color: 'light',
 };
 Negative.parameters = {
-  theme: "dark",
+  theme: 'dark',
 };

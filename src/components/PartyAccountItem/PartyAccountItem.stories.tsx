@@ -1,82 +1,82 @@
-import { useState } from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { useState } from 'react';
+import { StoryFn, Meta } from '@storybook/react';
 
-import { Button, Stack } from "@mui/material";
+import { Button, Stack } from '@mui/material';
 
-import { breakpointsChromaticValues } from "@theme";
+import { breakpointsChromaticValues } from '@theme';
 
-import { PartyAccountItem, PartyAccount } from "@components/PartyAccountItem";
+import { PartyAccountItem, PartyAccount } from '@components/PartyAccountItem';
 
-const cdnPath = "https://assets.cdn.io.italia.it/logos/organizations/";
+const cdnPath = 'https://assets.cdn.io.italia.it/logos/organizations/';
 
 const partyMockImages: Array<PartyAccount> = [
   {
     image: `${cdnPath}81000410688.png`,
-    name: "Comune di San Valentino in Abruzzo Citeriore",
+    name: 'Comune di San Valentino in Abruzzo Citeriore',
   },
   {
     image: `${cdnPath}1199250158.png`,
-    name: "Comune di Milano",
-    role: "Referente amministrativo",
+    name: 'Comune di Milano',
+    role: 'Referente amministrativo',
   },
   {
     image: `${cdnPath}2438750586.png`,
-    name: "Comune di Roma",
-    role: "Referente amministrativo",
+    name: 'Comune di Roma',
+    role: 'Referente amministrativo',
   },
   {
     image: `${cdnPath}162210348.png`,
-    name: "Comune di Parma",
-    role: "Referente amministrativo",
+    name: 'Comune di Parma',
+    role: 'Referente amministrativo',
   },
   {
     image: `${cdnPath}82003830161.png`,
-    name: "Comune di Sotto il Monte Giovanni XXIII",
-    role: "Referente amministrativo",
+    name: 'Comune di Sotto il Monte Giovanni XXIII',
+    role: 'Referente amministrativo',
   },
   {
     image: `${cdnPath}172960361.png`,
-    name: "Comune di Castelfranco Emilia",
-    role: "Referente amministrativo",
+    name: 'Comune di Castelfranco Emilia',
+    role: 'Referente amministrativo',
   },
   {
     image: `${cdnPath}82001510492.png`,
     name: "Comune di Campo nell'Elba",
-    role: "Referente amministrativo",
+    role: 'Referente amministrativo',
   },
   {
     image: `${cdnPath}117100537.png`,
-    name: "Comune di Castiglione della Pescaia",
-    role: "Referente amministrativo",
+    name: 'Comune di Castiglione della Pescaia',
+    role: 'Referente amministrativo',
   },
   {
     image: `${cdnPath}142680669.png`,
-    name: "Comune di Pescasseroli",
+    name: 'Comune di Pescasseroli',
   },
   {
     image: `${cdnPath}189800204.png`,
-    name: "Comune di Mantova",
-    role: "Referente amministrativo",
+    name: 'Comune di Mantova',
+    role: 'Referente amministrativo',
   },
   {
     image: `${cdnPath}82002590105.png`,
-    name: "Comune di Ne",
-    role: "Referente amministrativo",
+    name: 'Comune di Ne',
+    role: 'Referente amministrativo',
   },
   {
     image: `${cdnPath}74260845.png`,
-    name: "Comune di Agrigento",
-    role: "Referente amministrativo",
+    name: 'Comune di Agrigento',
+    role: 'Referente amministrativo',
   },
   {
     image: `${cdnPath}80001950403.png`,
-    name: "Comune di Castrocaro Terme e Terra del Sole",
-    role: "Referente amministrativo",
+    name: 'Comune di Castrocaro Terme e Terra del Sole',
+    role: 'Referente amministrativo',
   },
   {
     image: undefined,
-    name: "Ente senza stemma",
-    role: "Referente amministrativo",
+    name: 'Ente senza stemma',
+    role: 'Referente amministrativo',
   },
   {
     image: `${cdnPath}339370272.png`,
@@ -88,17 +88,17 @@ const partyMockImages: Array<PartyAccount> = [
   },
   {
     image: `${cdnPath}172960361.png`,
-    name: "Amministrazione Comunale",
-    role: "Referente amministrativo",
-    parentName: "Comune di Castelfranco Emilia",
+    name: 'Amministrazione Comunale',
+    role: 'Referente amministrativo',
+    parentName: 'Comune di Castelfranco Emilia',
   },
 ];
 
 const itemWithParentName = {
   image: `${cdnPath}172960361.png`,
-  name: "Amministrazione Comunale",
-  role: "Referente amministrativo",
-  parentName: "Comune di Castelfranco Emilia",
+  name: 'Amministrazione Comunale',
+  role: 'Referente amministrativo',
+  parentName: 'Comune di Castelfranco Emilia',
 };
 
 const componentMaxWidth = 500;
@@ -120,14 +120,14 @@ const randomValueFromArray = (array: Array<PartyAccount>) => {
 };
 
 export default {
-  title: "Components/PartyAccountItem",
+  title: 'Components/PartyAccountItem',
   component: PartyAccountItem,
   decorators: [
     (Story) => (
       <div
         style={{
-          padding: "1em",
-          backgroundColor: "#F5F5F5",
+          padding: '1em',
+          backgroundColor: '#F5F5F5',
         }}
       >
         <Story />
@@ -136,14 +136,12 @@ export default {
   ],
   parameters: {
     chromatic: {
-      viewports: breakpointsChromaticValues.filter(
-        (resolution) => resolution <= componentMaxWidth
-      ),
+      viewports: breakpointsChromaticValues.filter((resolution) => resolution <= componentMaxWidth),
     },
   },
-} as ComponentMeta<typeof PartyAccountItem>;
+} as Meta<typeof PartyAccountItem>;
 
-const Template: ComponentStory<typeof PartyAccountItem> = (args) => {
+const Template: StoryFn<typeof PartyAccountItem> = (args) => {
   const [randomIndex, setRandomIndex] = useState(0);
   const item = partyMockImages[randomIndex];
 
@@ -179,7 +177,7 @@ NoWrap.args = {
   noWrap: true,
 };
 
-export const WithParentName: ComponentStory<typeof PartyAccountItem> = () => (
+export const WithParentName: StoryFn<typeof PartyAccountItem> = () => (
   <PartyAccountItem
     image={itemWithParentName.image}
     partyName={itemWithParentName.name}

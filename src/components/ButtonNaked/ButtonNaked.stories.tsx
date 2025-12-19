@@ -1,8 +1,8 @@
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { StoryFn, Meta } from '@storybook/react';
 
-import { ButtonNaked } from "@components/ButtonNaked";
-import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
-import AttachFileRoundedIcon from "@mui/icons-material/AttachFileRounded";
+import { ButtonNaked } from '@components/ButtonNaked';
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
+import AttachFileRoundedIcon from '@mui/icons-material/AttachFileRounded';
 
 const disableControl = {
   table: {
@@ -11,34 +11,34 @@ const disableControl = {
 };
 
 export default {
-  title: "Components/ButtonNaked",
+  title: 'Components/ButtonNaked',
   component: ButtonNaked,
   args: {
-    children: "Discover more",
+    children: 'Discover more',
     disabled: false,
   },
   argTypes: {
     size: {
-      options: ["small", "medium", "large"],
-      control: { type: "radio" },
+      options: ['small', 'medium', 'large'],
+      control: { type: 'radio' },
       table: {
-        type: { summary: "string" },
-        defaultValue: { summary: "medium" },
+        type: { summary: 'string' },
+        defaultValue: { summary: 'medium' },
       },
     },
     color: {
-      options: ["text", "primary", "error"],
-      control: { type: "radio" },
+      options: ['text', 'primary', 'error'],
+      control: { type: 'radio' },
       table: {
-        type: { summary: "string" },
-        defaultValue: { summary: "text" },
+        type: { summary: 'string' },
+        defaultValue: { summary: 'text' },
       },
     },
     disabled: {
       options: [true, false],
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       table: {
-        type: { summary: "boolean" },
+        type: { summary: 'boolean' },
         defaultValue: { summary: false },
       },
     },
@@ -51,29 +51,27 @@ export default {
     FocusRipple: { ...disableControl },
     centerRipple: { ...disableControl },
   },
-} as ComponentMeta<typeof ButtonNaked>;
+} as Meta<typeof ButtonNaked>;
 
-const Template: ComponentStory<typeof ButtonNaked> = (args) => (
-  <ButtonNaked {...args} />
-);
+const Template: StoryFn<typeof ButtonNaked> = (args) => <ButtonNaked {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  size: "medium",
-  color: "text",
+  size: 'medium',
+  color: 'text',
 };
 
 export const WithEndIcon = Template.bind({});
-WithEndIcon.storyName = "Default + End Icon";
+WithEndIcon.storyName = 'Default + End Icon';
 WithEndIcon.args = {
   ...Default.args,
   endIcon: <LogoutRoundedIcon />,
 };
 
 export const WithStartIcon = Template.bind({});
-WithStartIcon.storyName = "Default + Start Icon";
+WithStartIcon.storyName = 'Default + Start Icon';
 WithStartIcon.args = {
   ...Default.args,
-  children: "Download file",
+  children: 'Download file',
   startIcon: <AttachFileRoundedIcon />,
 };

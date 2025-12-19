@@ -1,34 +1,31 @@
-"use client";
+'use client';
 
-import React from "react";
-import {
-  TimelineOppositeContent,
-  TimelineOppositeContentProps,
-} from "@mui/lab";
-import { Box } from "@mui/material";
-import { theme } from "@theme";
+import { FC, ReactElement } from 'react';
+import { TimelineOppositeContent, TimelineOppositeContentProps } from '@mui/lab';
+import { Box } from '@mui/material';
+import { theme } from '@theme';
 
-export const TimelineNotificationOppositeContent: React.FC<
-  TimelineOppositeContentProps
-> = (props): React.ReactElement => {
+export const TimelineNotificationOppositeContent: FC<TimelineOppositeContentProps> = (
+  props
+): ReactElement => {
   const { children } = props;
   return (
     <TimelineOppositeContent
       sx={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "end",
-        flex: "15% 0",
-        p: "0",
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'end',
+        flex: '15% 0',
+        p: '0',
         pr: theme.spacing(2.5),
         ...props.sx,
       }}
     >
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          textAlign: "center",
+          display: 'flex',
+          flexDirection: 'column',
+          textAlign: 'center',
         }}
       >
         {children}

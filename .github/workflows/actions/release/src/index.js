@@ -58,7 +58,13 @@ async function run() {
           // if the release branch already exists and it is different from the starting branch, we must be sure that it is updated
           // before continuing, we have to merge the ref branch into the release branch
           const merge = await mergeBranch(octokit, ref, releaseBranch);
-          releaseBranchSha = merge.sha;
+          // if merge is null, it means that the current release branch is up to date with the starting branch
+          // so we can get the sha from the reference
+          if (merge) {
+            releaseBranchSha = merge.sha;
+          } else {
+            releaseBranchSha = releaseBranchRef.object.sha;
+          }
           // if the release branch already exists we are in the RC case and we have to get again the cuurrent release,
           // because the starting branch doesn't have the last RC tag
           latestRelease = await getLatestRelease(octokit, releaseBranch);

@@ -1,50 +1,48 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from '@storybook/react';
 
-import { breakpointsChromaticValues } from "@theme";
+import { breakpointsChromaticValues } from '@theme';
 
-import { Showcase } from "@components/Showcase";
+import { Showcase } from '@components/Showcase';
 
 /* Icons */
-import { CieIcon } from "@icons/CieIcon";
-import { MediumIcon } from "@icons/MediumIcon";
-import { SpidIcon } from "@icons/SpidIcon";
+import { CieIcon } from '@icons/CieIcon';
+import { MediumIcon } from '@icons/MediumIcon';
+import { SpidIcon } from '@icons/SpidIcon';
 
 const items = [
   {
     icon: <CieIcon />,
-    title: "First Item",
-    subtitle: "A very descriptive subtitle",
+    title: 'First Item',
+    subtitle: 'A very descriptive subtitle',
   },
   {
     icon: <MediumIcon />,
-    title: "Second Item",
-    subtitle: "Another very descriptive subtitle",
+    title: 'Second Item',
+    subtitle: 'Another very descriptive subtitle',
   },
   {
     icon: <SpidIcon />,
-    title: "Second Item",
-    subtitle: "Short subtitle",
+    title: 'Second Item',
+    subtitle: 'Short subtitle',
   },
   {
     icon: <SpidIcon />,
-    title: "Fourth Item",
-    subtitle: "Short subtitle",
+    title: 'Fourth Item',
+    subtitle: 'Short subtitle',
   },
 ];
 
 export default {
-  title: "Components/Showcase",
+  title: 'Components/Showcase',
   component: Showcase,
   args: {
-    title: "Title",
+    title: 'Title',
   },
   parameters: {
     chromatic: {
       viewports: breakpointsChromaticValues,
     },
   },
-} as ComponentMeta<typeof Showcase>;
+} as Meta<typeof Showcase>;
 
-export const Default: ComponentStory<typeof Showcase> = (args) => (
-  <Showcase {...args} items={items} />
-);
+export const Default: StoryFn<typeof Showcase> = (args) => <Showcase {...args} items={items} />;
