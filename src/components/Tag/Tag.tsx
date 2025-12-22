@@ -12,14 +12,7 @@ import { pxToRem, theme } from '@theme';
 import { colors } from 'theme/foundations/colors';
 import React from 'react';
 
-export type Variants =
-  | 'default'
-  | 'info'
-  | 'warning'
-  | 'error'
-  | 'success'
-  | 'no-icon'
-  | 'only-icon';
+export type Variants = 'default' | 'info' | 'warning' | 'error' | 'success' | 'only-icon';
 
 export interface TagProps {
   /** Content of the component */
@@ -55,31 +48,31 @@ const StyledTag = styled('span')({
   textTransform: 'uppercase',
 });
 
+const fontSize = pxToRem(14);
+
 const Icon = ({ variant, icon }: { variant: Variants; icon?: React.ReactElement }) => {
   if (variant === 'info') {
-    return <InfoRoundedIcon sx={{ color: colors.info[700], fontSize: pxToRem(14) }} />;
+    return <InfoRoundedIcon sx={{ color: colors.info[700], fontSize }} />;
   }
   if (variant === 'warning') {
-    return <ReportProblemRounded sx={{ color: colors.warning[700], fontSize: pxToRem(14) }} />;
+    return <ReportProblemRounded sx={{ color: colors.warning[700], fontSize }} />;
   }
   if (variant === 'error') {
-    return <ReportRoundedIcon sx={{ color: colors.error[600], fontSize: pxToRem(14) }} />;
+    return <ReportRoundedIcon sx={{ color: colors.error[600], fontSize }} />;
   }
   if (variant === 'success') {
-    return <CheckCircleRoundedIcon sx={{ color: colors.success[700], fontSize: pxToRem(14) }} />;
+    return <CheckCircleRoundedIcon sx={{ color: colors.success[700], fontSize }} />;
   }
   if (variant === 'default') {
-    return icon ? (
-      React.cloneElement(icon, {
-        sx: { color: colors.blue[500], fontSize: pxToRem(14), ...(icon.props.sx || {}) },
-      })
-    ) : (
-      <StarOutlineRoundedIcon sx={{ color: colors.blue[500], fontSize: pxToRem(14) }} />
-    );
+    return icon
+      ? React.cloneElement(icon, {
+          sx: { color: colors.blue[500], fontSize, ...(icon.props.sx || {}) },
+        })
+      : null;
   }
   if (variant === 'only-icon' && icon) {
     return React.cloneElement(icon, {
-      sx: { fill: colors.neutral.grey[700], fontSize: pxToRem(14), ...(icon.props.sx || {}) },
+      sx: { fill: colors.neutral.grey[700], fontSize, ...(icon.props.sx || {}) },
     });
   }
   return null;
