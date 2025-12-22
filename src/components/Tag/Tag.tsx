@@ -3,7 +3,6 @@
 import ReportProblemRounded from '@mui/icons-material/ReportProblemRounded';
 import ReportRoundedIcon from '@mui/icons-material/ReportRounded';
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
-import StarOutlineRoundedIcon from '@mui/icons-material/StarOutlineRounded';
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 
 import { SxProps, styled } from '@mui/system';
