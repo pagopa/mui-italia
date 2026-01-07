@@ -1,18 +1,18 @@
-import React from "react";
-import { DecoratorFn } from "@storybook/react";
+import React from 'react';
+import { Decorator } from '@storybook/react';
 
 /* Storybook Theme */
-import { sbTheme } from "./theme";
+import { sbTheme } from './theme';
 
-import { ThemeProvider, Box } from "@mui/material";
-import useMediaQuery from "@mui/material/useMediaQuery";
+import { ThemeProvider, Box } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 /* MUI Italia Theme */
-import { theme as lightTheme, darkTheme } from "@theme";
+import { theme as lightTheme, darkTheme } from '../src/theme';
 
 export const parameters = {
-  actions: { argTypesRegex: "^on[A-Z].*" },
-  layout: "fullscreen",
+  actions: { argTypesRegex: '^on[A-Z].*' },
+  layout: 'fullscreen',
   controls: {
     expanded: true,
     matchers: {
@@ -30,19 +30,19 @@ interface StoryContainerProps {
 }
 
 const StoryContainer = ({ children }: StoryContainerProps) => (
-  <Box sx={{ backgroundColor: "background.paper" }} data-chromatic="ignore">
+  <Box sx={{ backgroundColor: 'background.paper' }} data-chromatic="ignore">
     {children}
   </Box>
 );
 
-export const withTheme: DecoratorFn = (Story, context) => {
+export const withTheme: Decorator = (Story, context) => {
   // More info about this decorator
   // https://storybook.js.org/blog/how-to-add-a-theme-switcher-to-storybook/
 
   const theme = context.parameters.theme || context.globals.theme;
-  const storyTheme = theme === "light" ? lightTheme : darkTheme;
+  const storyTheme = theme === 'light' ? lightTheme : darkTheme;
 
-  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
   const currentTheme = React.useMemo(
     () => (prefersDarkMode ? darkTheme : lightTheme),
@@ -50,7 +50,7 @@ export const withTheme: DecoratorFn = (Story, context) => {
   );
 
   switch (theme) {
-    case "system": {
+    case 'system': {
       return (
         <ThemeProvider theme={currentTheme}>
           <StoryContainer>
@@ -60,7 +60,7 @@ export const withTheme: DecoratorFn = (Story, context) => {
       );
     }
 
-    case "dark": {
+    case 'dark': {
       return (
         <ThemeProvider theme={darkTheme}>
           <StoryContainer>
@@ -84,18 +84,18 @@ export const withTheme: DecoratorFn = (Story, context) => {
 
 export const globalTypes = {
   theme: {
-    name: "Theme",
-    description: "Global theme for components",
-    defaultValue: "light",
+    name: 'Theme',
+    description: 'Global theme for components',
+    defaultValue: 'light',
     toolbar: {
       // The icon for the toolbar item
-      icon: "circlehollow",
-      title: "Theme",
+      icon: 'circlehollow',
+      title: 'Theme',
       // Array of options
       items: [
-        { value: "system", icon: "cog", title: "System" },
-        { value: "light", icon: "circlehollow", title: "Light" },
-        { value: "dark", icon: "circle", title: "Dark" },
+        { value: 'system', icon: 'cog', title: 'System' },
+        { value: 'light', icon: 'circlehollow', title: 'Light' },
+        { value: 'dark', icon: 'circle', title: 'Dark' },
       ],
     },
   },
