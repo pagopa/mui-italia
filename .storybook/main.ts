@@ -13,7 +13,7 @@ const config: StorybookConfig = {
     emotionAlias: false,
   },*/
 
-  addons: ['@storybook/addon-links', '@storybook/addon-essentials', '@storybook/addon-a11y'],
+  addons: ['@storybook/addon-links', '@storybook/addon-a11y', '@storybook/addon-docs'],
 
   typescript: {
     check: false,
@@ -52,11 +52,7 @@ const config: StorybookConfig = {
         }
       }
     });
-  },
-
-  docs: {
-    autodocs: true,
-  },
+  }
 };
 
 export default config;

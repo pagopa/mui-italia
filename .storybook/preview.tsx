@@ -1,5 +1,5 @@
 import React from 'react';
-import { Decorator } from '@storybook/react';
+import { Decorator } from '@storybook/react-vite';
 
 /* Storybook Theme */
 import { sbTheme } from './theme';
@@ -102,3 +102,4 @@ export const globalTypes = {
 };
 
 export const decorators = [withTheme];
+export const tags = ['autodocs'];

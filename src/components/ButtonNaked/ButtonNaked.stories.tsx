@@ -1,4 +1,4 @@
-import { StoryFn, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react-vite';
 
 import { ButtonNaked } from '@components/ButtonNaked';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
@@ -9,6 +9,10 @@ const disableControl = {
     disable: true,
   },
 };
+
+// this must be done to avoid the error "Expression produces a union type that is too complex to represent."
+// this error shows when the combinations iferred from the type are too much
+type ButtonNakedProps = Omit<typeof ButtonNaked, 'component'>;
 
 export default {
   title: 'Components/ButtonNaked',
@@ -39,7 +43,7 @@ export default {
       control: { type: 'boolean' },
       table: {
         type: { summary: 'boolean' },
-        defaultValue: { summary: false },
+        defaultValue: { summary: 'false' },
       },
     },
     variant: { ...disableControl },
@@ -51,9 +55,9 @@ export default {
     FocusRipple: { ...disableControl },
     centerRipple: { ...disableControl },
   },
-} as Meta<typeof ButtonNaked>;
+} as Meta<ButtonNakedProps>;
 
-const Template: StoryFn<typeof ButtonNaked> = (args) => <ButtonNaked {...args} />;
+const Template: StoryFn<ButtonNakedProps> = (args) => <ButtonNaked {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

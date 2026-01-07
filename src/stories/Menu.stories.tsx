@@ -1,5 +1,5 @@
 import { useState, MouseEvent } from 'react';
-import { StoryFn, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react-vite';
 
 import { Menu, MenuItem, Button, ListItemIcon, ListItemText } from '@mui/material';
 
