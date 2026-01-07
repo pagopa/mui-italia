@@ -11,7 +11,7 @@ const disableControl = {
 };
 
 // this must be done to avoid the error "Expression produces a union type that is too complex to represent."
-// this error shows when the combinations iferred from the type are too much
+// this error shows when the combinations inferred from the type are too much
 type ButtonNakedProps = Omit<typeof ButtonNaked, 'component'>;
 
 export default {
