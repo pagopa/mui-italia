@@ -16,11 +16,11 @@ export type Variants = 'default' | 'info' | 'warning' | 'error' | 'success' | 'o
 export interface TagProps {
   /** Content of the component */
   value: string;
-  /** Variant of the colour. You can set `Light` variant if
-   * you want a washed out variant of the color. */
+  /** Variant of the colour. You can set variant
+   * related to the meaning of the tag. */
   variant?: Variants;
-  /** Icon in case of default tag element. It is passed
-   * as a React Node and it has blue[500] as color.
+  /** Icon in case of default tag element or only-icon variant.
+   * It is passed as a React Node and it has blue[500] as color.
    */
   icon?: React.ReactElement;
   /* Style to override tag style */
