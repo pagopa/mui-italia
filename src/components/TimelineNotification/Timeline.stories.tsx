@@ -1,4 +1,4 @@
-import { StoryFn, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react-vite';
 
 import { Timeline, TimelineConnector } from '@mui/lab';
 import { Chip, Box, Typography } from '@mui/material';

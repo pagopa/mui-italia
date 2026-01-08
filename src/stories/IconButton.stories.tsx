@@ -1,38 +1,38 @@
-import { StoryObj, Meta } from "@storybook/react";
+import { StoryObj, Meta } from '@storybook/react-vite';
 
-import { IconButton } from "@mui/material";
-import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
+import { IconButton } from '@mui/material';
+import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 
 export default {
-  title: "MUI Components/Inputs/Icon Button",
+  title: 'MUI Components/Inputs/Icon Button',
   component: IconButton,
   args: {
-    size: "medium",
-    color: "default",
+    size: 'medium',
+    color: 'default',
     disabled: false,
   },
   argTypes: {
     color: {
-      options: ["primary", "default"],
-      control: { type: "radio" },
+      options: ['primary', 'default'],
+      control: { type: 'radio' },
       table: {
-        type: { summary: "string" },
-        defaultValue: { summary: "default" },
+        type: { summary: 'string' },
+        defaultValue: { summary: 'default' },
       },
     },
     size: {
-      options: ["small", "medium", "large"],
-      control: { type: "radio" },
+      options: ['small', 'medium', 'large'],
+      control: { type: 'radio' },
       table: {
-        type: { summary: "string" },
-        defaultValue: { summary: "medium" },
+        type: { summary: 'string' },
+        defaultValue: { summary: 'medium' },
       },
     },
     disabled: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' },
       table: {
-        type: { summary: "boolean" },
-        defaultValue: { summary: false },
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
       },
     },
   },
@@ -40,7 +40,7 @@ export default {
 
 export const Default: StoryObj<typeof IconButton> = {
   args: {
-    "aria-label": "Scarica",
+    'aria-label': 'Scarica',
     children: <DownloadRoundedIcon />,
   },
 };

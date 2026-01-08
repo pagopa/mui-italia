@@ -23,7 +23,7 @@
     "sourceMap": false,
     "noUnusedLocals": true,
     "noImplicitReturns": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,

@@ -1,4 +1,4 @@
-import { StoryFn, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react-vite';
 
 import { Button } from '@mui/material';
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
@@ -28,7 +28,7 @@ export default {
       control: { type: 'boolean' },
       table: {
         type: { summary: 'boolean' },
-        defaultValue: { summary: false },
+        defaultValue: { summary: 'false' },
       },
     },
     /* Disabled controls */
