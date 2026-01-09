@@ -11,6 +11,7 @@ export default {
     variant: 'default',
     color: 'default',
     icon: <AttachFileRoundedIcon />,
+    ariaLabel: 'Stato: test',
   },
 } as Meta<typeof Tag>;
 

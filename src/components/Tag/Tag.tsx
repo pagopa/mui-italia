@@ -62,26 +62,36 @@ const Icon = ({
 }) => {
   if (variant === 'info') {
     return (
-      <InfoRoundedIcon sx={{ color: colors.info[700], fontSize }} aria-label="Stato: informativo" />
+      <InfoRoundedIcon
+        sx={{ color: colors.info[700], fontSize }}
+        aria-hidden="false"
+        aria-label="Stato: informativo"
+      />
     );
   }
   if (variant === 'warning') {
     return (
       <ReportProblemRounded
         sx={{ color: colors.warning[700], fontSize }}
+        aria-hidden="false"
         aria-label="Stato: avviso"
       />
     );
   }
   if (variant === 'error') {
     return (
-      <ReportRoundedIcon sx={{ color: colors.error[600], fontSize }} aria-label="Stato: errore" />
+      <ReportRoundedIcon
+        sx={{ color: colors.error[600], fontSize }}
+        aria-hidden="false"
+        aria-label="Stato: errore"
+      />
     );
   }
   if (variant === 'success') {
     return (
       <CheckCircleRoundedIcon
         sx={{ color: colors.success[700], fontSize }}
+        aria-hidden="false"
         aria-label="Stato: confermato"
       />
     );
@@ -90,13 +100,15 @@ const Icon = ({
     return icon
       ? React.cloneElement(icon, {
           sx: { color: colors.blue[500], fontSize, ...(icon.props.sx || {}) },
-          ariaLabel: 'Stato: standard',
+          ariaHidden: ariaLabel ? 'false' : undefined,
+          ariaLabel: ariaLabel || 'Stato: standard',
         })
       : null;
   }
   if (variant === 'only-icon' && icon) {
     return React.cloneElement(icon, {
       sx: { fill: colors.neutral.grey[700], fontSize, ...(icon.props.sx || {}) },
+      ariaHidden: ariaLabel ? 'false' : undefined,
       ariaLabel,
     });
   }
