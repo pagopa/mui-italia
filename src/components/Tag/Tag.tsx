@@ -25,6 +25,8 @@ export interface TagProps {
   icon?: React.ReactElement;
   /* Style to override tag style */
   sx?: SxProps;
+  /* Aria label */
+  ariaLabel?: string;
 }
 
 /* Transform HTML component into MUI Styled Component
@@ -49,29 +51,53 @@ const StyledTag = styled('span')({
 
 const fontSize = pxToRem(14);
 
-const Icon = ({ variant, icon }: { variant: Variants; icon?: React.ReactElement }) => {
+const Icon = ({
+  variant,
+  icon,
+  ariaLabel,
+}: {
+  variant: Variants;
+  icon?: React.ReactElement;
+  ariaLabel?: string;
+}) => {
   if (variant === 'info') {
-    return <InfoRoundedIcon sx={{ color: colors.info[700], fontSize }} />;
+    return (
+      <InfoRoundedIcon sx={{ color: colors.info[700], fontSize }} aria-label="Stato: informativo" />
+    );
   }
   if (variant === 'warning') {
-    return <ReportProblemRounded sx={{ color: colors.warning[700], fontSize }} />;
+    return (
+      <ReportProblemRounded
+        sx={{ color: colors.warning[700], fontSize }}
+        aria-label="Stato: avviso"
+      />
+    );
   }
   if (variant === 'error') {
-    return <ReportRoundedIcon sx={{ color: colors.error[600], fontSize }} />;
+    return (
+      <ReportRoundedIcon sx={{ color: colors.error[600], fontSize }} aria-label="Stato: errore" />
+    );
   }
   if (variant === 'success') {
-    return <CheckCircleRoundedIcon sx={{ color: colors.success[700], fontSize }} />;
+    return (
+      <CheckCircleRoundedIcon
+        sx={{ color: colors.success[700], fontSize }}
+        aria-label="Stato: confermato"
+      />
+    );
   }
   if (variant === 'default') {
     return icon
       ? React.cloneElement(icon, {
           sx: { color: colors.blue[500], fontSize, ...(icon.props.sx || {}) },
+          ariaLabel: 'Stato: standard',
         })
       : null;
   }
   if (variant === 'only-icon' && icon) {
     return React.cloneElement(icon, {
       sx: { fill: colors.neutral.grey[700], fontSize, ...(icon.props.sx || {}) },
+      ariaLabel,
     });
   }
   return null;
