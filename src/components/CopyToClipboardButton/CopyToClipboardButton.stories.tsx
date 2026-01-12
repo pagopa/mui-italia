@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { StoryFn, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react-vite';
 import { breakpointsChromaticValues } from '@theme';
 import { CopyToClipboardButton } from './CopyToClipboardButton';
 
