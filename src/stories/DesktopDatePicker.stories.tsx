@@ -8,17 +8,6 @@ export default {
   title: 'MUI Components/Lab/Desktop Date Picker',
   component: DesktopDatePicker,
   parameters: { controls: { sort: 'size' } },
-  decorators: [
-    (Story) => (
-      <div
-        style={{
-          padding: '1em',
-        }}
-      >
-        <Story />
-      </div>
-    ),
-  ],
 } as Meta<typeof DesktopDatePicker>;
 
 export const Default: StoryFn<typeof DesktopDatePicker> = () => {
