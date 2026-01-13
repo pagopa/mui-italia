@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from 'react';
-import { StoryFn, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react-vite';
 
 import {
   TextField,
@@ -42,7 +42,7 @@ export default {
       control: { type: 'boolean' },
       table: {
         type: { summary: 'boolean' },
-        defaultValue: { summary: false },
+        defaultValue: { summary: 'false' },
       },
     },
     required: {

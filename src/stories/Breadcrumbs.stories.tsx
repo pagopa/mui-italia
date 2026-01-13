@@ -1,4 +1,4 @@
-import { StoryFn, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react-vite';
 
 import { Breadcrumbs, Link, Typography } from '@mui/material';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';

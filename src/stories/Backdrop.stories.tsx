@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StoryFn, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react-vite';
 
 import { Backdrop, Button, Typography } from '@mui/material';
 

@@ -1,9 +1,10 @@
 import { SyntheticEvent } from 'react';
-import { Meta, StoryFn } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react-vite';
 
 import { breakpointsChromaticValues } from '@theme';
 
 import { Infoblock } from '@components/Infoblock';
+import infoblockImage from './infoblockImage.png';
 
 const primaryCTA = {
   label: 'CallToAction 1',
@@ -33,7 +34,7 @@ export default {
     inverse: false,
     ctaPrimary: primaryCTA,
     ctaSecondary: secondaryCTA,
-    image: require('./infoblockImage.png'),
+    image: infoblockImage,
     imageShadow: true,
     imageType: 'circle',
   },

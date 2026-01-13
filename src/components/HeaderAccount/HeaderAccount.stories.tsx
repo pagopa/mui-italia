@@ -1,5 +1,5 @@
 /* import { useState } from "react"; */
-import { StoryFn, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react-vite';
 
 /* Icons */
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -142,7 +142,7 @@ export const WithDocumentation: StoryFn<typeof HeaderAccount> = () => (
   />
 );
 
-export const fullyLocalizedHeaderAccount: StoryFn<typeof HeaderAccount> = () => (
+export const FullyLocalizedHeaderAccount: StoryFn<typeof HeaderAccount> = () => (
   <HeaderAccount
     enableDropdown
     rootLink={pagoPALink}
