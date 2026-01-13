@@ -1,7 +1,7 @@
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Button, Chip, IconButton, Typography, styled } from '@mui/material';
 import { ButtonNaked } from '@components/ButtonNaked';
-import { blue, divider, neutral } from 'theme/colors';
+import { blue, divider, neutral, turquoise } from 'theme/colors';
 import { BannerVariant, CtaKind } from './model';
 
 export const Root = styled(Box, {
@@ -71,8 +71,8 @@ export function BadgeChip({ text }: Readonly<{ text: string }>) {
         fontWeight: 600,
         alignSelf: 'flex-start',
         '&.MuiChip-root': {
-          backgroundColor: '#DBF9FA',
-          color: '#003B3D',
+          backgroundColor: turquoise[50],
+          color: turquoise[850],
         },
         '& .MuiChip-label': {
           fontSize: '12px',

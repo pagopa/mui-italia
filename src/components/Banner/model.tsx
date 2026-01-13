@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
+import EmojiObjectsOutlinedIcon from '@mui/icons-material/EmojiObjectsOutlined';
 import { blue } from 'theme/colors';
 import { IllusPush } from '../../illustrations/Push';
 
@@ -35,7 +35,7 @@ const BG_MAP: Record<BannerColor, string> = {
   info: blue[50],
 };
 
-const DEFAULT_ICON = <LightbulbOutlinedIcon fontSize="small" />;
+const DEFAULT_ICON = <EmojiObjectsOutlinedIcon fontSize="small" />;
 const DEFAULT_PRIMARY_ILLUSTRATION = <IllusPush />;
 
 export type BannerModel = {
