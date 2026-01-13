@@ -126,20 +126,13 @@ const Icon = ({
 };
 
 export const Tag: React.FC<TagProps> = ({ value, variant = 'default', icon, sx = {}, ...rest }) => {
-  const getContent = (value: string) => {
-    if (variant === 'only-icon') {
-      return null;
-    }
-    return value;
-  };
-
   if (variant === 'only-icon' && icon) {
     return <Icon variant={variant} icon={icon} />;
   } else {
     return (
       <StyledTag sx={sx} {...rest}>
         <Icon variant={variant} icon={icon} />
-        {getContent(value)}
+        {variant === 'only-icon' ? null : value}
       </StyledTag>
     );
   }
