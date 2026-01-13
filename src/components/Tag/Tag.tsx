@@ -9,25 +9,32 @@ import { SxProps, styled } from '@mui/system';
 
 import { pxToRem, theme } from '@theme';
 import { colors } from 'theme/foundations/colors';
-import React from 'react';
+import React, { ComponentType } from 'react';
+import { SvgIconProps } from '@mui/material';
 
 export type Variants = 'default' | 'info' | 'warning' | 'error' | 'success' | 'only-icon';
 
-export interface TagProps {
-  /** Content of the component */
+interface BaseTagProps extends React.HTMLAttributes<HTMLSpanElement> {
   value: string;
-  /** Variant of the colour. You can set variant
-   * related to the meaning of the tag. */
-  variant?: Variants;
-  /** Icon in case of default tag element or only-icon variant.
-   * It is passed as a React Node and it has blue[500] as color.
-   */
-  icon?: React.ReactElement;
-  /* Style to override tag style */
   sx?: SxProps;
-  /* Aria label */
-  ariaLabel?: string;
 }
+
+interface OnlyIconTagProps extends BaseTagProps {
+  variant: 'only-icon';
+  icon: ComponentType<SvgIconProps>;
+}
+
+interface DefaultTagProps extends BaseTagProps {
+  variant: 'default';
+  icon?: ComponentType<SvgIconProps>;
+}
+
+interface OtherTagProps extends BaseTagProps {
+  variant: Exclude<Variants, 'default' | 'only-icon'>;
+  icon?: never;
+}
+
+export type TagProps = OnlyIconTagProps | DefaultTagProps | OtherTagProps;
 
 /* Transform HTML component into MUI Styled Component
 in order to accept `sx` prop */
@@ -57,9 +64,10 @@ const Icon = ({
   ariaLabel,
 }: {
   variant: Variants;
-  icon?: React.ReactElement;
+  icon?: ComponentType<SvgIconProps>;
   ariaLabel?: string;
 }) => {
+  const CustomIcon = icon;
   if (variant === 'info') {
     return (
       <InfoRoundedIcon
@@ -96,32 +104,28 @@ const Icon = ({
       />
     );
   }
-  if (variant === 'default') {
-    return icon
-      ? React.cloneElement(icon, {
-          sx: { color: colors.blue[500], fontSize, ...(icon.props.sx || {}) },
-          ariaHidden: ariaLabel ? 'false' : undefined,
-          ariaLabel: ariaLabel || 'Stato: standard',
-        })
-      : null;
+  if (variant === 'default' && CustomIcon) {
+    return (
+      <CustomIcon
+        sx={{ color: colors.blue[500], fontSize }}
+        aria-hidden="false"
+        aria-label={ariaLabel || 'Stato: standard'}
+      />
+    );
   }
-  if (variant === 'only-icon' && icon) {
-    return React.cloneElement(icon, {
-      sx: { fill: colors.neutral.grey[700], fontSize, ...(icon.props.sx || {}) },
-      ariaHidden: ariaLabel ? 'false' : undefined,
-      ariaLabel,
-    });
+  if (variant === 'only-icon' && CustomIcon) {
+    return (
+      <CustomIcon
+        sx={{ fill: colors.neutral.grey[700], fontSize }}
+        aria-hidden={ariaLabel ? 'false' : undefined}
+        aria-label={ariaLabel}
+      />
+    );
   }
   return null;
 };
 
-export const Tag = ({
-  value,
-  variant = 'default',
-  icon,
-  sx = {},
-  ...rest
-}: TagProps): JSX.Element => {
+export const Tag: React.FC<TagProps> = ({ value, variant = 'default', icon, sx = {}, ...rest }) => {
   const getContent = (value: string) => {
     if (variant === 'only-icon') {
       return null;
