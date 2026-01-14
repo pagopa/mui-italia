@@ -125,12 +125,12 @@ const Icon = ({
 
 // here we cannot use destructured object because TagProps is a Discriminated Union of Interfaces
 export const Tag: React.FC<TagProps> = (props) => {
-  if ((props.variant === 'only-icon' || props.variant === 'default') && props.icon) {
+  if (props.variant === 'only-icon' && props.icon) {
     return <Icon variant={props.variant} icon={props.icon} />;
   }
   return (
     <StyledTag {...props}>
-      <Icon variant={props.variant} />
+      <Icon variant={props.variant} icon={props.variant === 'default' ? props.icon : undefined} />
       {props.variant === 'only-icon' ? null : props.value}
     </StyledTag>
   );
