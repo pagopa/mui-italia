@@ -5,7 +5,7 @@ import ReportRoundedIcon from '@mui/icons-material/ReportRounded';
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 
-import { SxProps, styled } from '@mui/system';
+import { styled } from '@mui/system';
 
 import { pxToRem, theme } from '@theme';
 import { colors } from 'theme/foundations/colors';
@@ -14,24 +14,22 @@ import { SvgIconProps } from '@mui/material';
 
 export type Variants = 'default' | 'info' | 'warning' | 'error' | 'success' | 'only-icon';
 
-interface BaseTagProps extends React.HTMLAttributes<HTMLSpanElement> {
-  value: string;
-  sx?: SxProps;
-}
+type SpanHTMLAttributes = Pick<React.HTMLAttributes<HTMLSpanElement>, 'aria-label'>;
 
-interface OnlyIconTagProps extends BaseTagProps {
+interface OnlyIconTagProps extends SpanHTMLAttributes {
   variant: 'only-icon';
   icon: ComponentType<SvgIconProps>;
 }
 
-interface DefaultTagProps extends BaseTagProps {
+interface DefaultTagProps extends SpanHTMLAttributes {
   variant: 'default';
+  value: string;
   icon?: ComponentType<SvgIconProps>;
 }
 
-interface OtherTagProps extends BaseTagProps {
+interface OtherTagProps extends SpanHTMLAttributes {
   variant: Exclude<Variants, 'default' | 'only-icon'>;
-  icon?: never;
+  value: string;
 }
 
 export type TagProps = OnlyIconTagProps | DefaultTagProps | OtherTagProps;
@@ -125,15 +123,15 @@ const Icon = ({
   return null;
 };
 
-export const Tag: React.FC<TagProps> = ({ value, variant = 'default', icon, sx = {}, ...rest }) => {
-  if (variant === 'only-icon' && icon) {
-    return <Icon variant={variant} icon={icon} />;
-  } else {
-    return (
-      <StyledTag sx={sx} {...rest}>
-        <Icon variant={variant} icon={icon} />
-        {variant === 'only-icon' ? null : value}
-      </StyledTag>
-    );
+// here we cannot use destructured object because TagProps is a Discriminated Union of Interfaces
+export const Tag: React.FC<TagProps> = (props) => {
+  if ((props.variant === 'only-icon' || props.variant === 'default') && props.icon) {
+    return <Icon variant={props.variant} icon={props.icon} />;
   }
+  return (
+    <StyledTag {...props}>
+      <Icon variant={props.variant} />
+      {props.variant === 'only-icon' ? null : props.value}
+    </StyledTag>
+  );
 };
