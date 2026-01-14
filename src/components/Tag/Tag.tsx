@@ -73,7 +73,7 @@ const Icon = ({
       <InfoRoundedIcon
         sx={{ color: colors.info[700], fontSize }}
         aria-hidden="false"
-        aria-label="Stato: informativo"
+        aria-label={ariaLabel || 'Stato: informativo'}
       />
     );
   }
@@ -82,7 +82,7 @@ const Icon = ({
       <ReportProblemRounded
         sx={{ color: colors.warning[700], fontSize }}
         aria-hidden="false"
-        aria-label="Stato: avviso"
+        aria-label={ariaLabel || 'Stato: avviso'}
       />
     );
   }
@@ -91,7 +91,7 @@ const Icon = ({
       <ReportRoundedIcon
         sx={{ color: colors.error[600], fontSize }}
         aria-hidden="false"
-        aria-label="Stato: errore"
+        aria-label={ariaLabel || 'Stato: errore'}
       />
     );
   }
@@ -100,7 +100,7 @@ const Icon = ({
       <CheckCircleRoundedIcon
         sx={{ color: colors.success[700], fontSize }}
         aria-hidden="false"
-        aria-label="Stato: confermato"
+        aria-label={ariaLabel || 'Stato: confermato'}
       />
     );
   }
