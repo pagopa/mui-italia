@@ -30,7 +30,9 @@ export const TagGroup = ({ children, visibleItems = NaN }: TagGroupProps): JSX.E
       ? Children.map(children, (child, i) =>
           i < visibleItems
             ? child
-            : visibleItems === i && <Tag value={`+${Children.count(children) - i}`} />
+            : visibleItems === i && (
+                <Tag value={`+${Children.count(children) - i}`} variant="default" />
+              )
         )
       : children}
   </Stack>
