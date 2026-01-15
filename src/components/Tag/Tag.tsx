@@ -22,7 +22,7 @@ interface OnlyIconTagProps extends SpanHTMLAttributes {
 }
 
 interface DefaultTagProps extends SpanHTMLAttributes {
-  variant: 'default';
+  variant?: 'default';
   value: string;
   icon?: ComponentType<SvgIconProps>;
 }
@@ -125,13 +125,17 @@ const Icon = ({
 
 // here we cannot use destructured object because TagProps is a Discriminated Union of Interfaces
 export const Tag: React.FC<TagProps> = (props) => {
-  if (props.variant === 'only-icon' && props.icon) {
-    return <Icon variant={props.variant} icon={props.icon} />;
+  const { variant = 'default' } = props;
+  const hasIcon = 'icon' in props && props.icon;
+  const hasValue = 'value' in props && props.value;
+
+  if (variant === 'only-icon' && hasIcon) {
+    return <Icon variant={variant} icon={props.icon} />;
   }
   return (
     <StyledTag {...props}>
-      <Icon variant={props.variant} icon={props.variant === 'default' ? props.icon : undefined} />
-      {props.variant === 'only-icon' ? null : props.value}
+      <Icon variant={variant} icon={hasIcon ? props.icon : undefined} />
+      {hasValue && props.value}
     </StyledTag>
   );
 };
