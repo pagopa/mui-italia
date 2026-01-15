@@ -18,7 +18,7 @@ inputs:
     type: boolean
     required: false
   main_branch:
-    description: 'The name of the branch to which to open the merge pr with the release branch'
+    description: 'The name of the main branch towards which to open the merge pr with the release branch'
     type: string
     required: true
 
