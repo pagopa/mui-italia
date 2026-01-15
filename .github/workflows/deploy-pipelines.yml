@@ -36,6 +36,11 @@ on:
         description: It is a final release
         type: boolean
         required: false
+      main_branch:
+        description: The name of the main branch towards which to open the merge pr with the release branch
+        type: string
+        default: main
+        required: true
 
 concurrency:
   group: ${{ github.workflow }}-cd
@@ -80,7 +85,7 @@ jobs:
           ref: ${{inputs.ref}}
           type: ${{inputs.type}}
           final_release: ${{inputs.final_release}}
-          main_branch: main
+          main_branch: ${{inputs.main_branch}}
 
   build:
     needs: release
