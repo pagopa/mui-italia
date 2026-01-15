@@ -104,7 +104,7 @@ const itemWithParentName = {
 };
 
 /* Tag Element */
-const tag: JSX.Element = <Tag color="warning" value="Da completare" />;
+const tag: JSX.Element = <Tag variant="warning" value="Da completare" />;
 const componentMaxWidth = 400;
 
 /* Generate random value without repeating values
