@@ -1,3 +1,35 @@
+# [2.3.0-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.3.0-RC.0) (2026-01-15)
+
+
+### Features
+
+* **M20DS-10:** update Tag element ([#621](https://github.com/pagopa/mui-italia/issues/621)) ([29d156a](https://github.com/pagopa/mui-italia/commit/29d156aaabce4cf805dc8b6d72e63b37e455affb))
+
+
+### Bug Fixes
+
+* **M20DS-10:** added variant default to tag group component ([#630](https://github.com/pagopa/mui-italia/issues/630)) ([1ac4a47](https://github.com/pagopa/mui-italia/commit/1ac4a47d012714332bbacac400ee9c92f2ffbc1a))
+
+
+### Chores
+
+* **MUI-229:** Make main branch configurable ([#629](https://github.com/pagopa/mui-italia/issues/629)) ([9051643](https://github.com/pagopa/mui-italia/commit/9051643ec636f02f6eb7aecba6e1f7c7b701207b))
+* **mui-241:** update to the last version of react 18 ([#620](https://github.com/pagopa/mui-italia/issues/620)) ([499097e](https://github.com/pagopa/mui-italia/commit/499097e3044372ba8776e8dc2e1eb28b7a5fb7da))
+* **MUI-231:** relaxed pr-title constraints ([#616](https://github.com/pagopa/mui-italia/issues/616)) ([e03a40c](https://github.com/pagopa/mui-italia/commit/e03a40c23c20ee13f93ca34355e955d83621df1b))
+
+
+### Build System
+
+* **deps-dev:** bump storybook from 7.6.17 to 7.6.21 ([#622](https://github.com/pagopa/mui-italia/issues/622)) ([670cbd4](https://github.com/pagopa/mui-italia/commit/670cbd484e373b1bf2787c8136e489d1c290b7af))
+* **deps-dev:** bump @babel/core from 7.24.4 to 7.28.4 ([#579](https://github.com/pagopa/mui-italia/issues/579)) ([e5d1ce5](https://github.com/pagopa/mui-italia/commit/e5d1ce55ba43e4a99cdb629b7f8b646503536344))
+
+
+### Documentation
+
+* **MUI-239:** Migration to storybook 10 and vite ([#627](https://github.com/pagopa/mui-italia/issues/627)) ([189e9fb](https://github.com/pagopa/mui-italia/commit/189e9fbc9837f74e517b16b35c0ad87262478a9a))
+
+
+
 # [2.2.0](https://github.com/pagopa/mui-italia/releases/tag/v2.2.0) (2025-12-09)
 
 
