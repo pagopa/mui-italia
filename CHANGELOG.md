@@ -1,3 +1,12 @@
+# [2.3.0-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v2.3.0-RC.1) (2026-01-15)
+
+
+### Bug Fixes
+
+* **M20DS-10:** set variant default for Tag that doesn't have ([#631](https://github.com/pagopa/mui-italia/issues/631)) ([d00cfc9](https://github.com/pagopa/mui-italia/commit/d00cfc903bb0d488ba7addc957957a6e65ad6136))
+
+
+
 # [2.3.0-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.3.0-RC.0) (2026-01-15)
 
 
