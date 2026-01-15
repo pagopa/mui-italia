@@ -26,7 +26,7 @@ export default {
 export const Default: StoryFn<typeof TagGroup> = (args) => (
   <TagGroup {...args}>
     {groupLabels.map((item: string, i: number) => (
-      <Tag key={`${i}-${item}`} value={item} />
+      <Tag key={`${i}-${item}`} value={item} variant="default" />
     ))}
   </TagGroup>
 );
