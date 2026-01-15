@@ -1,3 +1,30 @@
+# [1.11.0-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v1.11.0-RC.0) (2026-01-15)
+
+
+### Features
+
+* **M20DS-10:** update Tag element ([#621](https://github.com/pagopa/mui-italia/issues/621)) ([d46ab44](https://github.com/pagopa/mui-italia/commit/d46ab44b6b4c5ba62b4b8c12651f809a8552c116))
+
+
+### Bug Fixes
+
+* **M20DS-10:** set variant default for Tag that doesn't have ([#631](https://github.com/pagopa/mui-italia/issues/631)) ([e7b265a](https://github.com/pagopa/mui-italia/commit/e7b265a79df44ba5a392201e955f57f29e2174e3))
+* **M20DS-10:** added variant default to tag group component ([#630](https://github.com/pagopa/mui-italia/issues/630)) ([86f488b](https://github.com/pagopa/mui-italia/commit/86f488bf2b3980a84c05f70e065eb4ec1d26832c))
+
+
+### Chores
+
+* **MUI-229:** Make main branch configurable ([#629](https://github.com/pagopa/mui-italia/issues/629)) ([b7ce9c7](https://github.com/pagopa/mui-italia/commit/b7ce9c7f4deb40ba1b368419ab44d2670dadbb72))
+* **mui-241:** update to the last version of react 18 ([#620](https://github.com/pagopa/mui-italia/issues/620)) ([8f593f2](https://github.com/pagopa/mui-italia/commit/8f593f2486be0f75b05b56af0e8152a0e8c40334))
+* **MUI-231:** relaxed pr-title constraints ([#616](https://github.com/pagopa/mui-italia/issues/616)) ([5e3652b](https://github.com/pagopa/mui-italia/commit/5e3652b69a9dc88abc299773dfc08233132053bb))
+
+
+### Build System
+
+* **deps-dev:** bump storybook from 7.6.17 to 7.6.21 ([#622](https://github.com/pagopa/mui-italia/issues/622)) ([eb5ff87](https://github.com/pagopa/mui-italia/commit/eb5ff8733dc3f37b3f73039a0e96b2054887c8d8))
+
+
+
 # [1.10.0](https://github.com/pagopa/mui-italia/releases/tag/v1.10.0) (2025-12-09)
 
 
