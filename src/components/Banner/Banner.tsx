@@ -1,25 +1,13 @@
 'use client';
 
-import { useResizeObserver } from '../../utils/useResizeObserver';
+import { useMemo } from 'react';
+import { useMediaQuery, useTheme } from '@mui/material';
 import type { BannerCTA, BannerDirection, BannerModel, BannerProps, ViewState } from './model';
-import {
-  BANNER_VERTICAL_BREAKPOINT_PX,
-  computeModel,
-  computeViewState,
-  normalizeProps,
-} from './model';
+import { computeModel, computeViewState, normalizeProps } from './model';
 import { Inner, Root } from './shared';
 import { Primary } from './layouts/Primary';
 import { Secondary } from './layouts/Secondary';
 import { Tertiary } from './layouts/Tertiary';
-
-function resolveDirection(width: number | null): BannerDirection {
-  if (width === null) {
-    return 'horizontal';
-  }
-
-  return width < BANNER_VERTICAL_BREAKPOINT_PX ? 'vertical' : 'horizontal';
-}
 
 /**
  * Variant router.
@@ -89,8 +77,13 @@ export const Banner = (props: BannerProps) => {
    */
   const normalizedProps = normalizeProps(props);
 
-  const { ref: rootRef, size } = useResizeObserver<HTMLDivElement>();
-  const direction = resolveDirection(size?.width ?? null);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const direction: BannerDirection = useMemo(
+    () => (isMobile ? 'vertical' : 'horizontal'),
+    [isMobile]
+  );
 
   /**
    * Model = "what to render" (derived flags + resolved nodes).
@@ -110,7 +103,7 @@ export const Banner = (props: BannerProps) => {
   });
 
   return (
-    <Root ref={rootRef} bg={model.bg} {...rest}>
+    <Root bg={model.bg} {...rest}>
       <Inner>{content}</Inner>
     </Root>
   );

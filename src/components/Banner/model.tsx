@@ -3,8 +3,6 @@ import EmojiObjectsOutlinedIcon from '@mui/icons-material/EmojiObjectsOutlined';
 import { blue } from 'theme/colors';
 import { IllusPush } from '../../illustrations/Push';
 
-export const BANNER_VERTICAL_BREAKPOINT_PX = 640;
-
 export type BannerColor = 'white' | 'info';
 export type BannerVariant = 'primary' | 'secondary' | 'tertiary';
 export type BannerDirection = 'horizontal' | 'vertical';
@@ -18,7 +16,6 @@ export interface BannerCTA {
 
 type DataAttributes = {
   [key: `data-${string}`]: string | number | boolean | undefined;
-  // [key: `data-${string}`]: string | number | boolean | undefined;
 };
 
 export interface BannerProps extends DataAttributes, AriaAttributes {
