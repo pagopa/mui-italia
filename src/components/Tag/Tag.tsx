@@ -39,7 +39,6 @@ in order to accept `sx` prop */
 const StyledTag = styled('span')({
   fontSize: pxToRem(12),
   fontWeight: 600,
-  whiteSpace: 'nowrap',
   userSelect: 'none',
   padding: `${pxToRem(4)} ${pxToRem(8)}`,
   backgroundColor: theme.palette.common.white,
