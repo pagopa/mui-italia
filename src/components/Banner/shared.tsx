@@ -16,11 +16,6 @@ export const Inner = styled(Box)(({ theme }) => ({
   padding: theme.spacing(2),
 }));
 
-export const PrimaryRow = styled(Box)(() => ({
-  display: 'flex',
-  alignItems: 'stretch',
-}));
-
 export const BlueBar = styled(Box)(({ theme }) => ({
   width: 4,
   borderRadius: theme.spacing(0.5),
@@ -29,36 +24,14 @@ export const BlueBar = styled(Box)(({ theme }) => ({
   alignSelf: 'stretch',
 }));
 
-export const TwoCols = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'space-between',
-  width: '100%',
-  gap: theme.spacing(2),
-}));
-
-export const LeftCol = styled(Box)(() => ({
-  flex: 1,
-  display: 'flex',
-  flexDirection: 'column',
-}));
-
-export const RightCol = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-end',
-  gap: theme.spacing(2),
-  flexShrink: 0,
-}));
-
-export const CloseBtn = styled(IconButton)(() => ({
-  color: neutral.black,
-}));
-
-export function CloseButton({ onClose }: Readonly<{ onClose: () => void }>) {
+export function CloseButton({
+  onClose,
+  ariaLabel,
+}: Readonly<{ onClose: () => void; ariaLabel: string }>) {
   return (
-    <CloseBtn aria-label="Close banner" onClick={onClose} size="small">
+    <IconButton onClick={onClose} size="small" sx={{ color: neutral.black }} aria-label={ariaLabel}>
       <CloseIcon fontSize="small" />
-    </CloseBtn>
+    </IconButton>
   );
 }
 
@@ -76,6 +49,9 @@ export function BadgeChip({ text }: Readonly<{ text: string }>) {
         },
         '& .MuiChip-label': {
           fontSize: '12px',
+          whiteSpace: 'normal',
+          overflowWrap: 'anywhere',
+          wordBreak: 'break-word',
         },
       }}
     />
@@ -86,14 +62,12 @@ export function Cta({
   kind,
   label,
   onClick,
-  testId,
   alignSelf,
   variant,
 }: Readonly<{
   kind: CtaKind;
   label: string;
   onClick: () => void;
-  testId?: string;
   alignSelf?: 'flex-start' | 'center' | 'flex-end';
   variant: BannerVariant;
 }>) {
@@ -102,7 +76,6 @@ export function Cta({
       <Button
         variant="contained"
         onClick={onClick}
-        data-testid={testId}
         sx={{
           borderRadius: '8px',
           textTransform: 'none',
@@ -122,7 +95,6 @@ export function Cta({
   return (
     <ButtonNaked
       onClick={onClick}
-      data-testid={testId}
       sx={{
         p: 0,
         minWidth: 'auto',
@@ -142,12 +114,15 @@ export function Title({
   text,
   textAlign,
   variant,
+  fontSizeOverride,
 }: Readonly<{
   text: string;
   textAlign: 'left' | 'center';
   variant: BannerVariant;
+  fontSizeOverride?: string;
 }>) {
-  const fontSize = variant === 'tertiary' ? '16px' : '24px';
+  const defaultFontSize = variant === 'tertiary' ? '16px' : '24px';
+  const fontSize = fontSizeOverride ?? defaultFontSize;
 
   return (
     <Typography

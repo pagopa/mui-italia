@@ -1,17 +1,6 @@
-import { Box } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import { BannerCTA, BannerModel, ViewState } from '../model';
-import {
-  BadgeChip,
-  BlueBar,
-  Cta,
-  LeftCol,
-  Message,
-  PrimaryRow,
-  RightCol,
-  Title,
-  TwoCols,
-  CloseButton,
-} from '../shared';
+import { BadgeChip, BlueBar, Cta, Message, Title, CloseButton } from '../shared';
 
 export function Primary({
   model,
@@ -20,6 +9,7 @@ export function Primary({
   message,
   cta,
   onClose,
+  closeAriaLabel,
 }: Readonly<{
   model: BannerModel;
   view: ViewState;
@@ -27,19 +17,25 @@ export function Primary({
   message?: string;
   cta?: BannerCTA;
   onClose?: () => void;
+  closeAriaLabel: string;
 }>) {
   const showCta = model.hasCta && cta;
   const showBadge = view.variant === 'primary' && Boolean(model.badgeText);
 
   return (
-    <PrimaryRow>
+    <Stack direction="row" alignItems="stretch">
       <BlueBar />
 
-      <TwoCols>
-        <LeftCol sx={{ gap: 1 }}>
+      <Stack direction="row" justifyContent="space-between" width="100%" gap={2}>
+        <Stack direction="column" flex={1} gap={1} minWidth={0}>
           {showBadge && model.badgeText && <BadgeChip text={model.badgeText} />}
 
-          <Title text={title} textAlign={model.textAlign} variant={view.variant} />
+          <Title
+            text={title}
+            textAlign={model.textAlign}
+            variant={view.variant}
+            fontSizeOverride={view.isHorizontal ? undefined : '18px'}
+          />
 
           {message && <Message text={message} textAlign={model.textAlign} variant={view.variant} />}
 
@@ -49,16 +45,15 @@ export function Primary({
                 kind={model.ctaKind}
                 label={cta.label}
                 onClick={cta.onClick}
-                testId={cta['data-testid']}
                 alignSelf="flex-start"
                 variant={view.variant}
               />
             </Box>
           )}
-        </LeftCol>
+        </Stack>
 
-        <RightCol>
-          {onClose && <CloseButton onClose={onClose} />}
+        <Stack direction="column" alignItems="flex-end" gap={2} flexShrink={0}>
+          {onClose && <CloseButton onClose={onClose} ariaLabel={closeAriaLabel} />}
 
           {model.illustrationNode && (
             <Box
@@ -76,8 +71,8 @@ export function Primary({
               {model.illustrationNode}
             </Box>
           )}
-        </RightCol>
-      </TwoCols>
-    </PrimaryRow>
+        </Stack>
+      </Stack>
+    </Stack>
   );
 }

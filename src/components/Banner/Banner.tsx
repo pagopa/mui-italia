@@ -1,10 +1,9 @@
 'use client';
 
+import { useResizeObserver } from '../../utils/useResizeObserver';
+import type { BannerCTA, BannerDirection, BannerModel, BannerProps, ViewState } from './model';
 import {
-  BannerCTA,
-  BannerModel,
-  BannerProps,
-  ViewState,
+  BANNER_VERTICAL_BREAKPOINT_PX,
   computeModel,
   computeViewState,
   normalizeProps,
@@ -13,6 +12,14 @@ import { Inner, Root } from './shared';
 import { Primary } from './layouts/Primary';
 import { Secondary } from './layouts/Secondary';
 import { Tertiary } from './layouts/Tertiary';
+
+function resolveDirection(width: number | null): BannerDirection {
+  if (width === null) {
+    return 'horizontal';
+  }
+
+  return width < BANNER_VERTICAL_BREAKPOINT_PX ? 'vertical' : 'horizontal';
+}
 
 /**
  * Variant router.
@@ -26,8 +33,9 @@ function renderBannerLayout(args: {
   message?: string;
   cta?: BannerCTA;
   onClose?: BannerProps['onClose'];
+  closeAriaLabel: string;
 }) {
-  const { view, model, title, message, cta, onClose } = args;
+  const { view, model, title, message, cta, onClose, closeAriaLabel } = args;
 
   switch (view.variant) {
     case 'primary':
@@ -39,8 +47,10 @@ function renderBannerLayout(args: {
           message={message}
           cta={cta}
           onClose={onClose}
+          closeAriaLabel={closeAriaLabel}
         />
       );
+
     case 'secondary':
       return (
         <Secondary
@@ -50,8 +60,10 @@ function renderBannerLayout(args: {
           message={message}
           cta={cta}
           onClose={onClose}
+          closeAriaLabel={closeAriaLabel}
         />
       );
+
     case 'tertiary':
     default:
       return (
@@ -62,31 +74,43 @@ function renderBannerLayout(args: {
           message={message}
           cta={cta}
           onClose={onClose}
+          closeAriaLabel={closeAriaLabel}
         />
       );
   }
 }
 
 export const Banner = (props: BannerProps) => {
-  const { title, message, onClose, cta, 'data-testid': dataTestId } = props;
+  const { title, message, onClose, closeAriaLabel, cta, ...rest } = props;
 
   /**
-   * Normalize optional props (variant/direction defaults) once,
-   * so downstream helpers/layouts can assume they're always defined.
+   * Normalize optional props (variant defaults) once,
+   * so downstream helpers and layouts can assume they are always defined.
    */
   const normalizedProps = normalizeProps(props);
+
+  const { ref: rootRef, size } = useResizeObserver<HTMLDivElement>();
+  const direction = resolveDirection(size?.width ?? null);
 
   /**
    * Model = "what to render" (derived flags + resolved nodes).
    * View  = "how to render it" (derived layout numbers based on direction/variant).
    */
-  const model = computeModel(normalizedProps);
-  const view = computeViewState(normalizedProps, model);
+  const model = computeModel(normalizedProps, direction);
+  const view = computeViewState(normalizedProps, direction);
 
-  const content = renderBannerLayout({ view, model, title, message, cta, onClose });
+  const content = renderBannerLayout({
+    view,
+    model,
+    title,
+    message,
+    cta,
+    onClose,
+    closeAriaLabel: closeAriaLabel ?? 'Close',
+  });
 
   return (
-    <Root data-testid={dataTestId} bg={model.bg}>
+    <Root ref={rootRef} bg={model.bg} {...rest}>
       <Inner>{content}</Inner>
     </Root>
   );

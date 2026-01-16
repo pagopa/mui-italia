@@ -1,6 +1,6 @@
-import { Box } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import { BannerCTA, BannerModel, ViewState } from '../model';
-import { Cta, LeftCol, Message, RightCol, Title, TwoCols, CloseButton } from '../shared';
+import { Cta, Message, Title, CloseButton } from '../shared';
 
 export function Secondary({
   model,
@@ -9,6 +9,7 @@ export function Secondary({
   message,
   cta,
   onClose,
+  closeAriaLabel,
 }: Readonly<{
   model: BannerModel;
   view: ViewState;
@@ -16,14 +17,20 @@ export function Secondary({
   message?: string;
   cta?: BannerCTA;
   onClose?: () => void;
+  closeAriaLabel: string;
 }>) {
   const showCta = model.hasCta && cta;
   const isHorizontal = view.isHorizontal;
 
   return (
-    <TwoCols>
-      <LeftCol sx={{ gap: 1 }}>
-        <Title text={title} textAlign={model.textAlign} variant={view.variant} />
+    <Stack direction="row" justifyContent="space-between" width="100%" gap={2}>
+      <Stack direction="column" flex={1} gap={1} minWidth={0}>
+        <Title
+          text={title}
+          textAlign={model.textAlign}
+          variant={view.variant}
+          fontSizeOverride={view.isHorizontal ? undefined : '18px'}
+        />
         {message && <Message text={message} textAlign={model.textAlign} variant={view.variant} />}
 
         {!isHorizontal && showCta && (
@@ -32,16 +39,15 @@ export function Secondary({
               kind={model.ctaKind}
               label={cta.label}
               onClick={cta.onClick}
-              testId={cta['data-testid']}
               alignSelf="flex-start"
               variant={view.variant}
             />
           </Box>
         )}
-      </LeftCol>
+      </Stack>
 
-      <RightCol sx={{ gap: 2 }}>
-        {onClose && <CloseButton onClose={onClose} />}
+      <Stack direction="column" alignItems="flex-end" gap={2} flexShrink={0}>
+        {onClose && <CloseButton onClose={onClose} ariaLabel={closeAriaLabel} />}
 
         {isHorizontal && showCta && (
           <Box sx={{ mt: 'auto' }}>
@@ -49,13 +55,12 @@ export function Secondary({
               kind={model.ctaKind}
               label={cta.label}
               onClick={cta.onClick}
-              testId={cta['data-testid']}
               alignSelf="flex-end"
               variant={view.variant}
             />
           </Box>
         )}
-      </RightCol>
-    </TwoCols>
+      </Stack>
+    </Stack>
   );
 }

@@ -15,6 +15,7 @@ export const error = {
 export const neutral = {
   black: '#0E0F13',
   100: '#E8EBF1',
+  300: '#BBC2D6',
   700: '#555C70',
 };
 
@@ -29,6 +30,6 @@ export const turquoise = {
   50: '#DBF9FA',
 };
 
-export const decorativeIcon = '#BBC2D6';
+export const decorativeIcon = neutral[300];
 
 export const divider = '#E8EBF1';

@@ -1,7 +1,9 @@
-import { ReactNode } from 'react';
+import { AriaAttributes, ReactNode } from 'react';
 import EmojiObjectsOutlinedIcon from '@mui/icons-material/EmojiObjectsOutlined';
 import { blue } from 'theme/colors';
 import { IllusPush } from '../../illustrations/Push';
+
+export const BANNER_VERTICAL_BREAKPOINT_PX = 640;
 
 export type BannerColor = 'white' | 'info';
 export type BannerVariant = 'primary' | 'secondary' | 'tertiary';
@@ -12,22 +14,24 @@ export type CtaKind = 'naked' | 'contained';
 export interface BannerCTA {
   label: string;
   onClick: () => void;
-  'data-testid'?: string;
 }
 
-export interface BannerProps {
+type DataAttributes = {
+  [key: `data-${string}`]: string | number | boolean | undefined;
+  // [key: `data-${string}`]: string | number | boolean | undefined;
+};
+
+export interface BannerProps extends DataAttributes, AriaAttributes {
   color?: BannerColor;
   variant?: BannerVariant;
-  direction?: BannerDirection;
   title: string;
   message?: string;
   badge?: string;
   onClose?: () => void;
+  closeAriaLabel?: string;
   cta?: BannerCTA;
   icon?: ReactNode;
   illustration?: ReactNode;
-
-  'data-testid'?: string;
 }
 
 const BG_MAP: Record<BannerColor, string> = {
@@ -62,21 +66,11 @@ export type ViewState = {
 
 export function normalizeProps(props: BannerProps) {
   const variant = props.variant ?? 'primary';
-  const direction = props.direction ?? 'horizontal';
-  return { ...props, variant, direction } satisfies BannerProps;
+  return { ...props, variant } satisfies BannerProps;
 }
 
-export function computeModel(props: BannerProps): BannerModel {
-  const {
-    color = 'white',
-    variant = 'primary',
-    direction = 'horizontal',
-    badge,
-    onClose,
-    cta,
-    icon,
-    illustration,
-  } = props;
+export function computeModel(props: BannerProps, direction: BannerDirection): BannerModel {
+  const { color = 'white', variant = 'primary', badge, onClose, cta, icon, illustration } = props;
 
   const hasClose = Boolean(onClose);
   const hasCta = Boolean(cta);
@@ -123,9 +117,8 @@ export function computeModel(props: BannerProps): BannerModel {
   };
 }
 
-export function computeViewState(props: BannerProps, model: BannerModel): ViewState {
+export function computeViewState(props: BannerProps, direction: BannerDirection): ViewState {
   const variant = props.variant ?? 'primary';
-  const direction = props.direction ?? model.direction;
   const isHorizontal = direction === 'horizontal';
 
   const contentGapPx = variant === 'tertiary' && isHorizontal ? 8 : 16;
