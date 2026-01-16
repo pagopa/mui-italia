@@ -1,5 +1,5 @@
 import { SyntheticEvent } from 'react';
-import { Meta, StoryFn } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react-vite';
 
 import { breakpointsChromaticValues } from '@theme';
 
@@ -51,7 +51,7 @@ export default {
       control: { type: 'boolean' },
       table: {
         type: { summary: 'boolean' },
-        defaultValue: { summary: false },
+        defaultValue: { summary: 'false' },
       },
     },
     type: {

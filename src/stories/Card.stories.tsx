@@ -1,6 +1,6 @@
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@mui/material';
 
-import { StoryFn, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react-vite';
 
 export default {
   title: 'Mui Components/Surfaces/Card',

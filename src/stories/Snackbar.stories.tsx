@@ -1,5 +1,5 @@
 import { Fragment, SyntheticEvent, useState } from 'react';
-import { StoryFn, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react-vite';
 
 import { Snackbar, IconButton, Button, Alert, Stack } from '@mui/material';
 
