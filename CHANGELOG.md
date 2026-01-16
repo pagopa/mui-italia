@@ -1,3 +1,12 @@
+# [2.3.0-RC.2](https://github.com/pagopa/mui-italia/releases/tag/v2.3.0-RC.2) (2026-01-16)
+
+
+### Bug Fixes
+
+* **M20DS-10:** Tag - split text in multi lines if it overcomes the width of the container ([#632](https://github.com/pagopa/mui-italia/issues/632)) ([755969d](https://github.com/pagopa/mui-italia/commit/755969df8b9e607630ce6e2a50c773265156d9fc))
+
+
+
 # [2.3.0-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v2.3.0-RC.1) (2026-01-15)
 
 
