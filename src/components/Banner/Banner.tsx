@@ -1,6 +1,5 @@
 'use client';
 
-import { useMemo } from 'react';
 import { useMediaQuery, useTheme } from '@mui/material';
 import type { BannerCTA, BannerDirection, BannerModel, BannerProps, ViewState } from './model';
 import { computeModel, computeViewState, normalizeProps } from './model';
@@ -76,14 +75,13 @@ export const Banner = (props: BannerProps) => {
    * so downstream helpers and layouts can assume they are always defined.
    */
   const normalizedProps = normalizeProps(props);
+  const variant = normalizedProps.variant;
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const direction: BannerDirection = useMemo(
-    () => (isMobile ? 'vertical' : 'horizontal'),
-    [isMobile]
-  );
+  const direction: BannerDirection =
+    variant === 'tertiary' || !isMobile ? 'horizontal' : 'vertical';
 
   /**
    * Model = "what to render" (derived flags + resolved nodes).
@@ -103,7 +101,7 @@ export const Banner = (props: BannerProps) => {
   });
 
   return (
-    <Root bg={model.bg} {...rest}>
+    <Root colorStyle={model.colorStyle} {...rest}>
       <Inner>{content}</Inner>
     </Root>
   );

@@ -1,13 +1,20 @@
 import { AriaAttributes, ReactNode } from 'react';
 import EmojiObjectsOutlinedIcon from '@mui/icons-material/EmojiObjectsOutlined';
-import { blue } from 'theme/colors';
+import type { Theme } from '@mui/material/styles';
+import { blue, neutral } from 'theme/colors';
 import { IllusPush } from '../../illustrations/Push';
 
+export type ThemeColor = string | ((theme: Theme) => string);
 export type BannerColor = 'white' | 'info';
 export type BannerVariant = 'primary' | 'secondary' | 'tertiary';
 export type BannerDirection = 'horizontal' | 'vertical';
 
 export type CtaKind = 'naked' | 'contained';
+
+export type BannerColorStyle = {
+  background: ThemeColor;
+  border: ThemeColor;
+};
 
 export interface BannerCTA {
   label: string;
@@ -31,16 +38,22 @@ export interface BannerProps extends DataAttributes, AriaAttributes {
   illustration?: ReactNode;
 }
 
-const BG_MAP: Record<BannerColor, string> = {
-  white: 'background.paper',
-  info: blue[50],
+const COLOR_STYLE_MAP: Record<BannerColor, BannerColorStyle> = {
+  white: {
+    background: (theme) => theme.palette.background.paper,
+    border: neutral[100],
+  },
+  info: {
+    background: blue[50],
+    border: blue[100],
+  },
 };
 
 const DEFAULT_ICON = <EmojiObjectsOutlinedIcon fontSize="small" />;
 const DEFAULT_PRIMARY_ILLUSTRATION = <IllusPush />;
 
 export type BannerModel = {
-  bg: string;
+  colorStyle: BannerColorStyle;
   direction: BannerDirection;
   textAlign: 'left' | 'center';
 
@@ -105,7 +118,7 @@ export function computeModel(props: BannerProps, direction: BannerDirection): Ba
   }
 
   return {
-    bg: BG_MAP[color],
+    colorStyle: COLOR_STYLE_MAP[color],
     direction,
     ...variantConfig,
     hasClose,

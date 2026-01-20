@@ -1,14 +1,18 @@
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Button, Chip, IconButton, Typography, styled } from '@mui/material';
+import type { Theme } from '@mui/material/styles';
 import { ButtonNaked } from '@components/ButtonNaked';
-import { blue, divider, neutral, turquoise } from 'theme/colors';
-import { BannerVariant, CtaKind } from './model';
+import { blue, neutral, turquoise } from 'theme/colors';
+import type { BannerColorStyle, BannerVariant, CtaKind, ThemeColor } from './model';
+
+const resolveColor = (theme: Theme, value: ThemeColor) =>
+  typeof value === 'function' ? value(theme) : value;
 
 export const Root = styled(Box, {
-  shouldForwardProp: (prop) => prop !== 'bg',
-})<{ bg: string }>(({ theme, bg }) => ({
-  backgroundColor: bg,
-  border: `1px solid ${divider}`,
+  shouldForwardProp: (prop) => prop !== 'colorStyle',
+})<{ colorStyle: BannerColorStyle }>(({ theme, colorStyle }) => ({
+  backgroundColor: resolveColor(theme, colorStyle.background),
+  border: `1px solid ${resolveColor(theme, colorStyle.border)}`,
   borderRadius: theme.spacing(1),
 }));
 
