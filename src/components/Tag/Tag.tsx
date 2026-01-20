@@ -1,75 +1,140 @@
-"use client";
+'use client';
 
-import { SxProps, styled } from "@mui/system";
-import { alpha } from "@mui/material/styles";
+import ReportProblemRounded from '@mui/icons-material/ReportProblemRounded';
+import ReportRoundedIcon from '@mui/icons-material/ReportRounded';
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
+import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 
-import { pxToRem, theme } from "@theme";
+import { styled } from '@mui/system';
 
-export type Variants = "default" | "light";
-export type Colors =
-  | "default"
-  | "primary"
-  | "warning"
-  | "error"
-  | "info"
-  | "success";
+import { pxToRem, theme } from '@theme';
+import { colors } from 'theme/foundations/colors';
+import React, { ComponentType } from 'react';
+import { SvgIconProps } from '@mui/material';
 
-export interface TagProps {
-  /** Content of the component */
-  value: string;
-  /** Variant of the colour. You can set `Light` variant if
-   * you want a washed out variant of the color. */
-  variant?: Variants;
-  /** Color of the component. It supports default neutral color,
-   * primary color and status colours (warning, info, etc…). */
-  color?: Colors;
-  /* Style to override tag style */
-  sx?: SxProps;
+export type Variants = 'default' | 'info' | 'warning' | 'error' | 'success' | 'only-icon';
+
+type SpanHTMLAttributes = Pick<React.HTMLAttributes<HTMLSpanElement>, 'aria-label'>;
+
+interface OnlyIconTagProps extends SpanHTMLAttributes {
+  variant: 'only-icon';
+  icon: ComponentType<SvgIconProps>;
 }
+
+interface DefaultTagProps extends SpanHTMLAttributes {
+  variant?: 'default';
+  value: string;
+  icon?: ComponentType<SvgIconProps>;
+}
+
+interface OtherTagProps extends SpanHTMLAttributes {
+  variant: Exclude<Variants, 'default' | 'only-icon'>;
+  value: string;
+}
+
+export type TagProps = OnlyIconTagProps | DefaultTagProps | OtherTagProps;
 
 /* Transform HTML component into MUI Styled Component
 in order to accept `sx` prop */
-const StyledTag = styled("span")({
-  display: "inline-block",
-  fontSize: pxToRem(14),
+const StyledTag = styled('span')({
+  fontSize: pxToRem(12),
   fontWeight: 600,
-  letterSpacing: 0.5,
-  whiteSpace: "nowrap",
+  userSelect: 'none',
+  padding: `${pxToRem(4)} ${pxToRem(8)}`,
+  backgroundColor: theme.palette.common.white,
+  color: theme.palette.grey[700],
+  fontFamily: theme.typography.fontFamily,
+  borderRadius: pxToRem(6),
+  border: `1px solid ${theme.palette.grey[100]}`,
+  display: 'inline-flex',
+  alignItems: 'center',
+  gap: theme.spacing(1),
+  lineHeight: pxToRem(18),
+  textTransform: 'uppercase',
 });
 
-export const Tag = ({
-  value,
-  color = "default",
-  variant = "default",
-  sx = {},
-  ...rest
-}: TagProps): JSX.Element => {
-  const tagNeutralBg = theme.palette.grey[100];
-  const tagBgColor =
-    color !== "default"
-      ? variant === "light"
-        ? alpha(theme.palette[color][100], 0.1)
-        : theme.palette[color][100]
-      : tagNeutralBg;
+const fontSize = pxToRem(14);
 
-  const tagTextColor =
-    color === "default" || color === "primary"
-      ? theme.palette.text.primary
-      : theme.palette[color][850];
+const Icon = ({
+  variant,
+  icon,
+  ariaLabel,
+}: {
+  variant: Variants;
+  icon?: ComponentType<SvgIconProps>;
+  ariaLabel?: string;
+}) => {
+  const CustomIcon = icon;
+  if (variant === 'info') {
+    return (
+      <InfoRoundedIcon
+        sx={{ color: colors.info[700], fontSize }}
+        aria-hidden="false"
+        aria-label={ariaLabel || 'Stato: informativo'}
+      />
+    );
+  }
+  if (variant === 'warning') {
+    return (
+      <ReportProblemRounded
+        sx={{ color: colors.warning[700], fontSize }}
+        aria-hidden="false"
+        aria-label={ariaLabel || 'Stato: avviso'}
+      />
+    );
+  }
+  if (variant === 'error') {
+    return (
+      <ReportRoundedIcon
+        sx={{ color: colors.error[600], fontSize }}
+        aria-hidden="false"
+        aria-label={ariaLabel || 'Stato: errore'}
+      />
+    );
+  }
+  if (variant === 'success') {
+    return (
+      <CheckCircleRoundedIcon
+        sx={{ color: colors.success[700], fontSize }}
+        aria-hidden="false"
+        aria-label={ariaLabel || 'Stato: confermato'}
+      />
+    );
+  }
+  if (variant === 'default' && CustomIcon) {
+    return (
+      <CustomIcon
+        sx={{ color: colors.blue[500], fontSize }}
+        aria-hidden="false"
+        aria-label={ariaLabel || 'Stato: standard'}
+      />
+    );
+  }
+  if (variant === 'only-icon' && CustomIcon) {
+    return (
+      <CustomIcon
+        sx={{ fill: colors.neutral.grey[700], fontSize }}
+        aria-hidden={ariaLabel ? 'false' : undefined}
+        aria-label={ariaLabel}
+      />
+    );
+  }
+  return null;
+};
 
-  const style = {
-    userSelect: "none",
-    py: 0.5,
-    px: 0.75,
-    backgroundColor: tagBgColor,
-    color: tagTextColor,
-    fontFamily: theme.typography.fontFamily,
-    borderRadius: theme.spacing(0.5),
-    ...sx,
-  } as SxProps;
+// here we cannot use destructured object because TagProps is a Discriminated Union of Interfaces
+export const Tag: React.FC<TagProps> = (props) => {
+  const { variant = 'default' } = props;
+  const hasIcon = 'icon' in props && props.icon;
+  const hasValue = 'value' in props && props.value;
+
+  if (variant === 'only-icon' && hasIcon) {
+    return <Icon variant={variant} icon={props.icon} />;
+  }
   return (
-    <StyledTag sx={style} {...rest}>
-      {value}
+    <StyledTag {...props}>
+      <Icon variant={variant} icon={hasIcon ? props.icon : undefined} />
+      {hasValue && props.value}
     </StyledTag>
   );
 };
