@@ -1,3 +1,22 @@
+# [1.11.0-RC.2](https://github.com/pagopa/mui-italia/releases/tag/v1.11.0-RC.2) (2026-01-21)
+
+
+### Features
+
+* **M20DS-32:** add Banner component with variants, layouts and storybook ([#628](https://github.com/pagopa/mui-italia/issues/628)) ([e46f37e](https://github.com/pagopa/mui-italia/commit/e46f37e8b6c3d9d3d7ca5222fe38bc25a77f056a))
+
+
+### Chores
+
+* **MUI-244:** trusted publishing ([#634](https://github.com/pagopa/mui-italia/issues/634)) ([0fb4239](https://github.com/pagopa/mui-italia/commit/0fb423922cc71c2b5dc48e1f73eb0e2fbbf40918))
+
+
+### Documentation
+
+* **MUI-229:** added repository url to package.json ([#633](https://github.com/pagopa/mui-italia/issues/633)) ([91b3e74](https://github.com/pagopa/mui-italia/commit/91b3e74f03d91c8072f06260c210ee2e2902b35e))
+
+
+
 # [1.11.0-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v1.11.0-RC.1) (2026-01-16)
 
 
