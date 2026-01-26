@@ -1,5 +1,6 @@
 export * from './AccountDropdown';
 export * from './Autocomplete';
+export * from './Banner';
 export * from './ButtonNaked';
 export * from './CodeInput';
 export * from './CopyToClipboardButton';
