@@ -1,3 +1,12 @@
+# [1.11.0-RC.3](https://github.com/pagopa/mui-italia/releases/tag/v1.11.0-RC.3) (2026-01-26)
+
+
+### Bug Fixes
+
+* **M20DS-32:** expose Banner component from package root ([#636](https://github.com/pagopa/mui-italia/issues/636)) ([456b0e8](https://github.com/pagopa/mui-italia/commit/456b0e8aff16f36f66b7b4d99e4d8e5546754b4b))
+
+
+
 # [1.11.0-RC.2](https://github.com/pagopa/mui-italia/releases/tag/v1.11.0-RC.2) (2026-01-21)
 
 
