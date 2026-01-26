@@ -1,3 +1,17 @@
+# [2.3.0-RC.4](https://github.com/pagopa/mui-italia/releases/tag/v2.3.0-RC.4) (2026-01-26)
+
+
+### Bug Fixes
+
+* **M20DS-32:** expose Banner component from package root ([#636](https://github.com/pagopa/mui-italia/issues/636)) ([2c946a5](https://github.com/pagopa/mui-italia/commit/2c946a5b52dba89de0539a2fe919ec0384247243))
+
+
+### Chores
+
+* **MUI-244:** trusted publishing ([#634](https://github.com/pagopa/mui-italia/issues/634)) ([226260e](https://github.com/pagopa/mui-italia/commit/226260e81a1069317889b26ea21cd37f07b0e13f))
+
+
+
 # [2.3.0-RC.3](https://github.com/pagopa/mui-italia/releases/tag/v2.3.0-RC.3) (2026-01-21)
 
 
