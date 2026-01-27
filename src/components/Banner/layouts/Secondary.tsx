@@ -1,5 +1,5 @@
 import { Box, Stack } from '@mui/material';
-import { BannerCTA, BannerModel, ViewState } from '../model';
+import { BannerCTAWithId, BannerModel, ViewState } from '../model';
 import { Cta, Message, Title, CloseButton } from '../shared';
 
 export function Secondary({
@@ -10,22 +10,35 @@ export function Secondary({
   cta,
   onClose,
   closeAriaLabel,
+  titleId,
 }: Readonly<{
   model: BannerModel;
   view: ViewState;
   title: string;
   message?: string;
-  cta?: BannerCTA;
+  cta?: BannerCTAWithId;
   onClose?: () => void;
   closeAriaLabel: string;
+  titleId: string;
 }>) {
   const showCta = model.hasCta && cta;
   const isHorizontal = view.isHorizontal;
+
+  const ctaCommonProps = showCta
+    ? {
+        id: cta.id,
+        kind: model.ctaKind,
+        cta,
+        ariaLabelledBy: `${titleId} ${cta.id}`,
+        variant: view.variant,
+      }
+    : undefined;
 
   return (
     <Stack direction="row" justifyContent="space-between" width="100%" gap={2}>
       <Stack direction="column" flex={1} gap={1} minWidth={0}>
         <Title
+          id={titleId}
           text={title}
           textAlign={model.textAlign}
           variant={view.variant}
@@ -33,15 +46,9 @@ export function Secondary({
         />
         {message && <Message text={message} textAlign={model.textAlign} variant={view.variant} />}
 
-        {!isHorizontal && showCta && (
+        {!isHorizontal && ctaCommonProps && (
           <Box sx={{ mt: 1.5 }}>
-            <Cta
-              kind={model.ctaKind}
-              label={cta.label}
-              onClick={cta.onClick}
-              alignSelf="flex-start"
-              variant={view.variant}
-            />
+            <Cta {...ctaCommonProps} alignSelf="flex-start" />
           </Box>
         )}
       </Stack>
@@ -49,15 +56,9 @@ export function Secondary({
       <Stack direction="column" alignItems="flex-end" gap={2} flexShrink={0}>
         {onClose && <CloseButton onClose={onClose} ariaLabel={closeAriaLabel} />}
 
-        {isHorizontal && showCta && (
+        {isHorizontal && ctaCommonProps && (
           <Box sx={{ mt: 'auto' }}>
-            <Cta
-              kind={model.ctaKind}
-              label={cta.label}
-              onClick={cta.onClick}
-              alignSelf="flex-end"
-              variant={view.variant}
-            />
+            <Cta {...ctaCommonProps} alignSelf="flex-end" />
           </Box>
         )}
       </Stack>

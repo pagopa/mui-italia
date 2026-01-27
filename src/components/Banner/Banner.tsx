@@ -1,7 +1,14 @@
 'use client';
 
+import { useId } from 'react';
 import { useMediaQuery, useTheme } from '@mui/material';
-import type { BannerCTA, BannerDirection, BannerModel, BannerProps, ViewState } from './model';
+import type {
+  BannerCTAWithId,
+  BannerDirection,
+  BannerModel,
+  BannerProps,
+  ViewState,
+} from './model';
 import { computeModel, computeViewState, normalizeProps } from './model';
 import { Inner, Root } from './shared';
 import { Primary } from './layouts/Primary';
@@ -18,11 +25,12 @@ function renderBannerLayout(args: {
   model: BannerModel;
   title: string;
   message?: string;
-  cta?: BannerCTA;
+  cta?: BannerCTAWithId;
   onClose?: BannerProps['onClose'];
   closeAriaLabel: string;
+  titleId: string;
 }) {
-  const { view, model, title, message, cta, onClose, closeAriaLabel } = args;
+  const { view, model, title, message, cta, onClose, closeAriaLabel, titleId } = args;
 
   switch (view.variant) {
     case 'primary':
@@ -35,6 +43,7 @@ function renderBannerLayout(args: {
           cta={cta}
           onClose={onClose}
           closeAriaLabel={closeAriaLabel}
+          titleId={titleId}
         />
       );
 
@@ -48,6 +57,7 @@ function renderBannerLayout(args: {
           cta={cta}
           onClose={onClose}
           closeAriaLabel={closeAriaLabel}
+          titleId={titleId}
         />
       );
 
@@ -62,6 +72,7 @@ function renderBannerLayout(args: {
           cta={cta}
           onClose={onClose}
           closeAriaLabel={closeAriaLabel}
+          titleId={titleId}
         />
       );
   }
@@ -69,6 +80,11 @@ function renderBannerLayout(args: {
 
 export const Banner = (props: BannerProps) => {
   const { title, message, onClose, closeAriaLabel, cta, ...rest } = props;
+
+  const titleId = useId();
+  const ctaId = useId();
+
+  const resolvedCta = cta ? { ...cta, id: ctaId } : undefined;
 
   /**
    * Normalize optional props (variant defaults) once,
@@ -95,9 +111,10 @@ export const Banner = (props: BannerProps) => {
     model,
     title,
     message,
-    cta,
+    cta: resolvedCta,
     onClose,
     closeAriaLabel: closeAriaLabel ?? 'Close',
+    titleId,
   });
 
   return (

@@ -1,9 +1,10 @@
+import type { ElementType } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Button, Chip, IconButton, Typography, styled } from '@mui/material';
 import type { Theme } from '@mui/material/styles';
 import { ButtonNaked } from '@components/ButtonNaked';
 import { blue, neutral, turquoise } from 'theme/colors';
-import type { BannerColorStyle, BannerVariant, CtaKind, ThemeColor } from './model';
+import type { BannerColorStyle, BannerCTA, BannerVariant, CtaKind, ThemeColor } from './model';
 
 const resolveColor = (theme: Theme, value: ThemeColor) =>
   typeof value === 'function' ? value(theme) : value;
@@ -64,22 +65,49 @@ export function BadgeChip({ text }: Readonly<{ text: string }>) {
 
 export function Cta({
   kind,
-  label,
-  onClick,
+  cta,
   alignSelf,
   variant,
+  id,
+  ariaLabelledBy,
 }: Readonly<{
   kind: CtaKind;
-  label: string;
-  onClick: () => void;
+  cta: BannerCTA;
   alignSelf?: 'flex-start' | 'center' | 'flex-end';
   variant: BannerVariant;
+  id?: string;
+  ariaLabelledBy?: string;
 }>) {
+  const isLink = 'href' in cta;
+
+  let target: '_self' | '_blank' | undefined;
+  let rel: string | undefined;
+
+  if (isLink) {
+    target = cta.target ?? '_self';
+
+    if (target === '_blank') {
+      rel = cta.rel ?? 'noopener noreferrer';
+    } else {
+      rel = cta.rel;
+    }
+  }
+
+  const commonProps = {
+    id,
+    'aria-labelledby': ariaLabelledBy,
+    onClick: 'onClick' in cta ? cta.onClick : undefined,
+    component: (isLink ? 'a' : 'button') as ElementType,
+    href: isLink ? cta.href : undefined,
+    target: isLink ? target : undefined,
+    rel: isLink ? rel : undefined,
+  };
+
   if (kind === 'contained') {
     return (
       <Button
+        {...commonProps}
         variant="contained"
-        onClick={onClick}
         sx={{
           borderRadius: '8px',
           textTransform: 'none',
@@ -91,14 +119,14 @@ export function Cta({
           alignSelf,
         }}
       >
-        {label}
+        {cta.label}
       </Button>
     );
   }
 
   return (
     <ButtonNaked
-      onClick={onClick}
+      {...commonProps}
       sx={{
         p: 0,
         minWidth: 'auto',
@@ -109,7 +137,7 @@ export function Cta({
         alignSelf,
       }}
     >
-      {label}
+      {cta.label}
     </ButtonNaked>
   );
 }
@@ -119,17 +147,20 @@ export function Title({
   textAlign,
   variant,
   fontSizeOverride,
+  id,
 }: Readonly<{
   text: string;
   textAlign: 'left' | 'center';
   variant: BannerVariant;
   fontSizeOverride?: string;
+  id?: string;
 }>) {
   const defaultFontSize = variant === 'tertiary' ? '16px' : '24px';
   const fontSize = fontSizeOverride ?? defaultFontSize;
 
   return (
     <Typography
+      id={id}
       component="h6"
       color={neutral.black}
       sx={{
