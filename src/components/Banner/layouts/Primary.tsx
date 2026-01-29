@@ -1,5 +1,5 @@
 import { Box, Stack } from '@mui/material';
-import { BannerCTA, BannerModel, ViewState } from '../model';
+import { BannerCTAWithId, BannerModel, ViewState } from '../model';
 import { BadgeChip, BlueBar, Cta, Message, Title, CloseButton } from '../shared';
 
 export function Primary({
@@ -10,16 +10,18 @@ export function Primary({
   cta,
   onClose,
   closeAriaLabel,
+  titleId,
 }: Readonly<{
   model: BannerModel;
   view: ViewState;
   title: string;
   message?: string;
-  cta?: BannerCTA;
+  cta?: BannerCTAWithId;
   onClose?: () => void;
   closeAriaLabel: string;
+  titleId: string;
 }>) {
-  const showCta = model.hasCta && cta;
+  const showCta = !!cta;
   const showBadge = view.variant === 'primary' && Boolean(model.badgeText);
 
   return (
@@ -31,6 +33,7 @@ export function Primary({
           {showBadge && model.badgeText && <BadgeChip text={model.badgeText} />}
 
           <Title
+            id={titleId}
             text={title}
             textAlign={model.textAlign}
             variant={view.variant}
@@ -40,15 +43,15 @@ export function Primary({
           {message && <Message text={message} textAlign={model.textAlign} variant={view.variant} />}
 
           {showCta && (
-            <Box sx={{ mt: 0.5 }}>
-              <Cta
-                kind={model.ctaKind}
-                label={cta.label}
-                onClick={cta.onClick}
-                alignSelf="flex-start"
-                variant={view.variant}
-              />
-            </Box>
+            <Cta
+              id={cta.id}
+              kind={model.ctaKind}
+              cta={cta}
+              ariaLabelledBy={`${titleId} ${cta.id}`}
+              alignSelf="flex-start"
+              variant={view.variant}
+              sx={{ mt: 1 }}
+            />
           )}
         </Stack>
 
