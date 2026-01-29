@@ -1,7 +1,7 @@
 import type { ElementType } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Button, Chip, IconButton, Typography, styled } from '@mui/material';
-import type { Theme } from '@mui/material/styles';
+import type { SxProps, Theme } from '@mui/material/styles';
 import { ButtonNaked } from '@components/ButtonNaked';
 import { blue, neutral, turquoise } from 'theme/colors';
 import type { BannerColorStyle, BannerCTA, BannerVariant, CtaKind, ThemeColor } from './model';
@@ -70,6 +70,7 @@ export function Cta({
   variant,
   id,
   ariaLabelledBy,
+  sx,
 }: Readonly<{
   kind: CtaKind;
   cta: BannerCTA;
@@ -77,6 +78,7 @@ export function Cta({
   variant: BannerVariant;
   id?: string;
   ariaLabelledBy?: string;
+  sx?: SxProps<Theme>;
 }>) {
   const isLink = 'href' in cta;
 
@@ -117,6 +119,7 @@ export function Cta({
           px: 2,
           whiteSpace: 'nowrap',
           alignSelf,
+          ...sx,
         }}
       >
         {cta.label}
@@ -135,6 +138,7 @@ export function Cta({
         color: blue[500],
         textDecoration: 'none',
         alignSelf,
+        ...sx,
       }}
     >
       {cta.label}

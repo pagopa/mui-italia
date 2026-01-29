@@ -21,7 +21,7 @@ export function Secondary({
   closeAriaLabel: string;
   titleId: string;
 }>) {
-  const showCta = model.hasCta && cta;
+  const showCta = !!cta;
   const isHorizontal = view.isHorizontal;
 
   const ctaCommonProps = showCta
@@ -47,9 +47,7 @@ export function Secondary({
         {message && <Message text={message} textAlign={model.textAlign} variant={view.variant} />}
 
         {!isHorizontal && ctaCommonProps && (
-          <Box sx={{ mt: 1.5 }}>
-            <Cta {...ctaCommonProps} alignSelf="flex-start" />
-          </Box>
+          <Cta {...ctaCommonProps} alignSelf="flex-start" sx={{ mt: 1 }} />
         )}
       </Stack>
 
@@ -57,9 +55,7 @@ export function Secondary({
         {onClose && <CloseButton onClose={onClose} ariaLabel={closeAriaLabel} />}
 
         {isHorizontal && ctaCommonProps && (
-          <Box sx={{ mt: 'auto' }}>
-            <Cta {...ctaCommonProps} alignSelf="flex-end" />
-          </Box>
+          <Cta {...ctaCommonProps} alignSelf="flex-end" sx={{ mt: 'auto' }} />
         )}
       </Stack>
     </Stack>

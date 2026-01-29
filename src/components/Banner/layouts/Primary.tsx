@@ -21,7 +21,7 @@ export function Primary({
   closeAriaLabel: string;
   titleId: string;
 }>) {
-  const showCta = model.hasCta && cta;
+  const showCta = !!cta;
   const showBadge = view.variant === 'primary' && Boolean(model.badgeText);
 
   return (
@@ -43,16 +43,15 @@ export function Primary({
           {message && <Message text={message} textAlign={model.textAlign} variant={view.variant} />}
 
           {showCta && (
-            <Box sx={{ mt: 0.5 }}>
-              <Cta
-                id={cta.id}
-                kind={model.ctaKind}
-                cta={cta}
-                ariaLabelledBy={`${titleId} ${cta.id}`}
-                alignSelf="flex-start"
-                variant={view.variant}
-              />
-            </Box>
+            <Cta
+              id={cta.id}
+              kind={model.ctaKind}
+              cta={cta}
+              ariaLabelledBy={`${titleId} ${cta.id}`}
+              alignSelf="flex-start"
+              variant={view.variant}
+              sx={{ mt: 1 }}
+            />
           )}
         </Stack>
 
