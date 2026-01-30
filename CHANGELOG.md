@@ -1,3 +1,17 @@
+# [1.11.0-RC.4](https://github.com/pagopa/mui-italia/releases/tag/v1.11.0-RC.4) (2026-01-30)
+
+
+### Features
+
+* **M20DS-32:** Add link CTA support and improve a11y for Banner component ([#637](https://github.com/pagopa/mui-italia/issues/637)) ([1e8b780](https://github.com/pagopa/mui-italia/commit/1e8b78065035e58e5dfd90426438dedd62f7a572))
+
+
+### Bug Fixes
+
+* **M20DS-32:** remove unused import ([#638](https://github.com/pagopa/mui-italia/issues/638)) ([a984e95](https://github.com/pagopa/mui-italia/commit/a984e9594f58a4df6905c766cbb4a9ace5900508))
+
+
+
 # [1.11.0-RC.3](https://github.com/pagopa/mui-italia/releases/tag/v1.11.0-RC.3) (2026-01-26)
 
 
