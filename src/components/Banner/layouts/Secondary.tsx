@@ -1,4 +1,4 @@
-import { Box, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import { BannerCTAWithId, BannerModel, ViewState } from '../model';
 import { Cta, Message, Title, CloseButton } from '../shared';
 
