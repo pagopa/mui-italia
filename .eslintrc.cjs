@@ -25,6 +25,27 @@ module.exports = {
   rules: {
     // curly brackets are required for blocks like if, else, for, while and do
     curly: 'error',
+    // space after comments are required
+    'spaced-comment': [
+      'error',
+      'always',
+      {
+        block: {
+          balanced: true,
+        },
+      },
+    ],
+    // when using parseInt the second parameter (radix) is required
+    radix: 'error',
+    // we are forced to define one variable per line, avoinding code like const a = 1, b = 2
+    'one-var': ['error', 'never'],
+    // we are forced to use shortened syntax when defining objects where a property
+    // and the var that we are assigning to it has the same name
+    'object-shorthand': 'error',
+    // prohibits the use of var
+    'no-var': 'error',
+    // prohibits the modification of the parameters of a function
+    'no-param-reassign': 'error',
   },
   // these are configurations available to each plugin
   settings: {
@@ -39,24 +60,6 @@ module.exports = {
 
 
 rules: {
-    'no-case-declarations': 'off', // default
-    'no-inner-declarations': 'off', // default
-    'prefer-const': 'error', // default
-    curly: 'error',
-    'spaced-comment': [
-      'error',
-      'always',
-      {
-        block: {
-          balanced: true,
-        },
-      },
-    ],
-    radix: 'error',
-    'one-var': ['error', 'never'],
-    'object-shorthand': 'error',
-    'no-var': 'error',
-    'no-param-reassign': 'error',
     'no-underscore-dangle': 'error',
     'no-undef-init': 'error',
     'no-throw-literal': 'error',
