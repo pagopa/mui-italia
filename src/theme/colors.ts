@@ -11,6 +11,7 @@ export const blue = {
 };
 export const error = {
   600: '#D13333',
+  850: '#5D1313',
 };
 export const neutral = {
   black: '#0E0F13',
@@ -28,6 +29,14 @@ export const warning = {
 export const turquoise = {
   850: '#003B3D',
   50: '#DBF9FA',
+};
+
+export const success = {
+  850: '#224021',
+};
+
+export const info = {
+  850: '#215C76',
 };
 
 export const decorativeIcon = neutral[300];
