@@ -58,12 +58,12 @@ type Story = StoryObj<React.ComponentProps<typeof Alert>>;
 export const Default: Story = {
   args: {
     title: DEFAULT_TITLE,
-    message: DEFAULT_MESSAGE,
-    cta: {
-      label: DEFAULT_CTA,
-      href: 'https://test.com',
-      target: '_self',
-    },
+    description: DEFAULT_MESSAGE,
+    // cta: {
+    //   label: DEFAULT_CTA,
+    //   href: 'https://test.com',
+    //   target: '_self',
+    // },
   },
 };
 
@@ -72,11 +72,11 @@ export const Default: Story = {
 export const Stress_Primary_Unbroken: Story = {
   args: {
     title: `Very long title ${LONG_UNBROKEN}`,
-    message: `${LONG_UNBROKEN}${LONG_UNBROKEN}${LONG_UNBROKEN}`,
-    cta: {
-      label: DEFAULT_CTA,
-      href: 'https://test.com',
-      target: '_self',
-    },
+    description: `${LONG_UNBROKEN}${LONG_UNBROKEN}${LONG_UNBROKEN}`,
+    // cta: {
+    //   label: DEFAULT_CTA,
+    //   href: 'https://test.com',
+    //   target: '_self',
+    // },
   },
 };
