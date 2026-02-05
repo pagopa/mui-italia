@@ -67,7 +67,7 @@ export function LangSwitch({
             height: 'auto',
             display: 'flex',
           }}
-          aria-label="lingua"
+          aria-label={`Seleziona lingua: ${currentLangLabels[currentLangCode]}`}
           aria-haspopup="true"
           aria-expanded={open}
           aria-controls={open ? 'lang-menu' : undefined}
