@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Grid, Stack, Box, Typography, Container, Link } from '@mui/material';
-import { CompanyLinkType, PreLoginFooterLinksType } from '@components/Footer';
+import { CompanyLinkType, PreLoginFooterLinksType, PreLoginFooterProducts } from '@components/Footer';
 import { LangSwitch, LangSwitchProps } from '@components/LangSwitch';
 import { isRight, toError } from 'fp-ts/lib/Either';
 
@@ -24,7 +24,7 @@ type FooterPreLoginProps = LangSwitchProps & {
   links: PreLoginFooterLinksType;
   onExit?: (exitAction: () => void) => void;
   /** This URL contains a json with the list of products to list inside the Footer. By default it's set with https://selfcare.pagopa.it/assets/products.json */
-  productsJsonUrl?: string;
+  products?: PreLoginFooterProducts;
   onProductsJsonFetchError?: (reason: any) => void;
   /** If true, it will not render the products column. As default, the column will be visible */
   hideProductsColumn?: boolean;
@@ -34,7 +34,10 @@ export const FooterPreLogin = ({
   companyLink,
   links,
   onExit,
-  productsJsonUrl = 'https://selfcare.pagopa.it/assets/products.json',
+  products = {
+    title: 'Prodotti e Servizi',
+    jsonUrl: 'https://selfcare.pagopa.it/assets/products.json',
+  },
   onProductsJsonFetchError,
   hideProductsColumn,
   ...langProps
@@ -44,8 +47,8 @@ export const FooterPreLogin = ({
   const [jsonProducts, setJsonProducts] = useState<Array<FooterLinksType>>([]);
 
   useEffect(() => {
-    if (!hideProductsColumn) {
-      fetch(productsJsonUrl)
+    if (!hideProductsColumn && products.jsonUrl) {
+      fetch(products.jsonUrl)
         .then((r) => r.json())
         .then((json) => {
           const decodeProducts = ProductArrayType.decode(json);
@@ -124,7 +127,7 @@ export const FooterPreLogin = ({
           {!hideProductsColumn && (
             <Grid item xs={12} sm={3}>
               <Stack spacing={2} alignItems={{ xs: 'center', sm: 'start' }}>
-                {jsonProducts && <Typography variant="overline">Prodotti e Servizi</Typography>}
+                {jsonProducts && <Typography variant="overline">{products.title}</Typography>}
 
                 <Stack
                   component="ul"

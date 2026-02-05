@@ -3,7 +3,7 @@ import { StoryFn, Meta } from '@storybook/react-vite';
 import { FooterCheckout } from '@components/FooterCheckout';
 import { breakpointsChromaticValues } from '@theme';
 
-import { Footer, PreLoginFooterLinksType, FooterLinksType, CompanyLinkType } from './Footer';
+import { Footer, PreLoginFooterLinksType, FooterLinksType, CompanyLinkType, PreLoginFooterProducts } from './Footer';
 
 export default {
   title: 'Components/Footer (WIP)',
@@ -34,12 +34,12 @@ export default {
 } as Meta<typeof Footer>;
 
 const companyLegalInfo = (
-  <>
-    <strong>PagoPA S.p.A.</strong> — società per azioni con socio unico - capitale sociale di euro
+  <span style={{ whiteSpace: 'pre-line' }}>
+    <b>PagoPA S.p.A.</b> — società per azioni con socio unico - capitale sociale di euro
     1,000,000 interamente versato - sede legale in Roma, Piazza Colonna 370,
-    <br />
+    {'\n'}
     CAP 00187 - n. di iscrizione a Registro Imprese di Roma, CF e P.IVA 15376371009
-  </>
+  </span>
 );
 
 /* 
@@ -71,6 +71,11 @@ Links Section
 const pagoPALink: CompanyLinkType = {
   href: 'https://www.pagopa.it/',
   ariaLabel: 'Link: vai al sito di PagoPA S.p.A.',
+};
+
+const productsData: PreLoginFooterProducts = {
+  title: 'Prodotti e Servizi',
+  jsonUrl: 'https://uat.selfcare.pagopa.it/assets/products.json',
 };
 
 const postLoginLinks: Array<FooterLinksType> = [
@@ -277,7 +282,7 @@ export const PreLogin: StoryFn<typeof Footer> = () => (
       console.log('Executing exit Action');
       exitAction();
     }}
-    productsJsonUrl="https://uat.selfcare.pagopa.it/assets/products.json"
+    products={productsData}
     hideProductsColumn={false}
   />
 );
@@ -298,7 +303,7 @@ export const PostLogin: StoryFn<typeof Footer> = () => (
       }
     }
     languages={LANGUAGES}
-    productsJsonUrl="https://uat.selfcare.pagopa.it/assets/products.json"
+    products={productsData}
     hideProductsColumn={false}
   />
 );
