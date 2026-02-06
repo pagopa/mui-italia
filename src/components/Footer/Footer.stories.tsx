@@ -35,8 +35,8 @@ export default {
 
 const companyLegalInfo = (
   <span style={{ whiteSpace: 'pre-line' }}>
-    <b>PagoPA S.p.A.</b> — società per azioni con socio unico - capitale sociale di euro
-    1,000,000 interamente versato - sede legale in Roma, Piazza Colonna 370,
+    <b>PagoPA S.p.A.</b> — società per azioni con socio unico - capitale sociale di euro 1,000,000
+    interamente versato - sede legale in Roma, Piazza Colonna 370,
     {'\n'}
     CAP 00187 - n. di iscrizione a Registro Imprese di Roma, CF e P.IVA 15376371009
   </span>
@@ -277,7 +277,7 @@ export const PreLogin: StoryFn<typeof Footer> = () => (
       console.log('Executing exit Action');
       exitAction();
     }}
-    productsJsonUrl='https://uat.selfcare.pagopa.it/assets/products.json'
+    productsJsonUrl="https://uat.selfcare.pagopa.it/assets/products.json"
     productsTitle="Prodotti e Servizi"
     hideProductsColumn={false}
   />
@@ -299,7 +299,7 @@ export const PostLogin: StoryFn<typeof Footer> = () => (
       }
     }
     languages={LANGUAGES}
-    productsJsonUrl='https://uat.selfcare.pagopa.it/assets/products.json'
+    productsJsonUrl="https://uat.selfcare.pagopa.it/assets/products.json"
     productsTitle="Prodotti e Servizi"
     hideProductsColumn={false}
   />
