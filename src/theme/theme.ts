@@ -14,7 +14,7 @@ import {
   colorTextPrimary,
   menuItemBackground,
 } from './colors';
-import muiAlertTitle from './muiAlerTitle';
+import muiAlertTitle from './muiAlertTitle';
 import muiAlert from './muiAlert';
 
 /* Basic Configuration */
@@ -27,7 +27,6 @@ export const focusWidth = '2px';
 export const focusBorderRadius = '8px';
 export const focusOffset = '4px';
 const focusButtonOffset = '2px';
-//const alertBorderWidth = '4px';
 
 /* Custom Typography */
 declare module '@mui/material/styles' {

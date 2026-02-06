@@ -1,82 +1,87 @@
-import { colorTextPrimary } from './colors';
 import foundation from './foundation';
 
 const responsiveBreakpoint = 'sm';
 
-const alertBorderWidth = '4px';
+import { Theme } from '@mui/material/styles';
+import { ComponentsOverrides } from '@mui/material/styles/overrides';
 
-const muiAlert = {
+const muiAlert: { styleOverrides: ComponentsOverrides<Theme>['MuiAlert'] } = {
   styleOverrides: {
     root: {
       border: `1px solid`,
-      padding: foundation.spacing(1),
-      color: colorTextPrimary,
-      alignItems: 'center',
+      borderRadius: 8,
+      padding: foundation.spacing(2),
+      alignItems: 'flex-start',
       [foundation.breakpoints.up(responsiveBreakpoint)]: {
-        padding: foundation.spacing(2),
+        padding: foundation.spacing(3),
       },
     },
     icon: {
       opacity: 1,
-      padding: 0,
+      padding: '2px 8px',
       alignItems: 'center',
       marginRight: foundation.spacing(1),
       [foundation.breakpoints.up(responsiveBreakpoint)]: {
-        marginRight: foundation.spacing(2),
+        marginRight: foundation.spacing(1),
       },
+      height: '20px',
+      width: '20px',
     },
     message: {
       padding: 0,
-      overflow: 'inherit', // Fix overflow: auto bug introduced by MUI
+      overflow: 'inherit',
+      lineHeight: '22px',
+      fontWeight: foundation.typography.fontWeightRegular,
+      flex: 1,
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      overflowWrap: 'anywhere',
+      wordBreak: 'break-word',
     },
+
     action: {
       marginRight: 0,
       paddingTop: 0,
     },
-    outlined: {
-      backgroundColor: foundation.palette.common.white,
-      boxShadow: foundation.shadows[4],
-      borderWidth: `0 0 0 ${alertBorderWidth}`,
-    },
-    standard: {
-      '& .MuiAlert-icon': {
-        color: colorTextPrimary,
-      },
-    },
     standardSuccess: {
       borderColor: foundation.palette.success.main,
-    },
-    outlinedSuccess: {
-      borderColor: foundation.palette.success.main,
+      backgroundColor: foundation.palette.success[100],
       '& .MuiAlert-icon': {
-        color: foundation.palette.success.main,
+        color: foundation.palette.success[850],
+      },
+      '& .MuiAlert-message': {
+        color: foundation.palette.success[850],
       },
     },
     standardError: {
       borderColor: foundation.palette.error.main,
-    },
-    outlinedError: {
-      borderColor: foundation.palette.error.main,
+      backgroundColor: foundation.palette.error[100],
       '& .MuiAlert-icon': {
-        color: foundation.palette.error.main,
+        color: foundation.palette.error[850],
+      },
+      '& .MuiAlert-message': {
+        color: foundation.palette.error[850],
       },
     },
     standardInfo: {
       borderColor: foundation.palette.info.main,
-    },
-    outlinedInfo: {
-      borderColor: foundation.palette.info.main,
+      backgroundColor: foundation.palette.info[100],
       '& .MuiAlert-icon': {
-        color: foundation.palette.info.main,
+        color: foundation.palette.info[850],
+      },
+      '& .MuiAlert-message': {
+        color: foundation.palette.info[850],
       },
     },
     standardWarning: {
       borderColor: foundation.palette.warning.main,
-    },
-    outlinedWarning: {
-      borderColor: foundation.palette.warning.main,
+      backgroundColor: foundation.palette.warning[100],
       '& .MuiAlert-icon': {
-        color: foundation.palette.warning.main,
+        color: foundation.palette.warning[850],
+      },
+      '& .MuiAlert-message': {
+        color: foundation.palette.warning[850],
       },
     },
   },

@@ -32,20 +32,19 @@ const meta: Meta<React.ComponentProps<typeof Alert>> = {
     ),
   ],
   argTypes: {
-    variant: { control: { type: 'radio' }, options: ['standard'], defaultValue: 'standard' },
     severity: {
       control: { type: 'radio' },
       options: ['success', 'error', 'info', 'warning'],
-      defaultValue: 'info',
+      defaultValue: 'success',
     },
     title: { control: { type: 'text' } },
-    message: { control: { type: 'text' } },
-    cta: { table: { disable: true } },
+    description: { control: { type: 'text' } },
+    action: { table: { disable: true } },
   },
   render: (args) => {
-    const { cta, ...AlertArgs } = args;
+    const { action, ...AlertArgs } = args;
 
-    return <Alert {...AlertArgs} cta={cta} />;
+    return <Alert {...AlertArgs} action={action} />;
   },
 };
 
@@ -55,28 +54,39 @@ type Story = StoryObj<React.ComponentProps<typeof Alert>>;
 
 /* ------------------------------ Normal stories ------------------------------ */
 
-export const Default: Story = {
+export const DefaultCTALink: Story = {
   args: {
     title: DEFAULT_TITLE,
     description: DEFAULT_MESSAGE,
-    // cta: {
-    //   label: DEFAULT_CTA,
-    //   href: 'https://test.com',
-    //   target: '_self',
-    // },
+    action: {
+      label: DEFAULT_CTA,
+      href: 'https://test.com',
+      target: '_self',
+    },
+  },
+};
+
+export const DefaultCTAClick: Story = {
+  args: {
+    title: DEFAULT_TITLE,
+    description: DEFAULT_MESSAGE,
+    action: {
+      label: DEFAULT_CTA,
+      onClick: () => alert('CTA clicked'),
+    },
   },
 };
 
 /* ------------------------------ Stress-test stories ------------------------------ */
 
-export const Stress_Primary_Unbroken: Story = {
+export const Stress_Alert_Unbroken: Story = {
   args: {
     title: `Very long title ${LONG_UNBROKEN}`,
     description: `${LONG_UNBROKEN}${LONG_UNBROKEN}${LONG_UNBROKEN}`,
-    // cta: {
-    //   label: DEFAULT_CTA,
-    //   href: 'https://test.com',
-    //   target: '_self',
-    // },
+    action: {
+      label: DEFAULT_CTA,
+      href: 'https://test.com',
+      target: '_self',
+    },
   },
 };
