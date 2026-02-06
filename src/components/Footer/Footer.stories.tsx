@@ -3,7 +3,7 @@ import { StoryFn, Meta } from '@storybook/react-vite';
 import { FooterCheckout } from '@components/FooterCheckout';
 import { breakpointsChromaticValues } from '@theme';
 
-import { Footer, PreLoginFooterLinksType, FooterLinksType, CompanyLinkType, PreLoginFooterProducts } from './Footer';
+import { Footer, PreLoginFooterLinksType, FooterLinksType, CompanyLinkType } from './Footer';
 
 export default {
   title: 'Components/Footer (WIP)',
@@ -71,11 +71,6 @@ Links Section
 const pagoPALink: CompanyLinkType = {
   href: 'https://www.pagopa.it/',
   ariaLabel: 'Link: vai al sito di PagoPA S.p.A.',
-};
-
-const productsData: PreLoginFooterProducts = {
-  title: 'Prodotti e Servizi',
-  jsonUrl: 'https://uat.selfcare.pagopa.it/assets/products.json',
 };
 
 const postLoginLinks: Array<FooterLinksType> = [
@@ -282,7 +277,8 @@ export const PreLogin: StoryFn<typeof Footer> = () => (
       console.log('Executing exit Action');
       exitAction();
     }}
-    products={productsData}
+    productsJsonUrl='https://uat.selfcare.pagopa.it/assets/products.json'
+    productsTitle="Prodotti e Servizi"
     hideProductsColumn={false}
   />
 );
@@ -303,7 +299,8 @@ export const PostLogin: StoryFn<typeof Footer> = () => (
       }
     }
     languages={LANGUAGES}
-    products={productsData}
+    productsJsonUrl='https://uat.selfcare.pagopa.it/assets/products.json'
+    productsTitle="Prodotti e Servizi"
     hideProductsColumn={false}
   />
 );
