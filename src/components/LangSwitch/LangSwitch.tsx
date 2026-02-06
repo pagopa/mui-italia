@@ -21,12 +21,14 @@ export type Languages = Partial<Record<LangCode, LangLabels>> & { it: LangLabels
 export type LangSwitchProps = {
   currentLangCode?: LangCode;
   languages: Languages;
+  languagesInLang?: boolean;
   onLanguageChanged: (newLang: LangCode) => void;
 };
 
 export function LangSwitch({
   currentLangCode = 'it',
   languages,
+  languagesInLang = false,
   onLanguageChanged,
 }: LangSwitchProps) {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
@@ -97,6 +99,7 @@ export function LangSwitch({
                 aria-label={currentLangLabels[langCode as LangCode]}
                 key={i}
                 onClick={wrapUpdateActiveLang(langCode as LangCode)}
+                lang={languagesInLang ? langCode : undefined}
               >
                 {currentLangLabels[langCode as LangCode]}
               </MenuItem>

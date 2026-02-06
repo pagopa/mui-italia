@@ -63,6 +63,24 @@ const LANGUAGES = {
   },
 };
 
+const LANGUAGES_IN_LANG = {
+  it: {
+    it: 'Italiano',
+    en: 'English',
+    fr: 'Français',
+  },
+  en: {
+    it: 'Italiano',
+    en: 'English',
+    fr: 'Français',
+  },
+  fr: {
+    it: 'Italiano',
+    en: 'English',
+    fr: 'Français',
+  },
+};
+
 /* type LangCode = "it" | "en"; */
 
 /*
@@ -297,7 +315,8 @@ export const PostLogin: StoryFn<typeof Footer> = () => (
         console.log('Changed Language');
       }
     }
-    languages={LANGUAGES}
+    languages={LANGUAGES_IN_LANG}
+    languagesInLang={true}
     productsJsonUrl="https://uat.selfcare.pagopa.it/assets/products.json"
     hideProductsColumn={false}
   />
