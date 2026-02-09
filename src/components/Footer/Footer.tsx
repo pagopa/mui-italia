@@ -81,7 +81,6 @@ export const Footer = ({
   loggedUser,
   onExit,
   languages,
-  languagesInLang,
   onLanguageChanged,
   currentLangCode,
   productsJsonUrl,
@@ -95,7 +94,6 @@ export const Footer = ({
         links={postLoginLinks}
         onExit={onExit}
         languages={languages}
-        languagesInLang={languagesInLang}
         onLanguageChanged={onLanguageChanged}
         currentLangCode={currentLangCode}
       />
@@ -104,7 +102,6 @@ export const Footer = ({
         companyLink={companyLink}
         links={preLoginLinks}
         languages={languages}
-        languagesInLang={languagesInLang}
         onLanguageChanged={onLanguageChanged}
         currentLangCode={currentLangCode}
         productsJsonUrl={productsJsonUrl}
