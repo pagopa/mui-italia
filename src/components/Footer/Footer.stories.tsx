@@ -245,6 +245,18 @@ const preLoginLinks: PreLoginFooterLinksType = {
         href: 'https://www.youtube.com/channel/UCFBGOEJUPQ6t3xtZFc_UIEQ',
         ariaLabel: 'Link: vai al sito Youtube di PagoPA S.p.A.',
       },
+      {
+        icon: 'x',
+        title: 'X',
+        href: 'https://twitter.com/pagopaspa',
+        ariaLabel: 'Link: vai al sito X di PagoPA S.p.A.',
+      },
+      {
+        icon: 'medium',
+        title: 'Medium',
+        href: 'https://pagopa.medium.com/',
+        ariaLabel: 'Link: vai al sito Medium di PagoPA S.p.A.',
+      },
     ],
     links: [
       {
