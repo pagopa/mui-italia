@@ -77,25 +77,21 @@ const postLoginLinks: Array<FooterLinksType> = [
   {
     label: 'Informativa Privacy',
     href: '#informativa-privacy',
-    ariaLabel: 'Vai al link: Informativa Privacy',
     linkType: 'internal',
   },
   {
     label: 'Diritto alla protezione dei dati personali',
     href: '#diritto-allaprotezionedipersonalidati',
-    ariaLabel: 'Vai al link: Diritto alla protezione dei dati personali',
     linkType: 'internal',
   },
   {
     label: 'Termini e condizioni',
     href: '#terms-conditions',
-    ariaLabel: 'Vai al link: Termini e condizioni',
     linkType: 'internal',
   },
   {
     label: 'Accessibilità',
     href: '#accessibility',
-    ariaLabel: 'Vai al link: Accessibilità',
     linkType: 'internal',
   },
 ];
@@ -104,19 +100,16 @@ const checkoutLinks: Array<FooterLinksType> = [
   {
     label: 'Informativa Privacy',
     href: '#informativa-privacy',
-    ariaLabel: 'Vai al link: Informativa Privacy',
     linkType: 'internal',
   },
   {
     label: 'Termini e condizioni',
     href: '#terms-conditions',
-    ariaLabel: 'Vai al link: Termini e condizioni',
     linkType: 'internal',
   },
   {
     label: 'Accessibilità',
     href: '#accessibility',
-    ariaLabel: 'Vai al link: Accessibilità',
     linkType: 'internal',
   },
 ];
@@ -129,25 +122,21 @@ const preLoginLinks: PreLoginFooterLinksType = {
       {
         label: 'Chi siamo',
         href: '#chi-siamo',
-        ariaLabel: 'Vai al link: Chi siamo',
         linkType: 'internal',
       },
       {
         label: 'PNRR',
         href: '#pnrr',
-        ariaLabel: 'Vai al link: PNRR',
         linkType: 'internal',
       },
       {
         label: 'Media',
         href: '#media',
-        ariaLabel: 'Vai al link: Media',
         linkType: 'internal',
       },
       {
         label: 'Lavora con noi',
         href: '#lavora-con-noi',
-        ariaLabel: 'Vai al link: Lavora con noi',
         linkType: 'internal',
       },
     ],
@@ -159,24 +148,20 @@ const preLoginLinks: PreLoginFooterLinksType = {
       {
         label: 'Informativa Privacy',
         href: '#informativa-privacy',
-        ariaLabel: 'Vai al link: Informativa Privacy',
         linkType: 'internal',
       },
       {
         label: 'Certificazioni',
         href: '#certificazioni',
-        ariaLabel: 'Vai al link: Certificazioni',
         linkType: 'internal',
       },
       {
         label: 'Sicurezza delle informazioni',
         href: '#sicurezza-delle-informazioni',
-        ariaLabel: 'Vai al link: Sicurezza delle informazioni',
         linkType: 'internal',
       },
       {
         label: 'Diritto alla protezione dei dati personali',
-        ariaLabel: 'Vai al link: Diritto alla protezione dei dati personali',
         linkType: 'internal',
         onClick: () => {
           console.log('onClick');
@@ -185,7 +170,6 @@ const preLoginLinks: PreLoginFooterLinksType = {
       {
         label: 'Preferenze Cookie',
         href: '#preferenze-cookie',
-        ariaLabel: 'Vai al link: Preferenze Cookie',
         linkType: 'internal',
         onClick: () => {
           console.log('onClick');
@@ -194,25 +178,21 @@ const preLoginLinks: PreLoginFooterLinksType = {
       {
         label: 'Termini e Condizioni',
         href: '#terms-conditions',
-        ariaLabel: 'Vai al link: Termini e Condizioni',
         linkType: 'internal',
       },
       {
         label: 'Società trasparente',
         href: '#societa-trasparente',
-        ariaLabel: 'Vai al link: Società trasparente',
         linkType: 'internal',
       },
       {
         label: 'Responsible Disclosure Policy',
         href: '#responsible-disclosure-policy',
-        ariaLabel: 'Vai al link: Responsible Disclosure Policy',
         linkType: 'internal',
       },
       {
         label: 'Modello 321',
         href: '#modello-321',
-        ariaLabel: 'Vai al link: Modello 321',
         linkType: 'internal',
       },
     ],
@@ -225,32 +205,27 @@ const preLoginLinks: PreLoginFooterLinksType = {
         icon: 'linkedin',
         title: 'LinkedIn',
         href: 'https://www.linkedin.com/company/pagopa/',
-        ariaLabel: 'Link: vai al sito LinkedIn di PagoPA S.p.A.',
       },
       {
         icon: 'instagram',
         title: 'Instagram',
         href: 'https://www.instagram.com/pagopaspa/',
-        ariaLabel: 'Link: vai al sito Instagram di PagoPA S.p.A.',
       },
       {
         icon: 'threads',
         title: 'Threads',
         href: 'https://www.threads.net/@pagopaspa',
-        ariaLabel: 'Link: vai al sito Threads di PagoPA S.p.A.',
       },
       {
         icon: 'youtube',
         title: 'Youtube',
         href: 'https://www.youtube.com/channel/UCFBGOEJUPQ6t3xtZFc_UIEQ',
-        ariaLabel: 'Link: vai al sito Youtube di PagoPA S.p.A.',
       },
     ],
     links: [
       {
         label: 'Accessibilità',
         href: '#accessibilità',
-        ariaLabel: 'Vai al link: Accessibilità',
         linkType: 'internal',
       },
     ],

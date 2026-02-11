@@ -34,7 +34,7 @@ export type FooterLinksType = {
   label: string;
   /** the url to witch the user will be redirect */
   href?: string;
-  ariaLabel: string;
+  ariaLabel?: string;
   linkType: LinkType;
   /** if defined it will override the href behavior */
   onClick?: () => void;
@@ -50,7 +50,7 @@ export type PreLoginFooterSocialLink = {
   /** the url to witch the user will be redirect */
   href?: string;
   title: string;
-  ariaLabel: string;
+  ariaLabel?: string;
   /** if defined it will override the href behavior */
   onClick?: () => void;
 };
@@ -68,7 +68,7 @@ export type PreLoginFooterLinksType = {
 export type CompanyLinkType = {
   /** the url to witch the user will be redirect */
   href?: string;
-  ariaLabel: string;
+  ariaLabel?: string;
   /** if defined it will override the href behavior */
   onClick?: () => void;
 };
