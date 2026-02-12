@@ -1,5 +1,14 @@
-import { Box, Stack, Typography, useTheme, styled, keyframes, alpha } from '@mui/material';
-import { ChangeEvent, useId, useLayoutEffect, useRef, useState } from 'react';
+import {
+  Box,
+  Stack,
+  Typography,
+  useTheme,
+  styled,
+  keyframes,
+  alpha,
+  FormLabel,
+} from '@mui/material';
+import { ChangeEvent, ReactNode, useId, useLayoutEffect, useRef, useState } from 'react';
 import { blue, error as errorColor, neutral as neutralColor } from './../../theme/colors';
 
 /**
@@ -42,6 +51,7 @@ export interface CodeInputProps {
   length: number;
   onChange: (value: string) => void;
   inputMode?: 'text' | 'numeric';
+  label?: ReactNode;
   value?: string;
   readOnly?: boolean;
   id?: string;
@@ -188,6 +198,7 @@ const CodeInput = ({
   length,
   onChange,
   inputMode = 'text',
+  label,
   value,
   readOnly = false,
   id: idProp,
@@ -342,6 +353,14 @@ const CodeInput = ({
 
   return (
     <Box sx={{ display: 'inline-block', width: containerWidth }}>
+      {label && (
+        <FormLabel
+          htmlFor={id}
+          sx={{ display: 'block', fontSize: 16, fontWeight: 600, mb: theme.spacing(2) }}
+        >
+          {label}
+        </FormLabel>
+      )}
       <CodeBox error={error} sx={{ cursor: readOnly ? 'default' : 'text' }}>
         <OverlayInput
           id={id}
