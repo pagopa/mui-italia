@@ -145,6 +145,7 @@ export const FooterPreLogin = ({
                           color="text.primary"
                           sx={{ display: 'inline-block', py: 0.5 }}
                           variant="subtitle2"
+                          lang="it" // json products are in Italian, so we can set lang attribute to it for a11y
                         >
                           {label}
                         </Link>
