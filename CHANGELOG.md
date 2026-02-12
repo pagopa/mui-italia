@@ -1,3 +1,90 @@
+# [1.11.0](https://github.com/pagopa/mui-italia/releases/tag/v1.11.0) (2026-02-12)
+
+
+### Chore
+
+* Bump version to v1.11.0 
+
+
+
+# [1.11.0-RC.4](https://github.com/pagopa/mui-italia/releases/tag/v1.11.0-RC.4) (2026-01-30)
+
+
+### Features
+
+* **M20DS-32:** Add link CTA support and improve a11y for Banner component ([#637](https://github.com/pagopa/mui-italia/issues/637)) ([1e8b780](https://github.com/pagopa/mui-italia/commit/1e8b78065035e58e5dfd90426438dedd62f7a572))
+
+
+### Bug Fixes
+
+* **M20DS-32:** remove unused import ([#638](https://github.com/pagopa/mui-italia/issues/638)) ([a984e95](https://github.com/pagopa/mui-italia/commit/a984e9594f58a4df6905c766cbb4a9ace5900508))
+
+
+
+# [1.11.0-RC.3](https://github.com/pagopa/mui-italia/releases/tag/v1.11.0-RC.3) (2026-01-26)
+
+
+### Bug Fixes
+
+* **M20DS-32:** expose Banner component from package root ([#636](https://github.com/pagopa/mui-italia/issues/636)) ([456b0e8](https://github.com/pagopa/mui-italia/commit/456b0e8aff16f36f66b7b4d99e4d8e5546754b4b))
+
+
+
+# [1.11.0-RC.2](https://github.com/pagopa/mui-italia/releases/tag/v1.11.0-RC.2) (2026-01-21)
+
+
+### Features
+
+* **M20DS-32:** add Banner component with variants, layouts and storybook ([#628](https://github.com/pagopa/mui-italia/issues/628)) ([e46f37e](https://github.com/pagopa/mui-italia/commit/e46f37e8b6c3d9d3d7ca5222fe38bc25a77f056a))
+
+
+### Chores
+
+* **MUI-244:** trusted publishing ([#634](https://github.com/pagopa/mui-italia/issues/634)) ([0fb4239](https://github.com/pagopa/mui-italia/commit/0fb423922cc71c2b5dc48e1f73eb0e2fbbf40918))
+
+
+### Documentation
+
+* **MUI-229:** added repository url to package.json ([#633](https://github.com/pagopa/mui-italia/issues/633)) ([91b3e74](https://github.com/pagopa/mui-italia/commit/91b3e74f03d91c8072f06260c210ee2e2902b35e))
+
+
+
+# [1.11.0-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v1.11.0-RC.1) (2026-01-16)
+
+
+### Bug Fixes
+
+* **M20DS-10:** Tag - split text in multi lines if it overcomes the width of the container ([#632](https://github.com/pagopa/mui-italia/issues/632)) ([c48e5cb](https://github.com/pagopa/mui-italia/commit/c48e5cbd13cc6689e557a7aadfa4114dbd228193))
+
+
+
+# [1.11.0-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v1.11.0-RC.0) (2026-01-15)
+
+
+### Features
+
+* **M20DS-10:** update Tag element ([#621](https://github.com/pagopa/mui-italia/issues/621)) ([d46ab44](https://github.com/pagopa/mui-italia/commit/d46ab44b6b4c5ba62b4b8c12651f809a8552c116))
+
+
+### Bug Fixes
+
+* **M20DS-10:** set variant default for Tag that doesn't have ([#631](https://github.com/pagopa/mui-italia/issues/631)) ([e7b265a](https://github.com/pagopa/mui-italia/commit/e7b265a79df44ba5a392201e955f57f29e2174e3))
+* **M20DS-10:** added variant default to tag group component ([#630](https://github.com/pagopa/mui-italia/issues/630)) ([86f488b](https://github.com/pagopa/mui-italia/commit/86f488bf2b3980a84c05f70e065eb4ec1d26832c))
+
+
+### Chores
+
+* **MUI-229:** Make main branch configurable ([#629](https://github.com/pagopa/mui-italia/issues/629)) ([b7ce9c7](https://github.com/pagopa/mui-italia/commit/b7ce9c7f4deb40ba1b368419ab44d2670dadbb72))
+* **mui-241:** update to the last version of react 18 ([#620](https://github.com/pagopa/mui-italia/issues/620)) ([8f593f2](https://github.com/pagopa/mui-italia/commit/8f593f2486be0f75b05b56af0e8152a0e8c40334))
+* **MUI-231:** relaxed pr-title constraints ([#616](https://github.com/pagopa/mui-italia/issues/616)) ([5e3652b](https://github.com/pagopa/mui-italia/commit/5e3652b69a9dc88abc299773dfc08233132053bb))
+
+
+### Build System
+
+* **deps-dev:** bump storybook from 7.6.17 to 7.6.21 ([#622](https://github.com/pagopa/mui-italia/issues/622)) ([eb5ff87](https://github.com/pagopa/mui-italia/commit/eb5ff8733dc3f37b3f73039a0e96b2054887c8d8))
+
+
+
 # [1.10.0](https://github.com/pagopa/mui-italia/releases/tag/v1.10.0) (2025-12-09)
 
 
