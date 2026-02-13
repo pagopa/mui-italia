@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StoryFn, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react-vite';
 
 import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -8,17 +8,6 @@ export default {
   title: 'MUI Components/Lab/Desktop Date Picker',
   component: DesktopDatePicker,
   parameters: { controls: { sort: 'size' } },
-  decorators: [
-    (Story) => (
-      <div
-        style={{
-          padding: '1em',
-        }}
-      >
-        <Story />
-      </div>
-    ),
-  ],
 } as Meta<typeof DesktopDatePicker>;
 
 export const Default: StoryFn<typeof DesktopDatePicker> = () => {

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StoryFn, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react-vite';
 
 import { Button, Stack } from '@mui/material';
 
@@ -104,7 +104,7 @@ const itemWithParentName = {
 };
 
 /* Tag Element */
-const tag: JSX.Element = <Tag color="warning" value="Da completare" />;
+const tag: JSX.Element = <Tag variant="warning" value="Da completare" />;
 const componentMaxWidth = 400;
 
 /* Generate random value without repeating values

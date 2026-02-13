@@ -66,7 +66,7 @@ declare module '@mui/material/styles' {
     checkIban: Palette['primary'];
     extraLight: Palette['warning'];
     primaryAction: Palette['action'];
-    negative: PaletteColorOptions;
+    negative: SimplePaletteColorOptions;
     indigo: Palette['primary'];
   }
   interface PaletteOptions {
@@ -75,8 +75,8 @@ declare module '@mui/material/styles' {
     checkIban?: PaletteOptions['primary'];
     extraLight?: PaletteOptions['warning'];
     primaryAction: PaletteOptions['action'];
-    negative: PaletteColorOptions;
-    indigo: PaletteColorOptions;
+    negative: SimplePaletteColorOptions;
+    indigo: SimplePaletteColorOptions;
   }
 
   interface PaletteColor {
@@ -86,8 +86,8 @@ declare module '@mui/material/styles' {
   }
 
   /* Add new extraLight key to the colours */
-  interface PaletteColorOptions {
-    main?: string;
+  interface SimplePaletteColorOptions {
+    main: string;
     dark?: string;
     light?: string;
     contrastText?: string;

@@ -36,12 +36,18 @@ on:
         description: It is a final release
         type: boolean
         required: false
+      main_branch:
+        description: The name of the main branch towards which to open the merge pr with the release branch
+        type: string
+        default: main
+        required: true
 
 concurrency:
   group: ${{ github.workflow }}-cd
   cancel-in-progress: true
 
 permissions:
+  id-token: write # Required trusted publishing
   pull-requests: write
   contents: write
 
@@ -80,7 +86,7 @@ jobs:
           ref: ${{inputs.ref}}
           type: ${{inputs.type}}
           final_release: ${{inputs.final_release}}
-          main_branch: main
+          main_branch: ${{inputs.main_branch}}
 
   build:
     needs: release
@@ -97,7 +103,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
         with:
-          node-version: '20'
+          node-version: '24'
           cache: ${{ !github.event.act && 'yarn' || '' }}
           cache-dependency-path: ${{ !github.event.act && 'yarn.lock' || '' }}
 
@@ -137,9 +143,12 @@ jobs:
         with:
           name: 'bundle'
           path: 'bundle'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Publish
         run: |
-          npm config set //${{ env.NPM_REGISTRY }}/:_authToken=${{ secrets.NPM_TOKEN }}
-          npm publish --access public --registry https://${{ env.NPM_REGISTRY }} --verbose --tag ${{ inputs.final_release && 'latest' || 'rc' }}
+          npm publish --access public --verbose --tag ${{ inputs.final_release && 'latest' || 'rc' }}
         working-directory: 'bundle'

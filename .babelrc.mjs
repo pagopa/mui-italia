@@ -39,11 +39,10 @@ export default function getBabelConfig(api) {
   };
   // set caching method
   // invalidate cache only if NODE_ENV change
-  api.cache.using(() => process.env.NODE_ENV && process.env.STORYBOOK_BUILD);
+  api.cache.using(() => process.env.NODE_ENV);
   // set configuration based on environment
   const isProduction = api.env('production');
-  const isStoryBookBuild = Boolean(process.env.STORYBOOK_BUILD);
-  if (isProduction && !isStoryBookBuild) {
+  if (isProduction) {
     config.sourceType = 'module';
     config.ignore.push(
       'node_modules/**/*',

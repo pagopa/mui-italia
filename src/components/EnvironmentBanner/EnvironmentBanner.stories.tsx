@@ -1,5 +1,5 @@
 import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
-import { Meta, StoryFn } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react-vite';
 import { breakpointsChromaticValues } from '@theme';
 import { EnvironmentBanner } from './EnvironmentBanner';
 

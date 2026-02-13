@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import CodeInput, { CodeInputProps } from '../components/CodeInput/CodeInput';
@@ -6,13 +6,6 @@ import CodeInput, { CodeInputProps } from '../components/CodeInput/CodeInput';
 const meta: Meta<typeof CodeInput> = {
   title: 'Components/CodeInput',
   component: CodeInput,
-  decorators: [
-    (Story) => (
-      <div style={{ padding: '1rem' }}>
-        <Story />
-      </div>
-    ),
-  ],
 };
 
 export default meta;
