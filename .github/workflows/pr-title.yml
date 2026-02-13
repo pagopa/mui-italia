@@ -3,9 +3,6 @@ name: 'Validate PR title'
 # Event for the workflow
 on:
   pull_request:
-    # ignore pr opened to the branches below
-    branches-ignore:
-      - main
     types:
       - opened
       - edited
@@ -63,25 +60,3 @@ jobs:
           # Configure which scopes are allowed (newline-delimited).
           scopes: |
             (?:\w+)-\d+
-  check-rsult:
-    runs-on: ubuntu-22.04
-    needs: validate-pr-title
-    steps:
-      - name: Check Status
-        run: |
-          # Get the result from the previous job
-          RESULT="${{ needs.validate-pr-title.result }}"
-
-          echo "The previous job is finished with status: $RESULT"
-           
-          # - If the result is 'success', everything is ok.
-          # - If the result is 'skipped', everything is ok (because we skipped the previous job intentionally).
-          # - If the result is 'failure' or 'cancelled', we have to fail.
-
-          if [[ "$RESULT" == "failure" || "$RESULT" == "cancelled" ]]; then
-            echo "The validation is failed"
-            exit 1
-          else
-            echo "Check in success (or skipped intentionally)."
-            exit 0
-          fi
