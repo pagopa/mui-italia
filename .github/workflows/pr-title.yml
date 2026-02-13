@@ -4,8 +4,8 @@ name: 'Validate PR title'
 on:
   pull_request:
     # ignore pr opened to the branches below
-    branches-ignore:
-      - main
+    # branches-ignore:
+    #  - main
     types:
       - opened
       - edited
