@@ -21,13 +21,45 @@ const meta: Meta<typeof Footer> = {
     },
   },
   argTypes: {
+    legalInfo: {
+      control: false,
+    },
+    companyLink: {
+      control: false,
+    },
+    loggedUser: {
+      description:
+        'If true, it renders the PostLogin version of the Footer. If false, it renders the PreLogin version.',
+      table: {
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
     hideProductsColumn: {
       description:
         'If true, it will not render the products column. As default, the column will be visible',
+      table: {
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    productsTitle: {
+      table: {
+        defaultValue: {
+          summary: 'Prodotti e Servizi',
+        },
+      },
     },
     productsJsonUrl: {
       description:
-        "This URL contains a json with the list of products to list inside the Footer. By default it's set with https://selfcare.pagopa.it/assets/products.json",
+        'This URL contains a json with the list of products to list inside the Footer.',
+      table: {
+        defaultValue: {
+          summary: 'https://selfcare.pagopa.it/assets/products.json',
+        },
+      },
     },
   },
 };
