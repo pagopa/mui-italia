@@ -38,7 +38,7 @@ const foundation: Theme = createTheme({
       default: '#F2F2F2',
     },
     primary: {
-      main: '#0073E6',
+      main: '#0B3EE3',
       light: '#2185E9',
       dark: '#0062C3',
       contrastText: '#FFFFFF',
@@ -89,7 +89,7 @@ const foundation: Theme = createTheme({
       selected: 'rgba(0, 115, 230, 0.08)' /* Primary 8% */,
     },
     /* Other */
-    divider: '#E3E7EB',
+    divider: '#E8EBF1',
     /* Indicator/Validation */
     error: {
       main: '#FE6666',
