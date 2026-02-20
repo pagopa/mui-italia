@@ -1,34 +1,24 @@
-import { Box, Button, Chip, Link, Stack, Typography } from '@mui/material';
+import { Box, Button, Link, Stack, Typography } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react';
 import { breakpointsChromaticValues } from '@theme';
-import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
-import { ProductCard } from '@components/Card/layouts/ProductCard';
-import { turquoise } from 'theme/colors';
 import foundation from 'theme/foundation';
+import { ProductCardWithMedia } from '@components/Card/layouts/ProductCardWithMedia';
 
 const componentMaxWidth = 900;
 
-const DEFAULT_chip = (
-  <Chip label="Premium" size="small" style={{ backgroundColor: turquoise[50] }} />
-);
-
-const DEFAULT_AVATAR_URL_IO = 'https://dev.selfcare.pagopa.it/resources/products/prod-io/logo.svg';
-const DEFAULT_AVATAR_BG_COLOR_IO = '#0073E6';
-
-const DEFAULT_AVATAR_URL_PAGOPA =
-  'https://dev.selfcare.pagopa.it/resources/products/prod-pagopa/logo.svg';
-const DEFAULT_AVATAR_BG_COLOR_PAGOPA = '#0066CC';
-
 const DEFAULT_TITLE_APP_IO = 'App IO';
-const DEFAULT_TITLE_PAGOPA = 'Piattaforma pagoPA';
+const DEFAULT_IMG_URL =
+  'https://www.pagopa.gov.it/assets/images/posts/2024-11-15-evoluzioni-sistema-pagamento-20241115-091236.png';
+
+const DEFAULT_AVATAR_URL = 'https://dev.selfcare.pagopa.it/resources/products/prod-io/logo.svg';
+const DEFAULT_AVATAR_BG_COLOR = '#0073E6';
 
 const DEFAULT_CONTENT = (
   <Typography
-    variant="body2"
     color="text.secondary"
     sx={{
       fontWeight: foundation.typography.fontWeightLight,
-      fontSize: { xs: '13px', sm: '14px' },
+      fontSize: '16px',
       lineHeight: 1.4,
       display: '-webkit-box',
       WebkitLineClamp: { xs: 2, sm: 3 },
@@ -37,36 +27,29 @@ const DEFAULT_CONTENT = (
       wordBreak: 'break-word',
     }}
   >
-    Per gestire questo prodotto, chiedi a uno dei suoi{' '}
+    Consenti ai cittadini di firmare digitalmente documenti tramite l’app IO.{' '}
     <Link href="#" underline="always" fontWeight={400}>
-      Amministratori
+      Scopri di più
     </Link>
   </Typography>
 );
 
-const DEFAULT_CTA = 'Vai al prodotto';
+const DEFAULT_CTA = 'Aderisci';
 
 const LONG_UNBROKEN =
   'Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong';
 
 const actionWithButton = (
   <Stack direction="row" spacing={2}>
-    <Button
-      variant="contained"
-      color="primary"
-      href="https://test.com"
-      target="_self"
-      disableRipple
-    >
+    <Button variant="outlined" color="primary" href="https://test.com" target="_self" disableRipple>
       {DEFAULT_CTA}
-      <ArrowForwardRoundedIcon fontSize="medium" sx={{ pl: 1.5 }} />
     </Button>
   </Stack>
 );
 
-const meta: Meta<React.ComponentProps<typeof ProductCard>> = {
-  title: 'MUI Components/Card/ProductCard',
-  component: ProductCard,
+const meta: Meta<React.ComponentProps<typeof ProductCardWithMedia>> = {
+  title: 'MUI Components/Card/ProductCardWithMedia',
+  component: ProductCardWithMedia,
   parameters: {
     chromatic: {
       viewports: breakpointsChromaticValues.filter((resolution) => resolution <= componentMaxWidth),
@@ -82,43 +65,34 @@ const meta: Meta<React.ComponentProps<typeof ProductCard>> = {
     ),
   ],
   argTypes: {
-    chip: { control: { type: 'text' } },
     title: { control: { type: 'text' } },
     content: { control: { type: 'text' } },
-    avatarURL: { control: { type: 'text' } },
     actions: { table: { disable: true } },
+    imgUrl: { control: { type: 'text' } },
+    productAvatarURL: { control: { type: 'text' } },
+    productAvatarBgColor: { control: { type: 'color' } },
   },
   render: (args) => {
     const { actions, ...CardArgs } = args;
 
-    return <ProductCard {...CardArgs} actions={actions} />;
+    return <ProductCardWithMedia {...CardArgs} actions={actions} />;
   },
 };
 
 export default meta;
 
-type Story = StoryObj<React.ComponentProps<typeof ProductCard>>;
+type Story = StoryObj<React.ComponentProps<typeof ProductCardWithMedia>>;
 
 /* ------------------------------ Normal stories ------------------------------ */
 
-export const ProductCardWithchip: Story = {
+export const ProductCardWithMediaWithchip: Story = {
   args: {
     title: DEFAULT_TITLE_APP_IO,
     content: DEFAULT_CONTENT,
-    chip: DEFAULT_chip,
     actions: actionWithButton,
-    avatarURL: DEFAULT_AVATAR_URL_IO,
-    avatarBgColor: DEFAULT_AVATAR_BG_COLOR_IO,
-  },
-};
-
-export const ProductCardWithoutchip: Story = {
-  args: {
-    title: DEFAULT_TITLE_PAGOPA,
-    content: DEFAULT_CONTENT,
-    actions: actionWithButton,
-    avatarURL: DEFAULT_AVATAR_URL_PAGOPA,
-    avatarBgColor: DEFAULT_AVATAR_BG_COLOR_PAGOPA,
+    imgUrl: DEFAULT_IMG_URL,
+    productAvatarURL: DEFAULT_AVATAR_URL,
+    productAvatarBgColor: DEFAULT_AVATAR_BG_COLOR,
   },
 };
 
@@ -129,7 +103,8 @@ export const Stress_Product_Card_Unbroken: Story = {
     title: `Very long title ${LONG_UNBROKEN}`,
     content: `${LONG_UNBROKEN}${LONG_UNBROKEN}${LONG_UNBROKEN}`,
     actions: actionWithButton,
-    avatarURL: DEFAULT_AVATAR_URL_IO,
-    avatarBgColor: DEFAULT_AVATAR_BG_COLOR_IO,
+    imgUrl: DEFAULT_IMG_URL,
+    productAvatarURL: DEFAULT_AVATAR_URL,
+    productAvatarBgColor: DEFAULT_AVATAR_BG_COLOR,
   },
 };

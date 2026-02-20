@@ -1,6 +1,6 @@
-import { Avatar, Box, Card, CardActions, CardContent, CardHeader, Typography } from '@mui/material';
-import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined';
+import { Box, Card, CardActions, CardContent, CardHeader, Typography } from '@mui/material';
 import foundation from 'theme/foundation';
+import { PartyAvatar } from '@components/PartyAvatar';
 
 export function CatalogCard({
   title,
@@ -39,17 +39,7 @@ export function CatalogCard({
               alignItems: 'start',
             }}
           >
-            <Avatar
-              src={avatarURL}
-              variant="square"
-              sx={{
-                bgcolor: '#f4f5f8',
-                borderRadius: 2,
-                border: '1px solid #e6e7e9',
-              }}
-            >
-              <AccountBalanceOutlinedIcon sx={{ color: '#bbc2d6' }} fontSize="small" />
-            </Avatar>
+            <PartyAvatar customSrc={avatarURL} customAlt="partyLogo" size="small" />
             <Box sx={{ display: 'grid', gap: 0 }}>
               <Typography
                 color="text.primary"

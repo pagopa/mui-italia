@@ -1,16 +1,7 @@
-import {
-  Avatar,
-  Card,
-  CardActions,
-  CardContent,
-  Chip,
-  ChipProps,
-  Stack,
-  Typography,
-} from '@mui/material';
+import { Card, CardActions, CardContent, Chip, ChipProps, Stack, Typography } from '@mui/material';
 import React from 'react';
 import foundation from 'theme/foundation';
-import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined';
+import { ProductAvatar } from '@components/ProductAvatar';
 
 export function ProductCard({
   chip,
@@ -18,11 +9,13 @@ export function ProductCard({
   content,
   actions,
   avatarURL,
+  avatarBgColor,
 }: Readonly<{
   chip?: React.ReactElement<ChipProps, typeof Chip>;
   title: string;
   content?: string | React.ReactNode;
-  avatarURL?: string;
+  avatarURL: string;
+  avatarBgColor: string;
   actions: React.ReactNode;
 }>) {
   return (
@@ -36,20 +29,12 @@ export function ProductCard({
     >
       <CardContent sx={{ alignItems: 'start', py: 3, px: 3 }}>
         <Stack direction="row" spacing={1} alignItems="start" sx={{ pb: 1.5 }}>
-          <Avatar
-            src={avatarURL}
-            sx={{
-              bgcolor: '#f4f5f8',
-              borderRadius: 2,
-              border: '1px solid #e6e7e9',
-              height: 64,
-              width: 64,
-            }}
-            variant="square"
-          >
-            {' '}
-            <AccountBalanceOutlinedIcon sx={{ color: '#bbc2d6' }} fontSize="small" />
-          </Avatar>
+          <ProductAvatar
+            logoUrl={avatarURL}
+            logoBgColor={avatarBgColor}
+            logoAltText="product avatar"
+            size="small"
+          />
           <Stack direction="column" spacing={0.5} alignItems="flex-start">
             {chip && chip}
             <Typography
