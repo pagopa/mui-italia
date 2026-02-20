@@ -1,3 +1,104 @@
+# [2.3.0](https://github.com/pagopa/mui-italia/releases/tag/v2.3.0) (2026-02-12)
+
+
+### Chore
+
+* Bump version to v2.3.0 
+
+
+
+# [2.3.0-RC.5](https://github.com/pagopa/mui-italia/releases/tag/v2.3.0-RC.5) (2026-01-30)
+
+
+### Features
+
+* **M20DS-32:** Add link CTA support and improve a11y for Banner component ([#637](https://github.com/pagopa/mui-italia/issues/637)) ([79e42ce](https://github.com/pagopa/mui-italia/commit/79e42ce34489145778f1bb6aeeea7c597af14c76))
+
+
+### Bug Fixes
+
+* **M20DS-32:** remove unused import ([#638](https://github.com/pagopa/mui-italia/issues/638)) ([255998d](https://github.com/pagopa/mui-italia/commit/255998d097ad97dfb7ff5779997b319cc51e0e21))
+
+
+
+# [2.3.0-RC.4](https://github.com/pagopa/mui-italia/releases/tag/v2.3.0-RC.4) (2026-01-26)
+
+
+### Bug Fixes
+
+* **M20DS-32:** expose Banner component from package root ([#636](https://github.com/pagopa/mui-italia/issues/636)) ([2c946a5](https://github.com/pagopa/mui-italia/commit/2c946a5b52dba89de0539a2fe919ec0384247243))
+
+
+### Chores
+
+* **MUI-244:** trusted publishing ([#634](https://github.com/pagopa/mui-italia/issues/634)) ([226260e](https://github.com/pagopa/mui-italia/commit/226260e81a1069317889b26ea21cd37f07b0e13f))
+
+
+
+# [2.3.0-RC.3](https://github.com/pagopa/mui-italia/releases/tag/v2.3.0-RC.3) (2026-01-21)
+
+
+### Features
+
+* **M20DS-32:** add Banner component with variants, layouts and storybook ([#628](https://github.com/pagopa/mui-italia/issues/628)) ([3d353cb](https://github.com/pagopa/mui-italia/commit/3d353cb97b8651c5ab22613dfc0d034bdc9bc053))
+
+
+### Documentation
+
+* **MUI-229:** added repository url to package.json ([#633](https://github.com/pagopa/mui-italia/issues/633)) ([a4968e9](https://github.com/pagopa/mui-italia/commit/a4968e94c3a35ec0cb8b930b5a10e95bb3ccd8f3))
+
+
+
+# [2.3.0-RC.2](https://github.com/pagopa/mui-italia/releases/tag/v2.3.0-RC.2) (2026-01-16)
+
+
+### Bug Fixes
+
+* **M20DS-10:** Tag - split text in multi lines if it overcomes the width of the container ([#632](https://github.com/pagopa/mui-italia/issues/632)) ([755969d](https://github.com/pagopa/mui-italia/commit/755969df8b9e607630ce6e2a50c773265156d9fc))
+
+
+
+# [2.3.0-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v2.3.0-RC.1) (2026-01-15)
+
+
+### Bug Fixes
+
+* **M20DS-10:** set variant default for Tag that doesn't have ([#631](https://github.com/pagopa/mui-italia/issues/631)) ([d00cfc9](https://github.com/pagopa/mui-italia/commit/d00cfc903bb0d488ba7addc957957a6e65ad6136))
+
+
+
+# [2.3.0-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.3.0-RC.0) (2026-01-15)
+
+
+### Features
+
+* **M20DS-10:** update Tag element ([#621](https://github.com/pagopa/mui-italia/issues/621)) ([29d156a](https://github.com/pagopa/mui-italia/commit/29d156aaabce4cf805dc8b6d72e63b37e455affb))
+
+
+### Bug Fixes
+
+* **M20DS-10:** added variant default to tag group component ([#630](https://github.com/pagopa/mui-italia/issues/630)) ([1ac4a47](https://github.com/pagopa/mui-italia/commit/1ac4a47d012714332bbacac400ee9c92f2ffbc1a))
+
+
+### Chores
+
+* **MUI-229:** Make main branch configurable ([#629](https://github.com/pagopa/mui-italia/issues/629)) ([9051643](https://github.com/pagopa/mui-italia/commit/9051643ec636f02f6eb7aecba6e1f7c7b701207b))
+* **mui-241:** update to the last version of react 18 ([#620](https://github.com/pagopa/mui-italia/issues/620)) ([499097e](https://github.com/pagopa/mui-italia/commit/499097e3044372ba8776e8dc2e1eb28b7a5fb7da))
+* **MUI-231:** relaxed pr-title constraints ([#616](https://github.com/pagopa/mui-italia/issues/616)) ([e03a40c](https://github.com/pagopa/mui-italia/commit/e03a40c23c20ee13f93ca34355e955d83621df1b))
+
+
+### Build System
+
+* **deps-dev:** bump storybook from 7.6.17 to 7.6.21 ([#622](https://github.com/pagopa/mui-italia/issues/622)) ([670cbd4](https://github.com/pagopa/mui-italia/commit/670cbd484e373b1bf2787c8136e489d1c290b7af))
+* **deps-dev:** bump @babel/core from 7.24.4 to 7.28.4 ([#579](https://github.com/pagopa/mui-italia/issues/579)) ([e5d1ce5](https://github.com/pagopa/mui-italia/commit/e5d1ce55ba43e4a99cdb629b7f8b646503536344))
+
+
+### Documentation
+
+* **MUI-239:** Migration to storybook 10 and vite ([#627](https://github.com/pagopa/mui-italia/issues/627)) ([189e9fb](https://github.com/pagopa/mui-italia/commit/189e9fbc9837f74e517b16b35c0ad87262478a9a))
+
+
+
 # [2.2.0](https://github.com/pagopa/mui-italia/releases/tag/v2.2.0) (2025-12-09)
 
 
