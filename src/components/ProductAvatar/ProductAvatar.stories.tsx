@@ -92,7 +92,6 @@ export const Default: StoryFn<typeof ProductAvatar> = () => {
   return (
     <Stack gap={2} alignItems="flex-start">
       <ProductAvatar logoUrl={url} logoBgColor={bgColor} logoAltText={altText} size="small" />
-      <ProductAvatar logoUrl={url} logoBgColor={bgColor} logoAltText={altText} />
       <ProductAvatar logoUrl={url} logoBgColor={bgColor} logoAltText={altText} size="large" />
       <div>
         <Typography variant="overline">Product:</Typography>
