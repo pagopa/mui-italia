@@ -97,7 +97,7 @@ export const Default: StoryFn<typeof ProductAvatar> = () => {
         <Typography variant="overline">Product:</Typography>
         <Typography variant="h6">{productMockImages[item].title}</Typography>
       </div>
-      <Button variant="contained" onClick={getRandomProduct}>
+      <Button variant="contained" onClick={getRandomProduct} disableRipple>
         Get random product
       </Button>
     </Stack>
