@@ -16,10 +16,19 @@ export type BannerColorStyle = {
   border: ThemeColor;
 };
 
-export interface BannerCTA {
-  label: string;
-  onClick: () => void;
-}
+export type BannerCTA =
+  | {
+      label: string;
+      onClick: () => void;
+    }
+  | {
+      label: string;
+      href: string;
+      target?: '_self' | '_blank';
+      rel?: string;
+    };
+
+export type BannerCTAWithId = BannerCTA & { id: string };
 
 type DataAttributes = {
   [key: `data-${string}`]: string | number | boolean | undefined;
