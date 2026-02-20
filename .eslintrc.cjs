@@ -46,6 +46,21 @@ module.exports = {
     'no-var': 'error',
     // prohibits the modification of the parameters of a function
     'no-param-reassign': 'error',
+    // prohibits the usage of _ at the start of the name of a variable, property or private method
+    'no-underscore-dangle': 'error',
+    // shows an error if a let or a var variable is decleared making explicit the valorization to undefined
+    // (i.e let test = undefined; instead of let test;)
+    // const variables are not affected by this rule
+    'no-undef-init': 'error',
+    // prohibits the throwing of literals (i.e. throw "this is an error")
+    // and prefers the throwing an Error (i.e throw new Error("this is an error"))
+    'no-throw-literal': 'error',
+    // prohibits the usage of new before String, Number and Boolean
+    'no-new-wrappers': 'error',
+    // prohibits the usage of eval function
+    'no-eval': 'error',
+    // prohibits the usage of console function at every level (logs, warn, info and error)
+    'no-console': 'error',
   },
   // these are configurations available to each plugin
   settings: {
@@ -54,18 +69,20 @@ module.exports = {
       version: 'detect',
     },
   },
+  overrides: [
+    {
+      files: ['*.stories.tsx', 'build.mjs'],
+      rules: {
+        'no-console': 'off',
+      },
+    },
+  ],
 };
 
 /*
 
 
 rules: {
-    'no-underscore-dangle': 'error',
-    'no-undef-init': 'error',
-    'no-throw-literal': 'error',
-    'no-new-wrappers': 'error',
-    'no-eval': 'error',
-    'no-console': 0,
     // TODO ['error', { 'allow': ['error', 'warn'] }],
     'no-caller': 'error',
     'no-bitwise': 'error',
