@@ -34,7 +34,7 @@ const actions = (
         color="primary"
         href="https://test.com"
         target="_self"
-        sx={{ minWidth: 0, px: 0, fontWeight: '500', fontSize: '16px', lineHeight: '22px' }}
+        sx={{ minWidth: 0, px: 0, fontWeight: '500', fontSize: '16px', lineHeight: '22px', pl: 3 }}
       >
         Iscriviti
       </ButtonNaked>
@@ -55,7 +55,7 @@ const actions = (
         href="https://test.com"
         target="_self"
         aria-label="confirm"
-        sx={{ minWidth: 0, px: 1, py: 0 }}
+        sx={{ minWidth: 0, px: 1, py: 0, pl: 3 }}
       >
         <CheckIcon fontSize="medium" />
       </ButtonNaked>
@@ -71,6 +71,7 @@ const actionWithButton = (
       href="https://test.com"
       target="_self"
       sx={{ maxHeight: '40px' }}
+      disableRipple
     >
       {DEFAULT_CTA}
     </Button>
@@ -78,7 +79,7 @@ const actionWithButton = (
 );
 
 const meta: Meta<React.ComponentProps<typeof CatalogCard>> = {
-  title: 'MUI Components/Feedback/Card',
+  title: 'MUI Components/Card/CatalogCard',
   component: CatalogCard,
   parameters: {
     chromatic: {
