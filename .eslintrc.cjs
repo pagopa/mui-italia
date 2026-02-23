@@ -61,6 +61,19 @@ module.exports = {
     'no-eval': 'error',
     // prohibits the usage of console function at every level (logs, warn, info and error)
     'no-console': 'error',
+    // prohibits the usage of caller or callee
+    'no-caller': 'error',
+    // prohibits the usage of the bit operators (&, |, ^, ~, <<, >> and >>>)
+    'no-bitwise': 'error',
+    // enforce the using of === over == except for checks like a == null that is equal to (a === null || a === undefined)
+    eqeqeq: ['error', 'always', { null: 'ignore' }],
+    // allow max one class per file
+    'max-classes-per-file': ['error', 1],
+    // when using the for...in cycle, we must add an if that check that the object owns the property (using the method Object.hasOwn)
+    // this is needed to avoid to cycle on inherited properties (i.e. those defined in prototype)
+    'guard-for-in': 'error',
+    // set to 15 the max allowed complexity
+    complexity: ['error', 15],
   },
   // these are configurations available to each plugin
   settings: {
@@ -84,12 +97,6 @@ module.exports = {
 
 rules: {
     // TODO ['error', { 'allow': ['error', 'warn'] }],
-    'no-caller': 'error',
-    'no-bitwise': 'error',
-    eqeqeq: ['error', 'smart'],
-    'max-classes-per-file': ['error', 1],
-    'guard-for-in': 'error',
-    complexity: 'error',
     'arrow-body-style': 'error',
     'import/order': 'error',
     '@typescript-eslint/no-unused-vars': 'off',
