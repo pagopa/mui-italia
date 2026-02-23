@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { Menu, MenuItem, Typography, Box } from "@mui/material";
-import { ButtonNaked } from "@components/ButtonNaked";
+import React, { useState } from 'react';
+import { Menu, MenuItem, Typography, Box } from '@mui/material';
+import { ButtonNaked } from '@components/ButtonNaked';
 
 /* Icons */
-import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
-import KeyboardArrowUpRoundedIcon from "@mui/icons-material/KeyboardArrowUpRounded";
+import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
+import KeyboardArrowUpRoundedIcon from '@mui/icons-material/KeyboardArrowUpRounded';
 
-export type LangCode = "it" | "en" | "de" | "fr" | "sl";
+export type LangCode = 'it' | 'en' | 'de' | 'fr' | 'sl';
 
 // Partial is used here to define that every key in LangLabels is optional,
 // while the it key-value pair is mandatory
@@ -25,7 +25,7 @@ export type LangSwitchProps = {
 };
 
 export function LangSwitch({
-  currentLangCode = "it",
+  currentLangCode = 'it',
   languages,
   onLanguageChanged,
 }: LangSwitchProps) {
@@ -35,8 +35,7 @@ export function LangSwitch({
   // checks if currentLangCode is included in languages,
   // if not uses the italian labels, this allows non italian lang labels and
   // languages to be optional while being backward compatible
-  const currentLangLabels: LangLabels =
-    languages[currentLangCode] ?? languages.it;
+  const currentLangLabels: LangLabels = languages[currentLangCode] ?? languages.it;
 
   const handleClick = (e: React.SyntheticEvent) => {
     const currentTarget = e.currentTarget as HTMLButtonElement;
@@ -47,34 +46,35 @@ export function LangSwitch({
     setAnchorEl(null);
   };
 
-  const wrapUpdateActiveLang =
-    (newLang: LangCode) => (e: React.SyntheticEvent) => {
-      if (e) {
-        e.preventDefault();
-      }
+  const wrapUpdateActiveLang = (newLang: LangCode) => (e: React.SyntheticEvent) => {
+    if (e) {
+      e.preventDefault();
+    }
 
-      onLanguageChanged(newLang);
-      handleClose();
-    };
+    onLanguageChanged(newLang);
+    handleClose();
+  };
 
   return (
     <React.Fragment>
       <Box>
         <ButtonNaked
+          id="lang-menu-button"
           sx={{
-            color: "text.primary",
-            justifyContent: "space-between",
+            color: 'text.primary',
+            justifyContent: 'space-between',
             p: 0,
-            height: "auto",
-            display: "flex",
+            height: 'auto',
+            display: 'flex',
           }}
-          aria-label="lingua"
+          aria-label={`Seleziona lingua: ${currentLangLabels[currentLangCode]}`}
           aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
+          aria-expanded={open}
+          aria-controls={open ? 'lang-menu' : undefined}
           onClick={handleClick}
         >
           {currentLangCode && (
-            <Box component="span" sx={{ textAlign: "left" }}>
+            <Box component="span" sx={{ textAlign: 'left' }}>
               <Typography color="inherit" component="span" variant="subtitle2">
                 {currentLangLabels[currentLangCode]}
               </Typography>
@@ -89,10 +89,11 @@ export function LangSwitch({
         </ButtonNaked>
         {Boolean(Object.keys(languages).length > 0) && (
           <Menu
+            id="lang-menu"
             anchorEl={anchorEl}
             open={open}
             onClose={handleClose}
-            MenuListProps={{ "aria-labelledby": "lang-menu-button" }}
+            MenuListProps={{ 'aria-labelledby': 'lang-menu-button' }}
           >
             {Object.keys(languages).map((langCode, i) => (
               <MenuItem
