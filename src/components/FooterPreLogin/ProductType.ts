@@ -6,7 +6,7 @@ enum LinkType {
   external = "external",
 }
 
-export const ProductType = t.interface({
+export const ProductType = t.type({
   label: t.string,
   href: t.string,
   ariaLabel: t.string,
