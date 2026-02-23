@@ -97,6 +97,12 @@ const LANGUAGES = {
   },
 };
 
+const LANGUAGES_FLAT = {
+  it: 'Italiano',
+  en: 'English',
+  fr: 'Français',
+};
+
 /* type LangCode = "it" | "en"; */
 
 /*
@@ -324,7 +330,7 @@ export const PostLogin: Story = {
     onLanguageChanged: () => {
       console.log('Changed Language');
     },
-    languages: LANGUAGES,
+    languages: LANGUAGES_FLAT,
     productsJsonUrl: 'https://uat.selfcare.pagopa.it/assets/products.json',
     productsTitle: 'Prodotti e Servizi',
     hideProductsColumn: false,
