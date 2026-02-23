@@ -6,7 +6,13 @@ import CodeInput, { CodeInputProps } from '../components/CodeInput/CodeInput';
 const meta: Meta<typeof CodeInput> = {
   title: 'Components/CodeInput',
   component: CodeInput,
+  argTypes: {
+    label: { control: 'text' },
+  },
 };
+
+const ariaLabel = 'OTP Code';
+const label = 'Insert Code:';
 
 export default meta;
 type Story = StoryObj<typeof CodeInput>;
@@ -35,6 +41,32 @@ export const Default: Story = {
   render: StatefulTemplate,
   args: {
     length: 5,
+    ariaLabel,
+  },
+};
+
+export const WithLabel: Story = {
+  render: StatefulTemplate,
+  args: {
+    length: 5,
+    label,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Renders an internal label linked to the input via htmlFor/id. This is the recommended setup when a visible label is present.',
+      },
+    },
+  },
+};
+
+export const WithLabelAndHelperText: Story = {
+  render: StatefulTemplate,
+  args: {
+    length: 6,
+    label,
+    helperText: 'Enter the verification code sent via SMS',
   },
 };
 
@@ -43,6 +75,7 @@ export const Prefilled: Story = {
   args: {
     length: 5,
     value: '12345',
+    ariaLabel,
   },
 };
 
@@ -52,6 +85,7 @@ export const Encrypted: Story = {
     length: 8,
     encrypted: true,
     value: 'password',
+    ariaLabel,
   },
 };
 
@@ -61,6 +95,7 @@ export const NumericInputMode: Story = {
     length: 6,
     inputMode: 'numeric',
     helperText: 'Only numbers allowed – mobile keyboard test',
+    ariaLabel,
   },
 };
 
@@ -69,6 +104,7 @@ export const LongCode: Story = {
   args: {
     length: 10,
     value: '123456',
+    ariaLabel,
   },
 };
 
@@ -79,6 +115,7 @@ export const WithError: Story = {
     error: true,
     helperText: 'Invalid code format',
     value: 'abc',
+    ariaLabel,
   },
 };
 
@@ -88,6 +125,7 @@ export const WithHelperText: Story = {
     length: 5,
     value: '',
     helperText: 'Enter the verification code sent via SMS',
+    ariaLabel,
   },
 };
 
@@ -98,6 +136,7 @@ export const ReadOnly: Story = {
     value: '12345',
     readOnly: true,
     helperText: 'Code is read-only',
+    ariaLabel,
   },
   parameters: {
     docs: {
@@ -115,7 +154,7 @@ export const Uncontrolled: Story = {
 
     return (
       <Box>
-        <CodeInput ariaLabel="Codice OTP" length={5} onChange={setValue} />
+        <CodeInput ariaLabel={ariaLabel} length={5} onChange={setValue} />
         <Box mt={2} fontSize="0.75rem" color="text.secondary">
           <div>
             <strong>Value:</strong> {value}
@@ -139,6 +178,7 @@ export const ResetWhileFocused: Story = {
           value={value}
           onChange={setValue}
           helperText="Click reset while caret is inside"
+          ariaLabel={ariaLabel}
         />
 
         <Box mt={2} display="flex" gap={1}>
@@ -170,7 +210,7 @@ export const ProgrammaticUpdateWhileFocused: Story = {
     return (
       <Box>
         <p>Place the caret inside the CodeInput and wait 5 seconds.</p>
-        <CodeInput {...args} length={6} value={value} onChange={setValue} />
+        <CodeInput {...args} length={6} value={value} onChange={setValue} ariaLabel={ariaLabel} />
       </Box>
     );
   },
