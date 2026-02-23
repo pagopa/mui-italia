@@ -65,6 +65,7 @@ export function LangSwitch({
     <Fragment>
       <Box>
         <ButtonNaked
+          id="lang-menu-button"
           sx={{
             color: 'text.primary',
             justifyContent: 'space-between',
@@ -72,9 +73,10 @@ export function LangSwitch({
             height: 'auto',
             display: 'flex',
           }}
-          aria-label="lingua"
+          aria-label={`Seleziona lingua: ${currentLangLabels[currentLangCode]}`}
           aria-haspopup="true"
-          aria-expanded={open ? 'true' : undefined}
+          aria-expanded={open}
+          aria-controls={open ? 'lang-menu' : undefined}
           onClick={handleClick}
         >
           {currentLangCode && (
@@ -93,6 +95,7 @@ export function LangSwitch({
         </ButtonNaked>
         {Boolean(Object.keys(languages).length > 0) && (
           <Menu
+            id="lang-menu"
             anchorEl={anchorEl}
             open={open}
             onClose={handleClose}
