@@ -7,7 +7,7 @@ export default {
   component: Chip,
   argTypes: {
     color: {
-      options: ['default', 'primary', 'warning', 'info', 'error', 'success', 'indigo'],
+      options: ['default', 'warning', 'error', 'success', 'neutral', 'highlight'],
       control: { type: 'radio' },
       table: {
         type: { summary: 'string' },
@@ -19,7 +19,6 @@ export default {
       options: ['filled', 'outlined'],
       control: { type: 'radio' },
       table: {
-        disable: true,
         type: { summary: 'string' },
         defaultValue: { summary: 'filled' },
       },
@@ -54,23 +53,6 @@ const handleDelete = () => {
 export const Default = Template.bind({});
 Default.args = {
   label: 'Consegnata',
-};
-
-export const Outline = Template.bind({});
-Outline.args = {
-  color: 'primary',
-  variant: 'outlined',
-  label: 'Consegnata',
-};
-Outline.argTypes = {
-  color: {
-    options: ['default', 'primary'],
-    control: { type: 'radio' },
-    table: {
-      type: { summary: 'string' },
-      defaultValue: { summary: 'default' },
-    },
-  },
 };
 
 export const Deletable = Template.bind({});
