@@ -1,5 +1,5 @@
-import MuiChip, { ChipProps } from '@mui/material/Chip';
-import CancelIcon from '@mui/icons-material/Cancel';
+import MuiChip, { ChipOwnProps, ChipProps } from '@mui/material/Chip';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { FC } from 'react';
 
 /**
@@ -9,8 +9,14 @@ import { FC } from 'react';
  * This leads to an accessiblity problems, because we have a button that does nothing and a delete icon that isn't reachable.
  * With this component we are going to remove the role button attribute.
  */
-const Chip: FC<Exclude<ChipProps, 'deleteIcon' | 'label'> & { label: string }> = (props) => {
-  const { onDelete, onClick, sx, label, 'aria-label': ariaLabel, ...other } = props;
+type AllowedChipColors = 'default' | 'error' | 'success' | 'warning' | 'highlight' | 'neutral';
+type CustomChipProps = Omit<ChipProps, 'color' | 'deleteIcon' | 'label'> & {
+  label: string;
+  color?: AllowedChipColors;
+};
+
+const Chip: FC<CustomChipProps> = (props) => {
+  const { onDelete, onClick, sx, label, color, 'aria-label': ariaLabel, ...other } = props;
 
   // If onClick is undefined and onDelete is defined, we are in the case of deletable Chip
   const isDeletableOnly = onDelete && !onClick;
@@ -23,6 +29,7 @@ const Chip: FC<Exclude<ChipProps, 'deleteIcon' | 'label'> & { label: string }> =
         onDelete={onDelete}
         tabIndex={-1}
         role={undefined}
+        color={color as ChipOwnProps['color']}
         sx={{
           cursor: 'default',
           ...sx,
@@ -31,7 +38,7 @@ const Chip: FC<Exclude<ChipProps, 'deleteIcon' | 'label'> & { label: string }> =
           },
         }}
         deleteIcon={
-          <CancelIcon
+          <CloseRoundedIcon
             tabIndex={0}
             role="button"
             aria-label={(ariaLabel ?? `Delete %s`).replace('%s', label)}
@@ -42,6 +49,11 @@ const Chip: FC<Exclude<ChipProps, 'deleteIcon' | 'label'> & { label: string }> =
                 e.stopPropagation();
                 onDelete?.(e as any);
               }
+            }}
+            sx={{
+              color: '#2962FF',
+              backgroundColor: 'transparent',
+              borderRadius: 0,
             }}
           />
         }
@@ -55,9 +67,10 @@ const Chip: FC<Exclude<ChipProps, 'deleteIcon' | 'label'> & { label: string }> =
     <MuiChip
       sx={sx}
       label={label}
-      deleteIcon={<CancelIcon />}
+      deleteIcon={<CloseRoundedIcon />}
       onClick={onClick}
       onDelete={onDelete}
+      color={color as ChipOwnProps['color']}
       {...other}
       aria-label={ariaLabel}
     />
