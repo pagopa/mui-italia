@@ -654,6 +654,7 @@ export const theme: Theme = createTheme(foundation, {
         },
       },
     },
+    /* START Chip */
     MuiChip: {
       styleOverrides: {
         root: {
@@ -677,18 +678,11 @@ export const theme: Theme = createTheme(foundation, {
         deleteIcon: {
           color: colors.blue[500],
         },
-        avatar: {
-          fontWeight: foundation.typography.fontWeightRegular,
-        },
         outlined: {
           borderRadius: foundation.spacing(5),
           '&.MuiChip-outlinedDefault': {
             color: colors.blue[600],
             borderColor: colors.blue[600],
-            '& .MuiChip-avatar': {
-              backgroundColor: foundation.palette.grey[400],
-              color: '#17324D',
-            },
           },
           '&.MuiChip-outlinedNeutral': {
             color: colors.neutral.black,
@@ -735,49 +729,9 @@ export const theme: Theme = createTheme(foundation, {
             color: foundation.palette.warning[850],
           },
         },
-        // colorDefault: {
-        //   '& .MuiChip-avatar': {
-        //     backgroundColor: foundation.palette.grey[400],
-        //     color: foundation.palette.grey[700],
-        //   },
-        //   '& .MuiChip-deleteIcon': {
-        //     color: alpha(foundation.palette.text.primary, 0.23),
-        //   },
-        // },
-        // colorSecondary: {
-        //   '& .MuiChip-deleteIcon': {
-        //     color: colorTextPrimary,
-        //   },
-        // },
-        // colorError: {
-        //   '& .MuiChip-avatar': {
-        //     backgroundColor: foundation.palette.error.light,
-        //     color: foundation.palette.error[850],
-        //   },
-        //   '& .MuiChip-deleteIcon': {
-        //     color: foundation.palette.error[850],
-        //   },
-        // },
-        // colorSuccess: {
-        //   '& .MuiChip-avatar': {
-        //     backgroundColor: foundation.palette.success.light,
-        //     color: foundation.palette.success[850],
-        //   },
-        //   '& .MuiChip-deleteIcon': {
-        //     color: foundation.palette.success[850],
-        //   },
-        // },
-        // colorWarning: {
-        //   '& .MuiChip-avatar': {
-        //     backgroundColor: foundation.palette.warning.light,
-        //     color: foundation.palette.warning[850],
-        //   },
-        //   '& .MuiChip-deleteIcon': {
-        //     color: foundation.palette.warning[850],
-        //   },
-        // },
       },
     },
+    /* END Chip */
     /** Start TEXT FIELD */
     MuiInput: {
       styleOverrides: {

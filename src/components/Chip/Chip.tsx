@@ -62,7 +62,7 @@ const Chip: FC<CustomChipProps> = (props) => {
     );
   }
 
-  // Standar case: we render the default component
+  // Standard case: we render the default component
   return (
     <MuiChip
       sx={sx}

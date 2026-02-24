@@ -1,6 +1,5 @@
+import { Chip } from '@components/Chip';
 import { StoryFn, Meta } from '@storybook/react-vite';
-
-import { Chip } from '@mui/material';
 
 export default {
   title: 'MUI Components/Data Display/Chips',
@@ -13,7 +12,6 @@ export default {
         type: { summary: 'string' },
         defaultValue: { summary: 'default' },
       },
-      onDelete: { action: 'Deleted' },
     },
     variant: {
       options: ['filled', 'outlined'],
@@ -41,6 +39,9 @@ export default {
   },
   parameters: {
     layout: 'centered',
+    controls: {
+      include: ['label', 'color', 'variant', 'size', 'disabled'],
+    },
   },
 } as Meta<typeof Chip>;
 
