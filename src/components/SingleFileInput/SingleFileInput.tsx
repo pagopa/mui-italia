@@ -113,7 +113,7 @@ export const SingleFileInput = ({
 }: SingleFileInputProps): JSX.Element => {
   const uploadInputRef = useRef<HTMLButtonElement>();
 
-  const [id, _] = useState(generateRandomID);
+  const [id] = useState(generateRandomID);
   const [isFileRejected, setIsFileRejected] = useState(false);
 
   const status = getStatus(value, !!loading, !!error, isFileRejected && !!rejectedLabel);

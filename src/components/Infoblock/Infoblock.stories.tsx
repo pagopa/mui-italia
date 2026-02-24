@@ -1,4 +1,3 @@
-import { SyntheticEvent } from 'react';
 import { Meta, StoryFn } from '@storybook/react-vite';
 
 import { breakpointsChromaticValues } from '@theme';
@@ -9,13 +8,13 @@ import infoblockImage from './infoblockImage.png';
 const primaryCTA = {
   label: 'CallToAction 1',
   title: 'CTA1',
-  onClick: (_: SyntheticEvent) => {},
+  onClick: () => {},
 };
 
 const secondaryCTA = {
   label: 'CallToAction 2',
   title: 'CTA2',
-  onClick: (_: SyntheticEvent) => {},
+  onClick: () => {},
 };
 
 export default {

@@ -74,6 +74,90 @@ module.exports = {
     'guard-for-in': 'error',
     // set to 15 the max allowed complexity
     complexity: ['error', 15],
+    // prohibits the usage of curly brackets and return in the arraow functions that have only one expression
+    // i.e. () => 'hello'
+    'arrow-body-style': 'error',
+    // force to write imports in a specific order
+    'import/order': 'error',
+    // force using the const declaration, if a variable is never reassigned
+    'prefer-const': [
+      'error',
+      {
+        destructuring: 'any', // if any variables in destructuring should be const, this rule warns for those variable
+      },
+    ],
+    // we use the typescript version
+    // semi: 'off',
+    // 'no-unused-expressions': 'off',
+    'no-unused-vars': 'off',
+    // ------------------------------------------------------------ TypeScript rules ------------------------------------------------------------
+    '@typescript-eslint/no-unused-vars': 'error',
+    // enable if we want to enforce the return type for all the functions
+    // requires defining the return of exported functions (here is disabled)
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    // force to use generics for the array definition (i.e. Array<string> instead of string[])
+    '@typescript-eslint/array-type': [
+      'error',
+      {
+        default: 'generic',
+      },
+    ],
+    // prohibits the usage of await if function or variable isn't a promise
+    '@typescript-eslint/await-thenable': 'error',
+    // force the usage of "value as Type" instead of "<Type>value"
+    '@typescript-eslint/consistent-type-assertions': 'error',
+    // force to use object.property insteaad of object[property]
+    '@typescript-eslint/dot-notation': 'error',
+    // force the usage of semicolon in the interface and types definition
+    '@typescript-eslint/member-delimiter-style': [
+      'error',
+      {
+        multiline: {
+          delimiter: 'semi',
+          requireLast: true,
+        },
+        singleline: {
+          delimiter: 'semi',
+          requireLast: false,
+        },
+      },
+    ],
+    // requires using await or catch with promises
+    '@typescript-eslint/no-floating-promises': 'error',
+    // prohibits the usage of expressions that do nothing
+    // let i = 0;
+    // function increment() { i += 1; }
+    // increment(); -> return value is unused, but i changed as a side effect
+    '@typescript-eslint/no-unused-expressions': ['error'],
+    // prefer the usage of function type over object type with signature
+    // interface Example { (): string; } -> wrong
+    // type Example = () => string; -> correct
+    '@typescript-eslint/prefer-function-type': 'error',
+    // the plus operator can be used only if both member are numbers or strings
+    '@typescript-eslint/restrict-plus-operands': 'error',
+    // force the use of semicolon at the and of a statement
+    '@typescript-eslint/semi': ['error'],
+    // show an error if there are overloaded method definitions that can be merged into one definition with optional parameters
+    '@typescript-eslint/unified-signatures': 'error',
+    // ------------------------------------------------------------ React rules ------------------------------------------------------------
+    // the check on the types of the properties is demanded to Typescript
+    'react/prop-types': 'off',
+    // force to name components
+    'react/display-name': 'error',
+    // shows error if we missed to set property key when using .map()
+    'react/jsx-key': 'error',
+    // prohibits to create functions directly in the tsx (i.e. onClick={this.ttestFunction.bind(this)})
+    'react/jsx-no-bind': [
+      'error',
+      {
+        allowArrowFunctions: true,
+      },
+    ],
+    // prohibits to use hooks inside if, for or functions
+    'react-hooks/rules-of-hooks': 'error',
+    // both rules make not required the import of React at the start of each tsx file
+    'react/jsx-uses-react': 'off',
+    'react/react-in-jsx-scope': 'off',
   },
   // these are configurations available to each plugin
   settings: {
@@ -95,71 +179,9 @@ module.exports = {
 /*
 
 
-rules: {
-    // TODO ['error', { 'allow': ['error', 'warn'] }],
-    'arrow-body-style': 'error',
-    'import/order': 'error',
-    '@typescript-eslint/no-unused-vars': 'off',
-    // Enable if we want to enforce the return type for all the functions
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-inferrable-types': 'off',
+rules: { 
     // TODO: added for compatibility. Removing this line we have to remove all the any usage in the code
     '@typescript-eslint/no-explicit-any': 'off',
-    '@typescript-eslint/array-type': [
-      'error',
-      {
-        default: 'generic',
-      },
-    ],
-    '@typescript-eslint/await-thenable': 'error',
-    '@typescript-eslint/consistent-type-assertions': 'error',
-    '@typescript-eslint/dot-notation': 'error',
-    '@typescript-eslint/member-delimiter-style': [
-      'error',
-      {
-        multiline: {
-          delimiter: 'semi',
-          requireLast: true,
-        },
-        singleline: {
-          delimiter: 'semi',
-          requireLast: false,
-        },
-      },
-    ],
-    '@typescript-eslint/no-floating-promises': 'error',
-    'no-unused-expressions': 'off',
-    '@typescript-eslint/no-unused-expressions': ['error'],
-    '@typescript-eslint/prefer-function-type': 'error',
-    '@typescript-eslint/restrict-plus-operands': 'error',
-    semi: 'off',
-    '@typescript-eslint/semi': ['error'],
-    '@typescript-eslint/unified-signatures': 'error',
-    'react/prop-types': 'off',
-    'react/display-name': 'off',
-    'react/jsx-key': 'error',
-    'react/jsx-no-bind': [
-      'error',
-      {
-        allowArrowFunctions: true,
-      },
-    ],
-    'react-hooks/rules-of-hooks': 'warn',
-    'prefer-const': [
-      'error',
-      {
-        destructuring: 'any',
-        ignoreReadBeforeAssign: false,
-      },
-    ],
-    '@typescript-eslint/no-empty-function': [
-      'error',
-      {
-        allow: ['arrowFunctions'],
-      },
-    ],
-    'react/jsx-uses-react': 'off',
-    'react/react-in-jsx-scope': 'off',
   },
   overrides: [
     {
