@@ -139,6 +139,8 @@ module.exports = {
     '@typescript-eslint/semi': ['error'],
     // show an error if there are overloaded method definitions that can be merged into one definition with optional parameters
     '@typescript-eslint/unified-signatures': 'error',
+    // show an error if a condition (like if or an operator) is useless
+    "@typescript-eslint/no-unnecessary-condition": "error",
     // ------------------------------------------------------------ React rules ------------------------------------------------------------
     // the check on the types of the properties is demanded to Typescript
     'react/prop-types': 'off',
@@ -158,6 +160,10 @@ module.exports = {
     // both rules make not required the import of React at the start of each tsx file
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
+    // show a warning when a variable or a property is used inside hooks and it is not declared in the dependencies array
+    "react-hooks/exhaustive-deps": "warn",
+    // requires self-closing tag, if a component doesn't have children
+    "react/self-closing-comp": "error"
   },
   // these are configurations available to each plugin
   settings: {
