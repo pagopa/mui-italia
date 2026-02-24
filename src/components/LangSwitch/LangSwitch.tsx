@@ -1,6 +1,6 @@
 'use client';
 
-import { Fragment, SyntheticEvent, useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import { Menu, MenuItem, Typography, Box } from '@mui/material';
 import { ButtonNaked } from '@components/ButtonNaked';
 
@@ -62,7 +62,6 @@ export function LangSwitch({
   };
 
   return (
-    <Fragment>
       <Box>
         <ButtonNaked
           id="lang-menu-button"
@@ -73,7 +72,7 @@ export function LangSwitch({
             height: 'auto',
             display: 'flex',
           }}
-          aria-label={`Seleziona lingua: ${currentLangLabels[currentLangCode]}`}
+          aria-label={`Seleziona lingua: ${getLabel(currentLangCode)}`}
           aria-haspopup="true"
           aria-expanded={open}
           aria-controls={open ? 'lang-menu' : undefined}
@@ -101,7 +100,7 @@ export function LangSwitch({
             onClose={handleClose}
             MenuListProps={{ 'aria-labelledby': 'lang-menu-button' }}
           >
-            {Object.keys(languages).map((langCode, i) => {
+            {Object.keys(languages).map((langCode) => {
               const code = langCode as LangCode;
               const label = getLabel(code);
               return (
@@ -118,6 +117,5 @@ export function LangSwitch({
           </Menu>
         )}
       </Box>
-    </Fragment>
   );
 }
