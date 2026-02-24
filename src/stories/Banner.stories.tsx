@@ -55,21 +55,19 @@ const meta: Meta<StoryArgs> = {
     cta: { table: { disable: true } },
   },
   render: (args) => {
-    const { enableClose, enableCta, ...bannerArgs } = args;
+    const { enableClose, enableCta, cta, ...bannerArgs } = args;
+
+    const resolvedCta =
+      cta ??
+      (enableCta
+        ? {
+            label: DEFAULT_CTA,
+            onClick: () => {},
+          }
+        : undefined);
 
     return (
-      <Banner
-        {...bannerArgs}
-        onClose={enableClose ? () => {} : undefined}
-        cta={
-          enableCta
-            ? {
-                label: DEFAULT_CTA,
-                onClick: () => {},
-              }
-            : undefined
-        }
-      />
+      <Banner {...bannerArgs} onClose={enableClose ? () => {} : undefined} cta={resolvedCta} />
     );
   },
 };
@@ -117,6 +115,51 @@ export const BackgroundInfo: Story = {
     title: DEFAULT_TITLE,
     message: DEFAULT_MESSAGE,
     badge: 'Novità',
+  },
+};
+
+/* ------------------------------ Test Link Cta ------------------------------ */
+
+export const Primary_LinkCta_Self: Story = {
+  args: {
+    color: 'white',
+    variant: 'primary',
+    title: DEFAULT_TITLE,
+    message: DEFAULT_MESSAGE,
+    badge: 'Novità',
+    cta: {
+      label: DEFAULT_CTA,
+      href: 'https://test.com',
+      target: '_self',
+    },
+  },
+};
+
+export const Secondary_LinkCta_Blank: Story = {
+  args: {
+    color: 'white',
+    variant: 'secondary',
+    title: DEFAULT_TITLE,
+    message: DEFAULT_MESSAGE,
+    cta: {
+      label: DEFAULT_CTA,
+      href: 'https://test.com',
+      target: '_blank',
+    },
+  },
+};
+
+export const Tertiary_LinkCta_Blank: Story = {
+  args: {
+    color: 'white',
+    variant: 'tertiary',
+    title: DEFAULT_TITLE,
+    message: DEFAULT_MESSAGE,
+    cta: {
+      label: DEFAULT_CTA,
+      href: 'https://test.com',
+      target: '_blank',
+    },
   },
 };
 

@@ -26,6 +26,7 @@ type FooterProps = LangSwitchProps & {
   legalInfo: JSX.Element | Array<JSX.Element>;
   onExit?: (exitAction: () => void) => void;
   productsJsonUrl?: string;
+  productsTitle?: string;
   onProductsJsonFetchError?: (reason: any) => void;
   hideProductsColumn?: boolean;
 };
@@ -83,6 +84,7 @@ export const Footer = ({
   languages,
   onLanguageChanged,
   currentLangCode,
+  productsTitle,
   productsJsonUrl,
   onProductsJsonFetchError,
   hideProductsColumn,
@@ -104,6 +106,7 @@ export const Footer = ({
         languages={languages}
         onLanguageChanged={onLanguageChanged}
         currentLangCode={currentLangCode}
+        productsTitle={productsTitle}
         productsJsonUrl={productsJsonUrl}
         onProductsJsonFetchError={onProductsJsonFetchError}
         hideProductsColumn={hideProductsColumn}
