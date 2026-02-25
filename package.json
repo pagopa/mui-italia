@@ -1,6 +1,6 @@
 {
   "name": "@pagopa/mui-italia",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "author": {
     "name": "PagoPA"
   },
@@ -28,7 +28,7 @@
   "devDependencies": {
     "@babel/cli": "^7.28.3",
     "@babel/core": "^7.28.5",
-    "@babel/preset-env": "^7.28.5",
+    "@babel/preset-env": "^7.29.0",
     "@babel/preset-react": "^7.28.5",
     "@babel/preset-typescript": "^7.28.5",
     "@emotion/react": "^11.14.0",
@@ -41,7 +41,6 @@
     "@storybook/addon-a11y": "10.1.11",
     "@storybook/addon-docs": "10.1.11",
     "@storybook/addon-links": "10.1.11",
-    "@storybook/addon-vitest": "10.1.11",
     "@storybook/builder-vite": "10.1.11",
     "@storybook/react-vite": "10.1.11",
     "@types/node": "^18.16.20",
@@ -49,8 +48,6 @@
     "@types/react-dom": "^18.3.1",
     "@typescript-eslint/eslint-plugin": "^5.47.1",
     "@typescript-eslint/parser": "^5.39.0",
-    "@vitest/browser-playwright": "^4.0.18",
-    "@vitest/coverage-v8": "^4.0.18",
     "babel-plugin-module-resolver": "^5.0.2",
     "babel-plugin-transform-rewrite-imports": "^1.5.4",
     "babel-preset-minify": "^0.5.2",
@@ -65,7 +62,6 @@
     "eslint-plugin-react": "^7.31.8",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-storybook": "10.1.11",
-    "playwright": "^1.58.2",
     "prettier": "^2.7.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -73,8 +69,7 @@
     "tsc-alias": "^1.8.16",
     "typescript": "^5.9.3",
     "vite": "^7.3.1",
-    "vite-tsconfig-paths": "^6.0.3",
-    "vitest": "^4.0.18"
+    "vite-tsconfig-paths": "^6.0.3"
   },
   "peerDependencies": {
     "@emotion/react": "^11.14.0",
