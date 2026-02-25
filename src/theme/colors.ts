@@ -35,10 +35,6 @@ export const success = {
   850: '#224021',
 };
 
-export const info = {
-  850: '#215C76',
-};
-
 export const decorativeIcon = neutral[300];
 
 export const divider = '#E8EBF1';

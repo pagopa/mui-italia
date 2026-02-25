@@ -77,6 +77,19 @@ export const DefaultCTAClick: Story = {
   },
 };
 
+export const NoCTA: Story = {
+  args: {
+    title: DEFAULT_TITLE,
+    description: DEFAULT_MESSAGE,
+  },
+};
+
+export const NoTitle: Story = {
+  args: {
+    description: DEFAULT_MESSAGE,
+  },
+};
+
 /* ------------------------------ Stress-test stories ------------------------------ */
 
 export const Stress_Alert_Unbroken: Story = {

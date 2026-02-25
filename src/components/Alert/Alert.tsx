@@ -10,12 +10,8 @@ import {
   useTheme,
 } from '@mui/material';
 import MUIAlert, { AlertProps as MUIAlertProps } from '@mui/material/Alert';
-import { InfoAlertIcon } from '@icons/InfoAlertIcon';
-import { ErrorAlertIcon } from '@icons/ErrorAlertIcon';
-import { SuccessAlertIcon } from '@icons/SuccessAlertIcon';
-import { WarningAlertIcon } from '@icons/WarningAlertIcon';
 import { ButtonNaked } from '@components/ButtonNaked';
-import { theme } from '@theme';
+import { getColor, getIcon } from './utils';
 
 export type AlertCTA =
   | {
@@ -31,46 +27,33 @@ export type AlertCTA =
 
 type AlertProps = Pick<MUIAlertProps, 'severity' | 'title'> & {
   description: string;
-  action: AlertCTA;
+  action?: AlertCTA;
 };
 
 export const Alert = ({ severity, title, description, action }: AlertProps) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
-  const iconBySeverity = {
-    info: <InfoAlertIcon />,
-    error: <ErrorAlertIcon />,
-    warning: <WarningAlertIcon />,
-    success: <SuccessAlertIcon />,
-  } as const;
-
-  const colorBySeverity = {
-    info: theme.palette.info[850],
-    error: theme.palette.error[850],
-    warning: theme.palette.warning[850],
-    success: theme.palette.success[850],
-  } as const;
-
-  const getIcon = () =>
-    severity !== undefined ? iconBySeverity[severity] : iconBySeverity.success;
-
-  const getColor = () =>
-    severity !== undefined ? colorBySeverity[severity] : colorBySeverity.success;
+  const generatedId = useId();
 
   return (
-    <MUIAlert severity={severity} icon={getIcon()}>
+    <MUIAlert severity={severity} icon={getIcon(severity)}>
       <Stack direction={isMobile ? 'column' : 'row'} flex={1}>
-        <Stack direction="column" flex={1} minWidth={0} gap={'4px'}>
-          <MUIAlertTitle color={getColor()}>{title}</MUIAlertTitle>
+        <Stack direction="column" flex={1} minWidth={0} gap={title ? '4px' : 0}>
+          {title && (
+            <MUIAlertTitle color={getColor(severity)} id={generatedId}>
+              {title}
+            </MUIAlertTitle>
+          )}
           {description}
         </Stack>
-        <Cta
-          cta={action}
-          ariaLabelledBy={useId()}
-          severity={severity}
-          alignSelf={isMobile ? 'flex-start' : 'center'}
-        />
+        {action && (
+          <Cta
+            cta={action}
+            ariaLabelledBy={generatedId}
+            severity={severity}
+            alignSelf={isMobile ? 'flex-start' : 'center'}
+          />
+        )}
       </Stack>
     </MUIAlert>
   );
@@ -92,6 +75,7 @@ function Cta({
   sx?: SxProps<Theme>;
 }>) {
   const isLink = 'href' in cta;
+  const theme = useTheme();
 
   let target: '_self' | '_blank' | undefined;
   let rel: string | undefined;
@@ -116,14 +100,17 @@ function Cta({
     rel: isLink ? rel : undefined,
   };
 
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <ButtonNaked
       {...commonProps}
       sx={{
+        pt: isMobile ? '16px' : 0,
         p: 0,
         minWidth: 'auto',
         fontWeight: 600,
-        fontSize: '14px',
+        fontSize: '16px',
         textDecoration: 'none',
         alignSelf: alignSelf,
         color: theme.palette[severity ?? 'success'][850],
