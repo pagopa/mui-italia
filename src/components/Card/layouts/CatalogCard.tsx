@@ -23,8 +23,8 @@ export function CatalogCard({
         height: '100%',
         borderRadius: foundation.spacing(1),
         border: `1px solid ${foundation.palette.divider}`,
-        maxWidth: 360,
-        maxHeight: 236,
+        maxWidth: '100%',
+        maxHeight: 'fit-content',
       }}
     >
       <CardHeader
