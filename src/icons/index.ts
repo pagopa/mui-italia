@@ -4,7 +4,3 @@ export * from './CieIcon';
 export * from './CheckIbanIcon';
 export * from './PNIcon';
 export * from './InteropIcon';
-export * from './InfoAlertIcon';
-export * from './ErrorAlertIcon';
-export * from './SuccessAlertIcon';
-export * from './WarningAlertIcon';
