@@ -1,5 +1,4 @@
 'use client';
-
 import { ElementType, useId } from 'react';
 import {
   AlertTitle as MUIAlertTitle,
@@ -40,7 +39,7 @@ export const Alert = ({ severity, title, description, action }: AlertProps) => {
       <Stack direction={isMobile ? 'column' : 'row'} flex={1}>
         <Stack direction="column" flex={1} minWidth={0} gap={title ? '4px' : 0}>
           {title && (
-            <MUIAlertTitle color={getColor(severity)} id={generatedId}>
+            <MUIAlertTitle color={getColor(theme, severity)} id={generatedId}>
               {title}
             </MUIAlertTitle>
           )}
@@ -52,6 +51,7 @@ export const Alert = ({ severity, title, description, action }: AlertProps) => {
             ariaLabelledBy={generatedId}
             severity={severity}
             alignSelf={isMobile ? 'flex-start' : 'center'}
+            theme={theme}
           />
         )}
       </Stack>
@@ -66,16 +66,18 @@ function Cta({
   severity,
   alignSelf,
   sx,
+  theme,
 }: Readonly<{
   cta: AlertCTA;
   id?: string;
   ariaLabelledBy?: string;
   severity?: 'success' | 'info' | 'warning' | 'error';
   alignSelf: 'flex-start' | 'center';
+  theme: Theme;
   sx?: SxProps<Theme>;
 }>) {
   const isLink = 'href' in cta;
-  const theme = useTheme();
+  //const theme = useTheme();
 
   let target: '_self' | '_blank' | undefined;
   let rel: string | undefined;
