@@ -1,10 +1,16 @@
-import { Chip } from '@components/Chip';
+import { Chip, DeletableChip } from '@components/Chip';
 import { StoryFn, Meta } from '@storybook/react-vite';
 
 export default {
   title: 'MUI Components/Data Display/Chips',
   component: Chip,
   argTypes: {
+    label: {
+      control: { type: 'text' },
+      table: {
+        type: { summary: 'string' },
+      },
+    },
     color: {
       options: ['default', 'warning', 'error', 'success', 'neutral', 'highlight'],
       control: { type: 'radio' },
@@ -46,6 +52,7 @@ export default {
 } as Meta<typeof Chip>;
 
 const Template: StoryFn<typeof Chip> = (args) => <Chip {...args} />;
+const TemplateDeletable: StoryFn<typeof DeletableChip> = (args) => <DeletableChip {...args} />;
 
 const handleDelete = () => {
   console.info('You clicked the delete icon.');
@@ -56,7 +63,7 @@ Default.args = {
   label: 'Consegnata',
 };
 
-export const Deletable = Template.bind({});
+export const Deletable = TemplateDeletable.bind({});
 Deletable.args = {
   ...Default.args,
   onDelete: handleDelete,

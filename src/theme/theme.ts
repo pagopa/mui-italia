@@ -660,6 +660,7 @@ export const theme: Theme = createTheme(foundation, {
         root: {
           height: 'auto',
           borderRadius: foundation.spacing(5),
+          maxWidth: '15ch',
         },
         label: {
           fontSize: pxToRem(14),
