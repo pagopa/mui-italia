@@ -3,9 +3,6 @@ name: 'Validate PR title'
 # Event for the workflow
 on:
   pull_request:
-    # ignore pr opened to the branches below
-    branches-ignore:
-      - main
     types:
       - opened
       - edited
