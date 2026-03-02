@@ -1,4 +1,4 @@
-import { Chip, DeletableChip } from '@components/Chip';
+import { Chip } from '@components/Chip';
 import { StoryFn, Meta } from '@storybook/react-vite';
 
 export default {
@@ -52,7 +52,6 @@ export default {
 } as Meta<typeof Chip>;
 
 const Template: StoryFn<typeof Chip> = (args) => <Chip {...args} />;
-const TemplateDeletable: StoryFn<typeof DeletableChip> = (args) => <DeletableChip {...args} />;
 
 const handleDelete = () => {
   console.info('You clicked the delete icon.');
@@ -63,7 +62,7 @@ Default.args = {
   label: 'Consegnata',
 };
 
-export const Deletable = TemplateDeletable.bind({});
+export const Deletable = Template.bind({});
 Deletable.args = {
   ...Default.args,
   onDelete: handleDelete,
