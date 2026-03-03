@@ -2,8 +2,8 @@ import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import ReportRoundedIcon from '@mui/icons-material/ReportRounded';
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
-import { Theme } from '@mui/material';
-import { AllowedAlertSeverity } from './Alert';
+import type { Theme } from '@mui/material/styles';
+import type { AllowedAlertSeverity } from './Alert';
 
 const iconSize = '24px';
 

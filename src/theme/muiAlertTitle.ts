@@ -1,6 +1,6 @@
+import type { Components, Theme } from '@mui/material/styles';
 import foundation from './foundation';
 import { pxToRem } from './utility';
-import type { Components, Theme } from '@mui/material/styles';
 const responsiveBreakpoint = 'sm';
 
 const muiAlertTitle: Components<Theme>['MuiAlertTitle'] = {

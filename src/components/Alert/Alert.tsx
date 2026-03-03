@@ -50,7 +50,8 @@ export const Alert = ({ severity, title, description, action }: AlertProps) => {
         {action && (
           <Cta
             cta={action}
-            ariaLabelledBy={generatedId}
+            ariaLabelledBy={title ? generatedId : undefined}
+            aria-label={title ? undefined : 'Alert action'}
             severity={severity}
             alignSelf={isMobile ? 'flex-start' : 'center'}
             theme={theme}

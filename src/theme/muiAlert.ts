@@ -1,9 +1,8 @@
+import type { Theme } from '@mui/material/styles';
+import type { ComponentsOverrides } from '@mui/material/styles/overrides';
 import foundation from './foundation';
 
 const responsiveBreakpoint = 'sm';
-
-import { Theme } from '@mui/material/styles';
-import { ComponentsOverrides } from '@mui/material/styles/overrides';
 
 const muiAlert: { styleOverrides: ComponentsOverrides<Theme>['MuiAlert'] } = {
   styleOverrides: {

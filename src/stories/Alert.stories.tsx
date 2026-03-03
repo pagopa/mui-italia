@@ -72,7 +72,7 @@ export const DefaultCTAClick: Story = {
     description: DEFAULT_MESSAGE,
     action: {
       label: DEFAULT_CTA,
-      onClick: () => alert('CTA clicked'),
+      onClick: () => console.log('CTA clicked'),
     },
   },
 };
