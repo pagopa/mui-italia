@@ -51,6 +51,7 @@ async function babelBuild(sourceDir, buildDir) {
           NODE_ENV: 'production',
         },
         encoding: 'utf8',
+        shell: true,
       }
     );
     console.log(result);
@@ -68,6 +69,7 @@ async function createTypes() {
         NODE_ENV: 'production',
       },
       encoding: 'utf8',
+      shell: true,
     });
     console.log(tscResult);
     const tscAliasResult = execFileSync('tsc-alias', ['-p', 'tsconfig.prod.json'], {
@@ -76,6 +78,7 @@ async function createTypes() {
         NODE_ENV: 'production',
       },
       encoding: 'utf8',
+      shell: true,
     });
     console.log(tscAliasResult);
   } catch (error) {

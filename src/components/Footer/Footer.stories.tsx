@@ -1,11 +1,10 @@
-/* import { useState } from "react"; */
-import { StoryFn, Meta } from '@storybook/react-vite';
+import { StoryObj, Meta } from '@storybook/react-vite';
 import { FooterCheckout } from '@components/FooterCheckout';
 import { breakpointsChromaticValues } from '@theme';
 
 import { Footer, PreLoginFooterLinksType, FooterLinksType, CompanyLinkType } from './Footer';
 
-export default {
+const meta: Meta<typeof Footer> = {
   title: 'Components/Footer (WIP)',
   component: Footer,
   decorators: [
@@ -22,24 +21,59 @@ export default {
     },
   },
   argTypes: {
-    hideProductColums: {
+    legalInfo: {
+      control: false,
+    },
+    companyLink: {
+      control: false,
+    },
+    loggedUser: {
+      description:
+        'If true, it renders the PostLogin version of the Footer. If false, it renders the PreLogin version.',
+      table: {
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    hideProductsColumn: {
       description:
         'If true, it will not render the products column. As default, the column will be visible',
+      table: {
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    productsTitle: {
+      table: {
+        defaultValue: {
+          summary: 'Prodotti e Servizi',
+        },
+      },
     },
     productsJsonUrl: {
       description:
-        "This URL contains a json with the list of products to list inside the Footer. By default it's set with https://selfcare.pagopa.it/assets/products.json",
+        'This URL contains a json with the list of products to list inside the Footer.',
+      table: {
+        defaultValue: {
+          summary: 'https://selfcare.pagopa.it/assets/products.json',
+        },
+      },
     },
   },
-} as Meta<typeof Footer>;
+};
+
+export default meta;
+type Story = StoryObj<typeof Footer>;
 
 const companyLegalInfo = (
-  <>
-    <strong>PagoPA S.p.A.</strong> — società per azioni con socio unico - capitale sociale di euro
-    1,000,000 interamente versato - sede legale in Roma, Piazza Colonna 370,
-    <br />
+  <span style={{ whiteSpace: 'pre-line' }}>
+    <b>PagoPA S.p.A.</b> — società per azioni con socio unico - capitale sociale di euro 1,000,000
+    interamente versato - sede legale in Roma, Piazza Colonna 370,
+    {'\n'}
     CAP 00187 - n. di iscrizione a Registro Imprese di Roma, CF e P.IVA 15376371009
-  </>
+  </span>
 );
 
 /* 
@@ -63,6 +97,12 @@ const LANGUAGES = {
   },
 };
 
+const LANGUAGES_FLAT = {
+  it: 'Italiano',
+  en: 'English',
+  fr: 'Français',
+};
+
 /* type LangCode = "it" | "en"; */
 
 /*
@@ -70,32 +110,27 @@ Links Section
 */
 const pagoPALink: CompanyLinkType = {
   href: 'https://www.pagopa.it/',
-  ariaLabel: 'Link: vai al sito di PagoPA S.p.A.',
 };
 
 const postLoginLinks: Array<FooterLinksType> = [
   {
     label: 'Informativa Privacy',
     href: '#informativa-privacy',
-    ariaLabel: 'Vai al link: Informativa Privacy',
     linkType: 'internal',
   },
   {
     label: 'Diritto alla protezione dei dati personali',
     href: '#diritto-allaprotezionedipersonalidati',
-    ariaLabel: 'Vai al link: Diritto alla protezione dei dati personali',
     linkType: 'internal',
   },
   {
     label: 'Termini e condizioni',
     href: '#terms-conditions',
-    ariaLabel: 'Vai al link: Termini e condizioni',
     linkType: 'internal',
   },
   {
     label: 'Accessibilità',
     href: '#accessibility',
-    ariaLabel: 'Vai al link: Accessibilità',
     linkType: 'internal',
   },
 ];
@@ -104,19 +139,16 @@ const checkoutLinks: Array<FooterLinksType> = [
   {
     label: 'Informativa Privacy',
     href: '#informativa-privacy',
-    ariaLabel: 'Vai al link: Informativa Privacy',
     linkType: 'internal',
   },
   {
     label: 'Termini e condizioni',
     href: '#terms-conditions',
-    ariaLabel: 'Vai al link: Termini e condizioni',
     linkType: 'internal',
   },
   {
     label: 'Accessibilità',
     href: '#accessibility',
-    ariaLabel: 'Vai al link: Accessibilità',
     linkType: 'internal',
   },
 ];
@@ -129,25 +161,21 @@ const preLoginLinks: PreLoginFooterLinksType = {
       {
         label: 'Chi siamo',
         href: '#chi-siamo',
-        ariaLabel: 'Vai al link: Chi siamo',
         linkType: 'internal',
       },
       {
         label: 'PNRR',
         href: '#pnrr',
-        ariaLabel: 'Vai al link: PNRR',
         linkType: 'internal',
       },
       {
         label: 'Media',
         href: '#media',
-        ariaLabel: 'Vai al link: Media',
         linkType: 'internal',
       },
       {
         label: 'Lavora con noi',
         href: '#lavora-con-noi',
-        ariaLabel: 'Vai al link: Lavora con noi',
         linkType: 'internal',
       },
     ],
@@ -159,24 +187,20 @@ const preLoginLinks: PreLoginFooterLinksType = {
       {
         label: 'Informativa Privacy',
         href: '#informativa-privacy',
-        ariaLabel: 'Vai al link: Informativa Privacy',
         linkType: 'internal',
       },
       {
         label: 'Certificazioni',
         href: '#certificazioni',
-        ariaLabel: 'Vai al link: Certificazioni',
         linkType: 'internal',
       },
       {
         label: 'Sicurezza delle informazioni',
         href: '#sicurezza-delle-informazioni',
-        ariaLabel: 'Vai al link: Sicurezza delle informazioni',
         linkType: 'internal',
       },
       {
         label: 'Diritto alla protezione dei dati personali',
-        ariaLabel: 'Vai al link: Diritto alla protezione dei dati personali',
         linkType: 'internal',
         onClick: () => {
           console.log('onClick');
@@ -185,7 +209,6 @@ const preLoginLinks: PreLoginFooterLinksType = {
       {
         label: 'Preferenze Cookie',
         href: '#preferenze-cookie',
-        ariaLabel: 'Vai al link: Preferenze Cookie',
         linkType: 'internal',
         onClick: () => {
           console.log('onClick');
@@ -194,25 +217,21 @@ const preLoginLinks: PreLoginFooterLinksType = {
       {
         label: 'Termini e Condizioni',
         href: '#terms-conditions',
-        ariaLabel: 'Vai al link: Termini e Condizioni',
         linkType: 'internal',
       },
       {
         label: 'Società trasparente',
         href: '#societa-trasparente',
-        ariaLabel: 'Vai al link: Società trasparente',
         linkType: 'internal',
       },
       {
         label: 'Responsible Disclosure Policy',
         href: '#responsible-disclosure-policy',
-        ariaLabel: 'Vai al link: Responsible Disclosure Policy',
         linkType: 'internal',
       },
       {
         label: 'Modello 321',
         href: '#modello-321',
-        ariaLabel: 'Vai al link: Modello 321',
         linkType: 'internal',
       },
     ],
@@ -225,99 +244,96 @@ const preLoginLinks: PreLoginFooterLinksType = {
         icon: 'linkedin',
         title: 'LinkedIn',
         href: 'https://www.linkedin.com/company/pagopa/',
-        ariaLabel: 'Link: vai al sito LinkedIn di PagoPA S.p.A.',
       },
       {
         icon: 'instagram',
         title: 'Instagram',
         href: 'https://www.instagram.com/pagopaspa/',
-        ariaLabel: 'Link: vai al sito Instagram di PagoPA S.p.A.',
       },
       {
         icon: 'threads',
         title: 'Threads',
         href: 'https://www.threads.net/@pagopaspa',
-        ariaLabel: 'Link: vai al sito Threads di PagoPA S.p.A.',
       },
       {
         icon: 'youtube',
         title: 'Youtube',
         href: 'https://www.youtube.com/channel/UCFBGOEJUPQ6t3xtZFc_UIEQ',
-        ariaLabel: 'Link: vai al sito Youtube di PagoPA S.p.A.',
+      },
+      {
+        icon: 'x',
+        title: 'X',
+        href: 'https://twitter.com/pagopaspa',
+      },
+      {
+        icon: 'medium',
+        title: 'Medium',
+        href: 'https://pagopa.medium.com/',
       },
     ],
     links: [
       {
         label: 'Accessibilità',
         href: '#accessibilità',
-        ariaLabel: 'Vai al link: Accessibilità',
         linkType: 'internal',
       },
     ],
   },
 };
 
-export const PreLogin: StoryFn<typeof Footer> = () => (
-  /* const { lang, setLang } = useState<LangCode>("it"); */
-
-  <Footer
-    loggedUser={false}
-    companyLink={pagoPALink}
-    legalInfo={companyLegalInfo}
-    postLoginLinks={postLoginLinks}
-    preLoginLinks={preLoginLinks}
-    currentLangCode={'it'}
-    onLanguageChanged={
-      (/* newLang */) => {
-        console.log('Changed Language');
-      }
-    }
-    languages={LANGUAGES}
-    onExit={(exitAction) => {
+export const PreLogin: Story = {
+  args: {
+    loggedUser: false,
+    companyLink: pagoPALink,
+    legalInfo: companyLegalInfo,
+    postLoginLinks,
+    preLoginLinks,
+    currentLangCode: 'it',
+    onLanguageChanged: () => {
+      console.log('Changed Language');
+    },
+    languages: LANGUAGES,
+    onExit: (exitAction) => {
       console.log('Executing exit Action');
       exitAction();
-    }}
-    productsJsonUrl="https://uat.selfcare.pagopa.it/assets/products.json"
-    hideProductsColumn={false}
-  />
-);
+    },
+    productsJsonUrl: 'https://uat.selfcare.pagopa.it/assets/products.json',
+    productsTitle: 'Prodotti e Servizi',
+    hideProductsColumn: false,
+  },
+};
 
-export const PostLogin: StoryFn<typeof Footer> = () => (
-  /* const { lang, setLang } = useState<LangCode>("it"); */
+export const PostLogin: Story = {
+  args: {
+    loggedUser: true,
+    companyLink: pagoPALink,
+    legalInfo: companyLegalInfo,
+    postLoginLinks,
+    preLoginLinks,
+    currentLangCode: 'it',
+    onLanguageChanged: () => {
+      console.log('Changed Language');
+    },
+    languages: LANGUAGES_FLAT,
+    productsJsonUrl: 'https://uat.selfcare.pagopa.it/assets/products.json',
+    productsTitle: 'Prodotti e Servizi',
+    hideProductsColumn: false,
+  },
+};
 
-  <Footer
-    loggedUser
-    companyLink={pagoPALink}
-    legalInfo={companyLegalInfo}
-    postLoginLinks={postLoginLinks}
-    preLoginLinks={preLoginLinks}
-    currentLangCode={'it'}
-    onLanguageChanged={
-      (/* newLang */) => {
+export const Checkout: StoryObj<typeof FooterCheckout> = {
+  render: () => (
+    <FooterCheckout
+      companyLink={pagoPALink}
+      links={checkoutLinks}
+      currentLangCode={'it'}
+      onLanguageChanged={() => {
         console.log('Changed Language');
-      }
-    }
-    languages={LANGUAGES}
-    productsJsonUrl="https://uat.selfcare.pagopa.it/assets/products.json"
-    hideProductsColumn={false}
-  />
-);
-
-export const Checkout: StoryFn<typeof FooterCheckout> = () => (
-  /* const { lang, setLang } = useState<LangCode>("it"); */
-
-  <FooterCheckout
-    companyLink={pagoPALink}
-    links={checkoutLinks}
-    currentLangCode={'it'}
-    onLanguageChanged={
-      (/* newLang */) => {
-        console.log('Changed Language');
-      }
-    }
-    languages={LANGUAGES}
-    onExit={() => {
-      console.log('Exit Action Blocked');
-    }}
-  />
-);
+      }}
+      languages={LANGUAGES}
+      onExit={() => {
+        console.log('Exit Action Blocked');
+      }}
+    />
+  ),
+};
