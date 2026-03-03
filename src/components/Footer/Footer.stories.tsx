@@ -110,7 +110,6 @@ Links Section
 */
 const pagoPALink: CompanyLinkType = {
   href: 'https://www.pagopa.it/',
-  ariaLabel: 'Link: vai al sito di PagoPA S.p.A.',
 };
 
 const postLoginLinks: Array<FooterLinksType> = [
@@ -265,13 +264,11 @@ const preLoginLinks: PreLoginFooterLinksType = {
         icon: 'x',
         title: 'X',
         href: 'https://twitter.com/pagopaspa',
-        ariaLabel: 'Link: vai al sito X di PagoPA S.p.A.',
       },
       {
         icon: 'medium',
         title: 'Medium',
         href: 'https://pagopa.medium.com/',
-        ariaLabel: 'Link: vai al sito Medium di PagoPA S.p.A.',
       },
     ],
     links: [
