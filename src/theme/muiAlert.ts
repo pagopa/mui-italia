@@ -18,14 +18,12 @@ const muiAlert: { styleOverrides: ComponentsOverrides<Theme>['MuiAlert'] } = {
     },
     icon: {
       opacity: 1,
-      padding: '2px 8px',
+      padding: '2px 3px',
       alignItems: 'center',
       marginRight: foundation.spacing(1),
       [foundation.breakpoints.up(responsiveBreakpoint)]: {
         marginRight: foundation.spacing(1),
       },
-      height: '20px',
-      width: '20px',
     },
     message: {
       padding: 0,

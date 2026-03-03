@@ -29,6 +29,8 @@ type AlertProps = Pick<MUIAlertProps, 'severity' | 'title'> & {
   action?: AlertCTA;
 };
 
+export type AllowedAlertSeverity = 'success' | 'info' | 'warning' | 'error';
+
 export const Alert = ({ severity, title, description, action }: AlertProps) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -71,13 +73,12 @@ function Cta({
   cta: AlertCTA;
   id?: string;
   ariaLabelledBy?: string;
-  severity?: 'success' | 'info' | 'warning' | 'error';
+  severity?: AllowedAlertSeverity;
   alignSelf: 'flex-start' | 'center';
   theme: Theme;
   sx?: SxProps<Theme>;
 }>) {
   const isLink = 'href' in cta;
-  //const theme = useTheme();
 
   let target: '_self' | '_blank' | undefined;
   let rel: string | undefined;
