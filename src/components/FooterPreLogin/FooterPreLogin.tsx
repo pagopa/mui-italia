@@ -10,7 +10,6 @@ import { isRight, toError } from 'fp-ts/lib/Either';
 import LinkedIcon from '@mui/icons-material/LinkedIn';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
-import XIcon from '@mui/icons-material/X';
 import { LogoPagoPACompany } from '@assets/LogoPagoPACompany';
 import { FundedByNextGenerationEU } from '@assets/FundedByNextGenerationEU';
 import { ThreadsIcon } from '@icons/ThreadsIcon';
@@ -70,7 +69,6 @@ export const FooterPreLogin = ({
     threads: <ThreadsIcon />,
     youtube: <YoutubeIcon />,
     twitter: <TwitterIcon />,
-    x: <XIcon />,
     medium: <MediumIcon />,
   };
 
