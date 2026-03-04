@@ -261,11 +261,6 @@ const preLoginLinks: PreLoginFooterLinksType = {
         href: 'https://www.youtube.com/channel/UCFBGOEJUPQ6t3xtZFc_UIEQ',
       },
       {
-        icon: 'x',
-        title: 'X',
-        href: 'https://twitter.com/pagopaspa',
-      },
-      {
         icon: 'medium',
         title: 'Medium',
         href: 'https://pagopa.medium.com/',
