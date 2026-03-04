@@ -51,7 +51,6 @@ export type FooterSocialIcon =
   | 'instagram'
   | 'threads'
   | 'youtube'
-  | 'x'
   | 'twitter'
   | 'medium';
 
