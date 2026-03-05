@@ -10,17 +10,22 @@ export type AlertCTA =
   | {
       label: string;
       onClick: () => void;
+      href?: never;
+      target?: never;
+      rel?: never;
     }
   | {
       label: string;
       href: string;
       target?: '_self' | '_blank';
       rel?: string;
+      onClick?: never;
     };
 
 export type AllowedAlertSeverity = 'success' | 'info' | 'warning' | 'error';
 
-export interface AlertProps extends Pick<MUIAlertProps, 'severity' | 'title'> {
+export interface AlertProps extends Pick<MUIAlertProps, 'severity'> {
+  title?: string;
   description: string;
   action?: AlertCTA;
 }
@@ -122,7 +127,7 @@ function Cta({
   const commonProps = {
     id,
     'aria-labelledby': ariaLabelledBy,
-    'aria-label': ariaLabelledBy ? undefined : 'Alert action',
+    'aria-label': ariaLabelledBy ? undefined : cta.label,
     onClick: 'onClick' in cta ? cta.onClick : undefined,
     component: (isLink ? 'a' : 'button') as ElementType,
     href: isLink ? cta.href : undefined,
