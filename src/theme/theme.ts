@@ -14,9 +14,6 @@ import {
   colorTextPrimary,
   menuItemBackground,
 } from './colors';
-import muiAlertTitle from './muiAlertTitle';
-import muiAlert from './muiAlert';
-
 /* Basic Configuration */
 
 const responsiveBreakpoint = 'sm';
@@ -522,10 +519,6 @@ export const theme: Theme = createTheme(foundation, {
       },
     },
     /* END Stepper */
-    /* START Alert */
-    MuiAlert: muiAlert,
-    MuiAlertTitle: muiAlertTitle,
-    /* END Alert */
     /* START Card */
     MuiCard: {
       styleOverrides: {

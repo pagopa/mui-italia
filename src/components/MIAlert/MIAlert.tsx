@@ -1,13 +1,7 @@
 'use client';
+
 import { ElementType, useId } from 'react';
-import {
-  AlertTitle as MUIAlertTitle,
-  Stack,
-  SxProps,
-  Theme,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material';
+import { AlertTitle as MUIAlertTitle, Stack, useMediaQuery, useTheme, styled } from '@mui/material';
 import MUIAlert, { AlertProps as MUIAlertProps } from '@mui/material/Alert';
 import { ButtonNaked } from '@components/ButtonNaked';
 import { getColor, getIcon } from './utils';
@@ -24,20 +18,64 @@ export type AlertCTA =
       rel?: string;
     };
 
-type AlertProps = Pick<MUIAlertProps, 'severity' | 'title'> & {
-  description: string;
-  action?: AlertCTA;
-};
-
 export type AllowedAlertSeverity = 'success' | 'info' | 'warning' | 'error';
 
-export const Alert = ({ severity, title, description, action }: AlertProps) => {
+export interface AlertProps extends Pick<MUIAlertProps, 'severity' | 'title'> {
+  description: string;
+  action?: AlertCTA;
+}
+
+const StyledAlert = styled(MUIAlert)(({ theme, severity = 'success' }) => {
+  const severityPalette = theme.palette[severity];
+
+  return {
+    border: '1px solid',
+    borderRadius: 8,
+    padding: theme.spacing(2),
+    alignItems: 'flex-start',
+    borderColor: severityPalette.main,
+    backgroundColor: severityPalette[100],
+
+    [theme.breakpoints.up('sm')]: {
+      padding: theme.spacing(3),
+    },
+
+    '& .MuiAlert-icon': {
+      opacity: 1,
+      padding: '2px 3px',
+      alignItems: 'center',
+      marginRight: theme.spacing(1),
+      color: severityPalette[850],
+    },
+
+    '& .MuiAlert-message': {
+      padding: 0,
+      overflow: 'inherit',
+      lineHeight: '22px',
+      fontWeight: theme.typography.fontWeightRegular,
+      flex: 1,
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      overflowWrap: 'anywhere',
+      wordBreak: 'break-word',
+      color: severityPalette[850],
+    },
+
+    '& .MuiAlert-action': {
+      marginRight: 0,
+      paddingTop: 0,
+    },
+  };
+});
+
+export const MIAlert = ({ severity = 'success', title, description, action }: AlertProps) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const generatedId = useId();
 
   return (
-    <MUIAlert severity={severity} icon={getIcon(severity)}>
+    <StyledAlert severity={severity} icon={getIcon(severity)}>
       <Stack direction={isMobile ? 'column' : 'row'} flex={1}>
         <Stack direction="column" flex={1} minWidth={0} gap={title ? '4px' : 0}>
           {title && (
@@ -51,14 +89,13 @@ export const Alert = ({ severity, title, description, action }: AlertProps) => {
           <Cta
             cta={action}
             ariaLabelledBy={title ? generatedId : undefined}
-            aria-label={title ? undefined : 'Alert action'}
             severity={severity}
             alignSelf={isMobile ? 'flex-start' : 'center'}
-            theme={theme}
+            isMobile={isMobile}
           />
         )}
       </Stack>
-    </MUIAlert>
+    </StyledAlert>
   );
 };
 
@@ -66,18 +103,16 @@ function Cta({
   cta,
   id,
   ariaLabelledBy,
-  severity,
+  severity = 'success',
   alignSelf,
-  sx,
-  theme,
+  isMobile,
 }: Readonly<{
   cta: AlertCTA;
   id?: string;
   ariaLabelledBy?: string;
   severity?: AllowedAlertSeverity;
   alignSelf: 'flex-start' | 'center';
-  theme: Theme;
-  sx?: SxProps<Theme>;
+  isMobile: boolean;
 }>) {
   const isLink = 'href' in cta;
 
@@ -86,17 +121,13 @@ function Cta({
 
   if (isLink) {
     target = cta.target ?? '_self';
-
-    if (target === '_blank') {
-      rel = cta.rel ?? 'noopener noreferrer';
-    } else {
-      rel = cta.rel;
-    }
+    rel = target === '_blank' ? cta.rel ?? 'noopener noreferrer' : cta.rel;
   }
 
   const commonProps = {
     id,
     'aria-labelledby': ariaLabelledBy,
+    'aria-label': ariaLabelledBy ? undefined : 'Alert action',
     onClick: 'onClick' in cta ? cta.onClick : undefined,
     component: (isLink ? 'a' : 'button') as ElementType,
     href: isLink ? cta.href : undefined,
@@ -104,12 +135,10 @@ function Cta({
     rel: isLink ? rel : undefined,
   };
 
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
   return (
     <ButtonNaked
       {...commonProps}
-      sx={{
+      sx={(theme) => ({
         pt: isMobile ? '16px' : 0,
         p: 0,
         minWidth: 'auto',
@@ -117,9 +146,8 @@ function Cta({
         fontSize: '16px',
         textDecoration: 'none',
         alignSelf: alignSelf,
-        color: theme.palette[severity ?? 'success'][850],
-        ...sx,
-      }}
+        color: theme.palette[severity][850],
+      })}
     >
       {cta.label}
     </ButtonNaked>

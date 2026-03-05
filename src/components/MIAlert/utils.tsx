@@ -3,7 +3,7 @@ import ReportRoundedIcon from '@mui/icons-material/ReportRounded';
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 import type { Theme } from '@mui/material/styles';
-import type { AllowedAlertSeverity } from './Alert';
+import type { AllowedAlertSeverity } from './MIAlert';
 
 const iconSize = '24px';
 

@@ -1,7 +1,7 @@
-import { Alert } from '@components/Alert/Alert';
-import { Box } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react';
 import { breakpointsChromaticValues } from '@theme';
+import { MIAlert } from '@components/MIAlert';
+import { Box } from '@mui/material';
 
 const componentMaxWidth = 900;
 
@@ -14,9 +14,9 @@ const DEFAULT_CTA = 'Ok, ho capito!';
 const LONG_UNBROKEN =
   'Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong';
 
-const meta: Meta<React.ComponentProps<typeof Alert>> = {
-  title: 'MUI Components/Feedback/Alert',
-  component: Alert,
+const meta: Meta<React.ComponentProps<typeof MIAlert>> = {
+  title: 'MUI Components/Feedback/MIAlert',
+  component: MIAlert,
   parameters: {
     chromatic: {
       viewports: breakpointsChromaticValues.filter((resolution) => resolution <= componentMaxWidth),
@@ -42,15 +42,15 @@ const meta: Meta<React.ComponentProps<typeof Alert>> = {
     action: { table: { disable: true } },
   },
   render: (args) => {
-    const { action, ...AlertArgs } = args;
+    const { action, ...MIAlertArgs } = args;
 
-    return <Alert {...AlertArgs} action={action} />;
+    return <MIAlert {...MIAlertArgs} action={action} />;
   },
 };
 
 export default meta;
 
-type Story = StoryObj<React.ComponentProps<typeof Alert>>;
+type Story = StoryObj<React.ComponentProps<typeof MIAlert>>;
 
 /* ------------------------------ Normal stories ------------------------------ */
 
@@ -92,7 +92,7 @@ export const NoTitle: Story = {
 
 /* ------------------------------ Stress-test stories ------------------------------ */
 
-export const Stress_Alert_Unbroken: Story = {
+export const Stress_MIAlert_Unbroken: Story = {
   args: {
     title: `Very long title ${LONG_UNBROKEN}`,
     description: `${LONG_UNBROKEN}${LONG_UNBROKEN}${LONG_UNBROKEN}`,
