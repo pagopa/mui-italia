@@ -1,1 +1,1 @@
-export { MIAlert } from './MIAlert';
+export * from './MIAlert';
