@@ -61,11 +61,6 @@ const StyledAlert = styled(MUIAlert)(({ theme, severity = 'success' }) => {
       wordBreak: 'break-word',
       color: severityPalette[850],
     },
-
-    '& .MuiAlert-action': {
-      marginRight: 0,
-      paddingTop: 0,
-    },
   };
 });
 
@@ -139,8 +134,7 @@ function Cta({
     <ButtonNaked
       {...commonProps}
       sx={(theme) => ({
-        pt: isMobile ? '16px' : 0,
-        p: 0,
+        pt: isMobile ? 2 : 0,
         minWidth: 'auto',
         fontWeight: 600,
         fontSize: '16px',
