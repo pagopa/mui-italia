@@ -14,6 +14,7 @@ import {
   colorTextPrimary,
   menuItemBackground,
 } from './colors';
+import { colors } from './foundations/colors';
 
 /* Basic Configuration */
 
@@ -516,6 +517,18 @@ export const theme: Theme = createTheme(foundation, {
           },
           '&.Mui-active': {
             fontWeight: foundation.typography.fontWeightMedium,
+          },
+        },
+      },
+    },
+    MuiStepIcon: {
+      styleOverrides: {
+        root: {
+          '&.Mui-completed': {
+            color: colors.blue[500],
+          },
+          '&.Mui-active': {
+            color: colors.blue[500],
           },
         },
       },
