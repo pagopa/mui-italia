@@ -75,7 +75,11 @@ export const MIAlert = ({ severity = 'success', title, description, action }: Al
   const generatedId = useId();
 
   return (
-    <StyledAlert severity={severity} icon={getIcon(severity)}>
+    <StyledAlert
+      severity={severity}
+      icon={getIcon(severity)}
+      sx={{ alignItems: title ? 'flex-start' : 'center' }}
+    >
       <Stack direction={isMobile ? 'column' : 'row'} flex={1}>
         <Stack direction="column" flex={1} minWidth={0} gap={title ? '4px' : 0}>
           {title && (
