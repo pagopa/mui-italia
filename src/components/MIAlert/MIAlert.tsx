@@ -1,9 +1,10 @@
 'use client';
 
-import { ElementType, useId } from 'react';
-import { AlertTitle as MUIAlertTitle, Stack, useMediaQuery, useTheme, styled } from '@mui/material';
-import MUIAlert, { AlertProps as MUIAlertProps } from '@mui/material/Alert';
 import { ButtonNaked } from '@components/ButtonNaked';
+import { AlertTitle as MUIAlertTitle, Stack, styled, useMediaQuery, useTheme } from '@mui/material';
+import MUIAlert, { AlertProps as MUIAlertProps } from '@mui/material/Alert';
+import type { Theme } from '@mui/material/styles';
+import { ElementType, useId } from 'react';
 import { getColor, getIcon } from './utils';
 
 export type AlertCTA =
@@ -36,7 +37,7 @@ const StyledAlert = styled(MUIAlert)(
     severity = 'success',
     title,
   }: {
-    theme: any;
+    theme: Theme;
     severity?: AllowedAlertSeverity;
     title?: string;
   }) => {
@@ -52,6 +53,10 @@ const StyledAlert = styled(MUIAlert)(
 
       [theme.breakpoints.up('sm')]: {
         padding: theme.spacing(3),
+      },
+
+      [theme.breakpoints.down('sm')]: {
+        alignItems: 'flex-start',
       },
 
       '& .MuiAlert-icon': {
@@ -138,7 +143,7 @@ function Cta({
     id,
     'aria-labelledby': ariaLabelledBy,
     'aria-label': ariaLabelledBy ? undefined : cta.label,
-    onClick: 'onClick' in cta ? cta.onClick : undefined,
+    onClick: !isLink ? cta.onClick : undefined,
     component: (isLink ? 'a' : 'button') as ElementType,
     href: isLink ? cta.href : undefined,
     target: isLink ? target : undefined,
