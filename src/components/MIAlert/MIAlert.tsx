@@ -30,44 +30,54 @@ export interface AlertProps extends Pick<MUIAlertProps, 'severity'> {
   action?: AlertCTA;
 }
 
-const StyledAlert = styled(MUIAlert)(({ theme, severity = 'success' }) => {
-  const severityPalette = theme.palette[severity];
+const StyledAlert = styled(MUIAlert)(
+  ({
+    theme,
+    severity = 'success',
+    title,
+  }: {
+    theme: any;
+    severity?: AllowedAlertSeverity;
+    title?: string;
+  }) => {
+    const severityPalette = theme.palette[severity];
 
-  return {
-    border: '1px solid',
-    borderRadius: 8,
-    padding: theme.spacing(2),
-    alignItems: 'flex-start',
-    borderColor: severityPalette.main,
-    backgroundColor: severityPalette[100],
+    return {
+      border: '1px solid',
+      borderRadius: 8,
+      padding: theme.spacing(2),
+      alignItems: title ? 'flex-start' : 'center',
+      borderColor: severityPalette.main,
+      backgroundColor: severityPalette[100],
 
-    [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing(3),
-    },
+      [theme.breakpoints.up('sm')]: {
+        padding: theme.spacing(3),
+      },
 
-    '& .MuiAlert-icon': {
-      opacity: 1,
-      padding: '2px 3px',
-      alignItems: 'center',
-      marginRight: theme.spacing(1),
-      color: severityPalette[850],
-    },
+      '& .MuiAlert-icon': {
+        opacity: 1,
+        padding: '2px 3px',
+        alignItems: 'center',
+        marginRight: theme.spacing(1),
+        color: severityPalette[850],
+      },
 
-    '& .MuiAlert-message': {
-      padding: 0,
-      overflow: 'inherit',
-      lineHeight: '22px',
-      fontWeight: theme.typography.fontWeightRegular,
-      flex: 1,
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      overflowWrap: 'anywhere',
-      wordBreak: 'break-word',
-      color: severityPalette[850],
-    },
-  };
-});
+      '& .MuiAlert-message': {
+        padding: 0,
+        overflow: 'inherit',
+        lineHeight: '22px',
+        fontWeight: theme.typography.fontWeightRegular,
+        flex: 1,
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        overflowWrap: 'anywhere',
+        wordBreak: 'break-word',
+        color: severityPalette[850],
+      },
+    };
+  }
+);
 
 export const MIAlert = ({ severity = 'success', title, description, action }: AlertProps) => {
   const theme = useTheme();
@@ -75,11 +85,7 @@ export const MIAlert = ({ severity = 'success', title, description, action }: Al
   const generatedId = useId();
 
   return (
-    <StyledAlert
-      severity={severity}
-      icon={getIcon(severity)}
-      sx={{ alignItems: title ? 'flex-start' : 'center' }}
-    >
+    <StyledAlert severity={severity} icon={getIcon(severity)} title={title}>
       <Stack direction={isMobile ? 'column' : 'row'} flex={1}>
         <Stack direction="column" flex={1} minWidth={0} gap={title ? '4px' : 0}>
           {title && (
