@@ -13,7 +13,6 @@ import {
   colorTextPrimary,
   menuItemBackground,
 } from './colors';
-
 /* Basic Configuration */
 
 const responsiveBreakpoint = 'sm';
