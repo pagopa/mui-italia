@@ -1,3 +1,17 @@
+# [2.3.1-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v2.3.1-RC.1) (2026-03-06)
+
+
+### Bug Fixes
+
+* **A2-2576:** remove "X" on footer social ([#667](https://github.com/pagopa/mui-italia/issues/667)) ([ee7f201](https://github.com/pagopa/mui-italia/commit/ee7f2013f04a3570f4d6125d2b8da7437a8d424a))
+
+
+### Styles
+
+* **M20DS-30:** restyled alert component ([#646](https://github.com/pagopa/mui-italia/issues/646)) ([f03bbde](https://github.com/pagopa/mui-italia/commit/f03bbde89c632dc979232f192a2b0f39361a608d))
+
+
+
 # [2.3.1-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.3.1-RC.0) (2026-03-03)
 
 
