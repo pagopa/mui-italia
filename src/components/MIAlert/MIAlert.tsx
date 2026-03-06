@@ -105,7 +105,6 @@ export const MIAlert = ({ severity = 'success', title, description, action }: Al
             cta={action}
             ariaLabelledBy={title ? generatedId : undefined}
             severity={severity}
-            alignSelf={isMobile ? 'flex-start' : 'center'}
             isMobile={isMobile}
           />
         )}
@@ -119,14 +118,12 @@ function Cta({
   id,
   ariaLabelledBy,
   severity = 'success',
-  alignSelf,
   isMobile,
 }: Readonly<{
   cta: AlertCTA;
   id?: string;
   ariaLabelledBy?: string;
   severity?: AllowedAlertSeverity;
-  alignSelf: 'flex-start' | 'center';
   isMobile: boolean;
 }>) {
   const isLink = 'href' in cta;
@@ -159,7 +156,8 @@ function Cta({
         fontWeight: 600,
         fontSize: '16px',
         textDecoration: 'none',
-        alignSelf: alignSelf,
+        alignSelf: isMobile ? 'flex-start' : 'center',
+        paddingLeft: isMobile ? theme.spacing(0) : theme.spacing(8),
         color: theme.palette[severity][850],
       })}
     >
