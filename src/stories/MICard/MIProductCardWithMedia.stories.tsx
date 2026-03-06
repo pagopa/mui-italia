@@ -34,6 +34,9 @@ const DEFAULT_CONTENT = (
   </Typography>
 );
 
+const DEFAULT_STRING_CONTENT =
+  'Consenti ai cittadini di firmare digitalmente documenti tramite l’app IO.';
+
 const DEFAULT_CTA = 'Aderisci';
 
 const LONG_UNBROKEN =
@@ -85,10 +88,21 @@ type Story = StoryObj<React.ComponentProps<typeof MIProductCardWithMedia>>;
 
 /* ------------------------------ Normal stories ------------------------------ */
 
-export const ProductCardWithMediaWithchip: Story = {
+export const ProductCardWithMedia: Story = {
   args: {
     title: DEFAULT_TITLE_APP_IO,
     content: DEFAULT_CONTENT,
+    actions: actionWithButton,
+    imgUrl: DEFAULT_IMG_URL,
+    productAvatarURL: DEFAULT_AVATAR_URL,
+    productAvatarBgColor: DEFAULT_AVATAR_BG_COLOR,
+  },
+};
+
+export const ProductCardWithMediaWithStringContent: Story = {
+  args: {
+    title: DEFAULT_TITLE_APP_IO,
+    content: DEFAULT_STRING_CONTENT,
     actions: actionWithButton,
     imgUrl: DEFAULT_IMG_URL,
     productAvatarURL: DEFAULT_AVATAR_URL,

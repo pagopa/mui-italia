@@ -57,22 +57,26 @@ export function MIProductCard({
           </Stack>
         </Stack>
         <Stack sx={{ width: '100%' }}>
-          <Typography
-            variant="caption"
-            color="text.secondary"
-            sx={{
-              lineHeight: 1.4,
-              fontWeight: foundation.typography.fontWeightLight,
-              fontSize: '14px',
-              display: '-webkit-box',
-              WebkitLineClamp: { xs: 2, sm: 3 },
-              WebkitBoxOrient: 'vertical',
-              overflow: 'hidden',
-              wordBreak: 'break-word',
-            }}
-          >
-            {content}
-          </Typography>
+          {typeof content === 'string' ? (
+            <Typography
+              variant="caption"
+              color="text.secondary"
+              sx={{
+                lineHeight: 1.4,
+                fontWeight: foundation.typography.fontWeightLight,
+                fontSize: '14px',
+                display: '-webkit-box',
+                WebkitLineClamp: { xs: 2, sm: 3 },
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden',
+                wordBreak: 'break-word',
+              }}
+            >
+              {content}
+            </Typography>
+          ) : (
+            content
+          )}
         </Stack>
       </CardContent>
       <CardActions

@@ -8,12 +8,14 @@ export function MIProductCardWithMedia({
   content,
   actions,
   imgUrl,
+  imgAlt,
   productAvatarURL,
   productAvatarBgColor,
 }: Readonly<{
   title: string;
   content?: string | React.ReactNode;
   imgUrl: string;
+  imgAlt?: string;
   productAvatarURL: string;
   productAvatarBgColor: string;
   actions: React.ReactNode;
@@ -27,7 +29,12 @@ export function MIProductCardWithMedia({
         borderRadius: foundation.shape.borderRadius,
       }}
     >
-      <CardMedia component="img" height="140" image={imgUrl} alt="mediaProductCard" />
+      <CardMedia
+        component="img"
+        height="140"
+        image={imgUrl}
+        alt={imgAlt || 'mediaProductCardImg'}
+      />
       <CardContent sx={{ pt: 0, pb: 3, px: 3, display: 'flex', flexDirection: 'column' }}>
         <Box
           sx={{
@@ -62,22 +69,26 @@ export function MIProductCardWithMedia({
           {title}
         </Typography>
 
-        <Typography
-          variant="body1"
-          color="text.secondary"
-          sx={{
-            lineHeight: 1.4,
-            fontWeight: foundation.typography.fontWeightLight,
-            fontSize: '16px',
-            display: '-webkit-box',
-            WebkitLineClamp: { xs: 2, sm: 3 },
-            WebkitBoxOrient: 'vertical',
-            overflow: 'hidden',
-            wordBreak: 'break-word',
-          }}
-        >
-          {content}
-        </Typography>
+        {typeof content === 'string' ? (
+          <Typography
+            variant="body1"
+            color="text.secondary"
+            sx={{
+              lineHeight: 1.4,
+              fontWeight: foundation.typography.fontWeightLight,
+              fontSize: '16px',
+              display: '-webkit-box',
+              WebkitLineClamp: { xs: 2, sm: 3 },
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',
+              wordBreak: 'break-word',
+            }}
+          >
+            {content}
+          </Typography>
+        ) : (
+          content
+        )}
       </CardContent>
 
       <CardActions

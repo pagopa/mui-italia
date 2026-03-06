@@ -44,6 +44,8 @@ const DEFAULT_CONTENT = (
   </Typography>
 );
 
+const DEFAULT_STRING_CONTENT = 'Contenuto testuale del prodotto senza link';
+
 const DEFAULT_CTA = 'Vai al prodotto';
 
 const LONG_UNBROKEN =
@@ -82,9 +84,9 @@ const meta: Meta<React.ComponentProps<typeof MIProductCard>> = {
     ),
   ],
   argTypes: {
-    chip: { control: { type: 'text' } },
+    chip: { table: { disable: true } },
     title: { control: { type: 'text' } },
-    content: { control: { type: 'text' } },
+    content: { table: { disable: true } },
     avatarURL: { control: { type: 'text' } },
     actions: { table: { disable: true } },
   },
@@ -116,6 +118,16 @@ export const ProductCardWithoutchip: Story = {
   args: {
     title: DEFAULT_TITLE_PAGOPA,
     content: DEFAULT_CONTENT,
+    actions: actionWithButton,
+    avatarURL: DEFAULT_AVATAR_URL_PAGOPA,
+    avatarBgColor: DEFAULT_AVATAR_BG_COLOR_PAGOPA,
+  },
+};
+
+export const ProductCardWithStringContent: Story = {
+  args: {
+    title: DEFAULT_TITLE_PAGOPA,
+    content: DEFAULT_STRING_CONTENT,
     actions: actionWithButton,
     avatarURL: DEFAULT_AVATAR_URL_PAGOPA,
     avatarBgColor: DEFAULT_AVATAR_BG_COLOR_PAGOPA,

@@ -1,3 +1,4 @@
+import React from 'react';
 import { Box, Card, CardActions, CardContent, CardHeader, Typography } from '@mui/material';
 import foundation from 'theme/foundation';
 import { PartyAvatar } from '@components/PartyAvatar';
