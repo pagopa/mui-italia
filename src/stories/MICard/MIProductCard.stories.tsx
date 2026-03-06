@@ -2,9 +2,9 @@ import { Box, Button, Chip, Link, Stack, Typography } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react';
 import { breakpointsChromaticValues } from '@theme';
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
-import { ProductCard } from '@components/Card/layouts/ProductCard';
 import { turquoise } from 'theme/colors';
 import foundation from 'theme/foundation';
+import { MIProductCard } from '@components/MICard';
 
 const componentMaxWidth = 900;
 
@@ -64,9 +64,9 @@ const actionWithButton = (
   </Stack>
 );
 
-const meta: Meta<React.ComponentProps<typeof ProductCard>> = {
-  title: 'MUI Components/Card/ProductCard',
-  component: ProductCard,
+const meta: Meta<React.ComponentProps<typeof MIProductCard>> = {
+  title: 'Components/MICard/MIProductCard',
+  component: MIProductCard,
   parameters: {
     chromatic: {
       viewports: breakpointsChromaticValues.filter((resolution) => resolution <= componentMaxWidth),
@@ -91,13 +91,13 @@ const meta: Meta<React.ComponentProps<typeof ProductCard>> = {
   render: (args) => {
     const { actions, ...CardArgs } = args;
 
-    return <ProductCard {...CardArgs} actions={actions} />;
+    return <MIProductCard {...CardArgs} actions={actions} />;
   },
 };
 
 export default meta;
 
-type Story = StoryObj<React.ComponentProps<typeof ProductCard>>;
+type Story = StoryObj<React.ComponentProps<typeof MIProductCard>>;
 
 /* ------------------------------ Normal stories ------------------------------ */
 

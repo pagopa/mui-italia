@@ -3,7 +3,7 @@ import React from 'react';
 import foundation from 'theme/foundation';
 import { ProductAvatar } from '@components/ProductAvatar';
 
-export function ProductCardWithMedia({
+export function MIProductCardWithMedia({
   title,
   content,
   actions,

@@ -1,10 +1,10 @@
 import { ButtonNaked } from '@components/ButtonNaked';
-import { CatalogCard } from '@components/Card/layouts/CatalogCard';
 import { Box, Button, Stack } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react';
 import { breakpointsChromaticValues } from '@theme';
 import PersonIcon from '@mui/icons-material/Person';
 import CheckIcon from '@mui/icons-material/Check';
+import { MICatalogCard } from '@components/MICard';
 
 const componentMaxWidth = 900;
 
@@ -78,9 +78,9 @@ const actionWithButton = (
   </Stack>
 );
 
-const meta: Meta<React.ComponentProps<typeof CatalogCard>> = {
-  title: 'MUI Components/Card/CatalogCard',
-  component: CatalogCard,
+const meta: Meta<React.ComponentProps<typeof MICatalogCard>> = {
+  title: 'Components/MICard/MICatalogCard',
+  component: MICatalogCard,
   parameters: {
     chromatic: {
       viewports: breakpointsChromaticValues.filter((resolution) => resolution <= componentMaxWidth),
@@ -105,13 +105,13 @@ const meta: Meta<React.ComponentProps<typeof CatalogCard>> = {
   render: (args) => {
     const { actions, ...CardArgs } = args;
 
-    return <CatalogCard {...CardArgs} actions={actions} />;
+    return <MICatalogCard {...CardArgs} actions={actions} />;
   },
 };
 
 export default meta;
 
-type Story = StoryObj<React.ComponentProps<typeof CatalogCard>>;
+type Story = StoryObj<React.ComponentProps<typeof MICatalogCard>>;
 
 /* ------------------------------ Normal stories ------------------------------ */
 

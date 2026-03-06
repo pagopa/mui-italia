@@ -2,7 +2,7 @@ import { Box, Card, CardActions, CardContent, CardHeader, Typography } from '@mu
 import foundation from 'theme/foundation';
 import { PartyAvatar } from '@components/PartyAvatar';
 
-export function CatalogCard({
+export function MICatalogCard({
   title,
   header,
   content,
