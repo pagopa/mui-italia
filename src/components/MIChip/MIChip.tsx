@@ -173,8 +173,8 @@ const MIChip: FC<CustomMIChipProps> = (props) => {
       deleteIcon={<CloseRoundedIcon {...deleteIconProps} />}
       sx={sx}
       aria-label={ariaLabel}
-      {...accessibilityProps}
       {...other}
+      {...accessibilityProps}
     />
   );
 };
