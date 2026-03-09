@@ -13,7 +13,7 @@ import {
   colorPrimaryContainedHover,
   colorTextPrimary,
   menuItemBackground,
-} from './colors';
+} from './foundations/colors';
 
 /* Basic Configuration */
 
@@ -68,6 +68,8 @@ declare module '@mui/material/styles' {
     primaryAction: Palette['action'];
     negative: SimplePaletteColorOptions;
     indigo: Palette['primary'];
+    highlight: Palette['primary'];
+    neutral: Palette['primary'];
   }
   interface PaletteOptions {
     pagoPA?: PaletteOptions['primary'];
@@ -77,6 +79,8 @@ declare module '@mui/material/styles' {
     primaryAction: PaletteOptions['action'];
     negative: SimplePaletteColorOptions;
     indigo: SimplePaletteColorOptions;
+    highlight: SimplePaletteColorOptions;
+    neutral: SimplePaletteColorOptions;
   }
 
   interface PaletteColor {
@@ -159,6 +163,8 @@ declare module '@mui/material/Pagination' {
 declare module '@mui/material/Chip' {
   export interface ChipPropsColorOverrides {
     indigo: true;
+    highlight: true;
+    neutral: true;
   }
 }
 
@@ -647,6 +653,7 @@ export const theme: Theme = createTheme(foundation, {
         },
       },
     },
+    /* START Chip */
     MuiChip: {
       styleOverrides: {
         root: {
@@ -784,6 +791,7 @@ export const theme: Theme = createTheme(foundation, {
         },
       },
     },
+    /* END Chip */
     /** Start TEXT FIELD */
     MuiInput: {
       styleOverrides: {
