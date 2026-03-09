@@ -13,8 +13,6 @@ import {
   colorPrimaryContainedHover,
   colorTextPrimary,
   menuItemBackground,
-  colors,
-  none,
 } from './foundations/colors';
 
 /* Basic Configuration */
@@ -164,6 +162,7 @@ declare module '@mui/material/Pagination' {
 
 declare module '@mui/material/Chip' {
   export interface ChipPropsColorOverrides {
+    indigo: true;
     highlight: true;
     neutral: true;
   }
@@ -684,7 +683,6 @@ export const theme: Theme = createTheme(foundation, {
         root: {
           height: 'auto',
           borderRadius: foundation.spacing(5),
-          maxWidth: '15ch',
         },
         label: {
           fontSize: pxToRem(14),
@@ -701,45 +699,47 @@ export const theme: Theme = createTheme(foundation, {
           padding: `${foundation.spacing(0.5)} ${foundation.spacing(1)}` /* 4px 8px */,
         },
         deleteIcon: {
-          color: colors.blue[500],
+          color: 'currentColor',
+          opacity: '0.7',
+          '&:hover': {
+            color: 'currentColor',
+            opacity: 1,
+          },
+        },
+        avatar: {
+          fontWeight: foundation.typography.fontWeightRegular,
         },
         outlined: {
           borderRadius: foundation.spacing(5),
           '&.MuiChip-outlinedDefault': {
-            color: colors.blue[600],
-            borderColor: colors.blue[600],
+            color: colorTextPrimary,
+            borderColor: '#0000003B',
+            '& .MuiChip-avatar': {
+              backgroundColor: foundation.palette.grey[400],
+              color: '#17324D',
+            },
           },
-          '&.MuiChip-outlinedNeutral': {
-            color: colors.neutral.black,
-            borderColor: colors.neutral.black,
-          },
-          '&.MuiChip-outlinedWarning': {
-            color: foundation.palette.warning[850],
-            borderColor: foundation.palette.warning[850],
-          },
-          '&.MuiChip-outlinedError': {
-            color: colors.error[600],
-            borderColor: colors.error[600],
-            backgroundColor: none,
-          },
-          '&.MuiChip-outlinedSuccess': {
-            color: foundation.palette.success[850],
-            borderColor: foundation.palette.success[850],
-          },
-          '&.MuiChip-outlinedHighlight': {
-            color: colors.turquoise[850],
-            borderColor: colors.turquoise[850],
-            backgroundColor: none,
+          '&.MuiChip-outlinedPrimary': {
+            color: colorTextPrimary,
+            borderColor: colorTextPrimary,
           },
         },
         filled: {
           '&.MuiChip-colorDefault': {
-            backgroundColor: colors.blue[50],
-            color: colors.blue[850],
+            backgroundColor: foundation.palette.grey[200],
+            color: foundation.palette.text.primary,
+          },
+          '&.MuiChip-colorPrimary': {
+            backgroundColor: foundation.palette.primary[100],
+            color: colorTextPrimary,
           },
           '&.MuiChip-colorSecondary': {
             backgroundColor: alpha(foundation.palette.secondary.main, 0.5),
             color: foundation.palette.text.primary,
+          },
+          '&.MuiChip-colorInfo': {
+            backgroundColor: foundation.palette.info[100],
+            color: foundation.palette.info[850],
           },
           '&.MuiChip-colorError': {
             backgroundColor: foundation.palette.error[100],
@@ -751,6 +751,65 @@ export const theme: Theme = createTheme(foundation, {
           },
           '&.MuiChip-colorWarning': {
             backgroundColor: foundation.palette.warning[100],
+            color: foundation.palette.warning[850],
+          },
+        },
+        colorDefault: {
+          '& .MuiChip-avatar': {
+            backgroundColor: foundation.palette.grey[400],
+            color: foundation.palette.grey[700],
+          },
+          '& .MuiChip-deleteIcon': {
+            color: alpha(foundation.palette.text.primary, 0.23),
+          },
+        },
+        colorPrimary: {
+          '& .MuiChip-avatar': {
+            backgroundColor: foundation.palette.primary.light,
+            color: foundation.palette.primary.contrastText,
+          },
+          '& .MuiChip-deleteIcon': {
+            color: colorTextPrimary,
+          },
+        },
+        colorSecondary: {
+          '& .MuiChip-deleteIcon': {
+            color: colorTextPrimary,
+          },
+        },
+        colorInfo: {
+          '& .MuiChip-avatar': {
+            backgroundColor: foundation.palette.info.light,
+            color: foundation.palette.info[850],
+          },
+          '& .MuiChip-deleteIcon': {
+            color: foundation.palette.info[850],
+          },
+        },
+        colorError: {
+          '& .MuiChip-avatar': {
+            backgroundColor: foundation.palette.error.light,
+            color: foundation.palette.error[850],
+          },
+          '& .MuiChip-deleteIcon': {
+            color: foundation.palette.error[850],
+          },
+        },
+        colorSuccess: {
+          '& .MuiChip-avatar': {
+            backgroundColor: foundation.palette.success.light,
+            color: foundation.palette.success[850],
+          },
+          '& .MuiChip-deleteIcon': {
+            color: foundation.palette.success[850],
+          },
+        },
+        colorWarning: {
+          '& .MuiChip-avatar': {
+            backgroundColor: foundation.palette.warning.light,
+            color: foundation.palette.warning[850],
+          },
+          '& .MuiChip-deleteIcon': {
             color: foundation.palette.warning[850],
           },
         },

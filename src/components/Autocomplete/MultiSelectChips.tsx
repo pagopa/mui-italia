@@ -1,4 +1,4 @@
-import { Chip } from '@components/Chip';
+import { Chip } from '@components/MIChip';
 import { Box } from '@mui/material';
 
 interface Props<T> {
