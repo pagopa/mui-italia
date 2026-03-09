@@ -6,9 +6,7 @@ import { Box } from '@mui/material';
 const componentMaxWidth = 900;
 
 const DEFAULT_TITLE = "Titolo default dell'Alert";
-
 const DEFAULT_MESSAGE = 'Aggiungi un messaggio esplicativo sul motivo della segnalazione.';
-
 const DEFAULT_CTA = 'Ok, ho capito!';
 
 const LONG_UNBROKEN =
@@ -40,11 +38,6 @@ const meta: Meta<React.ComponentProps<typeof MIAlert>> = {
     title: { control: { type: 'text' } },
     description: { control: { type: 'text' } },
     action: { table: { disable: true } },
-  },
-  render: (args) => {
-    const { action, ...MIAlertArgs } = args;
-
-    return <MIAlert {...MIAlertArgs} action={action} />;
   },
 };
 
@@ -90,11 +83,33 @@ export const NoTitle: Story = {
   },
 };
 
+export const NoTitleWithCTA: Story = {
+  args: {
+    description: DEFAULT_MESSAGE,
+    action: {
+      label: DEFAULT_CTA,
+      href: 'https://test.com',
+      target: '_self',
+    },
+  },
+};
+
 /* ------------------------------ Stress-test stories ------------------------------ */
 
-export const Stress_MIAlert_Unbroken: Story = {
+export const StressUnbroken: Story = {
   args: {
     title: `Very long title ${LONG_UNBROKEN}`,
+    description: `${LONG_UNBROKEN}${LONG_UNBROKEN}${LONG_UNBROKEN}`,
+    action: {
+      label: DEFAULT_CTA,
+      href: 'https://test.com',
+      target: '_self',
+    },
+  },
+};
+
+export const StressUnbrokenNoTitle: Story = {
+  args: {
     description: `${LONG_UNBROKEN}${LONG_UNBROKEN}${LONG_UNBROKEN}`,
     action: {
       label: DEFAULT_CTA,
