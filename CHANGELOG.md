@@ -1,3 +1,12 @@
+# [2.3.1-RC.2](https://github.com/pagopa/mui-italia/releases/tag/v2.3.1-RC.2) (2026-03-09)
+
+
+### Bug Fixes
+
+* **M20DS-30:** MIAlert icon position on mobile and add missing stories ([#668](https://github.com/pagopa/mui-italia/issues/668)) ([e1148ae](https://github.com/pagopa/mui-italia/commit/e1148ae52564ec9becd7afb5ba4eece94bbac904))
+
+
+
 # [2.3.1-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v2.3.1-RC.1) (2026-03-06)
 
 
