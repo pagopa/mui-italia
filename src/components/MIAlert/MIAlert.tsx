@@ -61,7 +61,7 @@ const StyledAlert = styled(MUIAlert)(
 
       '& .MuiAlert-icon': {
         opacity: 1,
-        padding: '2px 3px',
+        paddingTop: '2px',
         alignItems: 'center',
         marginRight: theme.spacing(1),
         color: severityPalette[850],
