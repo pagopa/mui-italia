@@ -1,5 +1,5 @@
 import { MIChip } from '@components/MIChip';
-import { StoryFn, Meta } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react-vite';
 
 export default {
   title: 'MUI Components/Data Display/MIChips',
