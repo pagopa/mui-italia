@@ -3,7 +3,7 @@
 import { AlertTitle as MUIAlertTitle, Stack, styled, useMediaQuery, useTheme } from '@mui/material';
 import MUIAlert, { AlertProps as MUIAlertProps } from '@mui/material/Alert';
 import type { Theme } from '@mui/material/styles';
-import { ElementType, HTMLAttributeAnchorTarget, useId } from 'react';
+import { ElementType, HTMLAttributeAnchorTarget } from 'react';
 import { getColor, getIcon } from './utils';
 import { ButtonNaked } from '@components/ButtonNaked';
 
@@ -94,38 +94,21 @@ export const MIAlert = ({
 }: MIAlertProps) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const generatedId = useId();
 
   return (
     <StyledAlert severity={severity} icon={getIcon(severity)} title={title} {...rest}>
       <Stack direction={isMobile ? 'column' : 'row'} flex={1}>
         <Stack direction="column" flex={1} minWidth={0} gap={title ? '4px' : 0}>
-          {title && (
-            <MUIAlertTitle color={getColor(theme, severity)} id={generatedId}>
-              {title}
-            </MUIAlertTitle>
-          )}
+          {title && <MUIAlertTitle color={getColor(theme, severity)}>{title}</MUIAlertTitle>}
           {description}
         </Stack>
-        {action && (
-          <MIAlertCta
-            cta={action}
-            ariaLabelledBy={title ? generatedId : undefined}
-            severity={severity}
-            isMobile={isMobile}
-          />
-        )}
+        {action && <MIAlertCta cta={action} severity={severity} isMobile={isMobile} />}
       </Stack>
     </StyledAlert>
   );
 };
 
-const MIAlertCta = ({
-  cta,
-  ariaLabelledBy,
-  severity = 'success',
-  isMobile,
-}: Readonly<MIAlertCtaProps>) => {
+const MIAlertCta = ({ cta, severity = 'success', isMobile }: Readonly<MIAlertCtaProps>) => {
   const isLink = 'href' in cta;
 
   let target: HTMLAttributeAnchorTarget | undefined;
@@ -137,13 +120,11 @@ const MIAlertCta = ({
   }
 
   const commonProps = {
-    'aria-labelledby': ariaLabelledBy,
-    'aria-label': ariaLabelledBy ? undefined : cta.label,
     onClick: !isLink ? cta.onClick : undefined,
     component: (isLink ? 'a' : 'button') as ElementType,
     href: isLink ? cta.href : undefined,
-    target: isLink ? target : undefined,
-    rel: isLink ? rel : undefined,
+    target,
+    rel,
   };
 
   return (
