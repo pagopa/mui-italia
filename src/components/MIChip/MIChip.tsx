@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import MuiChip, { ChipProps } from '@mui/material/Chip';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { styled } from '@mui/material/styles';
@@ -134,9 +134,11 @@ const MIChip: FC<CustomMIChipProps> = (props) => {
     ...other
   } = props;
 
-  const color = colorProp ?? (mode === 'deletable' ? 'neutral' : 'default');
+  const applyDeletableA11yFix = Boolean(onDelete && !onClick);
 
-  const applyDeletableA11yFix = mode === 'deletable' && onDelete && !onClick;
+  const modeProp = mode ?? (applyDeletableA11yFix ? 'deletable' : 'standard');
+
+  const color = colorProp ?? (modeProp === 'deletable' ? 'neutral' : 'default');
 
   const accessibilityProps = applyDeletableA11yFix ? { tabIndex: -1, role: undefined } : {};
 
@@ -165,7 +167,7 @@ const MIChip: FC<CustomMIChipProps> = (props) => {
 
   return (
     <StyledChip
-      mode={mode}
+      mode={modeProp}
       customColor={color}
       label={label}
       onClick={onClick}
