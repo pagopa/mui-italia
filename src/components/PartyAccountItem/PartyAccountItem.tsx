@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { Typography, Box, SxProps } from "@mui/material";
-import { useMemo } from "react";
-import { Tooltip } from "@mui/material";
+import { Typography, Box, SxProps } from '@mui/material';
+import { useMemo } from 'react';
+import { Tooltip } from '@mui/material';
 
-import { PartyAvatar } from "@components/PartyAvatar";
-import { theme } from "@theme";
+import { PartyAvatar } from '@components/MIPartyAvatar';
+import { theme } from '@theme';
 
 export type PartyAccount = {
   image: string | undefined;
@@ -42,32 +42,31 @@ export const PartyAccountItem = ({
 }: PartyAccountItemProps) => {
   const containerStyle = useMemo(
     () => ({
-      userSelect: "none",
+      userSelect: 'none',
       ...containerSx,
     }),
     []
   ) as SxProps;
 
-  const maxCharacter =
-    partyName && partyName.length > maxCharactersNumberMultiLine;
+  const maxCharacter = partyName && partyName.length > maxCharactersNumberMultiLine;
 
   const truncatedText = {
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-    display: "-webkit-box",
-    WebkitBoxOrient: "vertical" as const,
-    width: "100%",
-    whiteSpace: "normal" as const,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    display: '-webkit-box',
+    WebkitBoxOrient: 'vertical' as const,
+    width: '100%',
+    whiteSpace: 'normal' as const,
   };
 
   return (
     <Box sx={containerStyle}>
-      <Box sx={{ display: "flex", flexDirection: "row" }}>
+      <Box sx={{ display: 'flex', flexDirection: 'row' }}>
         {/* Avatar Container */}
         <Box
           sx={{
-            display: "flex",
-            alignItems: "center",
+            display: 'flex',
+            alignItems: 'center',
           }}
         >
           <PartyAvatar customAlt={partyName} customSrc={image} />
@@ -76,13 +75,13 @@ export const PartyAccountItem = ({
         <Box
           sx={{
             ml: 1.25,
-            alignSelf: "center",
-            userSelect: "text",
+            alignSelf: 'center',
+            userSelect: 'text',
             ...infoContainerSx,
           }}
         >
           {parentPartyName && (
-            <Tooltip arrow title={maxCharacter ? parentPartyName : ""}>
+            <Tooltip arrow title={maxCharacter ? parentPartyName : ''}>
               <Typography
                 variant="caption"
                 component="h6"
@@ -101,7 +100,7 @@ export const PartyAccountItem = ({
             </Tooltip>
           )}
           {partyName && (
-            <Tooltip arrow title={maxCharacter ? partyName : ""}>
+            <Tooltip arrow title={maxCharacter ? partyName : ''}>
               <Typography
                 textAlign="start"
                 variant="body1"
@@ -110,7 +109,7 @@ export const PartyAccountItem = ({
                   fontWeight: theme.typography.fontWeightBold,
                   lineHeight: 1.25,
                   ...(noWrap && {
-                    whiteSpace: "nowrap",
+                    whiteSpace: 'nowrap',
                   }),
                   ...(maxCharacter && {
                     ...truncatedText,

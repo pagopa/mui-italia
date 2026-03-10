@@ -1,7 +1,7 @@
 import { Card, CardActions, CardContent, Chip, ChipProps, Stack, Typography } from '@mui/material';
 import React from 'react';
 import foundation from 'theme/foundation';
-import { ProductAvatar } from '@components/ProductAvatar';
+import { MIProductAvatar } from '@components/MIProductAvatar';
 
 export function ProductCard({
   chip,
@@ -29,7 +29,7 @@ export function ProductCard({
     >
       <CardContent sx={{ alignItems: 'start', py: 3, px: 3 }}>
         <Stack direction="row" spacing={1} alignItems="start" sx={{ pb: 1.5 }}>
-          <ProductAvatar
+          <MIProductAvatar
             logoUrl={avatarURL}
             logoBgColor={avatarBgColor}
             logoAltText="product avatar"

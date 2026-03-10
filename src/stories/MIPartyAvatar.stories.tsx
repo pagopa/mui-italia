@@ -3,8 +3,7 @@ import { useState } from 'react';
 import { StoryFn, Meta } from '@storybook/react-vite';
 
 import { Button, Stack, Typography } from '@mui/material';
-
-import { PartyAvatar } from './PartyAvatar';
+import { MIPartyAvatar } from '../components/MIPartyAvatar';
 
 type PartyImage = {
   name: string;
@@ -86,8 +85,8 @@ const randomValueFromArray = (array: Array<PartyImage>) => {
 };
 
 export default {
-  title: 'Components/PartyAvatar',
-  component: PartyAvatar,
+  title: 'Components/MIPartyAvatar',
+  component: MIPartyAvatar,
   decorators: [
     (Story) => (
       <div
@@ -100,9 +99,9 @@ export default {
       </div>
     ),
   ],
-} as Meta<typeof PartyAvatar>;
+} as Meta<typeof MIPartyAvatar>;
 
-export const Default: StoryFn<typeof PartyAvatar> = () => {
+export const Default: StoryFn<typeof MIPartyAvatar> = () => {
   const [randomIndex, setRandomIndex] = useState(0);
   const item = partyMockImages[randomIndex];
 
@@ -113,7 +112,7 @@ export const Default: StoryFn<typeof PartyAvatar> = () => {
 
   return (
     <Stack gap={2} alignItems="flex-start">
-      <PartyAvatar customSrc={item.image} customAlt={item.name} />
+      <MIPartyAvatar customSrc={item.image} customAlt={item.name} />
       <div>
         <Typography variant="overline">Party:</Typography>
         <Typography variant="h6">{partyMockImages[randomIndex].name}</Typography>

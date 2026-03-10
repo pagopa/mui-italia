@@ -4,7 +4,7 @@ import { Dispatch, MouseEvent as RCMouseEvent } from 'react';
 
 import { Typography, Box, Tooltip } from '@mui/material';
 
-import { PartyAvatar } from '@components/PartyAvatar';
+import { PartyAvatar } from '@components/MIPartyAvatar';
 
 import { theme } from '@theme';
 

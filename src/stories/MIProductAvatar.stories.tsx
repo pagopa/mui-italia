@@ -4,7 +4,7 @@ import { StoryFn, Meta } from '@storybook/react-vite';
 
 import { Button, Stack, Typography } from '@mui/material';
 
-import { ProductAvatar } from './ProductAvatar';
+import { MIProductAvatar } from '../components/MIProductAvatar';
 
 const productMockImages = {
   'prod-io': {
@@ -61,8 +61,8 @@ const randomValueFromArray = (array: Array<string>) => {
 };
 
 export default {
-  title: 'Components/ProductAvatar',
-  component: ProductAvatar,
+  title: 'Components/MIProductAvatar',
+  component: MIProductAvatar,
   decorators: [
     (Story) => (
       <div
@@ -75,9 +75,9 @@ export default {
       </div>
     ),
   ],
-} as Meta<typeof ProductAvatar>;
+} as Meta<typeof MIProductAvatar>;
 
-export const Default: StoryFn<typeof ProductAvatar> = () => {
+export const Default: StoryFn<typeof MIProductAvatar> = () => {
   const [randomIndex, setRandomIndex] = useState(0);
   const item = Object.keys(productMockImages)[randomIndex] as keyof typeof productMockImages;
   const url = productMockImages[item].url;
@@ -91,8 +91,8 @@ export const Default: StoryFn<typeof ProductAvatar> = () => {
 
   return (
     <Stack gap={2} alignItems="flex-start">
-      <ProductAvatar logoUrl={url} logoBgColor={bgColor} logoAltText={altText} size="small" />
-      <ProductAvatar logoUrl={url} logoBgColor={bgColor} logoAltText={altText} size="large" />
+      <MIProductAvatar logoUrl={url} logoBgColor={bgColor} logoAltText={altText} size="small" />
+      <MIProductAvatar logoUrl={url} logoBgColor={bgColor} logoAltText={altText} size="large" />
       <div>
         <Typography variant="overline">Product:</Typography>
         <Typography variant="h6">{productMockImages[item].title}</Typography>

@@ -6,7 +6,7 @@ import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlin
 
 import { theme } from '@theme';
 
-export interface PartyAvatarProps {
+export interface MIPartyAvatarProps {
   /** The id attribute added to the element */
   id?: string;
   /** The logo src */
@@ -19,12 +19,12 @@ export interface PartyAvatarProps {
   /* loading?: boolean; */
 }
 
-export const PartyAvatar = ({
+export const MIPartyAvatar = ({
   customAlt,
   customSrc,
   size = 'small',
   id,
-}: PartyAvatarProps): JSX.Element => (
+}: MIPartyAvatarProps): JSX.Element => (
   <Avatar
     id={id}
     alt={customAlt}

@@ -1,6 +1,6 @@
 import { Box, Card, CardActions, CardContent, CardHeader, Typography } from '@mui/material';
 import foundation from 'theme/foundation';
-import { PartyAvatar } from '@components/PartyAvatar';
+import { MIPartyAvatar } from '@components/MIPartyAvatar';
 
 export function CatalogCard({
   title,
@@ -39,7 +39,7 @@ export function CatalogCard({
               alignItems: 'start',
             }}
           >
-            <PartyAvatar customSrc={avatarURL} customAlt="partyLogo" size="small" />
+            <MIPartyAvatar customSrc={avatarURL} customAlt="partyLogo" size="small" />
             <Box sx={{ display: 'grid', gap: 0 }}>
               <Typography
                 color="text.primary"

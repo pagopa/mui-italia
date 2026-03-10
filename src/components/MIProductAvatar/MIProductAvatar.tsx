@@ -5,7 +5,7 @@ import { alpha } from '@mui/material/styles';
 
 import { theme } from '@theme';
 
-export interface ProductAvatarProps {
+export interface MIProductAvatarProps {
   /** The id attribute added to the element */
   id?: string;
   /** Component dimension set in pixels */
@@ -29,13 +29,13 @@ const sizesMap = {
   },
 };
 
-export const ProductAvatar = ({
+export const MIProductAvatar = ({
   size = 'small',
   id,
   logoUrl,
   logoBgColor,
   logoAltText,
-}: ProductAvatarProps): JSX.Element => (
+}: MIProductAvatarProps): JSX.Element => (
   <Box
     id={id}
     sx={{

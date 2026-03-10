@@ -1,7 +1,7 @@
 import { Box, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 import React from 'react';
 import foundation from 'theme/foundation';
-import { ProductAvatar } from '@components/ProductAvatar';
+import { MIProductAvatar } from '@components/MIProductAvatar';
 
 export function ProductCardWithMedia({
   title,
@@ -37,7 +37,7 @@ export function ProductCardWithMedia({
             zIndex: 1,
           }}
         >
-          <ProductAvatar
+          <MIProductAvatar
             logoUrl={productAvatarURL}
             logoBgColor={productAvatarBgColor}
             logoAltText="product avatar"
