@@ -1,3 +1,13 @@
+# [2.3.1-RC.3](https://github.com/pagopa/mui-italia/releases/tag/v2.3.1-RC.3) (2026-03-10)
+
+
+### Bug Fixes
+
+* **M20DS-30:** decrease internal MIAlert padding ([#670](https://github.com/pagopa/mui-italia/issues/670)) ([b37d6a0](https://github.com/pagopa/mui-italia/commit/b37d6a000e590384e177f77245f3036dddb0b044))
+* **M20DS-30:** icon padding and MIAlert props forward ([#669](https://github.com/pagopa/mui-italia/issues/669)) ([b6554fd](https://github.com/pagopa/mui-italia/commit/b6554fdc4fa7817a04fc204e976e952027ef6ac1))
+
+
+
 # [2.3.1-RC.2](https://github.com/pagopa/mui-italia/releases/tag/v2.3.1-RC.2) (2026-03-09)
 
 
