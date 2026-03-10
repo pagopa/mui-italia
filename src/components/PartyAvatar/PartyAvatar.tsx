@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { Avatar } from "@mui/material";
+import { Avatar } from '@mui/material';
 
-import AccountBalanceRoundedIcon from "@mui/icons-material/AccountBalanceRounded";
+import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined';
 
-import { theme } from "@theme";
+import { theme } from '@theme';
 
 export interface PartyAvatarProps {
   /** The id attribute added to the element */
@@ -13,8 +13,8 @@ export interface PartyAvatarProps {
   customSrc: string | undefined;
   /** The alt text showed instead of the image */
   customAlt: string | undefined;
-  /** Logo Dimension set in pixels */
-  size?: number;
+  /** Logo Dimension */
+  size?: 'small' | 'large';
   /** If true it will not display the component */
   /* loading?: boolean; */
 }
@@ -22,41 +22,41 @@ export interface PartyAvatarProps {
 export const PartyAvatar = ({
   customAlt,
   customSrc,
-  size = 48,
+  size = 'small',
   id,
 }: PartyAvatarProps): JSX.Element => (
   <Avatar
     id={id}
     alt={customAlt}
     src={customSrc}
+    variant="square"
     sx={{
-      position: "relative",
-      width: size,
-      height: size,
-      backgroundColor: customSrc
-        ? theme.palette.background.paper
-        : theme.palette.grey[200],
-      boxSizing: "border-box",
+      position: 'relative',
+      width: size === 'small' ? 44 : 66,
+      height: size === 'small' ? 44 : 66,
+      backgroundColor: '#f4f5f8',
+      borderRadius: 2,
+      border: '1px solid #e6e7e9',
+      boxSizing: 'border-box',
       padding: theme.spacing(0.75) /* 6px */,
       /* Color of the fallback icon */
       color: theme.palette.text.disabled,
-      "& .MuiAvatar-img": {
-        objectFit: "contain",
-        objectPosition: "center",
+      '& .MuiAvatar-img': {
+        objectFit: 'contain',
+        objectPosition: 'center',
       },
       /* Inner shadow */
-      "&:after": {
+      '&:after': {
         content: "''",
-        position: "absolute",
+        position: 'absolute',
         left: 0,
         right: 0,
         top: 0,
         bottom: 0,
-        boxShadow: `inset 0 0 0 1px ${theme.palette.divider}`,
-        borderRadius: "inherit",
+        borderRadius: 'inherit',
       },
     }}
   >
-    <AccountBalanceRoundedIcon />
+    <AccountBalanceOutlinedIcon sx={{ color: '#bbc2d6' }} fontSize="small" />
   </Avatar>
 );

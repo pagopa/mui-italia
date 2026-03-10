@@ -92,13 +92,12 @@ export const Default: StoryFn<typeof ProductAvatar> = () => {
   return (
     <Stack gap={2} alignItems="flex-start">
       <ProductAvatar logoUrl={url} logoBgColor={bgColor} logoAltText={altText} size="small" />
-      <ProductAvatar logoUrl={url} logoBgColor={bgColor} logoAltText={altText} />
       <ProductAvatar logoUrl={url} logoBgColor={bgColor} logoAltText={altText} size="large" />
       <div>
         <Typography variant="overline">Product:</Typography>
         <Typography variant="h6">{productMockImages[item].title}</Typography>
       </div>
-      <Button variant="contained" onClick={getRandomProduct}>
+      <Button variant="contained" onClick={getRandomProduct} disableRipple>
         Get random product
       </Button>
     </Stack>

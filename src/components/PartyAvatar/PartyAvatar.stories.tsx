@@ -118,7 +118,7 @@ export const Default: StoryFn<typeof PartyAvatar> = () => {
         <Typography variant="overline">Party:</Typography>
         <Typography variant="h6">{partyMockImages[randomIndex].name}</Typography>
       </div>
-      <Button variant="contained" onClick={getRandomParty}>
+      <Button variant="contained" onClick={getRandomParty} disableRipple>
         Get random Party
       </Button>
     </Stack>
