@@ -4,8 +4,8 @@ import { Typography, Box, SxProps } from '@mui/material';
 import { useMemo } from 'react';
 import { Tooltip } from '@mui/material';
 
-import { PartyAvatar } from '@components/MIPartyAvatar';
 import { theme } from '@theme';
+import { MIPartyAvatar } from '@components/MIPartyAvatar';
 
 export type PartyAccount = {
   image: string | undefined;
@@ -69,7 +69,7 @@ export const PartyAccountItem = ({
             alignItems: 'center',
           }}
         >
-          <PartyAvatar customAlt={partyName} customSrc={image} />
+          <MIPartyAvatar customAlt={partyName} customSrc={image} />
         </Box>
         {/* Info Container */}
         <Box
