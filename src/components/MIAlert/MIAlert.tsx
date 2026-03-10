@@ -52,17 +52,12 @@ const StyledAlert = styled(MUIAlert)(
       borderColor: severityPalette.main,
       backgroundColor: severityPalette[100],
 
-      [theme.breakpoints.up('sm')]: {
-        padding: theme.spacing(3),
-      },
-
       [theme.breakpoints.down('sm')]: {
         alignItems: 'flex-start',
       },
 
       '& .MuiAlert-icon': {
         opacity: 1,
-        paddingTop: '2px',
         alignItems: 'center',
         marginRight: theme.spacing(1),
         color: severityPalette[850],
