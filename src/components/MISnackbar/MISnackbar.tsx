@@ -20,10 +20,12 @@ export const MISnackbar = (props: MISnackbarProps) => {
       autoHideDuration={hideDuration}
       onClose={props.onClose}
       anchorOrigin={anchorOrigin}
-      aria-live={alertProps.severity === 'error' ? 'assertive' : 'polite'}
-      role={alertProps.severity === 'error' ? 'alert' : 'status'}
     >
-      <MISnackbarAlert {...props} />
+      <MISnackbarAlert
+        {...props}
+        aria-live={alertProps.severity === 'error' ? 'assertive' : 'polite'}
+        role={alertProps.severity === 'error' ? 'alert' : 'status'}
+      />
     </Snackbar>
   );
 };

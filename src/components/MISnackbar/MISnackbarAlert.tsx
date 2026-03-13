@@ -20,6 +20,8 @@ type BaseAlertProps = {
   title?: string;
   description: string;
   onClose: () => void;
+  role: 'alert' | 'status';
+  'aria-live': 'polite' | 'assertive';
 };
 
 // props when severity is 'error' - errorCode is allowed
@@ -31,13 +33,25 @@ type ErrorSeverityProps = BaseAlertProps & {
 // props when severity is not 'error' - errorCode is strictly forbidden
 type OtherSeverityProps = BaseAlertProps & {
   severity: 'success' | 'info' | 'warning';
-  errorCode?: never; // Strictly forbidden
+  errorCode?: never;
 };
 
 export type MISnackbarAlertProps = ErrorSeverityProps | OtherSeverityProps;
 
 export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
-  ({ severity = 'success', title, description, errorCode, onClose, ...rest }, ref) => {
+  (
+    {
+      severity = 'success',
+      title,
+      description,
+      errorCode,
+      onClose,
+      role,
+      'aria-live': ariaLive,
+      ...rest
+    },
+    ref
+  ) => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -62,6 +76,8 @@ export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
           },
         }}
         {...rest}
+        role={role}
+        aria-live={ariaLive}
       >
         <Stack direction={isMobile ? 'column' : 'row'} flex={1}>
           <Stack direction="column" flex={1} minWidth={0} gap={title ? '4px' : 0}>

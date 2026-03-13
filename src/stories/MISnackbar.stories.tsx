@@ -125,6 +125,7 @@ export const SnackbarWithErrorCode: Story = {
             handleClose();
             args.onClose?.();
           }}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         />
       </div>
     );
