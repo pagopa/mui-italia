@@ -1,3 +1,12 @@
+# [2.3.1-RC.4](https://github.com/pagopa/mui-italia/releases/tag/v2.3.1-RC.4) (2026-03-16)
+
+
+### Bug Fixes
+
+* **M20DS-30:** ensure MIAlert icon is always positioned at the top ([#672](https://github.com/pagopa/mui-italia/issues/672)) ([06611d5](https://github.com/pagopa/mui-italia/commit/06611d5788ab0d4002aaa511412975391dbea821))
+
+
+
 # [2.3.1-RC.3](https://github.com/pagopa/mui-italia/releases/tag/v2.3.1-RC.3) (2026-03-10)
 
 
