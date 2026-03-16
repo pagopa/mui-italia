@@ -1,11 +1,11 @@
 'use client';
 
+import { ButtonNaked } from '@components/ButtonNaked';
 import { AlertTitle as MUIAlertTitle, Stack, styled, useMediaQuery, useTheme } from '@mui/material';
 import MUIAlert, { AlertProps as MUIAlertProps } from '@mui/material/Alert';
 import type { Theme } from '@mui/material/styles';
 import { ElementType, HTMLAttributeAnchorTarget } from 'react';
 import { getColor, getIcon } from './utils';
-import { ButtonNaked } from '@components/ButtonNaked';
 
 type ButtonCTA = {
   label: string;
@@ -15,7 +15,7 @@ type LinkCTA = {
   label: string;
 } & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'children'>;
 
-export type AlertCTA = ButtonCTA | LinkCTA;
+type AlertCTA = ButtonCTA | LinkCTA;
 
 export type AllowedAlertSeverity = 'success' | 'info' | 'warning' | 'error';
 
@@ -33,22 +33,14 @@ interface MIAlertCtaProps {
 }
 
 const StyledAlert = styled(MUIAlert)(
-  ({
-    theme,
-    severity = 'success',
-    title,
-  }: {
-    theme: Theme;
-    severity?: AllowedAlertSeverity;
-    title?: string;
-  }) => {
+  ({ theme, severity = 'success' }: { theme: Theme; severity?: AllowedAlertSeverity }) => {
     const severityPalette = theme.palette[severity];
 
     return {
       border: '1px solid',
       borderRadius: 8,
       padding: theme.spacing(2),
-      alignItems: title ? 'flex-start' : 'center',
+      alignItems: 'flex-start',
       borderColor: severityPalette.main,
       backgroundColor: severityPalette[100],
 
@@ -91,7 +83,7 @@ export const MIAlert = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <StyledAlert severity={severity} icon={getIcon(severity)} title={title} {...rest}>
+    <StyledAlert severity={severity} icon={getIcon(severity)} {...rest}>
       <Stack direction={isMobile ? 'column' : 'row'} flex={1}>
         <Stack direction="column" flex={1} minWidth={0} gap={title ? '4px' : 0}>
           {title && <MUIAlertTitle color={getColor(theme, severity)}>{title}</MUIAlertTitle>}
