@@ -1,6 +1,7 @@
 'use client';
 
 import { Snackbar, SnackbarProps } from '@mui/material';
+import { useEffect, useRef } from 'react';
 import { MISnackbarAlert, MISnackbarAlertProps } from './MISnackbarAlert';
 
 export type MISnackbarProps = MISnackbarAlertProps & {
@@ -11,8 +12,23 @@ export type MISnackbarProps = MISnackbarAlertProps & {
 export const MISnackbar = (props: MISnackbarProps) => {
   const { open, anchorOrigin, ...alertProps } = props;
 
-  //if severity is 'error' and errorCode is provided, the snackbar should not auto-hide, otherwise it should auto-hide after 5 seconds
+  const alertRef = useRef<HTMLDivElement>(null);
+
   const hideDuration = alertProps.severity === 'error' && alertProps.errorCode ? undefined : 5000;
+
+  //Force focus when the snackbar opens
+  useEffect(() => {
+    if (open && alertRef.current) {
+      // We MUST use a tiny timeout to wait for MUI's fade-in animation to start.
+      // If we focus instantly, the element might be hidden, and the screen reader ignores it.
+      const timeout = setTimeout(() => {
+        alertRef.current?.focus();
+      }, 100);
+
+      return () => clearTimeout(timeout);
+    }
+    return;
+  }, [open]);
 
   return (
     <Snackbar
@@ -21,11 +37,7 @@ export const MISnackbar = (props: MISnackbarProps) => {
       onClose={props.onClose}
       anchorOrigin={anchorOrigin}
     >
-      <MISnackbarAlert
-        {...props}
-        aria-live={alertProps.severity === 'error' ? 'assertive' : 'polite'}
-        role={alertProps.severity === 'error' ? 'alert' : 'status'}
-      />
+      <MISnackbarAlert {...alertProps} ref={alertRef} tabIndex={-1} />
     </Snackbar>
   );
 };

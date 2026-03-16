@@ -20,14 +20,13 @@ type BaseAlertProps = {
   title?: string;
   description: string;
   onClose: () => void;
-  role: 'alert' | 'status';
-  'aria-live': 'polite' | 'assertive';
+  tabIndex?: number; // Allow tabIndex to be passed down for accessibility
 };
 
 // props when severity is 'error' - errorCode is allowed
 type ErrorSeverityProps = BaseAlertProps & {
   severity: 'error';
-  errorCode?: string; // Allowed
+  errorCode?: string;
 };
 
 // props when severity is not 'error' - errorCode is strictly forbidden
@@ -39,21 +38,14 @@ type OtherSeverityProps = BaseAlertProps & {
 export type MISnackbarAlertProps = ErrorSeverityProps | OtherSeverityProps;
 
 export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
-  (
-    {
-      severity = 'success',
-      title,
-      description,
-      errorCode,
-      onClose,
-      role,
-      'aria-live': ariaLive,
-      ...rest
-    },
-    ref
-  ) => {
+  ({ severity = 'success', title, description, errorCode, onClose, tabIndex, ...rest }, ref) => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+    //combine title, description and error code into a single string for screen readers
+    const screenReaderText = [title, description, errorCode ? `Error code: ${errorCode}` : '']
+      .filter(Boolean)
+      .join('. ');
 
     return (
       <StyledAlert
@@ -66,9 +58,11 @@ export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
           closeIcon: CloseRoundedIcon,
         }}
         sx={{
+          alignItems: 'flex-start',
           '& .MuiAlert-action .MuiIconButton-root': {
             color: neutral.black,
             opacity: 1,
+            pt: 0,
           },
           '& .MuiAlert-action .MuiSvgIcon-root': {
             width: '24px',
@@ -76,8 +70,8 @@ export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
           },
         }}
         {...rest}
-        role={role}
-        aria-live={ariaLive}
+        tabIndex={tabIndex}
+        aria-label={screenReaderText}
       >
         <Stack direction={isMobile ? 'column' : 'row'} flex={1}>
           <Stack direction="column" flex={1} minWidth={0} gap={title ? '4px' : 0}>
