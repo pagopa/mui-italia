@@ -17,8 +17,8 @@ export const BadgeNotification: React.FC<BadgeNotificationProps> = ({ badgeConte
             boxShadow: 'none !important',
           },
         }}
-        variant="sidenav"
         color="primary"
+        variant="sidenav"
         badgeContent={badgeContent}
       />
     )

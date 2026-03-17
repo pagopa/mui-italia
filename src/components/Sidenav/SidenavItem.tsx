@@ -14,7 +14,6 @@ import { sidenavStyles } from './style/sidenav.styles';
 import type { SvgIconComponent } from '@mui/icons-material';
 import { SidenavIcon } from './SidenavIcon';
 import { useSidenavContext } from './Sidenav';
-import { colors } from 'theme/foundations/colors';
 import { blue, neutral } from 'theme/colors';
 
 type PolymorphicProps<C extends ElementType, P = {}> = P & { component?: C } & Omit<
@@ -62,13 +61,16 @@ export function SidenavItem<C extends ElementType = 'a'>({
             to={props.to}
             sx={{
               pl: 4,
+              '.MuiCollapse-root &': {
+                pl: 2,
+              },
               ...(isSelected && styles.itemButtonActive),
             }}
             selected={isSelected}
             disabled={disabled}
             {...props}
           >
-            {StartIcon && <SidenavIcon Icon={StartIcon} notification={notification} />}
+            {StartIcon && <SidenavIcon Icon={StartIcon} />}
 
             {open && (
               <ListItemText

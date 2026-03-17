@@ -10,10 +10,13 @@ import foundation from './foundation';
 import { mainTypeface, monospacedTypeface } from './fonts';
 import {
   backdropBackground,
+  blue,
   colorPrimaryContainedHover,
   colorTextPrimary,
   menuItemBackground,
+  neutral,
 } from './colors';
+import { colors } from './foundations/colors';
 
 /* Basic Configuration */
 
@@ -662,12 +665,16 @@ export const theme: Theme = createTheme(foundation, {
           fontSize: pxToRem(14),
           fontWeight: foundation.typography.fontWeightMedium,
           letterSpacing: 0.15,
-          '&.MuiBadge-sidenav': {
+          ' &.MuiBadge-sidenav': {
             fontSize: pxToRem(12),
             position: 'relative',
             transform: 'translate(0,0)',
             boxShadow: `0 0 0 2px ${alpha(foundation.palette.common.white, 0.5)}`,
+            backgroundColor: blue[500],
+            color: colors.neutral.white,
           },
+
+          '&.MuiChip-colorPrimary': {},
         },
       },
     },

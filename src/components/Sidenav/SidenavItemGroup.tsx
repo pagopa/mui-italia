@@ -49,9 +49,18 @@ export const SidenavItemGroup: React.FC<SidenavItemGroupProps> = ({
           selected={isSelected}
           onClick={handleExpandParent}
           sx={{
+            paddingRight: 6,
             '&.Mui-selected': {
               backgroundColor: blue[50],
               borderRight: `4px solid ${blue[500]}`,
+              '& .MuiTypography-root': {
+                fontWeight: 600,
+                color: blue[500],
+              },
+              '& .MuiListItemIcon-root, & .MuiSvgIcon-root': {
+                fill: blue[500],
+                color: blue[500],
+              },
             },
           }}
         >
@@ -61,17 +70,9 @@ export const SidenavItemGroup: React.FC<SidenavItemGroupProps> = ({
               <>
                 <ListItemText
                   disableTypography
-                  primary={
-                    <Typography fontWeight={600} color={blue[500]}>
-                      {label}
-                    </Typography>
-                  }
+                  primary={<Typography fontWeight={600}>{label}</Typography>}
                 />
-                {isExpanded ? (
-                  <ExpandLessIcon sx={{ color: blue[500] }} />
-                ) : (
-                  <ExpandMoreIcon sx={{ color: blue[500] }} />
-                )}
+                {isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
               </>
             )}
           </Stack>
