@@ -14,6 +14,8 @@ import { sidenavStyles } from './style/sidenav.styles';
 import type { SvgIconComponent } from '@mui/icons-material';
 import { SidenavIcon } from './SidenavIcon';
 import { useSidenavContext } from './Sidenav';
+import { colors } from 'theme/foundations/colors';
+import { blue, neutral } from 'theme/colors';
 
 type PolymorphicProps<C extends ElementType, P = {}> = P & { component?: C } & Omit<
     ComponentPropsWithoutRef<C>,
@@ -71,10 +73,10 @@ export function SidenavItem<C extends ElementType = 'a'>({
             {open && (
               <ListItemText
                 disableTypography
-                sx={{ color: 'inherit', marginLeft: 7 }}
+                sx={{ marginLeft: 7 }}
                 primary={
                   <Typography
-                    color="inherit"
+                    color={isSelected ? blue[500] : neutral.black}
                     {...typographyProps}
                     sx={{
                       fontWeight: 600,

@@ -78,7 +78,7 @@ const HamburgerBox: React.FC<HamburgerMenuBoxProps> = ({ open, handleSidenavOpen
 
   return (
     <Box sx={styles.hamburgerBox} data-testid="hamburger-box-icon">
-      <Divider orientation="horizontal" />
+      {/* <Divider orientation="horizontal" /> */}
       <Box sx={styles.hamburgerIcon}>
         <Tooltip placement="right" title={tooltipTitle}>
           <IconButton

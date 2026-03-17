@@ -1,4 +1,5 @@
 import { alpha, type SxProps, type Theme } from '@mui/material';
+import { blue } from 'theme/colors';
 
 export const sidenavStyles = (theme: Theme, open: boolean): Record<string, SxProps> => ({
   container: {
@@ -15,17 +16,21 @@ export const sidenavStyles = (theme: Theme, open: boolean): Record<string, SxPro
   },
 
   itemButtonActive: {
+    '.MuiListItemIcon-root': {
+      fill: blue[500],
+      color: `${blue[500]}!important`,
+    },
+
+    '&.Mui-selected': {
+      borderRight: `4px solid ${blue[500]}`,
+      backgroundColor: blue[50],
+    },
+
     '&.active': {
       fontWeight: 'bold',
-      backgroundColor: alpha(theme.palette.primary.main, 0.08),
-      borderRight: '2px solid',
-      borderColor: theme.palette.primary.dark,
       '.MuiTypography-root': {
         fontWeight: 600,
-        color: theme.palette.primary.dark,
-      },
-      '.MuiListItemIcon-root': {
-        color: theme.palette.primary.dark,
+        color: blue[500],
       },
     },
   },
