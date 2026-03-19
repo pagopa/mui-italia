@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { Box, Button, Container, Stack, Typography } from "@mui/material";
-import { CTA } from "@types";
+import { Box, Button, Container, Stack, Typography } from '@mui/material';
+import { CTA } from '@types';
 export interface InfoblockProps {
   overline?: string;
   title: string;
@@ -12,8 +12,8 @@ export interface InfoblockProps {
   image: string;
   altText?: string;
   imageShadow: boolean;
-  imageType?: "circle";
-  aspectRatio?: "4/3" | "9/16";
+  imageType?: 'circle';
+  aspectRatio?: '4/3' | '9/16';
 }
 
 // eslint-disable-next-line complexity
@@ -25,9 +25,9 @@ export const Infoblock = ({
   ctaSecondary,
   inverse = false,
   image,
-  altText = "info image",
+  altText = 'info image',
   imageShadow,
-  aspectRatio = "4/3",
+  aspectRatio = '4/3',
 }: InfoblockProps) => {
   const imagePadding = imageShadow ? 5 : 0;
 
@@ -36,12 +36,12 @@ export const Infoblock = ({
       <Container maxWidth="xl">
         <Box
           sx={{
-            display: "grid",
+            display: 'grid',
             columnGap: 3,
             rowGap: 5,
             gridTemplateColumns: {
-              xs: "repeat(6, minmax(0, 1fr))",
-              md: "repeat(12, minmax(0, 1fr))",
+              xs: 'repeat(6, minmax(0, 1fr))',
+              md: 'repeat(12, minmax(0, 1fr))',
             },
             py: {
               xs: 4,
@@ -52,11 +52,11 @@ export const Infoblock = ({
         >
           <Box
             gridColumn={{
-              xs: "span 6",
-              md: inverse ? "7 / span 5" : "2 / span 5",
+              xs: 'span 6',
+              md: inverse ? '7 / span 5' : '2 / span 5',
             }}
             gridRow={{
-              xs: "auto",
+              xs: 'auto',
               md: 1,
             }}
             my="auto"
@@ -72,14 +72,14 @@ export const Infoblock = ({
                   {title}
                 </Typography>
                 <>
-                  {content && typeof content === "string" && (
+                  {content && typeof content === 'string' && (
                     <Typography variant="body2">{content}</Typography>
                   )}
-                  {content && typeof content !== "string" && content}
+                  {content && typeof content !== 'string' && content}
                 </>
               </Stack>
               {(ctaPrimary || ctaSecondary) && (
-                <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
                   {/* One CTA below the other one
                   in the mobile version to avoid the multi-line label */}
                   {ctaPrimary && (
@@ -108,31 +108,31 @@ export const Infoblock = ({
           </Box>
           <Box
             gridColumn={{
-              xs: "span 6",
-              md: inverse ? "2 / span 5" : "7 / span 5",
+              xs: 'span 6',
+              md: inverse ? '2 / span 5' : '7 / span 5',
             }}
             gridRow={{
-              xs: "auto",
+              xs: 'auto',
               md: 1,
             }}
             my="auto"
           >
             <Box
               sx={{
-                display: "grid",
-                position: "relative",
+                display: 'grid',
+                position: 'relative',
                 width: {
-                  xs: "100%",
-                  md: aspectRatio === "4/3" ? "auto" : "75%",
-                  lg: aspectRatio === "4/3" ? "auto" : "50%",
+                  xs: '100%',
+                  md: aspectRatio === '4/3' ? 'auto' : '75%',
+                  lg: aspectRatio === '4/3' ? 'auto' : '50%',
                 },
-                mx: "auto",
-                "&:before": {
-                  display: "block",
+                mx: 'auto',
+                '&:before': {
+                  display: 'block',
                   content: '""',
                   paddingTop: {
-                    xs: aspectRatio === "4/3" ? "75%" : "100%",
-                    md: aspectRatio === "4/3" ? "75%" : "177.75%",
+                    xs: aspectRatio === '4/3' ? '75%' : '100%',
+                    md: aspectRatio === '4/3' ? '75%' : '177.75%',
                   },
                 },
               }}
@@ -140,28 +140,28 @@ export const Infoblock = ({
               {imageShadow && (
                 <Box
                   sx={{
-                    display: { xs: "none", md: "block" },
-                    boxSizing: "border-box",
-                    width: "100%",
-                    height: aspectRatio === "4/3" ? "auto" : "100%",
-                    objectFit: "cover",
-                    objectPosition: "50%",
-                    gridArea: "1 / 1 / 2 / 2",
-                    position: "absolute",
+                    display: { xs: 'none', md: 'block' },
+                    boxSizing: 'border-box',
+                    width: '100%',
+                    height: aspectRatio === '4/3' ? 'auto' : '100%',
+                    objectFit: 'cover',
+                    objectPosition: '50%',
+                    gridArea: '1 / 1 / 2 / 2',
+                    position: 'absolute',
                     zIndex: 3,
                     paddingRight: inverse ? 0 : 5,
                     paddingLeft: inverse ? 5 : 0,
                     paddingTop: 5,
                   }}
-                ></Box>
+                />
               )}
               <Box
                 sx={{
-                  boxSizing: "border-box",
-                  width: "100%",
-                  height: aspectRatio === "4/3" ? "auto" : "100%",
-                  gridArea: "1 / 1 / 2 / 2",
-                  position: "absolute",
+                  boxSizing: 'border-box',
+                  width: '100%',
+                  height: aspectRatio === '4/3' ? 'auto' : '100%',
+                  gridArea: '1 / 1 / 2 / 2',
+                  position: 'absolute',
                   zIndex: 3,
                   paddingBottom: 5,
                   paddingLeft: {
@@ -176,10 +176,10 @@ export const Infoblock = ({
               >
                 <Box
                   sx={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    objectPosition: "50%",
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    objectPosition: '50%',
                   }}
                   component="img"
                   alt={altText}

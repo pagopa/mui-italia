@@ -81,20 +81,18 @@ export const HeaderAccount = ({
   >
     <Container maxWidth={false}>
       <Stack spacing={2} direction="row" justifyContent="space-between" alignItems="center">
-        {rootLink && (
-          <ButtonNaked
-            component="a"
-            size="small"
-            aria-label={rootLink?.ariaLabel}
-            href={rootLink?.href}
-            target="_blank"
-            rel="noreferrer"
-            title={rootLink?.title}
-            sx={{ fontWeight: 'bold' }}
-          >
-            {rootLink?.label}
-          </ButtonNaked>
-        )}
+        <ButtonNaked
+          component="a"
+          size="small"
+          aria-label={rootLink.ariaLabel}
+          href={rootLink.href}
+          target="_blank"
+          rel="noreferrer"
+          title={rootLink.title}
+          sx={{ fontWeight: 'bold' }}
+        >
+          {rootLink.label}
+        </ButtonNaked>
 
         <Stack direction="row" alignItems="center" spacing={{ xs: 1, sm: 3, md: 4 }}>
           {/* START Documentation MOBILE/DESKTOP */}

@@ -56,7 +56,6 @@ export const CopyToClipboardButton: FC<CopyToClipboardProps> = ({
       setCopied(true);
       copiedTimeoutRef.current = setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      // eslint-disable-next-line no-console
       console.error(err);
     }
   };

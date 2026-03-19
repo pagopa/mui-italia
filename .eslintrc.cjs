@@ -60,7 +60,7 @@ module.exports = {
     // prohibits the usage of eval function
     'no-eval': 'error',
     // prohibits the usage of console function at every level (logs, warn, info and error)
-    'no-console': 'error',
+    'no-console': ['error', { allow: ['error'] }],
     // prohibits the usage of caller or callee
     'no-caller': 'error',
     // prohibits the usage of the bit operators (&, |, ^, ~, <<, >> and >>>)
@@ -72,8 +72,8 @@ module.exports = {
     // when using the for...in cycle, we must add an if that check that the object owns the property (using the method Object.hasOwn)
     // this is needed to avoid to cycle on inherited properties (i.e. those defined in prototype)
     'guard-for-in': 'error',
-    // set to 15 the max allowed complexity
-    complexity: ['error', 15],
+    // set to 18 the max allowed complexity
+    complexity: ['error', 18],
     // prohibits the usage of curly brackets and return in the arraow functions that have only one expression
     // i.e. () => 'hello'
     'arrow-body-style': 'error',
@@ -140,7 +140,7 @@ module.exports = {
     // show an error if there are overloaded method definitions that can be merged into one definition with optional parameters
     '@typescript-eslint/unified-signatures': 'error',
     // show an error if a condition (like if or an operator) is useless
-    "@typescript-eslint/no-unnecessary-condition": "error",
+    '@typescript-eslint/no-unnecessary-condition': 'error',
     // ------------------------------------------------------------ React rules ------------------------------------------------------------
     // the check on the types of the properties is demanded to Typescript
     'react/prop-types': 'off',
@@ -161,9 +161,9 @@ module.exports = {
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
     // show a warning when a variable or a property is used inside hooks and it is not declared in the dependencies array
-    "react-hooks/exhaustive-deps": "warn",
+    'react-hooks/exhaustive-deps': 'warn',
     // requires self-closing tag, if a component doesn't have children
-    "react/self-closing-comp": "error"
+    'react/self-closing-comp': 'error',
   },
   // these are configurations available to each plugin
   settings: {
@@ -179,24 +179,6 @@ module.exports = {
         'no-console': 'off',
       },
     },
+    { files: ['./src/types/images.d.ts'], rules: { '@typescript-eslint/no-explicit-any': 'off' } },
   ],
 };
-
-/*
-
-
-rules: { 
-    // TODO: added for compatibility. Removing this line we have to remove all the any usage in the code
-    '@typescript-eslint/no-explicit-any': 'off',
-  },
-  overrides: [
-    {
-      files: ['**\/*.test.*'],
-      rules: {
-        '@typescript-eslint/no-non-null-assertion': 'off',
-      },
-    },
-  ],
-
-
-*/

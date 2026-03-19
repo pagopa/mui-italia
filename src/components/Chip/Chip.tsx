@@ -40,7 +40,7 @@ const Chip: FC<Exclude<ChipProps, 'deleteIcon' | 'label'> & { label: string }> =
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
                 e.stopPropagation();
-                onDelete?.(e as any);
+                onDelete(e);
               }
             }}
           />

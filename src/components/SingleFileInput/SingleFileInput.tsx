@@ -102,7 +102,6 @@ export const SingleFileInput = ({
   accept,
   loading,
   vertical = false,
-
   onFileSelected,
   onFileRemoved,
   onFileRejected,
