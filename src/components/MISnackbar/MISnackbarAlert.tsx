@@ -20,7 +20,6 @@ type BaseAlertProps = {
   title?: string;
   description: string;
   onClose: () => void;
-  tabIndex?: number; // Allow tabIndex to be passed down for accessibility
 };
 
 // props when severity is 'error' - errorCode is allowed
@@ -38,7 +37,7 @@ type OtherSeverityProps = BaseAlertProps & {
 export type MISnackbarAlertProps = ErrorSeverityProps | OtherSeverityProps;
 
 export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
-  ({ severity = 'success', title, description, errorCode, onClose, tabIndex, ...rest }, ref) => {
+  ({ severity = 'success', title, description, errorCode, onClose, ...rest }, ref) => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -46,6 +45,8 @@ export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
     const screenReaderText = [title, description, errorCode ? `Error code: ${errorCode}` : '']
       .filter(Boolean)
       .join('. ');
+
+    const computedAriaLive = severity === 'error' ? 'assertive' : 'polite';
 
     return (
       <StyledAlert
@@ -70,8 +71,9 @@ export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
           },
         }}
         {...rest}
-        tabIndex={tabIndex}
+        tabIndex={0}
         aria-label={screenReaderText}
+        aria-live={computedAriaLive}
       >
         <Stack direction={isMobile ? 'column' : 'row'} flex={1}>
           <Stack direction="column" flex={1} minWidth={0} gap={title ? '4px' : 0}>

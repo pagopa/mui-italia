@@ -1,5 +1,3 @@
-'use client';
-
 import { Snackbar, SnackbarProps } from '@mui/material';
 import { useEffect, useRef } from 'react';
 import { MISnackbarAlert, MISnackbarAlertProps } from './MISnackbarAlert';
@@ -13,19 +11,26 @@ export const MISnackbar = (props: MISnackbarProps) => {
   const { open, anchorOrigin, ...alertProps } = props;
 
   const alertRef = useRef<HTMLDivElement>(null);
+  //add a ref to store the previously focused element
+  const previousFocusRef = useRef<HTMLElement | null>(null);
 
   const hideDuration = alertProps.severity === 'error' && alertProps.errorCode ? undefined : 5000;
 
-  //Force focus when the snackbar opens
   useEffect(() => {
-    if (open && alertRef.current) {
-      // We MUST use a tiny timeout to wait for MUI's fade-in animation to start.
-      // If we focus instantly, the element might be hidden, and the screen reader ignores it.
+    if (open) {
+      // capture the currently focused element before we move focus
+      previousFocusRef.current = document.activeElement as HTMLElement;
       const timeout = setTimeout(() => {
         alertRef.current?.focus();
       }, 100);
 
       return () => clearTimeout(timeout);
+    } else {
+      // restore focus to the saved element
+      if (previousFocusRef.current) {
+        previousFocusRef.current.focus();
+        previousFocusRef.current = null;
+      }
     }
     return;
   }, [open]);
@@ -36,8 +41,9 @@ export const MISnackbar = (props: MISnackbarProps) => {
       autoHideDuration={hideDuration}
       onClose={props.onClose}
       anchorOrigin={anchorOrigin}
+      role="alert"
     >
-      <MISnackbarAlert {...alertProps} ref={alertRef} tabIndex={-1} />
+      <MISnackbarAlert {...alertProps} ref={alertRef} />
     </Snackbar>
   );
 };
