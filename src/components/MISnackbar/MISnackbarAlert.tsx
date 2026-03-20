@@ -37,23 +37,18 @@ type OtherSeverityProps = BaseAlertProps & {
 export type MISnackbarAlertProps = ErrorSeverityProps | OtherSeverityProps;
 
 export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
-  ({ severity = 'success', title, description, errorCode, onClose, ...rest }, ref) => {
+  ({ severity = 'success', title, description, errorCode, onClose, ...rest }) => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-    //combine title, description and error code into a single string for screen readers
     const screenReaderText = [title, description, errorCode ? `Error code: ${errorCode}` : '']
       .filter(Boolean)
       .join('. ');
 
-    const computedAriaLive = severity === 'error' ? 'assertive' : 'polite';
-
     return (
       <StyledAlert
-        ref={ref}
         severity={severity}
         icon={getIcon(severity)}
-        title={title}
         onClose={onClose}
         slots={{
           closeIcon: CloseRoundedIcon,
@@ -71,9 +66,7 @@ export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
           },
         }}
         {...rest}
-        tabIndex={0}
         aria-label={screenReaderText}
-        aria-live={computedAriaLive}
       >
         <Stack direction={isMobile ? 'column' : 'row'} flex={1}>
           <Stack direction="column" flex={1} minWidth={0} gap={title ? '4px' : 0}>
@@ -81,17 +74,18 @@ export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
             {description}
           </Stack>
         </Stack>
+
         {errorCode && (
           <Stack
             sx={{
-              marginLeft: -4, //negative margin to align the TextField with the icon of the alert
-              marginRight: -6, //negative margin to align the TextField with the close icon of the alert
+              marginLeft: -4,
+              marginRight: -6,
               marginTop: 2,
             }}
           >
             <TextField
               inputProps={{
-                'aria-label': 'Error code',
+                'aria-label': `Error code: ${errorCode}`,
               }}
               value={errorCode}
               InputProps={{
@@ -101,11 +95,9 @@ export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
               sx={{
                 background: theme.palette.background.paper,
                 borderRadius: 2,
-
                 '& .MuiOutlinedInput-root': {
                   height: '48px',
                   px: 1.5,
-
                   '& fieldset': {
                     borderColor: colors.neutral.grey[650],
                     borderRadius: 2,
