@@ -43,7 +43,7 @@ export const MIAlert = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <StyledAlert severity={severity} icon={getIcon(severity)} title={title} {...rest}>
+    <StyledAlert severity={severity} icon={getIcon(severity)} {...rest}>
       <Stack direction={isMobile ? 'column' : 'row'} flex={1}>
         <Stack direction="column" flex={1} minWidth={0} gap={title ? '4px' : 0}>
           {title && <MUIAlertTitle color={getColor(theme, severity)}>{title}</MUIAlertTitle>}
