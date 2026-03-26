@@ -8,7 +8,6 @@ export default {
   component: IconButton,
   args: {
     size: 'medium',
-    color: 'default',
     disabled: false,
   },
   argTypes: {

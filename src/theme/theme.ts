@@ -449,9 +449,9 @@ export const theme: Theme = createTheme(foundation, {
             outlineOffset: `${focusButtonOffset}`,
             boxShadow: 'none',
           },
+          minHeight: pxToRem(24),
+          minWidth: pxToRem(24),
         },
-        minHeight: pxToRem(24),
-        minWidth: pxToRem(24),
       },
     },
     MuiTooltip: {
