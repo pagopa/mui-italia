@@ -441,21 +441,13 @@ export const theme: Theme = createTheme(foundation, {
       styleOverrides: {
         root: {
           color: blue[500],
-          '&:active': {
+          '&:active, &:hover': {
             backgroundColor: blue[50],
           },
           '&.Mui-focusVisible': {
             outline: `solid ${focusWidth} ${blue[400]}`,
             outlineOffset: `${focusButtonOffset}`,
             boxShadow: 'none',
-          },
-        },
-        colorPrimary: {
-          color: foundation.palette.primary.contrastText,
-          backgroundColor: foundation.palette.primary.main,
-          '&:hover': {
-            backgroundColor: alpha(foundation.palette.primary.main, 0.08),
-            color: foundation.palette.primary.main,
           },
         },
         minHeight: pxToRem(24),
