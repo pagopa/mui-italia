@@ -5,6 +5,7 @@ import { CSSProperties } from 'react';
 import { italia } from '@tokens';
 
 import muiSwitch from './muiSwitch';
+import muiAccordion from './components/muiAccordion';
 import { pxToRem } from './utility';
 import foundation from './foundation';
 import { mainTypeface, monospacedTypeface } from './fonts';
@@ -14,6 +15,7 @@ import {
   colorTextPrimary,
   menuItemBackground,
 } from './colors';
+import muiAccordionSummary from './components/muiAccordionSummary';
 /* Basic Configuration */
 
 const responsiveBreakpoint = 'sm';
@@ -305,6 +307,8 @@ export const theme: Theme = createTheme(foundation, {
     /* End: To be revised */
   },
   components: {
+    MuiAccordion: muiAccordion,
+    MuiAccordionSummary: muiAccordionSummary,
     MuiButton: {
       defaultProps: {
         disableElevation: true,
