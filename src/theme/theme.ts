@@ -4,8 +4,9 @@ import { CSSProperties } from 'react';
 /* Design Tokens */
 import { italia } from '@tokens';
 
-import muiSwitch from './muiSwitch';
+import muiSwitch from './components/muiSwitch';
 import muiAccordion from './components/muiAccordion';
+import muiAccordionSummary from './components/muiAccordionSummary';
 import { pxToRem } from './utility';
 import foundation from './foundation';
 import { mainTypeface, monospacedTypeface } from './fonts';
@@ -15,7 +16,6 @@ import {
   colorTextPrimary,
   menuItemBackground,
 } from './colors';
-import muiAccordionSummary from './components/muiAccordionSummary';
 /* Basic Configuration */
 
 const responsiveBreakpoint = 'sm';
