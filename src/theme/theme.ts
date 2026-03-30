@@ -5,7 +5,6 @@ import { CSSProperties } from 'react';
 import { italia } from '@tokens';
 
 import muiSwitch from './components/muiSwitch';
-import muiAccordion from './components/muiAccordion';
 import muiAccordionSummary from './components/muiAccordionSummary';
 import { pxToRem } from './utility';
 import foundation from './foundation';
@@ -307,7 +306,6 @@ export const theme: Theme = createTheme(foundation, {
     /* End: To be revised */
   },
   components: {
-    MuiAccordion: muiAccordion,
     MuiAccordionSummary: muiAccordionSummary,
     MuiButton: {
       defaultProps: {
