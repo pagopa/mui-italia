@@ -476,9 +476,6 @@ export const theme: Theme = createTheme(foundation, {
         colorPrimary: {
           color: blue[500],
         },
-        colorSecondary: {
-          color: foundation.palette.common.white,
-        },
         colorError: {
           color: error[600],
         },
