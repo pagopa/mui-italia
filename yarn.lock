@@ -2612,7 +2612,7 @@ __metadata:
     prettier: ^2.7.1
     react: ^18.3.1
     react-dom: ^18.3.1
-    storybook: 10.1.11
+    storybook: 10.2.10
     tsc-alias: ^1.8.16
     typescript: ^5.9.3
     vite: ^7.3.1
@@ -2926,7 +2926,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/icons@npm:^2.0.0":
+"@storybook/icons@npm:^2.0.0, @storybook/icons@npm:^2.0.1":
   version: 2.0.1
   resolution: "@storybook/icons@npm:2.0.1"
   peerDependencies:
@@ -7691,7 +7691,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:^7.6.2, semver@npm:^7.7.3":
+"semver@npm:^7.7.3":
   version: 7.7.3
   resolution: "semver@npm:7.7.3"
   bin:
@@ -7837,12 +7837,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"storybook@npm:10.1.11":
-  version: 10.1.11
-  resolution: "storybook@npm:10.1.11"
+"storybook@npm:10.2.10":
+  version: 10.2.10
+  resolution: "storybook@npm:10.2.10"
   dependencies:
     "@storybook/global": ^5.0.0
-    "@storybook/icons": ^2.0.0
+    "@storybook/icons": ^2.0.1
     "@testing-library/jest-dom": ^6.6.3
     "@testing-library/user-event": ^14.6.1
     "@vitest/expect": 3.2.4
@@ -7850,7 +7850,7 @@ __metadata:
     esbuild: ^0.18.0 || ^0.19.0 || ^0.20.0 || ^0.21.0 || ^0.22.0 || ^0.23.0 || ^0.24.0 || ^0.25.0 || ^0.26.0 || ^0.27.0
     open: ^10.2.0
     recast: ^0.23.5
-    semver: ^7.6.2
+    semver: ^7.7.3
     use-sync-external-store: ^1.5.0
     ws: ^8.18.0
   peerDependencies:
@@ -7860,7 +7860,7 @@ __metadata:
       optional: true
   bin:
     storybook: ./dist/bin/dispatcher.js
-  checksum: e2793a919797829b7e8abff9c611a99273c58fe4bb6b6ec54685827c3860822d09d7889d15c71dd10fa68d900b301255970d74fc9a79c13adcdea931757aa9c3
+  checksum: f801c14a0f5ba4a764e2f3a01291f2fcda2bc07523d0dfea46f40f1e71523cb3495f3e39c00ba3007a61c94d202914a8b775e4aadb663c0a8cff14b335a411b0
   languageName: node
   linkType: hard
 
