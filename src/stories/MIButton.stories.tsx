@@ -1,19 +1,18 @@
 import { StoryFn, Meta } from '@storybook/react-vite';
-
-import { Button } from '@mui/material';
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
+import MIButton from '@components/MIButton/MIButton';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'MUI Components/Inputs/Button',
-  component: Button,
+  title: 'MUI Components/MIButton',
+  component: MIButton,
   args: {
     variant: 'contained',
+    loadingButton: false,
     children: 'Press me',
     fullWidth: false,
-    disabled: false,
   },
   argTypes: {
     size: {
@@ -31,6 +30,21 @@ export default {
         defaultValue: { summary: 'false' },
       },
     },
+    color: {
+      options: ['primary', 'error'],
+      control: { type: 'radio' },
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: 'primary' },
+      },
+    },
+    loadingButton: {
+      control: { type: 'boolean' },
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
     /* Disabled controls */
     variant: {
       options: ['contained', 'outlined', 'text'],
@@ -40,17 +54,17 @@ export default {
         defaultValue: { summary: 'contained' },
       },
     },
-    color: {
-      table: {
-        disable: true,
-      },
+  },
+  parameters: {
+    controls: {
+      sort: 'size',
+      include: ['variant', 'children', 'fullWidth', 'size', 'color', 'loadingButton'],
     },
   },
-  parameters: { controls: { sort: 'size' } },
-} as Meta<typeof Button>;
+} as Meta<typeof MIButton>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: StoryFn<typeof Button> = (args) => <Button {...args} />;
+const Template: StoryFn<typeof MIButton> = (args) => <MIButton {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

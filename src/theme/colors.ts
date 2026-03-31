@@ -8,6 +8,7 @@ export const blue = {
   100: '#CED8F9',
   200: '#9DB2F4',
   500: '#0B3EE3',
+  600: '#0932B6',
 };
 export const error = {
   600: '#D13333',

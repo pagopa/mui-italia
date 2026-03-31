@@ -10,12 +10,14 @@ import foundation from './foundation';
 import { mainTypeface, monospacedTypeface } from './fonts';
 import {
   backdropBackground,
-  blue,
-  blue,
   colorPrimaryContainedHover,
   colorTextPrimary,
   menuItemBackground,
+  blue,
+  error,
 } from './colors';
+
+import type {} from '@mui/lab/themeAugmentation';
 
 /* Basic Configuration */
 
@@ -323,10 +325,12 @@ export const theme: Theme = createTheme(foundation, {
       defaultProps: {
         disableElevation: true,
         disableFocusRipple: true,
+        disableRipple: true,
       },
       styleOverrides: {
         root: {
           padding: '0 20px',
+          borderRadius: foundation.spacing(1),
           '&.Mui-focusVisible': {
             borderRadius: `${focusBorderRadius}`,
             outline: `solid ${focusWidth} ${foundation.palette.primary.main}`,
@@ -335,17 +339,6 @@ export const theme: Theme = createTheme(foundation, {
           },
           minHeight: pxToRem(24),
           minWidth: pxToRem(24),
-          '&.MuiButton-text': {
-            '&:hover': {
-              backgroundColor: 'transparent',
-              color: '#0055AA',
-            },
-          },
-          '&.MuiButton-contained': {
-            '&:hover': {
-              backgroundColor: '#0055AA',
-            },
-          },
         },
         sizeSmall: {
           height: '40px',
@@ -375,14 +368,17 @@ export const theme: Theme = createTheme(foundation, {
           },
         },
         outlinedPrimary: {
-          borderColor: foundation.palette.primary.main,
-          '&:hover': {
-            color: foundation.palette.primary.dark,
+          borderColor: blue[500],
+          color: blue[500],
+          '&:active, &:hover': {
+            backgroundColor: blue[50],
+            color: blue[600],
             borderColor: 'currentColor',
           },
         },
         outlinedError: {
-          borderColor: foundation.palette.error.main,
+          borderColor: error[600],
+          color: error[600],
           '&:hover': {
             color: foundation.palette.error.dark,
             borderColor: 'currentColor',
@@ -394,12 +390,47 @@ export const theme: Theme = createTheme(foundation, {
             boxShadow: 'none',
           },
         },
+        containedPrimary: {
+          backgroundColor: blue[500],
+          '&:active, &:hover': {
+            backgroundColor: blue[600],
+            color: foundation.palette.common.white,
+          },
+        },
+        containedError: {
+          backgroundColor: error[600],
+          color: foundation.palette.common.white,
+          '&:hover': {
+            backgroundColor: foundation.palette.error.dark,
+            borderColor: 'currentColor',
+          },
+          '&.Mui-focusVisible': {
+            borderRadius: `${focusBorderRadius}`,
+            outline: `solid ${focusWidth} ${foundation.palette.error.main}`,
+            outlineOffset: `${focusOffset}`,
+            boxShadow: 'none',
+          },
+        },
+        textPrimary: {
+          color: blue[500],
+          '&:active, &:hover': {
+            backgroundColor: 'transparent',
+            color: blue[600],
+          },
+        },
+        textError: {
+          color: error[600],
+          '&:hover': {
+            backgroundColor: 'transparent',
+            color: foundation.palette.error[850],
+          },
+        },
       },
       variants: [
         {
           props: { variant: 'naked' },
           style: {
-            color: foundation.palette.text.primary,
+            color: blue[500],
             padding: 0,
             height: 'auto',
             minWidth: 'auto',
@@ -418,7 +449,7 @@ export const theme: Theme = createTheme(foundation, {
         {
           props: { variant: 'naked', color: 'primary' },
           style: {
-            color: foundation.palette.primary.main,
+            color: blue[500],
             '&:hover': {
               color: colorPrimaryContainedHover,
             },
@@ -433,9 +464,9 @@ export const theme: Theme = createTheme(foundation, {
         {
           props: { variant: 'naked', color: 'error' },
           style: {
-            color: foundation.palette.error.main,
+            color: error[600],
             '&:hover': {
-              color: foundation.palette.error.light,
+              color: foundation.palette.error[850],
             },
             '&.Mui-focusVisible': {
               borderRadius: `${focusBorderRadius}`,
@@ -447,38 +478,66 @@ export const theme: Theme = createTheme(foundation, {
         },
       ],
     },
-    /* START Spinner */
-    MuiCircularProgress: {
+    MuiLoadingButton: {
       defaultProps: {
-        thickness: 5,
-        disableShrink: true,
-        size: 24,
+        loadingPosition: 'center',
       },
       styleOverrides: {
         root: {
-          borderRadius: '50%',
-          '&.MuiCircularProgress-indeterminate': {
-            '@supports (mask-image: radial-gradient(farthest-side, transparent 0, black 100%))': {
-              '& svg': {
-                display: 'none',
+          '&.MuiLoadingButton-loading.Mui-disabled': {
+            /* --- CONTAINED VARIANTS --- */
+            '&.MuiButton-containedPrimary': {
+              backgroundColor: blue[500],
+              '& .MuiLoadingButton-loadingIndicator': {
+                color: foundation.palette.common.white,
               },
-              maskImage:
-                'radial-gradient(farthest-side, transparent calc(100% - 2px), black calc(100% - 2px))',
-              WebkitMaskImage:
-                'radial-gradient(farthest-side, transparent calc(100% - 2px), black calc(100% - 2px))',
-              background: `
-                radial-gradient(circle closest-side, currentColor calc(100% - 0.5px), transparent 100%) 50% 0 / 2px 2px no-repeat,
-                conic-gradient(from 0deg, transparent 0%, currentColor 30%, currentColor 100%)
-              `,
+            },
+            '&.MuiButton-containedError': {
+              backgroundColor: error[600],
+              '& .MuiLoadingButton-loadingIndicator': {
+                color: foundation.palette.common.white,
+              },
+            },
+
+            /* --- OUTLINED VARIANTS --- */
+            '&.MuiButton-outlinedPrimary': {
+              backgroundColor: 'transparent',
+              borderColor: blue[500],
+              '& .MuiLoadingButton-loadingIndicator': {
+                color: blue[500],
+              },
+            },
+            '&.MuiButton-outlinedError': {
+              backgroundColor: 'transparent',
+              borderColor: error[600],
+              '& .MuiLoadingButton-loadingIndicator': {
+                color: error[600],
+              },
+            },
+
+            /* --- TEXT & NAKED VARIANTS --- */
+            '&.MuiButton-textPrimary': {
+              backgroundColor: 'transparent',
+              '& .MuiLoadingButton-loadingIndicator': {
+                color: blue[500],
+              },
+            },
+            '&.MuiButton-textError': {
+              backgroundColor: 'transparent',
+              '& .MuiLoadingButton-loadingIndicator': {
+                color: error[600],
+              },
+            },
+            '&.MuiButton-naked': {
+              backgroundColor: 'transparent',
+              '& .MuiLoadingButton-loadingIndicator': {
+                color: blue[500],
+              },
             },
           },
         },
-        colorPrimary: {
-          color: blue[500],
-        },
       },
     },
-    /* END Spinner */
     /* START Spinner */
     MuiCircularProgress: {
       defaultProps: {
