@@ -117,6 +117,17 @@ declare module '@mui/material/Button' {
   }
 }
 
+declare module '@mui/material/CircularProgress' {
+  interface CircularProgressPropsColorOverrides {
+    primary: true;
+    secondary: false;
+    error: false;
+    warning: false;
+    info: false;
+    success: false;
+  }
+}
+
 declare module '@mui/material/IconButton' {
   interface IconButtonPropsColorOverrides {
     secondary: false;
@@ -463,9 +474,6 @@ export const theme: Theme = createTheme(foundation, {
         },
         colorPrimary: {
           color: blue[500],
-        },
-        colorSecondary: {
-          color: foundation.palette.common.white,
         },
         colorError: {
           color: error[600],

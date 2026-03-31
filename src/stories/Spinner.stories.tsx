@@ -22,16 +22,3 @@ const Template: StoryFn<typeof CircularProgress> = (args) => <CircularProgress {
 
 export const Default = Template.bind({});
 Default.args = { color: 'primary' };
-
-export const Secondary = Template.bind({});
-Secondary.args = { color: 'secondary' };
-Secondary.decorators = [
-  (Story) => (
-    <div style={{ padding: '1rem', backgroundColor: '#000' }}>
-      <Story />
-    </div>
-  ),
-];
-
-export const Error = Template.bind({});
-Error.args = { color: 'error' };
