@@ -443,18 +443,22 @@ export const theme: Theme = createTheme(foundation, {
       },
       styleOverrides: {
         root: {
-          '& svg': {
-            display: 'none',
-          },
           borderRadius: '50%',
-          maskImage:
-            'radial-gradient(farthest-side, transparent calc(100% - 2px), black calc(100% - 2px))',
-          WebkitMaskImage:
-            'radial-gradient(farthest-side, transparent calc(100% - 2px), black calc(100% - 2px))',
-          background: `
-            radial-gradient(circle closest-side, currentColor calc(100% - 0.5px), transparent 100%) 50% 0 / 2px 2px no-repeat,
-            conic-gradient(from 0deg, transparent 0%, currentColor 30%, currentColor 100%)
-          `,
+          '&.MuiCircularProgress-indeterminate': {
+            '@supports (mask-image: radial-gradient(farthest-side, transparent 0, black 100%))': {
+              '& svg': {
+                display: 'none',
+              },
+              maskImage:
+                'radial-gradient(farthest-side, transparent calc(100% - 2px), black calc(100% - 2px))',
+              WebkitMaskImage:
+                'radial-gradient(farthest-side, transparent calc(100% - 2px), black calc(100% - 2px))',
+              background: `
+                radial-gradient(circle closest-side, currentColor calc(100% - 0.5px), transparent 100%) 50% 0 / 2px 2px no-repeat,
+                conic-gradient(from 0deg, transparent 0%, currentColor 30%, currentColor 100%)
+              `,
+            },
+          },
         },
         colorPrimary: {
           color: blue[500],
