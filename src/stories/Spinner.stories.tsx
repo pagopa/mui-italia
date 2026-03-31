@@ -5,9 +5,15 @@ import { CircularProgress } from '@mui/material';
 export default {
   title: 'MUI Components/Spinner',
   component: CircularProgress,
-  argTypes: {
-    table: {
-      disable: true,
+  parameters: {
+    controls: {
+      disabled: true,
+      hideNoControlsWarning: true,
+    },
+    docs: {
+      controls: {
+        disabled: true,
+      },
     },
   },
 } as Meta<typeof CircularProgress>;
