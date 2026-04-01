@@ -12,7 +12,6 @@ import {
   backdropBackground,
   blue,
   colorPrimaryContainedHover,
-  error,
   colorTextPrimary,
   menuItemBackground,
 } from './colors';
@@ -475,9 +474,6 @@ export const theme: Theme = createTheme(foundation, {
         },
         colorPrimary: {
           color: blue[500],
-        },
-        colorError: {
-          color: error[600],
         },
       },
     },
