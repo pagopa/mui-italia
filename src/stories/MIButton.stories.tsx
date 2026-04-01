@@ -31,14 +31,29 @@ export default {
       },
     },
     color: {
-      options: ['primary', 'error'],
+      options: ['primary', 'error', 'contrastedPrimary', 'contrastedError'],
       control: { type: 'radio' },
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: 'primary' },
       },
     },
-    loadingButton: {
+    isLoading: {
+      control: { type: 'boolean' },
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
+    loaderType: {
+      options: ['skeleton', 'loading'],
+      control: { type: 'radio' },
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: 'loading' },
+      },
+    },
+    contrasted: {
       control: { type: 'boolean' },
       table: {
         type: { summary: 'boolean' },
@@ -58,7 +73,16 @@ export default {
   parameters: {
     controls: {
       sort: 'size',
-      include: ['variant', 'children', 'fullWidth', 'size', 'color', 'loadingButton'],
+      include: [
+        'variant',
+        'children',
+        'fullWidth',
+        'size',
+        'color',
+        'isLoading',
+        'loaderType',
+        'contrasted',
+      ],
     },
   },
 } as Meta<typeof MIButton>;
@@ -69,8 +93,16 @@ const Template: StoryFn<typeof MIButton> = (args) => <MIButton {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   variant: 'contained',
+  color: 'error',
   size: 'medium',
 };
+Default.decorators = [
+  (Story) => (
+    <div style={{ padding: '1em', backgroundColor: '#E8EBF1' }}>
+      <Story />
+    </div>
+  ),
+];
 
 export const WithEndIcon = Template.bind({});
 WithEndIcon.storyName = 'Default + End Icon';
@@ -88,8 +120,7 @@ WithStartIcon.args = {
 
 export const Danger = Template.bind({});
 Danger.args = {
-  variant: 'outlined',
-  color: 'error',
+  variant: 'contained',
   size: 'medium',
   children: 'Delete',
 };

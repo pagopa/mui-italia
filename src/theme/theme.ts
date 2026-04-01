@@ -71,6 +71,8 @@ declare module '@mui/material/styles' {
     extraLight: Palette['warning'];
     primaryAction: Palette['action'];
     negative: SimplePaletteColorOptions;
+    contrastedPrimary: Palette['primary'];
+    contrastedError: Palette['error'];
     indigo: Palette['primary'];
   }
   interface PaletteOptions {
@@ -80,6 +82,8 @@ declare module '@mui/material/styles' {
     extraLight?: PaletteOptions['warning'];
     primaryAction: PaletteOptions['action'];
     negative: SimplePaletteColorOptions;
+    contrastedPrimary?: PaletteOptions['primary'];
+    contrastedError?: PaletteOptions['error'];
     indigo: SimplePaletteColorOptions;
   }
 
@@ -107,6 +111,8 @@ declare module '@mui/material/Button' {
     text: true;
     primary: true;
     negative: true;
+    contrastedPrimary: true;
+    contrastedError: true;
     secondary: false;
     warning: false;
     info: false;
@@ -184,6 +190,20 @@ More info:  https://www.chromatic.com/docs/viewports
 export const breakpointsChromaticValues = [375, 640, 900, 1200, 1600];
 
 export const theme: Theme = createTheme(foundation, {
+  palette: {
+    contrastedPrimary: {
+      main: foundation.palette.common.white,
+      dark: alpha(foundation.palette.common.white, 0.8),
+      light: alpha(foundation.palette.common.white, 0.9),
+      contrastText: blue[500],
+    },
+    contrastedError: {
+      main: foundation.palette.error.main,
+      dark: alpha(foundation.palette.error.main, 0.8),
+      light: alpha(foundation.palette.error.main, 0.9),
+      contrastText: error[600],
+    },
+  },
   typography: {
     /* H1 Large */
     headline: {
@@ -375,6 +395,31 @@ export const theme: Theme = createTheme(foundation, {
             color: blue[600],
             borderColor: 'currentColor',
           },
+          '&:active': {
+            backgroundColor: blue[50],
+            color: blue[600],
+            borderColor: 'currentColor',
+          },
+        },
+        outlinedContrastedPrimary: {
+          borderColor: foundation.palette.common.white,
+          color: foundation.palette.common.white,
+          backgroundColor: blue[500],
+          '&:active, &:hover': {
+            backgroundColor: blue[600],
+            color: foundation.palette.common.white,
+            borderColor: 'currentColor',
+          },
+        },
+        outlinedContrastedError: {
+          borderColor: foundation.palette.common.white,
+          color: foundation.palette.common.white,
+          backgroundColor: error[600],
+          '&:active, &:hover': {
+            backgroundColor: foundation.palette.error[850],
+            color: foundation.palette.common.white,
+            borderColor: 'currentColor',
+          },
         },
         outlinedError: {
           borderColor: error[600],
@@ -397,6 +442,22 @@ export const theme: Theme = createTheme(foundation, {
             color: foundation.palette.common.white,
           },
         },
+        containedContrastedPrimary: {
+          backgroundColor: foundation.palette.common.white,
+          color: blue[500],
+          '&:active, &:hover': {
+            backgroundColor: blue[50],
+            color: blue[600],
+          },
+        },
+        containedContrastedError: {
+          backgroundColor: foundation.palette.common.white,
+          color: error[600],
+          '&:active, &:hover': {
+            backgroundColor: blue[50],
+            color: foundation.palette.error[850],
+          },
+        },
         containedError: {
           backgroundColor: error[600],
           color: foundation.palette.common.white,
@@ -416,6 +477,20 @@ export const theme: Theme = createTheme(foundation, {
           '&:active, &:hover': {
             backgroundColor: 'transparent',
             color: blue[600],
+          },
+        },
+        textContrastedPrimary: {
+          color: foundation.palette.common.white,
+          '&:active, &:hover': {
+            backgroundColor: 'transparent',
+            color: foundation.palette.common.white,
+          },
+        },
+        textContrastedError: {
+          color: foundation.palette.common.white,
+          '&:active, &:hover': {
+            backgroundColor: 'transparent',
+            color: foundation.palette.error[850],
           },
         },
         textError: {
@@ -476,6 +551,36 @@ export const theme: Theme = createTheme(foundation, {
             },
           },
         },
+        {
+          props: { variant: 'naked', color: 'contrastedPrimary' },
+          style: {
+            color: foundation.palette.common.white,
+            '&:hover': {
+              color: alpha(foundation.palette.common.white, 0.8),
+            },
+            '&.Mui-focusVisible': {
+              borderRadius: `${focusBorderRadius}`,
+              outline: `solid ${focusWidth} ${foundation.palette.common.white}`,
+              outlineOffset: `${focusButtonOffset}`,
+              boxShadow: 'none',
+            },
+          },
+        },
+        {
+          props: { variant: 'naked', color: 'contrastedError' },
+          style: {
+            color: foundation.palette.common.white,
+            '&:hover': {
+              color: alpha(foundation.palette.common.white, 0.8),
+            },
+            '&.Mui-focusVisible': {
+              borderRadius: `${focusBorderRadius}`,
+              outline: `solid ${focusWidth} ${foundation.palette.common.white}`,
+              outlineOffset: `${focusButtonOffset}`,
+              boxShadow: 'none',
+            },
+          },
+        },
       ],
     },
     MuiLoadingButton: {
@@ -498,6 +603,18 @@ export const theme: Theme = createTheme(foundation, {
                 color: foundation.palette.common.white,
               },
             },
+            '&.MuiButton-containedContrastedPrimary': {
+              backgroundColor: foundation.palette.common.white,
+              '& .MuiLoadingButton-loadingIndicator': {
+                color: blue[500],
+              },
+            },
+            '&.MuiButton-containedContrastedError': {
+              backgroundColor: foundation.palette.common.white,
+              '& .MuiLoadingButton-loadingIndicator': {
+                color: error[600],
+              },
+            },
 
             /* --- OUTLINED VARIANTS --- */
             '&.MuiButton-outlinedPrimary': {
@@ -514,6 +631,20 @@ export const theme: Theme = createTheme(foundation, {
                 color: error[600],
               },
             },
+            '&.MuiButton-outlinedContrastedPrimary': {
+              backgroundColor: 'transparent',
+              borderColor: foundation.palette.common.white,
+              '& .MuiLoadingButton-loadingIndicator': {
+                color: foundation.palette.common.white,
+              },
+            },
+            '&.MuiButton-outlinedContrastedError': {
+              backgroundColor: 'transparent',
+              borderColor: foundation.palette.common.white,
+              '& .MuiLoadingButton-loadingIndicator': {
+                color: foundation.palette.common.white,
+              },
+            },
 
             /* --- TEXT & NAKED VARIANTS --- */
             '&.MuiButton-textPrimary': {
@@ -528,10 +659,32 @@ export const theme: Theme = createTheme(foundation, {
                 color: error[600],
               },
             },
+            '&.MuiButton-textContrastedPrimary': {
+              backgroundColor: 'transparent',
+              '& .MuiLoadingButton-loadingIndicator': {
+                color: foundation.palette.common.white,
+              },
+            },
+            '&.MuiButton-textContrastedError': {
+              backgroundColor: 'transparent',
+              '& .MuiLoadingButton-loadingIndicator': {
+                color: foundation.palette.common.white,
+              },
+            },
             '&.MuiButton-naked': {
               backgroundColor: 'transparent',
               '& .MuiLoadingButton-loadingIndicator': {
                 color: blue[500],
+              },
+            },
+            '&.MuiButton-naked.MuiButton-colorContrastedPrimary': {
+              '& .MuiLoadingButton-loadingIndicator': {
+                color: foundation.palette.common.white,
+              },
+            },
+            '&.MuiButton-naked.MuiButton-colorContrastedError': {
+              '& .MuiLoadingButton-loadingIndicator': {
+                color: foundation.palette.common.white,
               },
             },
           },
