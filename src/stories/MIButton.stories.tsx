@@ -93,7 +93,6 @@ const Template: StoryFn<typeof MIButton> = (args) => <MIButton {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   variant: 'contained',
-  color: 'error',
   size: 'medium',
 };
 Default.decorators = [
@@ -123,6 +122,7 @@ Danger.args = {
   variant: 'contained',
   size: 'medium',
   children: 'Delete',
+  color: 'error',
 };
 Danger.argTypes = {
   variant: { table: { disable: true } },
