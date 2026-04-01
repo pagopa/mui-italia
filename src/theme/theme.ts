@@ -453,6 +453,7 @@ export const theme: Theme = createTheme(foundation, {
       defaultProps: {
         thickness: 5,
         disableShrink: true,
+        size: 24,
       },
       styleOverrides: {
         root: {
