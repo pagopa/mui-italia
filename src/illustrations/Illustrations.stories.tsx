@@ -49,6 +49,47 @@ import {
   IllusMIFileCheck,
   IllusMIFlag,
   IllusMIUserManual,
+  IllusMIBadge,
+  IllusMIBug,
+  IllusMICitizen,
+  IllusMICloud,
+  IllusMICreditCard,
+  IllusMIDesktop,
+  IllusMIDownload,
+  IllusMIEarth,
+  IllusMIEnterprise,
+  IllusMIHome,
+  IllusMIImage,
+  IllusMIMapPin,
+  IllusMIOpenFolder,
+  IllusMIPersonalFile,
+  IllusMISchool,
+  IllusMISmartphone,
+  IllusMISmartphoneCheck,
+  IllusMISms,
+  IllusMIUpload,
+  IllusMIBuilding,
+  IllusMICalendar,
+  IllusMIEuro,
+  IllusMIHistoryDoc,
+  IllusMIPieChart,
+  IllusMISingleFile,
+  IllusMIStorage,
+  IllusMIUserCheck,
+  IllusMIDelega,
+  IllusMIFingerPrint,
+  IllusMIInbox,
+  IllusMIKeypad,
+  IllusMIOptions,
+  IllusMISync,
+  IllusMIWallet,
+  IllusMIBusiness,
+  IllusMIDirection,
+  IllusMIDocumentation,
+  IllusMIGraduation,
+  IllusMIMessages,
+  IllusMIRepository,
+  IllusMISecurity,
 } from './';
 import { JSX } from 'react';
 
@@ -120,6 +161,50 @@ export const Overview: StoryFn<typeof Box> = () => (
       <IllusBox name={'<IllusMIAssistance />'} illustration={<IllusMIAssistance />} />
       <IllusBox name={'<IllusMIFlag />'} illustration={<IllusMIFlag />} />
       <IllusBox name={'<IllusMIUserManual />'} illustration={<IllusMIUserManual />} />
+      <IllusBox name={'<IllusMIImage />'} illustration={<IllusMIImage />} />
+      <IllusBox name={'<IllusMIEarth />'} illustration={<IllusMIEarth />} />
+      <IllusBox name={'<IllusMIBug />'} illustration={<IllusMIBug />} />
+      <IllusBox name={'<IllusMIEnterprise />'} illustration={<IllusMIEnterprise />} />
+      <IllusBox name={'<IllusMIDownload />'} illustration={<IllusMIDownload />} />
+      <IllusBox name={'<IllusMISmartphoneCheck />'} illustration={<IllusMISmartphoneCheck />} />
+      <IllusBox name={'<IllusMISmartphone />'} illustration={<IllusMISmartphone />} />
+      <IllusBox name={'<IllusMICreditCard />'} illustration={<IllusMICreditCard />} />
+      <IllusBox name={'<IllusMISms />'} illustration={<IllusMISms />} />
+      <IllusBox name={'<IllusMIDesktop />'} illustration={<IllusMIDesktop />} />
+      <IllusBox name={'<IllusMICitizen />'} illustration={<IllusMICitizen />} />
+      <IllusBox name={'<IllusMICloud />'} illustration={<IllusMICloud />} />
+      <IllusBox name={'<IllusMIUpload />'} illustration={<IllusMIUpload />} />
+      <IllusBox name={'<IllusMIOpenFolder />'} illustration={<IllusMIOpenFolder />} />
+      <IllusBox name={'<IllusMIBadge />'} illustration={<IllusMIBadge />} />
+      <IllusBox name={'<IllusMISchool />'} illustration={<IllusMISchool />} />
+      <IllusBox name={'<IllusMIHome />'} illustration={<IllusMIHome />} />
+      <IllusBox name={'<IllusMIMapPin />'} illustration={<IllusMIMapPin />} />
+      <IllusBox name={'<IllusMIPersonalFile />'} illustration={<IllusMIPersonalFile />} />
+      <IllusBox name={'<IllusMIStorage />'} illustration={<IllusMIStorage />} />
+      <IllusBox name={'<IllusMIPieChart />'} illustration={<IllusMIPieChart />} />
+      <IllusBox name={'<IllusMIEuro />'} illustration={<IllusMIEuro />} />
+      <IllusBox name={'<IllusMIBuilding />'} illustration={<IllusMIBuilding />} />
+      <IllusBox name={'<IllusMIHistoryDoc />'} illustration={<IllusMIHistoryDoc />} />
+      <IllusBox name={'<IllusMICalendar />'} illustration={<IllusMICalendar />} />
+      <IllusBox name={'<IllusMISingleFile />'} illustration={<IllusMISingleFile />} />
+      <IllusBox name={'<IllusMIUserCheck />'} illustration={<IllusMIUserCheck />} />
+      <IllusBox name={'<IllusMIOptions />'} illustration={<IllusMIOptions />} />
+      <IllusBox name={'<IllusMISync />'} illustration={<IllusMISync />} />
+      <IllusBox name={'<IllusMIFingerPrint />'} illustration={<IllusMIFingerPrint />} />
+      <IllusBox name={'<IllusMIKeypad />'} illustration={<IllusMIKeypad />} />
+      <IllusBox name={'<IllusMIInbox />'} illustration={<IllusMIInbox />} />
+      <IllusBox name={'<IllusMIWallet />'} illustration={<IllusMIWallet />} />
+      <IllusBox name={'<IllusMIDelega />'} illustration={<IllusMIDelega />} />
+      <IllusBox name={'<IllusMIMessages />'} illustration={<IllusMIMessages />} />
+      <IllusBox name={'<IllusMIDirection />'} illustration={<IllusMIDirection />} />
+      <IllusBox name={'<IllusMISecurity />'} illustration={<IllusMISecurity />} />
+      <IllusBox name={'<IllusMIDocumentation />'} illustration={<IllusMIDocumentation />} />
+      <IllusBox name={'<IllusMIRepository />'} illustration={<IllusMIRepository />} />
+      <IllusBox name={'<IllusMIBusiness />'} illustration={<IllusMIBusiness />} />
+      <IllusBox name={'<IllusMIGraduation />'} illustration={<IllusMIGraduation />} />
+      <IllusBox name={'<IllusMIAccess />'} illustration={<IllusMIAccess />} />
+      <IllusBox name={'<IllusMITrash />'} illustration={<IllusMITrash />} />
+      <IllusBox name={'<IllusMILineChart />'} illustration={<IllusMILineChart />} />
     </Box>
     <Divider sx={{ my: 4 }} />
     <Typography variant="h5" mb={2}>
