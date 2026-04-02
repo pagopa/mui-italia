@@ -56,13 +56,13 @@ OnlyIconTag.args = {
 
 export const TruncateValueTag: StoryObj<typeof Tag> = {
   render: () => (
-    <Box width="175px" p="10px" sx={{ border: `1px solid blue`, borderRadius: '5px' }}>
+    <Box width="30%" p="10px" sx={{ border: `1px solid blue`, borderRadius: '5px' }}>
       <Typography variant="body1">Tag must be in this Box</Typography>
       <hr />
       <Tag
         variant="default"
         icon={AttachFileRoundedIcon}
-        value="It'saverylonglonglonglonglonglonglonglonglonglonglongvalue"
+        value="It's avery long long long long long long long long long long long value"
         mode="truncate"
       />
     </Box>
