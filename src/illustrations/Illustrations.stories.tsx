@@ -62,7 +62,7 @@ const IllusBox = ({ name, illustration }: IllusBoxProps): JSX.Element => (
 
 export const Overview: StoryFn<typeof Box> = () => (
   <>
-    <Typography>Mui Italia 2.0 Illustrations</Typography>
+    <Typography variant="h5">Mui Italia 2.0 Illustrations</Typography>
     <Box
       sx={{
         display: 'grid',
@@ -77,7 +77,7 @@ export const Overview: StoryFn<typeof Box> = () => (
       <IllusBox name={'<IllusMICompleted />'} illustration={<IllusMICompleted />} />
     </Box>
     <Divider sx={{ my: 4 }} />
-    <Typography>Mui Italia Illustrations</Typography>
+    <Typography variant="h5">Mui Italia Illustrations</Typography>
     <Box
       sx={{
         display: 'grid',
