@@ -23,9 +23,11 @@ import {
   IllusUmbrella,
   IllusAlarmClock,
   IllusUserUnauthorized,
-  IllusAward,
-  IllusMessage,
-  IllusIO,
+  IllusMIMessage,
+  IllusMIAward,
+  IllusMIEmailValidation,
+  IllusMIQuick,
+  IllusMICompleted,
 } from './';
 
 export interface IllusBoxProps {
@@ -68,9 +70,11 @@ export const Overview: StoryFn<typeof Box> = () => (
         gap: 2,
       }}
     >
-      <IllusBox name={'<IllusAward />'} illustration={<IllusAward />} />
-      <IllusBox name={'<IllusMessage />'} illustration={<IllusMessage />} />
-      <IllusBox name={'<IllusIO />'} illustration={<IllusIO />} />
+      <IllusBox name={'<IllusMIAward />'} illustration={<IllusMIAward />} />
+      <IllusBox name={'<IllusMIMessage />'} illustration={<IllusMIMessage />} />
+      <IllusBox name={'<IllusMIEmailValidation />'} illustration={<IllusMIEmailValidation />} />
+      <IllusBox name={'<IllusMIQuick />'} illustration={<IllusMIQuick />} />
+      <IllusBox name={'<IllusMICompleted />'} illustration={<IllusMICompleted />} />
     </Box>
     <Divider sx={{ my: 4 }} />
     <Typography>Mui Italia Illustrations</Typography>
