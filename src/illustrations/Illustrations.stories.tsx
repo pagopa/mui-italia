@@ -90,6 +90,9 @@ import {
   IllusMIMessages,
   IllusMIRepository,
   IllusMISecurity,
+  IllusMIAccess,
+  IllusMILineChart,
+  IllusMITrash,
 } from './';
 import { JSX } from 'react';
 
