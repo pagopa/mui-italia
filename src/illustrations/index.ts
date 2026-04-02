@@ -90,3 +90,6 @@ export * from './MIGraduation';
 export * from './MIAccess';
 export * from './MITrash';
 export * from './MILineChart';
+export * from './MIIdCard';
+export * from './MICalendarCheck';
+export * from './MIFirma';

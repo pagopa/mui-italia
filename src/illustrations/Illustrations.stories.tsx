@@ -93,8 +93,11 @@ import {
   IllusMIAccess,
   IllusMILineChart,
   IllusMITrash,
+  IllusMIIdCard,
+  IllusMICalendarCheck,
 } from './';
 import { JSX } from 'react';
+import { IllusMIFirma } from './MIFirma';
 
 export interface IllusBoxProps {
   illustration: JSX.Element;
@@ -208,6 +211,9 @@ export const Overview: StoryFn<typeof Box> = () => (
       <IllusBox name={'<IllusMIAccess />'} illustration={<IllusMIAccess />} />
       <IllusBox name={'<IllusMITrash />'} illustration={<IllusMITrash />} />
       <IllusBox name={'<IllusMILineChart />'} illustration={<IllusMILineChart />} />
+      <IllusBox name={'<IllusMIIdCard />'} illustration={<IllusMIIdCard />} />
+      <IllusBox name={'<IllusMICalendarCheck />'} illustration={<IllusMICalendarCheck />} />
+      <IllusBox name={'<IllusMIFirma />'} illustration={<IllusMIFirma />} />
     </Box>
     <Divider sx={{ my: 4 }} />
     <Typography variant="h5" mb={2}>
