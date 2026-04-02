@@ -1,6 +1,6 @@
 import { StoryFn, Meta } from '@storybook/react-vite';
 
-import { Box, Typography } from '@mui/material';
+import { Box, Divider, Typography } from '@mui/material';
 
 import {
   IllusCompleted,
@@ -23,6 +23,9 @@ import {
   IllusUmbrella,
   IllusAlarmClock,
   IllusUserUnauthorized,
+  IllusAward,
+  IllusMessage,
+  IllusIO,
 } from './';
 
 export interface IllusBoxProps {
@@ -56,34 +59,50 @@ const IllusBox = ({ name, illustration }: IllusBoxProps): JSX.Element => (
 );
 
 export const Overview: StoryFn<typeof Box> = () => (
-  <Box
-    sx={{
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-      gap: 2,
-    }}
-  >
-    <IllusBox name={'<IllusCompleted />'} illustration={<IllusCompleted />} />
-    <IllusBox name={'<IllusError />'} illustration={<IllusError />} />
-    <IllusBox name={'<IllusUploadFile />'} illustration={<IllusUploadFile />} />
-    <IllusBox name={'<IllusSms />'} illustration={<IllusSms />} />
-    <IllusBox name={'<IllusEmailValidation />'} illustration={<IllusEmailValidation />} />
-    <IllusBox name={'<IllusEmail />'} illustration={<IllusEmail />} />
-    <IllusBox name={'<IllusPiggyBank />'} illustration={<IllusPiggyBank />} />
-    <IllusBox name={'<IllusLogin />'} illustration={<IllusLogin />} />
-    <IllusBox name={'<IllusSimplify />'} illustration={<IllusSimplify />} />
-    <IllusBox name={'<IllusSafeDeposit />'} illustration={<IllusSafeDeposit />} />
-    <IllusBox name={'<IllusQuick />'} illustration={<IllusQuick />} />
-    <IllusBox name={'<IllusSharingInfo />'} illustration={<IllusSharingInfo />} />
-    <IllusBox name={'<IllusRepository />'} illustration={<IllusRepository />} />
-    <IllusBox name={'<IllusHistoryDoc />'} illustration={<IllusHistoryDoc />} />
-    <IllusBox name={'<IllusDataSecurity />'} illustration={<IllusDataSecurity />} />
-    <IllusBox name={'<IllusPaymentCompleted />'} illustration={<IllusPaymentCompleted />} />
-    <IllusBox name={'<IllusInProgress />'} illustration={<IllusInProgress />} />
-    <IllusBox name={'<IllusUmbrella />'} illustration={<IllusUmbrella />} />
-    <IllusBox name={'<IllusAlarmClock />'} illustration={<IllusAlarmClock />} />
-    <IllusBox name={'<IllusUserDenied />'} illustration={<IllusUserUnauthorized />} />
-  </Box>
+  <>
+    <Typography>Mui Italia 2.0 Illustrations</Typography>
+    <Box
+      sx={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+        gap: 2,
+      }}
+    >
+      <IllusBox name={'<IllusAward />'} illustration={<IllusAward />} />
+      <IllusBox name={'<IllusMessage />'} illustration={<IllusMessage />} />
+      <IllusBox name={'<IllusIO />'} illustration={<IllusIO />} />
+    </Box>
+    <Divider sx={{ my: 4 }} />
+    <Typography>Mui Italia Illustrations</Typography>
+    <Box
+      sx={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+        gap: 2,
+      }}
+    >
+      <IllusBox name={'<IllusCompleted />'} illustration={<IllusCompleted />} />
+      <IllusBox name={'<IllusError />'} illustration={<IllusError />} />
+      <IllusBox name={'<IllusUploadFile />'} illustration={<IllusUploadFile />} />
+      <IllusBox name={'<IllusSms />'} illustration={<IllusSms />} />
+      <IllusBox name={'<IllusEmailValidation />'} illustration={<IllusEmailValidation />} />
+      <IllusBox name={'<IllusEmail />'} illustration={<IllusEmail />} />
+      <IllusBox name={'<IllusPiggyBank />'} illustration={<IllusPiggyBank />} />
+      <IllusBox name={'<IllusLogin />'} illustration={<IllusLogin />} />
+      <IllusBox name={'<IllusSimplify />'} illustration={<IllusSimplify />} />
+      <IllusBox name={'<IllusSafeDeposit />'} illustration={<IllusSafeDeposit />} />
+      <IllusBox name={'<IllusQuick />'} illustration={<IllusQuick />} />
+      <IllusBox name={'<IllusSharingInfo />'} illustration={<IllusSharingInfo />} />
+      <IllusBox name={'<IllusRepository />'} illustration={<IllusRepository />} />
+      <IllusBox name={'<IllusHistoryDoc />'} illustration={<IllusHistoryDoc />} />
+      <IllusBox name={'<IllusDataSecurity />'} illustration={<IllusDataSecurity />} />
+      <IllusBox name={'<IllusPaymentCompleted />'} illustration={<IllusPaymentCompleted />} />
+      <IllusBox name={'<IllusInProgress />'} illustration={<IllusInProgress />} />
+      <IllusBox name={'<IllusUmbrella />'} illustration={<IllusUmbrella />} />
+      <IllusBox name={'<IllusAlarmClock />'} illustration={<IllusAlarmClock />} />
+      <IllusBox name={'<IllusUserDenied />'} illustration={<IllusUserUnauthorized />} />
+    </Box>
+  </>
 );
 
 Overview.parameters = {
