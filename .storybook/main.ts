@@ -1,5 +1,5 @@
 // This file has been automatically migrated to valid ESM format by Storybook.
-import { fileURLToPath } from "node:url";
+import { fileURLToPath } from 'node:url';
 import type { StorybookConfig } from '@storybook/react-vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { mergeConfig } from 'vite';
@@ -52,12 +52,12 @@ const config: StorybookConfig = {
       plugins: [tsconfigPaths()],
       resolve: {
         alias: {
-         // This is to resolve aliases into the mdx files
-        '@theme': path.resolve(__dirname, '../src/theme'),
-        }
-      }
+          // This is to resolve aliases into the mdx files
+          '@theme': path.resolve(__dirname, '../src/theme'),
+        },
+      },
     });
-  }
+  },
 };
 
 export default config;
