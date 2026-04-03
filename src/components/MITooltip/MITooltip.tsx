@@ -49,15 +49,15 @@ const MITooltip = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const enterTimer = useRef<NodeJS.Timeout | null>(null);
   const leaveTimer = useRef<NodeJS.Timeout | null>(null);
-  const isHovered = useRef(false);
+  const isOpening = useRef(false);
 
   const clearTimers = () => {
     if (enterTimer.current) clearTimeout(enterTimer.current);
     if (leaveTimer.current) clearTimeout(leaveTimer.current);
   };
 
-  const handleMouseEnter = () => {
-    isHovered.current = true;
+  const handleOpen = () => {
+    isOpening.current = true;
     if (isMobile || disabled) return;
 
     clearTimers();
@@ -66,8 +66,8 @@ const MITooltip = ({
     }, 200);
   };
 
-  const handleMouseLeave = () => {
-    isHovered.current = false;
+  const handleClose = () => {
+    isOpening.current = false;
     if (isMobile || disabled) return;
 
     clearTimers();
@@ -91,10 +91,10 @@ const MITooltip = ({
   const targetElement = getTargetElem(children);
   const childProps = targetElement.props as Record<string, any>;
   const triggerElement = cloneElement(targetElement, {
-    onMouseEnter: callAll(handleMouseEnter, childProps.onMouseEnter),
-    onMouseLeave: callAll(handleMouseLeave, childProps.onMouseLeave),
-    onFocus: callAll(handleMouseEnter, childProps.onFocus),
-    onBlur: callAll(handleMouseLeave, childProps.onBlur),
+    onMouseEnter: callAll(handleOpen, childProps.onMouseEnter),
+    onMouseLeave: callAll(handleClose, childProps.onMouseLeave),
+    onFocus: callAll(handleOpen, childProps.onFocus),
+    onBlur: callAll(handleClose, childProps.onBlur),
     onClick: callAll(handleClick, childProps.onClick),
     'aria-label': describeValue ? title : undefined,
   });
@@ -107,7 +107,7 @@ const MITooltip = ({
     if (disabled) {
       setIsOpen(false);
       clearTimers();
-    } else if (isHovered.current && !isMobile) {
+    } else if (isOpening.current && !isMobile) {
       // The disabled attribute can change value.
       // If its value changes from false to true and the mouse is on it, we must open the tooltip
       clearTimers();
@@ -151,8 +151,8 @@ const MITooltip = ({
         disableFocusListener
         slotProps={{
           tooltip: {
-            onMouseEnter: handleMouseEnter,
-            onMouseLeave: handleMouseLeave,
+            onMouseEnter: handleOpen,
+            onMouseLeave: handleClose,
           },
         }}
         {...props}
