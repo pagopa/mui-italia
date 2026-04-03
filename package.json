@@ -23,7 +23,12 @@
     "lint": "eslint . -c .eslintrc.js --ext .ts,.tsx",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "chromatic": "chromatic --only-changed"
+    "chromatic": "chromatic --only-changed",
+    "check-dist": "npm pack --dry-run ./dist",
+    "verdaccio:user": "npm whoami --registry http://localhost:4873",
+    "verdaccio:login": "npm login --registry http://localhost:4873",
+    "verdaccio:publish": "npm publish ./dist --registry http://localhost:4873",
+    "verdaccio:unpublish": "npm unpublish @pagopa/mui-italia --registry http://localhost:4873 --force"
   },
   "devDependencies": {
     "@babel/cli": "^7.28.3",
