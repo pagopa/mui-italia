@@ -3,6 +3,7 @@ import { alpha, createTheme, Theme } from '@mui/material/styles';
 import { indigo } from '@mui/material/colors';
 import { shadowColor, colorTextPrimary } from './colors';
 import { mainTypeface } from './fonts';
+import { muiItaliaPalette } from './foundations/palette';
 
 const shadowValues = {
   /* Elevation 4 */
@@ -32,6 +33,7 @@ const foundation: Theme = createTheme({
     },
   },
   palette: {
+    ...muiItaliaPalette,
     mode: 'light',
     background: {
       paper: '#FFFFFF',
