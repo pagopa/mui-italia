@@ -2582,7 +2582,7 @@ __metadata:
     "@mui/material": ^5.14.5
     "@mui/system": ^5.14.5
     "@mui/x-date-pickers": ^6.17.0
-    "@storybook/addon-a11y": 10.1.11
+    "@storybook/addon-a11y": 10.2.13
     "@storybook/addon-docs": 10.1.11
     "@storybook/addon-links": 10.1.11
     "@storybook/builder-vite": 10.1.11
@@ -2837,15 +2837,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-a11y@npm:10.1.11":
-  version: 10.1.11
-  resolution: "@storybook/addon-a11y@npm:10.1.11"
+"@storybook/addon-a11y@npm:10.2.13":
+  version: 10.2.13
+  resolution: "@storybook/addon-a11y@npm:10.2.13"
   dependencies:
     "@storybook/global": ^5.0.0
     axe-core: ^4.2.0
   peerDependencies:
-    storybook: ^10.1.11
-  checksum: be0f09addc70d250d15e8639fda87fe4ec42f2fc2a5e50f46889fbe5e14b96ad261fca4e29f629c39a9e5ffadc3a9de7462d79fe0b0811e0a9e08dc267d7cef0
+    storybook: ^10.2.13
+  checksum: e21b547826f87dab43e2fced37c41bf7ceadf7f37c47f52526f7474086a8645bf7890182959b4745428679e7960b27729e861c83240225bac61111bd09c7e17d
   languageName: node
   linkType: hard
 
