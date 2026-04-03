@@ -109,7 +109,7 @@ const MITooltip = ({
       clearTimers();
     } else if (isOpening.current && !isMobile) {
       // The disabled attribute can change value.
-      // If its value changes from false to true and the mouse is on it, we must open the tooltip
+      // If its value changes from true to false and the mouse is on it, we must open the tooltip
       clearTimers();
       enterTimer.current = setTimeout(() => setIsOpen(true), 200);
     }
