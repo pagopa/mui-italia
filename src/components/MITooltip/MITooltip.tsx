@@ -10,8 +10,13 @@ import {
 import { Tooltip, TooltipProps, ClickAwayListener, useMediaQuery } from '@mui/material';
 import { theme } from '@theme';
 
-export interface Props extends Pick<TooltipProps, 'title'> {
+export interface Props
+  extends Pick<
+    TooltipProps,
+    'id' | 'title' | 'onOpen' | 'onClose' | 'placement' | 'describeChild'
+  > {
   disabled?: boolean;
+  describeValue?: boolean;
   children: ReactNode;
 }
 
@@ -33,7 +38,13 @@ const getTargetElem = (children: ReactNode): ReactElement => {
   return <>{children}</>;
 };
 
-const MITooltip = ({ title, disabled = false, children, ...props }: Props) => {
+const MITooltip = ({
+  title,
+  disabled = false,
+  describeValue = false,
+  children,
+  ...props
+}: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const enterTimer = useRef<NodeJS.Timeout | null>(null);
@@ -82,7 +93,10 @@ const MITooltip = ({ title, disabled = false, children, ...props }: Props) => {
   const triggerElement = cloneElement(targetElement, {
     onMouseEnter: callAll(handleMouseEnter, childProps.onMouseEnter),
     onMouseLeave: callAll(handleMouseLeave, childProps.onMouseLeave),
+    onFocus: callAll(handleMouseEnter, childProps.onFocus),
+    onBlur: callAll(handleMouseLeave, childProps.onBlur),
     onClick: callAll(handleClick, childProps.onClick),
+    'aria-label': describeValue ? title : undefined,
   });
 
   useEffect(() => {
@@ -100,6 +114,28 @@ const MITooltip = ({ title, disabled = false, children, ...props }: Props) => {
       enterTimer.current = setTimeout(() => setIsOpen(true), 200);
     }
   }, [disabled]);
+
+  // For accessibility the tooltip must close on Esc button
+  useEffect(() => {
+    if (!isOpen) {
+      return undefined;
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' || event.key === 'Esc') {
+        if (isOpen) {
+          setIsOpen(false);
+          clearTimers();
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen]);
 
   return (
     <ClickAwayListener
