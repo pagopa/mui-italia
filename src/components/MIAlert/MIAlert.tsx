@@ -1,11 +1,12 @@
 'use client';
 
-import { ButtonNaked } from '@components/ButtonNaked';
-import { AlertTitle as MUIAlertTitle, Stack, styled, useMediaQuery, useTheme } from '@mui/material';
-import MUIAlert, { AlertProps as MUIAlertProps } from '@mui/material/Alert';
-import type { Theme } from '@mui/material/styles';
+import { AlertTitle as MUIAlertTitle, Stack, useMediaQuery, useTheme } from '@mui/material';
+import { AlertProps as MUIAlertProps } from '@mui/material/Alert';
+import type { AllowedAlertSeverity } from './types';
 import { ElementType, HTMLAttributeAnchorTarget } from 'react';
 import { getColor, getIcon } from './utils';
+import { ButtonNaked } from '@components/ButtonNaked';
+import { StyledAlert } from './StyledAlert';
 
 type ButtonCTA = {
   label: string;
@@ -15,9 +16,8 @@ type LinkCTA = {
   label: string;
 } & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'children'>;
 
-type AlertCTA = ButtonCTA | LinkCTA;
-
-export type AllowedAlertSeverity = 'success' | 'info' | 'warning' | 'error';
+export type AlertCTA = ButtonCTA | LinkCTA;
+export type { AllowedAlertSeverity } from './types';
 
 interface MIAlertProps extends Pick<MUIAlertProps, 'severity'> {
   title?: string;
@@ -31,46 +31,6 @@ interface MIAlertCtaProps {
   severity?: AllowedAlertSeverity;
   isMobile: boolean;
 }
-
-const StyledAlert = styled(MUIAlert)(
-  ({ theme, severity = 'success' }: { theme: Theme; severity?: AllowedAlertSeverity }) => {
-    const severityPalette = theme.palette[severity];
-
-    return {
-      border: '1px solid',
-      borderRadius: 8,
-      padding: theme.spacing(2),
-      alignItems: 'flex-start',
-      borderColor: severityPalette.main,
-      backgroundColor: severityPalette[100],
-
-      [theme.breakpoints.down('sm')]: {
-        alignItems: 'flex-start',
-      },
-
-      '& .MuiAlert-icon': {
-        opacity: 1,
-        alignItems: 'center',
-        marginRight: theme.spacing(1),
-        color: severityPalette[850],
-      },
-
-      '& .MuiAlert-message': {
-        padding: 0,
-        overflow: 'inherit',
-        lineHeight: '22px',
-        fontWeight: theme.typography.fontWeightRegular,
-        flex: 1,
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        overflowWrap: 'anywhere',
-        wordBreak: 'break-word',
-        color: severityPalette[850],
-      },
-    };
-  }
-);
 
 export const MIAlert = ({
   severity = 'success',
