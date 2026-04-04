@@ -8,18 +8,9 @@ export default {
   component: IconButton,
   args: {
     size: 'medium',
-    color: 'default',
     disabled: false,
   },
   argTypes: {
-    color: {
-      options: ['primary', 'default'],
-      control: { type: 'radio' },
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: 'default' },
-      },
-    },
     size: {
       options: ['small', 'medium', 'large'],
       control: { type: 'radio' },

@@ -13,6 +13,7 @@ import {
   colorPrimaryContainedHover,
   colorTextPrimary,
   menuItemBackground,
+  blue,
 } from './colors';
 /* Basic Configuration */
 
@@ -439,30 +440,18 @@ export const theme: Theme = createTheme(foundation, {
       },
       styleOverrides: {
         root: {
-          color: foundation.palette.primary.main,
-          '&:hover': {
-            backgroundColor: alpha(foundation.palette.primary.main, 0.08),
-          },
-          '&:active': {
-            backgroundColor: alpha(foundation.palette.primary.main, 0.2),
+          color: blue[500],
+          '&:active, &:hover': {
+            backgroundColor: blue[50],
           },
           '&.Mui-focusVisible': {
-            backgroundColor: alpha(foundation.palette.primary.main, 0.2),
-            outline: `solid ${focusWidth} ${foundation.palette.primary.main}`,
+            outline: `solid ${focusWidth} ${blue[400]}`,
             outlineOffset: `${focusButtonOffset}`,
             boxShadow: 'none',
           },
+          minHeight: pxToRem(24),
+          minWidth: pxToRem(24),
         },
-        colorPrimary: {
-          color: foundation.palette.primary.contrastText,
-          backgroundColor: foundation.palette.primary.main,
-          '&:hover': {
-            backgroundColor: alpha(foundation.palette.primary.main, 0.08),
-            color: foundation.palette.primary.main,
-          },
-        },
-        minHeight: pxToRem(24),
-        minWidth: pxToRem(24),
       },
     },
     MuiTooltip: {
