@@ -64,8 +64,7 @@ import {
   IllusMIOpenFolder,
   IllusMIPersonalFile,
   IllusMISchool,
-  IllusMISmartphone,
-  IllusMISmartphoneCheck,
+  IllusMISmartphoneValidation,
   IllusMISms,
   IllusMIUpload,
   IllusMIBuilding,
@@ -172,8 +171,10 @@ export const Overview: StoryFn<typeof Box> = () => (
       <IllusBox name={'<IllusMIBug />'} illustration={<IllusMIBug />} />
       <IllusBox name={'<IllusMIEnterprise />'} illustration={<IllusMIEnterprise />} />
       <IllusBox name={'<IllusMIDownload />'} illustration={<IllusMIDownload />} />
-      <IllusBox name={'<IllusMISmartphoneCheck />'} illustration={<IllusMISmartphoneCheck />} />
-      <IllusBox name={'<IllusMISmartphone />'} illustration={<IllusMISmartphone />} />
+      <IllusBox
+        name={'<IllusMISmartphoneValidation />'}
+        illustration={<IllusMISmartphoneValidation />}
+      />
       <IllusBox name={'<IllusMICreditCard />'} illustration={<IllusMICreditCard />} />
       <IllusBox name={'<IllusMISms />'} illustration={<IllusMISms />} />
       <IllusBox name={'<IllusMIDesktop />'} illustration={<IllusMIDesktop />} />
