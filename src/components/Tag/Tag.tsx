@@ -181,6 +181,7 @@ export const Tag: React.FC<TagProps> = (props) => {
             ref={valueRef}
             onMouseEnter={checkOverflow}
             onTouchStart={checkOverflow}
+            tabIndex={isTruncated ? 0 : undefined}
           >
             {props.value}
           </Value>
