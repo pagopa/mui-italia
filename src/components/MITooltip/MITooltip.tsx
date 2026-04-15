@@ -13,11 +13,10 @@ import { theme } from '@theme';
 export interface Props
   extends Pick<
     TooltipProps,
-    'id' | 'title' | 'onOpen' | 'onClose' | 'placement' | 'describeChild'
+    'id' | 'title' | 'onOpen' | 'onClose' | 'placement' | 'describeChild' | 'children'
   > {
   disabled?: boolean;
   describeValue?: boolean;
-  children: ReactNode;
 }
 
 const callAll =
@@ -38,13 +37,7 @@ const getTargetElem = (children: ReactNode): ReactElement => {
   return <>{children}</>;
 };
 
-const MITooltip = ({
-  title,
-  disabled = false,
-  describeValue = false,
-  children,
-  ...props
-}: Props) => {
+const MITooltip = ({ title, disabled = false, describeValue = false, ...props }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const enterTimer = useRef<NodeJS.Timeout | null>(null);
@@ -88,7 +81,7 @@ const MITooltip = ({
     }
   };
 
-  const targetElement = getTargetElem(children);
+  const targetElement = getTargetElem(props.children);
   const childProps = targetElement.props as Record<string, any>;
   const triggerElement = cloneElement(targetElement, {
     onMouseEnter: callAll(handleOpen, childProps.onMouseEnter),
