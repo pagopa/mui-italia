@@ -1,3 +1,18 @@
+# [2.4.0-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.4.0-RC.0) (2026-04-15)
+
+
+### Features
+
+* **M20DS-15:** Add illustrations ([#679](https://github.com/pagopa/mui-italia/issues/679)) ([9473e7a](https://github.com/pagopa/mui-italia/commit/9473e7a022da24cdf4d7146740f88a29acc58120))
+
+
+### Bug Fixes
+
+* **M20DS-10:** export MITooltip component ([#683](https://github.com/pagopa/mui-italia/issues/683)) ([7368289](https://github.com/pagopa/mui-italia/commit/7368289c8a3ad82cd44f7da0ba0fe21b395646a7))
+* **M20DS-10:** slip or truncate text if it overcomes the width of the container ([#676](https://github.com/pagopa/mui-italia/issues/676)) ([6c51165](https://github.com/pagopa/mui-italia/commit/6c511656dd7e71d470fb3b87f6f3dfb8f6a2f37c))
+
+
+
 # [2.3.1](https://github.com/pagopa/mui-italia/releases/tag/v2.3.1) (2026-03-23)
 
 
