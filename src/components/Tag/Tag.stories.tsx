@@ -1,7 +1,8 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta, StoryObj } from '@storybook/react';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import AttachFileRoundedIcon from '@mui/icons-material/AttachFileRounded';
 
+import { Box, Typography } from '@mui/material';
 import { Tag } from './Tag';
 
 export default {
@@ -12,9 +13,9 @@ export default {
     variant: 'default',
     ariaLabel: 'Stato: test',
   },
-} as ComponentMeta<typeof Tag>;
+} as Meta<typeof Tag>;
 
-const Template: ComponentStory<typeof Tag> = (args) => <Tag {...args} />;
+const Template: StoryFn<typeof Tag> = (args) => <Tag {...args} />;
 
 export const DefaultTag = Template.bind({});
 DefaultTag.args = {
@@ -51,4 +52,34 @@ export const OnlyIconTag = Template.bind({});
 OnlyIconTag.args = {
   variant: 'only-icon',
   icon: AttachFileRoundedIcon,
+};
+
+export const TruncateValueTag: StoryObj<typeof Tag> = {
+  render: () => (
+    <Box width="30%" p="10px" sx={{ border: `1px solid blue`, borderRadius: '5px' }}>
+      <Typography variant="body1">Tag must be in this Box</Typography>
+      <hr />
+      <Tag
+        variant="default"
+        icon={AttachFileRoundedIcon}
+        value="It's avery long long long long long long long long long long long value"
+        mode="truncate"
+      />
+    </Box>
+  ),
+};
+
+export const WrapValueTag: StoryObj<typeof Tag> = {
+  render: () => (
+    <Box width="175px" p="10px" sx={{ border: `1px solid blue`, borderRadius: '5px' }}>
+      <Typography variant="body1">Tag must be in this Box</Typography>
+      <hr />
+      <Tag
+        variant="default"
+        icon={AttachFileRoundedIcon}
+        value="It'saverylonglonglonglonglonglonglonglonglonglonglongvalue"
+        mode="wrap"
+      />
+    </Box>
+  ),
 };
