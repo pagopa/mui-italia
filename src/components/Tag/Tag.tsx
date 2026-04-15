@@ -9,12 +9,15 @@ import { styled } from '@mui/system';
 
 import { pxToRem, theme } from '@theme';
 import { colors } from 'theme/foundations/colors';
-import React, { ComponentType } from 'react';
+import React, { ComponentType, useRef, useState } from 'react';
 import { SvgIconProps } from '@mui/material';
+import MITooltip from '../MITooltip/MITooltip';
 
 export type Variants = 'default' | 'info' | 'warning' | 'error' | 'success' | 'only-icon';
 
 type SpanHTMLAttributes = Pick<React.HTMLAttributes<HTMLSpanElement>, 'aria-label'>;
+
+type ValueMode = 'truncate' | 'wrap';
 
 interface OnlyIconTagProps extends SpanHTMLAttributes {
   variant: 'only-icon';
@@ -24,19 +27,24 @@ interface OnlyIconTagProps extends SpanHTMLAttributes {
 interface DefaultTagProps extends SpanHTMLAttributes {
   variant?: 'default';
   value: string;
+  mode?: ValueMode;
   icon?: ComponentType<SvgIconProps>;
 }
 
 interface OtherTagProps extends SpanHTMLAttributes {
   variant: Exclude<Variants, 'default' | 'only-icon'>;
   value: string;
+  mode?: ValueMode;
 }
 
 export type TagProps = OnlyIconTagProps | DefaultTagProps | OtherTagProps;
 
 /* Transform HTML component into MUI Styled Component
 in order to accept `sx` prop */
-const StyledTag = styled('span')({
+const Container = styled('div', {
+  shouldForwardProp: (prop) =>
+    prop !== 'value' && prop !== 'mode' && prop !== 'variant' && prop !== 'icon',
+})({
   fontSize: pxToRem(12),
   fontWeight: 600,
   userSelect: 'none',
@@ -51,6 +59,24 @@ const StyledTag = styled('span')({
   gap: theme.spacing(1),
   lineHeight: pxToRem(18),
   textTransform: 'uppercase',
+  maxWidth: '100%',
+  boxSizing: 'border-box',
+});
+
+const Value = styled('span', {
+  shouldForwardProp: (prop) => prop !== 'mode',
+})<{ mode?: ValueMode }>(({ mode }) => {
+  if (mode === 'truncate') {
+    return {
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      minWidth: 0,
+    };
+  } else if (mode === 'wrap') {
+    return { whiteSpace: 'normal', wordBreak: 'break-word' };
+  }
+  return {};
 });
 
 const fontSize = pxToRem(14);
@@ -124,17 +150,43 @@ const Icon = ({
 
 // here we cannot use destructured object because TagProps is a Discriminated Union of Interfaces
 export const Tag: React.FC<TagProps> = (props) => {
+  const valueRef = useRef<HTMLSpanElement>(null);
+  const [isTruncated, setIsTruncated] = useState(false);
+
   const { variant = 'default' } = props;
   const hasIcon = 'icon' in props && props.icon;
   const hasValue = 'value' in props && props.value;
+  const hasMode = 'mode' in props && props.mode;
+
+  const checkOverflow = () => {
+    const el = valueRef.current;
+    if (el) {
+      const hasOverflow = el.scrollWidth > el.clientWidth;
+      setIsTruncated(hasOverflow);
+      return;
+    }
+    setIsTruncated(false);
+  };
 
   if (variant === 'only-icon' && hasIcon) {
     return <Icon variant={variant} icon={props.icon} />;
   }
   return (
-    <StyledTag {...props}>
+    <Container {...props}>
       <Icon variant={variant} icon={hasIcon ? props.icon : undefined} />
-      {hasValue && props.value}
-    </StyledTag>
+      {hasValue && (
+        <MITooltip title={props.value} disabled={!isTruncated}>
+          <Value
+            mode={hasMode ? props.mode : undefined}
+            ref={valueRef}
+            onMouseEnter={checkOverflow}
+            onTouchStart={checkOverflow}
+            tabIndex={isTruncated ? 0 : undefined}
+          >
+            {props.value}
+          </Value>
+        </MITooltip>
+      )}
+    </Container>
   );
 };
