@@ -1,1 +1,1 @@
-export * from './MITooltip';
+export { default as MITooltip } from './MITooltip';
