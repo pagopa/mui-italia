@@ -3,6 +3,7 @@ import { StoryFn, Meta } from '@storybook/react-vite';
 // Components
 import { Tag } from '@components/Tag';
 import { TagGroup } from './TagGroup';
+import { Box, Typography } from '@mui/material';
 
 const groupLabels: Array<string> = [
   'Pagamenti',
@@ -29,4 +30,34 @@ export const Default: StoryFn<typeof TagGroup> = (args) => (
       <Tag key={`${i}-${item}`} value={item} />
     ))}
   </TagGroup>
+);
+
+export const TruncateValueTag: StoryFn<typeof TagGroup> = (args) => (
+  <Box width="400px" p="10px" sx={{ border: `1px solid blue`, borderRadius: '5px' }}>
+    <Typography variant="body1">Tags must be in this Box</Typography>
+    <hr />
+    <TagGroup {...args}>
+      <>
+        {groupLabels.map((item: string, i: number) => (
+          <Tag key={`${i}-${item}`} value={item} />
+        ))}
+        <Tag value="It'saverylonglonglonglonglonglonglonglonglonglonglongvalue" mode="truncate" />
+      </>
+    </TagGroup>
+  </Box>
+);
+
+export const WrapValueTag: StoryFn<typeof TagGroup> = (args) => (
+  <Box width="400px" p="10px" sx={{ border: `1px solid blue`, borderRadius: '5px' }}>
+    <Typography variant="body1">Tags must be in this Box</Typography>
+    <hr />
+    <TagGroup {...args}>
+      <>
+        {groupLabels.map((item: string, i: number) => (
+          <Tag key={`${i}-${item}`} value={item} />
+        ))}
+        <Tag value="It'saverylonglonglonglonglonglonglonglonglonglonglongvalue" mode="wrap" />
+      </>
+    </TagGroup>
+  </Box>
 );

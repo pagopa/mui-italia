@@ -9,7 +9,8 @@
       "@assets/*": ["assets/*"],
       "@icons/*": ["icons/*"],
       "@static/*": ["static/*"],
-      "@types": ["types"]
+      "@types": ["types"],
+      "@hooks/*": ["hooks/*"]
     },
     "rootDir": "src",
     "outDir": "dist",
