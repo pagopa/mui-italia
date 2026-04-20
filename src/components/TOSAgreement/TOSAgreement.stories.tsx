@@ -1,5 +1,4 @@
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react';
 
 import { breakpointsChromaticValues } from '@theme';
 
@@ -15,15 +14,32 @@ export default {
       viewports: breakpointsChromaticValues,
     },
   },
-} as ComponentMeta<typeof TOSAgreement>;
+  args: {
+    productName: 'MUI Italia',
+    description:
+      'Prima di entrare, leggi e accetta l’Informativa Privacy e i Termini e condizioni d’uso. Potrai consultarli di nuovo quando vuoi: li trovi sempre in fondo alla pagina.',
+    confirmBtnLabel: 'Accedi',
+    confirmBtnError: false,
+  },
+  argTypes: {
+    productName: { control: 'text' },
+    description: { control: 'text' },
+    sx: { table: { disable: true } },
+    confirmBtnDisabled: {
+      options: [true, false],
+      control: { type: 'boolean' },
+    },
+    confirmBtnLabel: {
+      control: 'text',
+    },
+    confirmBtnError: {
+      options: [true, false],
+      control: { type: 'boolean' },
+    },
+  },
+} as Meta<typeof TOSAgreement>;
 
-export const Default: ComponentStory<typeof TOSAgreement> = () => {
-  const [accepted, setAccepted] = React.useState<boolean>(false);
-
-  const handleChange = () => {
-    setAccepted((prev) => !prev);
-  };
-
+export const Default: StoryFn<typeof TOSAgreement> = (args) => {
   const SwitchLabel = (
     <Typography color="text.secondary">
       Dichiaro di aver letto e accettato l’
@@ -39,16 +55,9 @@ export const Default: ComponentStory<typeof TOSAgreement> = () => {
   );
 
   return (
-    <TOSAgreement
-      productName="MUI Italia"
-      description="Prima di entrare, leggi e accetta l’Informativa Privacy e i Termini e condizioni d’uso. Potrai consultarli di nuovo quando vuoi: li trovi sempre in fondo alla pagina."
-      onConfirm={() => console.log('Confermato')}
-      confirmBtnDisabled={!accepted}
-    >
+    <TOSAgreement {...args} onConfirm={() => console.log('Confermato')}>
       <FormControlLabel
-        control={
-          <Switch sx={{ margin: 2 }} checked={accepted} onChange={handleChange} name="accepted" />
-        }
+        control={<Switch sx={{ margin: 2 }} name="accepted" />}
         label={SwitchLabel}
       />
     </TOSAgreement>
