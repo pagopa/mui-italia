@@ -49,10 +49,10 @@ export function TOSAgreement({
             sx={
               confirmBtnError
                 ? {
-                    backgroundColor: 'error.main',
+                    bgcolor: 'error.main',
                     color: '#FFF',
-                    '&:hover': {
-                      backgroundColor: 'error.main',
+                    '&&:hover': {
+                      bgcolor: 'error.main',
                     },
                   }
                 : undefined
