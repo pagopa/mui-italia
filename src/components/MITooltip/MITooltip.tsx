@@ -137,6 +137,7 @@ const MITooltip = ({ title, disabled = false, describeValue = false, ...props }:
       touchEvent={!isMobile ? false : 'onTouchEnd'}
     >
       <Tooltip
+        {...props}
         title={title}
         open={isOpen}
         disableHoverListener
@@ -148,7 +149,6 @@ const MITooltip = ({ title, disabled = false, describeValue = false, ...props }:
             onMouseLeave: handleClose,
           },
         }}
-        {...props}
       >
         {triggerElement}
       </Tooltip>

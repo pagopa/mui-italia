@@ -10,6 +10,7 @@
       "@icons/*": [ "icons/*" ],
       "@static/*": [ "static/*" ],
       "@types": [ "types" ],
+      "@hooks/*": ["hooks/*"]
     },
     "outDir": "dist",
     "target": "es6",
