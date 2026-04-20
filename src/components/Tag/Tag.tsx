@@ -9,9 +9,10 @@ import { styled } from '@mui/system';
 
 import { pxToRem, theme } from '@theme';
 import { colors } from 'theme/foundations/colors';
-import React, { ComponentType, useRef, useState } from 'react';
+import React, { ComponentType, useRef } from 'react';
 import { SvgIconProps } from '@mui/material';
 import MITooltip from '../MITooltip/MITooltip';
+import { useIsTruncated } from '../../hooks/useIsTruncated';
 
 export type Variants = 'default' | 'info' | 'warning' | 'error' | 'success' | 'only-icon';
 
@@ -151,22 +152,16 @@ const Icon = ({
 // here we cannot use destructured object because TagProps is a Discriminated Union of Interfaces
 export const Tag: React.FC<TagProps> = (props) => {
   const valueRef = useRef<HTMLSpanElement>(null);
-  const [isTruncated, setIsTruncated] = useState(false);
 
   const { variant = 'default' } = props;
   const hasIcon = 'icon' in props && props.icon;
   const hasValue = 'value' in props && props.value;
   const hasMode = 'mode' in props && props.mode;
 
-  const checkOverflow = () => {
-    const el = valueRef.current;
-    if (el) {
-      const hasOverflow = el.scrollWidth > el.clientWidth;
-      setIsTruncated(hasOverflow);
-      return;
-    }
-    setIsTruncated(false);
-  };
+  const isTruncated = useIsTruncated<HTMLSpanElement>(
+    valueRef,
+    hasMode && props.mode === 'truncate'
+  );
 
   if (variant === 'only-icon' && hasIcon) {
     return <Icon variant={variant} icon={props.icon} />;
@@ -179,8 +174,6 @@ export const Tag: React.FC<TagProps> = (props) => {
           <Value
             mode={hasMode ? props.mode : undefined}
             ref={valueRef}
-            onMouseEnter={checkOverflow}
-            onTouchStart={checkOverflow}
             tabIndex={isTruncated ? 0 : undefined}
           >
             {props.value}
