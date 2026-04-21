@@ -11,10 +11,13 @@ export const MISnackbar = (props: MISnackbarProps) => {
   const { open, anchorOrigin, ...alertProps } = props;
 
   const alertRef = useRef<HTMLDivElement>(null);
-  //add a ref to store the previously focused element
+  /* add a ref to store the previously focused element before the snackbar opens, so we can restore focus when it closes
+   ** we need to force focus on the snackbar when it opens for accessibility reasons */
   const previousFocusRef = useRef<HTMLElement | null>(null);
 
-  const hideDuration = alertProps.severity === 'error' && alertProps.errorCode ? undefined : 5000;
+  const autoHideDurationValue = 5000; // default auto-hide duration for error warnings; value is provided by system design when no error code is present
+  const hideDuration =
+    alertProps.severity === 'error' && alertProps.errorCode ? undefined : autoHideDurationValue;
 
   useEffect(() => {
     if (open) {
@@ -41,7 +44,6 @@ export const MISnackbar = (props: MISnackbarProps) => {
       autoHideDuration={hideDuration}
       onClose={props.onClose}
       anchorOrigin={anchorOrigin}
-      role="alert"
     >
       <MISnackbarAlert {...alertProps} ref={alertRef} />
     </Snackbar>

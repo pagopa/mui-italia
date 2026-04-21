@@ -13,7 +13,7 @@ import { CopyToClipboardButton } from '@components/CopyToClipboardButton';
 import { forwardRef } from 'react';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { neutral } from 'theme/colors';
-import { colors } from './../../theme/foundations/colors';
+import { colors } from 'theme/foundations/colors';
 
 // props that apply to all severities
 type BaseAlertProps = {
@@ -96,7 +96,7 @@ export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
               value={errorCode}
               InputProps={{
                 readOnly: true,
-                endAdornment: <CopyToClipboardButton value={errorCode!} sx={{ p: 0.5, mr: 0 }} />,
+                endAdornment: <CopyToClipboardButton value={errorCode} sx={{ p: 0.5, mr: 0 }} />,
               }}
               sx={{
                 background: theme.palette.background.paper,
