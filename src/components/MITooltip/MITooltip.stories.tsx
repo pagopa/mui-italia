@@ -1,4 +1,4 @@
-import { Meta, StoryFn, StoryObj } from '@storybook/react-vite';
+import { Meta, StoryFn, StoryObj } from '@storybook/react';
 import MITooltip from './MITooltip';
 import { Box, Button } from '@mui/material';
 import { useState } from 'react';
@@ -35,7 +35,7 @@ export const DisableTooltp: StoryObj<typeof MITooltip> = {
     return (
       <Box p="8px" border="1px solid blue" borderRadius="4px" width="300px">
         <MITooltip {...args} disabled={disabled}>
-          Hover on this text to see the tooltip appears.
+          <Box>Hover on this text to see the tooltip appears.</Box>
         </MITooltip>
         <Button
           sx={{ mt: '10px' }}
