@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { breakpointsChromaticValues } from '@theme';
-import { MIAlert } from '@components/MIAlert';
+import { MIAlert, MIAlertProps } from '@components/MIAlert';
 import { Box } from '@mui/material';
+import { JSX } from 'react/jsx-runtime';
 
 const componentMaxWidth = 900;
 
@@ -94,6 +95,33 @@ export const NoTitleWithCTA: Story = {
   },
 };
 
+export const HeaderVariant: Story = {
+  args: {
+    variant: 'header',
+    severity: 'success',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit auctor dui, at convallis nisl.',
+  },
+  render: (args: JSX.IntrinsicAttributes & MIAlertProps) => (
+    <div
+      style={{
+        padding: 0,
+        backgroundColor: '#f5f5f5',
+        border: '2px dashed #ccc',
+        minHeight: '200px',
+      }}
+    >
+      <p style={{ marginTop: 0, fontFamily: 'sans-serif', color: '#666' }}>
+        Parent Container - simula un header di pagina con larghezza limitata e sfondo diverso.
+        L'Alert dovrebbe adattarsi a questo contesto, occupando tutta la larghezza disponibile senza
+        causare overflow o problemi di layout.
+      </p>
+
+      <MIAlert {...args} />
+    </div>
+  ),
+};
+
 /* ------------------------------ Stress-test stories ------------------------------ */
 
 export const StressUnbroken: Story = {
@@ -117,4 +145,29 @@ export const StressUnbrokenNoTitle: Story = {
       target: '_self',
     },
   },
+};
+
+export const StressUnbrokenHeaderVariant: Story = {
+  args: {
+    variant: 'header',
+    description: `${LONG_UNBROKEN}${LONG_UNBROKEN}${LONG_UNBROKEN}`,
+  },
+  render: (args: JSX.IntrinsicAttributes & MIAlertProps) => (
+    <div
+      style={{
+        padding: 0,
+        backgroundColor: '#f5f5f5',
+        border: '2px dashed #ccc',
+        minHeight: '200px',
+      }}
+    >
+      <p style={{ marginTop: 0, fontFamily: 'sans-serif', color: '#666' }}>
+        Parent Container - simula un header di pagina con larghezza limitata e sfondo diverso.
+        L'Alert dovrebbe adattarsi a questo contesto, occupando tutta la larghezza disponibile senza
+        causare overflow o problemi di layout.
+      </p>
+
+      <MIAlert {...args} />
+    </div>
+  ),
 };

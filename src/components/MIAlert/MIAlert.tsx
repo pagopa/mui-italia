@@ -3,7 +3,6 @@
 import { ButtonNaked } from '@components/ButtonNaked';
 import { AlertTitle as MUIAlertTitle, Stack, styled, useMediaQuery, useTheme } from '@mui/material';
 import MUIAlert, { AlertProps as MUIAlertProps } from '@mui/material/Alert';
-import type { Theme } from '@mui/material/styles';
 import { ElementType, HTMLAttributeAnchorTarget } from 'react';
 import { getColor, getIcon } from './utils';
 
@@ -18,13 +17,6 @@ type LinkCTA = {
 type AlertCTA = ButtonCTA | LinkCTA;
 
 export type AllowedAlertSeverity = 'success' | 'info' | 'warning' | 'error';
-
-interface MIAlertProps extends Pick<MUIAlertProps, 'severity'> {
-  title?: string;
-  description: string;
-  action?: AlertCTA;
-}
-
 interface MIAlertCtaProps {
   cta: AlertCTA;
   ariaLabelledBy?: string;
@@ -32,48 +24,89 @@ interface MIAlertCtaProps {
   isMobile: boolean;
 }
 
-const StyledAlert = styled(MUIAlert)(
-  ({ theme, severity = 'success' }: { theme: Theme; severity?: AllowedAlertSeverity }) => {
-    const severityPalette = theme.palette[severity];
+// Props shared by all variants
+interface BaseAlertProps extends Pick<MUIAlertProps, 'severity'> {
+  description: string;
+}
 
-    return {
+// Default MIAlert variant (allows title and action)
+interface DefaultAlertProps extends BaseAlertProps {
+  variant?: 'default';
+  title?: string;
+  action?: AlertCTA;
+}
+
+// Header MIAlert variant
+interface HeaderAlertProps extends BaseAlertProps {
+  variant: 'header';
+  title?: never;
+  action?: never;
+}
+
+export type MIAlertProps = DefaultAlertProps | HeaderAlertProps;
+
+interface StyledAlertProps extends MUIAlertProps {
+  layoutVariant?: 'default' | 'header';
+}
+
+const StyledAlert = styled(MUIAlert, {
+  // This prevents 'layoutVariant' from being written to the HTML DOM
+  shouldForwardProp: (prop) => prop !== 'layoutVariant',
+})<StyledAlertProps>(({ theme, severity = 'success', layoutVariant }) => {
+  const severityPalette = theme.palette[severity];
+
+  return {
+    backgroundColor: severityPalette[100],
+    justifyContent: layoutVariant === 'header' ? 'center' : 'flex-start',
+    alignItems: layoutVariant === 'header' ? 'center' : 'flex-start',
+
+    ...(layoutVariant === 'default' && {
       border: '1px solid',
       borderRadius: 8,
       padding: theme.spacing(2),
-      alignItems: 'flex-start',
       borderColor: severityPalette.main,
-      backgroundColor: severityPalette[100],
+    }),
 
-      [theme.breakpoints.down('sm')]: {
-        alignItems: 'flex-start',
-      },
+    // different styles for the 'header' variant
+    ...(layoutVariant === 'header' && {
+      border: 'none',
+      borderRadius: 0,
+      width: 'auto',
+      boxSizing: 'border-box',
+      paddingTop: '10px !important',
+      paddingBottom: '10px !important',
+    }),
 
-      '& .MuiAlert-icon': {
-        opacity: 1,
-        alignItems: 'center',
-        marginRight: theme.spacing(1),
-        color: severityPalette[850],
-      },
+    [theme.breakpoints.down('sm')]: {
+      alignItems: layoutVariant === 'header' ? 'center' : 'flex-start',
+    },
 
-      '& .MuiAlert-message': {
-        padding: 0,
-        overflow: 'inherit',
-        lineHeight: '22px',
-        fontWeight: theme.typography.fontWeightRegular,
-        flex: 1,
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        overflowWrap: 'anywhere',
-        wordBreak: 'break-word',
-        color: severityPalette[850],
-      },
-    };
-  }
-);
+    '& .MuiAlert-icon': {
+      opacity: 1,
+      alignItems: 'center',
+      marginRight: theme.spacing(1),
+      color: severityPalette[850],
+    },
+
+    '& .MuiAlert-message': {
+      padding: 0,
+      overflow: 'inherit',
+      lineHeight: '22px',
+      fontWeight: theme.typography.fontWeightRegular,
+      display: 'flex',
+      flexDirection: 'column',
+      overflowWrap: 'anywhere',
+      wordBreak: 'break-word',
+      color: severityPalette[850],
+      flex: layoutVariant === 'header' ? '0 1 auto' : 1,
+      width: layoutVariant === 'header' ? 'auto' : '100%',
+    },
+  };
+});
 
 export const MIAlert = ({
   severity = 'success',
+  variant = 'default',
   title,
   description,
   action,
@@ -83,7 +116,7 @@ export const MIAlert = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <StyledAlert severity={severity} icon={getIcon(severity)} {...rest}>
+    <StyledAlert severity={severity} icon={getIcon(severity)} layoutVariant={variant} {...rest}>
       <Stack direction={isMobile ? 'column' : 'row'} flex={1}>
         <Stack direction="column" flex={1} minWidth={0} gap={title ? '4px' : 0}>
           {title && <MUIAlertTitle color={getColor(theme, severity)}>{title}</MUIAlertTitle>}
