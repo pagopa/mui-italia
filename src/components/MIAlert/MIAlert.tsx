@@ -39,8 +39,6 @@ interface DefaultAlertProps extends BaseAlertProps {
 // Header MIAlert variant
 interface HeaderAlertProps extends BaseAlertProps {
   variant: 'header';
-  title?: never;
-  action?: never;
 }
 
 export type MIAlertProps = DefaultAlertProps | HeaderAlertProps;
@@ -73,8 +71,7 @@ const StyledAlert = styled(MUIAlert, {
       borderRadius: 0,
       width: 'auto',
       boxSizing: 'border-box',
-      paddingTop: '10px !important',
-      paddingBottom: '10px !important',
+      padding: '10px 16px !important', // Override MUI's default padding with !important
     }),
 
     [theme.breakpoints.down('sm')]: {
@@ -91,8 +88,9 @@ const StyledAlert = styled(MUIAlert, {
     '& .MuiAlert-message': {
       padding: 0,
       overflow: 'inherit',
-      lineHeight: '22px',
-      fontWeight: theme.typography.fontWeightRegular,
+      lineHeight: layoutVariant === 'header' ? '20px' : '22px',
+      fontWeight: layoutVariant === 'header' ? 500 : theme.typography.fontWeightRegular,
+      fontSize: layoutVariant === 'header' ? '14px' : '16px',
       display: 'flex',
       flexDirection: 'column',
       overflowWrap: 'anywhere',
@@ -104,19 +102,24 @@ const StyledAlert = styled(MUIAlert, {
   };
 });
 
-export const MIAlert = ({
-  severity = 'success',
-  variant = 'default',
-  title,
-  description,
-  action,
-  ...rest
-}: MIAlertProps) => {
+export const MIAlert: React.FC<MIAlertProps> = (props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
+  const { severity, description, variant = 'default' } = props;
+  const hasTitle = 'title' in props && !!props.title;
+  const hasAction = 'action' in props && !!props.action;
+
+  const title = hasTitle ? props.title : undefined;
+  const action = hasAction ? props.action : undefined;
+
   return (
-    <StyledAlert severity={severity} icon={getIcon(severity)} layoutVariant={variant} {...rest}>
+    <StyledAlert
+      severity={severity}
+      icon={getIcon(severity)}
+      layoutVariant={variant}
+      {...(variant === 'header' ? { description } : { description, title, action: undefined })}
+    >
       <Stack direction={isMobile ? 'column' : 'row'} flex={1}>
         <Stack direction="column" flex={1} minWidth={0} gap={title ? '4px' : 0}>
           {title && <MUIAlertTitle color={getColor(theme, severity)}>{title}</MUIAlertTitle>}
