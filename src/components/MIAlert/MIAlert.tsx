@@ -89,7 +89,10 @@ const StyledAlert = styled(MUIAlert, {
       padding: 0,
       overflow: 'inherit',
       lineHeight: layoutVariant === 'header' ? '20px' : '22px',
-      fontWeight: layoutVariant === 'header' ? 500 : theme.typography.fontWeightRegular,
+      fontWeight:
+        layoutVariant === 'header'
+          ? theme.typography.fontWeightMedium
+          : theme.typography.fontWeightRegular,
       fontSize: layoutVariant === 'header' ? '14px' : '16px',
       display: 'flex',
       flexDirection: 'column',
