@@ -117,12 +117,7 @@ export const MIAlert: React.FC<MIAlertProps> = (props) => {
   const action = hasAction ? props.action : undefined;
 
   return (
-    <StyledAlert
-      severity={severity}
-      icon={getIcon(severity)}
-      layoutVariant={variant}
-      {...(variant === 'header' ? { description } : { description, title, action: undefined })}
-    >
+    <StyledAlert severity={severity} icon={getIcon(severity)} layoutVariant={variant}>
       <Stack direction={isMobile ? 'column' : 'row'} flex={1}>
         <Stack direction="column" flex={1} minWidth={0} gap={title ? '4px' : 0}>
           {title && <MUIAlertTitle color={getColor(theme, severity)}>{title}</MUIAlertTitle>}
