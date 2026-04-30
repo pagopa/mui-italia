@@ -25,7 +25,7 @@ interface MIAlertCtaProps {
 }
 
 // Props shared by all variants
-interface BaseAlertProps extends Pick<MUIAlertProps, 'severity'> {
+interface BaseAlertProps extends Pick<MUIAlertProps, 'severity' | 'sx'> {
   description: string;
 }
 
@@ -109,7 +109,7 @@ export const MIAlert: React.FC<MIAlertProps> = (props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const { severity, description, variant = 'default' } = props;
+  const { severity, description, variant = 'default', sx } = props;
   const hasTitle = 'title' in props && !!props.title;
   const hasAction = 'action' in props && !!props.action;
 
@@ -117,7 +117,7 @@ export const MIAlert: React.FC<MIAlertProps> = (props) => {
   const action = hasAction ? props.action : undefined;
 
   return (
-    <StyledAlert severity={severity} icon={getIcon(severity)} layoutVariant={variant}>
+    <StyledAlert severity={severity} icon={getIcon(severity)} layoutVariant={variant} sx={sx}>
       <Stack direction={isMobile ? 'column' : 'row'} flex={1}>
         <Stack direction="column" flex={1} minWidth={0} gap={title ? '4px' : 0}>
           {title && <MUIAlertTitle color={getColor(theme, severity)}>{title}</MUIAlertTitle>}
