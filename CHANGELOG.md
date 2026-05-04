@@ -1,3 +1,9 @@
+# [2.4.0-RC.2](https://github.com/pagopa/mui-italia/releases/tag/v2.4.0-RC.2) (2026-05-04)
+
+
+### Features
+
+* **M20DS-87:** header alert ([#689](https://github.com/pagopa/mui-italia/issues/689)) ([35f7c14](https://github.com/pagopa/mui-italia/commit/35f7c142c0a57738a719452756bd9eecd35cf8b2))
 # [2.4.0-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v2.4.0-RC.1) (2026-04-20)
 
 
