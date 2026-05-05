@@ -1,3 +1,28 @@
+# [1.12.0-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v1.12.0-RC.0) (2026-05-05)
+
+
+### Features
+
+* **M20DS-87:** header alert ([#689](https://github.com/pagopa/mui-italia/issues/689)) ([f98a429](https://github.com/pagopa/mui-italia/commit/f98a429a05642eb65559cdf757e16633a5252d83))
+* **M20DS-15:** Add illustrations ([#679](https://github.com/pagopa/mui-italia/issues/679)) ([c0d1a4e](https://github.com/pagopa/mui-italia/commit/c0d1a4e991420dcfc3002cd1faea7a73f3e3e523))
+
+
+### Bug Fixes
+
+* **M20DS-10:** fixed problems with build ([9958927](https://github.com/pagopa/mui-italia/commit/9958927989f5f9462083d7f0b5504db0ef3af40a))
+* **PN-19097:** set hover color when confirmation button has error state ([#688](https://github.com/pagopa/mui-italia/issues/688)) ([3566cc0](https://github.com/pagopa/mui-italia/commit/3566cc0728cfc6d4457eb8c2a3877f916e175f51))
+* **PN-19097:** added error layout to confirm button ([#682](https://github.com/pagopa/mui-italia/issues/682)) ([40e4673](https://github.com/pagopa/mui-italia/commit/40e4673fba5142eb811f8e5718c03d451c6aa2f1))
+* **M20DS-10:** enhanced tag accessibility for people with motor disabilities ([#687](https://github.com/pagopa/mui-italia/issues/687)) ([e1c81e0](https://github.com/pagopa/mui-italia/commit/e1c81e06322f285061335b66f9c37113fc54d9c6))
+* **M20DS-10:** export MITooltip component ([#683](https://github.com/pagopa/mui-italia/issues/683)) ([8aba975](https://github.com/pagopa/mui-italia/commit/8aba975d3b96aba2607ace15204dfdc48e0d69da))
+* **M20DS-10:** slip or truncate text if it overcomes the width of the container ([#676](https://github.com/pagopa/mui-italia/issues/676)) ([618d79e](https://github.com/pagopa/mui-italia/commit/618d79ed6d873efda7f10bad2cf6d08c24ff3980))
+
+
+### Continuous Integration
+
+* **MUI-234:** relaxed pr-title check on branches that start with renovate ([#685](https://github.com/pagopa/mui-italia/issues/685)) ([6876aa6](https://github.com/pagopa/mui-italia/commit/6876aa6293b832fc083092b3d62f82a1dc2a6f1b))
+
+
+
 # [1.11.1](https://github.com/pagopa/mui-italia/releases/tag/v1.11.1) (2026-03-23)
 
 
