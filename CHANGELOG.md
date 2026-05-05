@@ -1,3 +1,49 @@
+# [2.4.0](https://github.com/pagopa/mui-italia/releases/tag/v2.4.0) (2026-05-05)
+
+
+### Chore
+
+* Bump version to v2.4.0
+# [2.4.0-RC.2](https://github.com/pagopa/mui-italia/releases/tag/v2.4.0-RC.2) (2026-05-04)
+
+
+### Features
+
+* **M20DS-87:** header alert ([#689](https://github.com/pagopa/mui-italia/issues/689)) ([35f7c14](https://github.com/pagopa/mui-italia/commit/35f7c142c0a57738a719452756bd9eecd35cf8b2))
+# [2.4.0-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v2.4.0-RC.1) (2026-04-20)
+
+
+### Bug Fixes
+
+* **PN-19097:** set hover color when confirmation button has error state ([#688](https://github.com/pagopa/mui-italia/issues/688)) ([7470484](https://github.com/pagopa/mui-italia/commit/74704840fd7aaf8332ed01f24d714c9baaa86100))
+* **PN-19097:** added error layout to confirm button ([#682](https://github.com/pagopa/mui-italia/issues/682)) ([54bf0e2](https://github.com/pagopa/mui-italia/commit/54bf0e2767ebaf2c848ae20d0708db8632ab9478))
+* **M20DS-10:** enhanced tag accessibility for people with motor disabilities ([#687](https://github.com/pagopa/mui-italia/issues/687)) ([90ac3ef](https://github.com/pagopa/mui-italia/commit/90ac3ef07ea0c4aa327ce446926935948f39b49f))
+
+
+### Chores
+
+* **PN-18819:** fixed security issues (step 2) ([#686](https://github.com/pagopa/mui-italia/issues/686)) ([97b1df1](https://github.com/pagopa/mui-italia/commit/97b1df1c868681d81c3cf9f8f3a502e8ffc3a827))
+* **PN-18819:** fixed security issues ([#684](https://github.com/pagopa/mui-italia/issues/684)) ([8078a88](https://github.com/pagopa/mui-italia/commit/8078a888e29754b37a50f53e1383cb3fd4b74de5))
+
+
+### Continuous Integration
+
+* **MUI-234:** relaxed pr-title check on branches that start with renovate ([#685](https://github.com/pagopa/mui-italia/issues/685)) ([60e659b](https://github.com/pagopa/mui-italia/commit/60e659bd060875cfd82983627bc552fd1d6abfce))
+# [2.4.0-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.4.0-RC.0) (2026-04-15)
+
+
+### Features
+
+* **M20DS-15:** Add illustrations ([#679](https://github.com/pagopa/mui-italia/issues/679)) ([9473e7a](https://github.com/pagopa/mui-italia/commit/9473e7a022da24cdf4d7146740f88a29acc58120))
+
+
+### Bug Fixes
+
+* **M20DS-10:** export MITooltip component ([#683](https://github.com/pagopa/mui-italia/issues/683)) ([7368289](https://github.com/pagopa/mui-italia/commit/7368289c8a3ad82cd44f7da0ba0fe21b395646a7))
+* **M20DS-10:** slip or truncate text if it overcomes the width of the container ([#676](https://github.com/pagopa/mui-italia/issues/676)) ([6c51165](https://github.com/pagopa/mui-italia/commit/6c511656dd7e71d470fb3b87f6f3dfb8f6a2f37c))
+
+
+
 # [2.3.1](https://github.com/pagopa/mui-italia/releases/tag/v2.3.1) (2026-03-23)
 
 
