@@ -1,7 +1,8 @@
 import { Meta, StoryFn, StoryObj } from '@storybook/react-vite';
-import MITooltip from './MITooltip';
-import { Box, Button } from '@mui/material';
 import { useState } from 'react';
+import { Box, Button } from '@mui/material';
+
+import MITooltip from './MITooltip';
 
 export default {
   title: 'Components/MITooltip',
@@ -29,7 +30,7 @@ const Template: StoryFn<typeof MITooltip> = (args) => <MITooltip {...args} />;
 export const DefaultTooltip = Template.bind({});
 
 export const DisableTooltp: StoryObj<typeof MITooltip> = {
-  render: (args) => {
+  render: function RenderWithState(args) {
     const [disabled, setDisable] = useState(false);
 
     return (

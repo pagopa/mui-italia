@@ -9,8 +9,9 @@ import { useState, useRef, useEffect, RefObject } from 'react';
  */
 export function useIsTruncated<T extends HTMLElement>(
   ref: RefObject<T | null>,
-  enabled: boolean = true,
-  dependencies: any[] = []
+  enabled = true,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  dependencies: Array<any> = []
 ): boolean {
   const [isTruncated, setIsTruncated] = useState(false);
   const lastWidth = useRef<number | null>(null);
@@ -33,6 +34,7 @@ export function useIsTruncated<T extends HTMLElement>(
     // Create the observer to react to container resize events
     const observer = new ResizeObserver((entries) => {
       const entry = entries[0];
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (!entry) {
         return;
       }

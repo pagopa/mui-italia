@@ -10,19 +10,19 @@ import {
 import { Tooltip, TooltipProps, ClickAwayListener, useMediaQuery } from '@mui/material';
 import { theme } from '@theme';
 
-export interface Props
-  extends Pick<
-    TooltipProps,
-    'id' | 'title' | 'onOpen' | 'onClose' | 'placement' | 'describeChild' | 'children'
-  > {
+export interface Props extends Pick<
+  TooltipProps,
+  'id' | 'title' | 'onOpen' | 'onClose' | 'placement' | 'describeChild' | 'children'
+> {
   disabled?: boolean;
   describeValue?: boolean;
 }
 
 const callAll =
-  (...fns: (Function | undefined)[]) =>
-  (...args: any[]) =>
-    fns.forEach((fn) => fn && fn(...args));
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  <T extends (...args: Array<any>) => any>(...fns: Array<T | undefined>) =>
+    (...args: Parameters<T>) =>
+      fns.forEach((fn) => fn && fn(...args));
 
 const getTargetElem = (children: ReactNode): ReactElement => {
   if (typeof children === 'string' || typeof children === 'number') {
@@ -45,13 +45,19 @@ const MITooltip = ({ title, disabled = false, describeValue = false, ...props }:
   const isOpening = useRef(false);
 
   const clearTimers = () => {
-    if (enterTimer.current) clearTimeout(enterTimer.current);
-    if (leaveTimer.current) clearTimeout(leaveTimer.current);
+    if (enterTimer.current) {
+      clearTimeout(enterTimer.current);
+    }
+    if (leaveTimer.current) {
+      clearTimeout(leaveTimer.current);
+    }
   };
 
   const handleOpen = () => {
     isOpening.current = true;
-    if (isMobile || disabled) return;
+    if (isMobile || disabled) {
+      return;
+    }
 
     clearTimers();
     enterTimer.current = setTimeout(() => {
@@ -61,7 +67,9 @@ const MITooltip = ({ title, disabled = false, describeValue = false, ...props }:
 
   const handleClose = () => {
     isOpening.current = false;
-    if (isMobile || disabled) return;
+    if (isMobile || disabled) {
+      return;
+    }
 
     clearTimers();
     leaveTimer.current = setTimeout(() => {
@@ -82,6 +90,7 @@ const MITooltip = ({ title, disabled = false, describeValue = false, ...props }:
   };
 
   const targetElement = getTargetElem(props.children);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const childProps = targetElement.props as Record<string, any>;
   const triggerElement = cloneElement(targetElement, {
     onMouseEnter: callAll(handleOpen, childProps.onMouseEnter),
@@ -92,9 +101,7 @@ const MITooltip = ({ title, disabled = false, describeValue = false, ...props }:
     'aria-label': describeValue ? title : undefined,
   });
 
-  useEffect(() => {
-    return () => clearTimers();
-  }, []);
+  useEffect(() => () => clearTimers(), []);
 
   useEffect(() => {
     if (disabled) {
@@ -116,10 +123,8 @@ const MITooltip = ({ title, disabled = false, describeValue = false, ...props }:
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape' || event.key === 'Esc') {
-        if (isOpen) {
-          setIsOpen(false);
-          clearTimers();
-        }
+        setIsOpen(false);
+        clearTimers();
       }
     };
 
