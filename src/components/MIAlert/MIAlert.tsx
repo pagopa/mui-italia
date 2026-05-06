@@ -2,6 +2,7 @@
 
 import { ButtonNaked } from '@components/ButtonNaked';
 import { AlertTitle as MUIAlertTitle, Stack, styled, useMediaQuery, useTheme } from '@mui/material';
+import { ResponsiveStyleValue } from '@mui/system';
 import MUIAlert, { AlertProps as MUIAlertProps } from '@mui/material/Alert';
 import { ElementType, HTMLAttributeAnchorTarget } from 'react';
 import { getColor, getIcon } from './utils';
@@ -24,9 +25,21 @@ interface MIAlertCtaProps {
   isMobile: boolean;
 }
 
+type MarginValue = ResponsiveStyleValue<number | string>;
+
+type AlertMargin = {
+  mt?: MarginValue;
+  mb?: MarginValue;
+  ml?: MarginValue;
+  mr?: MarginValue;
+  mx?: MarginValue;
+  my?: MarginValue;
+};
+
 // Props shared by all variants
-interface BaseAlertProps extends Pick<MUIAlertProps, 'severity' | 'sx'> {
+interface BaseAlertProps extends Pick<MUIAlertProps, 'severity'> {
   description: string;
+  margin?: AlertMargin;
 }
 
 // Default MIAlert variant (allows title and action)
@@ -109,7 +122,7 @@ export const MIAlert: React.FC<MIAlertProps> = (props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const { severity, description, variant = 'default', sx } = props;
+  const { severity, description, variant = 'default', margin } = props;
   const hasTitle = 'title' in props && !!props.title;
   const hasAction = 'action' in props && !!props.action;
 
@@ -117,7 +130,7 @@ export const MIAlert: React.FC<MIAlertProps> = (props) => {
   const action = hasAction ? props.action : undefined;
 
   return (
-    <StyledAlert severity={severity} icon={getIcon(severity)} layoutVariant={variant} sx={sx}>
+    <StyledAlert severity={severity} icon={getIcon(severity)} layoutVariant={variant} sx={margin}>
       <Stack direction={isMobile ? 'column' : 'row'} flex={1}>
         <Stack direction="column" flex={1} minWidth={0} gap={title ? '4px' : 0}>
           {title && <MUIAlertTitle color={getColor(theme, severity)}>{title}</MUIAlertTitle>}
