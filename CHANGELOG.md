@@ -1,3 +1,9 @@
+# [2.4.1-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.4.1-RC.0) (2026-05-06)
+
+
+### Bug Fixes
+
+* **M20DS-87:** restore data-testid and native HTML props forwarding ([c9264e0](https://github.com/pagopa/mui-italia/commit/c9264e0a4ce7e81daf9349329605024644718e56))
 # [2.4.0](https://github.com/pagopa/mui-italia/releases/tag/v2.4.0) (2026-05-05)
 
 
