@@ -103,7 +103,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
         with:
-          node-version: '24'
+          node-version-file: '.node-version'
           cache: ${{ !github.event.act && 'yarn' || '' }}
           cache-dependency-path: ${{ !github.event.act && 'yarn.lock' || '' }}
 
@@ -133,7 +133,7 @@ jobs:
   deploy:
     if: ${{ !github.event.act }}
     needs: [release, build]
-    runs-on: 'ubuntu-22.04'
+    runs-on: ubuntu-22.04
     environment: prod-cd
     env:
       NPM_REGISTRY: 'registry.npmjs.org'
@@ -145,7 +145,7 @@ jobs:
           path: 'bundle'
       - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
         with:
-          node-version: '24'
+          node-version-file: '.node-version'
           registry-url: 'https://registry.npmjs.org'
 
       - name: Publish
