@@ -147,6 +147,7 @@ export const MIAlert: React.FC<MIAlertProps> = ({
           {title && <MUIAlertTitle color={getColor(theme, severity)}>{title}</MUIAlertTitle>}
           {description}
         </Stack>
+        Testo di prova
         {action && <MIAlertCta cta={action} severity={severity} isMobile={isMobile} />}
       </Stack>
     </StyledAlert>
@@ -161,7 +162,7 @@ const MIAlertCta = ({ cta, severity = 'success', isMobile }: Readonly<MIAlertCta
 
   if (isLink) {
     target = cta.target ?? '_self';
-    rel = target === '_blank' ? cta.rel ?? 'noopener noreferrer' : cta.rel;
+    rel = target === '_blank' ? (cta.rel ?? 'noopener noreferrer') : cta.rel;
   }
 
   const commonProps = {
