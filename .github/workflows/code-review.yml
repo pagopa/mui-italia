@@ -8,7 +8,7 @@ permissions:
   contents: read
 
 jobs:
-  js_code_review:
+  code-review:
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-22.04
 
