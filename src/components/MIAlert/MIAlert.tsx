@@ -147,7 +147,6 @@ export const MIAlert: React.FC<MIAlertProps> = ({
           {title && <MUIAlertTitle color={getColor(theme, severity)}>{title}</MUIAlertTitle>}
           {description}
         </Stack>
-        Testo di prova
         {action && <MIAlertCta cta={action} severity={severity} isMobile={isMobile} />}
       </Stack>
     </StyledAlert>
