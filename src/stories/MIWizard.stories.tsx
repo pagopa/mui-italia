@@ -6,7 +6,6 @@ import { breakpointsChromaticValues } from '@theme';
 
 import MIWizard from '../components/MIWizard/MIWizard';
 import MIWizardStep from '../components/MIWizard/MIWizardStep';
-import { set } from 'date-fns';
 
 const componentMaxWidth = 900;
 
