@@ -1,5 +1,3 @@
-'use client';
-
 import React, { ReactNode } from 'react';
 
 import { Box, CircularProgress, Stack, Step, StepLabel, Stepper, Typography } from '@mui/material';
