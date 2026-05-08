@@ -1,0 +1,18 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["../src/components/*"],
+      "@tokens": ["../src/tokens/index"],
+      "@theme": ["../src/theme/index"],
+      "@illustrations/*": ["../src/illustrations/*"],
+      "@assets/*": ["../src/assets/*"],
+      "@icons/*": ["../src/icons/*"],
+      "@static/*": ["../src/static/*"],
+      "@types": ["../src/types"],
+      "@hooks/*": ["../src/hooks/*"]
+    }
+  },
+  "include": ["*.tsx", "*.ts", "../src/**/*"]
+}
