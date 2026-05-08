@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+/*import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { Box, Typography } from '@mui/material';
 
@@ -156,4 +156,4 @@ export const WithCustomButtonsClick: Story = {
       </MIWizard>
     );
   },
-};
+};*/

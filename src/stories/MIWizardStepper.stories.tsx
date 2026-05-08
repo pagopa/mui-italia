@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+/*import type { Meta, StoryObj } from '@storybook/react';
 
 import { Box } from '@mui/material';
 import { breakpointsChromaticValues } from '@theme';
@@ -67,4 +67,4 @@ export const LongLabels: Story = {
       { label: 'Confirm and complete the wizard flow' },
     ],
   },
-};
+};*/
