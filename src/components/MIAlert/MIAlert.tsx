@@ -161,7 +161,7 @@ const MIAlertCta = ({ cta, severity = 'success', isMobile }: Readonly<MIAlertCta
 
   if (isLink) {
     target = cta.target ?? '_self';
-    rel = target === '_blank' ? cta.rel ?? 'noopener noreferrer' : cta.rel;
+    rel = target === '_blank' ? (cta.rel ?? 'noopener noreferrer') : cta.rel;
   }
 
   const commonProps = {
