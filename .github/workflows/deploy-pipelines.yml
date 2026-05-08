@@ -60,7 +60,7 @@ jobs:
       release_id: ${{ steps.release.outputs.release_id }}
     steps:
       - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
           ref: ${{inputs.ref}}
           fetch-depth: 0
@@ -93,7 +93,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Check-out code
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
           fetch-depth: 0
           ref: ${{ needs.release.outputs.release_branch }}
@@ -101,7 +101,7 @@ jobs:
       # the action setup-node fails if it tries to install yarn while running locally with nekos/act
       # so we need to skip the yarn installation and do it manually in the next step
       - name: Setup Node.js
-        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
         with:
           node-version: '24'
           cache: ${{ !github.event.act && 'yarn' || '' }}
@@ -123,7 +123,7 @@ jobs:
       # the upload of the artifcat cannot be done locally with nekos/act
       - name: Upload Artifact
         if: ${{ !github.event.act }}
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: 'bundle'
           path: 'dist'
@@ -139,11 +139,11 @@ jobs:
       NPM_REGISTRY: 'registry.npmjs.org'
     steps:
       - name: Download Artifact
-        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
         with:
           name: 'bundle'
           path: 'bundle'
-      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
         with:
           node-version: '24'
           registry-url: 'https://registry.npmjs.org'
