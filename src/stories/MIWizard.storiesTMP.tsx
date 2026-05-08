@@ -29,7 +29,7 @@ const meta: Meta<React.ComponentProps<typeof MIWizard>> = {
 
 export default meta;
 
-type Story = StoryObj<typeof MIWizard>;
+type Story = StoryObj<React.ComponentProps<typeof MIWizard>>;
 
 const WizardDemo = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -90,70 +90,4 @@ const WizardDemo = () => {
       </MIWizardStep>
     </MIWizard>
   );
-};
-
-export const DefaultStepper: Story = {
-  render: () => <WizardDemo />,
-};
-
-export const WithCustomFeedback: Story = {
-  render: () => {
-    const [activeStep, setActiveStep] = useState(2);
-
-    return (
-      <MIWizard
-        activeStep={activeStep}
-        setActiveStep={setActiveStep}
-        title="Wizard Title"
-        slotsProps={{
-          feedback: {
-            title: 'Custom title',
-            content: 'Custom content',
-            buttonText: 'Custom button text',
-            onClick: () => setActiveStep(0),
-          },
-        }}
-      >
-        <MIWizardStep label="Label Step 1">Step 1</MIWizardStep>
-
-        <MIWizardStep label="Label Step 2">Step 2</MIWizardStep>
-      </MIWizard>
-    );
-  },
-};
-
-export const WithCustomButtonsClick: Story = {
-  render: () => {
-    const [activeStep, setActiveStep] = useState(1);
-
-    const customNextClick = (next: () => void) => {
-      console.log('custom next click');
-      next();
-    };
-
-    const customPrevClick = (prev: () => void) => {
-      console.log('custom prev click');
-      prev();
-    };
-
-    const onExitMock = () => {
-      console.log('exit click');
-    };
-
-    return (
-      <MIWizard
-        activeStep={activeStep}
-        setActiveStep={setActiveStep}
-        title="Wizard Title"
-        slotsProps={{
-          nextButton: { onClick: customNextClick },
-          prevButton: { onClick: customPrevClick },
-          exitButton: { onClick: onExitMock },
-        }}
-      >
-        <MIWizardStep label="Label Step 1">Step 1</MIWizardStep>
-        <MIWizardStep label="Label Step 2">Step 2</MIWizardStep>
-      </MIWizard>
-    );
-  },
 };
