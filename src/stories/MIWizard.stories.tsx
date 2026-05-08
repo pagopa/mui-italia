@@ -8,7 +8,7 @@ import { MIWizard, MIWizardStep } from '@components/MIWizard';
 
 const componentMaxWidth = 900;
 
-const meta: Meta<typeof MIWizard> = {
+const meta: Meta<React.ComponentProps<typeof MIWizard>> = {
   title: 'MUI Components/Navigation/MIWizard',
   component: MIWizard,
   parameters: {
