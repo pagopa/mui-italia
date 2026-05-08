@@ -2,6 +2,7 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
+    "sourceMap": true,
     "paths": {
       "@components/*": ["../src/components/*"],
       "@tokens": ["../src/tokens/index"],
