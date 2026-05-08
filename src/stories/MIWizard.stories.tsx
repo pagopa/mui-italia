@@ -4,8 +4,7 @@ import { Box, Typography } from '@mui/material';
 
 import { breakpointsChromaticValues } from '@theme';
 
-import MIWizard from '../components/MIWizard/MIWizard';
-import MIWizardStep from '../components/MIWizard/MIWizardStep';
+import { MIWizard, MIWizardStep } from '@components/MIWizard';
 
 const componentMaxWidth = 900;
 
