@@ -1,3 +1,5 @@
+'use client';
+
 import React, { JSXElementConstructor, ReactElement, ReactNode } from 'react';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
