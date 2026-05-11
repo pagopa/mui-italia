@@ -1,6 +1,6 @@
 import { StoryObj, Meta } from '@storybook/react-vite';
 
-import { MIWizardStepper } from '../components/MIWizard';
+import { MIWizardStepper } from '@components/MIWizard';
 
 const meta = {
   title: 'Debug/MIWizardStepperDebug',
