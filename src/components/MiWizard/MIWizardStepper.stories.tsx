@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import MIWizardStepper from './MIWizardStepper';
 
 const meta = {
   title: 'Debug/MIWizardStepperDebug',
