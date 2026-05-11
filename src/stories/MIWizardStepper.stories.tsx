@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Box } from '@mui/material';
 import { breakpointsChromaticValues } from '@theme';
 
-import { MIWizardStepper } from '@components/MIWizard';
+import MIWizardStepper from '@components/MIWizard/MIWizardStepper';
 
 const componentMaxWidth = 900;
 
