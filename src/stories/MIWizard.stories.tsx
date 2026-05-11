@@ -1,5 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
+
 import { Box, Typography } from '@mui/material';
 
 import { breakpointsChromaticValues } from '@theme';
@@ -8,16 +9,15 @@ import { MIWizard, MIWizardStep } from '@components/MIWizard';
 
 const componentMaxWidth = 900;
 
-const meta: Meta<React.ComponentProps<typeof MIWizard>> = {
+const meta = {
   title: 'MUI Components/Navigation/MIWizard',
-  component: MIWizard,
   parameters: {
     chromatic: {
       viewports: breakpointsChromaticValues.filter((resolution) => resolution <= componentMaxWidth),
     },
   },
   decorators: [
-    (Story) => (
+    (Story: React.ElementType) => (
       <Box sx={{ p: 2, pb: 4, boxSizing: 'border-box', width: '100%' }}>
         <Box sx={{ maxWidth: componentMaxWidth, mx: 'auto' }}>
           <Story />
@@ -25,14 +25,18 @@ const meta: Meta<React.ComponentProps<typeof MIWizard>> = {
       </Box>
     ),
   ],
-};
+} satisfies Meta;
 
 export default meta;
 
-type Story = StoryObj<React.ComponentProps<typeof MIWizard>>;
+type Story = StoryObj<typeof meta>;
 
-const WizardDemo = () => {
-  const [activeStep, setActiveStep] = useState(0);
+type WizardDemoProps = {
+  initialStep?: number;
+};
+
+const WizardDemo = ({ initialStep = 0 }: WizardDemoProps) => {
+  const [activeStep, setActiveStep] = useState(initialStep);
 
   return (
     <MIWizard
@@ -90,4 +94,16 @@ const WizardDemo = () => {
       </MIWizardStep>
     </MIWizard>
   );
+};
+
+export const FirstStep: Story = {
+  render: () => <WizardDemo initialStep={0} />,
+};
+
+export const ReviewStep: Story = {
+  render: () => <WizardDemo initialStep={1} />,
+};
+
+export const ConfirmationStep: Story = {
+  render: () => <WizardDemo initialStep={2} />,
 };
