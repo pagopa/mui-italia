@@ -10,5 +10,10 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
-  render: () => <div>debug</div>,
+  render: () => (
+    <MIWizardStepper
+      steps={[{ label: 'Personal data' }, { label: 'Review' }, { label: 'Confirmation' }]}
+      activeStep={0}
+    />
+  ),
 };
