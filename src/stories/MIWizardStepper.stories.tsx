@@ -4,16 +4,23 @@ import MIWizardStepper from '@components/MIWizard/MIWizardStepper';
 
 const meta = {
   title: 'MUI Components/Navigation/MIWizardStepper',
-  component: MIWizardStepper,
-} satisfies Meta<typeof MIWizardStepper>;
+  tags: ['!autodocs'],
+  parameters: {
+    docs: {
+      disable: true,
+    },
+  },
+} satisfies Meta;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
 export const FirstStep: Story = {
-  args: {
-    steps: [{ label: 'Personal data' }, { label: 'Review' }, { label: 'Confirmation' }],
-    activeStep: 0,
-  },
+  render: () => (
+    <MIWizardStepper
+      steps={[{ label: 'Personal data' }, { label: 'Review' }, { label: 'Confirmation' }]}
+      activeStep={0}
+    />
+  ),
 };
