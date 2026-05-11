@@ -9,7 +9,7 @@ const componentMaxWidth = 900;
 
 const steps = [{ label: 'Personal data' }, { label: 'Review' }, { label: 'Confirmation' }];
 
-const meta: Meta<typeof MIWizardStepper> = {
+const meta = {
   title: 'MUI Components/Navigation/MIWizardStepper',
   component: MIWizardStepper,
   parameters: {
@@ -20,7 +20,7 @@ const meta: Meta<typeof MIWizardStepper> = {
   decorators: [
     (Story) => (
       <Box sx={{ p: 2, pb: 4, boxSizing: 'border-box', width: '100%' }}>
-        <Box sx={{ maxWidth: componentMaxWidth, mx: 'auto' }}>
+        <Box sx={{ maxWidth: '100%', mx: 'auto' }}>
           <Story />
         </Box>
       </Box>
@@ -31,11 +31,11 @@ const meta: Meta<typeof MIWizardStepper> = {
       control: { type: 'number', min: 0, max: steps.length - 1 },
     },
   },
-};
+} satisfies Meta<React.ComponentProps<typeof MIWizardStepper>>;
 
 export default meta;
 
-type Story = StoryObj<typeof MIWizardStepper>;
+type Story = StoryObj<typeof meta>;
 
 export const FirstStep: Story = {
   args: {
