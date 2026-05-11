@@ -19,8 +19,8 @@ type Story = StoryObj<typeof meta>;
 export const FirstStep: Story = {
   render: () => (
     <MIWizardStepper
-      steps={[{ label: 'Personal data' }, { label: 'Review' }, { label: 'Confirmation' }]}
-      activeStep={0}
+    //steps={[{ label: 'Personal data' }, { label: 'Review' }, { label: 'Confirmation' }]}
+    //activeStep={0}
     />
   ),
 };
