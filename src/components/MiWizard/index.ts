@@ -1,3 +1,3 @@
 export * from './MIWizard';
 export * from './MIWizardStep';
-export * from './MIWizardStepper';
+export { default as MIWizardStepper } from './MIWizardStepper';
