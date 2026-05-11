@@ -1,12 +1,6 @@
 'use client';
 
-const MIWizardStepper = () => {
-  return <div>MIWizardStepper debug</div>;
-};
-
-export default MIWizardStepper;
-
-/*import React, { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 
 import { Box, CircularProgress, Stack, Step, StepLabel, Stepper, Typography } from '@mui/material';
 
@@ -93,4 +87,4 @@ const MIWizardStepper: React.FC<Props> = ({ steps, activeStep }) => {
   );
 };
 
-export default MIWizardStepper;*/
+export default MIWizardStepper;
