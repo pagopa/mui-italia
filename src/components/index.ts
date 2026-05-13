@@ -33,3 +33,4 @@ export * from './Chip';
 export * from './Autocomplete';
 export * from './MIAlert';
 export * from './MITooltip';
+export * from './MISnackbar';
