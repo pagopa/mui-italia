@@ -91,7 +91,31 @@ export const colors = {
   warning,
   error,
   purple,
-};
+
+  text: {
+    primary: '#17324D',
+  },
+
+  shadow: {
+    main: '#002B55',
+  },
+
+  backdrop: {
+    background: '#17324D',
+  },
+
+  menuItem: {
+    background: '#17324D',
+  },
+
+  primaryContained: {
+    hover: '#0055AA',
+  },
+
+  decorativeIcon: neutral[300],
+
+  divider: '#E8EBF1',
+} as const;
 
 // Non so a cosa servono le cose qui sotto, per ora le lascio commentate
 

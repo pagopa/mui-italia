@@ -1,23 +1,23 @@
 import { alpha, createTheme, Theme } from '@mui/material/styles';
 
 import { indigo } from '@mui/material/colors';
-import { shadowColor, colorTextPrimary } from './colors';
+import { colors } from './foundations/colors';
 import { mainTypeface } from './fonts';
 import { muiItaliaPalette } from './foundations/palette';
 
 const shadowValues = {
   /* Elevation 4 */
-  4: `0px 2px 4px -1px ${alpha(shadowColor, 0.1)},
-        0px 4px 5px ${alpha(shadowColor, 0.05)},
-        0px 1px 10px ${alpha(shadowColor, 0.1)}`,
+  4: `0px 2px 4px -1px ${alpha(colors.shadow.main, 0.1)},
+        0px 4px 5px ${alpha(colors.shadow.main, 0.05)},
+        0px 1px 10px ${alpha(colors.shadow.main, 0.1)}`,
   /* Elevation 8 = Elevation 16 */
-  8: `0px 8px 10px -5px ${alpha(shadowColor, 0.1)},
-        0px 16px 24px 2px ${alpha(shadowColor, 0.05)},
-        0px 6px 30px 5px ${alpha(shadowColor, 0.1)}`,
+  8: `0px 8px 10px -5px ${alpha(colors.shadow.main, 0.1)},
+        0px 16px 24px 2px ${alpha(colors.shadow.main, 0.05)},
+        0px 6px 30px 5px ${alpha(colors.shadow.main, 0.1)}`,
   /* Elevation 16 */
-  16: `0px 8px 10px -5px ${alpha(shadowColor, 0.1)},
-        0px 16px 24px 2px ${alpha(shadowColor, 0.05)},
-        0px 6px 30px 5px ${alpha(shadowColor, 0.1)}`,
+  16: `0px 8px 10px -5px ${alpha(colors.shadow.main, 0.1)},
+        0px 16px 24px 2px ${alpha(colors.shadow.main, 0.05)},
+        0px 6px 30px 5px ${alpha(colors.shadow.main, 0.1)}`,
 };
 
 const shadowsArray = Array(25).fill('none') as any;
@@ -73,7 +73,7 @@ const foundation: Theme = createTheme({
       contrastText: '#0066CC',
     },
     text: {
-      primary: colorTextPrimary,
+      primary: colors.text.primary,
       secondary: '#5C6F82',
       disabled: '#A2ADB8',
     },
@@ -98,7 +98,7 @@ const foundation: Theme = createTheme({
       dark: '#D85757',
       light: '#FE7A7A',
       extraLight: '#FB9EAC',
-      contrastText: colorTextPrimary,
+      contrastText: colors.text.primary,
       100: '#FFE0E0',
       850: '#761F1F',
     },
@@ -107,7 +107,7 @@ const foundation: Theme = createTheme({
       dark: '#5BB0D5',
       light: '#7ED5FC',
       extraLight: '#86E1FD',
-      contrastText: colorTextPrimary,
+      contrastText: colors.text.primary,
       100: '#E1F5FE',
       850: '#215C76',
     },
@@ -116,7 +116,7 @@ const foundation: Theme = createTheme({
       dark: '#5CA85A',
       light: '#7FCD7D',
       extraLight: '#B5E2B4',
-      contrastText: colorTextPrimary,
+      contrastText: colors.text.primary,
       100: '#E1F4E1',
       850: '#224021',
     },
@@ -125,7 +125,7 @@ const foundation: Theme = createTheme({
       dark: '#D9AD3C',
       light: '#FFD25E',
       extraLight: '#FFE5A3',
-      contrastText: colorTextPrimary,
+      contrastText: colors.text.primary,
       100: '#FFF5DA',
       850: '#614C15',
     },
@@ -134,7 +134,7 @@ const foundation: Theme = createTheme({
     /* Using a constant because type variants
     don't inherit the typeface general color */
     allVariants: {
-      color: colorTextPrimary,
+      color: colors.text.primary,
     },
     /* Using a constant because type variants
     don't inherit the typeface font family */

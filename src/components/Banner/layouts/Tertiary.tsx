@@ -1,5 +1,5 @@
 import { Box, Stack } from '@mui/material';
-import { blue } from 'theme/colors';
+import { colors } from 'theme/foundations/colors';
 import { BannerCTAWithId, BannerModel, ViewState } from '../model';
 import { Cta, Message, Title, CloseButton } from '../shared';
 
@@ -41,7 +41,7 @@ export function Tertiary({
         minWidth={0}
       >
         {model.topIcon && (
-          <Box sx={{ color: blue[200], mt: isHorizontal ? 0.25 : 0 }}>{model.topIcon}</Box>
+          <Box sx={{ color: colors.blue[200], mt: isHorizontal ? 0.25 : 0 }}>{model.topIcon}</Box>
         )}
 
         <Stack
