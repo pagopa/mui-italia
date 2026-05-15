@@ -134,7 +134,7 @@ const CodeBox = styled(Box, {
     codeBoxPaddingBottom
   )}`,
   border: `${theme.spacing(error ? codeBoxErrorBorder : 0.125)} solid ${
-    error ? colors.error[600] : colors.neutral.grey[650]
+    error ? colors.error[600] : colors.neutral[650]
   }`,
   borderRadius: theme.spacing(codeBoxBorderRadius),
   // Shared layout variables for OverlayInput and CharBox.
@@ -151,7 +151,7 @@ const CharBox = styled(Box)(({ theme }) => ({
   lineHeight: '1.5em',
   paddingBottom: theme.spacing(0.25),
   marginBottom: theme.spacing(0.5),
-  borderBottom: `1px solid ${colors.neutral.grey[700]}`,
+  borderBottom: `1px solid ${colors.neutral[700]}`,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',

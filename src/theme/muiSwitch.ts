@@ -1,5 +1,5 @@
 import { alpha } from '@mui/material/styles';
-import foundation from './foundation';
+import foundation from './foundations/foundation';
 import { pxToRem } from './utility';
 
 const muiSwitch = {

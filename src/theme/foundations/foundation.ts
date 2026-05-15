@@ -1,22 +1,23 @@
 import { alpha, createTheme, Theme } from '@mui/material/styles';
 
 import { indigo } from '@mui/material/colors';
-import { shadowColor, colorTextPrimary } from './colors';
-import { mainTypeface } from './fonts';
+import { colors } from './colors';
+import { mainTypeface } from '../fonts';
+import { muiItaliaPalette } from './palette';
 
 const shadowValues = {
   /* Elevation 4 */
-  4: `0px 2px 4px -1px ${alpha(shadowColor, 0.1)},
-        0px 4px 5px ${alpha(shadowColor, 0.05)},
-        0px 1px 10px ${alpha(shadowColor, 0.1)}`,
+  4: `0px 2px 4px -1px ${alpha(colors.shadow.main, 0.1)},
+        0px 4px 5px ${alpha(colors.shadow.main, 0.05)},
+        0px 1px 10px ${alpha(colors.shadow.main, 0.1)}`,
   /* Elevation 8 = Elevation 16 */
-  8: `0px 8px 10px -5px ${alpha(shadowColor, 0.1)},
-        0px 16px 24px 2px ${alpha(shadowColor, 0.05)},
-        0px 6px 30px 5px ${alpha(shadowColor, 0.1)}`,
+  8: `0px 8px 10px -5px ${alpha(colors.shadow.main, 0.1)},
+        0px 16px 24px 2px ${alpha(colors.shadow.main, 0.05)},
+        0px 6px 30px 5px ${alpha(colors.shadow.main, 0.1)}`,
   /* Elevation 16 */
-  16: `0px 8px 10px -5px ${alpha(shadowColor, 0.1)},
-        0px 16px 24px 2px ${alpha(shadowColor, 0.05)},
-        0px 6px 30px 5px ${alpha(shadowColor, 0.1)}`,
+  16: `0px 8px 10px -5px ${alpha(colors.shadow.main, 0.1)},
+        0px 16px 24px 2px ${alpha(colors.shadow.main, 0.05)},
+        0px 6px 30px 5px ${alpha(colors.shadow.main, 0.1)}`,
 };
 
 const shadowsArray = Array(25).fill('none') as any;
@@ -32,46 +33,47 @@ const foundation: Theme = createTheme({
     },
   },
   palette: {
+    ...muiItaliaPalette,
     mode: 'light',
     background: {
-      paper: '#FFFFFF',
+      paper: colors.neutral.white,
       default: '#F2F2F2',
     },
     primary: {
       main: '#0073E6',
       light: '#2185E9',
       dark: '#0062C3',
-      contrastText: '#FFFFFF',
+      contrastText: colors.neutral.white,
       100: '#C4DCF5',
     },
     secondary: {
       main: '#00C5CA',
       light: '#21CDD1',
       dark: '#00A7AC',
-      contrastText: '#FFFFFF',
+      contrastText: colors.neutral.white,
     },
     pagoPA: {
       main: '#0066CC',
-      contrastText: '#fff',
+      contrastText: colors.neutral.white,
     },
     checkIban: {
       main: '#008CA8',
-      contrastText: '#fff',
+      contrastText: colors.neutral.white,
     },
     europeanUnion: {
       main: '#264CA4',
-      contrastText: '#fff',
+      contrastText: colors.neutral.white,
     },
     indigo: {
       main: indigo[500],
-      contrastText: '#fff',
+      contrastText: colors.neutral.white,
     },
     negative: {
-      main: '#FFFFFF',
+      main: colors.neutral.white,
       contrastText: '#0066CC',
     },
     text: {
-      primary: colorTextPrimary,
+      primary: colors.text.primary,
       secondary: '#5C6F82',
       disabled: '#A2ADB8',
     },
@@ -96,7 +98,7 @@ const foundation: Theme = createTheme({
       dark: '#D85757',
       light: '#FE7A7A',
       extraLight: '#FB9EAC',
-      contrastText: colorTextPrimary,
+      contrastText: colors.text.primary,
       100: '#FFE0E0',
       850: '#761F1F',
     },
@@ -105,7 +107,7 @@ const foundation: Theme = createTheme({
       dark: '#5BB0D5',
       light: '#7ED5FC',
       extraLight: '#86E1FD',
-      contrastText: colorTextPrimary,
+      contrastText: colors.text.primary,
       100: '#E1F5FE',
       850: '#215C76',
     },
@@ -114,7 +116,7 @@ const foundation: Theme = createTheme({
       dark: '#5CA85A',
       light: '#7FCD7D',
       extraLight: '#B5E2B4',
-      contrastText: colorTextPrimary,
+      contrastText: colors.text.primary,
       100: '#E1F4E1',
       850: '#224021',
     },
@@ -123,7 +125,7 @@ const foundation: Theme = createTheme({
       dark: '#D9AD3C',
       light: '#FFD25E',
       extraLight: '#FFE5A3',
-      contrastText: colorTextPrimary,
+      contrastText: colors.text.primary,
       100: '#FFF5DA',
       850: '#614C15',
     },
@@ -132,7 +134,7 @@ const foundation: Theme = createTheme({
     /* Using a constant because type variants
     don't inherit the typeface general color */
     allVariants: {
-      color: colorTextPrimary,
+      color: colors.text.primary,
     },
     /* Using a constant because type variants
     don't inherit the typeface font family */

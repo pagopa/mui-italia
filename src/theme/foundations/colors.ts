@@ -1,22 +1,13 @@
-export const colorTextPrimary = '#17324D';
-export const shadowColor = '#002B55';
-export const backdropBackground = '#17324D';
-export const menuItemBackground = '#17324D';
-export const colorPrimaryContainedHover = '#0055AA';
-export const none = 'transparent'; // Not exposed by the theme object
-
 const neutral = {
   black: '#0E0F13',
-  grey: {
-    850: '#2B2E38',
-    700: '#555C70',
-    650: '#636B82',
-    450: '#99A3C1',
-    300: '#BBC2D6',
-    200: '#D2D6E3',
-    100: '#E8EBF1',
-    50: '#F4F5F8',
-  },
+  850: '#2B2E38',
+  700: '#555C70',
+  650: '#636B82',
+  450: '#99A3C1',
+  300: '#BBC2D6',
+  200: '#D2D6E3',
+  100: '#E8EBF1',
+  50: '#F4F5F8',
   white: '#FFFFFF',
 };
 
@@ -63,6 +54,7 @@ const success = {
   850: '#224021',
   700: '#427940',
   500: '#6CC66A',
+  400: '#89D188',
   100: '#E1F4E1',
 };
 
@@ -100,9 +92,42 @@ export const colors = {
   warning,
   error,
   purple,
-};
 
-export const text = {
-  heading: neutral.black,
-  description: neutral.grey[700],
-};
+  text: {
+    primary: '#17324D',
+  },
+
+  shadow: {
+    main: '#002B55',
+  },
+
+  backdrop: {
+    background: '#17324D',
+  },
+
+  menuItem: {
+    background: '#17324D',
+  },
+
+  primaryContained: {
+    hover: '#0055AA',
+  },
+
+  decorativeIcon: neutral[300],
+
+  divider: '#E8EBF1',
+} as const;
+
+// Non so a cosa servono le cose qui sotto, per ora le lascio commentate
+
+// export const text = {
+//   heading: neutral.black,
+//   description: neutral.grey[700],
+// };
+
+// export const colorTextPrimary = '#17324D';
+// export const shadowColor = '#002B55';
+// export const backdropBackground = '#17324D';
+// export const menuItemBackground = '#17324D';
+// export const colorPrimaryContainedHover = '#0055AA';
+// export const none = 'transparent'; // Not exposed by the theme object

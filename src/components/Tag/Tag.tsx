@@ -140,7 +140,7 @@ const Icon = ({
   if (variant === 'only-icon' && CustomIcon) {
     return (
       <CustomIcon
-        sx={{ fill: colors.neutral.grey[700], fontSize }}
+        sx={{ fill: colors.neutral[700], fontSize }}
         aria-hidden={ariaLabel ? 'false' : undefined}
         aria-label={ariaLabel}
       />
