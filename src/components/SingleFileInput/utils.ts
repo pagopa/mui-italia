@@ -1,6 +1,6 @@
-import { alpha, SxProps } from "@mui/system";
-import { theme } from "@theme";
-import { UploadStatus } from "./SingleFileInput";
+import { alpha, SxProps } from '@mui/system';
+import { theme } from '@theme';
+import { UploadStatus } from './SingleFileInput';
 
 /**
  * Truncate file name string if it is longer than 30 characters.
@@ -10,11 +10,17 @@ import { UploadStatus } from "./SingleFileInput";
  * @returns truncated file name
  */
 export const truncateFileName = (fileName: string) => {
-  const splittedFileName = fileName.split(".");
-  const fileExtension = splittedFileName[1];
-  const truncatedFileName = splittedFileName[0];
-  if (truncatedFileName.length >= 30) {
-    return `${truncatedFileName}... .${fileExtension ?? ""}`;
+  // a file name can have multiple dots, so we must take the last one
+  const lastDotIndex = fileName.lastIndexOf('.');
+  // file name without extension
+  if (lastDotIndex <= 0) {
+    return fileName.length >= 30 ? `${fileName.substring(0, 30)}...` : fileName;
+  }
+  // file name with extension
+  const namePart = fileName.substring(0, lastDotIndex);
+  const extensionPart = fileName.substring(lastDotIndex);
+  if (namePart.length >= 30) {
+    return `${namePart.substring(0, 30)}...${extensionPart}`;
   }
   return fileName;
 };
@@ -32,7 +38,7 @@ export function verifyAccept(type: string, accept?: Array<string>): boolean {
   if (!accept) {
     return true;
   }
-  return accept.includes(type) || accept.includes(type.split("/")[0] + "/*");
+  return accept.includes(type) || accept.includes(type.split('/')[0] + '/*');
 }
 
 /**
@@ -77,28 +83,28 @@ export function getContainerStyle(status: UploadStatus): SxProps {
   switch (status) {
     case UploadStatus.IDLE:
       return {
-        border: "1px dashed",
+        border: '1px dashed',
         borderColor: theme.palette.primary.main,
         backgroundColor: theme.palette.primaryAction.selected,
       };
     case UploadStatus.LOADING:
       return {
-        border: "1px solid",
+        border: '1px solid',
         borderColor: theme.palette.divider,
-        backgroundColor: "white",
+        backgroundColor: 'white',
       };
     case UploadStatus.REJECTED:
     case UploadStatus.ERROR:
       return {
-        border: "1px dashed",
+        border: '1px dashed',
         borderColor: theme.palette.error.main,
         backgroundColor: alpha(theme.palette.error.main, 0.1),
       };
     case UploadStatus.SELECTED:
       return {
-        border: "1px solid",
+        border: '1px solid',
         borderColor: theme.palette.primary.main,
-        backgroundColor: "white",
+        backgroundColor: 'white',
         px: 3,
       };
     default:
@@ -106,25 +112,25 @@ export function getContainerStyle(status: UploadStatus): SxProps {
   }
 }
 
-export function getColorStyle(status: UploadStatus): "primary" | "error" {
+export function getColorStyle(status: UploadStatus): 'primary' | 'error' {
   switch (status) {
     case UploadStatus.IDLE:
-      return "primary";
+      return 'primary';
     case UploadStatus.ERROR:
-      return "error";
+      return 'error';
     default:
-      return "primary";
+      return 'primary';
   }
 }
 
 export function generateRandomID(): string {
   /* eslint-disable no-bitwise */
-  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
     const randomNum =
-      typeof window !== "undefined"
+      typeof window !== 'undefined'
         ? window.crypto.getRandomValues(new Uint8Array(1))[0] | 0
         : (Math.random() * 16) | 0;
-    const v = c === "x" ? randomNum : (randomNum & 0x3) | 0x8;
+    const v = c === 'x' ? randomNum : (randomNum & 0x3) | 0x8;
     return v.toString(16);
   });
 }

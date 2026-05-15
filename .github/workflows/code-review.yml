@@ -1,10 +1,16 @@
 name: Code Review
 
 on:
-  workflow_call:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
 
 jobs:
-  js_code_review:
+  code-review:
+    # Ignore draft pull request
+    if: ${{ github.event.pull_request.draft == false }}
     runs-on: ubuntu-22.04
 
     steps:
@@ -21,11 +27,11 @@ jobs:
         run: yarn install --immutable
         working-directory: .
 
-      - name: Build
-        run: yarn build
-
       - name: Lint
         run: yarn lint
+
+      - name: Build
+        run: yarn build
 
       # - name: Unit tests exec
       #   run: yarn test:coverage
@@ -34,17 +40,17 @@ jobs:
       # To enable set CODECOV_TOKEN secret at repo level and make sure
       # that your "code-review" script creates a "coverage/" folder in
       # the root workspace.
-      - name: Upload coverage report to codecov.io
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        if: ${{ env.CODECOV_TOKEN != '' }}
-        uses: codecov/codecov-action@84508663e988701840491b86de86b666e8a86bed # v4.3.0
-        with:
-          token: ${{ env.CODECOV_TOKEN }}
+      #- name: Upload coverage report to codecov.io
+      #  env:
+      #    CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      #  if: ${{ env.CODECOV_TOKEN != '' }}
+      #  uses: codecov/codecov-action@84508663e988701840491b86de86b666e8a86bed # v4.3.0
+      #  with:
+      #    token: ${{ env.CODECOV_TOKEN }}
 
       # The following job will be executed only if CODECOV_TOKEN is not set
-      - name: Code coverage
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        if: ${{ env.CODECOV_TOKEN == '' }}
-        run: bash <(curl -s https://codecov.io/bash)
+      #- name: Code coverage
+      #  env:
+      #    CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      #  if: ${{ env.CODECOV_TOKEN == '' }}
+      #  run: bash <(curl -s https://codecov.io/bash)

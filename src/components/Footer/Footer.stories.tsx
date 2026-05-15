@@ -53,8 +53,7 @@ const meta: Meta<typeof Footer> = {
       },
     },
     productsJsonUrl: {
-      description:
-        'This URL contains a json with the list of products to list inside the Footer.',
+      description: 'This URL contains a json with the list of products to list inside the Footer.',
       table: {
         defaultValue: {
           summary: 'https://selfcare.pagopa.it/assets/products.json',

@@ -40,9 +40,7 @@ export const AccountDropdown = ({ user, userActions }: AccountDropdownProps) => 
   };
 
   const wrapOnClick = (onClick: () => void) => (e: SyntheticEvent) => {
-    if (e) {
-      e.preventDefault();
-    }
+    e.preventDefault();
 
     onClick();
     handleClose();

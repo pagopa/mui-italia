@@ -1,9 +1,9 @@
 import { StoryFn, Meta, StoryObj } from '@storybook/react-vite';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import AttachFileRoundedIcon from '@mui/icons-material/AttachFileRounded';
+import { Box, Typography } from '@mui/material';
 
 import { Tag } from './Tag';
-import { Box, Typography } from '@mui/material';
 
 export default {
   title: 'Components/Tag',

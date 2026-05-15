@@ -53,69 +53,65 @@ export function LangSwitch({
   };
 
   const wrapUpdateActiveLang = (newLang: LangCode) => (e: SyntheticEvent) => {
-    if (e) {
-      e.preventDefault();
-    }
+    e.preventDefault();
 
     onLanguageChanged(newLang);
     handleClose();
   };
 
   return (
-      <Box>
-        <ButtonNaked
-          id="lang-menu-button"
-          sx={{
-            color: 'text.primary',
-            justifyContent: 'space-between',
-            p: 0,
-            height: 'auto',
-            display: 'flex',
-          }}
-          aria-label={`Seleziona lingua: ${getLabel(currentLangCode)}`}
-          aria-haspopup="true"
-          aria-expanded={open}
-          aria-controls={open ? 'lang-menu' : undefined}
-          onClick={handleClick}
-        >
-          {currentLangCode && (
-            <Box component="span" sx={{ textAlign: 'left' }}>
-              <Typography color="inherit" component="span" variant="subtitle2">
-                {getLabel(currentLangCode)}
-              </Typography>
-            </Box>
-          )}
+    <Box>
+      <ButtonNaked
+        id="lang-menu-button"
+        sx={{
+          color: 'text.primary',
+          justifyContent: 'space-between',
+          p: 0,
+          height: 'auto',
+          display: 'flex',
+        }}
+        aria-label={`Seleziona lingua: ${getLabel(currentLangCode)}`}
+        aria-haspopup="true"
+        aria-expanded={open}
+        aria-controls={open ? 'lang-menu' : undefined}
+        onClick={handleClick}
+      >
+        <Box component="span" sx={{ textAlign: 'left' }}>
+          <Typography color="inherit" component="span" variant="subtitle2">
+            {getLabel(currentLangCode)}
+          </Typography>
+        </Box>
 
-          {open ? (
-            <KeyboardArrowUpRoundedIcon fontSize="small" />
-          ) : (
-            <KeyboardArrowDownRoundedIcon fontSize="small" />
-          )}
-        </ButtonNaked>
-        {Boolean(Object.keys(languages).length > 0) && (
-          <Menu
-            id="lang-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{ 'aria-labelledby': 'lang-menu-button' }}
-          >
-            {Object.keys(languages).map((langCode) => {
-              const code = langCode as LangCode;
-              const label = getLabel(code);
-              return (
-                <MenuItem
-                  aria-label={label}
-                  key={code}
-                  onClick={wrapUpdateActiveLang(code)}
-                  lang={flat ? code : undefined}
-                >
-                  {label}
-                </MenuItem>
-              );
-            })}
-          </Menu>
+        {open ? (
+          <KeyboardArrowUpRoundedIcon fontSize="small" />
+        ) : (
+          <KeyboardArrowDownRoundedIcon fontSize="small" />
         )}
-      </Box>
+      </ButtonNaked>
+      {Boolean(Object.keys(languages).length > 0) && (
+        <Menu
+          id="lang-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{ 'aria-labelledby': 'lang-menu-button' }}
+        >
+          {Object.keys(languages).map((langCode) => {
+            const code = langCode as LangCode;
+            const label = getLabel(code);
+            return (
+              <MenuItem
+                aria-label={label}
+                key={code}
+                onClick={wrapUpdateActiveLang(code)}
+                lang={flat ? code : undefined}
+              >
+                {label}
+              </MenuItem>
+            );
+          })}
+        </Menu>
+      )}
+    </Box>
   );
 }
