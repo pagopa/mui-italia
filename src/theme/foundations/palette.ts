@@ -1,21 +1,21 @@
 import { colors } from './colors';
 
 /**
- * Ci sono 2 categorie di colori:
+ * There are 2 categories of colors:
  *
- * 1. COLORI CUSTOM NUOVI (neutral, turquoise, blueitalia, purple):
- *    - Non esistono in MUI di default
- *    - Possono essere definiti completamente in Palette e PaletteOptions
- *    - Ognuno ha la sua interfaccia specifica (es. NeutralPaletteColor)
+ * 1. NEW CUSTOM COLORS (neutral, turquoise, blueitalia, purple):
+ *    - They do not exist in MUI by default
+ *    - They can be fully defined inside Palette and PaletteOptions
+ *    - Each one has its own specific interface (e.g. NeutralPaletteColor)
  *
- * 2. COLORI STANDARD MUI (info, success, warning, error):
- *    - Esistono già in MUI con tipo PaletteColor
- *    - Non possono essere sovrascritti in Palette (causa errori di TypeScript)
- *    - Per aggiungere proprietà custom (700, 500, 400, etc.) dobbiamo estendere
- *      PaletteColor e SimplePaletteColorOptions
+ * 2. STANDARD MUI COLORS (info, success, warning, error):
+ *    - They already exist in MUI as PaletteColor
+ *    - They cannot be overridden directly in Palette (this would cause TypeScript errors)
+ *    - To add custom properties (700, 500, 400, etc.) we need to extend
+ *      PaletteColor and SimplePaletteColorOptions
  *
- * Le estensioni globali sotto aggiungono tutte le possibili proprietà numeriche
- * come opzionali. Questo permette a ciascun colore di usare solo quelle necessarie.
+ * The global extensions below add all possible numeric properties
+ * as optional fields. This allows each color to use only the properties it needs.
  */
 
 // TODO - Spostare queste dichiarazioni in un file separato dedicato?
@@ -25,10 +25,9 @@ declare module '@mui/material/styles' {
    * Es: Quando viene usato il tema nei vari componenti: theme.palette.neutral
    */
   interface PaletteColor {
-    850: string;
-    100: string;
     black?: string;
     white?: string;
+    850: string;
     700?: string;
     650?: string;
     600?: string;
@@ -39,6 +38,7 @@ declare module '@mui/material/styles' {
     250?: string;
     200?: string;
     150?: string;
+    100: string;
     50?: string;
   }
 
@@ -47,10 +47,9 @@ declare module '@mui/material/styles' {
    * Es: createTheme({ palette: { neutral: {...}, error: {...} } })
    */
   interface SimplePaletteColorOptions {
-    850?: string;
-    100?: string;
     black?: string;
     white?: string;
+    850?: string;
     700?: string;
     650?: string;
     600?: string;
@@ -60,6 +59,7 @@ declare module '@mui/material/styles' {
     300?: string;
     250?: string;
     200?: string;
+    100?: string;
     150?: string;
     50?: string;
   }

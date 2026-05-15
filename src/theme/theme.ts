@@ -6,7 +6,7 @@ import { italia } from '@tokens';
 
 import muiSwitch from './muiSwitch';
 import { pxToRem } from './utility';
-import foundation from './foundation';
+import foundation from './foundations/foundation';
 import { mainTypeface, monospacedTypeface } from './fonts';
 import { colors } from './foundations/colors';
 /* Basic Configuration */

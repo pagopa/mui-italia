@@ -1,9 +1,9 @@
 import { alpha, createTheme, Theme } from '@mui/material/styles';
 
 import { indigo } from '@mui/material/colors';
-import { colors } from './foundations/colors';
-import { mainTypeface } from './fonts';
-import { muiItaliaPalette } from './foundations/palette';
+import { colors } from './colors';
+import { mainTypeface } from '../fonts';
+import { muiItaliaPalette } from './palette';
 
 const shadowValues = {
   /* Elevation 4 */
@@ -36,40 +36,40 @@ const foundation: Theme = createTheme({
     ...muiItaliaPalette,
     mode: 'light',
     background: {
-      paper: '#FFFFFF',
+      paper: colors.neutral.white,
       default: '#F2F2F2',
     },
     primary: {
       main: '#0073E6',
       light: '#2185E9',
       dark: '#0062C3',
-      contrastText: '#FFFFFF',
+      contrastText: colors.neutral.white,
       100: '#C4DCF5',
     },
     secondary: {
       main: '#00C5CA',
       light: '#21CDD1',
       dark: '#00A7AC',
-      contrastText: '#FFFFFF',
+      contrastText: colors.neutral.white,
     },
     pagoPA: {
       main: '#0066CC',
-      contrastText: '#fff',
+      contrastText: colors.neutral.white,
     },
     checkIban: {
       main: '#008CA8',
-      contrastText: '#fff',
+      contrastText: colors.neutral.white,
     },
     europeanUnion: {
       main: '#264CA4',
-      contrastText: '#fff',
+      contrastText: colors.neutral.white,
     },
     indigo: {
       main: indigo[500],
-      contrastText: '#fff',
+      contrastText: colors.neutral.white,
     },
     negative: {
-      main: '#FFFFFF',
+      main: colors.neutral.white,
       contrastText: '#0066CC',
     },
     text: {
