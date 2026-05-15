@@ -1,25 +1,35 @@
-import { StoryFn, Meta } from '@storybook/react-vite';
-
-import { Chip } from '@mui/material';
+import { MIChip } from '@components/MIChip';
+import { Meta, StoryFn } from '@storybook/react-vite';
 
 export default {
-  title: 'MUI Components/Data Display/Chips',
-  component: Chip,
+  title: 'MUI Components/Data Display/MIChips',
+  component: MIChip,
   argTypes: {
+    label: {
+      control: { type: 'text' },
+      table: {
+        type: { summary: 'string' },
+      },
+    },
+    mode: {
+      control: { type: 'radio' },
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: 'standard' },
+      },
+    },
     color: {
-      options: ['default', 'primary', 'warning', 'info', 'error', 'success', 'indigo'],
+      options: ['default', 'warning', 'error', 'success', 'neutral', 'highlight'],
       control: { type: 'radio' },
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: 'default' },
       },
-      onDelete: { action: 'Deleted' },
     },
     variant: {
       options: ['filled', 'outlined'],
       control: { type: 'radio' },
       table: {
-        disable: true,
         type: { summary: 'string' },
         defaultValue: { summary: 'filled' },
       },
@@ -42,10 +52,13 @@ export default {
   },
   parameters: {
     layout: 'centered',
+    controls: {
+      include: ['label', 'mode', 'color', 'variant', 'size', 'disabled'],
+    },
   },
-} as Meta<typeof Chip>;
+} as Meta<typeof MIChip>;
 
-const Template: StoryFn<typeof Chip> = (args) => <Chip {...args} />;
+const Template: StoryFn<typeof MIChip> = (args) => <MIChip {...args} />;
 
 const handleDelete = () => {
   console.info('You clicked the delete icon.');
@@ -53,29 +66,16 @@ const handleDelete = () => {
 
 export const Default = Template.bind({});
 Default.args = {
+  mode: 'standard',
   label: 'Consegnata',
-};
-
-export const Outline = Template.bind({});
-Outline.args = {
-  color: 'primary',
-  variant: 'outlined',
-  label: 'Consegnata',
-};
-Outline.argTypes = {
-  color: {
-    options: ['default', 'primary'],
-    control: { type: 'radio' },
-    table: {
-      type: { summary: 'string' },
-      defaultValue: { summary: 'default' },
-    },
-  },
+  color: 'default',
 };
 
 export const Deletable = Template.bind({});
 Deletable.args = {
   ...Default.args,
+  mode: 'deletable',
+  color: 'neutral',
   onDelete: handleDelete,
 };
 Deletable.argTypes = {
@@ -85,29 +85,3 @@ Deletable.argTypes = {
     },
   },
 };
-
-/* export const WithAvatar = Template.bind({});
-WithAvatar.args = {
-  ...Default.args,
-  avatar: <Avatar>M</Avatar>,
-};
-WithAvatar.argTypes = {
-  avatar: {
-    table: {
-      disable: true,
-    },
-  },
-};
-
-export const WithIcon = Template.bind({});
-WithIcon.args = {
-  ...Default.args,
-  icon: <FaceRoundedIcon />,
-};
-WithIcon.argTypes = {
-  icon: {
-    table: {
-      disable: true,
-    },
-  },
-}; */
