@@ -9,7 +9,8 @@ permissions:
 
 jobs:
   code-review:
-    if: github.event.pull_request.draft == false
+    # Ignore draft pull request
+    if: ${{ github.event.pull_request.draft == false }}
     runs-on: ubuntu-22.04
 
     steps:
