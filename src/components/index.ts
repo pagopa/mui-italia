@@ -31,3 +31,5 @@ export * from './TOSAgreement';
 export * from './Walkthrough';
 export * from './Chip';
 export * from './Autocomplete';
+export * from './MIAlert';
+export * from './MITooltip';
