@@ -1,4 +1,5 @@
-export type {};
+import { colors } from './colors';
+
 /**
  * There are 2 categories of colors:
  *
@@ -19,6 +20,14 @@ export type {};
 
 // TODO - Spostare queste dichiarazioni in un file separato dedicato?
 declare module '@mui/material/styles' {
+  interface Theme {
+    colors: typeof colors;
+  }
+
+  interface ThemeOptions {
+    colors?: typeof colors;
+  }
+
   /**
    * Definisce la struttura di un singolo colore nella palette finale
    * Es: Quando viene usato il tema nei vari componenti: theme.palette.neutral
