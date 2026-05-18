@@ -38,6 +38,7 @@ const meta: Meta<React.ComponentProps<typeof MIAlert>> = {
     title: { control: { type: 'text' } },
     description: { control: { type: 'text' } },
     action: { table: { disable: true } },
+    variant: { table: { disable: true } },
   },
 };
 

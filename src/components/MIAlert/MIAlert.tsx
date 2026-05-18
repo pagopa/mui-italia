@@ -1,13 +1,13 @@
 'use client';
 
 import { ButtonNaked } from '@components/ButtonNaked';
-import { AlertTitle as MUIAlertTitle, Stack, styled, useMediaQuery, useTheme } from '@mui/material';
+import { AlertTitle as MUIAlertTitle, Stack, useMediaQuery, useTheme } from '@mui/material';
 import type { SystemProps, Theme } from '@mui/system';
-import MUIAlert, { AlertProps as MUIAlertProps } from '@mui/material/Alert';
+import { AlertProps as MUIAlertProps } from '@mui/material/Alert';
 import { ElementType, HTMLAttributeAnchorTarget } from 'react';
+import { StyledAlert } from './StyledAlert';
 import { getColor, getIcon } from './utils';
-
-export type AllowedAlertSeverity = 'success' | 'info' | 'warning' | 'error';
+import { AllowedAlertSeverity } from 'types/MIAlert';
 
 type ButtonCTA = {
   label: string;
@@ -63,70 +63,6 @@ interface HeaderAlertProps extends BaseAlertProps {
 }
 
 export type MIAlertProps = DefaultAlertProps | HeaderAlertProps;
-
-type MUIBaseAlertProps = Omit<MUIAlertProps, 'variant'>;
-
-interface StyledAlertProps extends MUIBaseAlertProps {
-  variant: 'default' | 'header';
-}
-
-const StyledAlert = styled(MUIAlert as React.ComponentType<MUIBaseAlertProps>, {
-  // This prevents 'variant' from being written to the HTML DOM
-  shouldForwardProp: (prop) => prop !== 'variant',
-})<StyledAlertProps>(({ theme, severity = 'success', variant }) => {
-  const severityPalette = theme.palette[severity];
-
-  return {
-    backgroundColor: severityPalette[100],
-    justifyContent: variant === 'header' ? 'center' : 'flex-start',
-    alignItems: variant === 'header' ? 'center' : 'flex-start',
-
-    ...(variant === 'default' && {
-      border: '1px solid',
-      borderRadius: 8,
-      padding: theme.spacing(2),
-      borderColor: severityPalette.main,
-    }),
-
-    // different styles for the 'header' variant
-    ...(variant === 'header' && {
-      border: 'none',
-      borderRadius: 0,
-      width: 'auto',
-      boxSizing: 'border-box',
-      padding: '10px 16px !important', // Override MUI's default padding with !important
-    }),
-
-    [theme.breakpoints.down('sm')]: {
-      alignItems: variant === 'header' ? 'center' : 'flex-start',
-    },
-
-    '& .MuiAlert-icon': {
-      opacity: 1,
-      alignItems: 'center',
-      marginRight: theme.spacing(1),
-      color: severityPalette[850],
-    },
-
-    '& .MuiAlert-message': {
-      padding: 0,
-      overflow: 'inherit',
-      lineHeight: variant === 'header' ? '20px' : '22px',
-      fontWeight:
-        variant === 'header'
-          ? theme.typography.fontWeightMedium
-          : theme.typography.fontWeightRegular,
-      fontSize: variant === 'header' ? '14px' : '16px',
-      display: 'flex',
-      flexDirection: 'column',
-      overflowWrap: 'anywhere',
-      wordBreak: 'break-word',
-      color: severityPalette[850],
-      flex: variant === 'header' ? '0 1 auto' : 1,
-      width: variant === 'header' ? 'auto' : '100%',
-    },
-  };
-});
 
 export const MIAlert: React.FC<MIAlertProps> = ({
   severity,
