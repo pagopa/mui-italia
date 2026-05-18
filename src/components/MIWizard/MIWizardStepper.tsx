@@ -4,16 +4,31 @@ import React, { ReactNode } from 'react';
 
 import { Box, CircularProgress, Stack, Step, StepLabel, Stepper, Typography } from '@mui/material';
 
-import { useIsMobile } from './hooks/useIsMobile';
-import { getLocalizedOrDefaultLabel } from './utility/localization.utility';
+import { useIsMobile } from '@hooks/useIsMobile';
+
+export type MIWizardStepperLocaleText = {
+  stepLabel?: (currentStep: number) => string;
+  stepOfLabel?: (currentStep: number, totalSteps: number) => string;
+};
+
+const defaultLocaleText: Required<MIWizardStepperLocaleText> = {
+  stepLabel: (currentStep) => `Step ${currentStep}`,
+  stepOfLabel: (currentStep, totalSteps) => `${currentStep} of ${totalSteps}`,
+};
 
 type Props = {
   steps: Array<{ label: ReactNode }>;
   activeStep: number;
+  localeText?: MIWizardStepperLocaleText;
 };
 
-const MIWizardStepper: React.FC<Props> = ({ steps, activeStep }) => {
+const MIWizardStepper: React.FC<Props> = ({ steps, activeStep, localeText }) => {
   const isMobile = useIsMobile();
+
+  const resolvedLocaleText = {
+    ...defaultLocaleText,
+    ...localeText,
+  };
 
   return isMobile ? (
     <Stack direction="row" spacing={2} alignItems="center">
@@ -45,19 +60,12 @@ const MIWizardStepper: React.FC<Props> = ({ steps, activeStep }) => {
           }}
         >
           <Typography variant="caption" component="div" fontSize="12px">
-            {getLocalizedOrDefaultLabel('common', 'wizard.stepper.of', undefined, {
-              currentStep: activeStep + 1,
-              totalSteps: steps.length,
-            })}
+            {resolvedLocaleText.stepOfLabel(activeStep + 1, steps.length)}
           </Typography>
         </Box>
       </Box>
       <Stack direction="column">
-        <Typography variant="caption">
-          {getLocalizedOrDefaultLabel('common', 'wizard.stepper.activeStep', undefined, {
-            currentStep: activeStep + 1,
-          })}
-        </Typography>
+        <Typography variant="caption">{resolvedLocaleText.stepLabel(activeStep + 1)}</Typography>
         <Typography variant="caption" fontWeight={600}>
           {steps[activeStep].label}
         </Typography>

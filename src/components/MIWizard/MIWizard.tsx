@@ -17,16 +17,28 @@ import { IllusCompleted } from '../../illustrations/Completed';
 import { IllustrationProps } from '@components/Illustration';
 import { ButtonNaked } from '@components/ButtonNaked';
 
-import { checkChildren } from './utility/children.utility';
-import { getLocalizedOrDefaultLabel } from './utility/localization.utility';
+import { checkChildren } from '../../utils/children.utility';
 import MIWizardStep, { MIWizardStepProps } from './MIWizardStep';
-import MIWizardStepper from './MIWizardStepper';
+import MIWizardStepper, { MIWizardStepperLocaleText } from './MIWizardStepper';
+
+type MIWizardLocaleText = MIWizardStepperLocaleText & {
+  exitButton?: string;
+  previousButton?: string;
+  nextButton?: string;
+};
+
+const defaultLocaleText = {
+  exitButton: 'Exit',
+  previousButton: 'Back',
+  nextButton: 'Confirm',
+};
 
 type Props = {
   activeStep: number;
   setActiveStep: (step: number) => void;
   title: ReactNode;
   children: ReactNode;
+  localeText?: MIWizardLocaleText;
   slots?: {
     nextButton?: JSXElementConstructor<ButtonProps>;
     prevButton?: JSXElementConstructor<ButtonProps>;
@@ -62,6 +74,7 @@ const MIWizard: React.FC<Props> = ({
   setActiveStep,
   title,
   children,
+  localeText,
   slots,
   slotsProps,
 }) => {
@@ -70,6 +83,11 @@ const MIWizard: React.FC<Props> = ({
   const NextButton = slots?.nextButton || Button;
   const ExitButton = slots?.exitButton || ButtonNaked;
   const FeedbackIcon = slots?.feedbackIcon || IllusCompleted;
+
+  const resolvedLocaleText = {
+    ...defaultLocaleText,
+    ...localeText,
+  };
 
   const childrens = React.Children.toArray(children);
   const steps = childrens
@@ -155,13 +173,15 @@ const MIWizard: React.FC<Props> = ({
           startIcon={<ArrowBackIcon />}
           {...slotsProps?.exitButton}
         >
-          {getLocalizedOrDefaultLabel('common', 'button.exit', 'Esci')}
+          {resolvedLocaleText.exitButton}
         </ExitButton>
         <Box sx={{ mt: 2, mb: 3 }} data-testid="wizard-title">
           {title}
         </Box>
 
-        {steps.length > 0 && <MIWizardStepper steps={steps} activeStep={activeStep} />}
+        {steps.length > 0 && (
+          <MIWizardStepper steps={steps} activeStep={activeStep} localeText={localeText} />
+        )}
 
         <Paper
           elevation={0}
@@ -184,7 +204,7 @@ const MIWizard: React.FC<Props> = ({
             {...slotsProps?.prevButton}
             onClick={handlePrevStep}
           >
-            {getLocalizedOrDefaultLabel('common', 'button.indietro', 'Indietro')}
+            {resolvedLocaleText.previousButton}
           </PrevButton>
 
           <NextButton
@@ -194,8 +214,7 @@ const MIWizard: React.FC<Props> = ({
             {...slotsProps?.nextButton}
             onClick={handleNextStep}
           >
-            {slotsProps?.nextButton?.label ||
-              getLocalizedOrDefaultLabel('common', 'button.conferma', 'Conferma')}
+            {slotsProps?.nextButton?.label || resolvedLocaleText.nextButton}
           </NextButton>
         </Stack>
       </Box>
