@@ -75,16 +75,3 @@ Deletable.argTypes = {
     },
   },
 };
-
-export const VeryLongLabel = Template.bind({});
-VeryLongLabel.args = {
-  label: 'Destinatario irreperibile',
-  color: 'default',
-};
-VeryLongLabel.decorators = [
-  (Story) => (
-    <div style={{ width: '120px' }}>
-      <Story />
-    </div>
-  ),
-];
