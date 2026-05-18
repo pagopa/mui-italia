@@ -14,6 +14,7 @@ import { forwardRef } from 'react';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { neutral } from 'theme/colors';
 import { colors } from 'theme/foundations/colors';
+import { AllowedAlertSeverity } from 'types/MIAlert';
 
 // props that apply to all severities
 type BaseAlertProps = {
@@ -22,22 +23,30 @@ type BaseAlertProps = {
   onClose: () => void;
 };
 
+type ErrorSeverity = Extract<AllowedAlertSeverity, 'error'>;
+type NonErrorSeverity = Exclude<AllowedAlertSeverity, 'error'>;
+
 // props when severity is 'error' - errorCode is allowed
 type ErrorSeverityProps = BaseAlertProps & {
-  severity: 'error';
+  severity: ErrorSeverity;
   errorCode?: string;
+  errorCodeAriaLabel?: string; // allows to provide a custom aria-label for the error code, if not provided it will default to "Error code: {errorCode}"
 };
 
 // props when severity is not 'error' - errorCode is strictly forbidden
 type OtherSeverityProps = BaseAlertProps & {
-  severity: 'success' | 'info' | 'warning';
+  severity: NonErrorSeverity;
   errorCode?: never;
+  errorCodeAriaLabel?: never;
 };
 
 export type MISnackbarAlertProps = ErrorSeverityProps | OtherSeverityProps;
 
 export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
-  ({ severity = 'success', title, description, errorCode, onClose, ...rest }, ref) => {
+  (
+    { severity = 'success', title, description, errorCode, errorCodeAriaLabel, onClose, ...rest },
+    ref
+  ) => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -45,8 +54,6 @@ export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
     const screenReaderText = [title, description, errorCode ? `Error code: ${errorCode}` : '']
       .filter(Boolean)
       .join('. ');
-
-    const computedAriaLive = severity === 'error' ? 'assertive' : 'polite';
 
     return (
       <StyledAlert
@@ -59,7 +66,6 @@ export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
           closeIcon: CloseRoundedIcon,
         }}
         sx={{
-          alignItems: 'flex-start',
           '& .MuiAlert-action .MuiIconButton-root': {
             color: neutral.black,
             opacity: 1,
@@ -73,7 +79,6 @@ export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
         {...rest}
         tabIndex={0}
         aria-label={screenReaderText}
-        aria-live={computedAriaLive}
       >
         <Stack direction={isMobile ? 'column' : 'row'} flex={1}>
           <Stack direction="column" flex={1} minWidth={0} gap={title ? '4px' : 0}>
@@ -91,7 +96,7 @@ export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
           >
             <TextField
               inputProps={{
-                'aria-label': 'Error code',
+                'aria-label': errorCodeAriaLabel ?? `Error code: ${errorCode}`,
               }}
               value={errorCode}
               InputProps={{

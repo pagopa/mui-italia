@@ -53,7 +53,6 @@ export const StyledAlert = styled(MUIAlert as ComponentType<MUIBaseAlertProps>, 
 
     '& .MuiAlert-message': {
       padding: 0,
-      overflow: 'inherit',
       lineHeight: isHeaderVariant ? '20px' : '22px',
       fontWeight: isHeaderVariant
         ? theme.typography.fontWeightMedium
@@ -63,7 +62,6 @@ export const StyledAlert = styled(MUIAlert as ComponentType<MUIBaseAlertProps>, 
       width: isHeaderVariant ? 'auto' : '100%',
       display: 'flex',
       flexDirection: 'column',
-      overflowWrap: 'anywhere',
       wordBreak: 'break-word',
       color: severityPalette[850],
     },
