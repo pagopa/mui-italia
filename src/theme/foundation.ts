@@ -66,10 +66,6 @@ const foundation: Theme = createTheme({
       main: indigo[500],
       contrastText: '#fff',
     },
-    highlight: {
-      main: '#DBF9FA',
-      contrastText: '#003B3D',
-    },
     neutral: {
       main: '#E8EBF1',
       contrastText: '#0E0F13',

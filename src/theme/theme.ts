@@ -68,7 +68,6 @@ declare module '@mui/material/styles' {
     primaryAction: Palette['action'];
     negative: SimplePaletteColorOptions;
     indigo: Palette['primary'];
-    highlight: Palette['primary'];
     neutral: Palette['primary'];
   }
   interface PaletteOptions {
@@ -79,7 +78,6 @@ declare module '@mui/material/styles' {
     primaryAction: PaletteOptions['action'];
     negative: SimplePaletteColorOptions;
     indigo: SimplePaletteColorOptions;
-    highlight: SimplePaletteColorOptions;
     neutral: SimplePaletteColorOptions;
   }
 
@@ -163,8 +161,6 @@ declare module '@mui/material/Pagination' {
 declare module '@mui/material/Chip' {
   export interface ChipPropsColorOverrides {
     indigo: true;
-    highlight: true;
-    neutral: true;
   }
 }
 

@@ -34,14 +34,6 @@ export default {
         defaultValue: { summary: 'filled' },
       },
     },
-    size: {
-      options: ['small', 'medium'],
-      control: { type: 'radio' },
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: 'medium' },
-      },
-    },
     disabled: {
       control: { type: 'boolean' },
       table: {
@@ -53,7 +45,7 @@ export default {
   parameters: {
     layout: 'centered',
     controls: {
-      include: ['label', 'mode', 'color', 'variant', 'size', 'disabled'],
+      include: ['label', 'color', 'variant', 'disabled'],
     },
   },
 } as Meta<typeof MIChip>;
@@ -66,7 +58,6 @@ const handleDelete = () => {
 
 export const Default = Template.bind({});
 Default.args = {
-  mode: 'standard',
   label: 'Consegnata',
   color: 'default',
 };
@@ -74,7 +65,6 @@ Default.args = {
 export const Deletable = Template.bind({});
 Deletable.args = {
   ...Default.args,
-  mode: 'deletable',
   color: 'neutral',
   onDelete: handleDelete,
 };
@@ -85,3 +75,16 @@ Deletable.argTypes = {
     },
   },
 };
+
+export const VeryLongLabel = Template.bind({});
+VeryLongLabel.args = {
+  label: 'Destinatario irreperibile',
+  color: 'default',
+};
+VeryLongLabel.decorators = [
+  (Story) => (
+    <div style={{ width: '120px' }}>
+      <Story />
+    </div>
+  ),
+];
