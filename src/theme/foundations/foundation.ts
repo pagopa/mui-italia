@@ -3,7 +3,6 @@ import { alpha, createTheme, Theme } from '@mui/material/styles';
 import { indigo } from '@mui/material/colors';
 import { colors } from './colors';
 import { mainTypeface } from '../fonts';
-import { muiItaliaPalette } from './palette';
 
 const shadowValues = {
   /* Elevation 4 */
@@ -33,24 +32,22 @@ const foundation: Theme = createTheme({
     },
   },
   palette: {
-    ...muiItaliaPalette,
     mode: 'light',
     background: {
       paper: colors.neutral.white,
       default: '#F2F2F2',
     },
     primary: {
-      main: '#0073E6',
+      main: colors.blue[500],
       light: '#2185E9',
       dark: '#0062C3',
       contrastText: colors.neutral.white,
-      100: '#C4DCF5',
     },
     secondary: {
-      main: '#00C5CA',
+      main: colors.turquoise[500],
       light: '#21CDD1',
       dark: '#00A7AC',
-      contrastText: colors.neutral.white,
+      contrastText: colors.turquoise[850],
     },
     pagoPA: {
       main: '#0066CC',
@@ -90,44 +87,38 @@ const foundation: Theme = createTheme({
       hover: 'rgba(0, 115, 230, 0.12)' /* Primary 12% */,
       selected: 'rgba(0, 115, 230, 0.08)' /* Primary 8% */,
     },
-    /* Other */
+    /* Other */ //TODO va messo il grey 100?
     divider: '#E3E7EB',
     /* Indicator/Validation */
     error: {
-      main: '#FE6666',
+      //TODO manca contrastText?
+      main: colors.error[500],
       dark: '#D85757',
       light: '#FE7A7A',
       extraLight: '#FB9EAC',
       contrastText: colors.text.primary,
-      100: '#FFE0E0',
-      850: '#761F1F',
     },
     info: {
-      main: '#6BCFFB',
+      //TODO manca contrastText?
+      main: colors.info[500],
       dark: '#5BB0D5',
       light: '#7ED5FC',
       extraLight: '#86E1FD',
       contrastText: colors.text.primary,
-      100: '#E1F5FE',
-      850: '#215C76',
     },
     success: {
-      main: '#6CC66A',
+      main: colors.success[500],
       dark: '#5CA85A',
       light: '#7FCD7D',
       extraLight: '#B5E2B4',
       contrastText: colors.text.primary,
-      100: '#E1F4E1',
-      850: '#224021',
     },
     warning: {
-      main: '#FFCB46',
+      main: colors.warning[500],
       dark: '#D9AD3C',
       light: '#FFD25E',
       extraLight: '#FFE5A3',
       contrastText: colors.text.primary,
-      100: '#FFF5DA',
-      850: '#614C15',
     },
   },
   typography: {

@@ -1,5 +1,4 @@
-import { colors } from './colors';
-
+export type {};
 /**
  * There are 2 categories of colors:
  *
@@ -85,7 +84,7 @@ declare module '@mui/material/styles' {
    * Anche qui vanno dichiarati solo i colori custom nuovi. I colori standard MUI sono già gestiti.
    */
   interface PaletteOptions {
-    neutral: NeutralPaletteColor;
+    neutral?: NeutralPaletteColor;
   }
 
   // Interfacce specifiche per i colori custom
@@ -109,38 +108,3 @@ declare module '@mui/material/styles' {
     100: string;
   }
 }
-
-export const muiItaliaPalette = {
-  neutral: {
-    main: colors.neutral.black,
-    contrastText: colors.neutral.white,
-    black: colors.neutral.black,
-    850: colors.neutral[850],
-    700: colors.neutral[700],
-    650: colors.neutral[650],
-    450: colors.neutral[450],
-    300: colors.neutral[300],
-    200: colors.neutral[200],
-    100: colors.neutral[100],
-    50: colors.neutral[50],
-    white: colors.neutral.white,
-  },
-  blue: {},
-  turquoise: {},
-  blueitalia: {},
-  info: {
-    main: colors.info[500],
-    dark: colors.info[700],
-    light: colors.info[400],
-    contrastText: colors.neutral.black,
-    850: colors.info[850],
-    700: colors.info[700],
-    500: colors.info[500],
-    400: colors.info[400],
-    100: colors.info[100],
-  },
-  success: {},
-  warning: {},
-  error: {},
-  purple: {},
-};
