@@ -42,7 +42,6 @@ async function run() {
       const content = readFileSync(file);
       totalRaw += content.length;
       totalGzip += zlib.gzipSync(content).length;
-      totalGzip += gzipSize;
     });
 
     const rawKb = (totalRaw / 1024).toFixed(2);
