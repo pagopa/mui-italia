@@ -51,7 +51,7 @@ export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
     //combine title, description and error code into a single string for screen readers
-    const screenReaderText = [title, description, errorCode ? `Error code: ${errorCode}` : '']
+    const screenReaderText = [title, description, errorCodeAriaLabel ? errorCodeAriaLabel : '']
       .filter(Boolean)
       .join('. ');
 
