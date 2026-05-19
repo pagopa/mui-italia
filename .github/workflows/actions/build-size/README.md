@@ -2,14 +2,13 @@
 
 A custom GitHub Action to monitor your project's compiled bundle size, enforce size limits, and post a detailed Markdown report directly to your Pull Requests. 
 
-It calculates both **Raw** and **Gzip** sizes and automatically cross-references the files with your Pull Request to highlight which compiled files correspond to newly added (🟢 A) or modified (🟡 M) source code.
+It calculates both **Raw** and **Gzip** sizes.
 
 ## ✨ Features
 
 - **Size Enforcement:** Fails the CI pipeline if the bundle exceeds your specified `max_raw_kb` or `max_gzip_kb` limits.
 - **Gzip Calculation:** Accurately calculates the real network cost of your files using native Node.js `zlib` compression.
-- **PR Integration:** Posts a clean, collapsible Markdown comment on the Pull Request.
-- **Change Tracking:** Uses the GitHub API to fetch PR changes and marks compiled files as Added or Modified.
+- **PR Integration:** Posts a clean Markdown comment on the Pull Request.
 - **Zero External Dependencies:** Built with native Node.js modules and standard GitHub Action core toolkits (`@actions/core`, `@actions/github`).
 
 ## 🚀 Usage
@@ -72,12 +71,6 @@ When the action runs, it will output a summary in the GitHub Actions UI and post
 | **Gzip** | 95.20 KB | 150 KB |
 
 ✅ **SUCCESS:** The bundle size is within the allowed limits.
-
-| Status | File | Raw Size | Gzip Size |
-| --- | --- | --- | --- |
-| 🟡 M | `components/Button.js` | 12.40 KB | 3.10 KB |
-| 🟢 A | `utils/formatters.js` | 5.20 KB | 1.80 KB |
-| ⚪ - | `index.js` | 2.10 KB | 0.90 KB |
 
 ## 🛠️ Development & Maintenance
 
