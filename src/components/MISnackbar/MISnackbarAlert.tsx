@@ -50,7 +50,7 @@ export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-    //combine title, description and error code into a single string for screen readers
+    //combine title, description and error code aria label into a single string for screen readers
     const screenReaderText = [title, description, errorCodeAriaLabel ? errorCodeAriaLabel : '']
       .filter(Boolean)
       .join('. ');
@@ -66,6 +66,22 @@ export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
           closeIcon: CloseRoundedIcon,
         }}
         sx={{
+          // Apply CSS Grid when errorCode exists to avoid negative margin to align the text field
+          ...(errorCode && {
+            display: 'grid',
+            gridTemplateColumns: 'auto 1fr auto',
+            '& .MuiAlert-icon': {
+              gridColumn: 1,
+              gridRow: 1,
+            },
+            '& .MuiAlert-message': {
+              display: 'contents',
+            },
+            '& .MuiAlert-action': {
+              gridColumn: 3,
+              gridRow: 1,
+            },
+          }),
           '& .MuiAlert-action .MuiIconButton-root': {
             color: neutral.black,
             opacity: 1,
@@ -80,17 +96,28 @@ export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
         tabIndex={0}
         aria-label={screenReaderText}
       >
-        <Stack direction={isMobile ? 'column' : 'row'} flex={1}>
+        <Stack
+          direction={isMobile ? 'column' : 'row'}
+          flex={1}
+          sx={{
+            ...(errorCode && {
+              gridColumn: 2,
+              gridRow: 1,
+            }),
+          }}
+        >
           <Stack direction="column" flex={1} minWidth={0} gap={title ? '4px' : 0}>
             {title && <MUIAlertTitle color={getColor(theme, severity)}>{title}</MUIAlertTitle>}
             {description}
           </Stack>
         </Stack>
+
+        {/* Error Code TextField */}
         {errorCode && (
           <Stack
             sx={{
-              marginLeft: -4, //negative margin to align the TextField with the icon of the alert
-              marginRight: -6, //negative margin to align the TextField with the close icon of the alert
+              gridColumn: '1 / -1', // Spans from the far left edge to the far right edge
+              gridRow: 2,
               marginTop: 2,
             }}
           >
