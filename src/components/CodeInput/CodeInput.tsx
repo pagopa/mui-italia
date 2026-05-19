@@ -9,7 +9,6 @@ import {
   FormLabel,
 } from '@mui/material';
 import { ChangeEvent, ReactNode, useId, useLayoutEffect, useRef, useState } from 'react';
-import { colors } from './../../theme/foundations/colors';
 
 /**
  * Layout constants used to size the code input component.
@@ -75,14 +74,14 @@ const blink = keyframes`
   100% { opacity: 0; }
 `;
 
-const Caret = styled('div')<{ position: CaretPosition['position'] }>(({ position }) => ({
+const Caret = styled('div')<{ position: CaretPosition['position'] }>(({ position, theme }) => ({
   position: 'absolute',
   top: '50%',
   transform: 'translateY(-50%)',
   width: '2px',
   borderRadius: '2px',
   height: '1em',
-  backgroundColor: colors.blue[500],
+  backgroundColor: theme.colors.blue[500],
   animation: `${blink} 1s step-start infinite`,
   transformOrigin: 'center',
   left: position === 'center' ? '50%' : position === 'end' ? 'calc(100% + 1px)' : '-1px',
@@ -134,7 +133,7 @@ const CodeBox = styled(Box, {
     codeBoxPaddingBottom
   )}`,
   border: `${theme.spacing(error ? codeBoxErrorBorder : 0.125)} solid ${
-    error ? colors.error[600] : colors.neutral[650]
+    error ? theme.colors.error[600] : theme.colors.neutral[650]
   }`,
   borderRadius: theme.spacing(codeBoxBorderRadius),
   // Shared layout variables for OverlayInput and CharBox.
@@ -151,7 +150,7 @@ const CharBox = styled(Box)(({ theme }) => ({
   lineHeight: '1.5em',
   paddingBottom: theme.spacing(0.25),
   marginBottom: theme.spacing(0.5),
-  borderBottom: `1px solid ${colors.neutral[700]}`,
+  borderBottom: `1px solid ${theme.colors.neutral[700]}`,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -171,7 +170,7 @@ const HelperText = styled(Typography, {
   boxSizing: 'content-box',
   paddingLeft: theme.spacing(3),
   paddingRight: theme.spacing(3),
-  color: error ? colors.error[600] : theme.palette.text.primary,
+  color: error ? theme.colors.error[600] : theme.palette.text.primary,
 }));
 
 /**

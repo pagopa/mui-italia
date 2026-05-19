@@ -3,32 +3,6 @@ import { ButtonNaked } from '@components/ButtonNaked';
 import CloseIcon from '@mui/icons-material/Close';
 import { Alert, Box, IconButton, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { ReactNode } from 'react';
-import { colors } from 'theme/foundations/colors';
-
-const COLOR_MAP = {
-  white: {
-    bg: 'background.paper',
-    border: colors.divider,
-    icon: colors.decorativeIcon,
-    text: colors.neutral.black,
-    action: colors.blue[500],
-  },
-  info: {
-    bg: colors.blue[50],
-    border: colors.blue[100],
-    icon: colors.blue[200],
-    text: colors.neutral.black,
-    action: colors.blue[500],
-  },
-  warning: {
-    bg: colors.warning[100],
-    border: colors.warning[400],
-    icon: colors.warning[850],
-    text: colors.warning[850],
-    action: colors.warning[850],
-  },
-};
-
 export interface EnvironmentBannerProps {
   bgColor?: 'white' | 'info' | 'warning';
   title?: string;
@@ -52,6 +26,30 @@ export const EnvironmentBanner = ({
 }: EnvironmentBannerProps) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const COLOR_MAP = {
+    white: {
+      bg: 'background.paper',
+      border: theme.colors.divider,
+      icon: theme.colors.decorativeIcon,
+      text: theme.colors.neutral.black,
+      action: theme.colors.blue[500],
+    },
+    info: {
+      bg: theme.colors.blue[50],
+      border: theme.colors.blue[100],
+      icon: theme.colors.blue[200],
+      text: theme.colors.neutral.black,
+      action: theme.colors.blue[500],
+    },
+    warning: {
+      bg: theme.colors.warning[100],
+      border: theme.colors.warning[400],
+      icon: theme.colors.warning[850],
+      text: theme.colors.warning[850],
+      action: theme.colors.warning[850],
+    },
+  };
 
   const variant = COLOR_MAP[bgColor];
 

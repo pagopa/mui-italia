@@ -1,7 +1,6 @@
 import { AriaAttributes, ReactNode } from 'react';
 import EmojiObjectsOutlinedIcon from '@mui/icons-material/EmojiObjectsOutlined';
 import type { Theme } from '@mui/material/styles';
-import { colors } from 'theme/foundations/colors';
 import { IllusPush } from '../../illustrations/Push';
 
 export type ThemeColor = string | ((theme: Theme) => string);
@@ -50,11 +49,11 @@ export interface BannerProps extends DataAttributes, AriaAttributes {
 const COLOR_STYLE_MAP: Record<BannerColor, BannerColorStyle> = {
   white: {
     background: (theme) => theme.palette.background.paper,
-    border: colors.neutral[100],
+    border: (theme) => theme.colors.neutral[100],
   },
   info: {
-    background: colors.blue[50],
-    border: colors.blue[100],
+    background: (theme) => theme.colors.blue[50],
+    border: (theme) => theme.colors.blue[100],
   },
 };
 
