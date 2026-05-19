@@ -6,13 +6,19 @@ on:
 
 permissions:
   contents: read
+  pull-requests: write
 
 jobs:
   code-review:
-    # Ignore draft pull request
-    if: ${{ github.event.pull_request.draft == false }}
+    # Ignore draft pull request and pull request opened from branch below
+    if: |
+      ${{ github.event.pull_request.draft == false }} &&
+      !startsWith(github.head_ref, 'renovate/') &&
+      !startsWith(github.head_ref, 'dependabot') &&
+      !startsWith(github.head_ref, 'release/') &&
+      !startsWith(github.head_ref, 'hotfix/') &&
+      !startsWith(github.head_ref, 'main')
     runs-on: ubuntu-22.04
-
     steps:
       - name: Check-out code
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
@@ -32,6 +38,14 @@ jobs:
 
       - name: Build
         run: yarn build
+
+      - name: Check Build Size
+        uses: ./.github/actions/bundle-size
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          path: 'dist'
+          max_raw_kb: '500'
+          max_gzip_kb: '150'
 
       # - name: Unit tests exec
       #   run: yarn test:coverage

@@ -1,0 +1,13 @@
+{
+  "name": "build-size",
+  "version": "1.0.0",
+  "description": "Action to check the build size",
+  "private": true,
+  "main": "src/index.js",
+  "author": "Andrea Cimini",
+  "type": "module",
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@actions/github": "^6.0.1"
+  }
+}
