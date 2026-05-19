@@ -30,8 +30,8 @@ export const EnvironmentBanner = ({
   const COLOR_MAP = {
     white: {
       bg: 'background.paper',
-      border: theme.colors.divider,
-      icon: theme.colors.decorativeIcon,
+      border: theme.palette.divider,
+      icon: theme.colors.neutral[300],
       text: theme.colors.neutral.black,
       action: theme.colors.blue[500],
     },
