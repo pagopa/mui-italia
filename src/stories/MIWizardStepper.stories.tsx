@@ -36,3 +36,13 @@ export const LongLabels: Story = {
     />
   ),
 };
+
+export const Mobile: Story = {
+  parameters: {
+    viewport: {
+      defaultViewport: 'mobile1',
+    },
+  },
+
+  render: () => <MIWizardStepper steps={steps} activeStep={1} />,
+};
