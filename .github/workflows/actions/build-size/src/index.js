@@ -1,7 +1,7 @@
 import { getInput, info, summary, setFailed } from '@actions/core';
 import { getOctokit, context } from '@actions/github';
 import { readdirSync, statSync, existsSync, readFileSync } from 'fs';
-import { join, basename } from 'path';
+import { join, basename, relative } from 'path';
 import zlib from 'zlib';
 
 // Recursive function to retrieve all files within a directory
@@ -74,7 +74,7 @@ async function run() {
       totalRaw += rawSize;
       totalGzip += gzipSize;
 
-      const relativePath = path.relative(targetPath, file);
+      const relativePath = relative(targetPath, file);
       const status = getFileStatus(file, prFiles);
 
       // Save individual file details, using a relative path for better readability
