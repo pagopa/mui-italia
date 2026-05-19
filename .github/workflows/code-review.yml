@@ -43,6 +43,10 @@ jobs:
       - name: Build
         run: yarn build
 
+      - name: Install Packages
+        run: npm install
+        working-directory: .github/workflows/actions/build-size
+
       - name: Check Build Size
         uses: ./.github/workflows/actions/build-size
         with:
