@@ -40,7 +40,7 @@ jobs:
           yarn build
 
       - name: Check Bundle Size & Post Comment
-        uses: ./.github/actions/bundle-size
+        uses: ./.github/actions/build-size
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           path: 'dist'

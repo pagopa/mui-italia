@@ -4,6 +4,10 @@ on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
 
+concurrency:
+  group: ${{ github.workflow }}-cd
+  cancel-in-progress: true
+
 permissions:
   contents: read
   pull-requests: write
@@ -40,7 +44,7 @@ jobs:
         run: yarn build
 
       - name: Check Build Size
-        uses: ./.github/actions/bundle-size
+        uses: ./.github/actions/build-size
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           path: 'dist'
