@@ -44,7 +44,7 @@ jobs:
         run: yarn build
 
       - name: Check Build Size
-        uses: ./.github/actions/build-size
+        uses: .github/workflows/actions/build-size
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           path: 'dist'
