@@ -2,9 +2,17 @@
 
 import React, { ReactNode } from 'react';
 
-import { Box, CircularProgress, Stack, Step, StepLabel, Stepper, Typography } from '@mui/material';
-
-import { useIsMobile } from '@hooks/useIsMobile';
+import {
+  Box,
+  CircularProgress,
+  Stack,
+  Step,
+  StepLabel,
+  Stepper,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 
 export type MIWizardStepperLocaleText = {
   stepLabel?: (currentStep: number) => string;
@@ -23,7 +31,8 @@ type Props = {
 };
 
 const MIWizardStepper: React.FC<Props> = ({ steps, activeStep, localeText }) => {
-  const isMobile = useIsMobile();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const resolvedLocaleText = {
     ...defaultLocaleText,
