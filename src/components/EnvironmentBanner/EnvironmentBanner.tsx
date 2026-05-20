@@ -31,7 +31,7 @@ export const EnvironmentBanner = ({
     white: {
       bg: 'background.paper',
       border: theme.palette.divider,
-      icon: theme.colors.neutral[300],
+      icon: theme.colors.neutral.grey[300],
       text: theme.colors.neutral.black,
       action: theme.colors.blue[500],
     },

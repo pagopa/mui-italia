@@ -2,21 +2,7 @@ import { indigo } from '@mui/material/colors';
 import { colors } from './colors';
 
 /**
- * There are 2 categories of colors:
- *
- * 1. NEW CUSTOM COLORS (neutral, turquoise, blueitalia, purple):
- *    - They do not exist in MUI by default
- *    - They can be fully defined inside Palette and PaletteOptions
- *    - Each one has its own specific interface (e.g. NeutralPaletteColor)
- *
- * 2. STANDARD MUI COLORS (info, success, warning, error):
- *    - They already exist in MUI as PaletteColor
- *    - They cannot be overridden directly in Palette (this would cause TypeScript errors)
- *    - To add custom properties (700, 500, 400, etc.) we need to extend
- *      PaletteColor and SimplePaletteColorOptions
- *
- * The global extensions below add all possible numeric properties
- * as optional fields. This allows each color to use only the properties it needs.
+ * Semantic palette definitions and MUI palette extensions.
  */
 
 export const semanticColors = {
@@ -40,7 +26,7 @@ export const semanticColors = {
     hover: '#0055AA',
   },
 
-  decorativeIcon: colors.neutral[300],
+  decorativeIcon: colors.neutral.grey[300],
   divider: colors.neutral.grey[100],
 } as const;
 
@@ -143,11 +129,36 @@ declare module '@mui/material/styles' {
     colors?: typeof colors;
   }
 
+  interface Palette {
+    pagoPA: Palette['primary'];
+    europeanUnion: Palette['primary'];
+    checkIban: Palette['primary'];
+    extraLight: Palette['warning'];
+    primaryAction: Palette['action'];
+    negative: SimplePaletteColorOptions;
+    indigo: Palette['primary'];
+  }
+
+  interface PaletteOptions {
+    pagoPA?: PaletteOptions['primary'];
+    europeanUnion: PaletteOptions['primary'];
+    checkIban?: PaletteOptions['primary'];
+    extraLight?: PaletteOptions['warning'];
+    primaryAction: PaletteOptions['action'];
+    negative: SimplePaletteColorOptions;
+    indigo: SimplePaletteColorOptions;
+  }
+
   interface PaletteColor {
     extraLight?: string;
+    100: string;
+    850: string;
   }
 
   interface SimplePaletteColorOptions {
+    dark?: string;
+    light?: string;
+    contrastText?: string;
     extraLight?: string;
   }
 }

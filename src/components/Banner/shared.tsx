@@ -199,7 +199,7 @@ export function Message({
     <Typography
       variant="body2"
       sx={{
-        color: (theme) => theme.colors.neutral[700],
+        color: (theme) => theme.colors.neutral.grey[700],
         textAlign,
         fontSize: variant === 'tertiary' ? '14px' : undefined,
         overflowWrap: 'anywhere',

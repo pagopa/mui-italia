@@ -1,5 +1,6 @@
 import { alpha, createTheme, Theme } from '@mui/material/styles';
 
+import { colors } from './colors';
 import { palette, semanticColors } from './palette';
 import { mainTypeface } from '../fonts';
 
@@ -21,6 +22,7 @@ const shadowValues = {
 const shadowsArray = Array(25).fill('none') as any;
 
 const foundation: Theme = createTheme({
+  colors,
   breakpoints: {
     values: {
       xs: 0,

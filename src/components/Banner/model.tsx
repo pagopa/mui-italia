@@ -49,7 +49,7 @@ export interface BannerProps extends DataAttributes, AriaAttributes {
 const COLOR_STYLE_MAP: Record<BannerColor, BannerColorStyle> = {
   white: {
     background: (theme) => theme.palette.background.paper,
-    border: (theme) => theme.colors.neutral[100],
+    border: (theme) => theme.colors.neutral.grey[100],
   },
   info: {
     background: (theme) => theme.colors.blue[50],

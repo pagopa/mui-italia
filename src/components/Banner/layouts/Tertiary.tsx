@@ -40,7 +40,9 @@ export function Tertiary({
         minWidth={0}
       >
         {model.topIcon && (
-          <Box sx={{ color: (theme) => theme.colors.blue[200], mt: isHorizontal ? 0.25 : 0 }}></Box>
+          <Box sx={{ color: (theme) => theme.colors.blue[200], mt: isHorizontal ? 0.25 : 0 }}>
+            {model.topIcon}
+          </Box>
         )}
 
         <Stack

@@ -52,45 +52,6 @@ declare module '@mui/material/Badge' {
   }
 }
 
-/* Custom Palette */
-declare module '@mui/material/styles' {
-  interface Palette {
-    pagoPA: Palette['primary'];
-    europeanUnion: Palette['primary'];
-    checkIban: Palette['primary'];
-    extraLight: Palette['warning'];
-    primaryAction: Palette['action'];
-    negative: SimplePaletteColorOptions;
-    indigo: Palette['primary'];
-  }
-  interface PaletteOptions {
-    pagoPA?: PaletteOptions['primary'];
-    europeanUnion: PaletteOptions['primary'];
-    checkIban?: PaletteOptions['primary'];
-    extraLight?: PaletteOptions['warning'];
-    primaryAction: PaletteOptions['action'];
-    negative: SimplePaletteColorOptions;
-    indigo: SimplePaletteColorOptions;
-  }
-
-  interface PaletteColor {
-    extraLight?: string;
-    100: string;
-    850: string;
-  }
-
-  /* Add new extraLight key to the colours */
-  interface SimplePaletteColorOptions {
-    main: string;
-    dark?: string;
-    light?: string;
-    contrastText?: string;
-    extraLight?: string;
-    100?: string;
-    850?: string;
-  }
-}
-
 declare module '@mui/material/Button' {
   interface ButtonPropsColorOverrides {
     blueItaly: true;
