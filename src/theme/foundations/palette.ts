@@ -41,6 +41,7 @@ export const palette = {
     light: '#2185E9',
     dark: '#0062C3',
     contrastText: colors.neutral.white,
+    100: colors.blue[100],
   },
   secondary: {
     main: colors.turquoise[500],
@@ -95,6 +96,8 @@ export const palette = {
     light: '#FE7A7A',
     extraLight: '#FB9EAC',
     contrastText: semanticColors.text.primary,
+    100: colors.error[100],
+    850: colors.error[850],
   },
   info: {
     //TODO manca contrastText?
@@ -103,6 +106,8 @@ export const palette = {
     light: '#7ED5FC',
     extraLight: '#86E1FD',
     contrastText: semanticColors.text.primary,
+    100: colors.info[100],
+    850: colors.info[850],
   },
   success: {
     main: colors.success[500],
@@ -110,6 +115,8 @@ export const palette = {
     light: '#7FCD7D',
     extraLight: '#B5E2B4',
     contrastText: semanticColors.text.primary,
+    100: colors.success[100],
+    850: colors.success[850],
   },
   warning: {
     main: colors.warning[500],
@@ -117,6 +124,8 @@ export const palette = {
     light: '#FFD25E',
     extraLight: '#FFE5A3',
     contrastText: semanticColors.text.primary,
+    100: colors.warning[100],
+    850: colors.warning[850],
   },
 } as const;
 
