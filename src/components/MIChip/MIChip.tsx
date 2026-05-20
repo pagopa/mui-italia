@@ -1,27 +1,9 @@
 import React, { FC } from 'react';
 import MuiChip, { ChipProps } from '@mui/material/Chip';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import { styled, Theme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import { colors, none } from 'theme/foundations/colors';
-import { SystemProps } from '@mui/system';
-
-type AllowedMIChipColors = 'default' | 'error' | 'success' | 'warning' | 'highlight' | 'neutral';
-
-type MarginKeys =
-  | 'm'
-  | 'mt'
-  | 'mr'
-  | 'mb'
-  | 'ml'
-  | 'mx'
-  | 'my'
-  | 'margin'
-  | 'marginTop'
-  | 'marginRight'
-  | 'marginBottom'
-  | 'marginLeft';
-
-type MarginSxProps = Pick<SystemProps<Theme>, MarginKeys>;
+import { AllowedMIChipColors, MarginSxProps } from 'types/components';
 
 type BaseMIChipProps = Omit<
   ChipProps,
@@ -33,20 +15,20 @@ type BaseMIChipProps = Omit<
 
 // Props for the standard mode
 type StandardMIChipProps = BaseMIChipProps & {
-  color: Omit<AllowedMIChipColors, 'neutral'>;
-  onDelete: never;
+  color?: Exclude<AllowedMIChipColors, 'neutral'>;
+  onDelete?: never;
 };
 
 // Props for the deletable mode, with color fixed to 'neutral'
 type DeletableMIChipProps = BaseMIChipProps & {
   color?: 'neutral';
-  onDelete: React.EventHandler<any>;
+  onDelete?: React.EventHandler<any>;
 };
 
 type CustomMIChipProps = StandardMIChipProps | DeletableMIChipProps;
 
 const StyledChip = styled(MuiChip, {
-  shouldForwardProp: (prop) => prop !== 'customColor' && prop !== 'mode',
+  shouldForwardProp: (prop) => prop !== 'customColor',
 })<{ customColor: AllowedMIChipColors }>(({ theme, customColor, variant = 'filled' }) => ({
   height: 'auto',
   borderRadius: theme.spacing(5),
@@ -125,38 +107,36 @@ const StyledChip = styled(MuiChip, {
 const MIChip: FC<CustomMIChipProps> = (props) => {
   const { color: colorProp, sx, label, onDelete, 'aria-label': ariaLabel, ...other } = props;
 
-  const applyDeletableA11yFix = Boolean(onDelete);
+  const isDeletable = Boolean(onDelete);
 
-  const color = colorProp ?? (applyDeletableA11yFix ? 'neutral' : 'default');
+  const color = colorProp ?? (isDeletable ? 'neutral' : 'default');
 
-  const accessibilityProps = applyDeletableA11yFix ? { tabIndex: -1, role: undefined } : {};
+  const accessibilityProps = isDeletable ? { tabIndex: -1, role: undefined } : {};
 
-  const deleteIconProps = applyDeletableA11yFix
-    ? {
-        tabIndex: 0,
-        role: 'button',
-        'aria-label': (ariaLabel ?? `Delete %s`).replace('%s', label),
-        style: { cursor: 'pointer' },
-        'aria-hidden': false,
-        focusable: true,
-        onKeyDown: (e: React.KeyboardEvent<SVGSVGElement>) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            e.stopPropagation();
-            onDelete?.(e);
-          }
-        },
-        sx: {
-          color: colors.blue[500],
-          backgroundColor: 'transparent',
-          borderRadius: 0,
-        },
+  const deleteIconProps = {
+    tabIndex: 0,
+    role: 'button',
+    'aria-label': (ariaLabel ?? `Delete %s`).replace('%s', label),
+    style: { cursor: 'pointer' },
+    'aria-hidden': false,
+    focusable: true,
+    onKeyDown: (e: React.KeyboardEvent<SVGSVGElement>) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        e.stopPropagation();
+        onDelete?.(e);
       }
-    : {};
+    },
+    sx: {
+      color: colors.blue[500],
+      backgroundColor: 'transparent',
+      borderRadius: 0,
+    },
+  };
 
   return (
     <StyledChip
-      customColor={color as AllowedMIChipColors}
+      customColor={color}
       label={label}
       onDelete={onDelete}
       deleteIcon={<CloseRoundedIcon {...deleteIconProps} />}

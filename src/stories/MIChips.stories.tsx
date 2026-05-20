@@ -11,15 +11,8 @@ export default {
         type: { summary: 'string' },
       },
     },
-    mode: {
-      control: { type: 'radio' },
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: 'standard' },
-      },
-    },
     color: {
-      options: ['default', 'warning', 'error', 'success', 'neutral', 'highlight'],
+      options: ['default', 'warning', 'error', 'success', 'highlight'],
       control: { type: 'radio' },
       table: {
         type: { summary: 'string' },

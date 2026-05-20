@@ -68,7 +68,6 @@ declare module '@mui/material/styles' {
     primaryAction: Palette['action'];
     negative: SimplePaletteColorOptions;
     indigo: Palette['primary'];
-    neutral: Palette['primary'];
   }
   interface PaletteOptions {
     pagoPA?: PaletteOptions['primary'];
@@ -78,7 +77,6 @@ declare module '@mui/material/styles' {
     primaryAction: PaletteOptions['action'];
     negative: SimplePaletteColorOptions;
     indigo: SimplePaletteColorOptions;
-    neutral: SimplePaletteColorOptions;
   }
 
   interface PaletteColor {
