@@ -14,7 +14,7 @@ import { forwardRef } from 'react';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { neutral } from 'theme/colors';
 import { colors } from 'theme/foundations/colors';
-import { AllowedAlertSeverity } from 'types/MIAlert';
+import { AllowedAlertSeverity } from '@types';
 
 // props that apply to all severities
 type BaseAlertProps = {

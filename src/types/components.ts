@@ -5,3 +5,5 @@ export interface CTA {
   title: string;
   onClick: (e: SyntheticEvent) => void;
 }
+
+export type AllowedAlertSeverity = 'success' | 'info' | 'warning' | 'error';

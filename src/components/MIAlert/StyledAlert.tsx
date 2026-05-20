@@ -1,7 +1,7 @@
 import { styled } from '@mui/material';
 import MUIAlert, { AlertProps as MUIAlertProps } from '@mui/material/Alert';
+import { AllowedAlertSeverity } from '@types';
 import { ComponentType } from 'react';
-import { AllowedAlertSeverity } from 'types/MIAlert';
 
 type MUIBaseAlertProps = Omit<MUIAlertProps, 'variant'>;
 

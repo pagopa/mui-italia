@@ -7,7 +7,7 @@ import { AlertProps as MUIAlertProps } from '@mui/material/Alert';
 import { ElementType, HTMLAttributeAnchorTarget } from 'react';
 import { StyledAlert } from './StyledAlert';
 import { getColor, getIcon } from './utils';
-import { AllowedAlertSeverity } from 'types/MIAlert';
+import { AllowedAlertSeverity } from '@types';
 
 type ButtonCTA = {
   label: string;
