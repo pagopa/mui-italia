@@ -5,7 +5,7 @@ import { AlertTitle as MUIAlertTitle, Stack, styled, useMediaQuery, useTheme } f
 import MUIAlert, { AlertProps as MUIAlertProps } from '@mui/material/Alert';
 import { ElementType, HTMLAttributeAnchorTarget } from 'react';
 import { getColor, getIcon } from './utils';
-import { MarginSxProps } from 'types/components';
+import { MarginSxProps } from '@types';
 
 export type AllowedAlertSeverity = 'success' | 'info' | 'warning' | 'error';
 

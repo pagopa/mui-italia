@@ -3,7 +3,7 @@ import MuiChip, { ChipProps } from '@mui/material/Chip';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { styled } from '@mui/material/styles';
 import { colors, none } from 'theme/foundations/colors';
-import { AllowedMIChipColors, MarginSxProps } from 'types/components';
+import { AllowedMIChipColors, MarginSxProps } from '@types';
 
 type BaseMIChipProps = Omit<
   ChipProps,
