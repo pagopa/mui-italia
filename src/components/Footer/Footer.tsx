@@ -27,6 +27,9 @@ type FooterProps = LangSwitchProps & {
   onExit?: (exitAction: () => void) => void;
   productsJsonUrl?: string;
   productsTitle?: string;
+  // error passed through the catch block can be of different types
+  // so we must cast it to any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onProductsJsonFetchError?: (reason: any) => void;
   hideProductsColumn?: boolean;
 };

@@ -1,12 +1,28 @@
 name: Code Review
 
 on:
-  workflow_call:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+concurrency:
+  group: ${{ github.workflow }}-cd
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
 
 jobs:
-  js_code_review:
+  code-review:
+    # Ignore draft pull request and pull request opened from branch below
+    if: |
+      ${{ github.event.pull_request.draft == false }} &&
+      !startsWith(github.head_ref, 'renovate/') &&
+      !startsWith(github.head_ref, 'dependabot') &&
+      !startsWith(github.head_ref, 'release/') &&
+      !startsWith(github.head_ref, 'hotfix/') &&
+      !startsWith(github.head_ref, 'main')
     runs-on: ubuntu-22.04
-
     steps:
       - name: Check-out code
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
@@ -21,11 +37,23 @@ jobs:
         run: yarn install --immutable
         working-directory: .
 
+      - name: Lint
+        run: yarn lint
+
       - name: Build
         run: yarn build
 
-      - name: Lint
-        run: yarn lint
+      # - name: Install Packages
+      #   run: npm install
+      #   working-directory: .github/workflows/actions/build-size
+
+      # - name: Check Build Size
+      #   uses: ./.github/workflows/actions/build-size
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     path: 'dist'
+      #     max_raw_kb: '500'
+      #     max_gzip_kb: '150'
 
       # - name: Unit tests exec
       #   run: yarn test:coverage
@@ -34,17 +62,17 @@ jobs:
       # To enable set CODECOV_TOKEN secret at repo level and make sure
       # that your "code-review" script creates a "coverage/" folder in
       # the root workspace.
-      - name: Upload coverage report to codecov.io
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        if: ${{ env.CODECOV_TOKEN != '' }}
-        uses: codecov/codecov-action@84508663e988701840491b86de86b666e8a86bed # v4.3.0
-        with:
-          token: ${{ env.CODECOV_TOKEN }}
+      #- name: Upload coverage report to codecov.io
+      #  env:
+      #    CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      #  if: ${{ env.CODECOV_TOKEN != '' }}
+      #  uses: codecov/codecov-action@84508663e988701840491b86de86b666e8a86bed # v4.3.0
+      #  with:
+      #    token: ${{ env.CODECOV_TOKEN }}
 
       # The following job will be executed only if CODECOV_TOKEN is not set
-      - name: Code coverage
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        if: ${{ env.CODECOV_TOKEN == '' }}
-        run: bash <(curl -s https://codecov.io/bash)
+      #- name: Code coverage
+      #  env:
+      #    CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      #  if: ${{ env.CODECOV_TOKEN == '' }}
+      #  run: bash <(curl -s https://codecov.io/bash)

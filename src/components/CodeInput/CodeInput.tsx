@@ -240,7 +240,7 @@ const CodeInput = ({
     // we need to immediatly update the caret to avoid a flickering in the caret update
     // so we can't do the update in the onSelect callback
     syncCaretFromInput(filtered.length);
-    onChange?.(filtered);
+    onChange(filtered);
   };
 
   const updateCaretPosition = (pos: number, valueLen: number = sanitizedValue.length) => {

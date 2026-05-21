@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useRef, ChangeEvent, DragEvent, ReactNode, useState } from "react";
+import { useRef, ChangeEvent, DragEvent, ReactNode, useState } from 'react';
 import {
   Box,
   Button,
@@ -10,13 +10,13 @@ import {
   IconButton,
   Input,
   Typography,
-} from "@mui/material";
+} from '@mui/material';
 
 /* Icons */
-import AttachFileIcon from "@mui/icons-material/AttachFile";
-import CloseIcon from "@mui/icons-material/Close";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import ErrorIcon from "@mui/icons-material/Error";
+import AttachFileIcon from '@mui/icons-material/AttachFile';
+import CloseIcon from '@mui/icons-material/Close';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import ErrorIcon from '@mui/icons-material/Error';
 
 /* Utils */
 import {
@@ -26,7 +26,7 @@ import {
   getStatus,
   truncateFileName,
   verifyAccept,
-} from "./utils";
+} from './utils';
 
 export type SingleFileInputProps = {
   /** The file to be displayed. */
@@ -73,18 +73,12 @@ export type SingleFileInputProps = {
   rejectedLabel?: string;
 };
 
-const OrientedBox = ({
-  vertical,
-  children,
-}: {
-  vertical?: boolean;
-  children: ReactNode;
-}) => (
+const OrientedBox = ({ vertical, children }: { vertical?: boolean; children: ReactNode }) => (
   <Box
     display="flex"
     justifyContent="center"
     alignItems="center"
-    flexDirection={vertical ? "column" : "row"}
+    flexDirection={vertical ? 'column' : 'row'}
     margin="auto"
     flex={1}
     p={3}
@@ -94,11 +88,11 @@ const OrientedBox = ({
 );
 
 export enum UploadStatus {
-  IDLE = "IDLE",
-  LOADING = "LOADING",
-  REJECTED = "REJECTED",
-  ERROR = "ERROR",
-  SELECTED = "SELECTED",
+  IDLE = 'IDLE',
+  LOADING = 'LOADING',
+  REJECTED = 'REJECTED',
+  ERROR = 'ERROR',
+  SELECTED = 'SELECTED',
 }
 
 export const SingleFileInput = ({
@@ -108,26 +102,20 @@ export const SingleFileInput = ({
   accept,
   loading,
   vertical = false,
-
   onFileSelected,
   onFileRemoved,
   onFileRejected,
   dropzoneLabel,
   dropzoneButton,
-  loadingLabel = "Caricamento in corso...",
+  loadingLabel = 'Caricamento in corso...',
   rejectedLabel,
 }: SingleFileInputProps): JSX.Element => {
   const uploadInputRef = useRef<HTMLButtonElement>();
 
-  const [id, _] = useState(generateRandomID);
+  const [id] = useState(generateRandomID);
   const [isFileRejected, setIsFileRejected] = useState(false);
 
-  const status = getStatus(
-    value,
-    !!loading,
-    !!error,
-    isFileRejected && !!rejectedLabel
-  );
+  const status = getStatus(value, !!loading, !!error, isFileRejected && !!rejectedLabel);
   const containerStyle = getContainerStyle(status);
 
   const chooseFileHandler = () => {
@@ -153,7 +141,7 @@ export const SingleFileInput = ({
     e.preventDefault();
     e.stopPropagation();
 
-    e.dataTransfer.dropEffect = "copy";
+    e.dataTransfer.dropEffect = 'copy';
   };
 
   const handleDrop = (e: DragEvent) => {
@@ -190,28 +178,28 @@ export const SingleFileInput = ({
     status === UploadStatus.ERROR;
 
   return (
-    <FormControl sx={{ width: "100%" }}>
+    <FormControl sx={{ width: '100%' }}>
       <FormLabel error={error} sx={{ fontWeight: 600, mb: 1 }} htmlFor={id}>
         {label}
       </FormLabel>
 
       <Box
         sx={{
-          position: "relative",
+          position: 'relative',
           minHeight: 80,
-          borderRadius: "10px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          borderRadius: '10px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
           ...containerStyle,
         }}
       >
         {showDropzone && (
           <Box
             sx={{
-              cursor: "pointer",
-              backgroundColor: "transparent",
-              border: "none",
+              cursor: 'pointer',
+              backgroundColor: 'transparent',
+              border: 'none',
               flex: 1,
             }}
             onDragOver={handleDragOver}
@@ -229,8 +217,8 @@ export const SingleFileInput = ({
                   <ErrorIcon
                     color="error"
                     sx={{
-                      mb: vertical ? "10px" : 0,
-                      mr: vertical ? 0 : "10px",
+                      mb: vertical ? '10px' : 0,
+                      mr: vertical ? 0 : '10px',
                     }}
                   />
                   <Typography color="error" display="inline" variant="body2">
@@ -239,21 +227,20 @@ export const SingleFileInput = ({
                 </>
               )}
 
-              {(status === UploadStatus.IDLE ||
-                status === UploadStatus.ERROR) && (
+              {(status === UploadStatus.IDLE || status === UploadStatus.ERROR) && (
                 <>
                   <CloudUploadIcon color={getColorStyle(status)} />
                   <Typography
                     color={
                       status === UploadStatus.ERROR
                         ? getColorStyle(status)
-                        : "text." + getColorStyle(status)
+                        : 'text.' + getColorStyle(status)
                     }
                     display="inline"
                     variant="body2"
                     sx={{
-                      my: vertical ? "10px" : 0,
-                      mx: vertical ? 0 : "10px",
+                      my: vertical ? '10px' : 0,
+                      mx: vertical ? 0 : '10px',
                     }}
                   >
                     {dropzoneLabel}
@@ -266,7 +253,7 @@ export const SingleFileInput = ({
                 inputProps={{ accept }}
                 type="file"
                 id={id}
-                sx={{ display: "none" }}
+                sx={{ display: 'none' }}
                 inputRef={uploadInputRef}
                 onChange={handleSelectFile}
                 data-testid="fileInput"
@@ -288,13 +275,13 @@ export const SingleFileInput = ({
                   ? {
                       ml: 0,
                       mt: 2,
-                      width: "100%",
+                      width: '100%',
                     }
                   : {
                       ml: 2,
                       mt: 0,
-                      display: "flex",
-                      flexDirection: "row",
+                      display: 'flex',
+                      flexDirection: 'row',
                       flex: 1,
                     }
               }
@@ -307,14 +294,12 @@ export const SingleFileInput = ({
             display="flex"
             justifyContent="space-between"
             alignItems="center"
-            sx={{ width: "100%" }}
+            sx={{ width: '100%' }}
           >
             <Box display="flex" justifyContent="center" alignItems="center">
               <AttachFileIcon sx={{ mr: 1 }} color="primary" />
-              <Typography color="primary">
-                {truncateFileName(value.name)}
-              </Typography>
-              <Typography fontWeight={600} sx={{ marginLeft: "30px" }}>
+              <Typography color="primary">{truncateFileName(value.name)}</Typography>
+              <Typography fontWeight={600} sx={{ marginLeft: '30px' }}>
                 {(value.size / 1024).toFixed(2)}&nbsp;KB
               </Typography>
             </Box>

@@ -135,7 +135,7 @@ const StyledSwitcherButton = styled('div')(({ theme }) => ({
 
 const ProductSwitchButton = forwardRef(function ProductSwitchButton(
   props: ButtonProps,
-  ref: ForwardedRef<any>
+  ref: ForwardedRef<HTMLButtonElement>
 ) {
   const { children, disabled } = props;
   const { focusVisible, getRootProps } = useButton({
