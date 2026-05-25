@@ -12,7 +12,7 @@ export default {
       },
     },
     color: {
-      options: ['default', 'warning', 'error', 'success', 'highlight'],
+      options: ['default', 'warning', 'error', 'success', 'highlight', 'neutral'],
       control: { type: 'radio' },
       table: {
         type: { summary: 'string' },

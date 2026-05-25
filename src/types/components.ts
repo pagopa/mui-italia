@@ -8,14 +8,6 @@ export interface CTA {
   onClick: (e: SyntheticEvent) => void;
 }
 
-export type AllowedMIChipColors =
-  | 'default'
-  | 'error'
-  | 'success'
-  | 'warning'
-  | 'highlight'
-  | 'neutral';
-
 type MarginKeys =
   | 'm'
   | 'mt'
