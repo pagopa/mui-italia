@@ -5,7 +5,14 @@ import { styled } from '@mui/material/styles';
 import { colors, none } from 'theme/foundations/colors';
 import { MarginSxProps } from '@types';
 
-type AllowedMIChipColors = 'default' | 'error' | 'success' | 'warning' | 'highlight' | 'neutral';
+type AllowedMIChipColors =
+  | 'default'
+  | 'error'
+  | 'success'
+  | 'warning'
+  | 'highlight'
+  | 'neutral'
+  | 'info';
 
 type BaseMIChipProps = Omit<
   ChipProps,
@@ -75,6 +82,10 @@ const StyledChip = styled(MuiChip, {
         borderColor: colors.turquoise[850],
         backgroundColor: none,
       }),
+      ...(customColor === 'info' && {
+        color: colors.info[850],
+        borderColor: colors.info[850],
+      }),
     }),
 
     // filled variant
@@ -101,6 +112,10 @@ const StyledChip = styled(MuiChip, {
       ...(customColor === 'highlight' && {
         backgroundColor: colors.turquoise[50],
         color: colors.turquoise[850],
+      }),
+      ...(customColor === 'info' && {
+        backgroundColor: colors.info[100],
+        color: colors.info[850],
       }),
     }),
   },
