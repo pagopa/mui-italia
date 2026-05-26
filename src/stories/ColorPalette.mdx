@@ -3,140 +3,643 @@ import { theme } from '@theme';
 
 <Meta title="Foundation/Colors" />
 
-<h2>Main</h2>
+# Colori
 
-<br />
+Questa pagina documenta il sistema colore usato da `@pagopa/mui-italia`.
+
+Il sistema colore è diviso in due livelli distinti:
+
+1. **Colori primitivi**
+2. **Colori semantici**
+
+Questa distinzione è importante perché non tutti i colori hanno lo stesso scopo.
+
+Un colore può essere semplicemente una tonalità disponibile nel design system, oppure può rappresentare un significato preciso nell’interfaccia, come “errore”, “successo”, “testo principale” o “azione primaria”.
+
+## Indice
+
+- [Colori primitivi](#colori-primitivi)
+  - [Colori primitivi di stato](#colori-primitivi-di-stato)
+- [Colori semantici](#colori-semantici)
+  - [Palette semantica principale](#palette-semantica-principale)
+  - [Colori semantici di interazione](#colori-semantici-di-interazione)
+  - [Colori semantici di stato](#colori-semantici-di-stato)
+  - [Colori semantici custom](#colori-semantici-custom)
+- [Differenza tra colori primitivi e colori semantici](#differenza-tra-colori-primitivi-e-colori-semantici)
+- [Linee guida di utilizzo](#linee-guida-di-utilizzo)
+  - [Usa `theme.palette` quando il colore ha un significato semantico](#usa-themepalette-quando-il-colore-ha-un-significato-semantico)
+  - [Usa `theme.colors` quando ti serve una tonalità primitiva specifica](#usa-themecolors-quando-ti-serve-una-tonalità-primitiva-specifica)
+  - [Evita colori hardcoded](#evita-colori-hardcoded)
+  - [Non importare direttamente i colori](#non-importare-direttamente-i-colori)
+
+## Colori primitivi
+
+I **colori primitivi** sono le tonalità base definite dal design system.
+
+Si chiamano “primitivi” perché non descrivono da soli un significato dell’interfaccia: sono semplicemente colori disponibili, organizzati in scale.
+
+Per esempio:
+
+- `blue[500]` è una specifica tonalità di blu;
+- `neutral.grey[700]` è una specifica tonalità di grigio;
+- `success[100]` è una specifica tonalità chiara della scala success;
+- `error[600]` è una specifica tonalità della scala error.
+
+Questi colori rispondono alla domanda:
+
+> “Quale tonalità voglio usare?”
+
+Non rispondono invece alla domanda:
+
+> “Che ruolo ha questo colore nell’interfaccia?”
+
+Per esempio, `theme.colors.blue[500]` non significa automaticamente “colore primario”.
+
+È solo una tonalità di blu. Potrebbe essere usata per un’icona, un bordo, un’illustrazione o un componente custom, ma non porta con sé un significato funzionale.
+
+I colori primitivi sono disponibili tramite:
+
+`theme.colors`
+
+Esempi:
+
+- `theme.colors.blue[500]`
+- `theme.colors.neutral.grey[700]`
+- `theme.colors.turquoise[50]`
+- `theme.colors.success[850]`
+
+Usa i colori primitivi quando stai costruendo un componente custom che non è già coperto da un componente MUI o da un ruolo semantico della palette.
+
+Esempio:
+
+```tsx
+<Box
+  sx={(theme) => ({
+    backgroundColor: theme.colors.blue[50],
+    color: theme.colors.blue[850],
+  })}
+/>
+```
+
+In questo esempio stiamo scegliendo direttamente due tonalità della scala `blue`.
+
+Questo è utile quando il design richiede una combinazione specifica di colori, ma bisogna fare attenzione: se il colore rappresenta un ruolo dell’interfaccia, è preferibile usare un colore semantico.
 
 <ColorPalette>
-  <ColorItem title="Neutral" colors={{ 
-      black: theme.palette.neutral.black,
-      white: theme.palette.neutral.white,
-      850: theme.palette.neutral[850], 
-      700: theme.palette.neutral[700], 
-      650: theme.palette.neutral[650], 
-      450: theme.palette.neutral[450], 
-      300: theme.palette.neutral[300], 
-      200: theme.palette.neutral[200], 
-      100: theme.palette.neutral[100],
-      50: theme.palette.neutral[50],
+  <ColorItem
+    title="Neutral"
+    subtitle="Colori neutri di base."
+    colors={{
+      black: theme.colors.neutral.black,
+      white: theme.colors.neutral.white,
+      '850': theme.colors.neutral.grey[850],
+      '700': theme.colors.neutral.grey[700],
+      '650': theme.colors.neutral.grey[650],
+      '450': theme.colors.neutral.grey[450],
+      '300': theme.colors.neutral.grey[300],
+      '200': theme.colors.neutral.grey[200],
+      '100': theme.colors.neutral.grey[100],
+      '50': theme.colors.neutral.grey[50],
     }}
-/>
+  />
 
 <ColorItem
-  title="Primary"
+  title="Blue"
+  subtitle="Scala primitiva blue."
   colors={{
-    Main: theme.palette.primary.main,
-    Light: theme.palette.primary.light,
-    Dark: theme.palette.primary.dark,
-    ContrastText: theme.palette.primary.contrastText,
+    '850': theme.colors.blue[850],
+    '600': theme.colors.blue[600],
+    '500': theme.colors.blue[500],
+    '400': theme.colors.blue[400],
+    '300': theme.colors.blue[300],
+    '200': theme.colors.blue[200],
+    '150': theme.colors.blue[150],
+    '100': theme.colors.blue[100],
+    '50': theme.colors.blue[50],
   }}
 />
 
 <ColorItem
-  title="Secondary"
+  title="Turquoise"
+  subtitle="Scala primitiva turquoise."
   colors={{
-    Main: theme.palette.secondary.main,
-    Light: theme.palette.secondary.light,
-    Dark: theme.palette.secondary.dark,
-    ContrastText: theme.palette.secondary.contrastText,
+    '850': theme.colors.turquoise[850],
+    '600': theme.colors.turquoise[600],
+    '500': theme.colors.turquoise[500],
+    '300': theme.colors.turquoise[300],
+    '150': theme.colors.turquoise[150],
+    '100': theme.colors.turquoise[100],
+    '50': theme.colors.turquoise[50],
+  }}
+/>
+
+<ColorItem
+  title="Blue Italia"
+  subtitle="Scala primitiva Blue Italia."
+  colors={{
+    '850': theme.colors.blueitalia[850],
+    '600': theme.colors.blueitalia[600],
+    '500': theme.colors.blueitalia[500],
+    '400': theme.colors.blueitalia[400],
+    '100': theme.colors.blueitalia[100],
+    '50': theme.colors.blueitalia[50],
+  }}
+/>
+
+  <ColorItem
+    title="Purple"
+    subtitle="Scala primitiva purple."
+    colors={{
+      '850': theme.colors.purple[850],
+      '500': theme.colors.purple[500],
+      '250': theme.colors.purple[250],
+      '100': theme.colors.purple[100],
+      '50': theme.colors.purple[50],
+    }}
+  />
+</ColorPalette>
+
+## Colori primitivi di stato
+
+Le scale seguenti rappresentano colori primitivi collegati agli stati.
+
+Non sono la stessa cosa di:
+
+- `theme.palette.info`
+- `theme.palette.success`
+- `theme.palette.warning`
+- `theme.palette.error`
+
+Usa queste scale primitive quando un componente custom ha bisogno di una tonalità specifica.
+
+Usa invece `theme.palette.*` quando hai bisogno del ruolo semantico generico previsto da MUI.
+
+<ColorPalette>
+  <ColorItem
+    title="Info"
+    subtitle="Scala primitiva info."
+    colors={{
+      '850': theme.colors.info[850],
+      '700': theme.colors.info[700],
+      '500': theme.colors.info[500],
+      '400': theme.colors.info[400],
+      '100': theme.colors.info[100],
+    }}
+  />
+
+<ColorItem
+  title="Success"
+  subtitle="Scala primitiva success."
+  colors={{
+    '850': theme.colors.success[850],
+    '700': theme.colors.success[700],
+    '500': theme.colors.success[500],
+    '400': theme.colors.success[400],
+    '100': theme.colors.success[100],
+  }}
+/>
+
+<ColorItem
+  title="Warning"
+  subtitle="Scala primitiva warning."
+  colors={{
+    '850': theme.colors.warning[850],
+    '700': theme.colors.warning[700],
+    '500': theme.colors.warning[500],
+    '400': theme.colors.warning[400],
+    '100': theme.colors.warning[100],
+  }}
+/>
+
+  <ColorItem
+    title="Error"
+    subtitle="Scala primitiva error."
+    colors={{
+      '850': theme.colors.error[850],
+      '600': theme.colors.error[600],
+      '500': theme.colors.error[500],
+      '400': theme.colors.error[400],
+      '100': theme.colors.error[100],
+    }}
+  />
+</ColorPalette>
+
+## Colori semantici
+
+I **colori semantici** sono colori che descrivono un ruolo o un significato nell’interfaccia.
+
+Si chiamano “semantici” perché il loro nome non indica solo una tonalità, ma comunica anche **a cosa serve quel colore**.
+
+Per esempio:
+
+- `primary` indica il colore principale dell’interfaccia;
+- `error` indica uno stato di errore;
+- `success` indica uno stato positivo o completato;
+- `warning` indica uno stato di attenzione;
+- `text.primary` indica il colore del testo principale;
+- `background.paper` indica il colore di una superficie;
+- `divider` indica il colore dei separatori.
+
+Questi colori rispondono alla domanda:
+
+> “Che ruolo ha questo colore nell’interfaccia?”
+
+Non rispondono soltanto alla domanda:
+
+> “Che tonalità è?”
+
+I colori semantici sono disponibili tramite:
+
+`theme.palette`
+
+Esempi:
+
+- `theme.palette.primary.main`
+- `theme.palette.text.primary`
+- `theme.palette.background.paper`
+- `theme.palette.success.main`
+- `theme.palette.error.main`
+
+Usa i colori semantici quando il colore rappresenta un significato dell’interfaccia.
+
+Esempio:
+
+```tsx
+<Button color="primary">
+  Continua
+</Button>
+
+<Box
+  sx={(theme) => ({
+    color: theme.palette.text.primary,
+    backgroundColor: theme.palette.background.paper,
+  })}
+/>
+```
+
+In questo esempio non stiamo scegliendo manualmente una specifica tonalità di blu o grigio.
+
+Stiamo dicendo che il bottone usa il colore dell’azione primaria e che il box usa i colori semantici previsti per testo e background.
+
+Questo rende i componenti più coerenti, più facili da mantenere e più resistenti a eventuali cambiamenti futuri del tema.
+
+## Palette semantica principale
+
+<ColorPalette>
+  <ColorItem
+    title="Primary"
+    subtitle="Colore semantico principale per azioni primarie ed elementi ad alta enfasi."
+    colors={{
+      main: theme.palette.primary.main,
+      light: theme.palette.primary.light,
+      dark: theme.palette.primary.dark,
+      contrastText: theme.palette.primary.contrastText,
+      '100': theme.palette.primary[100],
+    }}
+  />
+
+<ColorItem
+  title="Secondary"
+  subtitle="Colore semantico secondario usato dai componenti MUI quando supportano color='secondary'."
+  colors={{
+    main: theme.palette.secondary.main,
+    light: theme.palette.secondary.light,
+    dark: theme.palette.secondary.dark,
+    contrastText: theme.palette.secondary.contrastText,
   }}
 />
 
 <ColorItem
   title="Text"
+  subtitle="Colori semantici usati per testi e contenuti tipografici."
   colors={{
-    Primary: theme.palette.text.primary,
-    Secondary: theme.palette.text.secondary,
-    Disabled: theme.palette.text.disabled,
+    primary: theme.palette.text.primary,
+    secondary: theme.palette.text.secondary,
+    disabled: theme.palette.text.disabled,
   }}
 />
 
 <ColorItem
   title="Background"
-  colors={{ Paper: theme.palette.background.paper, Default: theme.palette.background.default }}
-/>
-
-<ColorItem
-  title="Action"
-  subtitle="Fill color for different components in various states"
+  subtitle="Colori semantici usati per sfondi di pagina e superfici."
   colors={{
-    Active: theme.palette.action.active,
-    Hover: theme.palette.action.hover,
-    Selected: theme.palette.action.selected,
-    focus: theme.palette.action.focus,
+    paper: theme.palette.background.paper,
+    default: theme.palette.background.default,
   }}
 />
 
-<ColorItem
-  title="Action (Primary)"
-  colors={{
-    Hover: theme.palette.primaryAction.hover,
-    Selected: theme.palette.primaryAction.selected,
-  }}
-/>
-
-  <ColorItem title="Action (Disabled)" colors={{  Disabled: theme.palette.action.disabled, DisabledBackground: theme.palette.action.disabledBackground,  }} />
+  <ColorItem
+    title="Divider"
+    subtitle="Colore semantico per separatori e bordi generici."
+    colors={{
+      divider: theme.palette.divider,
+    }}
+  />
 </ColorPalette>
 
-<h2>States</h2>
+## Colori semantici di interazione
 
-<br />
+I colori di interazione sono usati da MUI per stati come hover, selected, focus e disabled.
+
+Usali quando devi implementare componenti custom che devono comportarsi in modo coerente con gli stati interattivi dei componenti MUI.
 
 <ColorPalette>
-  <ColorItem title="Error" colors={{ Main: theme.palette.error.main, Light: theme.palette.error.light, ExtraLight: theme.palette.error.extraLight,  Dark: theme.palette.error.dark, ContrastText: theme.palette.error.contrastText }} />
+  <ColorItem
+    title="Action"
+    subtitle="Colori generici per stati di interazione: hover, selected, disabled e focus."
+    colors={{
+      active: theme.palette.action.active,
+      hover: theme.palette.action.hover,
+      selected: theme.palette.action.selected,
+      disabled: theme.palette.action.disabled,
+      disabledBackground: theme.palette.action.disabledBackground,
+      focus: theme.palette.action.focus,
+    }}
+  />
 
-<ColorItem
-  title="Warning"
-  colors={{
-    Main: theme.palette.warning.main,
-    Light: theme.palette.warning.light,
-    ExtraLight: theme.palette.warning.extraLight,
-    Dark: theme.palette.warning.dark,
-    ContrastText: theme.palette.warning.contrastText,
-  }}
-/>
+  <ColorItem
+    title="Primary Action"
+    subtitle="Colori semantici custom per stati interattivi primari."
+    colors={{
+      hover: theme.palette.primaryAction.hover,
+      selected: theme.palette.primaryAction.selected,
+    }}
+  />
+</ColorPalette>
+
+## Colori semantici di stato
+
+I colori semantici di stato sono i ruoli MUI generici:
+
+- `info`
+- `success`
+- `warning`
+- `error`
+
+Usali quando il componente esprime uno stato semantico.
+
+Esempi:
+
+```tsx
+<Alert severity="success">
+  Operazione completata
+</Alert>
+
+<Chip color="error" label="Errore" />
+```
+
+<ColorPalette>
+  <ColorItem
+    title="Info"
+    subtitle="Colore semantico info usato dai componenti MUI e dagli stati informativi generici."
+    colors={{
+      main: theme.palette.info.main,
+      light: theme.palette.info.light,
+      dark: theme.palette.info.dark,
+      extraLight: theme.palette.info.extraLight,
+      contrastText: theme.palette.info.contrastText,
+      '100': theme.palette.info[100],
+      '850': theme.palette.info[850],
+    }}
+  />
 
 <ColorItem
   title="Success"
+  subtitle="Colore semantico success usato dai componenti MUI e dagli stati positivi generici."
   colors={{
-    Main: theme.palette.success.main,
-    Light: theme.palette.success.light,
-    ExtraLight: theme.palette.success.extraLight,
-    Dark: theme.palette.success.dark,
-    ContrastText: theme.palette.success.contrastText,
+    main: theme.palette.success.main,
+    light: theme.palette.success.light,
+    dark: theme.palette.success.dark,
+    extraLight: theme.palette.success.extraLight,
+    contrastText: theme.palette.success.contrastText,
+    '100': theme.palette.success[100],
+    '850': theme.palette.success[850],
   }}
 />
 
-  <ColorItem title="Info" colors={{ Main: theme.palette.info.main, Light: theme.palette.info.light, ExtraLight: theme.palette.info.extraLight,  Dark: theme.palette.info.dark, ContrastText: theme.palette.info.contrastText }} />
+<ColorItem
+  title="Warning"
+  subtitle="Colore semantico warning usato dai componenti MUI e dagli stati di attenzione generici."
+  colors={{
+    main: theme.palette.warning.main,
+    light: theme.palette.warning.light,
+    dark: theme.palette.warning.dark,
+    extraLight: theme.palette.warning.extraLight,
+    contrastText: theme.palette.warning.contrastText,
+    '100': theme.palette.warning[100],
+    '850': theme.palette.warning[850],
+  }}
+/>
+
+  <ColorItem
+    title="Error"
+    subtitle="Colore semantico error usato dai componenti MUI e dagli stati di errore generici."
+    colors={{
+      main: theme.palette.error.main,
+      light: theme.palette.error.light,
+      dark: theme.palette.error.dark,
+      extraLight: theme.palette.error.extraLight,
+      contrastText: theme.palette.error.contrastText,
+      '100': theme.palette.error[100],
+      '850': theme.palette.error[850],
+    }}
+  />
 </ColorPalette>
 
-<h2>Misc</h2>
+## Colori semantici custom
 
-<br />
+I colori seguenti sono colori semantici custom aggiunti alla palette MUI.
+
+Sono mantenuti per l’uso nei prodotti e per garantire retrocompatibilità.
+
+Non devono essere sostituiti con colori primitivi se il valore risultante cambia o se cambia l’API pubblica.
 
 <ColorPalette>
-  <ColorItem title="Divider" colors={{ Divider: theme.palette.divider }} />
-
-<ColorItem
-  title="pagoPA"
-  colors={{ Main: theme.palette.pagoPA.main, ContrastText: theme.palette.pagoPA.contrastText }}
-/>
+  <ColorItem
+    title="pagoPA"
+    subtitle="Colore semantico custom legato al brand pagoPA."
+    colors={{
+      main: theme.palette.pagoPA.main,
+      contrastText: theme.palette.pagoPA.contrastText,
+    }}
+  />
 
 <ColorItem
   title="checkIban"
+  subtitle="Colore semantico custom di prodotto."
   colors={{
-    Main: theme.palette.checkIban.main,
-    ContrastText: theme.palette.checkIban.contrastText,
+    main: theme.palette.checkIban.main,
+    contrastText: theme.palette.checkIban.contrastText,
   }}
 />
 
 <ColorItem
   title="European Union"
+  subtitle="Colore semantico custom di tipo istituzionale."
   colors={{
-    Main: theme.palette.europeanUnion.main,
-    ContrastText: theme.palette.europeanUnion.contrastText,
+    main: theme.palette.europeanUnion.main,
+    contrastText: theme.palette.europeanUnion.contrastText,
   }}
 />
 
-  <ColorItem title="Indigo" colors={{ Main: theme.palette.indigo.main, ContrastText: theme.palette.indigo.contrastText }} />
+<ColorItem
+  title="Indigo"
+  subtitle="Colore semantico custom basato sulla palette indigo di MUI."
+  colors={{
+    main: theme.palette.indigo.main,
+    contrastText: theme.palette.indigo.contrastText,
+  }}
+/>
+
+  <ColorItem
+    title="Negative"
+    subtitle="Colore semantico custom usato per azioni negative o invertite."
+    colors={{
+      main: theme.palette.negative.main,
+      contrastText: theme.palette.negative.contrastText,
+    }}
+  />
 </ColorPalette>
+
+## Differenza tra colori primitivi e colori semantici
+
+La differenza principale è questa:
+
+- un **colore primitivo** identifica una tonalità;
+- un **colore semantico** identifica un ruolo nell’interfaccia.
+
+### Colori primitivi
+
+Un colore primitivo identifica una specifica tonalità.
+
+Esempi:
+
+- `theme.colors.blue[500]` indica una precisa tonalità di blu;
+- `theme.colors.neutral.grey[700]` indica una precisa tonalità di grigio.
+
+Usali quando serve una shade precisa per un componente custom o quando il design richiede direttamente quella tonalità.
+
+### Colori semantici
+
+Un colore semantico identifica un ruolo nell’interfaccia.
+
+Esempi:
+
+- `theme.palette.primary.main` indica il colore principale dell’interfaccia;
+- `theme.palette.error.main` indica il colore associato a uno stato di errore;
+- `theme.palette.text.primary` indica il colore del testo principale;
+- `theme.palette.background.paper` indica il colore di una superficie.
+
+Usali quando il colore rappresenta un significato funzionale o visivo dell’interfaccia.
+
+Un colore semantico può essere costruito usando un colore primitivo, ma non è obbligatorio.
+
+Per esempio:
+
+```ts
+theme.palette.success.main;
+```
+
+potrebbe avere lo stesso valore di:
+
+```ts
+theme.colors.success[500];
+```
+
+ma i due concetti restano diversi.
+
+`theme.colors.success[500]` dice:
+
+> “usa questa tonalità della scala success”
+
+`theme.palette.success.main` dice:
+
+> “usa il colore principale previsto per uno stato di successo”
+
+Questa differenza è importante perché nel tempo il design system potrebbe decidere di cambiare la tonalità associata a un ruolo semantico senza cambiare il nome del ruolo.
+
+Per esempio, se un domani il colore primario dell’interfaccia cambiasse, i componenti che usano:
+
+```ts
+theme.palette.primary.main;
+```
+
+si aggiornerebbero automaticamente.
+
+I componenti che usano direttamente:
+
+```ts
+theme.colors.blue[500];
+```
+
+continuerebbero invece a usare quella specifica tonalità di blu.
+
+Per questo motivo, quando il colore ha un significato nell’interfaccia, è preferibile usare `theme.palette`.
+
+Quando invece serve una tonalità specifica per un componente custom, è corretto usare `theme.colors`.
+
+## Linee guida di utilizzo
+
+### Usa `theme.palette` quando il colore ha un significato semantico
+
+Usa `theme.palette` quando il colore rappresenta un ruolo dell’interfaccia.
+
+Esempi:
+
+- testo primario
+- background
+- azione primaria
+- stato di successo
+- stato di errore
+- separatore
+- stato disabilitato
+
+```tsx
+<Box
+  sx={(theme) => ({
+    color: theme.palette.text.primary,
+    backgroundColor: theme.palette.background.paper,
+    borderColor: theme.palette.divider,
+  })}
+/>
+```
+
+### Usa `theme.colors` quando ti serve una tonalità primitiva specifica
+
+Usa `theme.colors` quando un componente custom ha bisogno di una specifica tonalità definita dal design system.
+
+```tsx
+<Box
+  sx={(theme) => ({
+    backgroundColor: theme.colors.blue[50],
+    color: theme.colors.blue[850],
+    border: `1px solid ${theme.colors.blue[200]}`,
+  })}
+/>
+```
+
+### Evita colori hardcoded
+
+Evita di usare valori esadecimali direttamente dentro i componenti.
+
+```tsx
+// Da evitare
+<Box sx={{ color: '#0B3EE3' }} />
+
+// Preferibile
+<Box sx={(theme) => ({ color: theme.colors.blue[500] })} />
+```
+
+### Non importare direttamente i colori
+
+I componenti non dovrebbero importare i token colore direttamente dai file interni.
+
+```tsx
+// Da evitare
+import { colors } from 'theme/foundations/colors';
+
+// Preferibile
+<Box sx={(theme) => ({ color: theme.colors.blue[500] })} />;
+```
+
+Questo mantiene l’uso dei colori collegato al tema MUI attivo ed evita dipendenze dirette dai dettagli interni della libreria.
