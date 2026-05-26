@@ -1,4 +1,4 @@
-import { Chip } from '@components/Chip';
+import { MIChip } from '@components/MIChip';
 import { Box } from '@mui/material';
 
 interface Props<T> {
@@ -30,7 +30,7 @@ const MultiSelectChips = <T,>({
   return (
     <Box display="contents" role="list" {...slotProps.list}>
       {selectedOptions.map((option, index) => (
-        <Chip
+        <MIChip
           key={getOptionKey(option, index)}
           label={getOptionLabel(option)}
           onDelete={() => handleChipDelete(option)}
