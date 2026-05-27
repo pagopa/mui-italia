@@ -38,7 +38,6 @@ const MultiSelectChips = <T,>({
           aria-setsize={selectedOptions.length}
           aria-posinset={index + 1}
           role="listitem"
-          size="small"
           {...slotProps.chip}
         />
       ))}
