@@ -43,11 +43,11 @@ const StyledChip = styled(MuiChip, {
   borderRadius: theme.spacing(5),
   wordWrap: 'break-word',
   '& .MuiChip-label': {
-    fontSize: '0.875rem',
+    fontSize: '0.75rem',
     fontWeight: theme.typography.fontWeightMedium,
-    lineHeight: 1.3,
+    lineHeight: 1.5,
     letterSpacing: 0.5,
-    padding: `${theme.spacing(1)} ${theme.spacing(1.5)}`,
+    padding: `3px ${theme.spacing(1)}`,
   },
   '& .MuiChip-deleteIcon': {
     color: colors.blue[500],
