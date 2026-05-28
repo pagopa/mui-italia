@@ -108,4 +108,4 @@ export const colors = {
 // export const backdropBackground = '#17324D';
 // export const menuItemBackground = '#17324D';
 // export const colorPrimaryContainedHover = '#0055AA';
-// export const none = 'transparent'; // Not exposed by the theme object
+export const none = 'transparent'; // Not exposed by the theme object
