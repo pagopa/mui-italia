@@ -54,6 +54,7 @@ const SpidList: React.FC<Props> = ({
               width="240px"
               height="16px"
               sx={{ borderRadius: '8px' }}
+              data-test={`spid-select-skeleton-${i}`}
             />
           </ListItem>
         ))}
@@ -82,9 +83,14 @@ const SpidList: React.FC<Props> = ({
 
                 <Box aria-hidden>
                   {authorizingEntityId === idp.entityID ? (
-                    <CircularProgress size={24} />
+                    <CircularProgress size={24} data-test={`spid-select-${idp.entityID}-loading`} />
                   ) : (
-                    <img height="28px" src={getImageUrl(idp.entityID)} alt={displayName} />
+                    <img
+                      height="28px"
+                      src={getImageUrl(idp.entityID)}
+                      alt={displayName}
+                      data-test={`spid-select-${idp.entityID}-logo`}
+                    />
                   )}
                 </Box>
               </Box>

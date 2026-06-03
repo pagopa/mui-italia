@@ -11,7 +11,13 @@ type Props = {
 
 const ErrorState: React.FC<Props> = ({ title, description, closeButtonLabel, onClose }) => {
   return (
-    <Stack spacing={3} alignItems="center" textAlign="center" my={8}>
+    <Stack
+      spacing={3}
+      alignItems="center"
+      textAlign="center"
+      my={8}
+      data-test="spid-select-error-state"
+    >
       <IllusMIError size={56} />
 
       <Box>
@@ -23,7 +29,12 @@ const ErrorState: React.FC<Props> = ({ title, description, closeButtonLabel, onC
         </Typography>
       </Box>
 
-      <Button onClick={onClose} variant="contained" color="primary">
+      <Button
+        onClick={onClose}
+        variant="contained"
+        color="primary"
+        data-test="spid-select-error-state-close-button"
+      >
         {closeButtonLabel}
       </Button>
     </Stack>
