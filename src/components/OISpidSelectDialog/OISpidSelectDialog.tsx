@@ -52,6 +52,8 @@ type Props = {
   onClose: () => void;
   /** Callback fired when the user selects an available Identity Provider. */
   handleSelectIDP: (idp: IDP) => void;
+  /** Optional callback fired when the user selects an unavailable Identity Provider. */
+  onUnavailableIdpClick?: (idp: IDP) => void;
   /**
    * Optional overrides for the default Italian copy. Provide only the keys
    * you want to change; the rest fall back to the defaults.
@@ -79,6 +81,7 @@ export const OISpidSelectDialog: React.FC<Props> = ({
   error,
   onClose,
   handleSelectIDP,
+  onUnavailableIdpClick,
   translationsMap,
 }) => {
   const theme = useTheme();
@@ -94,6 +97,7 @@ export const OISpidSelectDialog: React.FC<Props> = ({
   const onSpidSelect = (idp: IDP) => {
     if (!idp.active || idp.status !== 'OK') {
       setUnavailableIdp(getSpidDisplayName(idp));
+      onUnavailableIdpClick?.(idp);
       return;
     }
     setUnavailableIdp(null);

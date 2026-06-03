@@ -31,33 +31,10 @@ const meta: Meta<typeof OISpidSelectDialog> = {
     },
   },
   argTypes: {
-    // `show` is driven by the open/close stories, so it stays out of the controls table.
     show: { table: { disable: true } },
-    idps: {
-      description: 'List of SPID Identity Providers to display.',
-      control: false,
-    },
-    onClose: {
-      description: 'Callback fired when the dialog is dismissed (close button, backdrop or ESC).',
-    },
-    handleSelectIDP: {
-      description: 'Callback fired when the user selects an available Identity Provider.',
-    },
-    translationsMap: {
-      description:
-        'Optional overrides for the default Italian copy. Provide only the keys you want to change; the rest fall back to the defaults. Keep the `%s` placeholder in `unavailableIdpWarning`: it is replaced at runtime with the unavailable Identity Provider name.',
-      control: false,
-    },
-    loading: {
-      description: 'When `true`, a loading state is shown in place of the provider list.',
-    },
-    error: {
-      description:
-        'When `true`, an error state is shown instead of the provider list. The error state is also shown automatically when the list is empty and not loading.',
-    },
+    idps: { control: false },
+    translationsMap: { control: false },
     oneIdentityCdnBaseUrl: {
-      description:
-        "Base URL of the OneIdentity CDN used to resolve each provider's logo. Must be `https://assets.uat.oneid.pagopa.it` (UAT) or `https://assets.oneid.pagopa.it` (production).",
       control: 'radio',
       options: ['https://assets.uat.oneid.pagopa.it', 'https://assets.oneid.pagopa.it'],
     },
