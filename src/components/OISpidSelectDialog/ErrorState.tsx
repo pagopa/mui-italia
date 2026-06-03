@@ -16,7 +16,7 @@ const ErrorState: React.FC<Props> = ({ title, description, closeButtonLabel, onC
       alignItems="center"
       textAlign="center"
       my={8}
-      data-test="spid-select-error-state"
+      data-testid="spid-select-error-state"
     >
       <IllusMIError size={56} />
 
@@ -33,7 +33,7 @@ const ErrorState: React.FC<Props> = ({ title, description, closeButtonLabel, onC
         onClick={onClose}
         variant="contained"
         color="primary"
-        data-test="spid-select-error-state-close-button"
+        data-testid="spid-select-error-state-close-button"
       >
         {closeButtonLabel}
       </Button>

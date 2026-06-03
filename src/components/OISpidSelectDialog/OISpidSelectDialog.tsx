@@ -157,7 +157,7 @@ export const OISpidSelectDialog: React.FC<Props> = ({
           <MIAlert
             severity="warning"
             description={t.unavailableIdpWarning.replace('%s', unavailableIdp)}
-            data-test="spid-select-unavailable-idp-alert"
+            data-testid="spid-select-unavailable-idp-alert"
           />
         )}
 
