@@ -48,15 +48,13 @@ const SpidList: React.FC<Props> = ({
     return (
       <List>
         {Array.from({ length: 6 }).map((_, i) => (
-          <ListItem key={`idp-skeleton-${i}`} disablePadding>
-            <ListItemButton sx={ListItemSx}>
-              <Skeleton
-                variant="rectangular"
-                width="240px"
-                height="16px"
-                sx={{ borderRadius: '8px' }}
-              />
-            </ListItemButton>
+          <ListItem key={`idp-skeleton-${i}`} disablePadding sx={ListItemSx}>
+            <Skeleton
+              variant="rectangular"
+              width="240px"
+              height="16px"
+              sx={{ borderRadius: '8px' }}
+            />
           </ListItem>
         ))}
       </List>

@@ -6,12 +6,12 @@ import { useEffect, useState } from 'react';
 import {
   IDPS_MOCK,
   MOCK_IDP_UNAVAILABLE,
-} from '../components/SpidSelectDialog/__mocks__/IDPS.mock';
-import { SpidSelectDialog } from '@components/SpidSelectDialog';
+} from '../components/OISpidSelectDialog/__mocks__/IDPS.mock';
+import { OISpidSelectDialog } from '@components/OISpidSelectDialog';
 
-const meta: Meta<typeof SpidSelectDialog> = {
-  title: 'Components/SpidSelectDialog',
-  component: SpidSelectDialog,
+const meta: Meta<typeof OISpidSelectDialog> = {
+  title: 'Components/OISpidSelectDialog',
+  component: OISpidSelectDialog,
   parameters: {
     chromatic: {
       viewports: breakpointsChromaticValues,
@@ -66,7 +66,7 @@ const meta: Meta<typeof SpidSelectDialog> = {
 
 export default meta;
 
-type Story = StoryObj<typeof SpidSelectDialog>;
+type Story = StoryObj<typeof OISpidSelectDialog>;
 
 export const Default: Story = {
   args: {
@@ -134,7 +134,7 @@ export const Authorizing: Story = {
       const btn = document.getElementById(`spid-select-${IDPS_MOCK[0].entityID}`);
       if (btn) btn.click();
     }, []);
-    return <SpidSelectDialog {...args} />;
+    return <OISpidSelectDialog {...args} />;
   },
 };
 
@@ -176,7 +176,7 @@ export const Interactive: Story = {
         <Button variant="contained" onClick={() => setOpen(true)}>
           Accedi con SPID
         </Button>
-        <SpidSelectDialog
+        <OISpidSelectDialog
           {...args}
           show={open}
           onClose={() => {

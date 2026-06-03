@@ -6,3 +6,4 @@ export * from './theme';
 export * from './illustrations';
 export * from './assets';
 export * from './hooks';
+export * from './types/spid';

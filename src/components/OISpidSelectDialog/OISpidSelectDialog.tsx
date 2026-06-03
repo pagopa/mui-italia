@@ -71,7 +71,7 @@ type Props = {
  * flight the dialog is locked and cannot be closed. All visible copy can be
  * localized through `translationsMap`.
  */
-export const SpidSelectDialog: React.FC<Props> = ({
+export const OISpidSelectDialog: React.FC<Props> = ({
   show,
   idps,
   loading,

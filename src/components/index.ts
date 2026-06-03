@@ -33,4 +33,4 @@ export * from './MIChip';
 export * from './Autocomplete';
 export * from './MIAlert';
 export * from './MITooltip';
-export * from './SpidSelectDialog';
+export * from './OISpidSelectDialog';
