@@ -53,13 +53,6 @@ export default {
         defaultValue: { summary: 'loading' },
       },
     },
-    contrasted: {
-      control: { type: 'boolean' },
-      table: {
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
-      },
-    },
     /* Disabled controls */
     variant: {
       options: ['contained', 'outlined', 'text'],
@@ -97,7 +90,7 @@ Default.args = {
 };
 Default.decorators = [
   (Story) => (
-    <div style={{ padding: '1em', backgroundColor: '#E8EBF1' }}>
+    <div style={{ padding: '1em', backgroundColor: '#dde669' }}>
       <Story />
     </div>
   ),

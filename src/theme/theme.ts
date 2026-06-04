@@ -18,6 +18,7 @@ import {
 } from './colors';
 
 import type {} from '@mui/lab/themeAugmentation';
+import { colors } from './foundations/colors';
 
 /* Basic Configuration */
 
@@ -395,42 +396,41 @@ export const theme: Theme = createTheme(foundation, {
             color: blue[600],
             borderColor: 'currentColor',
           },
-          '&:active': {
-            backgroundColor: blue[50],
-            color: blue[600],
-            borderColor: 'currentColor',
-          },
         },
         outlinedContrastedPrimary: {
           borderColor: foundation.palette.common.white,
           color: foundation.palette.common.white,
-          backgroundColor: blue[500],
+          backgroundColor: 'transparent',
           '&:active, &:hover': {
             backgroundColor: blue[600],
-            color: foundation.palette.common.white,
-            borderColor: 'currentColor',
+          },
+          '&.Mui-focusVisible': {
+            outline: `solid ${focusWidth} ${colors.blue[150]}`,
           },
         },
         outlinedContrastedError: {
           borderColor: foundation.palette.common.white,
           color: foundation.palette.common.white,
-          backgroundColor: error[600],
+          backgroundColor: 'transparent',
           '&:active, &:hover': {
-            backgroundColor: foundation.palette.error[850],
-            color: foundation.palette.common.white,
+            backgroundColor: error[600],
             borderColor: 'currentColor',
+          },
+          '&.Mui-focusVisible': {
+            outline: `solid ${focusWidth} ${colors.error[500]}`,
           },
         },
         outlinedError: {
           borderColor: error[600],
           color: error[600],
-          '&:hover': {
-            color: foundation.palette.error.dark,
-            borderColor: 'currentColor',
+          '&:hover, &:active': {
+            color: error.pressed,
+            borderColor: error.pressed,
+            backgroundColor: foundation.palette.error[100],
           },
           '&.Mui-focusVisible': {
             borderRadius: `${focusBorderRadius}`,
-            outline: `solid ${focusWidth} ${foundation.palette.error.main}`,
+            outline: `solid ${focusWidth} ${colors.error[500]}`,
             outlineOffset: `${focusOffset}`,
             boxShadow: 'none',
           },
@@ -449,25 +449,28 @@ export const theme: Theme = createTheme(foundation, {
             backgroundColor: blue[50],
             color: blue[600],
           },
+          '&.Mui-focusVisible': {
+            outline: `solid ${focusWidth} ${colors.blue[150]}`,
+          },
         },
         containedContrastedError: {
           backgroundColor: foundation.palette.common.white,
           color: error[600],
           '&:active, &:hover': {
-            backgroundColor: blue[50],
-            color: foundation.palette.error[850],
+            backgroundColor: foundation.palette.error[100],
+            color: error.pressed,
           },
         },
         containedError: {
           backgroundColor: error[600],
           color: foundation.palette.common.white,
           '&:hover': {
-            backgroundColor: foundation.palette.error.dark,
+            backgroundColor: error.pressed,
             borderColor: 'currentColor',
           },
           '&.Mui-focusVisible': {
             borderRadius: `${focusBorderRadius}`,
-            outline: `solid ${focusWidth} ${foundation.palette.error.main}`,
+            outline: `solid ${focusWidth} ${colors.error[500]}`,
             outlineOffset: `${focusOffset}`,
             boxShadow: 'none',
           },
@@ -478,26 +481,105 @@ export const theme: Theme = createTheme(foundation, {
             backgroundColor: 'transparent',
             color: blue[600],
           },
+          '&.Mui-focusVisible': {
+            outline: 'none',
+            boxShadow: 'none',
+
+            // Create a fake outline using ::after
+            '&::after': {
+              content: '""',
+              position: 'absolute',
+              borderRadius: '10px',
+              border: `solid ${focusWidth} ${colors.blue[400]}`,
+              pointerEvents: 'none',
+
+              // Vertical offset
+              top: '10px',
+              bottom: '10px',
+
+              // Horizontal offset
+              left: '18px',
+              right: '18px',
+            },
+          },
         },
         textContrastedPrimary: {
           color: foundation.palette.common.white,
-          '&:active, &:hover': {
-            backgroundColor: 'transparent',
-            color: foundation.palette.common.white,
+          '&.Mui-focusVisible': {
+            outline: 'none',
+            boxShadow: 'none',
+
+            // Create a fake outline using ::after
+            '&::after': {
+              content: '""',
+              position: 'absolute',
+              borderRadius: '10px',
+              border: `solid ${focusWidth} ${colors.blue[150]}`,
+              pointerEvents: 'none',
+
+              // Vertical offset
+              top: '10px',
+              bottom: '10px',
+
+              // Horizontal offset
+              left: '18px',
+              right: '18px',
+            },
           },
         },
         textContrastedError: {
           color: foundation.palette.common.white,
           '&:active, &:hover': {
             backgroundColor: 'transparent',
-            color: foundation.palette.error[850],
+          },
+          '&.Mui-focusVisible': {
+            outline: 'none',
+            boxShadow: 'none',
+
+            // Create a fake outline using ::after
+            '&::after': {
+              content: '""',
+              position: 'absolute',
+              borderRadius: '10px',
+              border: `solid ${focusWidth} ${colors.error[500]}`,
+              pointerEvents: 'none',
+
+              // Vertical offset
+              top: '10px',
+              bottom: '10px',
+
+              // Horizontal offset
+              left: '18px',
+              right: '18px',
+            },
           },
         },
         textError: {
           color: error[600],
-          '&:hover': {
+          '&:hover, &:active': {
             backgroundColor: 'transparent',
-            color: foundation.palette.error[850],
+            color: error.pressed,
+          },
+          '&.Mui-focusVisible': {
+            outline: 'none',
+            boxShadow: 'none',
+
+            // Create a fake outline using ::after
+            '&::after': {
+              content: '""',
+              position: 'absolute',
+              borderRadius: '10px',
+              border: `solid ${focusWidth} ${colors.error[500]}`,
+              pointerEvents: 'none',
+
+              // Vertical offset
+              top: '10px',
+              bottom: '10px',
+
+              // Horizontal offset
+              left: '18px',
+              right: '18px',
+            },
           },
         },
       },
@@ -545,7 +627,7 @@ export const theme: Theme = createTheme(foundation, {
             },
             '&.Mui-focusVisible': {
               borderRadius: `${focusBorderRadius}`,
-              outline: `solid ${focusWidth} ${foundation.palette.error.main}`,
+              outline: `solid ${focusWidth} ${colors.error[500]}`,
               outlineOffset: `${focusButtonOffset}`,
               boxShadow: 'none',
             },
