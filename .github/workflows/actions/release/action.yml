@@ -29,5 +29,5 @@ outputs:
     description: The release id
 
 runs:
-  using: 'node22'
+  using: 'node20'
   main: 'src/index.js'
