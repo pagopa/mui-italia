@@ -28,13 +28,16 @@ jobs:
         with:
           sparse-checkout: |
             .github
+
       - name: Setup Git Config
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
+
       - name: Install Packages
         run: npm ci
         working-directory: .github/workflows/actions/validate-pr-title
+
       # feat(mui-123): Add `Button` component
       # feat -> type
       # mui-123 -> scope
