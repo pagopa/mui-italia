@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   validate-pr-title:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     # ignore pr opened from the branches below
     if: |
       !startsWith(github.head_ref, 'renovate/') &&
