@@ -6,12 +6,12 @@ import { useEffect, useState } from 'react';
 import {
   IDPS_MOCK,
   MOCK_IDP_UNAVAILABLE,
-} from '../components/OISpidSelectDialog/__mocks__/IDPS.mock';
-import { OISpidSelectDialog } from '@components/OISpidSelectDialog';
+} from '../components/MISpidSelectOneIdentity/__mocks__/IDPS.mock';
+import { MISpidSelectOneIdentity } from '@components/MISpidSelectOneIdentity';
 
-const meta: Meta<typeof OISpidSelectDialog> = {
-  title: 'Components/OISpidSelectDialog',
-  component: OISpidSelectDialog,
+const meta: Meta<typeof MISpidSelectOneIdentity> = {
+  title: 'Components/MISpidSelectOneIdentity',
+  component: MISpidSelectOneIdentity,
   parameters: {
     chromatic: {
       viewports: breakpointsChromaticValues,
@@ -43,7 +43,7 @@ const meta: Meta<typeof OISpidSelectDialog> = {
 
 export default meta;
 
-type Story = StoryObj<typeof OISpidSelectDialog>;
+type Story = StoryObj<typeof MISpidSelectOneIdentity>;
 
 export const Default: Story = {
   args: {
@@ -111,7 +111,7 @@ export const Authorizing: Story = {
       const btn = document.getElementById(`spid-select-${IDPS_MOCK[0].entityID}`);
       if (btn) btn.click();
     }, []);
-    return <OISpidSelectDialog {...args} />;
+    return <MISpidSelectOneIdentity {...args} />;
   },
 };
 
@@ -153,7 +153,7 @@ export const Interactive: Story = {
         <Button variant="contained" onClick={() => setOpen(true)}>
           Accedi con SPID
         </Button>
-        <OISpidSelectDialog
+        <MISpidSelectOneIdentity
           {...args}
           show={open}
           onClose={() => {
