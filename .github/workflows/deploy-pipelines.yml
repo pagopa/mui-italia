@@ -56,6 +56,10 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
     
+      - name: Install Packages
+        run: npm ci
+        working-directory: .github/workflows/actions/release
+
       - name: Release
         id: release
         uses: ./.github/workflows/actions/release
