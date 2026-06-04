@@ -2,10 +2,10 @@
 
 import { ButtonNaked } from '@components/ButtonNaked';
 import { AlertTitle as MUIAlertTitle, Stack, styled, useMediaQuery, useTheme } from '@mui/material';
-import type { SystemProps, Theme } from '@mui/system';
 import MUIAlert, { AlertProps as MUIAlertProps } from '@mui/material/Alert';
 import { ElementType, HTMLAttributeAnchorTarget } from 'react';
 import { getColor, getIcon } from './utils';
+import { MarginSxProps } from '@types';
 
 export type AllowedAlertSeverity = 'success' | 'info' | 'warning' | 'error';
 
@@ -25,22 +25,6 @@ interface MIAlertCtaProps {
   severity?: AllowedAlertSeverity;
   isMobile: boolean;
 }
-
-type MarginKeys =
-  | 'm'
-  | 'mt'
-  | 'mr'
-  | 'mb'
-  | 'ml'
-  | 'mx'
-  | 'my'
-  | 'margin'
-  | 'marginTop'
-  | 'marginRight'
-  | 'marginBottom'
-  | 'marginLeft';
-
-type MarginSxProps = Pick<SystemProps<Theme>, MarginKeys>;
 
 // Props shared by all variants
 interface BaseAlertProps extends Pick<MUIAlertProps, 'severity'> {
@@ -161,7 +145,7 @@ const MIAlertCta = ({ cta, severity = 'success', isMobile }: Readonly<MIAlertCta
 
   if (isLink) {
     target = cta.target ?? '_self';
-    rel = target === '_blank' ? (cta.rel ?? 'noopener noreferrer') : cta.rel;
+    rel = target === '_blank' ? cta.rel ?? 'noopener noreferrer' : cta.rel;
   }
 
   const commonProps = {
