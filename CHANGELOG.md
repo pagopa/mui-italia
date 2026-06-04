@@ -1,3 +1,28 @@
+# [2.5.0-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.5.0-RC.0) (2026-06-04)
+
+
+### Features
+
+* **M20DS-89:** OneIdentity SPID select dialog component ([#705](https://github.com/pagopa/mui-italia/issues/705)) ([31f45d9](https://github.com/pagopa/mui-italia/commit/31f45d96e8a5b7d13d77bee24b1791e1d0a5f3a4))
+* **M20DS-17:** chip component ([#660](https://github.com/pagopa/mui-italia/issues/660)) ([9ddf203](https://github.com/pagopa/mui-italia/commit/9ddf203f4ddba98069c1a31733f5b6da5d658c77))
+* **M20DS-30:** add sx support to MIAlert ([#690](https://github.com/pagopa/mui-italia/issues/690)) ([62c3602](https://github.com/pagopa/mui-italia/commit/62c36023fa4d2f74e5a74794e667688e33619ced))
+
+
+### Bug Fixes
+
+* **SENDDPF-24:** improve banner semantic grouping ([#701](https://github.com/pagopa/mui-italia/issues/701)) ([38693f1](https://github.com/pagopa/mui-italia/commit/38693f169c1b2e98d8fbcc29ebfb9a2eabc97848))
+* **M20DS-17:** MIChip ([#700](https://github.com/pagopa/mui-italia/issues/700)) ([30757c5](https://github.com/pagopa/mui-italia/commit/30757c5ae23e0ae9cbc9ce15355869e4e54879d2))
+
+
+### Code Refactoring
+
+* **M20DS-89:** rename spid select component with MI prefix ([#706](https://github.com/pagopa/mui-italia/issues/706)) ([a45d08f](https://github.com/pagopa/mui-italia/commit/a45d08fa1a5e9100990de41ade307e4148d292fb))
+
+
+### Continuous Integration
+
+* **MUI-248:** migrate to builded version of actions ([#699](https://github.com/pagopa/mui-italia/issues/699)) ([8481c7b](https://github.com/pagopa/mui-italia/commit/8481c7b80a935b631b00ead4c96f7bed2dc05552))
+* **MUI-236:** enhanced chromatic publish to avoid to reach monthly limit ([#697](https://github.com/pagopa/mui-italia/issues/697)) ([483a3e7](https://github.com/pagopa/mui-italia/commit/483a3e77a0bbd7997166f13d6d80139b8d399dd5))
 # [2.4.1](https://github.com/pagopa/mui-italia/releases/tag/v2.4.1) (2026-05-06)
 
 
