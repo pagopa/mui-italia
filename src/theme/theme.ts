@@ -14,7 +14,8 @@ import {
   colorPrimaryContainedHover,
   colorTextPrimary,
   menuItemBackground,
-} from './colors';
+} from './foundations/colors';
+
 /* Basic Configuration */
 
 const responsiveBreakpoint = 'sm';
@@ -672,6 +673,7 @@ export const theme: Theme = createTheme(foundation, {
         },
       },
     },
+    /* START Chip */
     MuiChip: {
       styleOverrides: {
         root: {
@@ -809,6 +811,7 @@ export const theme: Theme = createTheme(foundation, {
         },
       },
     },
+    /* END Chip */
     /** Start TEXT FIELD */
     MuiInput: {
       styleOverrides: {
