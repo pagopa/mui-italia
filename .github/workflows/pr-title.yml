@@ -35,7 +35,7 @@ jobs:
           git config user.email "<>"
 
       - name: Install Packages
-        run: npm ci
+        run: npm i
         working-directory: .github/workflows/actions/validate-pr-title
 
       # feat(mui-123): Add `Button` component
