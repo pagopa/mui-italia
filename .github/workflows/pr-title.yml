@@ -7,14 +7,13 @@ on:
       - opened
       - edited
       - reopened
-      - synchronize
 
 permissions:
   pull-requests: write
 
 jobs:
   validate-pr-title:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     # ignore pr opened from the branches below
     if: |
       !startsWith(github.head_ref, 'renovate/') &&
@@ -28,13 +27,12 @@ jobs:
         with:
           sparse-checkout: |
             .github
+
       - name: Setup Git Config
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
-      - name: Install Packages
-        run: npm install
-        working-directory: .github/workflows/actions/validate-pr-title
+
       # feat(mui-123): Add `Button` component
       # feat -> type
       # mui-123 -> scope
