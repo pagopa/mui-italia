@@ -55,6 +55,11 @@ jobs:
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
+    
+      - name: Setup Node 24 for Action installation
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: '24'
 
       - name: Install Packages
         run: npm ci
