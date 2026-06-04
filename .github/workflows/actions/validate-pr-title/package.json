@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "author": "Andrea Cimini",
    "scripts": {
-    "build": "ncc build src/index.js -o dist"
+    "build": "rimraf dist && ncc build src/index.js -o dist"
   },
   "dependencies": {
     "@actions/core": "^1.11.1",

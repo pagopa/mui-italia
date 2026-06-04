@@ -1,7 +1,7 @@
 import { info } from '@actions/core';
 import { Bumper } from 'conventional-recommended-bump';
 
-import muiPreset from '../mui-preset/index.js';
+import muiPreset from '../mui-preset/preset.js';
 
 export function toSentenceCase(word) {
   return String(word).charAt(0).toUpperCase() + String(word).slice(1);
