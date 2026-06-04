@@ -67336,13 +67336,6 @@ module.exports = webpackEmptyAsyncContext;
 
 /***/ }),
 
-/***/ 3896:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-module.exports = __nccwpck_require__.p + "293248747edf5d37944a.js?.";
-
-/***/ }),
-
 /***/ 2613:
 /***/ ((module) => {
 
@@ -75486,24 +75479,13 @@ module.exports = /*#__PURE__*/JSON.parse('["0BSD","3D-Slicer-1.0","AAL","ADSL","
 /******/ 	};
 /******/ })();
 /******/ 
-/******/ /* webpack/runtime/publicPath */
-/******/ (() => {
-/******/ 	var scriptUrl;
-/******/ 	if (typeof import.meta.url === "string") scriptUrl = import.meta.url
-/******/ 	// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
-/******/ 	// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
-/******/ 	if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
-/******/ 	scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
-/******/ 	__nccwpck_require__.p = scriptUrl;
-/******/ })();
-/******/ 
 /******/ /* webpack/runtime/compat */
 /******/ 
 /******/ if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = new URL('.', import.meta.url).pathname.slice(import.meta.url.match(/^file:\/\/\/\w:/) ? 1 : 0, -1) + "/";
 /******/ 
 /******/ /* webpack/runtime/import chunk loading */
 /******/ (() => {
-/******/ 	__nccwpck_require__.b = new URL("./", import.meta.url);
+/******/ 	// no baseURI
 /******/ 	
 /******/ 	// object to store loaded and loading chunks
 /******/ 	// undefined = chunk not loaded, null = chunk preloaded/prefetched
@@ -76522,7 +76504,6 @@ var external_url_ = __nccwpck_require__(7016);
 
 
 
-const dirname = (0,external_url_.fileURLToPath)(new URL(/* asset import */ __nccwpck_require__(3896), __nccwpck_require__.b));
 // the elements of this map are ordered by priority
 // the last element is that with gratest priority and the first element is that with lowest priority
 // the priority is used to order the section inside the changelog
@@ -76542,10 +76523,10 @@ const COMMIT_HASH_LENGTH = 7;
 
 async function createWriterOpts() {
   const [template, header, commit, footer] = await Promise.all([
-    (0,promises_namespaceObject.readFile)(__nccwpck_require__.ab + "release/" + dirname + '/templates/template.hbs', 'utf-8'),
-    (0,promises_namespaceObject.readFile)(__nccwpck_require__.ab + "release/" + dirname + '/templates/header.hbs', 'utf-8'),
-    (0,promises_namespaceObject.readFile)(__nccwpck_require__.ab + "release/" + dirname + '/templates/commit.hbs', 'utf-8'),
-    (0,promises_namespaceObject.readFile)(__nccwpck_require__.ab + "release/" + dirname + '/templates/footer.hbs', 'utf-8'),
+    (0,promises_namespaceObject.readFile)((0,external_url_.fileURLToPath)(__nccwpck_require__.ab + "template.hbs"), 'utf-8'),
+    (0,promises_namespaceObject.readFile)((0,external_url_.fileURLToPath)(__nccwpck_require__.ab + "header.hbs"), 'utf-8'),
+    (0,promises_namespaceObject.readFile)((0,external_url_.fileURLToPath)(__nccwpck_require__.ab + "commit.hbs"), 'utf-8'),
+    (0,promises_namespaceObject.readFile)((0,external_url_.fileURLToPath)(__nccwpck_require__.ab + "footer.hbs"), 'utf-8')
   ]);
   const writerOpts = getWriterOpts();
 
