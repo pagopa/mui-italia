@@ -29977,7 +29977,9 @@ async function findReview(octokit) {
 function validatePullRequestTitle(prTitle, types, scopes) {
   core.info(`Validate pr title "${prTitle}"`);
   try {
-    const re = new RegExp(`^(?:${types.join('|')})(?:\\(${scopes.join('|')}\\))!?:\\s(?:.+)$`, 'g');
+    const typesPattern = types.length > 0 ? types.join('|') : 'feat|fix|chore';
+    const scopesPattern = scopes.length > 0 ? `(?:\\(${scopes.join('|')}\\))` : '';
+    const re = new RegExp(`^(?:${typesPattern})${scopesPattern}!?:\\s.+$`, 'g');
     const result = re.test(prTitle);
     if (result) {
       core.info(`Pr title "${prTitle}" valid`);
