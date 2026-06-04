@@ -1,6 +1,5 @@
 const github = require('@actions/github');
 const core = require('@actions/core');
-const RE2 = require('re2');
 
 async function findReview(octokit) {
   core.info(`Finding review opened by github-actions[bot] and in status CHANGES_REQUESTED`);
@@ -32,7 +31,7 @@ async function findReview(octokit) {
 function validatePullRequestTitle(prTitle, types, scopes) {
   core.info(`Validate pr title "${prTitle}"`);
   try {
-    const re = new RE2(`^(?:${types.join('|')})(?:\\(${scopes.join('|')}\\))!?:\\s(?:.+)$`, 'g');
+    const re = new RegExp(`^(?:${types.join('|')})(?:\\(${scopes.join('|')}\\))!?:\\s(?:.+)$`, 'g');
     const result = re.test(prTitle);
     if (result) {
       core.info(`Pr title "${prTitle}" valid`);
