@@ -1,3 +1,9 @@
+# [2.5.0-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v2.5.0-RC.1) (2026-06-05)
+
+
+### Bug Fixes
+
+* **M20DS-89:** reset state on MISpidSelectOIDialog close and fix SPID names ([#709](https://github.com/pagopa/mui-italia/issues/709)) ([c9428bc](https://github.com/pagopa/mui-italia/commit/c9428bcf6f2822bc476410075a0844c5d0e8d2bc))
 # [2.5.0-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.5.0-RC.0) (2026-06-04)
 
 
