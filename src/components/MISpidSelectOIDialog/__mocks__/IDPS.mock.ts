@@ -1,18 +1,16 @@
 import { IDP } from 'types/spid';
 
-export const MOCK_IDP_UNAVAILABLE: Array<IDP> = [
-  {
-    entityID: 'https://broken.idp.it',
-    pointer: 'https://broken.idp.it/sso',
-    status: 'WARNING',
-    idpSSOEndpoints: {
-      redirect: 'https://broken.idp.it/sso/redirect',
-    },
-    certificates: [],
-    friendlyName: 'Broken IDP',
-    active: true,
+export const MOCK_IDP_UNAVAILABLE: IDP = {
+  entityID: 'https://broken.idp.it',
+  pointer: 'https://broken.idp.it/sso',
+  status: 'WARNING',
+  idpSSOEndpoints: {
+    redirect: 'https://broken.idp.it/sso/redirect',
   },
-];
+  certificates: [],
+  friendlyName: 'Broken IDP',
+  active: true,
+};
 
 export const IDPS_MOCK: Array<IDP> = [
   {

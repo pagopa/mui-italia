@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 import {
@@ -13,9 +13,9 @@ import {
 
 import { MIAlert } from '@components/MIAlert';
 import { IDP } from 'types/spid';
+import ErrorState from './ErrorState';
 import SpidList from './SpidList';
 import { getSpidDisplayName } from './utils';
-import ErrorState from './ErrorState';
 
 const defaultTranslationsMap = {
   title: 'Accedi con SPID',
@@ -89,6 +89,7 @@ export const MISpidSelectOIDialog: React.FC<Props> = ({
 
   const [authorizingEntityId, setAuthorizingEntityId] = useState<string | null>(null);
   const [unavailableIdp, setUnavailableIdp] = useState<string | null>(null);
+  const dialogContentRef = useRef<HTMLDivElement>(null);
 
   const t = { ...defaultTranslationsMap, ...translationsMap };
 
@@ -97,6 +98,7 @@ export const MISpidSelectOIDialog: React.FC<Props> = ({
   const onSpidSelect = (idp: IDP) => {
     if (!idp.active || idp.status !== 'OK') {
       setUnavailableIdp(getSpidDisplayName(idp));
+      dialogContentRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
       onUnavailableIdpClick?.(idp);
       return;
     }
@@ -112,6 +114,7 @@ export const MISpidSelectOIDialog: React.FC<Props> = ({
 
   useEffect(() => {
     if (!show) {
+      setAuthorizingEntityId(null);
       setUnavailableIdp(null);
     }
   }, [show]);
@@ -124,7 +127,11 @@ export const MISpidSelectOIDialog: React.FC<Props> = ({
       transitionDuration={0}
       onClose={handleCloseDialog}
     >
-      <DialogContent id="spidSelect" sx={{ p: 3, width: { xs: '100%', sm: '410px', lg: '600px' } }}>
+      <DialogContent
+        id="spidSelect"
+        ref={dialogContentRef}
+        sx={{ p: 3, width: { xs: '100%', sm: '410px', lg: '600px' } }}
+      >
         <Stack
           direction="row"
           display="flex"
