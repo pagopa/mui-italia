@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 import {
@@ -112,8 +112,12 @@ export const MISpidSelectOIDialog: React.FC<Props> = ({
     onClose();
   };
 
-  // Unmounts the component when is closed, so that the internal state is reset on next open
-  if (!show) return null;
+  useEffect(() => {
+    if (!show) {
+      setAuthorizingEntityId(null);
+      setUnavailableIdp(null);
+    }
+  }, [show]);
 
   return (
     <Dialog
