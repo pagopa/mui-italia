@@ -82,7 +82,7 @@ export const Loading: Story = {
 export const UnavailableIdp: Story = {
   args: {
     ...Default.args,
-    idps: MOCK_IDP_UNAVAILABLE,
+    idps: [...IDPS_MOCK, MOCK_IDP_UNAVAILABLE],
   },
   parameters: {
     docs: {
