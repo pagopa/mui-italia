@@ -77,7 +77,13 @@ const SpidList: React.FC<Props> = ({
               aria-label={displayName}
             >
               <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">
-                <Typography fontSize="14px" fontWeight="500" noWrap sx={{ color: '#555C70' }}>
+                <Typography
+                  fontSize="14px"
+                  fontWeight="500"
+                  textTransform="uppercase"
+                  noWrap
+                  sx={{ color: '#555C70' }}
+                >
                   {displayName}
                 </Typography>
 
