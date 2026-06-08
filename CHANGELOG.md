@@ -1,3 +1,9 @@
+# [2.5.0-RC.2](https://github.com/pagopa/mui-italia/releases/tag/v2.5.0-RC.2) (2026-06-08)
+
+
+### Bug Fixes
+
+* **MS20DS-30:** add id to MIAlert component ([#710](https://github.com/pagopa/mui-italia/issues/710)) ([98c610c](https://github.com/pagopa/mui-italia/commit/98c610c4405526c3ca97dacb47838da9ba32e6f6))
 # [2.5.0-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v2.5.0-RC.1) (2026-06-05)
 
 
