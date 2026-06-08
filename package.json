@@ -89,7 +89,7 @@
     "mui"
   ],
   "engines": {
-    "node": ">=22.x"
+    "node": ">=24.x"
   },
   "bin": {
     "build": "./build.mjs"
