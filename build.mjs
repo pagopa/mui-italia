@@ -34,8 +34,9 @@ async function babelBuild(sourceDir, buildDir) {
   // get config file
   const configFile = join(cwd, '.babelrc.mjs');
   try {
+    const babelCommand = process.platform === 'win32' ? 'babel.cmd' : 'babel';
     const result = execFileSync(
-      'babel',
+      babelCommand,
       [
         sourceDir,
         '--out-dir',
@@ -51,7 +52,6 @@ async function babelBuild(sourceDir, buildDir) {
           NODE_ENV: 'production',
         },
         encoding: 'utf8',
-        shell: true,
       }
     );
     console.log(result);
@@ -63,22 +63,22 @@ async function babelBuild(sourceDir, buildDir) {
 
 async function createTypes() {
   try {
-    const tscResult = execFileSync('tsc', ['--project', 'tsconfig.prod.json'], {
+    const tscCommand = process.platform === 'win32' ? 'tsc.cmd' : 'tsc';
+    const tscResult = execFileSync(tscCommand, ['--project', 'tsconfig.prod.json'], {
       env: {
         ...process.env,
         NODE_ENV: 'production',
       },
       encoding: 'utf8',
-      shell: true,
     });
     console.log(tscResult);
-    const tscAliasResult = execFileSync('tsc-alias', ['-p', 'tsconfig.prod.json'], {
+    const tscAliasCommand = process.platform === 'win32' ? 'tsc-alias.cmd' : 'tsc-alias';
+    const tscAliasResult = execFileSync(tscAliasCommand, ['-p', 'tsconfig.prod.json'], {
       env: {
         ...process.env,
         NODE_ENV: 'production',
       },
       encoding: 'utf8',
-      shell: true,
     });
     console.log(tscAliasResult);
   } catch (error) {

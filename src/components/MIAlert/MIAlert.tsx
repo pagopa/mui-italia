@@ -27,7 +27,7 @@ interface MIAlertCtaProps {
 }
 
 // Props shared by all variants
-interface BaseAlertProps extends Pick<MUIAlertProps, 'severity'> {
+interface BaseAlertProps extends Pick<MUIAlertProps, 'severity' | 'id'> {
   description: string;
   sx?: MarginSxProps;
 }

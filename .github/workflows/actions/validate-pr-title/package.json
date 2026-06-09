@@ -4,9 +4,14 @@
   "description": "Action to validate pr title against conventional commit specification",
   "main": "src/index.js",
   "author": "Andrea Cimini",
+   "scripts": {
+    "build": "rimraf dist && ncc build src/index.js -o dist"
+  },
   "dependencies": {
     "@actions/core": "^1.11.1",
-    "@actions/github": "^6.0.1",
-    "re2": "^1.24.0"
+    "@actions/github": "^8.0.0"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.38.4"
   }
 }
