@@ -10,16 +10,20 @@ export type MIButtonProps = Omit<ButtonProps, 'disabled'> & {
 };
 
 const MIButton: React.FC<MIButtonProps> = ({ children, loaderType, isLoading, ...props }) => {
+  const skeletonLoaderWidth = props.fullWidth ? '80%' : '141px';
+
   const skeletonLoader = (
     <Button {...props} sx={{ my: 3 }}>
-      <Box sx={{ width: '141px' }}>
+      <Box sx={{ width: skeletonLoaderWidth }}>
         <Skeleton sx={{ backgroundColor: colors.neutral.grey[450] }} />
       </Box>
     </Button>
   );
 
+  const classicLoaderWidth = props.fullWidth ? '100%' : '72px';
+
   const classicLoader = (
-    <LoadingButton loading {...props} sx={{ width: '72px', my: 3 }}>
+    <LoadingButton loading {...props} sx={{ width: classicLoaderWidth, my: 3 }}>
       {children}
     </LoadingButton>
   );
