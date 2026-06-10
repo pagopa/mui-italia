@@ -4,32 +4,6 @@ import { colors } from './colors';
 /**
  * Semantic palette definitions and MUI palette extensions.
  */
-
-export const semanticColors = {
-  text: {
-    primary: '#17324D',
-  },
-
-  shadow: {
-    main: '#002B55',
-  },
-
-  backdrop: {
-    background: '#17324D',
-  },
-
-  menuItem: {
-    background: '#17324D',
-  },
-
-  primaryContained: {
-    hover: '#0055AA',
-  },
-
-  decorativeIcon: colors.neutral.grey[300],
-  divider: colors.neutral.grey[100],
-} as const;
-
 export const palette = {
   mode: 'light',
   background: {
@@ -70,7 +44,7 @@ export const palette = {
     contrastText: '#0066CC',
   },
   text: {
-    primary: semanticColors.text.primary,
+    primary: '#17324D',
     secondary: '#5C6F82',
     disabled: '#A2ADB8',
   },
@@ -87,7 +61,24 @@ export const palette = {
     hover: 'rgba(0, 115, 230, 0.12)' /* Primary 12% */,
     selected: 'rgba(0, 115, 230, 0.08)' /* Primary 8% */,
   },
-  divider: semanticColors.divider,
+  shadow: {
+    main: '#002B55',
+  },
+
+  backdrop: {
+    background: '#17324D',
+  },
+
+  menuItem: {
+    background: '#17324D',
+  },
+
+  primaryContained: {
+    hover: '#0055AA',
+  },
+
+  decorativeIcon: colors.neutral.grey[300],
+  divider: colors.neutral.grey[100],
   /* Indicator/Validation */
   error: {
     //TODO manca contrastText?
@@ -95,7 +86,7 @@ export const palette = {
     dark: '#D85757',
     light: '#FE7A7A',
     extraLight: '#FB9EAC',
-    contrastText: semanticColors.text.primary,
+    contrastText: '#17324D',
     100: colors.error[100],
     850: colors.error[850],
   },
@@ -105,7 +96,7 @@ export const palette = {
     dark: '#5BB0D5',
     light: '#7ED5FC',
     extraLight: '#86E1FD',
-    contrastText: semanticColors.text.primary,
+    contrastText: '#17324D',
     100: colors.info[100],
     850: colors.info[850],
   },
@@ -114,7 +105,7 @@ export const palette = {
     dark: '#5CA85A',
     light: '#7FCD7D',
     extraLight: '#B5E2B4',
-    contrastText: semanticColors.text.primary,
+    contrastText: '#17324D',
     100: colors.success[100],
     850: colors.success[850],
   },
@@ -123,7 +114,7 @@ export const palette = {
     dark: '#D9AD3C',
     light: '#FFD25E',
     extraLight: '#FFE5A3',
-    contrastText: semanticColors.text.primary,
+    contrastText: '#17324D',
     100: colors.warning[100],
     850: colors.warning[850],
   },
@@ -144,9 +135,26 @@ declare module '@mui/material/styles' {
     checkIban: Palette['primary'];
     extraLight: Palette['warning'];
     primaryAction: Palette['action'];
+    primaryContained: PrimaryContainedPalette;
+    shadow: ShadowPalette;
+    backdrop: BackgroundPalette;
+    menuItem: BackgroundPalette;
+    decorativeIcon?: string;
     negative: SimplePaletteColorOptions;
     indigo: Palette['primary'];
   }
+
+  type PrimaryContainedPalette = {
+    hover: string;
+  };
+
+  type ShadowPalette = {
+    main: string;
+  };
+
+  type BackgroundPalette = {
+    background: string;
+  };
 
   interface PaletteOptions {
     pagoPA?: PaletteOptions['primary'];

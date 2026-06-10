@@ -1,22 +1,22 @@
 import { alpha, createTheme, Theme } from '@mui/material/styles';
 
 import { colors } from './colors';
-import { palette, semanticColors } from './palette';
+import { palette } from './palette';
 import { mainTypeface } from '../fonts';
 
 const shadowValues = {
   /* Elevation 4 */
-  4: `0px 2px 4px -1px ${alpha(semanticColors.shadow.main, 0.1)},
-        0px 4px 5px ${alpha(semanticColors.shadow.main, 0.05)},
-        0px 1px 10px ${alpha(semanticColors.shadow.main, 0.1)}`,
+  4: `0px 2px 4px -1px ${alpha(palette.shadow.main, 0.1)},
+        0px 4px 5px ${alpha(palette.shadow.main, 0.05)},
+        0px 1px 10px ${alpha(palette.shadow.main, 0.1)}`,
   /* Elevation 8 = Elevation 16 */
-  8: `0px 8px 10px -5px ${alpha(semanticColors.shadow.main, 0.1)},
-        0px 16px 24px 2px ${alpha(semanticColors.shadow.main, 0.05)},
-        0px 6px 30px 5px ${alpha(semanticColors.shadow.main, 0.1)}`,
+  8: `0px 8px 10px -5px ${alpha(palette.shadow.main, 0.1)},
+        0px 16px 24px 2px ${alpha(palette.shadow.main, 0.05)},
+        0px 6px 30px 5px ${alpha(palette.shadow.main, 0.1)}`,
   /* Elevation 16 */
-  16: `0px 8px 10px -5px ${alpha(semanticColors.shadow.main, 0.1)},
-        0px 16px 24px 2px ${alpha(semanticColors.shadow.main, 0.05)},
-        0px 6px 30px 5px ${alpha(semanticColors.shadow.main, 0.1)}`,
+  16: `0px 8px 10px -5px ${alpha(palette.shadow.main, 0.1)},
+        0px 16px 24px 2px ${alpha(palette.shadow.main, 0.05)},
+        0px 6px 30px 5px ${alpha(palette.shadow.main, 0.1)}`,
 };
 
 const shadowsArray = Array(25).fill('none') as any;
@@ -37,7 +37,7 @@ const foundation: Theme = createTheme({
     /* Using a constant because type variants
     don't inherit the typeface general color */
     allVariants: {
-      color: semanticColors.text.primary,
+      color: palette.text.primary,
     },
     /* Using a constant because type variants
     don't inherit the typeface font family */
