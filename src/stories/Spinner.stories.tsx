@@ -11,6 +11,7 @@ const meta: Meta<typeof CircularProgress> = {
     thickness: 5,
     variant: 'indeterminate',
     disableShrink: true,
+    'aria-label': 'Caricamento in corso',
   },
   argTypes: {
     color: {

@@ -1,4 +1,4 @@
-import { Meta, Title, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import { Meta, Title, Canvas } from '@storybook/addon-docs/blocks';
 import * as SpinnerStories from '../stories/Spinner.stories.tsx';
 
 <Meta of={SpinnerStories} />
@@ -19,22 +19,6 @@ interfaccia bloccata o non reattiva.
 - 🎨 **Figma:** _(da inserire)_
 - 💻 **GitHub:** _(da inserire)_
 
-## Default
-
-Configurazione di base: variante `indeterminate` e colore `primary`. È la scelta
-consigliata per la maggior parte dei caricamenti, quando non si conosce la durata
-dell'operazione.
-
-Usa i controlli qui sotto per modificare le proprietà e vedere il risultato dal vivo.
-
-> ℹ️ Nella variante `indeterminate` lo **spessore dell'anello è fisso** per scelta
-> di Design System (l'anello è ridisegnato via CSS): per questo le prop `thickness`
-> e `value` non sono modificabili qui. Sono disponibili nella variante `determinate`.
-
-<Canvas of={SpinnerStories.Default} />
-
-<Controls of={SpinnerStories.Default} />
-
 ## Colori
 
 Lo Spinner supporta due soli colori, allineati alla palette del Design System:
@@ -53,38 +37,6 @@ Lo Spinner supporta due soli colori, allineati alla palette del Design System:
 ### Secondary
 
 <Canvas of={SpinnerStories.Secondary} />
-
-## Varianti
-
-### Indeterminate
-
-È la variante di default. L'anello ruota continuamente senza indicare una
-percentuale: va usata quando **non si conosce** la durata dell'operazione.
-
-<Canvas of={SpinnerStories.Default} />
-
-### Determinate
-
-Mostra un avanzamento preciso tramite la prop `value` (0–100). Va usata quando la
-durata o il progresso dell'operazione sono **noti o calcolabili** (es. upload di un
-file, download, completamento di uno step). In questa variante puoi regolare anche
-`value` (percentuale di avanzamento) e `thickness` (spessore dell'anello).
-
-<Canvas of={SpinnerStories.Determinate} />
-
-## Dimensioni
-
-La dimensione si regola con la prop `size` (in pixel). La dimensione di default è
-`24px`. Scegli la dimensione in base al contesto: piccola accanto a un testo o
-dentro un pulsante, grande per caricamenti a tutta pagina.
-
-<Canvas of={SpinnerStories.Sizes} />
-
-## API
-
-Tutte le proprietà disponibili sul componente.
-
-<ArgTypes of={SpinnerStories.Default} />
 
 ## Accessibilità
 
