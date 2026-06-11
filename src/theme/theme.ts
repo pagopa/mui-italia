@@ -4,19 +4,19 @@ import { CSSProperties } from 'react';
 /* Design Tokens */
 import { italia } from '@tokens';
 
-import muiSwitch from './muiSwitch';
-import { pxToRem } from './utility';
-import foundation from './foundation';
-import { mainTypeface, monospacedTypeface } from './fonts';
 import {
   backdropBackground,
   colorPrimaryContainedHover,
   colorTextPrimary,
   menuItemBackground,
-  blue,
 } from './colors';
-/* Basic Configuration */
+import { muiIconButton } from './components';
+import { mainTypeface, monospacedTypeface } from './fonts';
+import foundation from './foundation';
+import muiSwitch from './muiSwitch';
+import { pxToRem } from './utility';
 
+/* Basic Configuration */
 const responsiveBreakpoint = 'sm';
 export const ringWidth = '4px';
 const marginLinkSize = '4px';
@@ -24,7 +24,7 @@ const paddingLinkSize = '1px';
 export const focusWidth = '2px';
 export const focusBorderRadius = '8px';
 export const focusOffset = '4px';
-const focusButtonOffset = '2px';
+export const focusButtonOffset = '2px';
 const alertBorderWidth = '4px';
 
 /* Custom Typography */
@@ -112,16 +112,6 @@ declare module '@mui/material/Button' {
   interface ButtonPropsVariantOverrides {
     secondary: false;
     naked: true;
-  }
-}
-
-declare module '@mui/material/IconButton' {
-  interface IconButtonPropsColorOverrides {
-    secondary: false;
-    info: false;
-    success: false;
-    warning: false;
-    error: false;
   }
 }
 
@@ -434,26 +424,7 @@ export const theme: Theme = createTheme(foundation, {
         },
       ],
     },
-    MuiIconButton: {
-      defaultProps: {
-        disableRipple: true,
-      },
-      styleOverrides: {
-        root: {
-          color: blue[500],
-          '&:active, &:hover': {
-            backgroundColor: blue[50],
-          },
-          '&.Mui-focusVisible': {
-            outline: `solid ${focusWidth} ${blue[400]}`,
-            outlineOffset: `${focusButtonOffset}`,
-            boxShadow: 'none',
-          },
-          minHeight: pxToRem(24),
-          minWidth: pxToRem(24),
-        },
-      },
-    },
+    MuiIconButton: muiIconButton,
     MuiTooltip: {
       styleOverrides: {
         tooltip: {
