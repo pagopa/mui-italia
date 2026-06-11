@@ -50,7 +50,9 @@ export default function getBabelConfig(api) {
       'src/**/stories/**/*',
       // exclude all stories files
       'src/**/*.stories.ts',
-      'src/**/*.stories.tsx'
+      'src/**/*.stories.tsx',
+      // exclude Storybook MDX docs
+      'src/docs/**/*'
     );
     config.plugins.push(
       [
