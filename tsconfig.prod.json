@@ -9,6 +9,7 @@
     "src/**/stories/**/*",
     "src/**/*.stories.ts",
     "src/**/*.stories.tsx",
+    "src/docs/**/*",
     "src/**/*.test.ts",
     "src/**/*.test.tsx",
     "src/**/*.spec.ts",

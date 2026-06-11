@@ -2,7 +2,6 @@ import { readFile } from 'fs/promises';
 import { resolve } from 'path';
 import { fileURLToPath } from 'url';
 
-const dirname = fileURLToPath(new URL('.', import.meta.url));
 // the elements of this map are ordered by priority
 // the last element is that with gratest priority and the first element is that with lowest priority
 // the priority is used to order the section inside the changelog
@@ -22,10 +21,10 @@ const COMMIT_HASH_LENGTH = 7;
 
 export async function createWriterOpts() {
   const [template, header, commit, footer] = await Promise.all([
-    readFile(resolve(dirname, './templates/template.hbs'), 'utf-8'),
-    readFile(resolve(dirname, './templates/header.hbs'), 'utf-8'),
-    readFile(resolve(dirname, './templates/commit.hbs'), 'utf-8'),
-    readFile(resolve(dirname, './templates/footer.hbs'), 'utf-8'),
+    readFile(fileURLToPath(new URL('./templates/template.hbs', import.meta.url)), 'utf-8'),
+    readFile(fileURLToPath(new URL('./templates/header.hbs', import.meta.url)), 'utf-8'),
+    readFile(fileURLToPath(new URL('./templates/commit.hbs', import.meta.url)), 'utf-8'),
+    readFile(fileURLToPath(new URL('./templates/footer.hbs', import.meta.url)), 'utf-8')
   ]);
   const writerOpts = getWriterOpts();
 

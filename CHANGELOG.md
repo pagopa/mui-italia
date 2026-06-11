@@ -1,3 +1,140 @@
+# [2.4.1](https://github.com/pagopa/mui-italia/releases/tag/v2.4.1) (2026-05-06)
+
+
+### Chore
+
+* Bump version to v2.4.1
+# [2.4.1-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.4.1-RC.0) (2026-05-06)
+
+
+### Bug Fixes
+
+* **M20DS-87:** restore data-testid and native HTML props forwarding ([c9264e0](https://github.com/pagopa/mui-italia/commit/c9264e0a4ce7e81daf9349329605024644718e56))
+# [2.4.0](https://github.com/pagopa/mui-italia/releases/tag/v2.4.0) (2026-05-05)
+
+
+### Chore
+
+* Bump version to v2.4.0
+# [2.4.0-RC.2](https://github.com/pagopa/mui-italia/releases/tag/v2.4.0-RC.2) (2026-05-04)
+
+
+### Features
+
+* **M20DS-87:** header alert ([#689](https://github.com/pagopa/mui-italia/issues/689)) ([35f7c14](https://github.com/pagopa/mui-italia/commit/35f7c142c0a57738a719452756bd9eecd35cf8b2))
+# [2.4.0-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v2.4.0-RC.1) (2026-04-20)
+
+
+### Bug Fixes
+
+* **PN-19097:** set hover color when confirmation button has error state ([#688](https://github.com/pagopa/mui-italia/issues/688)) ([7470484](https://github.com/pagopa/mui-italia/commit/74704840fd7aaf8332ed01f24d714c9baaa86100))
+* **PN-19097:** added error layout to confirm button ([#682](https://github.com/pagopa/mui-italia/issues/682)) ([54bf0e2](https://github.com/pagopa/mui-italia/commit/54bf0e2767ebaf2c848ae20d0708db8632ab9478))
+* **M20DS-10:** enhanced tag accessibility for people with motor disabilities ([#687](https://github.com/pagopa/mui-italia/issues/687)) ([90ac3ef](https://github.com/pagopa/mui-italia/commit/90ac3ef07ea0c4aa327ce446926935948f39b49f))
+
+
+### Chores
+
+* **PN-18819:** fixed security issues (step 2) ([#686](https://github.com/pagopa/mui-italia/issues/686)) ([97b1df1](https://github.com/pagopa/mui-italia/commit/97b1df1c868681d81c3cf9f8f3a502e8ffc3a827))
+* **PN-18819:** fixed security issues ([#684](https://github.com/pagopa/mui-italia/issues/684)) ([8078a88](https://github.com/pagopa/mui-italia/commit/8078a888e29754b37a50f53e1383cb3fd4b74de5))
+
+
+### Continuous Integration
+
+* **MUI-234:** relaxed pr-title check on branches that start with renovate ([#685](https://github.com/pagopa/mui-italia/issues/685)) ([60e659b](https://github.com/pagopa/mui-italia/commit/60e659bd060875cfd82983627bc552fd1d6abfce))
+# [2.4.0-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.4.0-RC.0) (2026-04-15)
+
+
+### Features
+
+* **M20DS-15:** Add illustrations ([#679](https://github.com/pagopa/mui-italia/issues/679)) ([9473e7a](https://github.com/pagopa/mui-italia/commit/9473e7a022da24cdf4d7146740f88a29acc58120))
+
+
+### Bug Fixes
+
+* **M20DS-10:** export MITooltip component ([#683](https://github.com/pagopa/mui-italia/issues/683)) ([7368289](https://github.com/pagopa/mui-italia/commit/7368289c8a3ad82cd44f7da0ba0fe21b395646a7))
+* **M20DS-10:** slip or truncate text if it overcomes the width of the container ([#676](https://github.com/pagopa/mui-italia/issues/676)) ([6c51165](https://github.com/pagopa/mui-italia/commit/6c511656dd7e71d470fb3b87f6f3dfb8f6a2f37c))
+
+
+
+# [2.3.1](https://github.com/pagopa/mui-italia/releases/tag/v2.3.1) (2026-03-23)
+
+
+### Chore
+
+* Bump version to v2.3.1 
+
+
+
+# [2.3.1-RC.4](https://github.com/pagopa/mui-italia/releases/tag/v2.3.1-RC.4) (2026-03-16)
+
+
+### Bug Fixes
+
+* **M20DS-30:** ensure MIAlert icon is always positioned at the top ([#672](https://github.com/pagopa/mui-italia/issues/672)) ([06611d5](https://github.com/pagopa/mui-italia/commit/06611d5788ab0d4002aaa511412975391dbea821))
+
+
+
+# [2.3.1-RC.3](https://github.com/pagopa/mui-italia/releases/tag/v2.3.1-RC.3) (2026-03-10)
+
+
+### Bug Fixes
+
+* **M20DS-30:** decrease internal MIAlert padding ([#670](https://github.com/pagopa/mui-italia/issues/670)) ([b37d6a0](https://github.com/pagopa/mui-italia/commit/b37d6a000e590384e177f77245f3036dddb0b044))
+* **M20DS-30:** icon padding and MIAlert props forward ([#669](https://github.com/pagopa/mui-italia/issues/669)) ([b6554fd](https://github.com/pagopa/mui-italia/commit/b6554fdc4fa7817a04fc204e976e952027ef6ac1))
+
+
+
+# [2.3.1-RC.2](https://github.com/pagopa/mui-italia/releases/tag/v2.3.1-RC.2) (2026-03-09)
+
+
+### Bug Fixes
+
+* **M20DS-30:** MIAlert icon position on mobile and add missing stories ([#668](https://github.com/pagopa/mui-italia/issues/668)) ([e1148ae](https://github.com/pagopa/mui-italia/commit/e1148ae52564ec9becd7afb5ba4eece94bbac904))
+
+
+
+# [2.3.1-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v2.3.1-RC.1) (2026-03-06)
+
+
+### Bug Fixes
+
+* **A2-2576:** remove "X" on footer social ([#667](https://github.com/pagopa/mui-italia/issues/667)) ([ee7f201](https://github.com/pagopa/mui-italia/commit/ee7f2013f04a3570f4d6125d2b8da7437a8d424a))
+
+
+### Styles
+
+* **M20DS-30:** restyled alert component ([#646](https://github.com/pagopa/mui-italia/issues/646)) ([f03bbde](https://github.com/pagopa/mui-italia/commit/f03bbde89c632dc979232f192a2b0f39361a608d))
+
+
+
+# [2.3.1-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.3.1-RC.0) (2026-03-03)
+
+
+### Bug Fixes
+
+* **A2-2576:** fix footer icon social ([#648](https://github.com/pagopa/mui-italia/issues/648)) ([05376fa](https://github.com/pagopa/mui-italia/commit/05376fabf08b23e0863c4d2982b0d3a8b336ad2a))
+* **A2-1727:** aria-label optional on footer link ([#647](https://github.com/pagopa/mui-italia/issues/647)) ([c3db00b](https://github.com/pagopa/mui-italia/commit/c3db00b76a942708d7b9051387bea1baf8786e96))
+* **M20DS-86:** run build CLI commands via shell for cross-platform compatibility ([#662](https://github.com/pagopa/mui-italia/issues/662)) ([d37e4aa](https://github.com/pagopa/mui-italia/commit/d37e4aa8829fb0c0a7b6df54067718b750c42887))
+* **M20DS-83:** Change CodeInput border color and migrate to foundations/colors ([#649](https://github.com/pagopa/mui-italia/issues/649)) ([561e60c](https://github.com/pagopa/mui-italia/commit/561e60c221e5aa990854a42ad7af895987e5b318))
+* **A2-1733:** fixed failing build ([#661](https://github.com/pagopa/mui-italia/issues/661)) ([1f9f7d0](https://github.com/pagopa/mui-italia/commit/1f9f7d04ec4e837e949cea28ee86d2d570cf6ff3))
+* **A2-1733:** LangSwitch: add prop lang if languages are in original lang ([#645](https://github.com/pagopa/mui-italia/issues/645)) ([01f2d81](https://github.com/pagopa/mui-italia/commit/01f2d811cb1891af163561d7ff4d64be446602d1))
+* **A2-1732:** add prop productsTitle in Footer component ([#644](https://github.com/pagopa/mui-italia/issues/644)) ([ba4ee33](https://github.com/pagopa/mui-italia/commit/ba4ee33c481d7eb1719d0fa0731e17556fa72a20))
+* **PN-17755:** LangSwitch: improve a11y by notifying menu expansion state ([#643](https://github.com/pagopa/mui-italia/issues/643)) ([82aaeea](https://github.com/pagopa/mui-italia/commit/82aaeea3f08578e7f48a2df1ad7ec24269105c3c))
+* **A2-2362:** add optional CodeInput label to provide an accessible name ([#652](https://github.com/pagopa/mui-italia/issues/652)) ([9dcc729](https://github.com/pagopa/mui-italia/commit/9dcc72968847259ea924e927b59e05dca52a9c5f))
+
+
+### Chores
+
+* pin actions/setup-node action to 1e60f62 ([#635](https://github.com/pagopa/mui-italia/issues/635)) ([3129ad6](https://github.com/pagopa/mui-italia/commit/3129ad61db59e0456a5cc322b833df739e9101ad))
+* **MUI-231:** removed branch_ignore property from action configuration file ([#653](https://github.com/pagopa/mui-italia/issues/653)) ([662820a](https://github.com/pagopa/mui-italia/commit/662820a40c9f614c7eb80b62ed4ab9983561e300))
+
+
+### Build System
+
+* **deps-dev:** bump @babel/preset-env from 7.28.5 to 7.29.0 ([#640](https://github.com/pagopa/mui-italia/issues/640)) ([a973ea7](https://github.com/pagopa/mui-italia/commit/a973ea784c19adcb81e091728b779d15d385602b))
+
+
+
 # [2.3.0](https://github.com/pagopa/mui-italia/releases/tag/v2.3.0) (2026-02-12)
 
 
