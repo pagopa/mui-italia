@@ -718,6 +718,7 @@ export const theme: Theme = createTheme(foundation, {
         },
       },
     },
+    /* START Chip */
     MuiChip: {
       styleOverrides: {
         root: {
@@ -855,6 +856,7 @@ export const theme: Theme = createTheme(foundation, {
         },
       },
     },
+    /* END Chip */
     /** Start TEXT FIELD */
     MuiInput: {
       styleOverrides: {
