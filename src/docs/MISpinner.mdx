@@ -1,14 +1,14 @@
-import { Meta, Title, Canvas } from '@storybook/addon-docs/blocks';
-import * as SpinnerStories from '../stories/Spinner.stories.tsx';
+import { Meta, Title, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import * as MISpinnerStories from '../stories/MISpinner.stories.tsx';
 
-<Meta of={SpinnerStories} />
+<Meta of={MISpinnerStories} />
 
 <Title />
 
-Lo **Spinner** comunica all'utente che è in corso un'operazione di caricamento o
-elaborazione di durata indefinita o nota. È basato sul componente
-[`CircularProgress`](https://mui.com/material-ui/react-progress/) di MUI, con gli
-override di tema del Design System (spessore, dimensione e palette dedicata).
+Il component **MISpinner** comunica all'utente che è in corso un'operazione di
+caricamento o elaborazione di durata indefinita o nota. È basato sul componente
+[CircularProgress](https://mui.com/material-ui/react-progress/) di MUI, esteso dal
+Design System con default dedicati (spessore, dimensione e palette).
 
 Usalo per dare un feedback immediato durante attese percepibili dall'utente
 (chiamate di rete, salvataggi, transizioni di pagina), evitando la sensazione di
@@ -19,9 +19,15 @@ interfaccia bloccata o non reattiva.
 - 🎨 **Figma:** _(da inserire)_
 - 💻 **GitHub:** _(da inserire)_
 
+## Playground
+
+<Canvas of={MISpinnerStories.Default} />
+
+<Controls of of={MISpinnerStories.Default} />
+
 ## Colori
 
-Lo Spinner supporta due soli colori, allineati alla palette del Design System:
+`MISpinner` supporta due soli colori, allineati alla palette del Design System:
 
 - **`primary`** — blu del Design System, da usare su sfondi chiari (è il default).
 - **`secondary`** — bianco, pensato per sfondi scuri o colorati (es. all'interno di
@@ -32,15 +38,15 @@ Lo Spinner supporta due soli colori, allineati alla palette del Design System:
 
 ### Primary
 
-<Canvas of={SpinnerStories.Primary} />
+<Canvas of={MISpinnerStories.Primary} />
 
 ### Secondary
 
-<Canvas of={SpinnerStories.Secondary} />
+<Canvas of={MISpinnerStories.Secondary} />
 
 ## Accessibilità
 
-Lo Spinner è basato su `CircularProgress`, che implementa nativamente il pattern
+Il componente `MISpinner` è basato su `CircularProgress`, che implementa nativamente il pattern
 ARIA [`progressbar`](https://www.w3.org/WAI/ARIA/apg/patterns/) (`role="progressbar"`).
 Per garantire un'esperienza accessibile, segui queste indicazioni:
 
@@ -71,10 +77,10 @@ Per garantire un'esperienza accessibile, segui queste indicazioni:
 ### Esempio accessibile
 
 ```tsx
-<CircularProgress aria-label="Caricamento dei dati in corso" />
+<MISpinner aria-label="Caricamento dei dati in corso" />
 
 // Variante determinate con percentuale annunciata
-<CircularProgress
+<MISpinner
   variant="determinate"
   value={progress}
   aria-label={`Caricamento al ${progress}%`}

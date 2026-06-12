@@ -1,14 +1,14 @@
-import { Box, CircularProgress } from '@mui/material';
+import { MISpinner } from '@components/MISpinner';
+import { Box } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-const meta: Meta<typeof CircularProgress> = {
-  title: 'MUI Components/Feedback/Spinner',
-  component: CircularProgress,
+const meta: Meta<typeof MISpinner> = {
+  title: 'Components/MISpinner',
+  component: MISpinner,
   tags: ['!autodocs'],
   args: {
     color: 'primary',
     size: 24,
-    thickness: 5,
     variant: 'indeterminate',
     disableShrink: true,
     'aria-label': 'Caricamento in corso',
@@ -41,15 +41,6 @@ const meta: Meta<typeof CircularProgress> = {
         defaultValue: { summary: '24' },
       },
     },
-    thickness: {
-      description:
-        "Spessore dell'anello. Per scelta di Design System ha effetto solo con `variant='determinate'`: nella variante `indeterminate` l'anello è ridisegnato via CSS con spessore fisso e la prop viene ignorata.",
-      control: { type: 'range', min: 1, max: 10, step: 0.5 },
-      table: {
-        type: { summary: 'number' },
-        defaultValue: { summary: '5' },
-      },
-    },
     value: {
       description: "Valore di avanzamento (0–100). Ha effetto solo con `variant='determinate'`.",
       control: { type: 'range', min: 0, max: 100, step: 1 },
@@ -60,7 +51,7 @@ const meta: Meta<typeof CircularProgress> = {
     },
     disableShrink: {
       description:
-        "Disabilita l'animazione di restringimento dell'anello (attiva di default nel tema).",
+        "Disabilita l'animazione di restringimento dell'anello (attiva di default nel componente).",
       control: { type: 'boolean' },
       table: {
         type: { summary: 'boolean' },
@@ -72,24 +63,24 @@ const meta: Meta<typeof CircularProgress> = {
 
 export default meta;
 
-type Story = StoryObj<typeof CircularProgress>;
+type Story = StoryObj<typeof MISpinner>;
 
 export const Default: Story = {
-  render: (args) => <CircularProgress {...args} />,
+  render: (args) => <MISpinner {...args} />,
 };
 
 export const Primary: Story = {
   args: {
     color: 'primary',
   },
-  render: (args) => <CircularProgress {...args} />,
+  render: (args) => <MISpinner {...args} />,
 };
 
 export const Secondary: Story = {
   args: {
     color: 'secondary',
   },
-  render: (args) => <CircularProgress {...args} />,
+  render: (args) => <MISpinner {...args} />,
   decorators: [
     (Story) => (
       <Box
@@ -111,16 +102,16 @@ export const Determinate: Story = {
     variant: 'determinate',
     value: 65,
   },
-  render: (args) => <CircularProgress {...args} />,
+  render: (args) => <MISpinner {...args} />,
 };
 
 export const Sizes: Story = {
   render: (args) => (
     <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
-      <CircularProgress {...args} size={16} />
-      <CircularProgress {...args} size={24} />
-      <CircularProgress {...args} size={48} />
-      <CircularProgress {...args} size={64} />
+      <MISpinner {...args} size={16} />
+      <MISpinner {...args} size={24} />
+      <MISpinner {...args} size={48} />
+      <MISpinner {...args} size={64} />
     </Box>
   ),
 };

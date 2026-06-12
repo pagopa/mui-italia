@@ -4,17 +4,16 @@ import { CSSProperties } from 'react';
 /* Design Tokens */
 import { italia } from '@tokens';
 
+import muiSwitch from './muiSwitch';
+import { pxToRem } from './utility';
+import foundation from './foundation';
+import { mainTypeface, monospacedTypeface } from './fonts';
 import {
   backdropBackground,
   colorPrimaryContainedHover,
   colorTextPrimary,
   menuItemBackground,
 } from './colors';
-import { muiCircularProgress } from './components';
-import { mainTypeface, monospacedTypeface } from './fonts';
-import foundation from './foundation';
-import muiSwitch from './muiSwitch';
-import { pxToRem } from './utility';
 
 /* Basic Configuration */
 
@@ -435,7 +434,6 @@ export const theme: Theme = createTheme(foundation, {
         },
       ],
     },
-    MuiCircularProgress: muiCircularProgress,
     MuiIconButton: {
       defaultProps: {
         disableRipple: true,
