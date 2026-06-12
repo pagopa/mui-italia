@@ -13,7 +13,7 @@ import {
   colorPrimaryContainedHover,
   colorTextPrimary,
   menuItemBackground,
-} from './colors';
+} from './foundations/colors';
 
 /* Basic Configuration */
 
