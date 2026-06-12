@@ -8,7 +8,7 @@ import { ThemeProvider, Box } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 /* MUI Italia Theme */
-import { theme as lightTheme, darkTheme } from '../src/theme';
+import { theme as lightTheme, darkTheme, themeNext } from '../src/theme';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -39,8 +39,7 @@ export const withTheme: Decorator = (Story, context) => {
   // More info about this decorator
   // https://storybook.js.org/blog/how-to-add-a-theme-switcher-to-storybook/
 
-  const theme = context.parameters.theme || context.globals.theme;
-  const storyTheme = theme === 'light' ? lightTheme : darkTheme;
+  const selectedTheme = context.parameters.theme || context.globals.theme;
 
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
@@ -49,7 +48,7 @@ export const withTheme: Decorator = (Story, context) => {
     [prefersDarkMode]
   );
 
-  switch (theme) {
+  switch (selectedTheme) {
     case 'system': {
       return (
         <ThemeProvider theme={currentTheme}>
@@ -63,6 +62,15 @@ export const withTheme: Decorator = (Story, context) => {
     case 'dark': {
       return (
         <ThemeProvider theme={darkTheme}>
+          <StoryContainer>
+            <Story />
+          </StoryContainer>
+        </ThemeProvider>
+      );
+    }
+    case 'next': {
+      return (
+        <ThemeProvider theme={themeNext}>
           <StoryContainer>
             <Story />
           </StoryContainer>
@@ -96,6 +104,7 @@ export const globalTypes = {
         { value: 'system', icon: 'cog', title: 'System' },
         { value: 'light', icon: 'circlehollow', title: 'Light' },
         { value: 'dark', icon: 'circle', title: 'Dark' },
+        { value: 'next', icon: 'paintbrush', title: 'Theme Next' },
       ],
     },
   },

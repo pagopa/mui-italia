@@ -120,6 +120,39 @@ export const palette = {
   },
 } as const;
 
+export const paletteNext = {
+  ...palette,
+
+  //TEMPORARY primary
+  primary: {
+    main: '#FF00FF',
+    light: '#FF66FF',
+    dark: '#CC00CC',
+    contrastText: colors.neutral.white,
+    100: colors.blue[100],
+  },
+
+  secondary: {
+    ...palette.secondary,
+  },
+
+  error: {
+    ...palette.error,
+  },
+
+  warning: {
+    ...palette.warning,
+  },
+
+  success: {
+    ...palette.success,
+  },
+
+  info: {
+    ...palette.info,
+  },
+} as const;
+
 declare module '@mui/material/styles' {
   interface Theme {
     colors: typeof colors;
