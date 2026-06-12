@@ -9,17 +9,12 @@ import {
   colorPrimaryContainedHover,
   colorTextPrimary,
   menuItemBackground,
-  blue,
-  error,
 } from './colors';
 import { muiCircularProgress } from './components';
 import { mainTypeface, monospacedTypeface } from './fonts';
 import foundation from './foundation';
 import muiSwitch from './muiSwitch';
 import { pxToRem } from './utility';
-
-import type {} from '@mui/lab/themeAugmentation';
-import { colors } from './foundations/colors';
 
 /* Basic Configuration */
 
@@ -73,8 +68,6 @@ declare module '@mui/material/styles' {
     extraLight: Palette['warning'];
     primaryAction: Palette['action'];
     negative: SimplePaletteColorOptions;
-    contrastedPrimary: Palette['primary'];
-    contrastedError: Palette['error'];
     indigo: Palette['primary'];
   }
   interface PaletteOptions {
@@ -84,8 +77,6 @@ declare module '@mui/material/styles' {
     extraLight?: PaletteOptions['warning'];
     primaryAction: PaletteOptions['action'];
     negative: SimplePaletteColorOptions;
-    contrastedPrimary?: PaletteOptions['primary'];
-    contrastedError?: PaletteOptions['error'];
     indigo: SimplePaletteColorOptions;
   }
 
@@ -113,8 +104,6 @@ declare module '@mui/material/Button' {
     text: true;
     primary: true;
     negative: true;
-    contrastedPrimary: true;
-    contrastedError: true;
     secondary: false;
     warning: false;
     info: false;
@@ -181,20 +170,6 @@ More info:  https://www.chromatic.com/docs/viewports
 export const breakpointsChromaticValues = [375, 640, 900, 1200, 1600];
 
 export const theme: Theme = createTheme(foundation, {
-  palette: {
-    contrastedPrimary: {
-      main: foundation.palette.common.white,
-      dark: alpha(foundation.palette.common.white, 0.8),
-      light: alpha(foundation.palette.common.white, 0.9),
-      contrastText: blue[500],
-    },
-    contrastedError: {
-      main: foundation.palette.error.main,
-      dark: alpha(foundation.palette.error.main, 0.8),
-      light: alpha(foundation.palette.error.main, 0.9),
-      contrastText: error[600],
-    },
-  },
   typography: {
     /* H1 Large */
     headline: {
@@ -336,12 +311,10 @@ export const theme: Theme = createTheme(foundation, {
       defaultProps: {
         disableElevation: true,
         disableFocusRipple: true,
-        disableRipple: true,
       },
       styleOverrides: {
         root: {
           padding: '0 20px',
-          borderRadius: foundation.spacing(1),
           '&.Mui-focusVisible': {
             borderRadius: `${focusBorderRadius}`,
             outline: `solid ${focusWidth} ${foundation.palette.primary.main}`,
@@ -350,6 +323,17 @@ export const theme: Theme = createTheme(foundation, {
           },
           minHeight: pxToRem(24),
           minWidth: pxToRem(24),
+          '&.MuiButton-text': {
+            '&:hover': {
+              backgroundColor: 'transparent',
+              color: '#0055AA',
+            },
+          },
+          '&.MuiButton-contained': {
+            '&:hover': {
+              backgroundColor: '#0055AA',
+            },
+          },
         },
         sizeSmall: {
           height: '40px',
@@ -379,197 +363,23 @@ export const theme: Theme = createTheme(foundation, {
           },
         },
         outlinedPrimary: {
-          borderColor: blue[500],
-          color: blue[500],
-          '&:active, &:hover': {
-            backgroundColor: blue[50],
-            color: blue[600],
+          borderColor: foundation.palette.primary.main,
+          '&:hover': {
+            color: foundation.palette.primary.dark,
             borderColor: 'currentColor',
-          },
-        },
-        outlinedContrastedPrimary: {
-          borderColor: foundation.palette.common.white,
-          color: foundation.palette.common.white,
-          backgroundColor: 'transparent',
-          '&:active, &:hover': {
-            backgroundColor: blue[600],
-          },
-          '&.Mui-focusVisible': {
-            outline: `solid ${focusWidth} ${colors.blue[150]}`,
-          },
-        },
-        outlinedContrastedError: {
-          borderColor: foundation.palette.common.white,
-          color: foundation.palette.common.white,
-          backgroundColor: 'transparent',
-          '&:active, &:hover': {
-            backgroundColor: error[600],
-            borderColor: 'currentColor',
-          },
-          '&.Mui-focusVisible': {
-            outline: `solid ${focusWidth} ${colors.error[500]}`,
           },
         },
         outlinedError: {
-          borderColor: error[600],
-          color: error[600],
-          '&:hover, &:active': {
-            color: error.pressed,
-            borderColor: error.pressed,
-            backgroundColor: foundation.palette.error[100],
-          },
-          '&.Mui-focusVisible': {
-            borderRadius: `${focusBorderRadius}`,
-            outline: `solid ${focusWidth} ${colors.error[500]}`,
-            outlineOffset: `${focusOffset}`,
-            boxShadow: 'none',
-          },
-        },
-        containedPrimary: {
-          backgroundColor: blue[500],
-          '&:active, &:hover': {
-            backgroundColor: blue[600],
-            color: foundation.palette.common.white,
-          },
-        },
-        containedContrastedPrimary: {
-          backgroundColor: foundation.palette.common.white,
-          color: blue[500],
-          '&:active, &:hover': {
-            backgroundColor: blue[50],
-            color: blue[600],
-          },
-          '&.Mui-focusVisible': {
-            outline: `solid ${focusWidth} ${colors.blue[150]}`,
-          },
-        },
-        containedContrastedError: {
-          backgroundColor: foundation.palette.common.white,
-          color: error[600],
-          '&:active, &:hover': {
-            backgroundColor: foundation.palette.error[100],
-            color: error.pressed,
-          },
-        },
-        containedError: {
-          backgroundColor: error[600],
-          color: foundation.palette.common.white,
+          borderColor: foundation.palette.error.main,
           '&:hover': {
-            backgroundColor: error.pressed,
+            color: foundation.palette.error.dark,
             borderColor: 'currentColor',
           },
           '&.Mui-focusVisible': {
             borderRadius: `${focusBorderRadius}`,
-            outline: `solid ${focusWidth} ${colors.error[500]}`,
+            outline: `solid ${focusWidth} ${foundation.palette.error.main}`,
             outlineOffset: `${focusOffset}`,
             boxShadow: 'none',
-          },
-        },
-        textPrimary: {
-          color: blue[500],
-          '&:active, &:hover': {
-            backgroundColor: 'transparent',
-            color: blue[600],
-          },
-          '&.Mui-focusVisible': {
-            outline: 'none',
-            boxShadow: 'none',
-
-            // Create a fake outline using ::after
-            '&::after': {
-              content: '""',
-              position: 'absolute',
-              borderRadius: '10px',
-              border: `solid ${focusWidth} ${colors.blue[400]}`,
-              pointerEvents: 'none',
-
-              // Vertical offset
-              top: '10px',
-              bottom: '10px',
-
-              // Horizontal offset
-              left: '18px',
-              right: '18px',
-            },
-          },
-        },
-        textContrastedPrimary: {
-          color: foundation.palette.common.white,
-          '&.Mui-focusVisible': {
-            outline: 'none',
-            boxShadow: 'none',
-
-            // Create a fake outline using ::after
-            '&::after': {
-              content: '""',
-              position: 'absolute',
-              borderRadius: '10px',
-              border: `solid ${focusWidth} ${colors.blue[150]}`,
-              pointerEvents: 'none',
-
-              // Vertical offset
-              top: '10px',
-              bottom: '10px',
-
-              // Horizontal offset
-              left: '18px',
-              right: '18px',
-            },
-          },
-        },
-        textContrastedError: {
-          color: foundation.palette.common.white,
-          '&:active, &:hover': {
-            backgroundColor: 'transparent',
-          },
-          '&.Mui-focusVisible': {
-            outline: 'none',
-            boxShadow: 'none',
-
-            // Create a fake outline using ::after
-            '&::after': {
-              content: '""',
-              position: 'absolute',
-              borderRadius: '10px',
-              border: `solid ${focusWidth} ${colors.error[500]}`,
-              pointerEvents: 'none',
-
-              // Vertical offset
-              top: '10px',
-              bottom: '10px',
-
-              // Horizontal offset
-              left: '18px',
-              right: '18px',
-            },
-          },
-        },
-        textError: {
-          color: error[600],
-          '&:hover, &:active': {
-            backgroundColor: 'transparent',
-            color: error.pressed,
-          },
-          '&.Mui-focusVisible': {
-            outline: 'none',
-            boxShadow: 'none',
-
-            // Create a fake outline using ::after
-            '&::after': {
-              content: '""',
-              position: 'absolute',
-              borderRadius: '10px',
-              border: `solid ${focusWidth} ${colors.error[500]}`,
-              pointerEvents: 'none',
-
-              // Vertical offset
-              top: '10px',
-              bottom: '10px',
-
-              // Horizontal offset
-              left: '18px',
-              right: '18px',
-            },
           },
         },
       },
@@ -577,7 +387,7 @@ export const theme: Theme = createTheme(foundation, {
         {
           props: { variant: 'naked' },
           style: {
-            color: blue[500],
+            color: foundation.palette.text.primary,
             padding: 0,
             height: 'auto',
             minWidth: 'auto',
@@ -596,7 +406,7 @@ export const theme: Theme = createTheme(foundation, {
         {
           props: { variant: 'naked', color: 'primary' },
           style: {
-            color: blue[500],
+            color: foundation.palette.primary.main,
             '&:hover': {
               color: colorPrimaryContainedHover,
             },
@@ -611,157 +421,19 @@ export const theme: Theme = createTheme(foundation, {
         {
           props: { variant: 'naked', color: 'error' },
           style: {
-            color: error[600],
+            color: foundation.palette.error.main,
             '&:hover': {
-              color: foundation.palette.error[850],
+              color: foundation.palette.error.light,
             },
             '&.Mui-focusVisible': {
               borderRadius: `${focusBorderRadius}`,
-              outline: `solid ${focusWidth} ${colors.error[500]}`,
-              outlineOffset: `${focusButtonOffset}`,
-              boxShadow: 'none',
-            },
-          },
-        },
-        {
-          props: { variant: 'naked', color: 'contrastedPrimary' },
-          style: {
-            color: foundation.palette.common.white,
-            '&:hover': {
-              color: alpha(foundation.palette.common.white, 0.8),
-            },
-            '&.Mui-focusVisible': {
-              borderRadius: `${focusBorderRadius}`,
-              outline: `solid ${focusWidth} ${foundation.palette.common.white}`,
-              outlineOffset: `${focusButtonOffset}`,
-              boxShadow: 'none',
-            },
-          },
-        },
-        {
-          props: { variant: 'naked', color: 'contrastedError' },
-          style: {
-            color: foundation.palette.common.white,
-            '&:hover': {
-              color: alpha(foundation.palette.common.white, 0.8),
-            },
-            '&.Mui-focusVisible': {
-              borderRadius: `${focusBorderRadius}`,
-              outline: `solid ${focusWidth} ${foundation.palette.common.white}`,
+              outline: `solid ${focusWidth} ${foundation.palette.error.main}`,
               outlineOffset: `${focusButtonOffset}`,
               boxShadow: 'none',
             },
           },
         },
       ],
-    },
-    MuiLoadingButton: {
-      defaultProps: {
-        loadingPosition: 'center',
-      },
-      styleOverrides: {
-        root: {
-          '&.MuiLoadingButton-loading.Mui-disabled': {
-            /* --- CONTAINED VARIANTS --- */
-            '&.MuiButton-containedPrimary': {
-              backgroundColor: blue[500],
-              '& .MuiLoadingButton-loadingIndicator': {
-                color: foundation.palette.common.white,
-              },
-            },
-            '&.MuiButton-containedError': {
-              backgroundColor: error[600],
-              '& .MuiLoadingButton-loadingIndicator': {
-                color: foundation.palette.common.white,
-              },
-            },
-            '&.MuiButton-containedContrastedPrimary': {
-              backgroundColor: foundation.palette.common.white,
-              '& .MuiLoadingButton-loadingIndicator': {
-                color: blue[500],
-              },
-            },
-            '&.MuiButton-containedContrastedError': {
-              backgroundColor: foundation.palette.common.white,
-              '& .MuiLoadingButton-loadingIndicator': {
-                color: error[600],
-              },
-            },
-
-            /* --- OUTLINED VARIANTS --- */
-            '&.MuiButton-outlinedPrimary': {
-              backgroundColor: 'transparent',
-              borderColor: blue[500],
-              '& .MuiLoadingButton-loadingIndicator': {
-                color: blue[500],
-              },
-            },
-            '&.MuiButton-outlinedError': {
-              backgroundColor: 'transparent',
-              borderColor: error[600],
-              '& .MuiLoadingButton-loadingIndicator': {
-                color: error[600],
-              },
-            },
-            '&.MuiButton-outlinedContrastedPrimary': {
-              backgroundColor: 'transparent',
-              borderColor: foundation.palette.common.white,
-              '& .MuiLoadingButton-loadingIndicator': {
-                color: foundation.palette.common.white,
-              },
-            },
-            '&.MuiButton-outlinedContrastedError': {
-              backgroundColor: 'transparent',
-              borderColor: foundation.palette.common.white,
-              '& .MuiLoadingButton-loadingIndicator': {
-                color: foundation.palette.common.white,
-              },
-            },
-
-            /* --- TEXT & NAKED VARIANTS --- */
-            '&.MuiButton-textPrimary': {
-              backgroundColor: 'transparent',
-              '& .MuiLoadingButton-loadingIndicator': {
-                color: blue[500],
-              },
-            },
-            '&.MuiButton-textError': {
-              backgroundColor: 'transparent',
-              '& .MuiLoadingButton-loadingIndicator': {
-                color: error[600],
-              },
-            },
-            '&.MuiButton-textContrastedPrimary': {
-              backgroundColor: 'transparent',
-              '& .MuiLoadingButton-loadingIndicator': {
-                color: foundation.palette.common.white,
-              },
-            },
-            '&.MuiButton-textContrastedError': {
-              backgroundColor: 'transparent',
-              '& .MuiLoadingButton-loadingIndicator': {
-                color: foundation.palette.common.white,
-              },
-            },
-            '&.MuiButton-naked': {
-              backgroundColor: 'transparent',
-              '& .MuiLoadingButton-loadingIndicator': {
-                color: blue[500],
-              },
-            },
-            '&.MuiButton-naked.MuiButton-colorContrastedPrimary': {
-              '& .MuiLoadingButton-loadingIndicator': {
-                color: foundation.palette.common.white,
-              },
-            },
-            '&.MuiButton-naked.MuiButton-colorContrastedError': {
-              '& .MuiLoadingButton-loadingIndicator': {
-                color: foundation.palette.common.white,
-              },
-            },
-          },
-        },
-      },
     },
     MuiCircularProgress: muiCircularProgress,
     MuiIconButton: {

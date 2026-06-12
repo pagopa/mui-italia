@@ -1,20 +1,19 @@
-import { MIButton } from '@components/MIButton';
-import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
+import { StoryFn, Meta } from '@storybook/react-vite';
+
+import { Button } from '@mui/material';
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
+import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
-import { Meta, StoryFn } from '@storybook/react-vite';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'Components/MIButton',
-  component: MIButton,
+  title: 'MUI Components/Inputs/Button',
+  component: Button,
   args: {
     variant: 'contained',
-    color: 'primary',
     children: 'Press me',
     fullWidth: false,
-    isLoading: false,
-    loaderType: 'loading',
+    disabled: false,
   },
   argTypes: {
     size: {
@@ -32,29 +31,7 @@ export default {
         defaultValue: { summary: 'false' },
       },
     },
-    color: {
-      options: ['primary', 'error', 'contrasted'],
-      control: { type: 'radio' },
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: 'primary' },
-      },
-    },
-    isLoading: {
-      control: { type: 'boolean' },
-      table: {
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
-      },
-    },
-    loaderType: {
-      options: ['skeleton', 'loading'],
-      control: { type: 'radio' },
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: 'loading' },
-      },
-    },
+    /* Disabled controls */
     variant: {
       options: ['contained', 'outlined', 'text'],
       control: { type: 'radio' },
@@ -63,31 +40,23 @@ export default {
         defaultValue: { summary: 'contained' },
       },
     },
-  },
-  parameters: {
-    controls: {
-      sort: 'size',
-      include: ['variant', 'children', 'fullWidth', 'size', 'color', 'isLoading', 'loaderType'],
+    color: {
+      table: {
+        disable: true,
+      },
     },
   },
-} as Meta<typeof MIButton>;
+  parameters: { controls: { sort: 'size' } },
+} as Meta<typeof Button>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: StoryFn<typeof MIButton> = (args) => <MIButton {...args} />;
+const Template: StoryFn<typeof Button> = (args) => <Button {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
   variant: 'contained',
   size: 'medium',
 };
-
-const onDarkSurface = [
-  (Story: StoryFn) => (
-    <div style={{ padding: '1em', backgroundColor: '#0B3EE3' }}>
-      <Story />
-    </div>
-  ),
-];
 
 export const WithEndIcon = Template.bind({});
 WithEndIcon.storyName = 'Default + End Icon';
@@ -105,10 +74,10 @@ WithStartIcon.args = {
 
 export const Danger = Template.bind({});
 Danger.args = {
-  variant: 'contained',
+  variant: 'outlined',
+  color: 'error',
   size: 'medium',
   children: 'Delete',
-  color: 'error',
 };
 Danger.argTypes = {
   variant: { table: { disable: true } },
@@ -132,28 +101,4 @@ DangerWithStartIcon.args = {
 };
 DangerWithStartIcon.argTypes = {
   ...Danger.argTypes,
-};
-
-export const Contrasted = Template.bind({});
-Contrasted.args = {
-  variant: 'contained',
-  size: 'medium',
-  color: 'contrasted',
-};
-Contrasted.decorators = onDarkSurface;
-
-export const LoadingSpinner = Template.bind({});
-LoadingSpinner.storyName = 'Loading (Spinner)';
-LoadingSpinner.args = {
-  ...Default.args,
-  isLoading: true,
-  loaderType: 'loading',
-};
-
-export const LoadingSkeleton = Template.bind({});
-LoadingSkeleton.storyName = 'Loading (Skeleton)';
-LoadingSkeleton.args = {
-  ...Default.args,
-  isLoading: true,
-  loaderType: 'skeleton',
 };

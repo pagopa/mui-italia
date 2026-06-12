@@ -1,44 +1,74 @@
-import React from 'react';
+import { Skeleton } from '@mui/lab';
+import { Box, CircularProgress } from '@mui/material';
 import Button, { ButtonProps } from '@mui/material/Button';
-import { LoadingButton, Skeleton } from '@mui/lab';
-import { Box } from '@mui/material';
+import { SxProps, Theme } from '@mui/material/styles';
+import React from 'react';
 import { colors } from './../../theme/foundations/colors';
+import { getColorSx } from './styles';
+import { MIButtonProps } from './types';
 
-export type MIButtonProps = Omit<ButtonProps, 'disabled'> & {
-  isLoading?: boolean; // Optional prop to indicate if the button is in a loading state
-  loaderType?: 'skeleton' | 'loading'; // Optional prop to specify the type of loader (skeleton or loading spinner), if not provided, it defaults to classic loading spinner
-};
+const MIButton: React.FC<MIButtonProps> = ({
+  color = 'primary',
+  variant = 'contained',
+  loaderType,
+  isLoading,
+  loadingAriaLabel,
+  children,
+  sx,
+  onClick,
+  ...props
+}) => {
+  const colorSx = getColorSx(color, variant);
 
-const MIButton: React.FC<MIButtonProps> = ({ children, loaderType, isLoading, ...props }) => {
-  const skeletonLoaderWidth = props.fullWidth ? '80%' : '141px';
+  const mergeSx = (extra?: SxProps<Theme>): SxProps<Theme> => [
+    colorSx,
+    extra,
+    ...(Array.isArray(sx) ? sx : [sx]),
+  ];
 
-  const skeletonLoader = (
-    <Button {...props} sx={{ my: 3 }}>
-      <Box sx={{ width: skeletonLoaderWidth }}>
-        <Skeleton sx={{ backgroundColor: colors.neutral.grey[450] }} />
-      </Box>
-    </Button>
-  );
+  const handleClick: ButtonProps['onClick'] = (event) => {
+    if (isLoading) {
+      return;
+    }
+    onClick?.(event);
+  };
 
-  const classicLoaderWidth = props.fullWidth ? '100%' : '72px';
+  if (isLoading && loaderType === 'skeleton') {
+    const skeletonLoaderWidth = props.fullWidth ? '80%' : '141px';
 
-  const classicLoader = (
-    <LoadingButton loading {...props} sx={{ width: classicLoaderWidth, my: 3 }}>
-      {children}
-    </LoadingButton>
-  );
+    return (
+      <Button {...props} variant={variant} onClick={handleClick} aria-busy sx={mergeSx()}>
+        <Box sx={{ width: skeletonLoaderWidth }}>
+          <Skeleton sx={{ backgroundColor: colors.neutral.grey[450] }} />
+        </Box>
+      </Button>
+    );
+  }
 
-  const loaderTypeToRender = loaderType === 'skeleton' ? skeletonLoader : classicLoader;
+  if (isLoading) {
+    const spinnerMinWidth = props.fullWidth ? '100%' : '72px';
+
+    return (
+      <Button
+        {...props}
+        variant={variant}
+        onClick={handleClick}
+        aria-busy
+        sx={mergeSx({ minWidth: spinnerMinWidth })}
+      >
+        <CircularProgress
+          size={24}
+          color="inherit"
+          aria-label={loadingAriaLabel || 'Caricamento in corso'}
+        />
+      </Button>
+    );
+  }
+
   return (
-    <>
-      {isLoading ? (
-        loaderTypeToRender
-      ) : (
-        <Button {...props} sx={{ my: 3 }}>
-          {children}
-        </Button>
-      )}
-    </>
+    <Button {...props} variant={variant} onClick={onClick} sx={mergeSx()}>
+      {children}
+    </Button>
   );
 };
 
