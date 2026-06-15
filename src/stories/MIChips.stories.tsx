@@ -19,7 +19,6 @@ const handleDelete = () => {
 };
 
 const ALL_COLORS = ['default', 'warning', 'error', 'success', 'highlight', 'info'] as const;
-const ALL_VARIANTS = ['filled', 'outlined'] as const;
 
 const Section = ({
   title,
@@ -59,13 +58,6 @@ const ChipGrid = ({ variant }: { variant: 'filled' | 'outlined' }) => (
 const DeletableExamples = () => (
   <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
     <MIChip label="Filtrabile" color="neutral" onDelete={handleDelete} />
-    <MIChip label="Selezionato" color="neutral" variant="outlined" onDelete={handleDelete} />
-    <MIChip
-      label="Accessibile"
-      color="neutral"
-      onDelete={handleDelete}
-      aria-label="Rimuovi chip Accessibile"
-    />
   </Stack>
 );
 
