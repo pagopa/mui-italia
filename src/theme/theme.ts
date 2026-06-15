@@ -4,19 +4,19 @@ import { CSSProperties } from 'react';
 /* Design Tokens */
 import { italia } from '@tokens';
 
+import muiSwitch from './muiSwitch';
+import { pxToRem } from './utility';
+import foundation from './foundation';
+import { mainTypeface, monospacedTypeface } from './fonts';
 import {
   backdropBackground,
   colorPrimaryContainedHover,
   colorTextPrimary,
   menuItemBackground,
-} from './colors';
-import { muiIconButton } from './components';
-import { mainTypeface, monospacedTypeface } from './fonts';
-import foundation from './foundation';
-import muiSwitch from './muiSwitch';
-import { pxToRem } from './utility';
+} from './foundations/colors';
 
 /* Basic Configuration */
+
 const responsiveBreakpoint = 'sm';
 export const ringWidth = '4px';
 const marginLinkSize = '4px';
@@ -112,6 +112,16 @@ declare module '@mui/material/Button' {
   interface ButtonPropsVariantOverrides {
     secondary: false;
     naked: true;
+  }
+}
+
+declare module '@mui/material/IconButton' {
+  interface IconButtonPropsColorOverrides {
+    secondary: false;
+    info: false;
+    success: false;
+    warning: false;
+    error: false;
   }
 }
 
@@ -424,7 +434,38 @@ export const theme: Theme = createTheme(foundation, {
         },
       ],
     },
-    MuiIconButton: muiIconButton,
+    MuiIconButton: {
+      defaultProps: {
+        disableRipple: true,
+      },
+      styleOverrides: {
+        root: {
+          color: foundation.palette.primary.main,
+          '&:hover': {
+            backgroundColor: alpha(foundation.palette.primary.main, 0.08),
+          },
+          '&:active': {
+            backgroundColor: alpha(foundation.palette.primary.main, 0.2),
+          },
+          '&.Mui-focusVisible': {
+            backgroundColor: alpha(foundation.palette.primary.main, 0.2),
+            outline: `solid ${focusWidth} ${foundation.palette.primary.main}`,
+            outlineOffset: `${focusButtonOffset}`,
+            boxShadow: 'none',
+          },
+        },
+        colorPrimary: {
+          color: foundation.palette.primary.contrastText,
+          backgroundColor: foundation.palette.primary.main,
+          '&:hover': {
+            backgroundColor: alpha(foundation.palette.primary.main, 0.08),
+            color: foundation.palette.primary.main,
+          },
+        },
+        minHeight: pxToRem(24),
+        minWidth: pxToRem(24),
+      },
+    },
     MuiTooltip: {
       styleOverrides: {
         tooltip: {

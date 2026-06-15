@@ -34,3 +34,4 @@ export * from './Autocomplete';
 export * from './MIAlert';
 export * from './MITooltip';
 export * from './MISpidSelectOIDialog';
+export * from './MIIconButton';
