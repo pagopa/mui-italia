@@ -6,7 +6,7 @@ import * as MISpinnerStories from '../stories/MISpinner.stories.tsx';
 <Title />
 
 Il component **MISpinner** comunica all'utente che è in corso un'operazione di
-caricamento o elaborazione di durata indefinita o nota. È basato sul componente
+caricamento o elaborazione di durata indefinita. È basato sul componente
 [CircularProgress](https://mui.com/material-ui/react-progress/) di MUI, esteso dal
 Design System con default dedicati (spessore, dimensione e palette).
 
@@ -54,11 +54,6 @@ Per garantire un'esperienza accessibile, segui queste indicazioni:
   Fornisci sempre un'etichetta tramite `aria-label` (es. `aria-label="Caricamento in corso"`)
   oppure collega un testo visibile con `aria-labelledby`.
 
-- **Valore di avanzamento.** Nella variante `determinate`, valorizza `value`: MUI
-  espone automaticamente `aria-valuenow` così che le tecnologie assistive annuncino
-  la percentuale di completamento. Nella variante `indeterminate` l'attributo non è
-  presente, a indicare un'attesa di durata sconosciuta.
-
 - **Annunci dello stato.** Quando un'azione avvia un caricamento, comunica l'inizio
   e la fine dell'attesa. Inserisci lo spinner (o il messaggio associato) in una
   regione `aria-live="polite"`, oppure aggiorna un testo di stato collegato, così
@@ -78,11 +73,4 @@ Per garantire un'esperienza accessibile, segui queste indicazioni:
 
 ```tsx
 <MISpinner aria-label="Caricamento dei dati in corso" />
-
-// Variante determinate con percentuale annunciata
-<MISpinner
-  variant="determinate"
-  value={progress}
-  aria-label={`Caricamento al ${progress}%`}
-/>
 ```

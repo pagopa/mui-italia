@@ -1,18 +1,14 @@
-'use client';
-
-import MuiCircularProgress, {
-  CircularProgressProps as MuiCircularProgressProps,
-} from '@mui/material/CircularProgress';
+import MuiCircularProgress from '@mui/material/CircularProgress';
 import { styled } from '@mui/material/styles';
-import { colors } from 'theme/foundations/colors';
 import { MarginSxProps } from '@types';
+import { colors } from 'theme/foundations/colors';
 
 export type AllowedMISpinnerColor = 'primary' | 'secondary';
 
-export type MISpinnerProps = Omit<MuiCircularProgressProps, 'color' | 'sx' | 'thickness'> & {
+export interface MISpinnerProps extends React.HTMLAttributes<HTMLSpanElement> {
   color?: AllowedMISpinnerColor;
   sx?: MarginSxProps;
-};
+}
 
 const StyledSpinner = styled(MuiCircularProgress)(({ color = 'primary' }) => ({
   borderRadius: '50%',
@@ -34,9 +30,6 @@ const StyledSpinner = styled(MuiCircularProgress)(({ color = 'primary' }) => ({
   },
 }));
 
-export const MISpinner: React.FC<MISpinnerProps> = ({
-  color = 'primary',
-  disableShrink = true,
-  size = 24,
-  ...rest
-}) => <StyledSpinner color={color} disableShrink={disableShrink} size={size} {...rest} />;
+export const MISpinner: React.FC<MISpinnerProps> = ({ color = 'primary', ...rest }) => (
+  <StyledSpinner color={color} size={24} {...rest} />
+);

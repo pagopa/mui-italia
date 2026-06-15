@@ -8,9 +8,6 @@ const meta: Meta<typeof MISpinner> = {
   tags: ['!autodocs'],
   args: {
     color: 'primary',
-    size: 24,
-    variant: 'indeterminate',
-    disableShrink: true,
     'aria-label': 'Caricamento in corso',
   },
   argTypes: {
@@ -21,41 +18,6 @@ const meta: Meta<typeof MISpinner> = {
       table: {
         type: { summary: "'primary' | 'secondary'" },
         defaultValue: { summary: 'primary' },
-      },
-    },
-    variant: {
-      description:
-        '`indeterminate` per attese di durata sconosciuta (default), `determinate` per mostrare un avanzamento preciso tramite la prop `value`.',
-      options: ['indeterminate', 'determinate'],
-      control: { type: 'radio' },
-      table: {
-        type: { summary: "'indeterminate' | 'determinate'" },
-        defaultValue: { summary: 'indeterminate' },
-      },
-    },
-    size: {
-      description: 'Dimensione (diametro) dello spinner in pixel.',
-      control: { type: 'range', min: 16, max: 120, step: 4 },
-      table: {
-        type: { summary: 'number | string' },
-        defaultValue: { summary: '24' },
-      },
-    },
-    value: {
-      description: "Valore di avanzamento (0–100). Ha effetto solo con `variant='determinate'`.",
-      control: { type: 'range', min: 0, max: 100, step: 1 },
-      table: {
-        type: { summary: 'number' },
-        defaultValue: { summary: '0' },
-      },
-    },
-    disableShrink: {
-      description:
-        "Disabilita l'animazione di restringimento dell'anello (attiva di default nel componente).",
-      control: { type: 'boolean' },
-      table: {
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
       },
     },
   },
@@ -95,23 +57,4 @@ export const Secondary: Story = {
       </Box>
     ),
   ],
-};
-
-export const Determinate: Story = {
-  args: {
-    variant: 'determinate',
-    value: 65,
-  },
-  render: (args) => <MISpinner {...args} />,
-};
-
-export const Sizes: Story = {
-  render: (args) => (
-    <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
-      <MISpinner {...args} size={16} />
-      <MISpinner {...args} size={24} />
-      <MISpinner {...args} size={48} />
-      <MISpinner {...args} size={64} />
-    </Box>
-  ),
 };
