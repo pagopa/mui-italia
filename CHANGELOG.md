@@ -1,3 +1,14 @@
+# [2.5.0-RC.3](https://github.com/pagopa/mui-italia/releases/tag/v2.5.0-RC.3) (2026-06-16)
+
+
+### Bug Fixes
+
+* **M20DS-45:** required attribute conditionally based on selected value ([#713](https://github.com/pagopa/mui-italia/issues/713)) ([589981a](https://github.com/pagopa/mui-italia/commit/589981aa92b71320746dc6d78709f9b20c7c0cbe))
+
+
+### Chores
+
+* Update CODEOWNERS ([#712](https://github.com/pagopa/mui-italia/issues/712)) ([02c5503](https://github.com/pagopa/mui-italia/commit/02c5503c233fc86c3d0f5fc75b6120f8c3434e87))
 # [2.5.0-RC.2](https://github.com/pagopa/mui-italia/releases/tag/v2.5.0-RC.2) (2026-06-08)
 
 
