@@ -89,6 +89,10 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
     getOptionLabel,
   });
 
+  const hasSelectedValue = Array.isArray(currentValue)
+    ? currentValue.length > 0
+    : currentValue != null;
+
   const setInputValue = (v: string, reason: InputChangeReason) => {
     // non controlled input
     if (inputValue === undefined) {
@@ -371,6 +375,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
           error={error}
           helperText={helperText}
           inputProps={{
+            required: required && !hasSelectedValue,
             role: 'combobox',
             'aria-expanded': isOpen,
             'aria-controls': listboxId,
