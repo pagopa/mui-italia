@@ -1,15 +1,14 @@
-import RE2 from 're2';
 import { info } from '@actions/core';
 import { Bumper } from 'conventional-recommended-bump';
 
-import muiPreset from '../mui-preset/index.js';
+import muiPreset from '../mui-preset/preset.js';
 
 export function toSentenceCase(word) {
   return String(word).charAt(0).toUpperCase() + String(word).slice(1);
 }
 
 export function isTagOrBranch(ref) {
-  const tagRegex = new RE2(/^v(\d+)\.(\d+)\.(\d+)(?:-RC|-rc\.(\d+))?$/);
+  const tagRegex = new RegExp(/^v(\d+)\.(\d+)\.(\d+)(?:-RC|-rc\.(\d+))?$/);
   if (ref.match(tagRegex)) {
     return 'tag';
   }
@@ -19,7 +18,7 @@ export function isTagOrBranch(ref) {
 export async function calcNextTag(latestTag, type, finalRelease) {
   info(`Calculating next tag starting from ${latestTag}`);
   try {
-    const rcRegex = new RE2(/^v(\d+)\.(\d+)\.(\d+)(?:(?:-RC|-rc)\.(\d+))?$/);
+    const rcRegex = new RegExp(/^v(\d+)\.(\d+)\.(\d+)(?:(?:-RC|-rc)\.(\d+))?$/);
     const match = latestTag.match(rcRegex);
     // match returns an array in which the first element is the string itslef
     // the second element is the major, the third is the minor and the fourth is the path

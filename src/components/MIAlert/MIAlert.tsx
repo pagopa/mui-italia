@@ -5,6 +5,7 @@ import { AlertTitle as MUIAlertTitle, Stack, styled, useMediaQuery, useTheme } f
 import MUIAlert, { AlertProps as MUIAlertProps } from '@mui/material/Alert';
 import { ElementType, HTMLAttributeAnchorTarget } from 'react';
 import { getColor, getIcon } from './utils';
+import { MarginSxProps } from '@types';
 
 export type AllowedAlertSeverity = 'success' | 'info' | 'warning' | 'error';
 
@@ -26,8 +27,9 @@ interface MIAlertCtaProps {
 }
 
 // Props shared by all variants
-interface BaseAlertProps extends Pick<MUIAlertProps, 'severity'> {
+interface BaseAlertProps extends Pick<MUIAlertProps, 'severity' | 'id'> {
   description: string;
+  sx?: MarginSxProps;
 }
 
 // Default MIAlert variant (allows title and action)
@@ -116,13 +118,14 @@ export const MIAlert: React.FC<MIAlertProps> = ({
   variant = 'default',
   title,
   action,
+  sx,
   ...rest
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <StyledAlert severity={severity} icon={getIcon(severity)} variant={variant} {...rest}>
+    <StyledAlert severity={severity} icon={getIcon(severity)} variant={variant} sx={sx} {...rest}>
       <Stack direction={isMobile ? 'column' : 'row'} flex={1}>
         <Stack direction="column" flex={1} minWidth={0} gap={title ? '4px' : 0}>
           {title && <MUIAlertTitle color={getColor(theme, severity)}>{title}</MUIAlertTitle>}
