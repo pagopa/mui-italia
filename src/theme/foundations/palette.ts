@@ -18,7 +18,7 @@ export const palette = {
     100: colors.blue[100],
   },
   secondary: {
-    main: colors.turquoise[500],
+    main: colors.turquoise[500], //
     light: '#21CDD1',
     dark: '#00A7AC',
     contrastText: colors.turquoise[850],
@@ -49,6 +49,7 @@ export const palette = {
     disabled: '#A2ADB8',
   },
   action: {
+    //blu 500
     active: '#5C6F82' /* Text/Secondary */,
     hover: 'rgba(23, 50, 77, 0.08)' /* Text/Primary 8% */,
     hoverOpacity: 0.08,
@@ -81,22 +82,20 @@ export const palette = {
   divider: colors.neutral.grey[100],
   /* Indicator/Validation */
   error: {
-    //TODO manca contrastText?
     main: colors.error[500],
     dark: '#D85757',
     light: '#FE7A7A',
     extraLight: '#FB9EAC',
-    contrastText: '#17324D',
+    contrastText: colors.neutral.black,
     100: colors.error[100],
     850: colors.error[850],
   },
   info: {
-    //TODO manca contrastText?
     main: colors.info[500],
     dark: '#5BB0D5',
     light: '#7ED5FC',
     extraLight: '#86E1FD',
-    contrastText: '#17324D',
+    contrastText: colors.neutral.black,
     100: colors.info[100],
     850: colors.info[850],
   },
@@ -105,7 +104,7 @@ export const palette = {
     dark: '#5CA85A',
     light: '#7FCD7D',
     extraLight: '#B5E2B4',
-    contrastText: '#17324D',
+    contrastText: colors.neutral.black,
     100: colors.success[100],
     850: colors.success[850],
   },
@@ -114,42 +113,33 @@ export const palette = {
     dark: '#D9AD3C',
     light: '#FFD25E',
     extraLight: '#FFE5A3',
-    contrastText: '#17324D',
+    contrastText: colors.neutral.black,
     100: colors.warning[100],
     850: colors.warning[850],
   },
 } as const;
 
+/**
+ * Semantic palette NEXT definitions and MUI palette extensions.
+ */
+
 export const paletteNext = {
   ...palette,
 
-  //TEMPORARY primary
   primary: {
-    main: '#FF00FF',
-    light: '#FF66FF',
-    dark: '#CC00CC',
-    contrastText: colors.neutral.white,
-    100: colors.blue[100],
+    ...palette.primary,
   },
-
-  secondary: {
-    ...palette.secondary,
+  info: {
+    ...palette.info,
   },
-
-  error: {
-    ...palette.error,
-  },
-
-  warning: {
-    ...palette.warning,
-  },
-
   success: {
     ...palette.success,
   },
-
-  info: {
-    ...palette.info,
+  warning: {
+    ...palette.warning,
+  },
+  error: {
+    ...palette.error,
   },
 } as const;
 
