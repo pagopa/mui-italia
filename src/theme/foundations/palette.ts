@@ -11,17 +11,18 @@ export const palette = {
     default: '#F2F2F2',
   },
   primary: {
-    main: colors.blue[500],
+    main: '#0073E6',
     light: '#2185E9',
     dark: '#0062C3',
-    contrastText: colors.neutral.white,
-    100: colors.blue[100],
+    contrastText: '#FFFFFF',
+    100: '#C4DCF5',
   },
+
   secondary: {
-    main: colors.turquoise[500], //
+    main: '#00C5CA',
     light: '#21CDD1',
     dark: '#00A7AC',
-    contrastText: colors.turquoise[850],
+    contrastText: '#FFFFFF',
   },
   pagoPA: {
     main: '#0066CC',
@@ -49,7 +50,6 @@ export const palette = {
     disabled: '#A2ADB8',
   },
   action: {
-    //blu 500
     active: '#5C6F82' /* Text/Secondary */,
     hover: 'rgba(23, 50, 77, 0.08)' /* Text/Primary 8% */,
     hoverOpacity: 0.08,
@@ -79,7 +79,7 @@ export const palette = {
   },
 
   decorativeIcon: colors.neutral.grey[300],
-  divider: colors.neutral.grey[100],
+  divider: '#E3E7EB',
   /* Indicator/Validation */
   error: {
     main: colors.error[500],
@@ -89,6 +89,50 @@ export const palette = {
     contrastText: colors.neutral.black,
     100: colors.error[100],
     850: colors.error[850],
+  },
+
+  info: {
+    main: '#6BCFFB',
+    dark: '#5BB0D5',
+    light: '#7ED5FC',
+    extraLight: '#86E1FD',
+    contrastText: colorTextPrimary,
+    100: '#E1F5FE',
+    850: '#215C76',
+  },
+  success: {
+    main: '#6CC66A',
+    dark: '#5CA85A',
+    light: '#7FCD7D',
+    extraLight: '#B5E2B4',
+    contrastText: colorTextPrimary,
+    100: '#E1F4E1',
+    850: '#224021',
+  },
+  warning: {
+    main: '#FFCB46',
+    dark: '#D9AD3C',
+    light: '#FFD25E',
+    extraLight: '#FFE5A3',
+    contrastText: colorTextPrimary,
+    100: '#FFF5DA',
+    850: '#614C15',
+  },
+} as const;
+
+/**
+ * Semantic palette NEXT definitions and MUI palette extensions.
+ */
+
+export const paletteNext = {
+  ...palette,
+
+  primary: {
+    main: colors.blue[500],
+    light: '#2185E9',
+    dark: '#0062C3',
+    contrastText: colors.neutral.white,
+    100: colors.blue[100],
   },
   info: {
     main: colors.info[500],
@@ -117,30 +161,17 @@ export const palette = {
     100: colors.warning[100],
     850: colors.warning[850],
   },
-} as const;
-
-/**
- * Semantic palette NEXT definitions and MUI palette extensions.
- */
-
-export const paletteNext = {
-  ...palette,
-
-  primary: {
-    ...palette.primary,
-  },
-  info: {
-    ...palette.info,
-  },
-  success: {
-    ...palette.success,
-  },
-  warning: {
-    ...palette.warning,
-  },
+  /* Indicator/Validation */
   error: {
-    ...palette.error,
+    main: colors.error[500],
+    dark: '#D85757',
+    light: '#FE7A7A',
+    extraLight: '#FB9EAC',
+    contrastText: colors.neutral.black,
+    100: colors.error[100],
+    850: colors.error[850],
   },
+  divider: colors.neutral.grey[100],
 } as const;
 
 declare module '@mui/material/styles' {
