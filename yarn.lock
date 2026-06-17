@@ -2187,7 +2187,7 @@ __metadata:
     storybook: 10.3.5
     tsc-alias: ^1.8.16
     typescript: ^5.9.3
-    vite: ^7.3.2
+    vite: ^7.3.5
     vite-tsconfig-paths: ^6.0.3
   peerDependencies:
     "@emotion/react": ^11.14.0
@@ -7737,7 +7737,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^7.3.2":
+"vite@npm:^7.3.5":
   version: 7.3.5
   resolution: "vite@npm:7.3.5"
   dependencies:
