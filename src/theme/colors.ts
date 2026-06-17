@@ -11,7 +11,6 @@ export const blue = {
 };
 export const error = {
   600: '#D13333',
-  pressed: '#A82929',
 };
 export const neutral = {
   black: '#0E0F13',

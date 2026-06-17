@@ -4,16 +4,16 @@ import { CSSProperties } from 'react';
 /* Design Tokens */
 import { italia } from '@tokens';
 
+import muiSwitch from './muiSwitch';
+import { pxToRem } from './utility';
+import foundation from './foundation';
+import { mainTypeface, monospacedTypeface } from './fonts';
 import {
   backdropBackground,
   colorPrimaryContainedHover,
   colorTextPrimary,
   menuItemBackground,
 } from './foundations/colors';
-import { mainTypeface, monospacedTypeface } from './fonts';
-import foundation from './foundation';
-import muiSwitch from './muiSwitch';
-import { pxToRem } from './utility';
 
 /* Basic Configuration */
 
