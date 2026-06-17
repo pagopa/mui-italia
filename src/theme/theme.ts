@@ -9,8 +9,7 @@ import {
   colorPrimaryContainedHover,
   colorTextPrimary,
   menuItemBackground,
-} from './colors';
-import { muiCircularProgress } from './components';
+} from './foundations/colors';
 import { mainTypeface, monospacedTypeface } from './fonts';
 import foundation from './foundation';
 import muiSwitch from './muiSwitch';
@@ -435,7 +434,6 @@ export const theme: Theme = createTheme(foundation, {
         },
       ],
     },
-    MuiCircularProgress: muiCircularProgress,
     MuiIconButton: {
       defaultProps: {
         disableRipple: true,

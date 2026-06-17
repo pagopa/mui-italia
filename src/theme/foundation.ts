@@ -1,7 +1,7 @@
 import { alpha, createTheme, Theme } from '@mui/material/styles';
 
 import { indigo } from '@mui/material/colors';
-import { colorTextPrimary, shadowColor } from './colors';
+import { shadowColor, colorTextPrimary } from './colors';
 import { mainTypeface } from './fonts';
 
 const shadowValues = {
