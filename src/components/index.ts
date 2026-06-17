@@ -35,3 +35,4 @@ export * from './MIAlert';
 export * from './MIButton';
 export * from './MITooltip';
 export * from './MISpidSelectOIDialog';
+export * from './MISpinner';
