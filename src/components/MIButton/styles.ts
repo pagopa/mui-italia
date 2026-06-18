@@ -10,17 +10,32 @@ const containedStyles: Record<MIButtonColor, ButtonSx> = {
   primary: {
     backgroundColor: colors.blue[500],
     color: colors.neutral.white,
-    '&:hover': { backgroundColor: colors.blue[600], color: colors.neutral.white },
+    border: `2px solid ${colors.blue[500]}`,
+    '&:hover': {
+      backgroundColor: colors.blue[600],
+      color: colors.neutral.white,
+      borderColor: colors.blue[600],
+    },
   },
   error: {
     backgroundColor: colors.error[600],
     color: colors.neutral.white,
-    '&:hover': { backgroundColor: colors.error[700], color: colors.neutral.white },
+    border: `2px solid ${colors.error[600]}`,
+    '&:hover': {
+      backgroundColor: colors.error[700],
+      color: colors.neutral.white,
+      borderColor: colors.error[700],
+    },
   },
   contrasted: {
     backgroundColor: colors.neutral.white,
     color: colors.blue[500],
-    '&:hover': { backgroundColor: colors.blue[50], color: colors.blue[600] },
+    border: `2px solid ${colors.neutral.white}`,
+    '&:hover': {
+      backgroundColor: colors.blue[50],
+      color: colors.blue[600],
+      borderColor: colors.blue[50],
+    },
   },
 };
 
