@@ -1,11 +1,12 @@
+import { MISpinner } from '@components/MISpinner';
 import { Skeleton } from '@mui/lab';
-import { Box, CircularProgress } from '@mui/material';
+import { Box } from '@mui/material';
 import Button, { ButtonProps } from '@mui/material/Button';
 import { SxProps, Theme } from '@mui/material/styles';
 import React from 'react';
 import { colors } from './../../theme/foundations/colors';
-import { getColorSx } from './styles';
-import { MIButtonProps } from './types';
+import { getColorSx, getSpinnerColor } from './styles';
+import { MIButtonLoaderType, MIButtonProps } from './types';
 
 const MIButton: React.FC<MIButtonProps> = ({
   color = 'primary',
@@ -33,41 +34,43 @@ const MIButton: React.FC<MIButtonProps> = ({
     onClick?.(event);
   };
 
-  if (isLoading && loaderType === 'skeleton') {
-    const skeletonLoaderWidth = props.fullWidth ? '80%' : '141px';
-
-    return (
-      <Button {...props} variant={variant} onClick={handleClick} aria-busy sx={mergeSx()}>
-        <Box sx={{ width: skeletonLoaderWidth }}>
+  const renderContent = (): React.ReactNode => {
+    if (isLoading && loaderType === MIButtonLoaderType.SKELETON) {
+      return (
+        <Box sx={{ width: props.fullWidth ? '80%' : '141px' }}>
           <Skeleton sx={{ backgroundColor: colors.neutral.grey[450] }} />
         </Box>
-      </Button>
-    );
-  }
+      );
+    }
 
-  if (isLoading) {
-    const spinnerMinWidth = props.fullWidth ? '100%' : '72px';
-
-    return (
-      <Button
-        {...props}
-        variant={variant}
-        onClick={handleClick}
-        aria-busy
-        sx={mergeSx({ minWidth: spinnerMinWidth })}
-      >
-        <CircularProgress
-          size={24}
-          color="inherit"
+    if (isLoading) {
+      return (
+        <MISpinner
+          color={getSpinnerColor(color, variant)}
           aria-label={loadingAriaLabel || 'Caricamento in corso'}
         />
-      </Button>
-    );
-  }
+      );
+    }
+
+    return children;
+  };
+
+  const extraSx =
+    isLoading && loaderType !== MIButtonLoaderType.SKELETON
+      ? { minWidth: props.fullWidth ? '100%' : '72px' }
+      : undefined;
 
   return (
-    <Button {...props} variant={variant} onClick={onClick} sx={mergeSx()}>
-      {children}
+    <Button
+      {...props}
+      variant={variant}
+      onClick={handleClick}
+      aria-busy={isLoading || undefined}
+      disableRipple
+      disableTouchRipple
+      sx={mergeSx(extraSx)}
+    >
+      {renderContent()}
     </Button>
   );
 };

@@ -1,0 +1,124 @@
+import { Meta, Title, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import * as MIButtonStories from '../stories/MIButton.stories.tsx';
+
+<Meta of={MIButtonStories} />
+
+<Title />
+
+Il component **MIButton** è il pulsante del Design System. È basato sul componente
+[Button](https://mui.com/material-ui/react-button/) di MUI, esteso con i colori, le
+varianti e gli stati di caricamento previsti dal Design System.
+
+Usalo per ogni azione primaria, secondaria o testuale dell'interfaccia, scegliendo
+`variant` e `color` in base al peso dell'azione e al contesto (sfondo chiaro o scuro).
+
+**Link utili**
+
+- 🎨 **Figma:** _(da inserire)_
+- 💻 **GitHub:** _(da inserire)_
+
+## Playground
+
+<Canvas of={MIButtonStories.Default} />
+
+<Controls of={MIButtonStories.Default} />
+
+## Varianti
+
+`MIButton` supporta tre varianti, allineate a quelle di MUI:
+
+- **`contained`** — pulsante pieno, per l'azione primaria (è il default).
+- **`outlined`** — pulsante con solo bordo, per le azioni secondarie.
+- **`text`** — pulsante testuale, senza box: occupa **solo lo spazio del testo**
+  (niente padding, altezza o larghezza minima del pulsante) e **non mostra alcun
+  background in nessuno stato** (hover, active, focus). È allineato per stile a
+  [`ButtonNaked`](https://mui.com/material-ui/react-button/). Usalo per azioni a
+  basso peso o inline nel testo.
+
+> ℹ️ L'effetto _ripple_ di MUI (l'onda al click) è **disabilitato su tutte le
+> varianti** per mantenere il feedback al click pulito e coerente con il Design
+> System.
+
+## Colori
+
+`MIButton` supporta tre colori:
+
+- **`primary`** — blu del Design System, da usare su sfondi chiari (è il default).
+- **`error`** — rosso, per azioni distruttive o irreversibili (es. eliminazione).
+- **`contrasted`** — pensato per sfondi scuri o colorati.
+
+### Primary
+
+<Canvas of={MIButtonStories.Default} />
+
+### Error
+
+<Canvas of={MIButtonStories.Danger} />
+
+### Contrasted
+
+<Canvas of={MIButtonStories.Contrasted} />
+
+## Icone
+
+È possibile affiancare un'icona al testo tramite le prop `startIcon` ed `endIcon`.
+
+### Start Icon
+
+<Canvas of={MIButtonStories.WithStartIcon} />
+
+### End Icon
+
+<Canvas of={MIButtonStories.WithEndIcon} />
+
+## Stati di caricamento
+
+Imposta `isLoading` per indicare un'operazione in corso. Durante il caricamento il
+click è ignorato e il pulsante espone `aria-busy`. La prop `loaderType`
+(`MIButtonLoaderType`) sceglie come visualizzare l'attesa:
+
+- **`SPINNER`** — mostra un [`MISpinner`](?path=/docs/components-mispinner--docs)
+  al posto del contenuto (è il default).
+- **`SKELETON`** — mostra uno skeleton, utile quando il pulsante fa parte di un
+  layout in caricamento.
+
+### Spinner
+
+<Canvas of={MIButtonStories.LoadingSpinner} />
+
+### Skeleton
+
+<Canvas of={MIButtonStories.LoadingSkeleton} />
+
+## Accessibilità
+
+- **Nessuno stato `disabled`.** La prop `disabled` **non è disponibile** su
+  `MIButton`: è stata volutamente esclusa per motivi di accessibilità. Un pulsante
+  disabilitato non riceve il focus, non è raggiungibile da tastiera e non comunica
+  nulla agli screen reader sul perché l'azione non è disponibile. Al suo posto:
+
+  - mantieni il pulsante **attivo** e gestisci la condizione al click, mostrando un
+    messaggio che spieghi cosa manca per procedere; oppure
+  - usa lo stato di **caricamento** (`isLoading`) per le attese, che blocca il click
+    ma resta percepibile e annunciabile.
+
+- **Stato di caricamento.** Durante `isLoading` il pulsante espone `aria-busy` e il
+  click viene ignorato. Fornisci sempre un'etichetta allo spinner tramite
+  `loadingAriaLabel` (default: `"Caricamento in corso"`) così che gli screen reader
+  comunichino l'attesa; dove utile, annuncia anche la fine dell'operazione in una
+  regione `aria-live`.
+
+- **Etichetta dell'azione.** Quando il pulsante contiene solo un'icona, assicurati
+  di fornire un testo accessibile (es. `aria-label`) che ne descriva l'azione.
+
+- **Contrasto.** Scegli il `color` in base allo sfondo (`contrasted` su sfondi
+  scuri/colorati, `primary` su sfondi chiari) per garantire un contrasto sufficiente
+  del testo e dell'eventuale bordo.
+
+### Esempio accessibile
+
+```tsx
+<MIButton isLoading loadingAriaLabel="Salvataggio in corso">
+  Salva
+</MIButton>
+```

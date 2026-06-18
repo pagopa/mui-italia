@@ -1,6 +1,6 @@
 import { ButtonProps } from '@mui/material';
 import { CSSObject } from '@mui/material/styles';
-import { error } from 'theme/colors';
+import { AllowedMISpinnerColor } from '../MISpinner';
 import { colors } from '../../theme/foundations/colors';
 import { MIButtonColor } from './types';
 
@@ -15,7 +15,7 @@ const containedStyles: Record<MIButtonColor, ButtonSx> = {
   error: {
     backgroundColor: colors.error[600],
     color: colors.neutral.white,
-    '&:hover': { backgroundColor: error.pressed, color: colors.neutral.white },
+    '&:hover': { backgroundColor: colors.error[700], color: colors.neutral.white },
   },
   contrasted: {
     backgroundColor: colors.neutral.white,
@@ -41,8 +41,8 @@ const outlinedStyles: Record<MIButtonColor, ButtonSx> = {
     borderColor: colors.error[500],
     '&:hover': {
       backgroundColor: colors.error[100],
-      color: error.pressed,
-      borderColor: error.pressed,
+      color: colors.error[700],
+      borderColor: colors.error[700],
     },
   },
   contrasted: {
@@ -57,21 +57,29 @@ const outlinedStyles: Record<MIButtonColor, ButtonSx> = {
   },
 };
 
+const textButtonBaseStyle: ButtonSx = {
+  backgroundColor: 'transparent',
+  padding: 0,
+  height: 'auto',
+  minWidth: 'auto',
+  '&:hover, &:active, &.Mui-focusVisible': { backgroundColor: 'transparent' },
+};
+
 const textStyles: Record<MIButtonColor, ButtonSx> = {
   primary: {
-    backgroundColor: colors.neutral.white,
+    ...textButtonBaseStyle,
     color: colors.blue[500],
-    '&:hover': { backgroundColor: colors.neutral.white, color: colors.blue[600] },
+    '&:hover': { backgroundColor: 'transparent', color: colors.blue[600] },
   },
   error: {
-    backgroundColor: colors.neutral.white,
+    ...textButtonBaseStyle,
     color: colors.error[600],
-    '&:hover': { backgroundColor: colors.neutral.white, color: error.pressed },
+    '&:hover': { backgroundColor: 'transparent', color: colors.error[700] },
   },
   contrasted: {
-    backgroundColor: colors.blue[600],
+    ...textButtonBaseStyle,
     color: colors.neutral.white,
-    '&:hover': { backgroundColor: colors.blue[600], color: colors.neutral.white },
+    '&:hover': { backgroundColor: 'transparent', color: colors.neutral.white },
   },
 };
 
@@ -85,6 +93,26 @@ const focusRing: Record<MIButtonColor, string> = {
   primary: colors.blue[400],
   error: colors.error[500],
   contrasted: colors.blue[150],
+};
+
+const spinnerColorByVariant: Record<
+  keyof typeof stylesByVariant,
+  Record<MIButtonColor, AllowedMISpinnerColor>
+> = {
+  contained: { primary: 'secondary', error: 'secondary', contrasted: 'primary' },
+  outlined: { primary: 'primary', error: 'error', contrasted: 'secondary' },
+  text: { primary: 'primary', error: 'error', contrasted: 'secondary' },
+};
+
+export const getSpinnerColor = (
+  color: MIButtonColor,
+  variant: ButtonProps['variant']
+): AllowedMISpinnerColor => {
+  const variantColors =
+    spinnerColorByVariant[variant as keyof typeof stylesByVariant] ??
+    spinnerColorByVariant.contained;
+
+  return variantColors[color];
 };
 
 export const getColorSx = (color: MIButtonColor, variant: ButtonProps['variant']): ButtonSx => {

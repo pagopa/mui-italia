@@ -1,4 +1,5 @@
 import { MIButton } from '@components/MIButton';
+import { MIButtonLoaderType } from '@components/MIButton/types';
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
@@ -14,7 +15,7 @@ export default {
     children: 'Press me',
     fullWidth: false,
     isLoading: false,
-    loaderType: 'loading',
+    loaderType: MIButtonLoaderType.SPINNER,
   },
   argTypes: {
     size: {
@@ -48,11 +49,11 @@ export default {
       },
     },
     loaderType: {
-      options: ['skeleton', 'loading'],
+      options: [MIButtonLoaderType.SKELETON, MIButtonLoaderType.SPINNER],
       control: { type: 'radio' },
       table: {
         type: { summary: 'string' },
-        defaultValue: { summary: 'loading' },
+        defaultValue: { summary: MIButtonLoaderType.SPINNER },
       },
     },
     variant: {
@@ -143,17 +144,17 @@ Contrasted.args = {
 Contrasted.decorators = onDarkSurface;
 
 export const LoadingSpinner = Template.bind({});
-LoadingSpinner.storyName = 'Loading (Spinner)';
+LoadingSpinner.storyName = 'Spinner Loading';
 LoadingSpinner.args = {
   ...Default.args,
   isLoading: true,
-  loaderType: 'loading',
+  loaderType: MIButtonLoaderType.SPINNER,
 };
 
 export const LoadingSkeleton = Template.bind({});
-LoadingSkeleton.storyName = 'Loading (Skeleton)';
+LoadingSkeleton.storyName = 'Skeleton Loading';
 LoadingSkeleton.args = {
   ...Default.args,
   isLoading: true,
-  loaderType: 'skeleton',
+  loaderType: MIButtonLoaderType.SKELETON,
 };
