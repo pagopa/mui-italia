@@ -1,8 +1,7 @@
-import { ButtonProps } from '@mui/material';
 import { CSSObject } from '@mui/material/styles';
-import { AllowedMISpinnerColor } from '../MISpinner';
 import { colors } from '../../theme/foundations/colors';
-import { MIButtonColor } from './types';
+import { AllowedMISpinnerColor } from '../MISpinner';
+import { MIButtonColor, MIButtonVariant } from './types';
 
 type ButtonSx = CSSObject;
 
@@ -121,7 +120,7 @@ const spinnerColorByVariant: Record<
 
 export const getSpinnerColor = (
   color: MIButtonColor,
-  variant: ButtonProps['variant']
+  variant: MIButtonVariant
 ): AllowedMISpinnerColor => {
   const variantColors =
     spinnerColorByVariant[variant as keyof typeof stylesByVariant] ??
@@ -130,7 +129,7 @@ export const getSpinnerColor = (
   return variantColors[color];
 };
 
-export const getColorSx = (color: MIButtonColor, variant: ButtonProps['variant']): ButtonSx => {
+export const getColorSx = (color: MIButtonColor, variant: MIButtonVariant): ButtonSx => {
   const variantStyles = stylesByVariant[variant as keyof typeof stylesByVariant] ?? containedStyles;
   // `&&` raises specificity to beat the global MuiButton theme's compound
   // hover/focus selectors (e.g. `&.MuiButton-contained:hover`).

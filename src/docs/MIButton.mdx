@@ -5,16 +5,13 @@ import * as MIButtonStories from '../stories/MIButton.stories.tsx';
 
 <Title />
 
-Il component **MIButton** è il pulsante del Design System. È basato sul componente
+Il component **MIButton** è il pulsante del Design System basato sul componente
 [Button](https://mui.com/material-ui/react-button/) di MUI, esteso con i colori, le
 varianti e gli stati di caricamento previsti dal Design System.
 
-Usalo per ogni azione primaria, secondaria o testuale dell'interfaccia, scegliendo
-`variant` e `color` in base al peso dell'azione e al contesto (sfondo chiaro o scuro).
-
 **Link utili**
 
-- 🎨 **Figma:** _(da inserire)_
+- 🎨 [Figma](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=1-22)
 - 💻 **GitHub:** _(da inserire)_
 
 ## Playground
@@ -29,11 +26,7 @@ Usalo per ogni azione primaria, secondaria o testuale dell'interfaccia, sceglien
 
 - **`contained`** — pulsante pieno, per l'azione primaria (è il default).
 - **`outlined`** — pulsante con solo bordo, per le azioni secondarie.
-- **`text`** — pulsante testuale, senza box: occupa **solo lo spazio del testo**
-  (niente padding, altezza o larghezza minima del pulsante) e **non mostra alcun
-  background in nessuno stato** (hover, active, focus). È allineato per stile a
-  [`ButtonNaked`](https://mui.com/material-ui/react-button/). Usalo per azioni a
-  basso peso o inline nel testo.
+- **`text`** — pulsante testuale, senza box.
 
 > ℹ️ L'effetto _ripple_ di MUI (l'onda al click) è **disabilitato su tutte le
 > varianti** per mantenere il feedback al click pulito e coerente con il Design
@@ -44,7 +37,7 @@ Usalo per ogni azione primaria, secondaria o testuale dell'interfaccia, sceglien
 `MIButton` supporta tre colori:
 
 - **`primary`** — blu del Design System, da usare su sfondi chiari (è il default).
-- **`error`** — rosso, per azioni distruttive o irreversibili (es. eliminazione).
+- **`error`** — rosso, per azioni distruttive, irreversibili on in caso di errori.
 - **`contrasted`** — pensato per sfondi scuri o colorati.
 
 ### Primary
@@ -74,12 +67,12 @@ Usalo per ogni azione primaria, secondaria o testuale dell'interfaccia, sceglien
 ## Stati di caricamento
 
 Imposta `isLoading` per indicare un'operazione in corso. Durante il caricamento il
-click è ignorato e il pulsante espone `aria-busy`. La prop `loaderType`
-(`MIButtonLoaderType`) sceglie come visualizzare l'attesa:
+click è ignorato e il pulsante espone `aria-busy`.
+La prop `loaderType` sceglie come visualizzare l'attesa:
 
-- **`SPINNER`** — mostra un [`MISpinner`](?path=/docs/components-mispinner--docs)
+- **`Spinner`** — mostra un [`MISpinner`](?path=/docs/components-mispinner--docs)
   al posto del contenuto (è il default).
-- **`SKELETON`** — mostra uno skeleton, utile quando il pulsante fa parte di un
+- **`Skeleton`** — mostra uno skeleton, utile quando il pulsante fa parte di un
   layout in caricamento.
 
 ### Spinner
