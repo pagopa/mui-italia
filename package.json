@@ -26,11 +26,11 @@
     "chromatic": "chromatic --only-changed"
   },
   "devDependencies": {
-    "@babel/cli": "^7.28.3",
-    "@babel/core": "^7.28.5",
-    "@babel/preset-env": "^7.29.0",
-    "@babel/preset-react": "^7.28.5",
-    "@babel/preset-typescript": "^7.28.5",
+    "@babel/cli": "^7.29.7",
+    "@babel/core": "^7.29.7",
+    "@babel/preset-env": "^7.29.7",
+    "@babel/preset-react": "^7.29.7",
+    "@babel/preset-typescript": "^7.29.7",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^5.14.3",
@@ -68,7 +68,7 @@
     "storybook": "10.3.5",
     "tsc-alias": "^1.8.16",
     "typescript": "^5.9.3",
-    "vite": "^7.3.2",
+    "vite": "^7.3.5",
     "vite-tsconfig-paths": "^6.0.3"
   },
   "peerDependencies": {
