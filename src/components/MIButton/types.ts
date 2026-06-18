@@ -20,11 +20,22 @@ export type MIButtonColor = 'primary' | 'error' | 'contrasted';
  */
 export type MIButtonVariant = 'contained' | 'outlined' | 'text';
 
-export interface MIButtonProps extends PickedButtonProps {
-  variant?: MIButtonVariant;
+interface MIButtonBaseProps extends PickedButtonProps {
   color?: MIButtonColor;
   isLoading?: boolean;
   loaderType?: MIButtonLoaderType;
   loadingAriaLabel?: string;
   sx?: MarginSxProps;
 }
+
+interface MITextButtonProps extends MIButtonBaseProps {
+  variant: 'text';
+  href?: ButtonProps['href'];
+}
+
+interface MISolidButtonProps extends MIButtonBaseProps {
+  variant?: 'contained' | 'outlined';
+  href?: never;
+}
+
+export type MIButtonProps = MITextButtonProps | MISolidButtonProps;

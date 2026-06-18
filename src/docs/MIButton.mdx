@@ -26,7 +26,10 @@ varianti e gli stati di caricamento previsti dal Design System.
 
 - **`contained`** — pulsante pieno, per l'azione primaria (è il default).
 - **`outlined`** — pulsante con solo bordo, per le azioni secondarie.
-- **`text`** — pulsante testuale, senza box.
+- **`text`** — pulsante testuale, senza box. Occupa solo lo spazio del testo ma
+  mantiene un'area tappabile estesa (24px in verticale, 14px in orizzontale) per
+  l'accessibilità. È l'unica variante che può diventare un link (vedi
+  [Link](#link)).
 
 > ℹ️ L'effetto _ripple_ di MUI (l'onda al click) è **disabilitato su tutte le
 > varianti** per mantenere il feedback al click pulito e coerente con il Design
@@ -63,6 +66,25 @@ varianti e gli stati di caricamento previsti dal Design System.
 ### End Icon
 
 <Canvas of={MIButtonStories.WithEndIcon} />
+
+## Link
+
+La prop `href` trasforma il pulsante in un link ed è ammessa **solo sulla variante
+`text`**. A livello di tipi `MIButtonProps` è una union discriminata sul `variant`:
+usare `href` con `contained` o `outlined` (o senza variante, che equivale a
+`contained`) è un **errore TypeScript**.
+
+```tsx
+// ✅ ok: link testuale
+<MIButton variant="text" href="https://example.com">
+  Vai al sito
+</MIButton>
+
+// ❌ errore TypeScript: href non ammesso su contained/outlined
+<MIButton variant="contained" href="https://example.com">
+  Vai al sito
+</MIButton>
+```
 
 ## Stati di caricamento
 
