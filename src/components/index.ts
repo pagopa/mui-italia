@@ -33,6 +33,7 @@ export * from './MIChip';
 export * from './Autocomplete';
 export * from './MIAlert';
 export * from './MIButton';
+export * from './MIIconButton';
 export * from './MITooltip';
 export * from './MISpidSelectOIDialog';
 export * from './MISpinner';

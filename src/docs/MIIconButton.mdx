@@ -1,0 +1,92 @@
+import { Meta, Title, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import * as MIIconButtonStories from '../stories/MIIconButton.stories.tsx';
+
+<Meta of={MIIconButtonStories} />
+
+<Title />
+
+Il component **MIIconButton** è il pulsante con sola icona del Design System, basato
+sul componente [IconButton](https://mui.com/material-ui/api/icon-button/) di MUI,
+esteso con i colori e gli stati di focus previsti dal Design System.
+
+Usalo per azioni rappresentabili in modo chiaro da un'icona (es. eliminare,
+chiudere, modificare), tipicamente all'interno di barre, tabelle, card o campi di
+input dove lo spazio è ridotto. Quando l'azione non è immediatamente riconoscibile
+dalla sola icona, preferisci [`MIButton`](?path=/docs/components-mibutton--docs) con
+testo.
+
+**Link utili**
+
+- 🎨 [Figma](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=157-1195)
+- 💻 **GitHub:** _(da inserire)_
+
+## Playground
+
+<Canvas of={MIIconButtonStories.Default} />
+
+<Controls of={MIIconButtonStories.Default} />
+
+## Colore
+
+`MIIconButton` ha un **unico colore**, il blu del Design System, applicato all'icona.
+Allo stato di hover e di pressione compare uno sfondo blu tenue per dare feedback al
+tocco.
+
+> ⚠️ Non sono previste varianti di colore (`primary`, `error`, ecc.): il pulsante a
+> sola icona deve restare neutro e coerente con il contesto in cui è inserito.
+
+## Dimensioni
+
+La dimensione si controlla con la prop `size`, ereditata da `IconButton` di MUI.
+Sono disponibili tre valori — `small`, `medium` (default) e `large` — che agiscono
+sull'area cliccabile e sulla dimensione dell'icona.
+
+### Small
+
+<Canvas of={MIIconButtonStories.Small} />
+
+### Medium
+
+<Canvas of={MIIconButtonStories.Medium} />
+
+### Large
+
+<Canvas of={MIIconButtonStories.Large} />
+
+> ℹ️ Il pulsante mantiene un'area cliccabile minima (24×24px) anche con icone
+> piccole, per garantire un target tappabile adeguato.
+
+## Accessibilità
+
+Il componente `MIIconButton` è basato su `IconButton`, che renderizza un elemento
+`<button>` nativo (ruolo ARIA `button`), già raggiungibile da tastiera. Per
+garantire un'esperienza accessibile, segui queste indicazioni:
+
+- **Etichetta dell'azione.** Un pulsante con sola icona non ha testo visibile: da
+  solo non comunica nulla agli screen reader. Fornisci **sempre** un'etichetta
+  tramite `aria-label` (es. `aria-label="Elimina"`) oppure collega un testo con
+  `aria-labelledby`.
+
+- **Focus da tastiera.** Lo stato di focus è reso con un contorno (outline) blu ben
+  visibile: non rimuoverlo. Il pulsante è raggiungibile con `Tab` e attivabile con
+  `Invio` e `Spazio`.
+
+- **Area cliccabile.** Mantieni una dimensione del target adeguata (almeno 24×24px,
+  garantiti dal componente) per facilitare l'uso su touch e per chi ha difficoltà
+  motorie.
+
+- **Contrasto.** Il blu del Design System è pensato per sfondi chiari. Su sfondi
+  scuri o colorati assicurati che l'icona mantenga un contrasto sufficiente.
+
+- **Nessuno stato `disabled`.** La prop `disabled` **non è disponibile** su
+  `MIIconButton`, in coerenza con [`MIButton`](?path=/docs/components-mibutton--docs):
+  un pulsante disabilitato non riceve il focus e non comunica perché l'azione non è
+  disponibile. Mantieni il pulsante attivo e gestisci la condizione al click.
+
+### Esempio accessibile
+
+```tsx
+<MIIconButton aria-label="Elimina elemento" onClick={handleDelete}>
+  <DeleteIcon />
+</MIIconButton>
+```
