@@ -120,60 +120,6 @@ export const palette = {
   },
 } as const;
 
-/**
- * Semantic palette NEXT definitions and MUI palette extensions.
- */
-
-export const paletteNext = {
-  ...palette,
-
-  primary: {
-    main: colors.blue[500],
-    light: '#2185E9',
-    dark: '#0062C3',
-    contrastText: colors.neutral.white,
-    100: colors.blue[100],
-  },
-  info: {
-    main: colors.info[500],
-    dark: '#5BB0D5',
-    light: '#7ED5FC',
-    extraLight: '#86E1FD',
-    contrastText: colors.neutral.black,
-    100: colors.info[100],
-    850: colors.info[850],
-  },
-  success: {
-    main: colors.success[500],
-    dark: '#5CA85A',
-    light: '#7FCD7D',
-    extraLight: '#B5E2B4',
-    contrastText: colors.neutral.black,
-    100: colors.success[100],
-    850: colors.success[850],
-  },
-  warning: {
-    main: colors.warning[500],
-    dark: '#D9AD3C',
-    light: '#FFD25E',
-    extraLight: '#FFE5A3',
-    contrastText: colors.neutral.black,
-    100: colors.warning[100],
-    850: colors.warning[850],
-  },
-  /* Indicator/Validation */
-  error: {
-    main: colors.error[500],
-    dark: '#D85757',
-    light: '#FE7A7A',
-    extraLight: '#FB9EAC',
-    contrastText: colors.neutral.black,
-    100: colors.error[100],
-    850: colors.error[850],
-  },
-  divider: colors.neutral.grey[100],
-} as const;
-
 declare module '@mui/material/styles' {
   interface Theme {
     colors: typeof colors;
@@ -212,12 +158,12 @@ declare module '@mui/material/styles' {
 
   interface PaletteOptions {
     pagoPA?: PaletteOptions['primary'];
-    europeanUnion: PaletteOptions['primary'];
+    europeanUnion?: PaletteOptions['primary'];
     checkIban?: PaletteOptions['primary'];
     extraLight?: PaletteOptions['warning'];
-    primaryAction: PaletteOptions['action'];
-    negative: SimplePaletteColorOptions;
-    indigo: SimplePaletteColorOptions;
+    primaryAction?: PaletteOptions['action'];
+    negative?: SimplePaletteColorOptions;
+    indigo?: SimplePaletteColorOptions;
   }
 
   interface PaletteColor {

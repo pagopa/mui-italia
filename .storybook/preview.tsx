@@ -8,7 +8,10 @@ import { ThemeProvider, Box } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 /* MUI Italia Theme */
-import { theme as lightTheme, darkTheme, themeNext } from '../src/theme';
+import { theme as lightTheme, darkTheme } from '../src/theme';
+
+/* MUI Italia Theme-Next */
+import { themeNext } from '../src/theme/themeNext';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },

@@ -1,8 +1,8 @@
 import { alpha, createTheme, Theme } from '@mui/material/styles';
 
-import { colors } from './colors';
-import { paletteNext } from './palette';
+import { colors } from '../foundations/colors';
 import { mainTypeface } from '../fonts';
+import { paletteNext } from './paletteNext';
 
 const shadowValues = {
   /* Elevation 4 */
