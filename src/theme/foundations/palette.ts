@@ -82,13 +82,13 @@ export const palette = {
   divider: '#E3E7EB',
   /* Indicator/Validation */
   error: {
-    main: colors.error[500],
+    main: '#FE6666',
     dark: '#D85757',
     light: '#FE7A7A',
     extraLight: '#FB9EAC',
-    contrastText: colors.neutral.black,
-    100: colors.error[100],
-    850: colors.error[850],
+    contrastText: colorTextPrimary,
+    100: '#FFE0E0',
+    850: '#761F1F',
   },
 
   info: {
