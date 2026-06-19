@@ -1,11 +1,17 @@
 import { IconButton, IconButtonProps } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { MarginSxProps } from '@types';
 import { FC } from 'react';
 import { blue } from 'theme/colors';
+import { colors } from 'theme/foundations/colors';
 import { focusButtonOffset, focusWidth } from 'theme/theme';
 import { pxToRem } from 'theme/utility';
 
-type MIIconButtonProps = Omit<IconButtonProps, 'color' | 'disableFocusRipple' | 'disableRipple'>;
+interface MIIconButtonProps
+  extends Pick<IconButtonProps, 'onClick' | 'size' | 'edge'>,
+    Omit<React.HTMLAttributes<HTMLButtonElement>, 'color'> {
+  sx?: MarginSxProps;
+}
 
 const StyledIconButton = styled(IconButton)({
   color: blue[500],
@@ -13,7 +19,7 @@ const StyledIconButton = styled(IconButton)({
     backgroundColor: blue[50],
   },
   '&.Mui-focusVisible': {
-    outline: `solid ${focusWidth} ${blue[400]}`,
+    outline: `solid ${focusWidth} ${colors.blue[400]}`,
     outlineOffset: `${focusButtonOffset}`,
     boxShadow: 'none',
     backgroundColor: 'transparent',
