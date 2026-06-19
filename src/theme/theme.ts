@@ -24,7 +24,7 @@ const paddingLinkSize = '1px';
 export const focusWidth = '2px';
 export const focusBorderRadius = '8px';
 export const focusOffset = '4px';
-export const focusButtonOffset = '2px';
+const focusButtonOffset = '2px';
 const alertBorderWidth = '4px';
 
 /* Custom Typography */

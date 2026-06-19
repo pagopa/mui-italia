@@ -4,7 +4,7 @@ import { MarginSxProps } from '@types';
 import { FC } from 'react';
 import { blue } from 'theme/colors';
 import { colors } from 'theme/foundations/colors';
-import { focusButtonOffset, focusWidth } from 'theme/theme';
+import { focusWidth } from 'theme/theme';
 import { pxToRem } from 'theme/utility';
 
 interface MIIconButtonProps
@@ -20,7 +20,7 @@ const StyledIconButton = styled(IconButton)({
   },
   '&.Mui-focusVisible': {
     outline: `solid ${focusWidth} ${colors.blue[400]}`,
-    outlineOffset: `${focusButtonOffset}`,
+    outlineOffset: '2px',
     boxShadow: 'none',
     backgroundColor: 'transparent',
   },
