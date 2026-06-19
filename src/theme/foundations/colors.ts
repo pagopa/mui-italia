@@ -95,16 +95,3 @@ export const colors = {
   error,
   purple,
 } as const;
-
-// Non so a cosa servono le cose qui sotto, per ora le lascio commentate
-
-// export const text = {
-//   heading: neutral.black,
-//   description: neutral.grey[700],
-// };
-
-// export const colorTextPrimary = '#17324D';
-// export const shadowColor = '#002B55';
-// export const backdropBackground = '#17324D';
-// export const menuItemBackground = '#17324D';
-// export const colorPrimaryContainedHover = '#0055AA';
