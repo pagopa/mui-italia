@@ -86,7 +86,7 @@ export const palette = {
     dark: '#D85757',
     light: '#FE7A7A',
     extraLight: '#FB9EAC',
-    contrastText: colorTextPrimary,
+    contrastText: '#CCCCCC',
     100: '#FFE0E0',
     850: '#761F1F',
   },
