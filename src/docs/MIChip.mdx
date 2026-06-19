@@ -1,0 +1,49 @@
+import { Meta, Title, Canvas, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
+import { Typography } from '@mui/material';
+
+import Overview from './components/Overview';
+import Section from './components/Section';
+import SubSection from './components/SubSection';
+import * as MIChipStories from '../stories/MIChip.stories.tsx';
+
+<Meta of={MIChipStories} />
+
+<Title />
+
+<Overview
+  githubRelativePath={'MIChip/MIChip.tsx'}
+  figmaNodeId={'157-745'}
+  muiRelativePath={'react-chip'}
+>
+  <strong>MIChip</strong> è un componente pensato per mostrare informazioni sintetiche come stato,
+  etichetta o filtro applicato. Supporta varianti filled e outlined, più palette semantiche
+  dedicate, e una modalità deletable utile nei casi in cui il chip rappresenti un elemento
+  rimovibile.
+</Overview>
+
+<Section
+  title="Playground"
+  description="Usa i controlli per modificare i parametri principali del componente e verificare il risultato live."
+>
+  <Primary />
+  <Controls />
+</Section>
+
+<Section
+  title="Varianti"
+  description="MIChip supporta due varianti visive: filled, per maggiore enfasi, e outlined, per contesti più leggeri o secondari."
+>
+  <SubSection title="Filled">
+    <Story of={MIChipStories.FilledVariants} />
+  </SubSection>
+  <SubSection title="Outlined">
+    <Story of={MIChipStories.OutlinedVariants} />
+  </SubSection>
+</Section>
+
+<Section
+  title="Deletable"
+  description="Quando il chip rappresenta un filtro o un elemento selezionato che può essere rimosso, è possibile usare la modalità deletable tramite onDelete."
+>
+  <Story of={MIChipStories.Deletable} />
+</Section>
