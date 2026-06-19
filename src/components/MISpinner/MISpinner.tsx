@@ -1,11 +1,13 @@
-import MuiCircularProgress from '@mui/material/CircularProgress';
+import MuiCircularProgress, { CircularProgressProps } from '@mui/material/CircularProgress';
 import { styled } from '@mui/material/styles';
 import { MarginSxProps } from '@types';
 import { colors } from 'theme/foundations/colors';
 
 export type AllowedMISpinnerColor = 'primary' | 'secondary' | 'error';
 
-export interface MISpinnerProps extends React.HTMLAttributes<HTMLSpanElement> {
+export interface MISpinnerProps
+  extends Pick<CircularProgressProps, 'size'>,
+    React.HTMLAttributes<HTMLSpanElement> {
   color?: AllowedMISpinnerColor;
   sx?: MarginSxProps;
 }
