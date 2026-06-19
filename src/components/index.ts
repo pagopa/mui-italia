@@ -32,6 +32,7 @@ export * from './Walkthrough';
 export * from './MIChip';
 export * from './Autocomplete';
 export * from './MIAlert';
+export * from './MIButton';
 export * from './MITooltip';
 export * from './MISpidSelectOIDialog';
 export * from './MISpinner';

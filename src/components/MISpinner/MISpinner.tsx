@@ -3,16 +3,22 @@ import { styled } from '@mui/material/styles';
 import { MarginSxProps } from '@types';
 import { colors } from 'theme/foundations/colors';
 
-export type AllowedMISpinnerColor = 'primary' | 'secondary';
+export type AllowedMISpinnerColor = 'primary' | 'secondary' | 'error';
 
 export interface MISpinnerProps extends React.HTMLAttributes<HTMLSpanElement> {
   color?: AllowedMISpinnerColor;
   sx?: MarginSxProps;
 }
 
+const SPINNER_COLOR: Record<AllowedMISpinnerColor, string> = {
+  primary: colors.blue[500],
+  secondary: colors.neutral.white,
+  error: colors.error[600],
+};
+
 const StyledSpinner = styled(MuiCircularProgress)(({ color = 'primary' }) => ({
   borderRadius: '50%',
-  color: color === 'secondary' ? colors.neutral.white : colors.blue[500],
+  color: SPINNER_COLOR[color as AllowedMISpinnerColor],
   '&.MuiCircularProgress-indeterminate': {
     '@supports (mask-image: radial-gradient(farthest-side, transparent 0, black 100%))': {
       '& svg': {
