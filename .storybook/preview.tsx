@@ -78,9 +78,10 @@ export const withTheme: Decorator = (Story, context) => {
       );
     }
 
+    case 'light':
     default: {
       return (
-        <ThemeProvider theme={storyTheme}>
+        <ThemeProvider theme={lightTheme}>
           <StoryContainer>
             <Story />
           </StoryContainer>
