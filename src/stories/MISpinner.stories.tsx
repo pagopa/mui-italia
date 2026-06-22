@@ -20,6 +20,14 @@ const meta: Meta<typeof MISpinner> = {
         defaultValue: { summary: 'primary' },
       },
     },
+    size: {
+      description: 'Dimensione dello spinner, in pixel o come stringa CSS.',
+      control: { type: 'number' },
+      table: {
+        type: { summary: 'number | string' },
+        defaultValue: { summary: '24' },
+      },
+    },
   },
 };
 
