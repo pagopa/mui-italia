@@ -1,0 +1,45 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as MIPartyAvatarStories from './MIPartyAvatar.stories';
+
+<Meta of={MIPartyAvatarStories} name="Docs" />
+
+# MIPartyAvatar
+
+MIPartyAvatar shows the logo of a public organization in a square badge. When no logo is available, it renders a neutral fallback icon so the layout stays stable and the user can still identify the context.
+
+---
+
+## Usage
+
+- Use this component when you need to identify a party with a compact visual marker.
+- Use the small size in dense lists and tables.
+- Use the large size in headers or summary cards where the logo has more visual weight.
+- Always provide meaningful alternative text for assistive technologies.
+
+Do not use this component for product branding badges. For that use case, use MIProductAvatar.
+
+---
+
+## Variants & States
+
+### Default
+
+This is the baseline usage with a valid party logo in small size. It represents the most common placement in compact interfaces.
+
+<Canvas of={MIPartyAvatarStories.Default} />
+
+### Large
+
+This variant shows the same content in the large size. Use it when the surrounding layout has more available space.
+
+<Canvas of={MIPartyAvatarStories.Large} />
+
+### WithoutSrc
+
+This case shows the fallback behavior when `customSrc` is not provided. The avatar keeps its size and shape and displays the placeholder icon.
+
+<Canvas of={MIPartyAvatarStories.WithoutSrc} />
+
+## Props
+
+<ArgTypes of={MIPartyAvatarStories} />

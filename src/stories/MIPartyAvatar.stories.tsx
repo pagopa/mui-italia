@@ -123,3 +123,31 @@ export const Default: StoryFn<typeof MIPartyAvatar> = () => {
     </Stack>
   );
 };
+
+export const Large: StoryFn<typeof MIPartyAvatar> = () => {
+  const item = partyMockImages[0];
+
+  return (
+    <Stack gap={2} alignItems="flex-start">
+      <MIPartyAvatar customSrc={item.image} customAlt={item.name} size="large" />
+      <div>
+        <Typography variant="overline">Party:</Typography>
+        <Typography variant="h6">{item.name}</Typography>
+      </div>
+    </Stack>
+  );
+};
+
+export const WithoutSrc: StoryFn<typeof MIPartyAvatar> = () => {
+  const item = partyMockImages[12];
+
+  return (
+    <Stack gap={2} alignItems="flex-start">
+      <MIPartyAvatar customSrc={undefined} customAlt={item.name} />
+      <div>
+        <Typography variant="overline">Party:</Typography>
+        <Typography variant="h6">{item.name}</Typography>
+      </div>
+    </Stack>
+  );
+};
