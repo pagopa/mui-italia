@@ -8,7 +8,6 @@ export const paletteNext = {
   mode: 'light',
   background: {
     paper: colors.neutral.white,
-    default: '#F2F2F2',
   },
   primary: {
     main: colors.blue[500],
@@ -18,23 +17,14 @@ export const paletteNext = {
   },
   info: {
     main: colors.info[500],
-    dark: '#5BB0D5',
-    light: '#7ED5FC',
-    extraLight: '#86E1FD',
     contrastText: colors.neutral.black,
   },
   success: {
     main: colors.success[500],
-    dark: '#5CA85A',
-    light: '#7FCD7D',
-    extraLight: '#B5E2B4',
     contrastText: colors.neutral.black,
   },
   warning: {
     main: colors.warning[500],
-    dark: '#D9AD3C',
-    light: '#FFD25E',
-    extraLight: '#FFE5A3',
     contrastText: colors.neutral.black,
   },
   /* Indicator/Validation */
@@ -42,7 +32,6 @@ export const paletteNext = {
     main: colors.error[500],
     dark: '#D85757',
     light: '#FE7A7A',
-    extraLight: '#FB9EAC',
     contrastText: colors.neutral.black,
   },
   shadow: {
