@@ -4,7 +4,8 @@ import { CSSProperties } from 'react';
 /* Design Tokens */
 import { italia } from '@tokens';
 
-import muiSwitch from './muiSwitch';
+import muiSwitch from './components/muiSwitch';
+import muiAccordionSummary from './components/muiAccordionSummary';
 import { pxToRem } from './utility';
 import foundation from './foundation';
 import { mainTypeface, monospacedTypeface } from './fonts';
@@ -306,6 +307,7 @@ export const theme: Theme = createTheme(foundation, {
     /* End: To be revised */
   },
   components: {
+    MuiAccordionSummary: muiAccordionSummary,
     MuiButton: {
       defaultProps: {
         disableElevation: true,

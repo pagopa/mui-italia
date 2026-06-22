@@ -1,7 +1,6 @@
 import { alpha } from '@mui/material/styles';
-import foundation from './foundation';
-import { pxToRem } from './utility';
-
+import foundation from 'theme/foundation';
+import { pxToRem } from 'theme/utility';
 const muiSwitch = {
   defaultProps: {
     disableRipple: true,
