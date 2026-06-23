@@ -6,15 +6,8 @@ import { italia } from '@tokens';
 
 import muiSwitch from './muiSwitch';
 import { pxToRem } from './utility';
-import foundation from './foundation';
+import foundation from './foundations/foundation';
 import { mainTypeface, monospacedTypeface } from './fonts';
-import {
-  backdropBackground,
-  colorPrimaryContainedHover,
-  colorTextPrimary,
-  menuItemBackground,
-} from './foundations/colors';
-
 /* Basic Configuration */
 
 const responsiveBreakpoint = 'sm';
@@ -55,45 +48,6 @@ declare module '@mui/material/Typography' {
 declare module '@mui/material/Badge' {
   interface BadgePropsVariantOverrides {
     sidenav: true;
-  }
-}
-
-/* Custom Palette */
-declare module '@mui/material/styles' {
-  interface Palette {
-    pagoPA: Palette['primary'];
-    europeanUnion: Palette['primary'];
-    checkIban: Palette['primary'];
-    extraLight: Palette['warning'];
-    primaryAction: Palette['action'];
-    negative: SimplePaletteColorOptions;
-    indigo: Palette['primary'];
-  }
-  interface PaletteOptions {
-    pagoPA?: PaletteOptions['primary'];
-    europeanUnion: PaletteOptions['primary'];
-    checkIban?: PaletteOptions['primary'];
-    extraLight?: PaletteOptions['warning'];
-    primaryAction: PaletteOptions['action'];
-    negative: SimplePaletteColorOptions;
-    indigo: SimplePaletteColorOptions;
-  }
-
-  interface PaletteColor {
-    extraLight?: string;
-    100: string;
-    850: string;
-  }
-
-  /* Add new extraLight key to the colours */
-  interface SimplePaletteColorOptions {
-    main: string;
-    dark?: string;
-    light?: string;
-    contrastText?: string;
-    extraLight?: string;
-    100?: string;
-    850?: string;
   }
 }
 
@@ -174,7 +128,7 @@ export const theme: Theme = createTheme(foundation, {
     headline: {
       fontSize: pxToRem(58),
       fontFamily: mainTypeface,
-      color: colorTextPrimary,
+      color: foundation.palette.text.primary,
       lineHeight: 1.1 /* ~64px */,
       fontWeight: foundation.typography.fontWeightBold,
     },
@@ -236,7 +190,7 @@ export const theme: Theme = createTheme(foundation, {
       fontFamily: mainTypeface,
       fontSize: pxToRem(18),
       lineHeight: 1.35 /* ~24px */,
-      color: colorTextPrimary,
+      color: foundation.palette.text.primary,
       fontWeight: foundation.typography.fontWeightMedium,
     },
     body1: {
@@ -273,14 +227,14 @@ export const theme: Theme = createTheme(foundation, {
       fontFamily: mainTypeface,
       fontSize: pxToRem(14),
       lineHeight: 1.4 /* ~20px */,
-      color: colorTextPrimary,
+      color: foundation.palette.text.primary,
       fontWeight: foundation.typography.fontWeightMedium,
     },
     monospaced: {
       fontFamily: monospacedTypeface,
       fontSize: pxToRem(16),
       lineHeight: 1.4 /* ~22px */,
-      color: colorTextPrimary,
+      color: foundation.palette.text.primary,
       letterSpacing: '0.15px',
       fontWeight: foundation.typography.fontWeightRegular,
     },
@@ -407,7 +361,7 @@ export const theme: Theme = createTheme(foundation, {
           style: {
             color: foundation.palette.primary.main,
             '&:hover': {
-              color: colorPrimaryContainedHover,
+              color: foundation.palette.primaryContained.hover,
             },
             '&.Mui-focusVisible': {
               borderRadius: `${focusBorderRadius}`,
@@ -527,7 +481,7 @@ export const theme: Theme = createTheme(foundation, {
         root: {
           borderLeft: `${alertBorderWidth} solid`,
           padding: foundation.spacing(1),
-          color: colorTextPrimary,
+          color: foundation.palette.text.primary,
           alignItems: 'center',
           [foundation.breakpoints.up(responsiveBreakpoint)]: {
             padding: foundation.spacing(2),
@@ -557,7 +511,7 @@ export const theme: Theme = createTheme(foundation, {
         },
         standard: {
           '& .MuiAlert-icon': {
-            color: colorTextPrimary,
+            color: foundation.palette.text.primary,
           },
         },
         standardSuccess: {
@@ -706,7 +660,7 @@ export const theme: Theme = createTheme(foundation, {
         outlined: {
           borderRadius: foundation.spacing(5),
           '&.MuiChip-outlinedDefault': {
-            color: colorTextPrimary,
+            color: foundation.palette.text.primary,
             borderColor: '#0000003B',
             '& .MuiChip-avatar': {
               backgroundColor: foundation.palette.grey[400],
@@ -714,8 +668,8 @@ export const theme: Theme = createTheme(foundation, {
             },
           },
           '&.MuiChip-outlinedPrimary': {
-            color: colorTextPrimary,
-            borderColor: colorTextPrimary,
+            color: foundation.palette.text.primary,
+            borderColor: foundation.palette.text.primary,
           },
         },
         filled: {
@@ -725,7 +679,7 @@ export const theme: Theme = createTheme(foundation, {
           },
           '&.MuiChip-colorPrimary': {
             backgroundColor: foundation.palette.primary[100],
-            color: colorTextPrimary,
+            color: foundation.palette.text.primary,
           },
           '&.MuiChip-colorSecondary': {
             backgroundColor: alpha(foundation.palette.secondary.main, 0.5),
@@ -763,12 +717,12 @@ export const theme: Theme = createTheme(foundation, {
             color: foundation.palette.primary.contrastText,
           },
           '& .MuiChip-deleteIcon': {
-            color: colorTextPrimary,
+            color: foundation.palette.text.primary,
           },
         },
         colorSecondary: {
           '& .MuiChip-deleteIcon': {
-            color: colorTextPrimary,
+            color: foundation.palette.text.primary,
           },
         },
         colorInfo: {
@@ -867,7 +821,7 @@ export const theme: Theme = createTheme(foundation, {
     MuiBackdrop: {
       styleOverrides: {
         root: {
-          backgroundColor: alpha(backdropBackground, 0.7),
+          backgroundColor: alpha(foundation.palette.backdrop.background, 0.7),
         },
         invisible: {
           backgroundColor: 'transparent',
@@ -997,7 +951,7 @@ export const theme: Theme = createTheme(foundation, {
             },
           },
           '&:hover': {
-            backgroundColor: alpha(menuItemBackground, 0.04),
+            backgroundColor: alpha(foundation.palette.menuItem.background, 0.04),
           },
         },
       },
