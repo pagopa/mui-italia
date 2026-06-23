@@ -6,16 +6,8 @@ import { italia } from '@tokens';
 
 import muiSwitch from './muiSwitch';
 import { pxToRem } from './utility';
-import foundation from './foundation';
+import foundation from './foundations/foundation';
 import { mainTypeface, monospacedTypeface } from './fonts';
-import {
-  backdropBackground,
-  colorPrimaryContainedHover,
-  colorTextPrimary,
-  menuItemBackground,
-} from './foundations/colors';
-import muiPaper from './muiPaper';
-
 /* Basic Configuration */
 
 const responsiveBreakpoint = 'sm';
@@ -56,45 +48,6 @@ declare module '@mui/material/Typography' {
 declare module '@mui/material/Badge' {
   interface BadgePropsVariantOverrides {
     sidenav: true;
-  }
-}
-
-/* Custom Palette */
-declare module '@mui/material/styles' {
-  interface Palette {
-    pagoPA: Palette['primary'];
-    europeanUnion: Palette['primary'];
-    checkIban: Palette['primary'];
-    extraLight: Palette['warning'];
-    primaryAction: Palette['action'];
-    negative: SimplePaletteColorOptions;
-    indigo: Palette['primary'];
-  }
-  interface PaletteOptions {
-    pagoPA?: PaletteOptions['primary'];
-    europeanUnion: PaletteOptions['primary'];
-    checkIban?: PaletteOptions['primary'];
-    extraLight?: PaletteOptions['warning'];
-    primaryAction: PaletteOptions['action'];
-    negative: SimplePaletteColorOptions;
-    indigo: SimplePaletteColorOptions;
-  }
-
-  interface PaletteColor {
-    extraLight?: string;
-    100: string;
-    850: string;
-  }
-
-  /* Add new extraLight key to the colours */
-  interface SimplePaletteColorOptions {
-    main: string;
-    dark?: string;
-    light?: string;
-    contrastText?: string;
-    extraLight?: string;
-    100?: string;
-    850?: string;
   }
 }
 
@@ -175,7 +128,7 @@ export const theme: Theme = createTheme(foundation, {
     headline: {
       fontSize: pxToRem(58),
       fontFamily: mainTypeface,
-      color: colorTextPrimary,
+      color: foundation.palette.text.primary,
       lineHeight: 1.1 /* ~64px */,
       fontWeight: foundation.typography.fontWeightBold,
     },
@@ -237,7 +190,7 @@ export const theme: Theme = createTheme(foundation, {
       fontFamily: mainTypeface,
       fontSize: pxToRem(18),
       lineHeight: 1.35 /* ~24px */,
-      color: colorTextPrimary,
+      color: foundation.palette.text.primary,
       fontWeight: foundation.typography.fontWeightMedium,
     },
     body1: {
@@ -274,14 +227,14 @@ export const theme: Theme = createTheme(foundation, {
       fontFamily: mainTypeface,
       fontSize: pxToRem(14),
       lineHeight: 1.4 /* ~20px */,
-      color: colorTextPrimary,
+      color: foundation.palette.text.primary,
       fontWeight: foundation.typography.fontWeightMedium,
     },
     monospaced: {
       fontFamily: monospacedTypeface,
       fontSize: pxToRem(16),
       lineHeight: 1.4 /* ~22px */,
-      color: colorTextPrimary,
+      color: foundation.palette.text.primary,
       letterSpacing: '0.15px',
       fontWeight: foundation.typography.fontWeightRegular,
     },
@@ -525,7 +478,7 @@ export const theme: Theme = createTheme(foundation, {
           style: {
             color: foundation.palette.primary.main,
             '&:hover': {
-              color: colorPrimaryContainedHover,
+              color: foundation.palette.primaryContained.hover,
             },
             '&.Mui-focusVisible': {
               borderRadius: `${focusBorderRadius}`,
@@ -575,6 +528,116 @@ export const theme: Theme = createTheme(foundation, {
         },
       },
     },
+    /* START Stepper */
+    MuiStepLabel: {
+      styleOverrides: {
+        label: {
+          fontSize: pxToRem(14),
+          [foundation.breakpoints.up(responsiveBreakpoint)]: {
+            fontSize: pxToRem(14),
+          },
+          '&.Mui-completed': {
+            fontWeight: foundation.typography.fontWeightMedium,
+          },
+          '&.Mui-active': {
+            fontWeight: foundation.typography.fontWeightMedium,
+          },
+        },
+      },
+    },
+    /* END Stepper */
+    /* START Alert */
+    MuiAlert: {
+      styleOverrides: {
+        root: {
+          borderLeft: `${alertBorderWidth} solid`,
+          padding: foundation.spacing(1),
+          color: foundation.palette.text.primary,
+          alignItems: 'center',
+          [foundation.breakpoints.up(responsiveBreakpoint)]: {
+            padding: foundation.spacing(2),
+          },
+        },
+        icon: {
+          opacity: 1,
+          padding: 0,
+          alignItems: 'center',
+          marginRight: foundation.spacing(1),
+          [foundation.breakpoints.up(responsiveBreakpoint)]: {
+            marginRight: foundation.spacing(2),
+          },
+        },
+        message: {
+          padding: 0,
+          overflow: 'inherit', // Fix overflow: auto bug introduced by MUI
+        },
+        action: {
+          marginRight: 0,
+          paddingTop: 0,
+        },
+        outlined: {
+          backgroundColor: foundation.palette.common.white,
+          boxShadow: foundation.shadows[4],
+          borderWidth: `0 0 0 ${alertBorderWidth}`,
+        },
+        standard: {
+          '& .MuiAlert-icon': {
+            color: foundation.palette.text.primary,
+          },
+        },
+        standardSuccess: {
+          borderColor: foundation.palette.success.main,
+        },
+        outlinedSuccess: {
+          borderColor: foundation.palette.success.main,
+          '& .MuiAlert-icon': {
+            color: foundation.palette.success.main,
+          },
+        },
+        standardError: {
+          borderColor: foundation.palette.error.main,
+        },
+        outlinedError: {
+          borderColor: foundation.palette.error.main,
+          '& .MuiAlert-icon': {
+            color: foundation.palette.error.main,
+          },
+        },
+        standardInfo: {
+          borderColor: foundation.palette.info.main,
+        },
+        outlinedInfo: {
+          borderColor: foundation.palette.info.main,
+          '& .MuiAlert-icon': {
+            color: foundation.palette.info.main,
+          },
+        },
+        standardWarning: {
+          borderColor: foundation.palette.warning.main,
+        },
+        outlinedWarning: {
+          borderColor: foundation.palette.warning.main,
+          '& .MuiAlert-icon': {
+            color: foundation.palette.warning.main,
+          },
+        },
+      },
+    },
+    MuiAlertTitle: {
+      styleOverrides: {
+        root: {
+          fontSize: pxToRem(16),
+          fontWeight: foundation.typography.fontWeightMedium,
+          letterSpacing: 0.15,
+          margin: 0,
+          /* It inherits from `body1`, so I have to reset -_- */
+          [foundation.breakpoints.up(responsiveBreakpoint)]: {
+            fontSize: pxToRem(16),
+          },
+        },
+      },
+    },
+    /* END Alert */
     /* START Card */
     MuiCard: {
       styleOverrides: {
@@ -633,7 +696,7 @@ export const theme: Theme = createTheme(foundation, {
         outlined: {
           borderRadius: foundation.spacing(5),
           '&.MuiChip-outlinedDefault': {
-            color: colorTextPrimary,
+            color: foundation.palette.text.primary,
             borderColor: '#0000003B',
             '& .MuiChip-avatar': {
               backgroundColor: foundation.palette.grey[400],
@@ -641,8 +704,8 @@ export const theme: Theme = createTheme(foundation, {
             },
           },
           '&.MuiChip-outlinedPrimary': {
-            color: colorTextPrimary,
-            borderColor: colorTextPrimary,
+            color: foundation.palette.text.primary,
+            borderColor: foundation.palette.text.primary,
           },
         },
         filled: {
@@ -652,7 +715,7 @@ export const theme: Theme = createTheme(foundation, {
           },
           '&.MuiChip-colorPrimary': {
             backgroundColor: foundation.palette.primary[100],
-            color: colorTextPrimary,
+            color: foundation.palette.text.primary,
           },
           '&.MuiChip-colorSecondary': {
             backgroundColor: alpha(foundation.palette.secondary.main, 0.5),
@@ -690,12 +753,12 @@ export const theme: Theme = createTheme(foundation, {
             color: foundation.palette.primary.contrastText,
           },
           '& .MuiChip-deleteIcon': {
-            color: colorTextPrimary,
+            color: foundation.palette.text.primary,
           },
         },
         colorSecondary: {
           '& .MuiChip-deleteIcon': {
-            color: colorTextPrimary,
+            color: foundation.palette.text.primary,
           },
         },
         colorInfo: {
@@ -771,21 +834,46 @@ export const theme: Theme = createTheme(foundation, {
     MuiLink: {
       styleOverrides: {
         root: {
-          '&.MuiTypography-root': {
-            marginTop: `${marginLinkSize}`,
-            marginBottom: `${marginLinkSize}`,
-            paddingTop: `${paddingLinkSize}`,
-            paddingBottom: `${paddingLinkSize}`,
-          },
-          '&.Mui-focusVisible': {
-            borderRadius: `${focusBorderRadius}`,
-            outline: `solid ${focusWidth} `,
-            outlineOffset: `${focusOffset}`,
-            boxShadow: 'none',
+          '& .MuiSvgIcon-colorError': {
+            color: `${foundation.palette.error.dark}`,
           },
         },
       },
     },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          fontSize: pxToRem(12),
+          lineHeight: 1.25 /* 15px */,
+          color: foundation.palette.text.secondary,
+          fontWeight: foundation.typography.fontWeightMedium,
+          letterSpacing: 0.5,
+          '&.Mui-error': {
+            color: foundation.palette.error.dark,
+          },
+        },
+      },
+    },
+    /** End TEXT FIELD */
+    MuiBackdrop: {
+      styleOverrides: {
+        root: {
+          backgroundColor: alpha(foundation.palette.backdrop.background, 0.7),
+        },
+        invisible: {
+          backgroundColor: 'transparent',
+        },
+      },
+    },
+    MuiTimelineDot: {
+      styleOverrides: {
+        root: {
+          boxShadow: 'none',
+        },
+      },
+    },
+    MuiSwitch: muiSwitch,
+
     /** Start LIST ITEM (used in Sidenav) */
     MuiListItemButton: {
       defaultProps: {
@@ -872,7 +960,7 @@ export const theme: Theme = createTheme(foundation, {
             },
           },
           '&:hover': {
-            backgroundColor: alpha(menuItemBackground, 0.04),
+            backgroundColor: alpha(foundation.palette.menuItem.background, 0.04),
           },
         },
       },
