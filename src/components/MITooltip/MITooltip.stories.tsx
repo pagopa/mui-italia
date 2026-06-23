@@ -35,7 +35,7 @@ export const DisableTooltp: StoryObj<typeof MITooltip> = {
     return (
       <Box p="8px" border="1px solid blue" borderRadius="4px" width="300px">
         <MITooltip {...args} disabled={disabled}>
-          Hover on this text to see the tooltip appears.
+          <Box>Hover on this text to see the tooltip appears.</Box>
         </MITooltip>
         <Button
           sx={{ mt: '10px' }}

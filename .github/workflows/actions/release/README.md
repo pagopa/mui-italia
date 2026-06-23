@@ -62,7 +62,7 @@ on:
 
 jobs:
   create_release:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: write
       pull-requests: write

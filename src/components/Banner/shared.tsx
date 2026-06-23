@@ -3,7 +3,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Box, Button, Chip, IconButton, Typography, styled } from '@mui/material';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { ButtonNaked } from '@components/ButtonNaked';
-import { blue, neutral, turquoise } from 'theme/colors';
 import type { BannerColorStyle, BannerCTA, BannerVariant, CtaKind, ThemeColor } from './model';
 
 const resolveColor = (theme: Theme, value: ThemeColor) =>
@@ -24,7 +23,7 @@ export const Inner = styled(Box)(({ theme }) => ({
 export const BlueBar = styled(Box)(({ theme }) => ({
   width: 4,
   borderRadius: theme.spacing(0.5),
-  backgroundColor: blue[500],
+  backgroundColor: theme.colors.blue[500],
   marginRight: theme.spacing(2),
   alignSelf: 'stretch',
 }));
@@ -34,7 +33,12 @@ export function CloseButton({
   ariaLabel,
 }: Readonly<{ onClose: () => void; ariaLabel: string }>) {
   return (
-    <IconButton onClick={onClose} size="small" sx={{ color: neutral.black }} aria-label={ariaLabel}>
+    <IconButton
+      onClick={onClose}
+      size="small"
+      sx={{ color: (theme) => theme.colors.neutral.black }}
+      aria-label={ariaLabel}
+    >
       <CloseIcon fontSize="small" />
     </IconButton>
   );
@@ -49,8 +53,8 @@ export function BadgeChip({ text }: Readonly<{ text: string }>) {
         fontWeight: 600,
         alignSelf: 'flex-start',
         '&.MuiChip-root': {
-          backgroundColor: turquoise[50],
-          color: turquoise[850],
+          backgroundColor: (theme) => theme.colors.turquoise[50],
+          color: (theme) => theme.colors.turquoise[850],
         },
         '& .MuiChip-label': {
           fontSize: '12px',
@@ -114,7 +118,7 @@ export function Cta({
           borderRadius: '8px',
           textTransform: 'none',
           fontWeight: 600,
-          backgroundColor: blue[500],
+          backgroundColor: (theme) => theme.colors.blue[500],
           fontSize: '14px',
           px: 2,
           whiteSpace: 'nowrap',
@@ -135,7 +139,7 @@ export function Cta({
         minWidth: 'auto',
         fontWeight: 600,
         fontSize: variant === 'tertiary' ? '16px' : '14px',
-        color: blue[500],
+        color: (theme) => theme.colors.blue[500],
         textDecoration: 'none',
         alignSelf,
         ...sx,
@@ -166,7 +170,7 @@ export function Title({
     <Typography
       id={id}
       component="h6"
-      color={neutral.black}
+      color={(theme) => theme.colors.neutral.black}
       sx={{
         fontWeight: 700,
         fontSize,
@@ -195,7 +199,7 @@ export function Message({
     <Typography
       variant="body2"
       sx={{
-        color: neutral[700],
+        color: (theme) => theme.colors.neutral.grey[700],
         textAlign,
         fontSize: variant === 'tertiary' ? '14px' : undefined,
         overflowWrap: 'anywhere',
