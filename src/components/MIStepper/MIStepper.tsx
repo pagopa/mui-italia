@@ -14,12 +14,12 @@ import {
   useTheme,
 } from '@mui/material';
 
-export type MIWizardStepperLocaleText = {
+export type MIStepperLocaleText = {
   stepLabel?: (currentStep: number) => string;
   stepOfLabel?: (currentStep: number, totalSteps: number) => string;
 };
 
-const defaultLocaleText: Required<MIWizardStepperLocaleText> = {
+const defaultLocaleText: Required<MIStepperLocaleText> = {
   stepLabel: (currentStep) => `Step ${currentStep}`,
   stepOfLabel: (currentStep, totalSteps) => `${currentStep} of ${totalSteps}`,
 };
@@ -27,10 +27,10 @@ const defaultLocaleText: Required<MIWizardStepperLocaleText> = {
 type Props = {
   steps: Array<{ label: ReactNode }>;
   activeStep: number;
-  localeText?: MIWizardStepperLocaleText;
+  localeText?: MIStepperLocaleText;
 };
 
-const MIWizardStepper: React.FC<Props> = ({ steps, activeStep, localeText }) => {
+const MIStepper: React.FC<Props> = ({ steps, activeStep, localeText }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -104,4 +104,4 @@ const MIWizardStepper: React.FC<Props> = ({ steps, activeStep, localeText }) => 
   );
 };
 
-export default MIWizardStepper;
+export default MIStepper;

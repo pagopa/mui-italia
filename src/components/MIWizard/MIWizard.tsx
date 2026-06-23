@@ -18,10 +18,10 @@ import { IllustrationProps } from '@components/Illustration';
 import { ButtonNaked } from '@components/ButtonNaked';
 
 import { checkChildren } from '../../utils/children.utility';
-import MIWizardStep, { MIWizardStepProps } from './MIWizardStep';
-import MIWizardStepper, { MIWizardStepperLocaleText } from './MIWizardStepper';
+import MIStep, { MIStepProps } from '../MIStepper/MIStep';
+import MIStepper, { MIStepperLocaleText } from '../MIStepper/MIStepper';
 
-type MIWizardLocaleText = MIWizardStepperLocaleText & {
+type MIWizardLocaleText = MIStepperLocaleText & {
   exitButton?: string;
   previousButton?: string;
   nextButton?: string;
@@ -78,7 +78,7 @@ const MIWizard: React.FC<Props> = ({
   slots,
   slotsProps,
 }) => {
-  checkChildren(children, [{ cmp: MIWizardStep }], 'MIWizard');
+  checkChildren(children, [{ cmp: MIStep }], 'MIWizard');
   const PrevButton = slots?.prevButton || Button;
   const NextButton = slots?.nextButton || Button;
   const ExitButton = slots?.exitButton || ButtonNaked;
@@ -92,8 +92,8 @@ const MIWizard: React.FC<Props> = ({
   const childrens = React.Children.toArray(children);
   const steps = childrens
     .filter(
-      (child): child is ReactElement<MIWizardStepProps> =>
-        React.isValidElement(child) && child.type === MIWizardStep && child.props.label
+      (child): child is ReactElement<MIStepProps> =>
+        React.isValidElement(child) && child.type === MIStep && child.props.label
     )
     .map((child) => ({ label: child.props.label }));
 
@@ -180,7 +180,7 @@ const MIWizard: React.FC<Props> = ({
         </Box>
 
         {steps.length > 0 && (
-          <MIWizardStepper steps={steps} activeStep={activeStep} localeText={localeText} />
+          <MIStepper steps={steps} activeStep={activeStep} localeText={localeText} />
         )}
 
         <Paper

@@ -1,11 +1,11 @@
 /*import { describe, expect, it } from 'vitest';
 
 import { render } from '../../../test-utils';
-import MIWizardStep from '../MIWizardStep';
+import MIStep from '../MIStep';
 
-describe('MIWizardStep Component', () => {
+describe('MIStep Component', () => {
   it('renders children correctly', () => {
-    const { getByText } = render(<MIWizardStep>Step Content</MIWizardStep>);
+    const { getByText } = render(<MIStep>Step Content</MIStep>);
 
     expect(getByText('Step Content')).toBeInTheDocument();
   });

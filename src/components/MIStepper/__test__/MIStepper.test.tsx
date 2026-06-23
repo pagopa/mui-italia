@@ -3,18 +3,18 @@
 import { render } from '@testing-library/react';
 
 import { createMatchMedia } from '../../../test-utils';
-import MIWizardStepper from '../MIWizardStepper';
+import MIStepper from '../MIStepper';
 
 // Mock the `useIsMobile` hook
 vi.mock('./useIsMobile', () => ({
   useIsMobile: vi.fn(),
 }));
 
-describe('MIWizardStepper', () => {
+describe('MIStepper', () => {
   const steps = [{ label: 'First Step' }, { label: 'Second Step' }, { label: 'Third Step' }];
 
   it('renders the desktop view correctly', () => {
-    const { getByTestId, getByText } = render(<MIWizardStepper steps={steps} activeStep={0} />);
+    const { getByTestId, getByText } = render(<MIStepper steps={steps} activeStep={0} />);
 
     const desktopWizardStepper = getByTestId('desktopWizardStepper');
     expect(desktopWizardStepper).toBeInTheDocument();
@@ -26,7 +26,7 @@ describe('MIWizardStepper', () => {
 
   it('renders the mobile view correctly', () => {
     window.matchMedia = createMatchMedia(800);
-    const { getByTestId, getByText } = render(<MIWizardStepper steps={steps} activeStep={0} />);
+    const { getByTestId, getByText } = render(<MIStepper steps={steps} activeStep={0} />);
 
     const mobileWizardStepper = getByTestId('mobileWizardStepper');
     expect(mobileWizardStepper).toBeInTheDocument();
@@ -37,7 +37,7 @@ describe('MIWizardStepper', () => {
 
   it('renders the second step correctly in mobile view', () => {
     window.matchMedia = createMatchMedia(800);
-    const { getByTestId, getByText } = render(<MIWizardStepper steps={steps} activeStep={1} />);
+    const { getByTestId, getByText } = render(<MIStepper steps={steps} activeStep={1} />);
 
     const mobileWizardStepper = getByTestId('mobileWizardStepper');
     expect(mobileWizardStepper).toBeInTheDocument();

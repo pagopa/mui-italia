@@ -2,7 +2,7 @@
 
 import { disableConsoleLogging, fireEvent, render } from '../../../test-utils';
 import MIWizard from '../MIWizard';
-import MIWizardStep from '../MIWizardStep';
+import MIStep from '../MIStep';
 
 describe('PnWizard Component', () => {
   disableConsoleLogging('error');
@@ -11,8 +11,8 @@ describe('PnWizard Component', () => {
   it('renders PnWizard', () => {
     const { getByTestId, getByText, queryByText } = render(
       <MIWizard activeStep={0} setActiveStep={setActiveStep} title="Wizard Title">
-        <MIWizardStep label="Label Step 1">Step 1</MIWizardStep>
-        <MIWizardStep label="Label Step 2">Step 2</MIWizardStep>
+        <MIStep label="Label Step 1">Step 1</MIStep>
+        <MIStep label="Label Step 2">Step 2</MIStep>
       </MIWizard>
     );
 
@@ -31,8 +31,8 @@ describe('PnWizard Component', () => {
           exitButton: () => <></>,
         }}
       >
-        <MIWizardStep label="Label Step 1">Step 1</MIWizardStep>
-        <MIWizardStep label="Label Step 2">Step 2</MIWizardStep>
+        <MIStep label="Label Step 1">Step 1</MIStep>
+        <MIStep label="Label Step 2">Step 2</MIStep>
       </MIWizard>
     );
 
@@ -51,8 +51,8 @@ describe('PnWizard Component', () => {
           exitButton: { onClick: onExitMock },
         }}
       >
-        <MIWizardStep label="Label Step 1">Step 1</MIWizardStep>
-        <MIWizardStep label="Label Step 2">Step 2</MIWizardStep>
+        <MIStep label="Label Step 1">Step 1</MIStep>
+        <MIStep label="Label Step 2">Step 2</MIStep>
       </MIWizard>
     );
 
@@ -64,8 +64,8 @@ describe('PnWizard Component', () => {
   it('should call setActiveStep on step navigation', () => {
     const { getByTestId } = render(
       <MIWizard activeStep={0} setActiveStep={setActiveStep} title="Wizard Title">
-        <MIWizardStep label="Label Step 1">Step 1</MIWizardStep>
-        <MIWizardStep label="Label Step 2">Step 2</MIWizardStep>
+        <MIStep label="Label Step 1">Step 1</MIStep>
+        <MIStep label="Label Step 2">Step 2</MIStep>
       </MIWizard>
     );
 
@@ -86,8 +86,8 @@ describe('PnWizard Component', () => {
         title="Wizard Title"
         slots={{ nextButton: CustomNextButton }}
       >
-        <MIWizardStep label="Label Step 1">Step 1</MIWizardStep>
-        <MIWizardStep label="Label Step 2">Step 2</MIWizardStep>
+        <MIStep label="Label Step 1">Step 1</MIStep>
+        <MIStep label="Label Step 2">Step 2</MIStep>
       </MIWizard>
     );
 
@@ -110,8 +110,8 @@ describe('PnWizard Component', () => {
           exitButton: { onClick: onExitMock },
         }}
       >
-        <MIWizardStep label="Label Step 1">Step 1</MIWizardStep>
-        <MIWizardStep label="Label Step 2">Step 2</MIWizardStep>
+        <MIStep label="Label Step 1">Step 1</MIStep>
+        <MIStep label="Label Step 2">Step 2</MIStep>
       </MIWizard>
     );
 
@@ -139,8 +139,8 @@ describe('PnWizard Component', () => {
           belowStepContent: <div>Below step content</div>,
         }}
       >
-        <MIWizardStep label="Label Step 1">Step 1</MIWizardStep>
-        <MIWizardStep label="Label Step 2">Step 2</MIWizardStep>
+        <MIStep label="Label Step 1">Step 1</MIStep>
+        <MIStep label="Label Step 2">Step 2</MIStep>
       </MIWizard>
     );
 
@@ -163,8 +163,8 @@ describe('PnWizard Component', () => {
           },
         }}
       >
-        <MIWizardStep label="Label Step 1">Step 1</MIWizardStep>
-        <MIWizardStep label="Label Step 2">Step 2</MIWizardStep>
+        <MIStep label="Label Step 1">Step 1</MIStep>
+        <MIStep label="Label Step 2">Step 2</MIStep>
       </MIWizard>
     );
 
@@ -178,8 +178,8 @@ describe('PnWizard Component', () => {
   it('should not render feedback step', () => {
     const { queryByTestId } = render(
       <MIWizard activeStep={2} setActiveStep={setActiveStep} title="Wizard Title">
-        <MIWizardStep label="Label Step 1">Step 1</MIWizardStep>
-        <MIWizardStep label="Label Step 2">Step 2</MIWizardStep>
+        <MIStep label="Label Step 1">Step 1</MIStep>
+        <MIStep label="Label Step 2">Step 2</MIStep>
       </MIWizard>
     );
 
@@ -203,8 +203,8 @@ describe('PnWizard Component', () => {
           },
         }}
       >
-        <MIWizardStep label="Label Step 1">Step 1</MIWizardStep>
-        <MIWizardStep label="Label Step 2">Step 2</MIWizardStep>
+        <MIStep label="Label Step 1">Step 1</MIStep>
+        <MIStep label="Label Step 2">Step 2</MIStep>
       </MIWizard>
     );
 
@@ -219,7 +219,7 @@ describe('PnWizard Component', () => {
     expect(customFeedbackFn).toHaveBeenCalledTimes(1);
   });
 
-  it('should throw an error if children are not MIWizardStep', () => {
+  it('should throw an error if children are not MIStep', () => {
     const { getByText } = render(
       <MIWizard activeStep={0} setActiveStep={setActiveStep} title="Wizard Title">
         <div>Step 1</div>

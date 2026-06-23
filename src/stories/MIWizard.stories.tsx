@@ -5,12 +5,13 @@ import { Box, Typography } from '@mui/material';
 
 import { breakpointsChromaticValues } from '@theme';
 
-import { MIWizard, MIWizardStep } from '@components/MIWizard';
+import { MIStep } from '@components/MIStepper';
+import { MIWizard } from '@components/MIWizard';
 
 const componentMaxWidth = 900;
 
 const meta = {
-  title: 'MUI Components/Navigation/MIWizard',
+  title: 'Components/MIWizard',
   parameters: {
     chromatic: {
       viewports: breakpointsChromaticValues.filter((resolution) => resolution <= componentMaxWidth),
@@ -63,7 +64,7 @@ const WizardDemo = ({ initialStep = 0 }: WizardDemoProps) => {
         },
       }}
     >
-      <MIWizardStep label="Personal data">
+      <MIStep label="Personal data">
         <Typography variant="h6" gutterBottom>
           Personal data
         </Typography>
@@ -71,9 +72,9 @@ const WizardDemo = ({ initialStep = 0 }: WizardDemoProps) => {
         <Typography variant="body2">
           This is the first step content. Use it to collect user information.
         </Typography>
-      </MIWizardStep>
+      </MIStep>
 
-      <MIWizardStep label="Review">
+      <MIStep label="Review">
         <Typography variant="h6" gutterBottom>
           Review
         </Typography>
@@ -81,9 +82,9 @@ const WizardDemo = ({ initialStep = 0 }: WizardDemoProps) => {
         <Typography variant="body2">
           This is the second step content. Use it to review entered data.
         </Typography>
-      </MIWizardStep>
+      </MIStep>
 
-      <MIWizardStep label="Confirmation">
+      <MIStep label="Confirmation">
         <Typography variant="h6" gutterBottom>
           Confirmation
         </Typography>
@@ -91,7 +92,7 @@ const WizardDemo = ({ initialStep = 0 }: WizardDemoProps) => {
         <Typography variant="body2">
           This is the final step content. Click complete to show feedback.
         </Typography>
-      </MIWizardStep>
+      </MIStep>
     </MIWizard>
   );
 };
