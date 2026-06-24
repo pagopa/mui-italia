@@ -58,7 +58,7 @@ const StyledAlert = styled(MUIAlert as React.ComponentType<MUIBaseAlertProps>, {
   // This prevents 'variant' from being written to the HTML DOM
   shouldForwardProp: (prop) => prop !== 'variant',
 })<StyledAlertProps>(({ theme, severity = 'success', variant }) => {
-  const severityPalette = theme.palette[severity];
+  const severityPalette = theme.colors[severity];
 
   return {
     backgroundColor: severityPalette[100],
@@ -69,7 +69,7 @@ const StyledAlert = styled(MUIAlert as React.ComponentType<MUIBaseAlertProps>, {
       border: '1px solid',
       borderRadius: 8,
       padding: theme.spacing(2),
-      borderColor: severityPalette.main,
+      borderColor: severityPalette[500],
     }),
 
     // different styles for the 'header' variant
@@ -167,7 +167,7 @@ const MIAlertCta = ({ cta, severity = 'success', isMobile }: Readonly<MIAlertCta
         textDecoration: 'none',
         alignSelf: isMobile ? 'flex-start' : 'center',
         paddingLeft: isMobile ? theme.spacing(0) : theme.spacing(8),
-        color: theme.palette[severity][850],
+        color: theme.colors[severity][850],
       })}
     >
       {cta.label}

@@ -16,6 +16,7 @@ export const focusWidth = '2px';
 export const focusBorderRadius = '8px';
 export const focusOffset = '4px';
 const focusButtonOffset = '2px';
+const alertBorderWidth = '4px';
 
 export const themeNext: Theme = createTheme(foundationNext, {
   typography: {
@@ -315,6 +316,20 @@ export const themeNext: Theme = createTheme(foundationNext, {
         minWidth: pxToRem(24),
       },
     },
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          fontSize: pxToRem(14),
+          backgroundColor: '#455B71',
+          fontWeight: foundationNext.typography.fontWeightMedium,
+          textAlign: 'center',
+          boxShadow: foundationNext.shadows[16],
+        },
+        arrow: {
+          color: '#455B71',
+        },
+      },
+    },
     MuiBreadcrumbs: {
       styleOverrides: {
         root: {
@@ -335,6 +350,96 @@ export const themeNext: Theme = createTheme(foundationNext, {
         },
         separator: {
           color: foundationNext.palette.text.secondary,
+        },
+      },
+    },
+    MuiAlert: {
+      styleOverrides: {
+        root: {
+          borderLeft: `${alertBorderWidth} solid`,
+          padding: foundationNext.spacing(1),
+          color: foundationNext.palette.text.primary,
+          alignItems: 'center',
+          [foundationNext.breakpoints.up(responsiveBreakpoint)]: {
+            padding: foundationNext.spacing(2),
+          },
+        },
+        icon: {
+          opacity: 1,
+          padding: 0,
+          alignItems: 'center',
+          marginRight: foundationNext.spacing(1),
+          [foundationNext.breakpoints.up(responsiveBreakpoint)]: {
+            marginRight: foundationNext.spacing(2),
+          },
+        },
+        message: {
+          padding: 0,
+          overflow: 'inherit', // Fix overflow: auto bug introduced by MUI
+        },
+        action: {
+          marginRight: 0,
+          paddingTop: 0,
+        },
+        outlined: {
+          backgroundColor: foundationNext.palette.common.white,
+          boxShadow: foundationNext.shadows[4],
+          borderWidth: `0 0 0 ${alertBorderWidth}`,
+        },
+        standard: {
+          '& .MuiAlert-icon': {
+            color: foundationNext.palette.text.primary,
+          },
+        },
+        standardSuccess: {
+          borderColor: foundationNext.palette.success.main,
+        },
+        outlinedSuccess: {
+          borderColor: foundationNext.palette.success.main,
+          '& .MuiAlert-icon': {
+            color: foundationNext.palette.success.main,
+          },
+        },
+        standardError: {
+          borderColor: foundationNext.palette.error.main,
+        },
+        outlinedError: {
+          borderColor: foundationNext.palette.error.main,
+          '& .MuiAlert-icon': {
+            color: foundationNext.palette.error.main,
+          },
+        },
+        standardInfo: {
+          borderColor: foundationNext.palette.info.main,
+        },
+        outlinedInfo: {
+          borderColor: foundationNext.palette.info.main,
+          '& .MuiAlert-icon': {
+            color: foundationNext.palette.info.main,
+          },
+        },
+        standardWarning: {
+          borderColor: foundationNext.palette.warning.main,
+        },
+        outlinedWarning: {
+          borderColor: foundationNext.palette.warning.main,
+          '& .MuiAlert-icon': {
+            color: foundationNext.palette.warning.main,
+          },
+        },
+      },
+    },
+    MuiAlertTitle: {
+      styleOverrides: {
+        root: {
+          fontSize: pxToRem(16),
+          fontWeight: foundationNext.typography.fontWeightMedium,
+          letterSpacing: 0.15,
+          margin: 0,
+          /* It inherits from `body1`, so I have to reset -_- */
+          [foundationNext.breakpoints.up(responsiveBreakpoint)]: {
+            fontSize: pxToRem(16),
+          },
         },
       },
     },
