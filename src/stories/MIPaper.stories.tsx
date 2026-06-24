@@ -3,7 +3,7 @@ import MIPaper from '@components/MIPaper/MIPaper';
 import { theme } from '@theme';
 
 export default {
-  title: 'MUI Components/Surfaces/MIPaper', // Catalogato sotto Surfaces come da standard MUI
+  title: 'Components/MIPaper',
   component: MIPaper,
   argTypes: {
     variant: {
@@ -46,14 +46,13 @@ export default {
 
 const Template: StoryFn<typeof MIPaper> = (args) => (
   <div style={{ background: theme.colors.neutral.grey[50], padding: theme.spacing(2) }}>
-    <MIPaper {...args} sx={{ minWidth: '300px', ...args.sx }} />
+    <MIPaper borderRadius={24} {...args} sx={{ minWidth: '300px', ...args.sx }} />
   </div>
 );
 
-export const Default = Template.bind({});
-Default.args = {
+export const Flat = Template.bind({});
+Flat.args = {
   variant: 'flat',
-  borderRadius: 8,
   padding: 16,
   children: 'Questo è un MIPaper Flat standard con angoli a 8px e padding a 16px.',
 };
@@ -61,7 +60,6 @@ Default.args = {
 export const Outlined = Template.bind({});
 Outlined.args = {
   variant: 'outlined',
-  borderRadius: 16,
   padding: 24,
   children: 'Questo è un MIPaper Outlined con angoli a 16px e padding a 24px.',
 };

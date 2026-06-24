@@ -50,7 +50,14 @@ const foundationNext: Theme = createTheme({
   },
   shadows: { ...shadowsArray, ...shadowValues },
   shape: {
-    borderRadius: 4,
+    /* default 8px, but can be overridden 
+    by the MIPaper radius style component */
+    borderRadius: 8,
+    radius: {
+      8: '8px',
+      16: '16px',
+      24: '24px',
+    },
   },
   spacing: 8,
 });

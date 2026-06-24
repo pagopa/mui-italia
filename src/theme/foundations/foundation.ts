@@ -50,7 +50,14 @@ const foundation: Theme = createTheme({
   },
   shadows: { ...shadowsArray, ...shadowValues },
   shape: {
+    /* default 4px for backward compatibility, 
+    it can be overridden by the MIPaper radius style component */
     borderRadius: 4,
+    radius: {
+      8: '8px',
+      16: '16px',
+      24: '24px',
+    },
   },
   spacing: 8,
 });
