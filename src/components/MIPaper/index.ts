@@ -1,1 +1,1 @@
-export * from './MIPaper';
+export { default as MIPaper } from './MIPaper';
