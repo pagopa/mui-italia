@@ -1,7 +1,6 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import MuiPaper, { PaperProps as MuiPaperProps } from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import { theme } from '@theme';
 
 /**
  * Prop design system per il componente MIPaper
@@ -31,11 +30,10 @@ const StyledPaper = styled(MuiPaper, {
   customVariant: AllowedMIPaperVariants;
 }>(({ theme, customBorderRadius, customPadding, customVariant }) => ({
   boxShadow: 'none',
-  backgroundImage: 'none', // for dark mode, to avoid gradient background
   padding: `${customPadding}px`,
   borderRadius: `${customBorderRadius}px`,
   ...(customVariant === 'outlined' && {
-    border: `1px solid ${theme.palette.grey[300]}`,
+    border: `1px solid ${theme.colors.neutral.grey[100]}`,
   }),
   ...(customVariant === 'flat' && {
     border: 'none',
