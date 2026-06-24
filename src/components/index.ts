@@ -37,3 +37,4 @@ export * from './MIIconButton';
 export * from './MITooltip';
 export * from './MISpidSelectOIDialog';
 export * from './MISpinner';
+export * from './MIPaper';

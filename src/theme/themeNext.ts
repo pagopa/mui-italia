@@ -5,7 +5,6 @@ import { pxToRem } from './utility';
 import { mainTypeface, monospacedTypeface } from './fonts';
 /* Design Tokens */
 import { italia } from '@tokens';
-import muiPaper from './muiPaper';
 
 /* Basic Configuration */
 
@@ -603,7 +602,6 @@ export const themeNext: Theme = createTheme(foundationNext, {
         },
       },
     },
-    MuiPaper: muiPaper,
     MuiPickersCalendarHeader: {
       styleOverrides: {
         labelContainer: {

@@ -1,174 +1,61 @@
-'use client';
+import React, { FC } from 'react';
+import MuiPaper, { PaperProps as MuiPaperProps } from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
+import { theme } from '@theme';
 
-import { ButtonNaked } from '@components/ButtonNaked';
-import { Stack, styled, useMediaQuery, useTheme } from '@mui/material';
-import MUIPaper, { PaperProps as MUIPaperProps } from '@mui/material/Paper';
-import { ElementType, HTMLAttributeAnchorTarget } from 'react';
-import { MarginSxProps } from '@types';
+/**
+ * Prop design system per il componente MIPaper
+ * BORDER RADIUS: 8, 16, 24 -> corners
+ * PADDING: 16, 24
+ * ELEVATION: O ESCLUSIVAMENTE
+ * STROKE GRIGIO DI 1 SOLO TIPO -> variant
+ */
 
+type BorderRadius = 8 | 16 | 24;
+type Padding = 16 | 24;
+type AllowedMIPaperVariants = 'flat' | 'outlined';
 
-type ButtonCTA = {
-  label: string;
-} & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'children'>;
+export type BaseMIPaperProps = Omit<MuiPaperProps, 'elevation' | 'square' | 'variant'> & {
+  borderRadius?: BorderRadius;
+  padding?: Padding;
+  variant?: AllowedMIPaperVariants;
+};
+// ereditiamo le prop children, classes, component, sx, variant (con o senza stroke)
 
-type LinkCTA = {
-  label: string;
-} & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'children'>;
+const StyledPaper = styled(MuiPaper, {
+  shouldForwardProp: (prop) =>
+    prop !== 'customBorderRadius' && prop !== 'customPadding' && prop !== 'customVariant',
+})<{
+  customBorderRadius: BorderRadius;
+  customPadding: Padding;
+  customVariant: AllowedMIPaperVariants;
+}>(({ theme, customBorderRadius, customPadding, customVariant }) => ({
+  boxShadow: 'none',
+  backgroundImage: 'none', // for dark mode, to avoid gradient background
+  padding: `${customPadding}px`,
+  borderRadius: `${customBorderRadius}px`,
+  ...(customVariant === 'outlined' && {
+    border: `1px solid ${theme.palette.grey[300]}`,
+  }),
+  ...(customVariant === 'flat' && {
+    border: 'none',
+  }),
+}));
 
-type PaperCTA = ButtonCTA | LinkCTA;
-
-interface MIPaperCtaProps {
-  cta: PaperCTA;
-  ariaLabelledBy?: string;
-  severity?: AllowedPaperSeverity;
-  isMobile: boolean;
-}
-
-// Props shared by all variants
-interface BasePaperProps extends Pick<MUIPaperProps, 'severity' | 'id'> {
-  description: string;
-  sx?: MarginSxProps;
-}
-
-// Default MIPaper variant (allows title and action)
-interface DefaultPaperProps extends BasePaperProps {
-  variant?: 'default';
-  title?: string;
-  action?: PaperCTA;
-}
-
-// Header MIPaper variant
-interface HeaderPaperProps extends BasePaperProps {
-  variant: 'header';
-  title?: never;
-  action?: never;
-}
-
-export type MIPaperProps = DefaultPaperProps | HeaderPaperProps;
-
-type MUIBasePaperProps = Omit<MUIPaperProps, 'variant'>;
-
-interface StyledPaperProps extends MUIBasePaperProps {
-  variant: 'default' | 'header';
-}
-
-const StyledPaper = styled(MUIPaper as React.ComponentType<MUIBasePaperProps>, {
-  // This prevents 'variant' from being written to the HTML DOM
-  shouldForwardProp: (prop) => prop !== 'variant',
-})<StyledPaperProps>(({ theme, severity = 'success', variant }) => {
-  const severityPalette = theme.colors[severity];
-
-  return {
-    backgroundColor: severityPalette[100],
-    justifyContent: variant === 'header' ? 'center' : 'flex-start',
-    alignItems: variant === 'header' ? 'center' : 'flex-start',
-
-    ...(variant === 'default' && {
-      border: '1px solid',
-      borderRadius: 8,
-      padding: theme.spacing(2),
-      borderColor: severityPalette[500],
-    }),
-
-    // different styles for the 'header' variant
-    ...(variant === 'header' && {
-      border: 'none',
-      borderRadius: 0,
-      width: 'auto',
-      boxSizing: 'border-box',
-      padding: '10px 16px !important', // Override MUI's default padding with !important
-    }),
-
-    [theme.breakpoints.down('sm')]: {
-      alignItems: variant === 'header' ? 'center' : 'flex-start',
-    },
-
-    '& .MuiPaper-icon': {
-      opacity: 1,
-      alignItems: 'center',
-      marginRight: theme.spacing(1),
-      color: severityPalette[850],
-    },
-
-    '& .MuiPaper-message': {
-      padding: 0,
-      overflow: 'inherit',
-      lineHeight: variant === 'header' ? '20px' : '22px',
-      fontWeight:
-        variant === 'header'
-          ? theme.typography.fontWeightMedium
-          : theme.typography.fontWeightRegular,
-      fontSize: variant === 'header' ? '14px' : '16px',
-      display: 'flex',
-      flexDirection: 'column',
-      overflowWrap: 'anywhere',
-      wordBreak: 'break-word',
-      color: severityPalette[850],
-      flex: variant === 'header' ? '0 1 auto' : 1,
-      width: variant === 'header' ? 'auto' : '100%',
-    },
-  };
-});
-
-export const MIPaper: React.FC<MIPaperProps> = ({
-  severity,
-  description,
-  variant = 'default',
-  title,
-  action,
-  sx,
-  ...rest
-}) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+const MIPaper: FC<BaseMIPaperProps> = (props) => {
+  const { borderRadius = 8, padding = 16, variant = 'flat', sx, ...other } = props;
 
   return (
-    <StyledPaper severity={severity} icon={getIcon(severity)} variant={variant} sx={sx} {...rest}>
-      <Stack direction={isMobile ? 'column' : 'row'} flex={1}>
-        <Stack direction="column" flex={1} minWidth={0} gap={title ? '4px' : 0}>
-          {title && <MUIPaperTitle color={getColor(theme, severity)}>{title}</MUIPaperTitle>}
-          {description}
-        </Stack>
-        {action && <MIPaperCta cta={action} severity={severity} isMobile={isMobile} />}
-      </Stack>
-    </StyledPaper>
+    <StyledPaper
+      elevation={0}
+      variant={variant === 'outlined' ? 'outlined' : 'elevation'}
+      customBorderRadius={borderRadius}
+      customPadding={padding}
+      customVariant={variant}
+      sx={sx}
+      {...other}
+    />
   );
 };
 
-const MIPaperCta = ({ cta, severity = 'success', isMobile }: Readonly<MIPaperCtaProps>) => {
-  const isLink = 'href' in cta;
-
-  let target: HTMLAttributeAnchorTarget | undefined;
-  let rel: string | undefined;
-
-  if (isLink) {
-    target = cta.target ?? '_self';
-    rel = target === '_blank' ? cta.rel ?? 'noopener noreferrer' : cta.rel;
-  }
-
-  const commonProps = {
-    onClick: !isLink ? cta.onClick : undefined,
-    component: (isLink ? 'a' : 'button') as ElementType,
-    href: isLink ? cta.href : undefined,
-    target,
-    rel,
-  };
-
-  return (
-    <ButtonNaked
-      {...commonProps}
-      sx={(theme) => ({
-        pt: isMobile ? 2 : 0,
-        minWidth: 'auto',
-        fontWeight: 600,
-        fontSize: '16px',
-        textDecoration: 'none',
-        alignSelf: isMobile ? 'flex-start' : 'center',
-        paddingLeft: isMobile ? theme.spacing(0) : theme.spacing(8),
-        color: theme.colors[severity][850],
-      })}
-    >
-      {cta.label}
-    </ButtonNaked>
-  );
-};
+export default MIPaper;
