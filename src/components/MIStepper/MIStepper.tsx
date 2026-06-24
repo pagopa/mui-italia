@@ -32,7 +32,7 @@ type Props = {
 
 const MIStepper: React.FC<Props> = ({ steps, activeStep, localeText }) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
 
   const resolvedLocaleText = {
     ...defaultLocaleText,
@@ -41,7 +41,7 @@ const MIStepper: React.FC<Props> = ({ steps, activeStep, localeText }) => {
 
   return isMobile ? (
     <Stack direction="row" spacing={2} alignItems="center">
-      <Box sx={{ position: 'relative', display: 'inline-flex' }} data-testid="mobileWizardStepper">
+      <Box sx={{ position: 'relative', display: 'inline-flex' }} data-testid="mobileStepper">
         <CircularProgress
           variant="determinate"
           value={100}
@@ -68,13 +68,20 @@ const MIStepper: React.FC<Props> = ({ steps, activeStep, localeText }) => {
             justifyContent: 'center',
           }}
         >
-          <Typography variant="caption" component="div" fontSize="12px">
+          <Typography
+            variant="caption"
+            component="div"
+            fontSize="12px"
+            data-testid="mobileStepperLabel"
+          >
             {resolvedLocaleText.stepOfLabel(activeStep + 1, steps.length)}
           </Typography>
         </Box>
       </Box>
       <Stack direction="column">
-        <Typography variant="caption">{resolvedLocaleText.stepLabel(activeStep + 1)}</Typography>
+        <Typography variant="caption" data-testid="mobileStepperActive">
+          {resolvedLocaleText.stepLabel(activeStep + 1)}
+        </Typography>
         <Typography variant="caption" fontWeight={600}>
           {steps[activeStep].label}
         </Typography>

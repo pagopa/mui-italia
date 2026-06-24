@@ -1,14 +1,12 @@
-/*import { describe, expect, it, vi } from 'vitest';
+import { render, fireEvent } from '@testing-library/react';
 
-import { disableConsoleLogging, fireEvent, render } from '../../../test-utils';
 import MIWizard from '../MIWizard';
-import MIStep from '../MIStep';
+import { MIStep } from '../../MIStepper';
 
-describe('PnWizard Component', () => {
-  disableConsoleLogging('error');
+describe('MIWizard Component', () => {
   const setActiveStep = vi.fn();
 
-  it('renders PnWizard', () => {
+  it('renders MIWizard', () => {
     const { getByTestId, getByText, queryByText } = render(
       <MIWizard activeStep={0} setActiveStep={setActiveStep} title="Wizard Title">
         <MIStep label="Label Step 1">Step 1</MIStep>
@@ -220,11 +218,16 @@ describe('PnWizard Component', () => {
   });
 
   it('should throw an error if children are not MIStep', () => {
-    const { getByText } = render(
-      <MIWizard activeStep={0} setActiveStep={setActiveStep} title="Wizard Title">
-        <div>Step 1</div>
-      </MIWizard>
-    );
-    expect(getByText('PnWizard can have only children of type PnWizardStep')).toBeInTheDocument();
+    // avoid annoing error log in console
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    expect(() =>
+      render(
+        <MIWizard activeStep={0} setActiveStep={setActiveStep} title="Wizard Title">
+          <div>Step 1</div>
+        </MIWizard>
+      )
+    ).toThrow('MIWizard can have only children of type MIStep');
+    // restore original behaviour
+    consoleSpy.mockRestore();
   });
-});*/
+});

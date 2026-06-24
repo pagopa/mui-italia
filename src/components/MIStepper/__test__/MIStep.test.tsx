@@ -1,6 +1,5 @@
-/*import { describe, expect, it } from 'vitest';
+import { render } from '@testing-library/react';
 
-import { render } from '../../../test-utils';
 import MIStep from '../MIStep';
 
 describe('MIStep Component', () => {
@@ -9,4 +8,4 @@ describe('MIStep Component', () => {
 
     expect(getByText('Step Content')).toBeInTheDocument();
   });
-});*/
+});

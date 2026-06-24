@@ -1,16 +1,13 @@
-/*import { describe, expect, it, vi } from 'vitest';
-
 import { render } from '@testing-library/react';
 
-import { createMatchMedia } from '../../../test-utils';
 import MIStepper from '../MIStepper';
-
-// Mock the `useIsMobile` hook
-vi.mock('./useIsMobile', () => ({
-  useIsMobile: vi.fn(),
-}));
+import { createMatchMedia } from '../../../test-utils';
 
 describe('MIStepper', () => {
+  afterEach(() => {
+    delete (window as any).matchMedia;
+  });
+
   const steps = [{ label: 'First Step' }, { label: 'Second Step' }, { label: 'Third Step' }];
 
   it('renders the desktop view correctly', () => {
@@ -28,10 +25,10 @@ describe('MIStepper', () => {
     window.matchMedia = createMatchMedia(800);
     const { getByTestId, getByText } = render(<MIStepper steps={steps} activeStep={0} />);
 
-    const mobileWizardStepper = getByTestId('mobileWizardStepper');
-    expect(mobileWizardStepper).toBeInTheDocument();
-    expect(getByText('wizard.stepper.of')).toBeInTheDocument();
-    expect(getByText('wizard.stepper.activeStep')).toBeInTheDocument();
+    const mobileStepper = getByTestId('mobileStepper');
+    expect(mobileStepper).toBeInTheDocument();
+    expect(getByTestId('mobileStepperLabel')).toBeInTheDocument();
+    expect(getByTestId('mobileStepperActive')).toBeInTheDocument();
     expect(getByText(steps[0].label)).toBeInTheDocument();
   });
 
@@ -39,9 +36,9 @@ describe('MIStepper', () => {
     window.matchMedia = createMatchMedia(800);
     const { getByTestId, getByText } = render(<MIStepper steps={steps} activeStep={1} />);
 
-    const mobileWizardStepper = getByTestId('mobileWizardStepper');
-    expect(mobileWizardStepper).toBeInTheDocument();
-    expect(getByText('wizard.stepper.of')).toBeInTheDocument();
+    const mobileStepper = getByTestId('mobileStepper');
+    expect(mobileStepper).toBeInTheDocument();
+    expect(getByTestId('mobileStepperLabel')).toBeInTheDocument();
     expect(getByText(steps[1].label)).toBeInTheDocument();
   });
-});*/
+});
