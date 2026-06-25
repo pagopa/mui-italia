@@ -160,144 +160,6 @@ export const themeNext: Theme = createTheme(foundationNext, {
     /* End: To be revised */
   },
   components: {
-    MuiAlert: {
-      styleOverrides: {
-        root: {
-          borderLeft: `${alertBorderWidth} solid`,
-          padding: foundationNext.spacing(1),
-          color: foundationNext.palette.text.primary,
-          alignItems: 'center',
-          [foundationNext.breakpoints.up(responsiveBreakpoint)]: {
-            padding: foundationNext.spacing(2),
-          },
-        },
-        icon: {
-          opacity: 1,
-          padding: 0,
-          alignItems: 'center',
-          marginRight: foundationNext.spacing(1),
-          [foundationNext.breakpoints.up(responsiveBreakpoint)]: {
-            marginRight: foundationNext.spacing(2),
-          },
-        },
-        message: {
-          padding: 0,
-          overflow: 'inherit', // Fix overflow: auto bug introduced by MUI
-        },
-        action: {
-          marginRight: 0,
-          paddingTop: 0,
-        },
-        outlined: {
-          backgroundColor: foundationNext.palette.common.white,
-          boxShadow: foundationNext.shadows[4],
-          borderWidth: `0 0 0 ${alertBorderWidth}`,
-        },
-        standard: {
-          '& .MuiAlert-icon': {
-            color: foundationNext.palette.text.primary,
-          },
-        },
-        standardSuccess: {
-          borderColor: foundationNext.palette.success.main,
-        },
-        outlinedSuccess: {
-          borderColor: foundationNext.palette.success.main,
-          '& .MuiAlert-icon': {
-            color: foundationNext.palette.success.main,
-          },
-        },
-        standardError: {
-          borderColor: foundationNext.palette.error.main,
-        },
-        outlinedError: {
-          borderColor: foundationNext.palette.error.main,
-          '& .MuiAlert-icon': {
-            color: foundationNext.palette.error.main,
-          },
-        },
-        standardInfo: {
-          borderColor: foundationNext.palette.info.main,
-        },
-        outlinedInfo: {
-          borderColor: foundationNext.palette.info.main,
-          '& .MuiAlert-icon': {
-            color: foundationNext.palette.info.main,
-          },
-        },
-        standardWarning: {
-          borderColor: foundationNext.palette.warning.main,
-        },
-        outlinedWarning: {
-          borderColor: foundationNext.palette.warning.main,
-          '& .MuiAlert-icon': {
-            color: foundationNext.palette.warning.main,
-          },
-        },
-      },
-    },
-    MuiAlertTitle: {
-      styleOverrides: {
-        root: {
-          fontSize: pxToRem(16),
-          fontWeight: foundationNext.typography.fontWeightMedium,
-          letterSpacing: 0.15,
-          margin: 0,
-          /* It inherits from `body1`, so I have to reset -_- */
-          [foundationNext.breakpoints.up(responsiveBreakpoint)]: {
-            fontSize: pxToRem(16),
-          },
-        },
-      },
-    },
-    MuiBackdrop: {
-      styleOverrides: {
-        root: {
-          backgroundColor: alpha(foundationNext.palette.backdrop.background, 0.7),
-        },
-        invisible: {
-          backgroundColor: 'transparent',
-        },
-      },
-    },
-    MuiBadge: {
-      styleOverrides: {
-        badge: {
-          fontSize: pxToRem(14),
-          fontWeight: foundationNext.typography.fontWeightMedium,
-          letterSpacing: 0.15,
-          '&.MuiBadge-sidenav': {
-            fontSize: pxToRem(12),
-            position: 'relative',
-            transform: 'translate(0,0)',
-            boxShadow: `0 0 0 2px ${alpha(foundationNext.palette.common.white, 0.5)}`,
-          },
-        },
-      },
-    },
-    MuiBreadcrumbs: {
-      styleOverrides: {
-        root: {
-          fontSize: pxToRem(16),
-          color: foundationNext.palette.text.primary,
-        },
-        li: {
-          'a:hover': {
-            textDecoration: 'none',
-          },
-          p: {
-            fontSize: `${pxToRem(16)} !important`,
-          },
-          svg: {
-            fontSize: pxToRem(20),
-            marginRight: foundationNext.spacing(1.5),
-          },
-        },
-        separator: {
-          color: foundationNext.palette.text.secondary,
-        },
-      },
-    },
     MuiButton: {
       defaultProps: {
         disableElevation: true,
@@ -426,30 +288,6 @@ export const themeNext: Theme = createTheme(foundationNext, {
         },
       ],
     },
-    /* START Card */
-    MuiCard: {
-      styleOverrides: {
-        root: {
-          borderRadius: foundationNext.spacing(1),
-        },
-      },
-    },
-    MuiCardContent: {
-      styleOverrides: {
-        root: {
-          padding: foundationNext.spacing(3),
-        },
-      },
-    },
-    MuiCardActions: {
-      styleOverrides: {
-        root: {
-          padding: foundationNext.spacing(3),
-          paddingTop: 0,
-        },
-      },
-    },
-    /* END Card */
     MuiIconButton: {
       defaultProps: {
         disableRipple: true,
@@ -482,24 +320,264 @@ export const themeNext: Theme = createTheme(foundationNext, {
         minWidth: pxToRem(24),
       },
     },
-    MuiLink: {
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          fontSize: pxToRem(14),
+          backgroundColor: '#455B71',
+          fontWeight: foundationNext.typography.fontWeightMedium,
+          textAlign: 'center',
+          boxShadow: foundationNext.shadows[16],
+        },
+        arrow: {
+          color: '#455B71',
+        },
+      },
+    },
+    MuiBreadcrumbs: {
       styleOverrides: {
         root: {
-          '&.MuiTypography-root': {
-            marginTop: `${marginLinkSize}`,
-            marginBottom: `${marginLinkSize}`,
-            paddingTop: `${paddingLinkSize}`,
-            paddingBottom: `${paddingLinkSize}`,
+          fontSize: pxToRem(16),
+          color: foundationNext.palette.text.primary,
+        },
+        li: {
+          'a:hover': {
+            textDecoration: 'none',
           },
-          '&.Mui-focusVisible': {
-            borderRadius: `${focusBorderRadius}`,
-            outline: `solid ${focusWidth} `,
-            outlineOffset: `${focusOffset}`,
-            boxShadow: 'none',
+          p: {
+            fontSize: `${pxToRem(16)} !important`,
+          },
+          svg: {
+            fontSize: pxToRem(20),
+            marginRight: foundationNext.spacing(1.5),
+          },
+        },
+        separator: {
+          color: foundationNext.palette.text.secondary,
+        },
+      },
+    },
+    MuiAlert: {
+      styleOverrides: {
+        root: {
+          borderLeft: `${alertBorderWidth} solid`,
+          padding: foundationNext.spacing(1),
+          color: foundationNext.palette.text.primary,
+          alignItems: 'center',
+          [foundationNext.breakpoints.up(responsiveBreakpoint)]: {
+            padding: foundationNext.spacing(2),
+          },
+        },
+        icon: {
+          opacity: 1,
+          padding: 0,
+          alignItems: 'center',
+          marginRight: foundationNext.spacing(1),
+          [foundationNext.breakpoints.up(responsiveBreakpoint)]: {
+            marginRight: foundationNext.spacing(2),
+          },
+        },
+        message: {
+          padding: 0,
+          overflow: 'inherit', // Fix overflow: auto bug introduced by MUI
+        },
+        action: {
+          marginRight: 0,
+          paddingTop: 0,
+        },
+        outlined: {
+          backgroundColor: foundationNext.palette.common.white,
+          boxShadow: foundationNext.shadows[4],
+          borderWidth: `0 0 0 ${alertBorderWidth}`,
+        },
+        standard: {
+          '& .MuiAlert-icon': {
+            color: foundationNext.palette.text.primary,
+          },
+        },
+        standardSuccess: {
+          borderColor: foundationNext.palette.success.main,
+        },
+        outlinedSuccess: {
+          borderColor: foundationNext.palette.success.main,
+          '& .MuiAlert-icon': {
+            color: foundationNext.palette.success.main,
+          },
+        },
+        standardError: {
+          borderColor: foundationNext.palette.error.main,
+        },
+        outlinedError: {
+          borderColor: foundationNext.palette.error.main,
+          '& .MuiAlert-icon': {
+            color: foundationNext.palette.error.main,
+          },
+        },
+        standardInfo: {
+          borderColor: foundationNext.palette.info.main,
+        },
+        outlinedInfo: {
+          borderColor: foundationNext.palette.info.main,
+          '& .MuiAlert-icon': {
+            color: foundationNext.palette.info.main,
+          },
+        },
+        standardWarning: {
+          borderColor: foundationNext.palette.warning.main,
+        },
+        outlinedWarning: {
+          borderColor: foundationNext.palette.warning.main,
+          '& .MuiAlert-icon': {
+            color: foundationNext.palette.warning.main,
           },
         },
       },
     },
+    MuiAlertTitle: {
+      styleOverrides: {
+        root: {
+          fontSize: pxToRem(16),
+          fontWeight: foundationNext.typography.fontWeightMedium,
+          letterSpacing: 0.15,
+          margin: 0,
+          /* It inherits from `body1`, so I have to reset -_- */
+          [foundationNext.breakpoints.up(responsiveBreakpoint)]: {
+            fontSize: pxToRem(16),
+          },
+        },
+      },
+    },
+    /* START Card */
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: foundationNext.spacing(1),
+        },
+      },
+    },
+    MuiCardContent: {
+      styleOverrides: {
+        root: {
+          padding: foundationNext.spacing(3),
+        },
+      },
+    },
+    MuiCardActions: {
+      styleOverrides: {
+        root: {
+          padding: foundationNext.spacing(3),
+          paddingTop: 0,
+        },
+      },
+    },
+    /* END Card */
+    /* START Snackbar */
+    MuiSnackbarContent: {
+      styleOverrides: {
+        root: {
+          padding: foundationNext.spacing(2),
+          color: foundationNext.palette.text.primary,
+          backgroundColor: foundationNext.palette.common.white,
+          boxShadow: foundationNext.shadows[4],
+        },
+        action: {
+          marginRight: 0,
+        },
+        message: {
+          padding: 0,
+          fontSize: pxToRem(16),
+        },
+      },
+    },
+    /* END Snackbar */
+    MuiBadge: {
+      styleOverrides: {
+        badge: {
+          fontSize: pxToRem(14),
+          fontWeight: foundationNext.typography.fontWeightMedium,
+          letterSpacing: 0.15,
+          '&.MuiBadge-sidenav': {
+            fontSize: pxToRem(12),
+            position: 'relative',
+            transform: 'translate(0,0)',
+            boxShadow: `0 0 0 2px ${alpha(foundationNext.palette.common.white, 0.5)}`,
+          },
+        },
+      },
+    },
+    /** Start TEXT FIELD */
+    MuiInput: {
+      styleOverrides: {
+        root: {
+          fontWeight: foundationNext.typography.fontWeightMedium,
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          fontWeight: foundationNext.typography.fontWeightMedium,
+          '& .MuiOutlinedInput-notchedOutline': {},
+          '&.Mui-error .MuiOutlinedInput-notchedOutline': {
+            borderColor: foundationNext.palette.error.dark,
+          },
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          color: foundationNext.palette.text.secondary,
+          fontWeight: foundationNext.typography.fontWeightMedium,
+          '&.Mui-error': {
+            color: foundationNext.palette.error.dark,
+          },
+        },
+      },
+    },
+    MuiInputAdornment: {
+      styleOverrides: {
+        root: {
+          '& .MuiSvgIcon-colorError': {
+            color: `${foundationNext.palette.error.dark}`,
+          },
+        },
+      },
+    },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          fontSize: pxToRem(12),
+          lineHeight: 1.25 /* 15px */,
+          color: foundationNext.palette.text.secondary,
+          fontWeight: foundationNext.typography.fontWeightMedium,
+          letterSpacing: 0.5,
+          '&.Mui-error': {
+            color: foundationNext.palette.error.dark,
+          },
+        },
+      },
+    },
+    /** End TEXT FIELD */
+    MuiBackdrop: {
+      styleOverrides: {
+        root: {
+          backgroundColor: alpha(foundationNext.palette.backdrop.background, 0.7),
+        },
+        invisible: {
+          backgroundColor: 'transparent',
+        },
+      },
+    },
+    MuiTimelineDot: {
+      styleOverrides: {
+        root: {
+          boxShadow: 'none',
+        },
+      },
+    },
+    MuiSwitch: muiSwitch,
+
     /** Start LIST ITEM (used in Sidenav) */
     MuiListItemButton: {
       defaultProps: {
@@ -524,6 +602,20 @@ export const themeNext: Theme = createTheme(foundationNext, {
         },
       },
     },
+    MuiListItemText: {
+      styleOverrides: {
+        root: {
+          transition: `${foundationNext.transitions.duration.standard}ms ${foundationNext.transitions.easing.easeInOut}`,
+          transitionProperty: 'color',
+          color: foundationNext.palette.text.primary,
+          margin: 0,
+        },
+        primary: {
+          fontWeight: foundationNext.typography.fontWeightMedium,
+          color: 'currentColor',
+        },
+      },
+    },
     MuiListItemIcon: {
       styleOverrides: {
         root: {
@@ -539,21 +631,34 @@ export const themeNext: Theme = createTheme(foundationNext, {
         },
       },
     },
-    MuiListItemText: {
+    /** End LIST ITEM */
+    /** Start POPOVER */
+    MuiPopover: {
       styleOverrides: {
-        root: {
-          transition: `${foundationNext.transitions.duration.standard}ms ${foundationNext.transitions.easing.easeInOut}`,
-          transitionProperty: 'color',
-          color: foundationNext.palette.text.primary,
-          margin: 0,
-        },
-        primary: {
-          fontWeight: foundationNext.typography.fontWeightMedium,
-          color: 'currentColor',
+        paper: {
+          boxShadow: foundationNext.shadows[16],
         },
       },
     },
-    /** End LIST ITEM */
+    /** End POPOVER */
+    MuiSelect: {
+      styleOverrides: {
+        root: {
+          '& .MuiListItemIcon-root + .MuiListItemText-root': {
+            marginLeft: foundationNext.spacing(1),
+          },
+        },
+        select: {
+          display: 'flex',
+          alignItems: 'center',
+          '& .MuiListItemText-root': {
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          },
+        },
+      },
+    },
     MuiMenuItem: {
       defaultProps: {
         disableRipple: true,
@@ -606,57 +711,7 @@ export const themeNext: Theme = createTheme(foundationNext, {
         },
       },
     },
-    MuiPickersCalendarHeader: {
-      styleOverrides: {
-        labelContainer: {
-          padding: pxToRem(14),
-          paddingLeft: 0,
-        },
-      },
-    },
-    MuiPopover: {
-      styleOverrides: {
-        paper: {
-          boxShadow: foundationNext.shadows[16],
-        },
-      },
-    },
-    MuiSelect: {
-      styleOverrides: {
-        root: {
-          '& .MuiListItemIcon-root + .MuiListItemText-root': {
-            marginLeft: foundationNext.spacing(1),
-          },
-        },
-        select: {
-          display: 'flex',
-          alignItems: 'center',
-          '& .MuiListItemText-root': {
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-          },
-        },
-      },
-    },
-    MuiSnackbarContent: {
-      styleOverrides: {
-        root: {
-          padding: foundationNext.spacing(2),
-          color: foundationNext.palette.text.primary,
-          backgroundColor: foundationNext.palette.common.white,
-          boxShadow: foundationNext.shadows[4],
-        },
-        action: {
-          marginRight: 0,
-        },
-        message: {
-          padding: 0,
-          fontSize: pxToRem(16),
-        },
-      },
-    },
-    MuiSwitch: muiSwitch,
+    /** End SELECT */
     MuiTableHead: {
       styleOverrides: {
         root: {
@@ -664,33 +719,21 @@ export const themeNext: Theme = createTheme(foundationNext, {
         },
       },
     },
-    MuiTimelineDot: {
+    MuiLink: {
       styleOverrides: {
         root: {
-          boxShadow: 'none',
-        },
-      },
-    },
-    MuiTooltip: {
-      styleOverrides: {
-        tooltip: {
-          fontSize: pxToRem(14),
-          backgroundColor: '#455B71',
-          fontWeight: foundationNext.typography.fontWeightMedium,
-          textAlign: 'center',
-          boxShadow: foundationNext.shadows[16],
-        },
-        arrow: {
-          color: '#455B71',
-        },
-      },
-    },
-
-    /** Start TEXT FIELD */
-    MuiInput: {
-      styleOverrides: {
-        root: {
-          fontWeight: foundationNext.typography.fontWeightMedium,
+          '&.MuiTypography-root': {
+            marginTop: `${marginLinkSize}`,
+            marginBottom: `${marginLinkSize}`,
+            paddingTop: `${paddingLinkSize}`,
+            paddingBottom: `${paddingLinkSize}`,
+          },
+          '&.Mui-focusVisible': {
+            borderRadius: `${focusBorderRadius}`,
+            outline: `solid ${focusWidth} `,
+            outlineOffset: `${focusOffset}`,
+            boxShadow: 'none',
+          },
         },
       },
     },
@@ -703,51 +746,13 @@ export const themeNext: Theme = createTheme(foundationNext, {
         },
       },
     },
-    MuiOutlinedInput: {
+    MuiPickersCalendarHeader: {
       styleOverrides: {
-        root: {
-          fontWeight: foundationNext.typography.fontWeightMedium,
-          '& .MuiOutlinedInput-notchedOutline': {},
-          '&.Mui-error .MuiOutlinedInput-notchedOutline': {
-            borderColor: foundationNext.palette.error.dark,
-          },
+        labelContainer: {
+          padding: pxToRem(14),
+          paddingLeft: 0,
         },
       },
     },
-    MuiInputLabel: {
-      styleOverrides: {
-        root: {
-          color: foundationNext.palette.text.secondary,
-          fontWeight: foundationNext.typography.fontWeightMedium,
-          '&.Mui-error': {
-            color: foundationNext.palette.error.dark,
-          },
-        },
-      },
-    },
-    MuiInputAdornment: {
-      styleOverrides: {
-        root: {
-          '& .MuiSvgIcon-colorError': {
-            color: `${foundationNext.palette.error.dark}`,
-          },
-        },
-      },
-    },
-    MuiFormHelperText: {
-      styleOverrides: {
-        root: {
-          fontSize: pxToRem(12),
-          lineHeight: 1.25 /* 15px */,
-          color: foundationNext.palette.text.secondary,
-          fontWeight: foundationNext.typography.fontWeightMedium,
-          letterSpacing: 0.5,
-          '&.Mui-error': {
-            color: foundationNext.palette.error.dark,
-          },
-        },
-      },
-    },
-    /** End TEXT FIELD */
   },
 });
