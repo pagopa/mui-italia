@@ -34,7 +34,7 @@ interface MITextButtonProps extends MIButtonBaseProps {
 }
 
 interface MISolidButtonProps extends MIButtonBaseProps {
-  variant?: 'contained' | 'outlined';
+  variant?: Exclude<MIButtonVariant, 'text'>;
   href?: never;
 }
 

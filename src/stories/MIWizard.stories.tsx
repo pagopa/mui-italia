@@ -53,9 +53,6 @@ const WizardDemo = ({ initialStep = 0 }: WizardDemoProps) => {
           label: activeStep === 2 ? 'Complete' : 'Continue',
           onClick: (next) => next(),
         },
-        prevButton: {
-          disabled: activeStep === 0,
-        },
         feedback: {
           title: 'Wizard completed',
           content: 'The wizard flow has been completed successfully.',

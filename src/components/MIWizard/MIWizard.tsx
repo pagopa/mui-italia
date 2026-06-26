@@ -3,23 +3,15 @@
 import React, { JSXElementConstructor, ReactElement, ReactNode } from 'react';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import {
-  Box,
-  Button,
-  ButtonProps,
-  Paper,
-  PaperProps,
-  Stack,
-  StackProps,
-  Typography,
-} from '@mui/material';
+import { Box, Paper, PaperProps, Stack, StackProps, Typography } from '@mui/material';
 import { IllusCompleted } from '../../illustrations/Completed';
 import { IllustrationProps } from '@components/Illustration';
-import { ButtonNaked } from '@components/ButtonNaked';
 
 import { checkChildren } from '../../utils/children.utility';
 import MIStep, { MIStepProps } from '../MIStepper/MIStep';
 import MIStepper, { MIStepperLocaleText } from '../MIStepper/MIStepper';
+import { MIButton } from '@components/MIButton';
+import { MIButtonProps } from '@components/MIButton/types';
 
 type MIWizardLocaleText = MIStepperLocaleText & {
   exitButton?: string;
@@ -33,6 +25,17 @@ const defaultLocaleText = {
   nextButton: 'Confirm',
 };
 
+type NextButtonProps = Omit<MIButtonProps, 'onClick' | 'href'> & {
+  onClick?: (next: () => void, step: number) => void;
+  label?: string;
+  herf?: never;
+};
+
+type PrevButtonProps = Omit<MIButtonProps, 'onClick' | 'href'> & {
+  onClick?: (previous: () => void, step: number) => void;
+  herf?: never;
+};
+
 type Props = {
   activeStep: number;
   setActiveStep: (step: number) => void;
@@ -40,21 +43,16 @@ type Props = {
   children: ReactNode;
   localeText?: MIWizardLocaleText;
   slots?: {
-    nextButton?: JSXElementConstructor<ButtonProps>;
-    prevButton?: JSXElementConstructor<ButtonProps>;
-    exitButton?: JSXElementConstructor<ButtonProps>;
+    nextButton?: JSXElementConstructor<NextButtonProps>;
+    prevButton?: JSXElementConstructor<PrevButtonProps>;
+    exitButton?: JSXElementConstructor<MIButtonProps>;
     feedbackIcon?: JSXElementConstructor<IllustrationProps>;
   };
   slotsProps?: {
     stepContainer?: Partial<PaperProps>;
-    nextButton?: Omit<ButtonProps, 'onClick'> & {
-      onClick?: (next: () => void, step: number) => void;
-      label?: string;
-    };
-    prevButton?: Omit<ButtonProps, 'onClick'> & {
-      onClick?: (previous: () => void, step: number) => void;
-    };
-    exitButton?: ButtonProps;
+    nextButton?: NextButtonProps;
+    prevButton?: PrevButtonProps;
+    exitButton?: MIButtonProps;
     actions?: StackProps;
     container?: Omit<StackProps, 'children'> & { 'data-testid'?: string };
     feedback?: {
@@ -79,9 +77,9 @@ const MIWizard: React.FC<Props> = ({
   slotsProps,
 }) => {
   checkChildren(children, [{ cmp: MIStep }], 'MIWizard');
-  const PrevButton = slots?.prevButton || Button;
-  const NextButton = slots?.nextButton || Button;
-  const ExitButton = slots?.exitButton || ButtonNaked;
+  const PrevButton = slots?.prevButton || MIButton;
+  const NextButton = slots?.nextButton || MIButton;
+  const ExitButton = slots?.exitButton || MIButton;
   const FeedbackIcon = slots?.feedbackIcon || IllusCompleted;
 
   const resolvedLocaleText = {
@@ -149,14 +147,14 @@ const MIWizard: React.FC<Props> = ({
             {feedback.content}
           </Typography>
 
-          <Button
+          <MIButton
             data-testid="wizard-feedback-button"
             variant="contained"
             sx={{ mt: 2, mb: 11 }}
             onClick={feedback.onClick}
           >
             {feedback.buttonText}
-          </Button>
+          </MIButton>
         </Box>
       </Box>
     );
@@ -166,12 +164,12 @@ const MIWizard: React.FC<Props> = ({
     <Stack display="flex" alignItems="center" justifyContent="center" {...slotsProps?.container}>
       <Box p={3}>
         <ExitButton
+          {...slotsProps?.exitButton}
           data-testid="exit-button"
-          type="button"
           size="medium"
           color="primary"
           startIcon={<ArrowBackIcon />}
-          {...slotsProps?.exitButton}
+          variant="text"
         >
           {resolvedLocaleText.exitButton}
         </ExitButton>
@@ -199,19 +197,20 @@ const MIWizard: React.FC<Props> = ({
           {...slotsProps?.actions}
         >
           <PrevButton
+            {...slotsProps?.prevButton}
             data-testid="prev-button"
             sx={{ mt: { xs: 2, md: 0 } }}
-            {...slotsProps?.prevButton}
             onClick={handlePrevStep}
+            variant="outlined"
           >
             {resolvedLocaleText.previousButton}
           </PrevButton>
 
           <NextButton
+            {...slotsProps?.nextButton}
             data-testid="next-button"
             variant="contained"
             sx={{ ml: { md: 'auto' } }}
-            {...slotsProps?.nextButton}
             onClick={handleNextStep}
           >
             {slotsProps?.nextButton?.label || resolvedLocaleText.nextButton}
