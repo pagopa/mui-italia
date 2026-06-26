@@ -16,7 +16,7 @@ interfaccia bloccata o non reattiva.
 
 **Link utili**
 
-- 🎨 **Figma:** _(da inserire)_
+- 🎨 [Figma](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=109-2426)
 - 💻 **GitHub:** _(da inserire)_
 
 ## Playground
@@ -43,6 +43,17 @@ interfaccia bloccata o non reattiva.
 ### Secondary
 
 <Canvas of={MISpinnerStories.Secondary} />
+
+## Dimensione
+
+La dimensione dello spinner si controlla con la prop `size`, ereditata da
+`CircularProgress` di MUI. Accetta un numero (pixel) o una stringa CSS; il valore
+di default è `24`.
+
+```tsx
+<MISpinner size={16} />
+<MISpinner size={32} />
+```
 
 ## Accessibilità
 

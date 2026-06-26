@@ -3,7 +3,7 @@
 import { ButtonNaked } from '@components/ButtonNaked';
 import { AlertTitle as MUIAlertTitle, Stack, styled, useMediaQuery, useTheme } from '@mui/material';
 import MUIAlert, { AlertProps as MUIAlertProps } from '@mui/material/Alert';
-import { ElementType, HTMLAttributeAnchorTarget } from 'react';
+import { ElementType, HTMLAttributeAnchorTarget, ReactNode } from 'react';
 import { getColor, getIcon } from './utils';
 import { MarginSxProps } from '@types';
 
@@ -28,7 +28,7 @@ interface MIAlertCtaProps {
 
 // Props shared by all variants
 interface BaseAlertProps extends Pick<MUIAlertProps, 'severity' | 'id'> {
-  description: string;
+  children: ReactNode;
   sx?: MarginSxProps;
 }
 
@@ -58,7 +58,7 @@ const StyledAlert = styled(MUIAlert as React.ComponentType<MUIBaseAlertProps>, {
   // This prevents 'variant' from being written to the HTML DOM
   shouldForwardProp: (prop) => prop !== 'variant',
 })<StyledAlertProps>(({ theme, severity = 'success', variant }) => {
-  const severityPalette = theme.palette[severity];
+  const severityPalette = theme.colors[severity];
 
   return {
     backgroundColor: severityPalette[100],
@@ -69,7 +69,7 @@ const StyledAlert = styled(MUIAlert as React.ComponentType<MUIBaseAlertProps>, {
       border: '1px solid',
       borderRadius: 8,
       padding: theme.spacing(2),
-      borderColor: severityPalette.main,
+      borderColor: severityPalette[500],
     }),
 
     // different styles for the 'header' variant
@@ -114,7 +114,7 @@ const StyledAlert = styled(MUIAlert as React.ComponentType<MUIBaseAlertProps>, {
 
 export const MIAlert: React.FC<MIAlertProps> = ({
   severity,
-  description,
+  children,
   variant = 'default',
   title,
   action,
@@ -129,7 +129,7 @@ export const MIAlert: React.FC<MIAlertProps> = ({
       <Stack direction={isMobile ? 'column' : 'row'} flex={1}>
         <Stack direction="column" flex={1} minWidth={0} gap={title ? '4px' : 0}>
           {title && <MUIAlertTitle color={getColor(theme, severity)}>{title}</MUIAlertTitle>}
-          {description}
+          {children}
         </Stack>
         {action && <MIAlertCta cta={action} severity={severity} isMobile={isMobile} />}
       </Stack>
@@ -167,7 +167,7 @@ const MIAlertCta = ({ cta, severity = 'success', isMobile }: Readonly<MIAlertCta
         textDecoration: 'none',
         alignSelf: isMobile ? 'flex-start' : 'center',
         paddingLeft: isMobile ? theme.spacing(0) : theme.spacing(8),
-        color: theme.palette[severity][850],
+        color: theme.colors[severity][850],
       })}
     >
       {cta.label}
