@@ -1,5 +1,4 @@
 import { useTheme } from '@mui/material/styles';
-import { colors } from 'theme/foundations/colors';
 import { IllustrationProps } from '@components/Illustration';
 
 export interface MIIllustrationProps extends IllustrationProps {
@@ -14,7 +13,7 @@ export const useIllustrationColors = (mode?: 'light' | 'dark') => {
   const currentMode = mode || (isThemeDark ? 'dark' : 'light');
   const isDark = currentMode === 'dark';
   return {
-    colorPrimary: isDark ? colors.neutral.white : colors.blue[500],
-    colorSecondary: isDark ? colors.blue[300] : colors.blue[100],
+    colorPrimary: isDark ? theme.colors.neutral.white : theme.colors.blue[500],
+    colorSecondary: isDark ? theme.colors.blue[300] : theme.colors.blue[100],
   };
 };

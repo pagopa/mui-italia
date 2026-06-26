@@ -1,35 +1,33 @@
 import { styled } from '@mui/material';
-import MUIAlert, { AlertProps as MUIAlertProps } from '@mui/material/Alert';
+import MUIAlert from '@mui/material/Alert';
 import { AllowedAlertSeverity } from '@types';
-import { ComponentType } from 'react';
 
-type MUIBaseAlertProps = Omit<MUIAlertProps, 'variant'>;
-
-type StyledAlertOwnerState = {
-  severity?: AllowedAlertSeverity;
-  title?: string;
-  variant?: 'default' | 'header';
+type StyledAlertProps = {
+  ownerState: {
+    severity?: AllowedAlertSeverity;
+    title?: string;
+    variant?: 'default' | 'header';
+  };
 };
 
-export type StyledAlertProps = MUIBaseAlertProps & StyledAlertOwnerState;
-
-export const StyledAlert = styled(MUIAlert as ComponentType<MUIBaseAlertProps>, {
+export const StyledAlert = styled(MUIAlert, {
   shouldForwardProp: (prop) => prop !== 'variant',
-})<StyledAlertOwnerState>(({ theme, severity = 'success', title, variant }) => {
-  const severityPalette = theme.palette[severity];
+})<StyledAlertProps>(({ theme, ownerState, title }) => {
+  const { severity = 'success', variant = 'default' } = ownerState;
+  const severityPalette = theme.colors[severity];
   const isHeaderVariant = variant === 'header';
   const isDefaultVariant = variant === 'default';
 
   return {
     backgroundColor: severityPalette[100],
     justifyContent: isHeaderVariant ? 'center' : undefined,
-    alignItems: isHeaderVariant ? 'center' : isDefaultVariant || title ? 'flex-start' : 'center',
+    alignItems: isDefaultVariant || title ? 'flex-start' : 'center',
 
-    ...(!isHeaderVariant && {
+    ...(isDefaultVariant && {
       border: '1px solid',
       borderRadius: 8,
       padding: theme.spacing(2),
-      borderColor: severityPalette.main,
+      borderColor: severityPalette[500],
     }),
 
     ...(isHeaderVariant && {
@@ -57,7 +55,7 @@ export const StyledAlert = styled(MUIAlert as ComponentType<MUIBaseAlertProps>, 
       fontWeight: isHeaderVariant
         ? theme.typography.fontWeightMedium
         : theme.typography.fontWeightRegular,
-      fontSize: isHeaderVariant ? '14px' : isDefaultVariant ? '16px' : undefined,
+      fontSize: isHeaderVariant ? '14px' : '16px',
       flex: isHeaderVariant ? '0 1 auto' : 1,
       width: isHeaderVariant ? 'auto' : '100%',
       display: 'flex',

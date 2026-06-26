@@ -7,14 +7,46 @@ name: 'Chromatic'
 # Event for the workflow
 on:
   pull_request:
-    types: [opened, ready_for_review, review_requested, reopened]
+    types: [opened, ready_for_review, review_requested, reopened, synchronize, closed]
+
+permissions:
+  contents: read
 
 # List of jobs
 jobs:
   chromatic-deployment:
-    runs-on: ubuntu-latest
-    # Ignore draft pull request
-    if: ${{ github.event.pull_request.draft == false }}
+    runs-on: ubuntu-24.04
+    # When a check is required if it is skipped by the on condition, it remains pending on pull request
+    # To avoid this we must use the if condition on job:
+    # - It always runs on pull request when it is merged (closed + merged) from branch that isn't in ignored ones
+    #   and the destination branch is main or develop
+    # - It always runs on pull request if the pull request isn't in draft mode and there isn't a push and the pull request doesn't come
+    #   from branches ignored
+    if: >
+      (
+        github.event.action == 'closed' && 
+        github.event.pull_request.merged == true &&
+        !startsWith(github.head_ref, 'renovate/') &&
+        !startsWith(github.head_ref, 'dependabot') &&
+        !startsWith(github.head_ref, 'main') &&
+        !startsWith(github.head_ref, 'ci/') &&
+        !startsWith(github.head_ref, 'build/') &&
+        !startsWith(github.head_ref, 'chore/') &&
+        (github.base_ref == 'main' || github.base_ref == 'develop')
+      ) || 
+      (
+        github.event.action != 'closed' && 
+        github.event.action != 'synchronize' && 
+        github.event.pull_request.draft == false &&
+        !startsWith(github.head_ref, 'renovate/') &&
+        !startsWith(github.head_ref, 'dependabot') &&
+        !startsWith(github.head_ref, 'release/') &&
+        !startsWith(github.head_ref, 'hotfix/') &&
+        !startsWith(github.head_ref, 'main') &&
+        !startsWith(github.head_ref, 'ci/') &&
+        !startsWith(github.head_ref, 'build/') &&
+        !startsWith(github.head_ref, 'chore/')
+      )
     steps:
       - name: Checkout repository
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0

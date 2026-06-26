@@ -2,12 +2,11 @@
 
 import { ButtonNaked } from '@components/ButtonNaked';
 import { AlertTitle as MUIAlertTitle, Stack, useMediaQuery, useTheme } from '@mui/material';
-import type { SystemProps, Theme } from '@mui/system';
 import { AlertProps as MUIAlertProps } from '@mui/material/Alert';
 import { ElementType, HTMLAttributeAnchorTarget } from 'react';
 import { StyledAlert } from './StyledAlert';
 import { getColor, getIcon } from './utils';
-import { AllowedAlertSeverity } from '@types';
+import { AllowedAlertSeverity, MarginSxProps } from '@types';
 
 type ButtonCTA = {
   label: string;
@@ -26,24 +25,8 @@ interface MIAlertCtaProps {
   isMobile: boolean;
 }
 
-type MarginKeys =
-  | 'm'
-  | 'mt'
-  | 'mr'
-  | 'mb'
-  | 'ml'
-  | 'mx'
-  | 'my'
-  | 'margin'
-  | 'marginTop'
-  | 'marginRight'
-  | 'marginBottom'
-  | 'marginLeft';
-
-type MarginSxProps = Pick<SystemProps<Theme>, MarginKeys>;
-
 // Props shared by all variants
-interface BaseAlertProps extends Pick<MUIAlertProps, 'severity'> {
+interface BaseAlertProps extends Pick<MUIAlertProps, 'severity' | 'id'> {
   description: string;
   sx?: MarginSxProps;
 }
@@ -77,7 +60,16 @@ export const MIAlert: React.FC<MIAlertProps> = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <StyledAlert severity={severity} icon={getIcon(severity)} variant={variant} sx={sx} {...rest}>
+    <StyledAlert
+      {...rest}
+      icon={getIcon(severity)}
+      sx={sx}
+      ownerState={{
+        variant,
+        severity,
+        title,
+      }}
+    >
       <Stack direction={isMobile ? 'column' : 'row'} flex={1}>
         <Stack direction="column" flex={1} minWidth={0} gap={title ? '4px' : 0}>
           {title && <MUIAlertTitle color={getColor(theme, severity)}>{title}</MUIAlertTitle>}
@@ -119,7 +111,7 @@ const MIAlertCta = ({ cta, severity = 'success', isMobile }: Readonly<MIAlertCta
         textDecoration: 'none',
         alignSelf: isMobile ? 'flex-start' : 'center',
         paddingLeft: isMobile ? theme.spacing(0) : theme.spacing(8),
-        color: theme.palette[severity][850],
+        color: theme.colors[severity][850],
       })}
     >
       {cta.label}

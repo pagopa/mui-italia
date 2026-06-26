@@ -18,4 +18,4 @@ export const getIcon = (severity?: AllowedAlertSeverity) =>
   severity !== undefined ? iconBySeverity[severity] : iconBySeverity.success;
 
 export const getColor = (theme: Theme, severity?: AllowedAlertSeverity) =>
-  severity !== undefined ? theme.palette[severity][850] : theme.palette.success[850];
+  severity !== undefined ? theme.colors[severity][850] : theme.colors.success[850];
