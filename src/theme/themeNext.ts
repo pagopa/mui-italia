@@ -8,13 +8,17 @@ import { italia } from '@tokens';
 
 /* Basic Configuration */
 
+/**
+ * DO NOT USE VARIABLE!
+ * TO DO M20DS-111: integrate in theme
+ * */
+
 const responsiveBreakpoint = 'sm';
-export const ringWidth = '4px';
 const marginLinkSize = '4px';
 const paddingLinkSize = '1px';
-export const focusWidth = '2px';
-export const focusBorderRadius = '8px';
-export const focusOffset = '4px';
+const focusWidth = '2px';
+const focusBorderRadius = '8px';
+const focusOffset = '4px';
 const focusButtonOffset = '2px';
 const alertBorderWidth = '4px';
 
