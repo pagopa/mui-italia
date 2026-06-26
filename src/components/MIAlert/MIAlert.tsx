@@ -3,7 +3,7 @@
 import { ButtonNaked } from '@components/ButtonNaked';
 import { AlertTitle as MUIAlertTitle, Stack, styled, useMediaQuery, useTheme } from '@mui/material';
 import MUIAlert, { AlertProps as MUIAlertProps } from '@mui/material/Alert';
-import { ElementType, HTMLAttributeAnchorTarget } from 'react';
+import { ElementType, HTMLAttributeAnchorTarget, ReactNode } from 'react';
 import { getColor, getIcon } from './utils';
 import { MarginSxProps } from '@types';
 
@@ -28,7 +28,7 @@ interface MIAlertCtaProps {
 
 // Props shared by all variants
 interface BaseAlertProps extends Pick<MUIAlertProps, 'severity' | 'id'> {
-  description: string;
+  description: ReactNode;
   sx?: MarginSxProps;
 }
 
