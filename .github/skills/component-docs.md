@@ -438,7 +438,9 @@ Per ogni componente, la risposta deve includere:
 
 1. una proposta per `src/stories/<Component>.stories.tsx`;
 2. una proposta per `src/docs/<Component>.mdx`;
-3. eventuali domande aperte se servono informazioni non deducibili dal codice.
+3. l’elenco delle props esposte nei Controls;
+4. l’elenco delle props complesse gestite tramite controlli custom;
+5. eventuali domande aperte se servono informazioni non deducibili dal codice.
 
 Quando mostra codice, separare chiaramente i blocchi per file:
 
