@@ -8,7 +8,7 @@ import { ThemeProvider, Box } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 /* MUI Italia Theme */
-import { theme as lightTheme, darkTheme } from '../src/theme';
+import { theme as lightTheme, darkTheme, theme } from '../src/theme';
 
 /* MUI Italia Theme-Next */
 import { themeNext } from '../src/theme/themeNext';
@@ -33,7 +33,10 @@ interface StoryContainerProps {
 }
 
 const StoryContainer = ({ children }: StoryContainerProps) => (
-  <Box sx={{ backgroundColor: 'background.paper', padding: '1rem' }} data-chromatic="ignore">
+  <Box
+    sx={{ backgroundColor: theme.colors.neutral.grey[50], padding: '1rem' }}
+    data-chromatic="ignore"
+  >
     {children}
   </Box>
 );

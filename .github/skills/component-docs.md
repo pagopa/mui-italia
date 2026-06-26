@@ -37,28 +37,18 @@ La documentazione deve usare la struttura MDX già prevista dal progetto:
 Esempio di struttura base:
 
 ```mdx
-import {
-  Meta,
-  Title,
-  Primary,
-  Controls,
-  Story,
-} from "@storybook/addon-docs/blocks";
+import { Meta, Title, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
 
-import Overview from "./components/Overview";
-import Section from "./components/Section";
-import SubSection from "./components/SubSection";
-import * as ComponentStories from "../stories/Component.stories";
+import Overview from './components/Overview';
+import Section from './components/Section';
+import SubSection from './components/SubSection';
+import * as ComponentStories from '../stories/Component.stories';
 
 <Meta of={ComponentStories} />
 
 <Title />
 
-<Overview
-  githubRelativePath="Component/Component.tsx"
-  figmaNodeId="..."
-  muiRelativePath="..."
->
+<Overview githubRelativePath="Component/Component.tsx" figmaNodeId="..." muiRelativePath="...">
   Descrizione del componente.
 </Overview>
 
@@ -93,14 +83,10 @@ Regole:
 Esempio:
 
 ```mdx
-<Overview
-  githubRelativePath="MIChip/MIChip.tsx"
-  figmaNodeId="157-745"
-  muiRelativePath="react-chip"
->
-  <strong>MIChip</strong> è un componente pensato per mostrare informazioni
-  sintetiche come stato, etichetta o filtro applicato. Supporta varianti filled
-  e outlined, palette semantiche dedicate e una modalità deletable.
+<Overview githubRelativePath="MIChip/MIChip.tsx" figmaNodeId="157-745" muiRelativePath="react-chip">
+  <strong>MIChip</strong> è un componente pensato per mostrare informazioni sintetiche come stato,
+  etichetta o filtro applicato. Supporta varianti filled e outlined, palette semantiche dedicate e
+  una modalità deletable.
 </Overview>
 ```
 
@@ -173,7 +159,7 @@ Esempi:
 ```tsx
 type ComponentStoryArgs = {
   label: string;
-  variant?: "filled" | "outlined";
+  variant?: 'filled' | 'outlined';
   deletable?: boolean;
   deleteAriaLabel?: string;
 };
@@ -186,7 +172,7 @@ render: ({ deletable, deleteAriaLabel, label, variant }) => {
       <Component
         label={label}
         variant={variant}
-        onDelete={() => alert("Deleted")}
+        onDelete={() => alert('Deleted')}
         aria-label={deleteAriaLabel}
       />
     );
@@ -418,7 +404,7 @@ Non esporre direttamente:
 
 ```tsx
 onClick: {
-  control: "text";
+  control: 'text';
 }
 ```
 
@@ -452,10 +438,7 @@ Per ogni componente, la risposta deve includere:
 
 1. una proposta per `src/stories/<Component>.stories.tsx`;
 2. una proposta per `src/docs/<Component>.mdx`;
-3. un riepilogo delle sezioni previste;
-4. l’elenco delle props esposte nei Controls;
-5. l’elenco delle props complesse gestite tramite controlli custom;
-6. eventuali domande aperte se servono informazioni non deducibili dal codice.
+3. eventuali domande aperte se servono informazioni non deducibili dal codice.
 
 Quando mostra codice, separare chiaramente i blocchi per file:
 
