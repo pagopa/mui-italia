@@ -54,7 +54,7 @@ const meta: Meta<React.ComponentProps<typeof MIAlert>> = {
       control: { type: 'text' },
       table: { type: { summary: 'string' } },
     },
-    description: {
+    children: {
       description:
         'Contenuto principale dell’alert. Accetta una semplice stringa oppure un `ReactNode` custom (es. link, liste, testo formattato).',
       control: { type: 'text' },
@@ -96,7 +96,7 @@ const withHeaderContext = (Story: React.ElementType) => (
 export const DefaultCTALink: Story = {
   args: {
     title: DEFAULT_TITLE,
-    description: DEFAULT_MESSAGE,
+    children: DEFAULT_MESSAGE,
     action: {
       label: DEFAULT_CTA,
       href: 'https://test.com',
@@ -108,7 +108,7 @@ export const DefaultCTALink: Story = {
 export const DefaultCTAClick: Story = {
   args: {
     title: DEFAULT_TITLE,
-    description: DEFAULT_MESSAGE,
+    children: DEFAULT_MESSAGE,
     action: {
       label: DEFAULT_CTA,
       onClick: () => console.log('CTA clicked'),
@@ -119,19 +119,19 @@ export const DefaultCTAClick: Story = {
 export const NoCTA: Story = {
   args: {
     title: DEFAULT_TITLE,
-    description: DEFAULT_MESSAGE,
+    children: DEFAULT_MESSAGE,
   },
 };
 
 export const NoTitle: Story = {
   args: {
-    description: DEFAULT_MESSAGE,
+    children: DEFAULT_MESSAGE,
   },
 };
 
 export const NoTitleWithCTA: Story = {
   args: {
-    description: DEFAULT_MESSAGE,
+    children: DEFAULT_MESSAGE,
     action: {
       label: DEFAULT_CTA,
       href: 'https://test.com',
@@ -143,7 +143,7 @@ export const NoTitleWithCTA: Story = {
 export const CustomNodeDescription: Story = {
   args: {
     title: DEFAULT_TITLE,
-    description: (
+    children: (
       <Box component="span">
         Non è stato possibile completare alcuni passaggi. Controlla i seguenti elementi:
         <Box component="ul" sx={{ my: 1, pl: 2.5 }}>
@@ -166,7 +166,7 @@ export const HeaderVariant: Story = {
   args: {
     variant: 'header',
     severity: 'success',
-    description:
+    children:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit auctor dui, at convallis nisl.',
   },
   decorators: [withHeaderContext],
@@ -177,7 +177,7 @@ export const HeaderVariant: Story = {
 export const StressUnbroken: Story = {
   args: {
     title: `Very long title ${LONG_UNBROKEN}`,
-    description: `${LONG_UNBROKEN}${LONG_UNBROKEN}${LONG_UNBROKEN}`,
+    children: `${LONG_UNBROKEN}${LONG_UNBROKEN}${LONG_UNBROKEN}`,
     action: {
       label: DEFAULT_CTA,
       href: 'https://test.com',
@@ -188,7 +188,7 @@ export const StressUnbroken: Story = {
 
 export const StressUnbrokenNoTitle: Story = {
   args: {
-    description: `${LONG_UNBROKEN}${LONG_UNBROKEN}${LONG_UNBROKEN}`,
+    children: `${LONG_UNBROKEN}${LONG_UNBROKEN}${LONG_UNBROKEN}`,
     action: {
       label: DEFAULT_CTA,
       href: 'https://test.com',
@@ -200,7 +200,7 @@ export const StressUnbrokenNoTitle: Story = {
 export const StressUnbrokenHeaderVariant: Story = {
   args: {
     variant: 'header',
-    description: `${LONG_UNBROKEN}${LONG_UNBROKEN}${LONG_UNBROKEN}`,
+    children: `${LONG_UNBROKEN}${LONG_UNBROKEN}${LONG_UNBROKEN}`,
   },
   decorators: [withHeaderContext],
 };

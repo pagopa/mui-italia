@@ -28,7 +28,7 @@ interface MIAlertCtaProps {
 
 // Props shared by all variants
 interface BaseAlertProps extends Pick<MUIAlertProps, 'severity' | 'id'> {
-  description: ReactNode;
+  children: ReactNode;
   sx?: MarginSxProps;
 }
 
@@ -114,7 +114,7 @@ const StyledAlert = styled(MUIAlert as React.ComponentType<MUIBaseAlertProps>, {
 
 export const MIAlert: React.FC<MIAlertProps> = ({
   severity,
-  description,
+  children,
   variant = 'default',
   title,
   action,
@@ -129,7 +129,7 @@ export const MIAlert: React.FC<MIAlertProps> = ({
       <Stack direction={isMobile ? 'column' : 'row'} flex={1}>
         <Stack direction="column" flex={1} minWidth={0} gap={title ? '4px' : 0}>
           {title && <MUIAlertTitle color={getColor(theme, severity)}>{title}</MUIAlertTitle>}
-          {description}
+          {children}
         </Stack>
         {action && <MIAlertCta cta={action} severity={severity} isMobile={isMobile} />}
       </Stack>

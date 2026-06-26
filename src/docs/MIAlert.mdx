@@ -65,29 +65,25 @@ Nella variante `default` è possibile aggiungere una CTA opzionale tramite la pr
 
 <Canvas of={MIAlertStories.DefaultCTAClick} />
 
-## Descrizione personalizzata
+## Contenuto personalizzato
 
-La prop `description` accetta sia una semplice stringa sia un `ReactNode` custom.
-Questo permette di passare contenuti più ricchi come testo formattato, link o
-liste, mantenendo lo stile dell'alert.
+Il contenuto principale dell'alert si passa tramite i `children`, che accettano sia
+una semplice stringa sia un `ReactNode` custom. Questo permette di passare contenuti
+più ricchi come testo formattato, link o liste, mantenendo lo stile dell'alert.
 
 ```tsx
-<MIAlert
-  severity="error"
-  title="Titolo dell'Alert"
-  description={
-    <span>
-      Controlla i seguenti elementi:
-      <ul>
-        <li>Verifica i dati anagrafici inseriti</li>
-        <li>Controlla l'indirizzo email</li>
-        <li>
-          Consulta la <a href="https://test.com">guida online</a> per maggiori dettagli
-        </li>
-      </ul>
-    </span>
-  }
-/>
+<MIAlert severity="error" title="Titolo dell'Alert">
+  <span>
+    Controlla i seguenti elementi:
+    <ul>
+      <li>Verifica i dati anagrafici inseriti</li>
+      <li>Controlla l'indirizzo email</li>
+      <li>
+        Consulta la <a href="https://test.com">guida online</a> per maggiori dettagli
+      </li>
+    </ul>
+  </span>
+</MIAlert>
 ```
 
 <Canvas of={MIAlertStories.CustomNodeDescription} />
@@ -108,7 +104,7 @@ queste indicazioni:
 - **CTA descrittive.** Se usi una `action`, l'etichetta deve descrivere chiaramente
   l'esito dell'interazione (evita testi generici come "Clicca qui").
 
-- **Contenuti custom.** Quando passi un `ReactNode` come `description`, usa una
+- **Contenuti custom.** Quando passi un `ReactNode` come `children`, usa una
   struttura semantica corretta (es. `<ul>`/`<li>` per le liste, `<a>` per i link)
   così da preservare la navigabilità con tecnologie assistive.
 
