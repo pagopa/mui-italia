@@ -8,17 +8,17 @@ const handleDelete = () => {
   console.info('You clicked the delete icon.');
 };
 
-type StoryProps = React.ComponentProps<typeof MIChip> & {
-  enableOnDelete?: boolean;
+type MIChipStoryArgs = React.ComponentProps<typeof MIChip> & {
+  deletable?: boolean;
 };
 
-const meta: Meta<StoryProps> = {
+const meta: Meta<MIChipStoryArgs> = {
   title: 'Components/MIChip',
   component: MIChip,
   parameters: {
     layout: 'centered',
     controls: {
-      include: ['label', 'color', 'variant', 'aria-label', 'enableOnDelete'],
+      include: ['label', 'color', 'variant', 'aria-label', 'deletable'],
     },
   },
   args: {
@@ -26,7 +26,7 @@ const meta: Meta<StoryProps> = {
     color: 'default',
     variant: 'filled',
     'aria-label': 'Clicca per cancellare',
-    enableOnDelete: false,
+    deletable: false,
   },
   argTypes: {
     label: {
@@ -63,7 +63,7 @@ const meta: Meta<StoryProps> = {
       description: "Aria label dell'icona di delete",
       if: { arg: 'enableOnDelete', eq: true },
     },
-    enableOnDelete: {
+    deletable: {
       description: 'Attiva/Disattiva il passaggio della funzione onDelete al componente',
       control: 'boolean',
       if: { arg: 'color', eq: 'neutral' },
@@ -73,15 +73,26 @@ const meta: Meta<StoryProps> = {
     },
   },
   render: (args) => {
-    const { enableOnDelete, color, ...restArgs } = args;
-    const handleOnDelete = enableOnDelete ? () => alert('Cliccato!') : undefined;
-    return <MIChip {...restArgs} color={color} onDelete={handleOnDelete} />;
+    const { deletable, color, variant, label, 'aria-label': ariaLabel } = args;
+    const handleOnDelete = deletable ? () => alert('Cliccato!') : undefined;
+    if (color === 'neutral') {
+      return (
+        <MIChip
+          label={label}
+          color="neutral"
+          variant="filled"
+          onDelete={handleOnDelete}
+          aria-label={ariaLabel}
+        />
+      );
+    }
+    return <MIChip label={label} color={color} variant={variant} />;
   },
 };
 
 export default meta;
 
-type Story = StoryObj<typeof MIChip>;
+type Story = StoryObj<MIChipStoryArgs>;
 
 const ChipGrid = ({ variant }: { variant: 'filled' | 'outlined' }) => (
   <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
@@ -132,8 +143,7 @@ export const Deletable: Story = {
   args: {
     label: 'Filtro attivo',
     color: 'neutral',
-    onDelete: handleDelete,
-    'aria-label': 'Rimuovi chip Filtro attivo',
+    deletable: true,
   },
   parameters: {
     docs: {
