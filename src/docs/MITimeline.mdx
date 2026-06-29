@@ -1,0 +1,105 @@
+import { Meta, Title, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import * as MITimelineStories from '../stories/MITimeline.stories.tsx';
+
+<Meta of={MITimelineStories} />
+
+<Title />
+
+Il componente **MITimeline** è la timeline del Design System basata sul componente
+[Timeline](https://mui.com/material-ui/react-timeline/) di MUI Lab. Rappresenta una
+sequenza verticale di step, ognuno reso da un **MITimelineItem**, con dot, connettori
+e card colorate previsti dal Design System.
+
+**Link utili**
+
+- 🎨 [Figma](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System)
+- 💻 **GitHub:** _(da inserire)_
+
+## Playground
+
+<Canvas of={MITimelineStories.Default} />
+
+<Controls of={MITimelineStories.Default} />
+
+## Anatomia
+
+`MITimeline` è un contenitore che accetta **solo figli di tipo `MITimelineItem`**: la
+validazione dei children è automatica e segnala in console eventuali nodi non ammessi.
+La posizione di ogni item (primo/ultimo) viene gestita internamente da `MITimeline`,
+che mantiene trasparente il connettore sopra il primo item e sotto l'ultimo. Non è
+quindi richiesta — né possibile — alcuna configurazione manuale da parte di chi
+utilizza il componente.
+
+```tsx
+<MITimeline>
+  <MITimelineItem variant="success" icon={CheckCircleIcon} title="Notifica inviata">
+    <Typography variant="body2" color="text.secondary">
+      La notifica è stata depositata e presa in carico dal sistema.
+    </Typography>
+  </MITimelineItem>
+  <MITimelineItem variant="normal" icon={InfoIcon} title="In elaborazione">
+    <Typography variant="body2" color="text.secondary">
+      Stiamo verificando i dati del destinatario.
+    </Typography>
+  </MITimelineItem>
+</MITimeline>
+```
+
+## Props di MITimelineItem
+
+Ogni `MITimelineItem` espone le seguenti prop:
+
+- **`variant`** (obbligatoria) — il colore/significato dell'item: `normal`, `info`,
+  `success`, `warning`, `error`. Determina i colori di bordo, sfondo della card,
+  testo e dot.
+- **`icon`** (obbligatoria) — il componente icona (`ComponentType<SvgIconProps>`, es.
+  un'icona di `@mui/icons-material`) mostrato all'interno della card.
+- **`title`** (obbligatoria) — il titolo dell'item; accetta qualsiasi `ReactNode`.
+- **`children`** — il corpo dell'item; accetta qualsiasi `ReactNode`.
+
+## Varianti
+
+`MITimelineItem` supporta cinque varianti, che ne definiscono colore e semantica:
+
+- **`normal`** — variante neutra, per gli step standard del flusso (sfondo bianco,
+  bordo grigio).
+- **`info`** — variante informativa, per comunicazioni neutre da evidenziare.
+- **`success`** — per esiti positivi e operazioni completate.
+- **`warning`** — per situazioni che richiedono attenzione.
+- **`error`** — per esiti negativi e operazioni fallite.
+
+<Canvas of={MITimelineStories.Variants} />
+
+> ℹ️ **Dot in evidenza.** Quando il **primo** item ha una variante diversa da
+> `normal` (cioè una variante "feedback"), il suo dot viene reso più grande e con un
+> alone, per dare risalto allo stato corrente in cima alla timeline. Gli altri dot
+> restano piccoli e neutri.
+
+## Contenuto
+
+Sia `title` che `children` accettano qualsiasi `ReactNode`: è quindi possibile
+inserire testo formattato, liste, link o altri componenti all'interno del corpo di
+ogni item.
+
+<Canvas of={MITimelineStories.RichContent} />
+
+### Titolo personalizzato
+
+Anche `title` accetta qualsiasi `ReactNode`: oltre al testo è possibile comporre
+elementi più ricchi, ad esempio affiancando un [`Tag`](?path=/docs/components-tag--docs)
+al testo del titolo.
+
+<Canvas of={MITimelineStories.CustomTitle} />
+
+## Accessibilità
+
+- **Icone decorative.** Le icone degli item sono di supporto visivo: assicurati che il
+  `title` e il contenuto comunichino già l'informazione in forma testuale, senza
+  affidarti al solo colore della variante.
+- **Significato non solo cromatico.** Le varianti (`success`, `error`, ecc.) usano il
+  colore per comunicare lo stato: accompagna sempre il colore con un titolo e un'icona
+  coerenti, così l'informazione resta percepibile anche in caso di daltonismo o bassa
+  visione.
+- **Struttura coerente.** Mantieni l'ordine cronologico/logico degli item nel markup,
+  così che l'ordine di lettura degli screen reader rispecchi la sequenza della
+  timeline.
