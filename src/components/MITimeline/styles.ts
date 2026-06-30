@@ -1,4 +1,4 @@
-import { colors } from 'theme/foundations/colors';
+import { theme } from '@theme';
 import { MITimelineItemProps } from './types';
 
 type VariantColor = {
@@ -9,20 +9,28 @@ type VariantColor = {
 
 export const itemVariantColor: Record<MITimelineItemProps['variant'], VariantColor> = {
   normal: {
-    border: colors.neutral.grey[100],
-    background: colors.neutral.white,
-    text: colors.neutral.black,
+    border: theme.colors.neutral.grey[100],
+    background: theme.colors.neutral.white,
+    text: theme.colors.neutral.black,
   },
-  info: { border: colors.info[850], background: colors.info[100], text: colors.info[850] },
+  info: {
+    border: theme.colors.info[850],
+    background: theme.colors.info[100],
+    text: theme.colors.info[850],
+  },
   success: {
-    border: colors.success[850],
-    background: colors.success[100],
-    text: colors.success[850],
+    border: theme.colors.success[850],
+    background: theme.colors.success[100],
+    text: theme.colors.success[850],
   },
   warning: {
-    border: colors.warning[850],
-    background: colors.warning[100],
-    text: colors.warning[850],
+    border: theme.colors.warning[850],
+    background: theme.colors.warning[100],
+    text: theme.colors.warning[850],
   },
-  error: { border: colors.error[850], background: colors.error[100], text: colors.error[850] },
+  error: {
+    border: theme.colors.error[850],
+    background: theme.colors.error[100],
+    text: theme.colors.error[850],
+  },
 };

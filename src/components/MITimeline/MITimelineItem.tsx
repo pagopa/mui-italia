@@ -1,8 +1,8 @@
 import { TimelineConnector, TimelineContent, TimelineItem, TimelineSeparator } from '@mui/lab';
 import { Box, Paper, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
+import { theme } from '@theme';
 import React from 'react';
-import { colors } from 'theme/foundations/colors';
 import { MITimelineDot } from './MITimelineDot';
 import { itemVariantColor } from './styles';
 import { MITimelineItemInternalProps, MITimelineItemProps } from './types';
@@ -20,7 +20,7 @@ const MITimelineItem: React.FC<MITimelineItemInternalProps> = ({
       <TimelineSeparator sx={{ width: 24, flex: 'none' }}>
         <TimelineConnector
           sx={{
-            bgcolor: isFirst ? 'transparent' : colors.neutral.grey[300],
+            bgcolor: isFirst ? 'transparent' : theme.colors.neutral.grey[300],
             position: 'relative',
             zIndex: 1,
           }}
@@ -28,7 +28,7 @@ const MITimelineItem: React.FC<MITimelineItemInternalProps> = ({
         <MITimelineDot isFirst={isFirst} dotVariant={variant} />
         <TimelineConnector
           sx={{
-            bgcolor: isLast ? 'transparent' : colors.neutral.grey[300],
+            bgcolor: isLast ? 'transparent' : theme.colors.neutral.grey[300],
             position: 'relative',
             zIndex: 1,
           }}
