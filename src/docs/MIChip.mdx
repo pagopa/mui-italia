@@ -1,5 +1,4 @@
 import { Meta, Title, Canvas, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
-import { Typography } from '@mui/material';
 
 import Overview from './components/Overview';
 import Section from './components/Section';
@@ -53,14 +52,14 @@ import * as MIChipStories from '../stories/MIChip.stories.tsx';
   description="MIChip è accessibile by design, ma l’accessibilità finale dipende dalla qualità delle props testuali passate dal consumer."
 >
   <SubSection title="Props rilevanti">
-    <Typography variant="body1">
-      • <strong>label</strong>: identifica il contenuto del chip. Deve essere sempre significativo.
-    </Typography>
-
-    <Typography variant="body1">
-      • <strong>aria-label</strong>: in modalità deletable, descrive l’azione associata all’icona di
-      rimozione quando il solo label non è sufficiente.
-    </Typography>
-
+    <ul>
+      <li>
+        <strong>label</strong>: identifica il contenuto del chip. Deve essere sempre significativo.
+      </li>
+      <li>
+        <strong>aria-label</strong>: in modalità deletable, descrive l’azione associata all’icona di
+        rimozione quando il solo label non è sufficiente.
+      </li>
+    </ul>
   </SubSection>
 </Section>

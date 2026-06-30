@@ -1,5 +1,4 @@
 import { Meta, Title, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
-import { Typography } from '@mui/material';
 
 import Overview from './components/Overview';
 import Section from './components/Section';
@@ -49,16 +48,16 @@ import * as MISpinnerStories from '../stories/MISpinner.stories.tsx';
   description="MISpinner è basato su CircularProgress e mantiene il ruolo accessibile di progressbar. L’accessibilità finale dipende dalla corretta valorizzazione delle props testuali."
 >
   <SubSection title="Props rilevanti">
-    <Typography variant="body1">
-      • <strong>aria-label</strong>: descrive lo stato di caricamento quando non è presente un testo
+    <ul>
+      <li>
+        <strong>aria-label</strong>: descrive lo stato di caricamento quando non è presente un testo
       visibile associato.
-    </Typography>
-
-    <Typography variant="body1">
-      • <strong>aria-labelledby</strong>: può essere usata in alternativa ad aria-label quando lo
+      </li>
+      <li>
+        <strong>aria-labelledby</strong>: può essere usata in alternativa ad aria-label quando lo
       spinner è descritto da un testo visibile nella pagina.
-    </Typography>
-
+      </li>
+    </ul>
   </SubSection>
 
   <SubSection title="Esempio accessibile">

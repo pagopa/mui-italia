@@ -1,4 +1,4 @@
-import { Box, Stack, Typography, Link as MuiLink } from '@mui/material';
+import { Box, Stack, Link as MuiLink } from '@mui/material';
 import { FC, ReactNode } from 'react';
 
 const FIGMA_URL =
@@ -16,9 +16,7 @@ type Props = {
 const Overview: FC<Props> = ({ children, githubRelativePath, figmaNodeId, muiRelativePath }) => {
   return (
     <Box sx={{ mt: 3 }}>
-      <Typography variant="body1" paragraph>
-        {children}
-      </Typography>
+      <Box sx={{ typography: 'body1', '& p': { margin: 0 } }}>{children}</Box>
 
       <Stack direction="row" spacing={3} useFlexGap flexWrap="wrap" sx={{ mt: 2 }}>
         <MuiLink href={`${FIGMA_URL}?node-id=${figmaNodeId}`} target="_blank" rel="noreferrer">
