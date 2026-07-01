@@ -69,23 +69,33 @@ export const Default: Story = {
 
 export const Variants: Story = {
   render: () => (
-    <MITimeline>
-      <MITimelineItem variant="normal" icon={InfoIcon} title="Normal">
-        <Typography variant="body2">Variante neutra</Typography>
-      </MITimelineItem>
-      <MITimelineItem variant="info" icon={InfoIcon} title="Info">
-        <Typography variant="body2">Variante informativa</Typography>
-      </MITimelineItem>
-      <MITimelineItem variant="success" icon={CheckCircleIcon} title="Success">
-        <Typography variant="body2">Variante di successo</Typography>
-      </MITimelineItem>
-      <MITimelineItem variant="warning" icon={WarningIcon} title="Warning">
-        <Typography variant="body2">Variante di avviso</Typography>
-      </MITimelineItem>
-      <MITimelineItem variant="error" icon={ErrorIcon} title="Error">
-        <Typography variant="body2">Variante di errore</Typography>
-      </MITimelineItem>
-    </MITimeline>
+    <>
+      <MITimeline>
+        <MITimelineItem variant="normal" icon={InfoIcon} title="Normal">
+          <Typography variant="body2">Variante neutra</Typography>
+        </MITimelineItem>
+      </MITimeline>
+      <MITimeline>
+        <MITimelineItem variant="info" icon={InfoIcon} title="Info">
+          <Typography variant="body2">Variante informativa</Typography>
+        </MITimelineItem>
+      </MITimeline>
+      <MITimeline>
+        <MITimelineItem variant="success" icon={CheckCircleIcon} title="Success">
+          <Typography variant="body2">Variante di successo</Typography>
+        </MITimelineItem>
+      </MITimeline>
+      <MITimeline>
+        <MITimelineItem variant="warning" icon={WarningIcon} title="Warning">
+          <Typography variant="body2">Variante di avviso</Typography>
+        </MITimelineItem>
+      </MITimeline>
+      <MITimeline>
+        <MITimelineItem variant="error" icon={ErrorIcon} title="Error">
+          <Typography variant="body2">Variante di errore</Typography>
+        </MITimelineItem>
+      </MITimeline>
+    </>
   ),
 };
 
