@@ -279,14 +279,15 @@ Esempio:
   description="Il componente è accessibile by design. L’accessibilità finale dipende però dalla corretta valorizzazione delle props testuali richieste in alcuni casi."
 >
   <SubSection title="Props rilevanti">
-    <Typography variant="body1">
-      • <strong>label</strong>: identifica il contenuto del componente. Deve essere sempre significativo.
-    </Typography>
-
-    <Typography variant="body1">
-      • <strong>aria-label</strong>: descrive l’azione associata a un controllo interattivo quando il solo testo visibile non è sufficiente.
-    </Typography>
-
+   <ul>
+      <li>
+        <strong>label</strong>: identifica il contenuto del chip. Deve essere sempre significativo.
+      </li>
+      <li>
+        <strong>aria-label</strong>: in modalità deletable, descrive l’azione associata all’icona di
+        rimozione quando il solo label non è sufficiente.
+      </li>
+    </ul>
   </SubSection>
 
   <Story of={ComponentStories.Accessibility} />
