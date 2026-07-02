@@ -38,3 +38,4 @@ export * from './MITooltip';
 export * from './MISpidSelectOIDialog';
 export * from './MISpinner';
 export * from './MIWizard';
+export * from './MIPaper';
