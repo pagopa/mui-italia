@@ -46,7 +46,7 @@ export default {
 
 const Template: StoryFn<typeof MIPaper> = (args) => (
   <div style={{ background: theme.colors.neutral.grey[50], padding: theme.spacing(2) }}>
-    <MIPaper borderRadius={24} {...args} sx={{ minWidth: '300px', ...args.sx }} />
+    <MIPaper borderRadius={8} {...args} sx={{ minWidth: '300px', ...args.sx }} />
   </div>
 );
 
