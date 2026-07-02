@@ -1,5 +1,6 @@
+import { MIPaper } from '@components/MIPaper';
 import { TimelineConnector, TimelineContent, TimelineItem, TimelineSeparator } from '@mui/lab';
-import { Box, Paper, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import { theme } from '@theme';
 import React from 'react';
@@ -35,17 +36,12 @@ const MITimelineItem: React.FC<MITimelineItemInternalProps> = ({
         />
       </TimelineSeparator>
       <TimelineContent sx={{ pb: isLast ? 0 : 2 }}>
-        <Paper
-          elevation={0}
+        <MIPaper
           sx={{
             backgroundColor: itemVariantColor[variant].background,
-            display: 'flex',
-            flexDirection: 'column',
-            p: 2,
             border: 1,
             borderRadius: '16px',
             borderColor: itemVariantColor[variant].border,
-            gap: '4px',
           }}
         >
           <Stack direction="row" alignItems="center" gap="12px">
@@ -57,6 +53,7 @@ const MITimelineItem: React.FC<MITimelineItemInternalProps> = ({
           {children && (
             <Box
               sx={{
+                mt: '4px',
                 pl: 'calc(24px + 12px)',
                 color: itemVariantColor[variant].text,
                 '& .MuiTypography-root': { color: 'inherit', fontSize: '16px' },
@@ -65,7 +62,7 @@ const MITimelineItem: React.FC<MITimelineItemInternalProps> = ({
               {children}
             </Box>
           )}
-        </Paper>
+        </MIPaper>
       </TimelineContent>
     </TimelineItem>
   );
