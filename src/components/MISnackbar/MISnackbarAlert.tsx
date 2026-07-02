@@ -12,7 +12,6 @@ import { StyledAlert } from '@components/MIAlert/StyledAlert';
 import { CopyToClipboardButton } from '@components/CopyToClipboardButton';
 import { forwardRef } from 'react';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import { neutral } from 'theme/colors';
 import { colors } from 'theme/foundations/colors';
 import { AllowedAlertSeverity } from '@types';
 
@@ -56,7 +55,11 @@ export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
       .join('. ');
 
     return (
-      <StyledAlert
+      <StyledAlert 
+        ownerState={{
+          severity,
+          title
+        }}
         ref={ref}
         severity={severity}
         icon={getIcon(severity)}
@@ -83,7 +86,7 @@ export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
             },
           }),
           '& .MuiAlert-action .MuiIconButton-root': {
-            color: neutral.black,
+            color: colors.neutral.black,
             opacity: 1,
             pt: 0,
           },

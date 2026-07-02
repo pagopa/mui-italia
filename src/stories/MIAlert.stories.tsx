@@ -31,14 +31,40 @@ const meta: Meta<React.ComponentProps<typeof MIAlert>> = {
   ],
   argTypes: {
     severity: {
+      description: 'Severità dell’alert. Determina colore e icona.',
       control: { type: 'radio' },
       options: ['success', 'error', 'info', 'warning'],
-      defaultValue: 'success',
+      table: {
+        type: { summary: "'success' | 'info' | 'warning' | 'error'" },
+        defaultValue: { summary: 'success' },
+      },
     },
-    title: { control: { type: 'text' } },
-    description: { control: { type: 'text' } },
-    action: { table: { disable: true } },
-    variant: { table: { disable: true } },
+    variant: {
+      description:
+        'Variante dell’alert. `default` mostra bordo, titolo e azione; `header` è una banda compatta a tutta larghezza senza titolo né azione.',
+      control: { type: 'radio' },
+      options: ['default', 'header'],
+      table: {
+        type: { summary: "'default' | 'header'" },
+        defaultValue: { summary: 'default' },
+      },
+    },
+    title: {
+      description: 'Titolo dell’alert. Disponibile solo per la variante `default`.',
+      control: { type: 'text' },
+      table: { type: { summary: 'string' } },
+    },
+    children: {
+      description:
+        'Contenuto principale dell’alert. Accetta una semplice stringa oppure un `ReactNode` custom (es. link, liste, testo formattato).',
+      control: { type: 'text' },
+      table: { type: { summary: 'ReactNode' } },
+    },
+    action: {
+      description:
+        'CTA opzionale (bottone o link). Disponibile solo per la variante `default`.',
+      table: { disable: true },
+    },
   },
 };
 
@@ -70,7 +96,7 @@ const withHeaderContext = (Story: React.ElementType) => (
 export const DefaultCTALink: Story = {
   args: {
     title: DEFAULT_TITLE,
-    description: DEFAULT_MESSAGE,
+    children: DEFAULT_MESSAGE,
     action: {
       label: DEFAULT_CTA,
       href: 'https://test.com',
@@ -82,7 +108,7 @@ export const DefaultCTALink: Story = {
 export const DefaultCTAClick: Story = {
   args: {
     title: DEFAULT_TITLE,
-    description: DEFAULT_MESSAGE,
+    children: DEFAULT_MESSAGE,
     action: {
       label: DEFAULT_CTA,
       onClick: () => console.log('CTA clicked'),
@@ -93,19 +119,19 @@ export const DefaultCTAClick: Story = {
 export const NoCTA: Story = {
   args: {
     title: DEFAULT_TITLE,
-    description: DEFAULT_MESSAGE,
+    children: DEFAULT_MESSAGE,
   },
 };
 
 export const NoTitle: Story = {
   args: {
-    description: DEFAULT_MESSAGE,
+    children: DEFAULT_MESSAGE,
   },
 };
 
 export const NoTitleWithCTA: Story = {
   args: {
-    description: DEFAULT_MESSAGE,
+    children: DEFAULT_MESSAGE,
     action: {
       label: DEFAULT_CTA,
       href: 'https://test.com',
@@ -114,11 +140,33 @@ export const NoTitleWithCTA: Story = {
   },
 };
 
+export const CustomNodeDescription: Story = {
+  args: {
+    title: DEFAULT_TITLE,
+    children: (
+      <Box component="span">
+        Non è stato possibile completare alcuni passaggi. Controlla i seguenti elementi:
+        <Box component="ul" sx={{ my: 1, pl: 2.5 }}>
+          <li>Verifica i dati anagrafici inseriti</li>
+          <li>Controlla l’indirizzo email</li>
+          <li>
+            Consulta la{' '}
+            <Box component="a" href="https://test.com" target="_blank" rel="noopener noreferrer">
+              guida online
+            </Box>{' '}
+            per maggiori dettagli
+          </li>
+        </Box>
+      </Box>
+    ),
+  },
+};
+
 export const HeaderVariant: Story = {
   args: {
     variant: 'header',
     severity: 'success',
-    description:
+    children:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit auctor dui, at convallis nisl.',
   },
   decorators: [withHeaderContext],
@@ -129,7 +177,7 @@ export const HeaderVariant: Story = {
 export const StressUnbroken: Story = {
   args: {
     title: `Very long title ${LONG_UNBROKEN}`,
-    description: `${LONG_UNBROKEN}${LONG_UNBROKEN}${LONG_UNBROKEN}`,
+    children: `${LONG_UNBROKEN}${LONG_UNBROKEN}${LONG_UNBROKEN}`,
     action: {
       label: DEFAULT_CTA,
       href: 'https://test.com',
@@ -140,7 +188,7 @@ export const StressUnbroken: Story = {
 
 export const StressUnbrokenNoTitle: Story = {
   args: {
-    description: `${LONG_UNBROKEN}${LONG_UNBROKEN}${LONG_UNBROKEN}`,
+    children: `${LONG_UNBROKEN}${LONG_UNBROKEN}${LONG_UNBROKEN}`,
     action: {
       label: DEFAULT_CTA,
       href: 'https://test.com',
@@ -152,7 +200,7 @@ export const StressUnbrokenNoTitle: Story = {
 export const StressUnbrokenHeaderVariant: Story = {
   args: {
     variant: 'header',
-    description: `${LONG_UNBROKEN}${LONG_UNBROKEN}${LONG_UNBROKEN}`,
+    children: `${LONG_UNBROKEN}${LONG_UNBROKEN}${LONG_UNBROKEN}`,
   },
   decorators: [withHeaderContext],
 };
