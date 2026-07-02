@@ -1,4 +1,5 @@
 import { Theme } from '@emotion/react';
+import { Theme as MuiTheme } from '@mui/material/styles';
 import { SystemProps } from '@mui/system';
 import { SyntheticEvent } from 'react';
 
@@ -23,3 +24,5 @@ type MarginKeys =
   | 'marginLeft';
 
 export type MarginSxProps = Pick<SystemProps<Theme>, MarginKeys>;
+
+export type RadiusVariant = keyof MuiTheme['shape']['radius'];

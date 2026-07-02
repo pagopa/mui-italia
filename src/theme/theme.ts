@@ -1,6 +1,5 @@
 import { alpha, createTheme, Theme } from '@mui/material/styles';
 import { CSSProperties } from 'react';
-
 /* Design Tokens */
 import { italia } from '@tokens';
 

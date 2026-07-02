@@ -30,6 +30,7 @@ const foundationNext: Theme = createTheme({
       md: 900,
       lg: 1200,
       xl: 1536,
+      xxl: 1920,
     },
   },
   palette: paletteNext,
@@ -50,7 +51,12 @@ const foundationNext: Theme = createTheme({
   },
   shadows: { ...shadowsArray, ...shadowValues },
   shape: {
-    borderRadius: 4,
+    borderRadius: 8,
+    radius: {
+      8: '8px',
+      16: '16px',
+      24: '24px',
+    },
   },
   spacing: 8,
 });

@@ -124,7 +124,6 @@ declare module '@mui/material/styles' {
   interface Theme {
     colors: typeof colors;
   }
-
   interface ThemeOptions {
     colors?: typeof colors;
   }
