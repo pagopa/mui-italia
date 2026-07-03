@@ -46,7 +46,7 @@ export const Default: StoryFn<typeof List> = () => {
       }}
     >
       <ProfileSwitcher
-        profileInitials="PT"
+        profileInitials="EC"
         profileName="Ente Creditore"
         onSwitchProfile={() => {
           console.log('Clicked/Tapped on switch profile');

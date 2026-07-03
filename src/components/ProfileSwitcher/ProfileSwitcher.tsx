@@ -39,7 +39,7 @@ export const ProfileSwitcher = ({
   caption = 'Stai operando come',
   profileName,
   profileInitials,
-  avatarSize = 40,
+  avatarSize = 45,
   switchLabel = 'Cambia profilo',
   switchAriaLabel,
   showSwitchProfile = true,
@@ -54,8 +54,8 @@ export const ProfileSwitcher = ({
     {
       display: 'flex',
       alignItems: 'center',
-      justifyContent: isCompact ? 'center' : 'flex-start',
-      gap: isCompact ? 0 : 1.5,
+      justifyContent: 'center',
+      gap: isCompact ? 0 : 3,
       width: '100%',
       boxSizing: 'border-box',
       py: 2,
@@ -88,9 +88,9 @@ export const ProfileSwitcher = ({
         sx={{
           width: avatarSize,
           height: avatarSize,
-          bgcolor: 'grey.300',
+          bgcolor: 'grey.400',
           color: 'common.white',
-          fontSize: 16,
+          fontSize: 23,
           fontWeight: 600,
         }}
       >
@@ -123,7 +123,7 @@ export const ProfileSwitcher = ({
       )}
 
       {!isCompact && (
-        <Box sx={{ flex: 1, minWidth: 0 }}>
+        <Box sx={{ flex: '0 1 auto', minWidth: 0 }}>
           <Typography
             variant="caption"
             color="text.secondary"
@@ -140,6 +140,7 @@ export const ProfileSwitcher = ({
               sx={{
                 fontWeight: 600,
                 lineHeight: 1.25,
+                fontSize: 21
               }}
             >
               {profileName}
@@ -157,8 +158,9 @@ export const ProfileSwitcher = ({
               sx={{
                 mt: 0.25,
                 justifyContent: 'flex-start',
-                fontSize: 14,
-                lineHeight: 1.2,
+                fontSize: 15,
+                lineHeight: 1.3,
+                textDecoration: 'underline',
               }}
             >
               {switchLabel}

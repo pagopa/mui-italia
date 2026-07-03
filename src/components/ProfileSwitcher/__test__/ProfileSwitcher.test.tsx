@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { ProfileSwitcher, ProfileSwitcherProps } from '../ProfileSwitcher';
 
 const defaultProps: ProfileSwitcherProps = {
-  profileInitials: 'PT',
+  profileInitials: 'EC',
   profileName: 'Ente Creditore',
   onSwitchProfile: vi.fn(),
 };
@@ -43,7 +43,7 @@ describe('ProfileSwitcher', () => {
 
     expect(screen.getByText('Stai operando come')).toBeInTheDocument();
     expect(screen.getByText('Ente Creditore')).toBeInTheDocument();
-    expect(screen.getByText('PT')).toBeInTheDocument();
+    expect(screen.getByText('EC')).toBeInTheDocument();
     expect(container.querySelector('.MuiBadge-dot')).toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: 'Cambia profilo: Ente Creditore' })
@@ -86,7 +86,7 @@ describe('ProfileSwitcher', () => {
     const switchButton = screen.getByRole('button', {
       name: 'Cambia profilo: Ente Creditore',
     });
-    expect(switchButton).toHaveTextContent('PT');
+    expect(switchButton).toHaveTextContent('EC');
     expect(screen.queryByText('Stai operando come')).not.toBeInTheDocument();
     expect(screen.queryByText('Ente Creditore')).not.toBeInTheDocument();
   });

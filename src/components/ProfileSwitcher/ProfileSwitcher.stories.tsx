@@ -12,7 +12,7 @@ export default {
   title: 'Components/ProfileSwitcher',
   component: ProfileSwitcher,
   args: {
-    profileInitials: 'PT',
+    profileInitials: 'EC',
     profileName: 'Ente Creditore',
     caption: 'Stai operando come',
     switchLabel: 'Cambia profilo',
@@ -48,7 +48,7 @@ export const Compact: StoryFn<typeof ProfileSwitcher> = (args) => (
 export const LongProfileName: StoryFn<typeof ProfileSwitcher> = () => (
   <Stack gap={2} sx={{ maxWidth: componentMaxWidth }}>
     <ProfileSwitcher
-      profileInitials="PT"
+      profileInitials="EC"
       profileName="Commissario straordinario per la realizzazione di interventi complementari"
       onSwitchProfile={() => {
         console.log('Clicked/Tapped on switch profile');
