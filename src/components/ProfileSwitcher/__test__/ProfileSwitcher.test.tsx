@@ -39,11 +39,12 @@ describe('ProfileSwitcher', () => {
   });
 
   it('renders the standard layout', () => {
-    renderProfileSwitcher();
+    const { container } = renderProfileSwitcher();
 
     expect(screen.getByText('Stai operando come')).toBeInTheDocument();
     expect(screen.getByText('Ente Creditore')).toBeInTheDocument();
     expect(screen.getByText('PT')).toBeInTheDocument();
+    expect(container.querySelector('.MuiBadge-dot')).toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: 'Cambia profilo: Ente Creditore' })
     ).toHaveTextContent('Cambia profilo');

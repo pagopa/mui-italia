@@ -1,7 +1,7 @@
 'use client';
 
 import { MouseEvent } from 'react';
-import { Avatar, Box, SxProps, Theme, Tooltip, Typography } from '@mui/material';
+import { Avatar, Badge, Box, SxProps, Theme, Tooltip, Typography } from '@mui/material';
 
 import { ButtonNaked } from '@components/ButtonNaked';
 
@@ -66,19 +66,37 @@ export const ProfileSwitcher = ({
   ];
 
   const avatar = (
-    <Avatar
-      aria-hidden
+    <Badge
+      overlap="circular"
+      variant="dot"
+      color="success"
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'right',
+      }}
       sx={{
-        width: avatarSize,
-        height: avatarSize,
-        bgcolor: 'grey.300',
-        color: 'common.white',
-        fontSize: 16,
-        fontWeight: 600,
+        '& .MuiBadge-badge': {
+          width: 10,
+          height: 10,
+          minWidth: 10,
+          boxShadow: (theme) => `0 0 0 2px ${theme.palette.background.paper}`,
+        },
       }}
     >
-      {profileInitials}
-    </Avatar>
+      <Avatar
+        aria-hidden
+        sx={{
+          width: avatarSize,
+          height: avatarSize,
+          bgcolor: 'grey.300',
+          color: 'common.white',
+          fontSize: 16,
+          fontWeight: 600,
+        }}
+      >
+        {profileInitials}
+      </Avatar>
+    </Badge>
   );
 
   return (
