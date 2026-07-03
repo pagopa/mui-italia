@@ -39,3 +39,4 @@ export * from './MISpidSelectOIDialog';
 export * from './MISpinner';
 export * from './MIWizard';
 export * from './MISnackbar';
+export * from './MIPaper';
