@@ -22,7 +22,7 @@ import ExpandLessRoundedIcon from '@mui/icons-material/ExpandLessRounded';
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 import ExitToAppRoundedIcon from '@mui/icons-material/ExitToAppRounded';
 
-import { ProfileSwitcher } from '@components/ProfileSwitcher';
+import { ProfileItem } from '@components/ProfileItem';
 
 export default {
   title: 'Composition/Sidenav',
@@ -45,7 +45,7 @@ export const Default: StoryFn<typeof List> = () => {
         backgroundColor: 'background.paper',
       }}
     >
-      <ProfileSwitcher
+      <ProfileItem
         profileInitials="EC"
         profileName="Ente Creditore"
         onSwitchProfile={() => {

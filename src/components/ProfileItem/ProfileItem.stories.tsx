@@ -4,13 +4,13 @@ import { Box, Stack } from '@mui/material';
 
 import { breakpointsChromaticValues } from '@theme';
 
-import { ProfileSwitcher } from './ProfileSwitcher';
+import { ProfileItem } from './ProfileItem';
 
 const componentMaxWidth = 360;
 
 export default {
-  title: 'Components/ProfileSwitcher',
-  component: ProfileSwitcher,
+  title: 'Components/ProfileItem',
+  component: ProfileItem,
   args: {
     profileInitials: 'EC',
     profileName: 'Ente Creditore',
@@ -33,21 +33,21 @@ export default {
       viewports: breakpointsChromaticValues.filter((resolution) => resolution <= 640),
     },
   },
-} as Meta<typeof ProfileSwitcher>;
+} as Meta<typeof ProfileItem>;
 
-const Template: StoryFn<typeof ProfileSwitcher> = (args) => <ProfileSwitcher {...args} />;
+const Template: StoryFn<typeof ProfileItem> = (args) => <ProfileItem {...args} />;
 
 export const Default = Template.bind({});
 
-export const Compact: StoryFn<typeof ProfileSwitcher> = (args) => (
+export const Compact: StoryFn<typeof ProfileItem> = (args) => (
   <Box sx={{ width: 72 }}>
-    <ProfileSwitcher {...args} />
+    <ProfileItem {...args} />
   </Box>
 );
 
-export const LongProfileName: StoryFn<typeof ProfileSwitcher> = () => (
+export const LongProfileName: StoryFn<typeof ProfileItem> = () => (
   <Stack gap={2} sx={{ maxWidth: componentMaxWidth }}>
-    <ProfileSwitcher
+    <ProfileItem
       profileInitials="EC"
       profileName="Commissario straordinario per la realizzazione di interventi complementari"
       onSwitchProfile={() => {

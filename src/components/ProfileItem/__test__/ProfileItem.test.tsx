@@ -1,8 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import { ProfileSwitcher, ProfileSwitcherProps } from '../ProfileSwitcher';
+import { ProfileItem, ProfileItemProps } from '../ProfileItem';
 
-const defaultProps: ProfileSwitcherProps = {
+const defaultProps: ProfileItemProps = {
   profileInitials: 'EC',
   profileName: 'Ente Creditore',
   onSwitchProfile: vi.fn(),
@@ -22,10 +22,10 @@ const mockElementSize = (width: number, height = 64) =>
     .spyOn(HTMLElement.prototype, 'getBoundingClientRect')
     .mockReturnValue(new DOMRect(0, 0, width, height));
 
-const renderProfileSwitcher = (props: Partial<ProfileSwitcherProps> = {}) =>
-  render(<ProfileSwitcher {...defaultProps} {...props} />);
+const renderProfileItem = (props: Partial<ProfileItemProps> = {}) =>
+  render(<ProfileItem {...defaultProps} {...props} />);
 
-describe('ProfileSwitcher', () => {
+describe('ProfileItem', () => {
   beforeEach(() => {
     observe.mockClear();
     disconnect.mockClear();
@@ -39,7 +39,7 @@ describe('ProfileSwitcher', () => {
   });
 
   it('renders the standard layout', () => {
-    const { container } = renderProfileSwitcher();
+    const { container } = renderProfileItem();
 
     expect(screen.getByText('Stai operando come')).toBeInTheDocument();
     expect(screen.getByText('Ente Creditore')).toBeInTheDocument();
@@ -52,7 +52,7 @@ describe('ProfileSwitcher', () => {
 
   it('calls onSwitchProfile when the switch action is clicked', () => {
     const onSwitchProfile = vi.fn();
-    renderProfileSwitcher({ onSwitchProfile });
+    renderProfileItem({ onSwitchProfile });
 
     fireEvent.click(screen.getByRole('button', { name: 'Cambia profilo: Ente Creditore' }));
 
@@ -61,7 +61,7 @@ describe('ProfileSwitcher', () => {
 
   it('disables the switch action', () => {
     const onSwitchProfile = vi.fn();
-    renderProfileSwitcher({ disabled: true, onSwitchProfile });
+    renderProfileItem({ disabled: true, onSwitchProfile });
 
     const switchButton = screen.getByRole('button', {
       name: 'Cambia profilo: Ente Creditore',
@@ -73,7 +73,7 @@ describe('ProfileSwitcher', () => {
   });
 
   it('hides the switch action when showSwitchProfile is false', () => {
-    renderProfileSwitcher({ showSwitchProfile: false });
+    renderProfileItem({ showSwitchProfile: false });
 
     expect(screen.queryByRole('button')).not.toBeInTheDocument();
     expect(screen.getByText('Ente Creditore')).toBeInTheDocument();
@@ -81,7 +81,7 @@ describe('ProfileSwitcher', () => {
 
   it('renders an accessible switch action in the compact layout', () => {
     mockElementSize(120);
-    renderProfileSwitcher();
+    renderProfileItem();
 
     const switchButton = screen.getByRole('button', {
       name: 'Cambia profilo: Ente Creditore',
@@ -92,7 +92,7 @@ describe('ProfileSwitcher', () => {
   });
 
   it('uses a custom aria-label for the switch action', () => {
-    renderProfileSwitcher({ switchAriaLabel: 'Seleziona un altro profilo' });
+    renderProfileItem({ switchAriaLabel: 'Seleziona un altro profilo' });
 
     expect(
       screen.getByRole('button', { name: 'Seleziona un altro profilo' })

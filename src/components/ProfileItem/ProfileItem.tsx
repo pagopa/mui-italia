@@ -9,7 +9,7 @@ import { useResizeObserver } from '../../utils/useResizeObserver';
 
 const compactBreakpoint = 160;
 
-export interface ProfileSwitcherProps {
+export interface ProfileItemProps {
   /** The id attribute added to the root element */
   id?: string;
   /** Label showed above the profile name */
@@ -18,8 +18,6 @@ export interface ProfileSwitcherProps {
   profileName: string;
   /** Initials displayed inside the profile circle */
   profileInitials: string;
-  /** Avatar dimension set in pixels */
-  avatarSize?: number;
   /** Switch profile action label */
   switchLabel?: string;
   /** Switch profile action aria-label */
@@ -34,19 +32,18 @@ export interface ProfileSwitcherProps {
   sx?: SxProps<Theme>;
 }
 
-export const ProfileSwitcher = ({
+export const ProfileItem = ({
   id,
   caption = 'Stai operando come',
   profileName,
   profileInitials,
-  avatarSize = 45,
   switchLabel = 'Cambia profilo',
   switchAriaLabel,
   showSwitchProfile = true,
   disabled = false,
   onSwitchProfile,
   sx,
-}: ProfileSwitcherProps) => {
+}: ProfileItemProps) => {
   const { ref, size } = useResizeObserver<HTMLDivElement>();
   const isCompact = size !== null && size.width < compactBreakpoint;
   const resolvedSwitchAriaLabel = switchAriaLabel ?? `${switchLabel}: ${profileName}`;
@@ -86,8 +83,8 @@ export const ProfileSwitcher = ({
       <Avatar
         aria-hidden
         sx={{
-          width: avatarSize,
-          height: avatarSize,
+          width: 45,
+          height: 45,
           bgcolor: 'grey.400',
           color: 'common.white',
           fontSize: 23,
