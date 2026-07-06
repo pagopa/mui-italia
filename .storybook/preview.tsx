@@ -13,8 +13,37 @@ import { theme as lightTheme, darkTheme, theme } from '../src/theme';
 /* MUI Italia Theme-Next */
 import { themeNext } from '../src/theme/themeNext';
 
-const StoryContainer = ({ children }: { children: React.ReactNode }) => (
-  <Box sx={{ padding: '1rem' }} data-chromatic="ignore">
+const backgrounds = {
+  default: {
+    name: 'default',
+    value: theme.colors.blue[100],
+  },
+} as const;
+
+type BackgroundKey = keyof typeof backgrounds;
+
+const StoryContainer = ({
+  children,
+  backgroundKey,
+}: {
+  children: React.ReactNode;
+  backgroundKey: BackgroundKey;
+}) => (
+  <Box
+    sx={{
+      backgroundColor: backgrounds[backgroundKey].value,
+      p: {
+        xs: 3,
+        md: 5,
+      },
+      boxSizing: 'border-box',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 3,
+    }}
+    data-chromatic="ignore"
+  >
     {children}
   </Box>
 );
@@ -39,7 +68,7 @@ const withTheme: Decorator = (Story, context) => {
     case 'system': {
       return (
         <ThemeProvider theme={currentTheme}>
-          <StoryContainer>
+          <StoryContainer backgroundKey={selectedBackground}>
             <Story />
           </StoryContainer>
         </ThemeProvider>
@@ -49,7 +78,7 @@ const withTheme: Decorator = (Story, context) => {
     case 'dark': {
       return (
         <ThemeProvider theme={darkTheme}>
-          <StoryContainer>
+          <StoryContainer backgroundKey={selectedBackground}>
             <Story />
           </StoryContainer>
         </ThemeProvider>
@@ -58,7 +87,7 @@ const withTheme: Decorator = (Story, context) => {
     case 'next': {
       return (
         <ThemeProvider theme={themeNext}>
-          <StoryContainer>
+          <StoryContainer backgroundKey={selectedBackground}>
             <Story />
           </StoryContainer>
         </ThemeProvider>
@@ -69,7 +98,7 @@ const withTheme: Decorator = (Story, context) => {
     default: {
       return (
         <ThemeProvider theme={lightTheme}>
-          <StoryContainer>
+          <StoryContainer backgroundKey={selectedBackground}>
             <Story />
           </StoryContainer>
         </ThemeProvider>
@@ -91,6 +120,9 @@ const preview: Preview = {
     },
     docs: {
       theme: sbTheme,
+    },
+    backgrounds: {
+      options: backgrounds,
     },
   },
 

@@ -352,12 +352,3 @@ export const FullWidth: Story = {
     </Box>
   ),
 };
-
-export const Accessibility: Story = {
-  args: {
-    label: 'Salva',
-    isLoading: true,
-    loaderType: MIButtonLoaderType.SPINNER,
-    loadingAriaLabel: 'Salvataggio in corso',
-  },
-};

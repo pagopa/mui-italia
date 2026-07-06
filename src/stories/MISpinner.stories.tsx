@@ -83,19 +83,10 @@ export const ColorVariants: Story = {
         <Typography variant="caption">primary</Typography>
       </Stack>
 
-      <Box
-        sx={{
-          backgroundColor: 'primary.main',
-          color: 'common.white',
-          p: 3,
-          borderRadius: 1,
-        }}
-      >
-        <Stack spacing={1} alignItems="center">
-          <MISpinner color="secondary" aria-label="Caricamento secondary" />
-          <Typography variant="caption">secondary</Typography>
-        </Stack>
-      </Box>
+      <Stack spacing={1} alignItems="center">
+        <MISpinner color="secondary" aria-label="Caricamento secondary" />
+        <Typography variant="caption">secondary</Typography>
+      </Stack>
 
       <Stack spacing={1} alignItems="center">
         <MISpinner color="error" aria-label="Caricamento error" />
@@ -124,12 +115,4 @@ export const SizeVariants: Story = {
       ))}
     </Stack>
   ),
-};
-
-export const Accessibility: Story = {
-  args: {
-    color: 'primary',
-    size: 24,
-    'aria-label': 'Caricamento dei dati in corso',
-  },
 };

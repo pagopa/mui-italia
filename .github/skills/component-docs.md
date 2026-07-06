@@ -252,11 +252,21 @@ Le story statiche dovrebbero preferibilmente:
 
 ## Accessibilità
 
-Creare una sezione `Accessibilità` solo se esistono props che l’utilizzatore deve valorizzare correttamente affinché il componente risulti completamente accessibile.
+Creare una sezione `Accessibilità` solo se dal codice del componente emergono props, comportamenti o scelte implementative rilevanti per l’accessibilità.
 
-La sezione non deve spiegare quando usare il componente e non deve aggiungere linee guida di design generiche.
+La sezione non deve spiegare genericamente quando usare il componente e non deve aggiungere linee guida di design non deducibili dal codice.
 
-Deve invece concentrarsi sulle props rilevanti.
+Deve invece concentrarsi su informazioni verificabili, come:
+
+- props che l’utilizzatore deve valorizzare correttamente;
+- props accessibili disponibili;
+- props accessibili non disponibili o volutamente non esposte;
+- comportamenti accessibili già integrati nel componente;
+- stati di focus;
+- navigazione da tastiera;
+- dimensioni minime o target cliccabili;
+- contrasto, solo se deducibile da colori/stili del componente;
+- eventuali limiti da considerare quando il componente viene usato su background particolari.
 
 Esempi di props/accessibilità:
 
@@ -271,30 +281,106 @@ Esempi di props/accessibilità:
 - testo visibile necessario a non dipendere solo dal colore;
 - props richieste quando il componente è interattivo.
 
+### Struttura consigliata
+
+Quando possibile, la sezione `Accessibilità` dovrebbe essere articolata in `SubSection` tematiche.
+
+Esempi di sotto-sezioni utili:
+
+- `Props rilevanti`: props che l’utilizzatore deve impostare correttamente.
+- `Prop non disponibili`: props che non sono esposte dal componente e che potrebbero essere attese da chi conosce il componente MUI di base.
+- `Focus da tastiera`: informazioni sul focus visibile, se implementato o ereditato.
+- `Area cliccabile`: dimensioni minime o target size, se deducibili dal codice.
+- `Contrasto`: indicazioni legate ai colori del componente, se verificabili dal tema o dagli stili.
+- `Esempio accessibile`: esempio di utilizzo corretto del componente.
+
+Non tutte le sotto-sezioni sono obbligatorie. Includere solo quelle supportate dal codice del componente.
+
+### Esempio accessibile
+
+L’esempio accessibile deve essere sempre mostrato come box di codice, non come story renderizzata.
+
+La sezione può contenere story visuali se utili, ma il sotto-paragrafo `Esempio accessibile` deve usare un code block con il codice di utilizzo del componente.
+
 Esempio:
 
-```mdx
+````mdx
 <Section
   title="Accessibilità"
-  description="Il componente è accessibile by design. L’accessibilità finale dipende però dalla corretta valorizzazione delle props testuali richieste in alcuni casi."
+  description="L’accessibilità finale dipende dalla corretta valorizzazione delle props testuali e dal modo in cui il componente viene usato nel contesto dell’interfaccia."
 >
   <SubSection title="Props rilevanti">
-   <ul>
+    <ul>
       <li>
-        <strong>label</strong>: identifica il contenuto del chip. Deve essere sempre significativo.
+        <strong>aria-label</strong>: descrive l’azione del componente quando non è presente testo
+        visibile. Deve essere sempre significativo.
       </li>
       <li>
-        <strong>aria-label</strong>: in modalità deletable, descrive l’azione associata all’icona di
-        rimozione quando il solo label non è sufficiente.
+        <strong>aria-labelledby</strong>: può essere usata in alternativa ad aria-label quando
+        l’etichetta accessibile è fornita da un elemento testuale esterno.
+      </li>
+      <li>
+        <strong>title</strong>: può aggiungere un tooltip nativo, ma non sostituisce da solo una
+        corretta etichetta accessibile.
       </li>
     </ul>
   </SubSection>
 
-  <Story of={ComponentStories.Accessibility} />
-</Section>
-```
+{' '}
+<SubSection title="Prop non disponibili">
+  <ul>
+    <li>
+      <strong>disabled</strong>: non è esposta dalle props pubbliche del componente. Se un’azione
+      non è disponibile, gestire la condizione al click e comunicare all’utente il motivo.
+    </li>
+    <li>
+      <strong>color</strong>: non è esposta come prop pubblica del componente. Il colore è definito
+      dallo stile interno.
+    </li>
+  </ul>
+</SubSection>
 
-Se non ci sono props accessibilità da configurare, non creare la sezione oppure indicare esplicitamente solo se richiesto dallo sviluppatore.
+{' '}
+<SubSection title="Focus da tastiera">
+  <p>
+    Il componente mostra uno stato di focus visibile quando viene raggiunto tramite tastiera. Non
+    rimuovere questo stile, perché aiuta l’utente a capire quale elemento è attivo durante la
+    navigazione con Tab.
+  </p>
+</SubSection>
+
+{' '}
+<SubSection title="Area cliccabile">
+  <p>
+    Il componente mantiene una dimensione minima dell’area cliccabile. Questa scelta facilita
+    l’interazione su dispositivi touch e per utenti con difficoltà motorie.
+  </p>
+</SubSection>
+
+  <SubSection title="Esempio accessibile">
+    ```tsx
+    <MIIconButton aria-label="Elimina elemento" onClick={handleDelete}>
+      <DeleteRoundedIcon />
+    </MIIconButton>
+    ```
+  </SubSection>
+</Section>
+````
+
+### Regole per scrivere la sezione Accessibilità
+
+- Includere solo informazioni deducibili dal codice o dai requisiti forniti.
+- Non creare una sezione accessibilità generica se non ci sono props, comportamenti o scelte implementative rilevanti.
+- Non inventare raccomandazioni di design non supportate dal componente.
+- Se il componente eredita comportamenti accessibili dal componente MUI di base, citarli solo quando sono rilevanti e verificabili.
+- Se il componente modifica focus, dimensioni minime, colore, contrasto, stato disabled o comportamento da tastiera, documentarlo.
+- Se una prop comunemente attesa non è esposta dal componente, documentarla in `Prop non disponibili`.
+- Usare sempre un code block `tsx` per il sotto-paragrafo `Esempio accessibile`.
+- Non usare `<Story of={ComponentStories.Accessibility} />` come esempio accessibile principale.
+- Mostrare solo props e codice necessari a chiarire la configurazione accessibile.
+- Evitare esempi non compatibili con le props pubbliche del componente.
+
+Se servono informazioni non deducibili dal codice, chiedere chiarimenti allo sviluppatore invece di completare la sezione con supposizioni.
 
 ---
 
