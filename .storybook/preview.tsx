@@ -124,6 +124,11 @@ const preview: Preview = {
     backgrounds: {
       options: backgrounds,
     },
+    options: {
+      storySort: {
+        order: ['Foundation', ['Colors', 'Breakpoints'], 'Components', 'MUI Components'],
+      },
+    },
   },
 
   globalTypes: {
