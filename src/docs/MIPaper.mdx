@@ -1,0 +1,126 @@
+import { Meta, Title, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
+
+import Overview from './components/Overview';
+import Section from './components/Section';
+import SubSection from './components/SubSection';
+import * as MIPaperStories from '../stories/MIPaper.stories.tsx';
+
+<Meta of={MIPaperStories} />
+
+<Title />
+
+<Overview
+  githubRelativePath="MIPaper/MIPaper.tsx"
+  figmaNodeId="7295-40450"
+  muiRelativePath="react-paper"
+>
+  <strong>MIPaper</strong> è il contenitore basato sul componente Paper di MUI. Disabilita
+  l’elevation, applica padding e border radius controllati dai token del Design System e supporta
+  due varianti visive: flat e outlined.
+</Overview>
+
+<Section
+  title="Playground"
+  description="Usa i controlli per modificare i parametri principali del componente e verificare il risultato live."
+>
+  <Primary />
+  <Controls />
+</Section>
+
+<Section
+  title="Varianti"
+  description="MIPaper supporta una variante senza bordo e una variante outlined con bordo neutro."
+>
+  <Story of={MIPaperStories.Variants} />
+</Section>
+
+<Section
+  title="Border radius"
+  description="Il border radius viene risolto tramite i token del tema e può essere configurato con i valori supportati dal componente."
+>
+  <Story of={MIPaperStories.BorderRadius} />
+</Section>
+
+<Section title="Padding" description="Il padding interno può essere impostato a 16px o 24px.">
+  <Story of={MIPaperStories.Padding} />
+</Section>
+
+<Section
+  title="Contenuto"
+  description="MIPaper accetta children React e può essere usato come contenitore per testo, layout e altri componenti."
+>
+  <Story of={MIPaperStories.ContentExample} />
+</Section>
+
+<Section
+  title="Accessibilità"
+  description="MIPaper è un contenitore visivo: non aggiunge automaticamente semantica al contenuto. L’accessibilità dipende dalla struttura e dalle props usate nel contesto."
+>
+  <SubSection title="Props rilevanti">
+    <ul>
+      <li>
+        <strong>component</strong>: consente di cambiare l’elemento HTML renderizzato dal Paper, ad
+        esempio <code>section</code>, quando il contenitore rappresenta una sezione della pagina.
+      </li>
+      <li>
+        <strong>aria-labelledby</strong>: può collegare il contenitore a un titolo visibile quando si
+        usa una semantica di sezione.
+      </li>
+      <li>
+        <strong>children</strong>: deve contenere una struttura testuale e semantica coerente, ad
+        esempio titoli, paragrafi o altri componenti accessibili.
+      </li>
+    </ul>
+  </SubSection>
+
+{' '}
+
+<SubSection title="Prop non disponibili">
+  <ul>
+    <li>
+      <strong>elevation</strong>: non è esposta dalle props pubbliche di MIPaper. Il componente
+      imposta internamente <code>elevation={0}</code> e rimuove la shadow.
+    </li>
+    <li>
+      <strong>square</strong>: non è esposta dalle props pubbliche. Il radius viene controllato
+      tramite la prop <code>borderRadius</code>.
+    </li>
+    <li>
+      <strong>variant</strong> di MUI Paper: non è esposta direttamente. MIPaper usa solo le
+      varianti
+      <code>flat</code> e <code>outlined</code>.
+    </li>
+  </ul>
+</SubSection>
+
+{' '}
+
+<SubSection title="Semantica del contenitore">
+  Di default il componente si comporta come un contenitore visivo. Se il contenuto rappresenta una
+  sezione autonoma della pagina, usa una semantica esplicita tramite <code>component</code> e
+  collega il contenitore a un titolo visibile.
+</SubSection>
+
+{' '}
+
+<SubSection title="Contrasto">
+  La variante <code>outlined</code> usa un bordo neutro chiaro. Su sfondi molto chiari o su sfondi
+  personalizzati verifica che il bordo resti distinguibile e che il contenuto interno mantenga un
+  contrasto sufficiente.
+</SubSection>
+
+  <SubSection title="Esempio accessibile">
+    ```tsx
+    <MIPaper component="section" aria-labelledby="payment-summary-title" variant="outlined">
+      <Typography id="payment-summary-title" variant="h2">
+        Riepilogo pagamento
+      </Typography>
+
+      <Typography variant="body1">
+        Contenuto della sezione.
+      </Typography>
+    </MIPaper>
+    ```
+
+  </SubSection>
+</Section>

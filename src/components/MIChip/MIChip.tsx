@@ -31,6 +31,7 @@ type StandardMIChipProps = BaseMIChipProps & {
 // Props for the deletable mode, with color fixed to 'neutral'
 type DeletableMIChipProps = BaseMIChipProps & {
   color?: 'neutral';
+  variant?: 'filled';
   onDelete?: React.EventHandler<any>;
 };
 

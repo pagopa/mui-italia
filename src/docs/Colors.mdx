@@ -14,7 +14,7 @@ Il sistema colore è diviso in due livelli distinti:
 
 Questa distinzione è importante perché non tutti i colori hanno lo stesso scopo.
 
-Un colore può essere semplicemente una tonalità disponibile nel design system, oppure può rappresentare un significato preciso nell’interfaccia, come “errore”, “successo”, “testo principale” o “azione primaria”.
+Un colore può essere semplicemente una tonalità disponibile nel design system, oppure può rappresentare un significato preciso nell’interfaccia, come “errore”, “successo”, “testo primario”, “sfondo” o “azione principale”.
 
 ## Indice
 
@@ -26,6 +26,10 @@ Un colore può essere semplicemente una tonalità disponibile nel design system,
   - [Colori semantici di stato](#colori-semantici-di-stato)
   - [Colori semantici custom](#colori-semantici-custom)
 - [Differenza tra colori primitivi e colori semantici](#differenza-tra-colori-primitivi-e-colori-semantici)
+- [Theme Next e colori](#theme-next-e-colori)
+  - [Cosa non cambia con Theme Next](#cosa-non-cambia-con-theme-next)
+  - [Cosa cambia con Theme Next](#cosa-cambia-con-theme-next)
+  - [Impatto sui componenti MI](#impatto-sui-componenti-mi)
 - [Linee guida di utilizzo](#linee-guida-di-utilizzo)
   - [Usa `theme.palette` quando il colore ha un significato semantico](#usa-themepalette-quando-il-colore-ha-un-significato-semantico)
   - [Usa `theme.colors` quando ti serve una tonalità primitiva specifica](#usa-themecolors-quando-ti-serve-una-tonalità-primitiva-specifica)
@@ -83,7 +87,7 @@ Esempio:
 
 In questo esempio stiamo scegliendo direttamente due tonalità della scala `blue`.
 
-Questo è utile quando il design richiede una combinazione specifica di colori, ma bisogna fare attenzione: se il colore rappresenta un ruolo dell’interfaccia, è preferibile usare un colore semantico.
+Questo è utile quando il design richiede una combinazione specifica di colori, ma bisogna fare attenzione: se il colore rappresenta un ruolo semantico dell’interfaccia, è preferibile usare `theme.palette`.
 
 <ColorPalette>
   <ColorItem
@@ -103,6 +107,7 @@ Questo è utile quando il design richiede una combinazione specifica di colori, 
     }}
   />
 
+{' '}
 <ColorItem
   title="Blue"
   subtitle="Scala primitiva blue."
@@ -119,6 +124,7 @@ Questo è utile quando il design richiede una combinazione specifica di colori, 
   }}
 />
 
+{' '}
 <ColorItem
   title="Turquoise"
   subtitle="Scala primitiva turquoise."
@@ -133,6 +139,7 @@ Questo è utile quando il design richiede una combinazione specifica di colori, 
   }}
 />
 
+{' '}
 <ColorItem
   title="Blue Italia"
   subtitle="Scala primitiva Blue Italia."
@@ -187,6 +194,7 @@ Usa invece `theme.palette.*` quando hai bisogno del ruolo semantico generico pre
     }}
   />
 
+{' '}
 <ColorItem
   title="Success"
   subtitle="Scala primitiva success."
@@ -199,6 +207,7 @@ Usa invece `theme.palette.*` quando hai bisogno del ruolo semantico generico pre
   }}
 />
 
+{' '}
 <ColorItem
   title="Warning"
   subtitle="Scala primitiva warning."
@@ -298,6 +307,7 @@ Questo rende i componenti più coerenti, più facili da mantenere e più resiste
     }}
   />
 
+{' '}
 <ColorItem
   title="Secondary"
   subtitle="Colore semantico secondario usato dai componenti MUI quando supportano color='secondary'."
@@ -309,6 +319,7 @@ Questo rende i componenti più coerenti, più facili da mantenere e più resiste
   }}
 />
 
+{' '}
 <ColorItem
   title="Text"
   subtitle="Colori semantici usati per testi e contenuti tipografici."
@@ -319,6 +330,7 @@ Questo rende i componenti più coerenti, più facili da mantenere e più resiste
   }}
 />
 
+{' '}
 <ColorItem
   title="Background"
   subtitle="Colori semantici usati per sfondi di pagina e superfici."
@@ -403,6 +415,7 @@ Esempi:
     }}
   />
 
+{' '}
 <ColorItem
   title="Success"
   subtitle="Colore semantico success usato dai componenti MUI e dagli stati positivi generici."
@@ -417,6 +430,7 @@ Esempi:
   }}
 />
 
+{' '}
 <ColorItem
   title="Warning"
   subtitle="Colore semantico warning usato dai componenti MUI e dagli stati di attenzione generici."
@@ -464,6 +478,7 @@ Non devono essere sostituiti con colori primitivi se il valore risultante cambia
     }}
   />
 
+{' '}
 <ColorItem
   title="checkIban"
   subtitle="Colore semantico custom di prodotto."
@@ -473,6 +488,7 @@ Non devono essere sostituiti con colori primitivi se il valore risultante cambia
   }}
 />
 
+{' '}
 <ColorItem
   title="European Union"
   subtitle="Colore semantico custom di tipo istituzionale."
@@ -482,6 +498,7 @@ Non devono essere sostituiti con colori primitivi se il valore risultante cambia
   }}
 />
 
+{' '}
 <ColorItem
   title="Indigo"
   subtitle="Colore semantico custom basato sulla palette indigo di MUI."
@@ -577,6 +594,111 @@ continuerebbero invece a usare quella specifica tonalità di blu.
 Per questo motivo, quando il colore ha un significato nell’interfaccia, è preferibile usare `theme.palette`.
 
 Quando invece serve una tonalità specifica per un componente custom, è corretto usare `theme.colors`.
+
+## Theme Next e colori
+
+Storybook permette di visualizzare i componenti anche con `themeNext`.
+
+È importante distinguere cosa cambia e cosa non cambia quando si passa dal tema corrente a `themeNext`.
+
+La regola generale è:
+
+> `theme.colors` resta stabile tra i temi. `theme.palette` è il livello semantico che può cambiare con `themeNext`.
+
+### Cosa non cambia con Theme Next
+
+I colori primitivi esposti tramite `theme.colors` non cambiano passando dal tema corrente a `themeNext`.
+
+Entrambi i temi usano la stessa sorgente di colori primitivi. Di conseguenza, token come questi mantengono lo stesso valore:
+
+```tsx
+theme.colors.blue[500];
+theme.colors.neutral.grey[100];
+theme.colors.error[500];
+theme.colors.success[500];
+```
+
+Questo significa che le scale primitive restano stabili:
+
+- `blue`
+- `turquoise`
+- `blueitalia`
+- `purple`
+- `neutral`
+- `info`
+- `success`
+- `warning`
+- `error`
+
+Se un componente usa direttamente un token primitivo, il colore risultante resta lo stesso anche selezionando `themeNext`.
+
+### Cosa cambia con Theme Next
+
+Quello che può cambiare tra tema corrente e `themeNext` sono i **colori semantici**, cioè i colori esposti tramite `theme.palette`.
+
+Esempi:
+
+```tsx
+theme.palette.primary.main;
+theme.palette.error.main;
+theme.palette.success.main;
+theme.palette.warning.main;
+theme.palette.info.main;
+theme.palette.text.primary;
+theme.palette.divider;
+```
+
+I colori semantici descrivono un ruolo dell’interfaccia, non una tonalità specifica.
+
+Per questo motivo `themeNext` può cambiare il modo in cui un ruolo viene risolto, senza modificare la scala primitiva sottostante.
+
+Per esempio, il ruolo:
+
+```tsx
+theme.palette.primary.main;
+```
+
+può essere risolto dal tema corrente in un modo e da `themeNext` in un altro.
+
+Il nome resta lo stesso, ma il valore finale può essere diverso perché il ruolo semantico appartiene al tema attivo.
+
+### Impatto sui componenti MI
+
+I nuovi componenti del Design System con prefisso `MI` usano colori definiti dal Design System.
+
+Quando un componente MI usa direttamente i colori primitivi tramite `theme.colors`, il suo colore resta stabile tra tema corrente e `themeNext`.
+
+Per esempio:
+
+```tsx
+color: theme.colors.blue[500];
+borderColor: theme.colors.neutral.grey[100];
+backgroundColor: theme.colors.blue[50];
+```
+
+Questi valori non cambiano con `themeNext`.
+
+Questo significa che il cambio tema non modifica automaticamente:
+
+- i colori primitivi esposti dal Design System;
+- i colori dei componenti MI che usano direttamente `theme.colors`;
+- le scale cromatiche base usate per costruire componenti custom.
+
+Cambiano invece i colori risolti tramite la palette semantica:
+
+```tsx
+color: theme.palette.primary.main;
+color: theme.palette.error.main;
+borderColor: theme.palette.divider;
+backgroundColor: theme.palette.background.paper;
+```
+
+Quindi:
+
+- usa `theme.colors` quando vuoi una tonalità stabile del Design System;
+- usa `theme.palette` quando vuoi che il colore segua il ruolo semantico del tema attivo;
+- non aspettarti che `themeNext` cambi i colori primitivi;
+- aspettati invece differenze sui colori semantici.
 
 ## Linee guida di utilizzo
 

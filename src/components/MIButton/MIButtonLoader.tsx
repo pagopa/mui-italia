@@ -23,7 +23,10 @@ const MIButtonLoader: React.FC<MIButtonLoaderProps> = ({
   if (loaderType === MIButtonLoaderType.SKELETON) {
     return (
       <Box sx={{ width: fullWidth ? '80%' : '141px' }}>
-        <Skeleton sx={{ backgroundColor: colors.neutral.grey[450] }} />
+        <Skeleton
+          sx={{ backgroundColor: colors.neutral.grey[450] }}
+          aria-label={loadingAriaLabel}
+        />
       </Box>
     );
   }
