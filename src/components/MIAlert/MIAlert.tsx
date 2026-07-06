@@ -1,13 +1,12 @@
 'use client';
 
 import { ButtonNaked } from '@components/ButtonNaked';
-import { AlertTitle as MUIAlertTitle, Stack, styled, useMediaQuery, useTheme } from '@mui/material';
-import MUIAlert, { AlertProps as MUIAlertProps } from '@mui/material/Alert';
 import { ElementType, HTMLAttributeAnchorTarget, ReactNode } from 'react';
+import { StyledAlert } from './StyledAlert';
+import { AlertTitle as MUIAlertTitle, Stack, useMediaQuery, useTheme } from '@mui/material';
+import  { AlertProps as MUIAlertProps } from '@mui/material/Alert';
 import { getColor, getIcon } from './utils';
-import { MarginSxProps } from '@types';
-
-export type AllowedAlertSeverity = 'success' | 'info' | 'warning' | 'error';
+import { AllowedAlertSeverity, MarginSxProps } from '@types';
 
 type ButtonCTA = {
   label: string;
@@ -48,70 +47,6 @@ interface HeaderAlertProps extends BaseAlertProps {
 
 export type MIAlertProps = DefaultAlertProps | HeaderAlertProps;
 
-type MUIBaseAlertProps = Omit<MUIAlertProps, 'variant'>;
-
-interface StyledAlertProps extends MUIBaseAlertProps {
-  variant: 'default' | 'header';
-}
-
-const StyledAlert = styled(MUIAlert as React.ComponentType<MUIBaseAlertProps>, {
-  // This prevents 'variant' from being written to the HTML DOM
-  shouldForwardProp: (prop) => prop !== 'variant',
-})<StyledAlertProps>(({ theme, severity = 'success', variant }) => {
-  const severityPalette = theme.colors[severity];
-
-  return {
-    backgroundColor: severityPalette[100],
-    justifyContent: variant === 'header' ? 'center' : 'flex-start',
-    alignItems: variant === 'header' ? 'center' : 'flex-start',
-
-    ...(variant === 'default' && {
-      border: '1px solid',
-      borderRadius: 8,
-      padding: theme.spacing(2),
-      borderColor: severityPalette[500],
-    }),
-
-    // different styles for the 'header' variant
-    ...(variant === 'header' && {
-      border: 'none',
-      borderRadius: 0,
-      width: 'auto',
-      boxSizing: 'border-box',
-      padding: '10px 16px !important', // Override MUI's default padding with !important
-    }),
-
-    [theme.breakpoints.down('sm')]: {
-      alignItems: variant === 'header' ? 'center' : 'flex-start',
-    },
-
-    '& .MuiAlert-icon': {
-      opacity: 1,
-      alignItems: 'center',
-      marginRight: theme.spacing(1),
-      color: severityPalette[850],
-    },
-
-    '& .MuiAlert-message': {
-      padding: 0,
-      overflow: 'inherit',
-      lineHeight: variant === 'header' ? '20px' : '22px',
-      fontWeight:
-        variant === 'header'
-          ? theme.typography.fontWeightMedium
-          : theme.typography.fontWeightRegular,
-      fontSize: variant === 'header' ? '14px' : '16px',
-      display: 'flex',
-      flexDirection: 'column',
-      overflowWrap: 'anywhere',
-      wordBreak: 'break-word',
-      color: severityPalette[850],
-      flex: variant === 'header' ? '0 1 auto' : 1,
-      width: variant === 'header' ? 'auto' : '100%',
-    },
-  };
-});
-
 export const MIAlert: React.FC<MIAlertProps> = ({
   severity,
   children,
@@ -125,7 +60,16 @@ export const MIAlert: React.FC<MIAlertProps> = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <StyledAlert severity={severity} icon={getIcon(severity)} variant={variant} sx={sx} {...rest}>
+    <StyledAlert
+      {...rest}
+      icon={getIcon(severity)}
+      sx={sx}
+      ownerState={{
+        variant,
+        severity,
+        title,
+      }}
+    >
       <Stack direction={isMobile ? 'column' : 'row'} flex={1}>
         <Stack direction="column" flex={1} minWidth={0} gap={title ? '4px' : 0}>
           {title && <MUIAlertTitle color={getColor(theme, severity)}>{title}</MUIAlertTitle>}

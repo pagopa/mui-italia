@@ -161,11 +161,9 @@ export const MISpidSelectOIDialog: React.FC<Props> = ({
         </Stack>
 
         {unavailableIdp && (
-          <MIAlert
-            severity="warning"
-            description={t.unavailableIdpWarning.replace('%s', unavailableIdp)}
-            data-testid="spid-select-unavailable-idp-alert"
-          />
+          <MIAlert severity="warning" data-testid="spid-select-unavailable-idp-alert">
+            {t.unavailableIdpWarning.replace('%s', unavailableIdp)}
+          </MIAlert>
         )}
 
         {hasError ? (
