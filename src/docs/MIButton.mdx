@@ -1,139 +1,110 @@
-import { Meta, Title, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import { Meta, Title, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
+import { Typography } from '@mui/material';
+
+import Overview from './components/Overview';
+import Section from './components/Section';
+import SubSection from './components/SubSection';
 import * as MIButtonStories from '../stories/MIButton.stories.tsx';
 
 <Meta of={MIButtonStories} />
 
 <Title />
 
-Il component **MIButton** è il pulsante del Design System basato sul componente
-[Button](https://mui.com/material-ui/react-button/) di MUI, esteso con i colori, le
-varianti e gli stati di caricamento previsti dal Design System.
+<Overview
+  githubRelativePath={'MIButton/MIButton.tsx'}
+  figmaNodeId={'1-22'}
+  muiRelativePath={'react-button'}
+>
+  <strong>MIButton</strong> è il pulsante del Design System basato sul componente Button di MUI.
+  Estende il comportamento base con colori, varianti e stati di caricamento coerenti con il Design
+  System.
+</Overview>
 
-**Link utili**
+<Section
+  title="Playground"
+  description="Usa i controlli per modificare i parametri principali del componente e verificare il risultato live."
+>
+  <Primary />
+  <Controls />
+</Section>
 
-- 🎨 [Figma](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=1-22)
-- 💻 **GitHub:** _(da inserire)_
+<Section
+  title="Varianti"
+  description="MIButton supporta tre varianti visive: contained, outlined e text."
+>
+  <Story of={MIButtonStories.Variants} />
+</Section>
 
-## Playground
+<Section
+  title="Colori"
+  description="MIButton supporta tre colori: primary, error e contrasted. Il colore contrasted è pensato per superfici scure o colorate."
+>
+  <Story of={MIButtonStories.Colors} />
+</Section>
 
-<Canvas of={MIButtonStories.Default} />
+<Section
+  title="Dimensioni"
+  description="La dimensione del pulsante può essere configurata tramite la prop size."
+>
+  <Story of={MIButtonStories.Sizes} />
+</Section>
 
-<Controls of={MIButtonStories.Default} />
+<Section
+  title="Icone"
+  description="È possibile affiancare un’icona al testo tramite le props startIcon ed endIcon."
+>
+  <Story of={MIButtonStories.Icons} />
+</Section>
 
-## Varianti
+<Section
+  title="Link"
+  description="La prop href è ammessa solo quando variant è impostata a text. Le altre varianti non supportano href a livello di tipi."
+>
+  <Story of={MIButtonStories.Link} />
+</Section>
 
-`MIButton` supporta tre varianti, allineate a quelle di MUI:
+<Section
+  title="Stati di caricamento"
+  description="Imposta isLoading per indicare un’operazione in corso. Durante il caricamento il click viene ignorato e il pulsante espone aria-busy."
+>
+  <SubSection title="Spinner e skeleton">
+    <Story of={MIButtonStories.LoadingStates} />
+  </SubSection>
+</Section>
 
-- **`contained`** — pulsante pieno, per l'azione primaria (è il default).
-- **`outlined`** — pulsante con solo bordo, per le azioni secondarie.
-- **`text`** — pulsante testuale, senza box. Occupa solo lo spazio del testo ma
-  mantiene un'area tappabile estesa (24px in verticale, 14px in orizzontale) per
-  l'accessibilità. È l'unica variante che può diventare un link (vedi
-  [Link](#link)).
+<Section
+  title="Layout"
+  description="MIButton può occupare tutta la larghezza disponibile tramite la prop fullWidth."
+>
+  <Story of={MIButtonStories.FullWidth} />
+</Section>
 
-> ℹ️ L'effetto _ripple_ di MUI (l'onda al click) è **disabilitato su tutte le
-> varianti** per mantenere il feedback al click pulito e coerente con il Design
-> System.
+<Section
+  title="Accessibilità"
+  description="MIButton gestisce internamente gli aspetti strutturali di accessibilità del pulsante. L’accessibilità finale dipende dalla corretta valorizzazione delle props testuali richieste in alcuni casi."
+>
+  <SubSection title="Props rilevanti">
+    <ul>
+      <li>
+        <strong>loadingAriaLabel</strong>: quando isLoading è attivo,
+        descrive lo stato di caricamento comunicato dallo spinner.
+      </li>
+    </ul>
+  </SubSection>
+  
+  <SubSection title="Prop non disponibili">
+    <ul>
+      <li>
+        <strong>disabled</strong>: non è esposta da MIButton. Per rappresentare un’attesa o bloccare
+        temporaneamente l’azione, usare <strong>isLoading</strong>, che mantiene il pulsante
+        percepibile ed espone <strong>aria-busy</strong>.
+      </li>
+    </ul>
+  </SubSection>
 
-## Colori
-
-`MIButton` supporta tre colori:
-
-- **`primary`** — blu del Design System, da usare su sfondi chiari (è il default).
-- **`error`** — rosso, per azioni distruttive, irreversibili on in caso di errori.
-- **`contrasted`** — pensato per sfondi scuri o colorati.
-
-### Primary
-
-<Canvas of={MIButtonStories.Default} />
-
-### Error
-
-<Canvas of={MIButtonStories.Danger} />
-
-### Contrasted
-
-<Canvas of={MIButtonStories.Contrasted} />
-
-## Icone
-
-È possibile affiancare un'icona al testo tramite le prop `startIcon` ed `endIcon`.
-
-### Start Icon
-
-<Canvas of={MIButtonStories.WithStartIcon} />
-
-### End Icon
-
-<Canvas of={MIButtonStories.WithEndIcon} />
-
-## Link
-
-La prop `href` trasforma il pulsante in un link ed è ammessa **solo sulla variante
-`text`**. A livello di tipi `MIButtonProps` è una union discriminata sul `variant`:
-usare `href` con `contained` o `outlined` (o senza variante, che equivale a
-`contained`) è un **errore TypeScript**.
-
-```tsx
-// ✅ ok: link testuale
-<MIButton variant="text" href="https://example.com">
-  Vai al sito
-</MIButton>
-
-// ❌ errore TypeScript: href non ammesso su contained/outlined
-<MIButton variant="contained" href="https://example.com">
-  Vai al sito
-</MIButton>
-```
-
-## Stati di caricamento
-
-Imposta `isLoading` per indicare un'operazione in corso. Durante il caricamento il
-click è ignorato e il pulsante espone `aria-busy`.
-La prop `loaderType` sceglie come visualizzare l'attesa:
-
-- **`Spinner`** — mostra un [`MISpinner`](?path=/docs/components-mispinner--docs)
-  al posto del contenuto (è il default).
-- **`Skeleton`** — mostra uno skeleton, utile quando il pulsante fa parte di un
-  layout in caricamento.
-
-### Spinner
-
-<Canvas of={MIButtonStories.LoadingSpinner} />
-
-### Skeleton
-
-<Canvas of={MIButtonStories.LoadingSkeleton} />
-
-## Accessibilità
-
-- **Nessuno stato `disabled`.** La prop `disabled` **non è disponibile** su
-  `MIButton`: è stata volutamente esclusa per motivi di accessibilità. Un pulsante
-  disabilitato non riceve il focus, non è raggiungibile da tastiera e non comunica
-  nulla agli screen reader sul perché l'azione non è disponibile. Al suo posto:
-
-  - mantieni il pulsante **attivo** e gestisci la condizione al click, mostrando un
-    messaggio che spieghi cosa manca per procedere; oppure
-  - usa lo stato di **caricamento** (`isLoading`) per le attese, che blocca il click
-    ma resta percepibile e annunciabile.
-
-- **Stato di caricamento.** Durante `isLoading` il pulsante espone `aria-busy` e il
-  click viene ignorato. Fornisci sempre un'etichetta allo spinner tramite
-  `loadingAriaLabel` (default: `"Caricamento in corso"`) così che gli screen reader
-  comunichino l'attesa; dove utile, annuncia anche la fine dell'operazione in una
-  regione `aria-live`.
-
-- **Etichetta dell'azione.** Quando il pulsante contiene solo un'icona, assicurati
-  di fornire un testo accessibile (es. `aria-label`) che ne descriva l'azione.
-
-- **Contrasto.** Scegli il `color` in base allo sfondo (`contrasted` su sfondi
-  scuri/colorati, `primary` su sfondi chiari) per garantire un contrasto sufficiente
-  del testo e dell'eventuale bordo.
-
-### Esempio accessibile
-
-```tsx
-<MIButton isLoading loadingAriaLabel="Salvataggio in corso">
-  Salva
-</MIButton>
-```
+  <SubSection title="Esempio accessibile">
+    ```tsx
+      <MIButton isLoading loaderType="spinner" loadingAriaLabel="Salvataggio in corso">Salva</MIButton>
+    ```
+  </SubSection>
+</Section>

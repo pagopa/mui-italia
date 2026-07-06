@@ -1,87 +1,68 @@
-import { Meta, Title, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import { Meta, Title, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
+
+import Overview from './components/Overview';
+import Section from './components/Section';
+import SubSection from './components/SubSection';
 import * as MISpinnerStories from '../stories/MISpinner.stories.tsx';
 
 <Meta of={MISpinnerStories} />
 
 <Title />
 
-Il component **MISpinner** comunica all'utente che è in corso un'operazione di
-caricamento o elaborazione di durata indefinita. È basato sul componente
-[CircularProgress](https://mui.com/material-ui/react-progress/) di MUI, esteso dal
-Design System con default dedicati (spessore, dimensione e palette).
+<Overview
+  githubRelativePath={'MISpinner/MISpinner.tsx'}
+  figmaNodeId={'109-2426'}
+  muiRelativePath={'react-progress'}
+>
+  <strong>MISpinner</strong> è un indicatore di caricamento basato su CircularProgress di MUI. È
+  pensato per rappresentare un’operazione in corso di durata indefinita, usando dimensioni e colori
+  allineati al Design System.
+</Overview>
 
-Usalo per dare un feedback immediato durante attese percepibili dall'utente
-(chiamate di rete, salvataggi, transizioni di pagina), evitando la sensazione di
-interfaccia bloccata o non reattiva.
+<Section
+  title="Playground"
+  description="Usa i controlli per modificare i parametri principali del componente e verificare il risultato live."
+>
+  <Primary />
+  <Controls />
+</Section>
 
-**Link utili**
+<Section
+  title="Varianti"
+  description="MISpinner supporta più colori per adattarsi al contesto visivo in cui viene mostrato."
+>
+  <SubSection title="Colori">
+    <Story of={MISpinnerStories.ColorVariants} />
+  </SubSection>
+</Section>
 
-- 🎨 [Figma](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=109-2426)
-- 💻 **GitHub:** _(da inserire)_
+<Section
+  title="Dimensioni"
+  description="La dimensione dello spinner può essere configurata tramite la prop size."
+>
+  <Story of={MISpinnerStories.SizeVariants} />
+</Section>
 
-## Playground
+<Section
+  title="Accessibilità"
+  description="MISpinner è basato su CircularProgress e mantiene il ruolo accessibile di progressbar. L’accessibilità finale dipende dalla corretta valorizzazione delle props testuali."
+>
+  <SubSection title="Props rilevanti">
+    <ul>
+      <li>
+        <strong>aria-label</strong>: descrive lo stato di caricamento quando non è presente un testo
+      visibile associato.
+      </li>
+      <li>
+        <strong>aria-labelledby</strong>: può essere usata in alternativa ad aria-label quando lo
+      spinner è descritto da un testo visibile nella pagina.
+      </li>
+    </ul>
+  </SubSection>
 
-<Canvas of={MISpinnerStories.Default} />
-
-<Controls of of={MISpinnerStories.Default} />
-
-## Colori
-
-`MISpinner` supporta due soli colori, allineati alla palette del Design System:
-
-- **`primary`** — blu del Design System, da usare su sfondi chiari (è il default).
-- **`secondary`** — bianco, pensato per sfondi scuri o colorati (es. all'interno di
-  un pulsante in caricamento o su un overlay scuro).
-
-> ⚠️ I colori semantici (`error`, `warning`, `info`, `success`) non sono ammessi:
-> lo Spinner deve restare neutro e coerente con il contesto.
-
-### Primary
-
-<Canvas of={MISpinnerStories.Primary} />
-
-### Secondary
-
-<Canvas of={MISpinnerStories.Secondary} />
-
-## Dimensione
-
-La dimensione dello spinner si controlla con la prop `size`, ereditata da
-`CircularProgress` di MUI. Accetta un numero (pixel) o una stringa CSS; il valore
-di default è `24`.
-
-```tsx
-<MISpinner size={16} />
-<MISpinner size={32} />
-```
-
-## Accessibilità
-
-Il componente `MISpinner` è basato su `CircularProgress`, che implementa nativamente il pattern
-ARIA [`progressbar`](https://www.w3.org/WAI/ARIA/apg/patterns/) (`role="progressbar"`).
-Per garantire un'esperienza accessibile, segui queste indicazioni:
-
-- **Etichetta testuale.** Lo spinner da solo non comunica nulla agli screen reader.
-  Fornisci sempre un'etichetta tramite `aria-label` (es. `aria-label="Caricamento in corso"`)
-  oppure collega un testo visibile con `aria-labelledby`.
-
-- **Annunci dello stato.** Quando un'azione avvia un caricamento, comunica l'inizio
-  e la fine dell'attesa. Inserisci lo spinner (o il messaggio associato) in una
-  regione `aria-live="polite"`, oppure aggiorna un testo di stato collegato, così
-  che l'utente non vedente sappia quando l'operazione è terminata.
-
-- **Non basarti solo sul colore.** Lo spinner non deve essere l'unico indicatore di
-  stato: affiancalo, dove utile, a un testo descrittivo (es. "Salvataggio in corso…").
-
-- **Contrasto.** Assicurati che il colore scelto abbia contrasto sufficiente rispetto
-  allo sfondo: usa `secondary` (bianco) su sfondi scuri e `primary` (blu) su sfondi chiari.
-
-- **Movimento.** L'animazione è continua ma sobria. Per utenti che hanno attivato
-  `prefers-reduced-motion`, valuta di accompagnare lo spinner con un feedback testuale
-  che non dipenda dal movimento.
-
-### Esempio accessibile
-
-```tsx
-<MISpinner aria-label="Caricamento dei dati in corso" />
-```
+  <SubSection title="Esempio accessibile">
+    ```tsx
+      <MISpinner color="primary" size="24" aria-label="Caricamento dei dati in corso" />
+    ```
+  </SubSection>
+</Section>
