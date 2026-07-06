@@ -154,31 +154,101 @@ Non esporre direttamente nei controls props come:
 
 Per queste props creare controlli custom serializzabili.
 
-Esempi:
+### Regola per il type degli args
+
+Se non servono args custom, usare direttamente il tipo del componente:
 
 ```tsx
-type ComponentStoryArgs = {
-  label: string;
-  variant?: 'filled' | 'outlined';
-  deletable?: boolean;
-  deleteAriaLabel?: string;
+const meta: Meta<typeof Component> = {
+  component: Component,
+};
+
+type Story = StoryObj<typeof Component>;
+```
+
+Se invece servono args custom Storybook-only per gestire props complesse, definire il tipo della story come intersezione tra le props reali del componente e **solo** gli args custom:
+
+```tsx
+type ComponentStoryArgs = React.ComponentProps<typeof Component> & {
+  customLabel: string;
+  enableAction: boolean;
 };
 ```
 
-```tsx
-render: ({ deletable, deleteAriaLabel, label, variant }) => {
-  if (deletable) {
-    return (
-      <Component
-        label={label}
-        variant={variant}
-        onDelete={() => alert('Deleted')}
-        aria-label={deleteAriaLabel}
-      />
-    );
-  }
+Regole:
 
-  return <Component label={label} variant={variant} />;
+- includere nella parte custom solo props che non esistono già nelle props pubbliche del componente;
+- non ridefinire props già esistenti del componente con tipi diversi;
+- non ridefinire props primitive come `variant`, `size`, `color`, `padding`, `borderRadius` se sono già esposte dal componente;
+- usare args custom solo per rappresentare props complesse in modo controllabile;
+- nel `render`, mappare esplicitamente gli args custom sulle props reali del componente.
+
+Esempio corretto con prop complessa `children`:
+
+```tsx
+type ComponentStoryArgs = React.ComponentProps<typeof Component> & {
+  content: string;
+};
+
+const meta: Meta<ComponentStoryArgs> = {
+  component: Component,
+  args: {
+    content: 'Contenuto di esempio',
+  },
+  argTypes: {
+    content: {
+      control: { type: 'text' },
+      description: 'Controllo Storybook: testo usato come children del componente.',
+      table: {
+        category: 'Storybook controls',
+      },
+    },
+  },
+  render: ({ content, ...args }) => <Component {...args}>{content}</Component>,
+};
+```
+
+Esempio corretto con callback:
+
+```tsx
+type ComponentStoryArgs = React.ComponentProps<typeof Component> & {
+  enableDelete: boolean;
+  deleteAriaLabel: string;
+};
+
+const meta: Meta<ComponentStoryArgs> = {
+  component: Component,
+  args: {
+    enableDelete: false,
+    deleteAriaLabel: 'Rimuovi elemento',
+  },
+  render: ({ enableDelete, deleteAriaLabel, ...args }) => (
+    <Component
+      {...args}
+      onDelete={enableDelete ? () => alert('Deleted') : undefined}
+      aria-label={deleteAriaLabel}
+    />
+  ),
+};
+```
+
+Esempio da evitare:
+
+```tsx
+type ComponentStoryArgs = {
+  variant: 'flat' | 'outlined';
+  padding: 16 | 24;
+  content: string;
+};
+```
+
+se `variant` e `padding` sono già props pubbliche del componente.
+
+In quel caso usare invece:
+
+```tsx
+type ComponentStoryArgs = React.ComponentProps<typeof Component> & {
+  content: string;
 };
 ```
 
@@ -327,6 +397,7 @@ Esempio:
   </SubSection>
 
 {' '}
+
 <SubSection title="Prop non disponibili">
   <ul>
     <li>
@@ -341,6 +412,7 @@ Esempio:
 </SubSection>
 
 {' '}
+
 <SubSection title="Focus da tastiera">
   <p>
     Il componente mostra uno stato di focus visibile quando viene raggiunto tramite tastiera. Non
@@ -350,6 +422,7 @@ Esempio:
 </SubSection>
 
 {' '}
+
 <SubSection title="Area cliccabile">
   <p>
     Il componente mantiene una dimensione minima dell’area cliccabile. Questa scelta facilita
