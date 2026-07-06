@@ -16,7 +16,7 @@ type AllowedMIChipColors =
 
 type BaseMIChipProps = Omit<
   ChipProps,
-  'color' | 'deleteIcon' | 'label' | 'onClick' | 'onDelete' | 'size' | 'disabled'
+  'color' | 'deleteIcon' | 'label' | 'onClick' | 'onDelete' | 'size'
 > & {
   label: string;
   sx?: MarginSxProps;
