@@ -62,7 +62,7 @@ const withTheme: Decorator = (Story, context) => {
   );
 
   const selectedBackground =
-    context.parameters.backgroundKey ?? context.globals.backgrounds?.value ?? 'neutral';
+    context.parameters.backgroundKey ?? context.globals.backgrounds?.value ?? 'default';
 
   switch (selectedTheme) {
     case 'system': {
