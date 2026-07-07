@@ -16,6 +16,7 @@ export default {
     profileName: 'Ente Creditore',
     caption: 'Stai operando come',
     switchLabel: 'Cambia profilo',
+    showSwitchProfile: true,
     onSwitchProfile: () => {
       console.log('Clicked/Tapped on switch profile');
     },
@@ -56,7 +57,7 @@ export const LongProfileName: StoryFn<typeof ProfileItem> = () => (
   </Stack>
 );
 
-export const Disabled = Template.bind({});
-Disabled.args = {
-  disabled: true,
+export const WithoutSwitchProfile = Template.bind({});
+WithoutSwitchProfile.args = {
+  showSwitchProfile: false,
 };

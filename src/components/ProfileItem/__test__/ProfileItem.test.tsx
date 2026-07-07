@@ -59,19 +59,11 @@ describe('ProfileItem', () => {
     expect(onSwitchProfile).toHaveBeenCalledOnce();
   });
 
-  it('disables the switch action', () => {
-    const onSwitchProfile = vi.fn();
-    renderProfileItem({ disabled: true, onSwitchProfile });
+  it('hides the switch action when showSwitchProfile is false', () => {
+    renderProfileItem({ showSwitchProfile: false });
 
-    const switchButton = screen.getByRole('button', {
-      name: 'Cambia profilo: Ente Creditore',
-    });
-    expect(switchButton).toBeDisabled();
-    expect(switchButton).toHaveTextContent('Cambia profilo');
-    expect(switchButton).toHaveStyle({ opacity: '0.38' });
-
-    fireEvent.click(switchButton);
-    expect(onSwitchProfile).not.toHaveBeenCalled();
+    expect(screen.queryByRole('button')).not.toBeInTheDocument();
+    expect(screen.getByText('Ente Creditore')).toBeInTheDocument();
   });
 
   it('renders an accessible switch action in the compact layout', () => {
@@ -84,6 +76,19 @@ describe('ProfileItem', () => {
     expect(switchButton).toHaveTextContent('EC');
     expect(screen.queryByText('Stai operando come')).not.toBeInTheDocument();
     expect(screen.queryByText('Ente Creditore')).not.toBeInTheDocument();
+  });
+
+  it('renders a non-interactive avatar in the compact layout when showSwitchProfile is false', () => {
+    const onSwitchProfile = vi.fn();
+    mockElementSize(120);
+    renderProfileItem({ showSwitchProfile: false, onSwitchProfile });
+
+    expect(screen.getByText('EC')).toBeInTheDocument();
+    expect(screen.queryByRole('button')).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByText('EC'));
+
+    expect(onSwitchProfile).not.toHaveBeenCalled();
   });
 
   it('uses a custom aria-label for the switch action', () => {

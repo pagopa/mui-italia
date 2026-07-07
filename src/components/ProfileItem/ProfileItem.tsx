@@ -22,8 +22,8 @@ export interface ProfileItemProps {
   switchLabel?: string;
   /** Switch profile action aria-label */
   switchAriaLabel?: string;
-  /** If true, disables the switch profile action */
-  disabled?: boolean;
+  /** If true, shows the switch profile action */
+  showSwitchProfile?: boolean;
   /** Callback fired when the switch profile action is clicked */
   onSwitchProfile: (event: MouseEvent<HTMLButtonElement>) => void;
   /** Style to override the root element */
@@ -37,19 +37,13 @@ export const ProfileItem = ({
   profileInitials,
   switchLabel = 'Cambia profilo',
   switchAriaLabel,
-  disabled = false,
+  showSwitchProfile = true,
   onSwitchProfile,
   sx,
 }: ProfileItemProps) => {
   const { ref, size } = useResizeObserver<HTMLDivElement>();
   const isCompact = size !== null && size.width < compactBreakpoint;
   const resolvedSwitchAriaLabel = switchAriaLabel ?? `${switchLabel}: ${profileName}`;
-  const disabledSwitchSx = {
-    '&.Mui-disabled': {
-      color: 'primary.main',
-      opacity: (theme: Theme) => theme.palette.action.disabledOpacity,
-    },
-  };
   const rootSx: SxProps<Theme> = [
     {
       display: 'flex',
@@ -84,20 +78,22 @@ export const ProfileItem = ({
   return (
     <Box id={id} ref={ref} sx={rootSx}>
       {isCompact ? (
-        <ButtonNaked
-          color="primary"
-          component="button"
-          disabled={disabled}
-          type="button"
-          aria-label={resolvedSwitchAriaLabel}
-          onClick={onSwitchProfile}
-          sx={{
-            borderRadius: '50%',
-            ...disabledSwitchSx,
-          }}
-        >
-          {avatar}
-        </ButtonNaked>
+        showSwitchProfile ? (
+          <ButtonNaked
+            color="primary"
+            component="button"
+            type="button"
+            aria-label={resolvedSwitchAriaLabel}
+            onClick={onSwitchProfile}
+            sx={{
+              borderRadius: '50%',
+            }}
+          >
+            {avatar}
+          </ButtonNaked>
+        ) : (
+          avatar
+        )
       ) : (
         avatar
       )}
@@ -126,25 +122,25 @@ export const ProfileItem = ({
               {profileName}
             </Typography>
           </Tooltip>
-          <ButtonNaked
-            color="primary"
-            component="button"
-            disabled={disabled}
-            size="small"
-            type="button"
-            aria-label={resolvedSwitchAriaLabel}
-            onClick={onSwitchProfile}
-            sx={{
-              mt: 0.25,
-              justifyContent: 'flex-start',
-              fontSize: 15,
-              lineHeight: 1.3,
-              textDecoration: 'underline',
-              ...disabledSwitchSx,
-            }}
-          >
-            {switchLabel}
-          </ButtonNaked>
+          {showSwitchProfile && (
+            <ButtonNaked
+              color="primary"
+              component="button"
+              size="small"
+              type="button"
+              aria-label={resolvedSwitchAriaLabel}
+              onClick={onSwitchProfile}
+              sx={{
+                mt: 0.25,
+                justifyContent: 'flex-start',
+                fontSize: 15,
+                lineHeight: 1.3,
+                textDecoration: 'underline',
+              }}
+            >
+              {switchLabel}
+            </ButtonNaked>
+          )}
         </Box>
       )}
     </Box>

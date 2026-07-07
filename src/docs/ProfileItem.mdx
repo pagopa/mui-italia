@@ -9,9 +9,9 @@ import * as ProfileItemStories from '../components/ProfileItem/ProfileItem.stori
 <Title />
 
 Il componente **ProfileItem** mostra il profilo operativo corrente, composto da iniziali, nome del
-profilo e azione per cambiare profilo. Il layout si adatta allo spazio disponibile: nella vista
-estesa mostra caption, nome e bottone testuale; nella vista compatta mantiene accessibile l'azione
-tramite l'avatar.
+profilo e, quando prevista, l'azione per cambiare profilo. Il layout si adatta allo spazio
+disponibile: nella vista estesa mostra caption, nome e bottone testuale; nella vista compatta
+mantiene accessibile l'azione tramite l'avatar.
 
 <Section
   title="Playground"
@@ -23,7 +23,7 @@ tramite l'avatar.
 
 <Section
   title="Varianti"
-  description="ProfileItem supporta stati e layout pensati per la visualizzazione del profilo in aree laterali o header compatti."
+  description="ProfileItem supporta layout pensati per la visualizzazione del profilo in aree laterali o header compatti."
 >
   <SubSection title="Default">
     <Story of={ProfileItemStories.Default} />
@@ -37,24 +37,24 @@ tramite l'avatar.
     <Story of={ProfileItemStories.LongProfileName} />
   </SubSection>
 
-  <SubSection title="Disabilitato">
-    <Story of={ProfileItemStories.Disabled} />
+  <SubSection title="Senza cambio profilo">
+    <Story of={ProfileItemStories.WithoutSwitchProfile} />
   </SubSection>
 </Section>
 
 <Section
   title="Comportamento"
-  description="Il componente mantiene sempre disponibile l'azione di cambio profilo, adattando solo la presentazione allo spazio disponibile."
+  description="Il componente mostra l'azione di cambio profilo quando richiesta, adattandone la presentazione allo spazio disponibile."
 >
   <SubSection title="Layout responsivo">
     Il componente usa la larghezza effettiva del contenitore per passare alla versione compatta. In
-    questa modalita l'avatar diventa il controllo interattivo e conserva la stessa etichetta
-    accessibile del bottone esteso.
+    questa modalita, se l'azione e visibile, l'avatar diventa il controllo interattivo e conserva la
+    stessa etichetta accessibile del bottone esteso.
   </SubSection>
 
-  <SubSection title="Stato disabilitato">
-    Quando <code>disabled</code> e true, l'azione viene disabilitata nativamente e il controllo viene
-    oscurato senza sparire dalla UI.
+  <SubSection title="Azione nascosta">
+    Quando <code>showSwitchProfile</code> e false, l'azione di cambio profilo non viene renderizzata.
+    Nel layout compatto l'avatar resta visibile, ma non e interattivo.
   </SubSection>
 </Section>
 
@@ -76,7 +76,8 @@ tramite l'avatar.
         dell'azione, utile quando il testo visibile non e sufficiente.
       </li>
       <li>
-        <strong>disabled</strong>: impedisce l'interazione mantenendo il controllo visibile.
+        <strong>showSwitchProfile</strong>: permette di nascondere l'azione di cambio profilo quando
+        non deve essere disponibile nella UI.
       </li>
     </ul>
   </SubSection>
