@@ -47,8 +47,8 @@ export const Compact: StoryFn<typeof ProfileItem> = (args) => (
 export const LongProfileName: StoryFn<typeof ProfileItem> = () => (
   <Stack gap={2} sx={{ maxWidth: componentMaxWidth }}>
     <ProfileItem
-      profileInitials="EC"
-      profileName="Commissario straordinario per la realizzazione di interventi complementari"
+      profileInitials="IT"
+      profileName="Intermediario Tecnologico"
       onSwitchProfile={() => {
         console.log('Clicked/Tapped on switch profile');
       }}
