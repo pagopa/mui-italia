@@ -1,3 +1,46 @@
+# [2.6.0-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.6.0-RC.0) (2026-07-07)
+
+
+### Features
+
+* **M20DS-43:** snackbar component ([#671](https://github.com/pagopa/mui-italia/issues/671)) ([25d8808](https://github.com/pagopa/mui-italia/commit/25d88080137e6af5d49edc8dd722bdd80584203a))
+* **M20DS-98:** Add MIPaper ([#720](https://github.com/pagopa/mui-italia/issues/720)) ([a6bcf4e](https://github.com/pagopa/mui-italia/commit/a6bcf4e4f5e1bb309cc29c2d565cf61af07e6050))
+* **PN-19688:** add componets MIWizard,MIStep and MIStepper ([#696](https://github.com/pagopa/mui-italia/issues/696)) ([07306b8](https://github.com/pagopa/mui-italia/commit/07306b8e1dc210cafa4c6ea713db3d760fdf4f57))
+* **M20DS-21:** create MIIconButton component ([#675](https://github.com/pagopa/mui-italia/issues/675)) ([a31249e](https://github.com/pagopa/mui-italia/commit/a31249ef16a663ae8a7913177ede7b4d6cce94e9))
+* **M20DS-8:** create MIButton component ([#708](https://github.com/pagopa/mui-italia/issues/708)) ([4d8fe5f](https://github.com/pagopa/mui-italia/commit/4d8fe5ff4afc2686f08ba27bf36ac4c1f6513b28))
+* **M20DS-62:** create MISpinner component ([#677](https://github.com/pagopa/mui-italia/issues/677)) ([d430238](https://github.com/pagopa/mui-italia/commit/d430238808c21f7b5d59530f2fa7729b5c41db95))
+
+
+### Bug Fixes
+
+* **M20DS-5:** add xxl breakpoint ([#722](https://github.com/pagopa/mui-italia/issues/722)) ([414c46e](https://github.com/pagopa/mui-italia/commit/414c46e8946eb237f6726cf34c2f51cfb15079f5))
+* **M20DS-30:** update MIAlert on MISpidSelectOIDialog ([#724](https://github.com/pagopa/mui-italia/issues/724)) ([e1d77ee](https://github.com/pagopa/mui-italia/commit/e1d77ee059b21c813e68898138419fc8e4d71b7c))
+* **M20DS-30:** update MIAlert component to accept ReactNode for description ([#723](https://github.com/pagopa/mui-italia/issues/723)) ([012602f](https://github.com/pagopa/mui-italia/commit/012602f61ef6817ebf9ba3d221b60c1cd7757eda))
+* **M20DS-2:** export themeNext ([#721](https://github.com/pagopa/mui-italia/issues/721)) ([42c9f6a](https://github.com/pagopa/mui-italia/commit/42c9f6a3814a45857cf64face0bb1de803b587b5))
+
+
+### Chores
+
+* bump @babel/core from 7.29.0 to 7.29.7 ([#716](https://github.com/pagopa/mui-italia/issues/716)) ([b8c7b09](https://github.com/pagopa/mui-italia/commit/b8c7b09a13dff95153f7a35aa6f28b7a3a82b8d9))
+* Bump vite from 7.3.2 to 7.3.5 ([#717](https://github.com/pagopa/mui-italia/issues/717)) ([0a886ae](https://github.com/pagopa/mui-italia/commit/0a886aeee6607247a3e81e7fabf18904ff92efbf))
+
+
+### Code Refactoring
+
+* **M20DS-2:** color palette ([#639](https://github.com/pagopa/mui-italia/issues/639)) ([8379ef1](https://github.com/pagopa/mui-italia/commit/8379ef1fe1a002d474a4c33179e74c73a0616fd3))
+
+
+### Continuous Integration
+
+* **MUI-236:** avoid to run chromatic build on those branches that don't touch components ([#719](https://github.com/pagopa/mui-italia/issues/719)) ([9722666](https://github.com/pagopa/mui-italia/commit/9722666110b8a9008b06e7acbdada7a3e344ec0b))
+* **MUI-236:** run chromatic build when pushing on main and develop, and avoid that checks goes in waiting status ([#718](https://github.com/pagopa/mui-italia/issues/718)) ([efa38ee](https://github.com/pagopa/mui-italia/commit/efa38ee214ed82d29f2d8167201d84334acda18e))
+
+
+### Documentation
+
+* **MUI-249:** remove skill from repo ([#728](https://github.com/pagopa/mui-italia/issues/728)) ([cc845bc](https://github.com/pagopa/mui-italia/commit/cc845bc5ee083d703e60ecc6e2d57835d32e4245))
+* **MUI-249:** fix chromatic build error ([#727](https://github.com/pagopa/mui-italia/issues/727)) ([1400c53](https://github.com/pagopa/mui-italia/commit/1400c53461653c2bb071730843babd9739a77400))
+* **MUI-249:** added documentation for newest components ([#711](https://github.com/pagopa/mui-italia/issues/711)) ([a09e9cc](https://github.com/pagopa/mui-italia/commit/a09e9cc5104a05a81b201b720fe854413ce6ccac))
 # [2.5.0](https://github.com/pagopa/mui-italia/releases/tag/v2.5.0) (2026-06-16)
 
 
