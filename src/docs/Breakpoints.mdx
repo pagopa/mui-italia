@@ -1,0 +1,415 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Foundation/Breakpoints" />
+
+# Breakpoints
+
+Questa pagina documenta i breakpoint responsive usati da `@pagopa/mui-italia`.
+
+I breakpoint definiscono le soglie di larghezza viewport usate dal tema MUI per costruire layout responsive.
+
+Sono disponibili tramite:
+
+```tsx
+theme.breakpoints;
+```
+
+e possono essere usati sia negli oggetti `sx`, sia negli styled component, sia con `useMediaQuery`.
+
+## Valori
+
+I breakpoint sono gli stessi nel tema corrente e in `themeNext`.
+
+<table>
+  <thead>
+    <tr>
+      <th>Breakpoint</th>
+      <th>Valore minimo</th>
+      <th>Uso tipico</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>xs</code>
+      </td>
+      <td>
+        <code>0px</code>
+      </td>
+      <td>Mobile e viewport molto stretti</td>
+    </tr>
+    <tr>
+      <td>
+        <code>sm</code>
+      </td>
+      <td>
+        <code>640px</code>
+      </td>
+      <td>Mobile large / tablet piccoli</td>
+    </tr>
+    <tr>
+      <td>
+        <code>md</code>
+      </td>
+      <td>
+        <code>900px</code>
+      </td>
+      <td>Tablet e layout intermedi</td>
+    </tr>
+    <tr>
+      <td>
+        <code>lg</code>
+      </td>
+      <td>
+        <code>1200px</code>
+      </td>
+      <td>Desktop</td>
+    </tr>
+    <tr>
+      <td>
+        <code>xl</code>
+      </td>
+      <td>
+        <code>1536px</code>
+      </td>
+      <td>Desktop ampi</td>
+    </tr>
+    <tr>
+      <td>
+        <code>xxl</code>
+      </td>
+      <td>
+        <code>1920px</code>
+      </td>
+      <td>Schermi molto ampi</td>
+    </tr>
+  </tbody>
+</table>
+
+La configurazione nel tema è:
+
+```ts
+breakpoints: {
+  values: {
+    xs: 0,
+    sm: 640,
+    md: 900,
+    lg: 1200,
+    xl: 1536,
+    xxl: 1920,
+  },
+}
+```
+
+## Breakpoint custom `xxl`
+
+Oltre ai breakpoint standard di MUI, il tema aggiunge `xxl`.
+
+Questo breakpoint è disponibile perché il progetto estende i breakpoint MUI tramite override TypeScript:
+
+```ts
+declare module '@mui/material/styles' {
+  interface BreakpointOverrides {
+    xxl: true;
+  }
+}
+```
+
+Puoi quindi usarlo come gli altri breakpoint:
+
+```tsx
+<Box
+  sx={{
+    px: {
+      xs: 2,
+      md: 4,
+      xxl: 8,
+    },
+  }}
+/>
+```
+
+## Uso con `sx`
+
+Il modo più comune per usare i breakpoint è attraverso la sintassi responsive di MUI negli oggetti `sx`.
+
+```tsx
+<Box
+  sx={{
+    display: 'grid',
+    gap: {
+      xs: 2,
+      md: 3,
+      lg: 4,
+    },
+    gridTemplateColumns: {
+      xs: 'repeat(4, 1fr)',
+      md: 'repeat(8, 1fr)',
+      lg: 'repeat(12, 1fr)',
+    },
+  }}
+/>
+```
+
+In questo esempio:
+
+- da `xs` in su il layout usa 4 colonne;
+- da `md` in su passa a 8 colonne;
+- da `lg` in su passa a 12 colonne.
+
+## Uso con `theme.breakpoints.up`
+
+Usa `theme.breakpoints.up()` quando devi applicare uno stile da una soglia in su.
+
+```tsx
+<Box
+  sx={(theme) => ({
+    padding: theme.spacing(2),
+    [theme.breakpoints.up('md')]: {
+      padding: theme.spacing(4),
+    },
+    [theme.breakpoints.up('lg')]: {
+      padding: theme.spacing(6),
+    },
+  })}
+/>
+```
+
+Equivale a:
+
+- padding `2` sotto `md`;
+- padding `4` da `md` in su;
+- padding `6` da `lg` in su.
+
+## Uso con `theme.breakpoints.down`
+
+Usa `theme.breakpoints.down()` quando devi applicare uno stile fino a una certa soglia.
+
+```tsx
+<Box
+  sx={(theme) => ({
+    display: 'flex',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+    },
+  })}
+/>
+```
+
+Questo è utile quando il layout desktop è quello di default e vuoi aggiungere un comportamento specifico per mobile.
+
+## Uso con `useMediaQuery`
+
+Usa `useMediaQuery` quando il comportamento React deve cambiare in base al breakpoint, non solo lo stile.
+
+```tsx
+import { useMediaQuery, useTheme } from '@mui/material';
+
+const Component = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  return isMobile ? <MobileLayout /> : <DesktopLayout />;
+};
+```
+
+Questo approccio è utile quando devi renderizzare strutture diverse, non solo cambiare CSS.
+
+Esempi presenti nel progetto:
+
+```tsx
+const theme = useTheme();
+const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+```
+
+```tsx
+const theme = useTheme();
+const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
+```
+
+```tsx
+const theme = useTheme();
+const isTablet = useMediaQuery(theme.breakpoints.up('md'));
+```
+
+## Uso negli styled component
+
+Negli styled component puoi usare i breakpoint tramite il tema.
+
+```tsx
+const Root = styled(Box)(({ theme }) => ({
+  padding: theme.spacing(2),
+
+  [theme.breakpoints.up('md')]: {
+    padding: theme.spacing(4),
+  },
+
+  [theme.breakpoints.up('lg')]: {
+    padding: theme.spacing(6),
+  },
+}));
+```
+
+## Tema corrente e Theme Next
+
+I breakpoint non cambiano tra tema corrente e `themeNext`.
+
+Entrambi i temi definiscono gli stessi valori:
+
+```ts
+xs: 0;
+sm: 640;
+md: 900;
+lg: 1200;
+xl: 1536;
+xxl: 1920;
+```
+
+Questo significa che il comportamento responsive dei layout resta coerente quando si passa da un tema all’altro.
+
+La differenza tra tema corrente e `themeNext` riguarda altri aspetti del tema, come palette semantica e alcuni token visuali, ma non le soglie responsive.
+
+## Regole di utilizzo
+
+### Usa i breakpoint del tema
+
+Evita media query hardcoded.
+
+```tsx
+// Da evitare
+<Box sx={{ '@media (min-width: 900px)': { padding: 32 } }} />
+
+// Preferibile
+<Box
+  sx={(theme) => ({
+    [theme.breakpoints.up('md')]: {
+      padding: theme.spacing(4),
+    },
+  })}
+/>
+```
+
+Usare i breakpoint del tema rende il codice più leggibile e mantiene i componenti allineati al Design System.
+
+### Usa `sx` per variazioni di stile
+
+Se cambia solo lo stile, preferisci la sintassi responsive di `sx`.
+
+```tsx
+<Stack
+  direction={{
+    xs: 'column',
+    md: 'row',
+  }}
+  spacing={{
+    xs: 2,
+    md: 4,
+  }}
+/>
+```
+
+### Usa `useMediaQuery` solo quando cambia il rendering
+
+Usa `useMediaQuery` quando devi cambiare la struttura del componente.
+
+```tsx
+const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+return isMobile ? <MobileStepper /> : <DesktopStepper />;
+```
+
+Se devi solo cambiare padding, direction, gap o display, preferisci `sx`.
+
+### Parti da mobile
+
+Quando possibile, definisci prima lo stile mobile e poi aggiungi override progressivi sui breakpoint superiori.
+
+```tsx
+<Box
+  sx={{
+    px: {
+      xs: 2,
+      sm: 3,
+      md: 4,
+      lg: 6,
+    },
+  }}
+/>
+```
+
+Questo rende più chiara la progressione responsive e riduce gli override.
+
+### Evita breakpoint non necessari
+
+Non è necessario specificare ogni breakpoint se il valore non cambia.
+
+```tsx
+// Da evitare
+<Box
+  sx={{
+    px: {
+      xs: 2,
+      sm: 2,
+      md: 4,
+      lg: 4,
+      xl: 4,
+    },
+  }}
+/>
+
+// Preferibile
+<Box
+  sx={{
+    px: {
+      xs: 2,
+      md: 4,
+    },
+  }}
+/>
+```
+
+## Esempio completo
+
+```tsx
+import { Box, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
+
+const ResponsiveExample = () => {
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
+
+  return (
+    <Box
+      sx={{
+        px: {
+          xs: 2,
+          sm: 3,
+          md: 4,
+          lg: 6,
+          xxl: 8,
+        },
+        py: {
+          xs: 3,
+          md: 6,
+        },
+      }}
+    >
+      <Stack
+        direction={{
+          xs: 'column',
+          md: 'row',
+        }}
+        spacing={{
+          xs: 2,
+          md: 4,
+        }}
+      >
+        <Typography variant="h2">Layout responsive</Typography>
+
+        {isDesktop && (
+          <Typography variant="body1">Questo testo viene renderizzato solo da lg in su.</Typography>
+        )}
+      </Stack>
+    </Box>
+  );
+};
+```
