@@ -1,7 +1,7 @@
 'use client';
 
 import { MouseEvent } from 'react';
-import { Avatar, Badge, Box, SxProps, Theme, Tooltip, Typography } from '@mui/material';
+import { Avatar, Box, SxProps, Theme, Tooltip, Typography } from '@mui/material';
 
 import { ButtonNaked } from '@components/ButtonNaked';
 
@@ -22,8 +22,6 @@ export interface ProfileItemProps {
   switchLabel?: string;
   /** Switch profile action aria-label */
   switchAriaLabel?: string;
-  /** If true, shows the switch profile action */
-  showSwitchProfile?: boolean;
   /** If true, disables the switch profile action */
   disabled?: boolean;
   /** Callback fired when the switch profile action is clicked */
@@ -39,7 +37,6 @@ export const ProfileItem = ({
   profileInitials,
   switchLabel = 'Cambia profilo',
   switchAriaLabel,
-  showSwitchProfile = true,
   disabled = false,
   onSwitchProfile,
   sx,
@@ -47,6 +44,12 @@ export const ProfileItem = ({
   const { ref, size } = useResizeObserver<HTMLDivElement>();
   const isCompact = size !== null && size.width < compactBreakpoint;
   const resolvedSwitchAriaLabel = switchAriaLabel ?? `${switchLabel}: ${profileName}`;
+  const disabledSwitchSx = {
+    '&.Mui-disabled': {
+      color: 'primary.main',
+      opacity: (theme: Theme) => theme.palette.action.disabledOpacity,
+    },
+  };
   const rootSx: SxProps<Theme> = [
     {
       display: 'flex',
@@ -63,42 +66,24 @@ export const ProfileItem = ({
   ];
 
   const avatar = (
-    <Badge
-      overlap="circular"
-      variant="dot"
-      color="success"
-      anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'right',
-      }}
+    <Avatar
+      aria-hidden
       sx={{
-        '& .MuiBadge-badge': {
-          width: 10,
-          height: 10,
-          minWidth: 10,
-          boxShadow: (theme) => `0 0 0 2px ${theme.palette.background.paper}`,
-        },
+        width: 45,
+        height: 45,
+        bgcolor: 'grey.400',
+        color: 'common.white',
+        fontSize: 23,
+        fontWeight: 600,
       }}
     >
-      <Avatar
-        aria-hidden
-        sx={{
-          width: 45,
-          height: 45,
-          bgcolor: 'grey.400',
-          color: 'common.white',
-          fontSize: 23,
-          fontWeight: 600,
-        }}
-      >
-        {profileInitials}
-      </Avatar>
-    </Badge>
+      {profileInitials}
+    </Avatar>
   );
 
   return (
     <Box id={id} ref={ref} sx={rootSx}>
-      {isCompact && showSwitchProfile ? (
+      {isCompact ? (
         <ButtonNaked
           color="primary"
           component="button"
@@ -108,9 +93,7 @@ export const ProfileItem = ({
           onClick={onSwitchProfile}
           sx={{
             borderRadius: '50%',
-            '&.Mui-disabled': {
-              opacity: 0.38,
-            },
+            ...disabledSwitchSx,
           }}
         >
           {avatar}
@@ -137,32 +120,31 @@ export const ProfileItem = ({
               sx={{
                 fontWeight: 600,
                 lineHeight: 1.25,
-                fontSize: 21
+                fontSize: 21,
               }}
             >
               {profileName}
             </Typography>
           </Tooltip>
-          {showSwitchProfile && (
-            <ButtonNaked
-              color="primary"
-              component="button"
-              disabled={disabled}
-              size="small"
-              type="button"
-              aria-label={resolvedSwitchAriaLabel}
-              onClick={onSwitchProfile}
-              sx={{
-                mt: 0.25,
-                justifyContent: 'flex-start',
-                fontSize: 15,
-                lineHeight: 1.3,
-                textDecoration: 'underline',
-              }}
-            >
-              {switchLabel}
-            </ButtonNaked>
-          )}
+          <ButtonNaked
+            color="primary"
+            component="button"
+            disabled={disabled}
+            size="small"
+            type="button"
+            aria-label={resolvedSwitchAriaLabel}
+            onClick={onSwitchProfile}
+            sx={{
+              mt: 0.25,
+              justifyContent: 'flex-start',
+              fontSize: 15,
+              lineHeight: 1.3,
+              textDecoration: 'underline',
+              ...disabledSwitchSx,
+            }}
+          >
+            {switchLabel}
+          </ButtonNaked>
         </Box>
       )}
     </Box>

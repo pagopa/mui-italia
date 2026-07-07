@@ -44,7 +44,7 @@ describe('ProfileItem', () => {
     expect(screen.getByText('Stai operando come')).toBeInTheDocument();
     expect(screen.getByText('Ente Creditore')).toBeInTheDocument();
     expect(screen.getByText('EC')).toBeInTheDocument();
-    expect(container.querySelector('.MuiBadge-dot')).toBeInTheDocument();
+    expect(container.querySelector('.MuiBadge-root')).not.toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: 'Cambia profilo: Ente Creditore' })
     ).toHaveTextContent('Cambia profilo');
@@ -67,16 +67,11 @@ describe('ProfileItem', () => {
       name: 'Cambia profilo: Ente Creditore',
     });
     expect(switchButton).toBeDisabled();
+    expect(switchButton).toHaveTextContent('Cambia profilo');
+    expect(switchButton).toHaveStyle({ opacity: '0.38' });
 
     fireEvent.click(switchButton);
     expect(onSwitchProfile).not.toHaveBeenCalled();
-  });
-
-  it('hides the switch action when showSwitchProfile is false', () => {
-    renderProfileItem({ showSwitchProfile: false });
-
-    expect(screen.queryByRole('button')).not.toBeInTheDocument();
-    expect(screen.getByText('Ente Creditore')).toBeInTheDocument();
   });
 
   it('renders an accessible switch action in the compact layout', () => {
