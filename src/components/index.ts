@@ -22,6 +22,7 @@ export * from './PartyAccountItemButton';
 export * from './PartyAvatar';
 export * from './ProductAvatar';
 export * from './ProductSwitch';
+export * from './ProfileItem';
 export * from './Showcase';
 export * from './SingleFileInput';
 export * from './Tag';
