@@ -56,14 +56,14 @@ const Breadcrumb: React.FC<MIBreadcrumbProps> = ({ label, onClick, href, target,
   );
 }
 
-export const MIBreadcrumbs: React.FC<MIBreadcrumbsProps> = ({ elements, mobileButtonLabel = 'Indietro', mobileButtonIcon = 'ArrowBack', variant = 'responsive' }) => {
+export const MIBreadcrumbs: React.FC<MIBreadcrumbsProps> = ({ elements, mobileButtonLabel = 'Indietro', mobileButtonIcon = 'ArrowBack', mobileButtonAction = () => window.history.back(), variant = 'responsive' }) => {
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
   return (
     <>
       <StyledBreadcrumbs aria-label="breadcrumb" separator={<ChevronRightIcon />}>
         {
-          variant === 'mobileOnly' || isMobile ? <Breadcrumb label={mobileButtonLabel} icon={mobileButtonIcon} /> : elements?.map((element) =>
+          variant === 'mobileOnly' || isMobile ? <Breadcrumb label={mobileButtonLabel} icon={mobileButtonIcon} onClick={mobileButtonAction} /> : elements?.map((element) =>
             <Breadcrumb key={element.label} {...element} />
           )
         }

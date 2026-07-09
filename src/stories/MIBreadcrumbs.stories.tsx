@@ -36,7 +36,8 @@ export const CustomMobileOnly: Story = {};
 CustomMobileOnly.args = {
   variant: 'mobileOnly',
   mobileButtonLabel: 'Esci',
-  mobileButtonIcon: 'Close'
+  mobileButtonIcon: 'Close',
+  mobileButtonAction: () => console.log('Esci')
 }
 
 export const WithIcons: Story = {};

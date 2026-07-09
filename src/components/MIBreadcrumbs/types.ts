@@ -27,6 +27,11 @@ export interface MIBreadcrumbsProps {
    */
   mobileButtonIcon?: MIIconName;
   /**
+   * Callback che viene eseguita quando il bottone "Indietro" viene cliccato.
+   * @default () => window.history.back()
+   */
+  mobileButtonAction?: () => void;
+  /**
    * Variante del breadcrumb
    * @default "responsive"
    * - "responsive": breadcrumb responsive per mobile e desktop
