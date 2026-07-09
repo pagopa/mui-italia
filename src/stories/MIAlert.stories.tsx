@@ -1,9 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { breakpointsChromaticValues } from '@theme';
 import { MIAlert } from '@components/MIAlert';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import { ComponentProps } from 'react';
 
-const componentMaxWidth = 900;
+type MIAlertStoryArgs = ComponentProps<typeof MIAlert> & {
+  content?: string;
+};
 
 const DEFAULT_TITLE = "Titolo default dell'Alert";
 const DEFAULT_MESSAGE = 'Aggiungi un messaggio esplicativo sul motivo della segnalazione.';
@@ -12,23 +14,25 @@ const DEFAULT_CTA = 'Ok, ho capito!';
 const LONG_UNBROKEN =
   'Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong';
 
-const meta: Meta<React.ComponentProps<typeof MIAlert>> = {
-  title: 'MUI Components/Feedback/MIAlert',
+const meta: Meta<MIAlertStoryArgs> = {
+  title: 'Components/MIAlert',
   component: MIAlert,
   parameters: {
-    chromatic: {
-      viewports: breakpointsChromaticValues.filter((resolution) => resolution <= componentMaxWidth),
+    controls: {
+      include: ['variant', 'severity', 'title', 'content', 'action'],
     },
   },
-  decorators: [
-    (Story) => (
-      <Box sx={{ p: 2, pb: 4, boxSizing: 'border-box', width: '100%' }}>
-        <Box sx={{ maxWidth: '100%', mx: 'auto' }}>
-          <Story />
-        </Box>
-      </Box>
-    ),
-  ],
+  args: {
+    variant: 'default',
+    severity: 'success',
+    title: "Titolo default dell'Alert",
+    content: 'Aggiungi un messaggio esplicativo sul motivo della segnalazione.',
+    action: {
+      label: 'Ok, ho capito!',
+      href: 'https://test.com',
+      target: '_blank',
+    },
+  },
   argTypes: {
     severity: {
       description: 'Severità dell’alert. Determina colore e icona.',
@@ -54,23 +58,28 @@ const meta: Meta<React.ComponentProps<typeof MIAlert>> = {
       control: { type: 'text' },
       table: { type: { summary: 'string' } },
     },
-    children: {
-      description:
-        'Contenuto principale dell’alert. Accetta una semplice stringa oppure un `ReactNode` custom (es. link, liste, testo formattato).',
+    content: {
+      description: 'Controllo Storybook: testo usato come children del componente.',
       control: { type: 'text' },
-      table: { type: { summary: 'ReactNode' } },
+      table: {
+        category: 'Storybook controls',
+      },
     },
     action: {
-      description:
-        'CTA opzionale (bottone o link). Disponibile solo per la variante `default`.',
+      description: 'CTA opzionale (bottone o link). Disponibile solo per la variante `default`.',
       table: { disable: true },
     },
   },
+  render: ({ content, children, sx, ...args }) => (
+    <MIAlert {...args}>
+      <Typography variant="body1">{content ?? children}</Typography>
+    </MIAlert>
+  ),
 };
 
 export default meta;
 
-type Story = StoryObj<React.ComponentProps<typeof MIAlert>>;
+type Story = StoryObj<MIAlertStoryArgs>;
 
 const withHeaderContext = (Story: React.ElementType) => (
   <div
@@ -91,6 +100,16 @@ const withHeaderContext = (Story: React.ElementType) => (
   </div>
 );
 
+const withLittleContainer = (Story: React.ElementType) => (
+  <div
+    style={{
+      width: '488px',
+    }}
+  >
+    <Story />
+  </div>
+);
+
 /* ------------------------------ Normal stories ------------------------------ */
 
 export const DefaultCTALink: Story = {
@@ -107,8 +126,6 @@ export const DefaultCTALink: Story = {
 
 export const DefaultCTAClick: Story = {
   args: {
-    title: DEFAULT_TITLE,
-    children: DEFAULT_MESSAGE,
     action: {
       label: DEFAULT_CTA,
       onClick: () => console.log('CTA clicked'),
@@ -125,12 +142,15 @@ export const NoCTA: Story = {
 
 export const NoTitle: Story = {
   args: {
+    title: undefined,
     children: DEFAULT_MESSAGE,
+    action: undefined,
   },
 };
 
 export const NoTitleWithCTA: Story = {
   args: {
+    title: undefined,
     children: DEFAULT_MESSAGE,
     action: {
       label: DEFAULT_CTA,
@@ -143,6 +163,7 @@ export const NoTitleWithCTA: Story = {
 export const CustomNodeDescription: Story = {
   args: {
     title: DEFAULT_TITLE,
+    content: undefined,
     children: (
       <Box component="span">
         Non è stato possibile completare alcuni passaggi. Controlla i seguenti elementi:
@@ -162,12 +183,18 @@ export const CustomNodeDescription: Story = {
   },
 };
 
+export const LowWidth: Story = {
+  decorators: [withLittleContainer],
+};
+
 export const HeaderVariant: Story = {
   args: {
     variant: 'header',
     severity: 'success',
-    children:
+    title: undefined,
+    content:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit auctor dui, at convallis nisl.',
+    action: undefined,
   },
   decorators: [withHeaderContext],
 };
@@ -177,7 +204,7 @@ export const HeaderVariant: Story = {
 export const StressUnbroken: Story = {
   args: {
     title: `Very long title ${LONG_UNBROKEN}`,
-    children: `${LONG_UNBROKEN}${LONG_UNBROKEN}${LONG_UNBROKEN}`,
+    content: `${LONG_UNBROKEN}${LONG_UNBROKEN}${LONG_UNBROKEN}`,
     action: {
       label: DEFAULT_CTA,
       href: 'https://test.com',
@@ -188,7 +215,8 @@ export const StressUnbroken: Story = {
 
 export const StressUnbrokenNoTitle: Story = {
   args: {
-    children: `${LONG_UNBROKEN}${LONG_UNBROKEN}${LONG_UNBROKEN}`,
+    title: undefined,
+    content: `${LONG_UNBROKEN}${LONG_UNBROKEN}${LONG_UNBROKEN}`,
     action: {
       label: DEFAULT_CTA,
       href: 'https://test.com',
@@ -200,7 +228,9 @@ export const StressUnbrokenNoTitle: Story = {
 export const StressUnbrokenHeaderVariant: Story = {
   args: {
     variant: 'header',
-    children: `${LONG_UNBROKEN}${LONG_UNBROKEN}${LONG_UNBROKEN}`,
+    title: undefined,
+    content: `${LONG_UNBROKEN}${LONG_UNBROKEN}${LONG_UNBROKEN}`,
+    action: undefined,
   },
   decorators: [withHeaderContext],
 };
