@@ -1,0 +1,122 @@
+import { Meta, Title, Primary, Controls, Story, Canvas } from '@storybook/addon-docs/blocks';
+
+import Overview from './components/Overview';
+import Section from './components/Section';
+import SubSection from './components/SubSection';
+import * as MIIconButtonStories from '../stories/MIIconButton.stories.tsx';
+
+<Meta of={MIIconButtonStories} />
+
+<Title />
+
+<Overview
+  githubRelativePath="MIIconButton/MIIconButton.tsx"
+  figmaNodeId="157-1195"
+  muiRelativePath="react-button/#icon-button"
+>
+  <strong>MIIconButton</strong> è il pulsante con sola icona del Design System, basato sul
+  componente IconButton di MUI. Applica il colore blu del Design System, uno stato hover/active
+  dedicato e uno stato focus visibile.
+</Overview>
+
+<Section
+  title="Playground"
+  description="Usa i controlli per modificare i parametri principali del componente e verificare il risultato live."
+>
+  <Primary />
+  <Controls />
+</Section>
+
+<Section
+  title="Dimensioni"
+  description="MIIconButton supporta le dimensioni small, medium e large tramite la prop size."
+>
+  <Story of={MIIconButtonStories.Sizes} />
+</Section>
+
+<Section
+  title="Icone"
+  description="Il contenuto del componente è un’icona React passata come children. La story mostra alcuni esempi di icone usate per rappresentare azioni diverse."
+>
+  <Story of={MIIconButtonStories.Icons} />
+</Section>
+
+<Section
+  title="Spaziatura ai bordi"
+  description="La prop edge consente di compensare la spaziatura quando il pulsante è il primo o l’ultimo elemento di un contenitore."
+>
+  <Story of={MIIconButtonStories.Edge} />
+</Section>
+
+<Section
+  title="Accessibilità"
+  description="MIIconButton mostra solo un’icona: l’accessibilità finale dipende dalla corretta valorizzazione delle props testuali e dal modo in cui il pulsante viene usato nel contesto dell’interfaccia."
+>
+  <SubSection title="Props rilevanti">
+    <ul>
+      <li>
+        <strong>aria-label</strong>: descrive l’azione del pulsante quando non è presente testo
+        visibile. Deve essere sempre significativo, ad esempio <code>aria-label="Elimina elemento"</code>.
+      </li>
+      <li>
+        <strong>aria-labelledby</strong>: può essere usata in alternativa ad <code>aria-label</code> quando
+        l’etichetta accessibile è fornita da un elemento testuale esterno.
+      </li>
+    </ul>
+  </SubSection>
+
+{' '}
+
+<SubSection title="Prop non disponibili">
+  <ul>
+    <li>
+      <strong>disabled</strong>: non è esposta dalle props pubbliche di <code>MIIconButton</code>.
+      Se un’azione non è disponibile, gestire la condizione al click e comunicare all’utente il
+      motivo.
+    </li>
+    <li>
+      <strong>color</strong>: non è esposta come prop pubblica del componente. Il colore è definito
+      internamente dallo stile di <code>MIIconButton</code>.
+    </li>
+  </ul>
+</SubSection>
+
+{' '}
+
+<SubSection title="Focus da tastiera">
+  <p>
+    Quando il pulsante viene raggiunto tramite tastiera, lo stato <code>Mui-focusVisible</code>{' '}
+    mostra un outline blu con offset dedicato. Non rimuovere questo stile: rende evidente quale
+    elemento è attivo durante la navigazione con Tab.
+  </p>
+</SubSection>
+
+{' '}
+
+<SubSection title="Area cliccabile">
+  <p>
+    Il componente imposta una dimensione minima di <code>24×24px</code> tramite{' '}
+    <code>minHeight</code> e <code>minWidth</code>. Questa scelta mantiene un target minimo anche
+    con icone piccole e facilita l’interazione su dispositivi touch o per utenti con difficoltà
+    motorie.
+  </p>
+</SubSection>
+
+{' '}
+
+<SubSection title="Contrasto">
+  <p>
+    L’icona usa il blu del Design System. Su sfondi chiari il componente mantiene il comportamento
+    previsto; su sfondi scuri o colorati è necessario verificare che l’icona resti sufficientemente
+    leggibile nel contesto in cui viene usata.
+  </p>
+</SubSection>
+
+  <SubSection title="Esempio accessibile">
+    ```tsx
+    <MIIconButton aria-label="Elimina elemento" onClick={handleDelete}>
+      <DeleteRoundedIcon />
+    </MIIconButton>
+    ```
+  </SubSection>
+</Section>

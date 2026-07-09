@@ -9,7 +9,8 @@
       "@assets/*": ["assets/*"],
       "@icons/*": ["icons/*"],
       "@static/*": ["static/*"],
-      "@types": ["types"]
+      "@types": ["types"],
+      "@hooks/*": ["hooks/*"]
     },
     "rootDir": "src",
     "outDir": "dist",
@@ -35,7 +36,8 @@
     "strictFunctionTypes": true,
     "isolatedModules": true,
     "noFallthroughCasesInSwitch": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "types": ["vitest/globals", "@testing-library/jest-dom"]
   },
   "include": ["src/**/*"],
   "exclude": ["dist", "node_modules"]

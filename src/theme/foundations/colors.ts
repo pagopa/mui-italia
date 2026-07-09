@@ -1,10 +1,3 @@
-export const colorTextPrimary = '#17324D';
-export const shadowColor = '#002B55';
-export const backdropBackground = '#17324D';
-export const menuItemBackground = '#17324D';
-export const colorPrimaryContainedHover = '#0055AA';
-export const none = 'transparent'; // Not exposed by the theme object
-
 const neutral = {
   black: '#0E0F13',
   grey: {
@@ -63,6 +56,7 @@ const success = {
   850: '#224021',
   700: '#427940',
   500: '#6CC66A',
+  400: '#89D188',
   100: '#E1F4E1',
 };
 
@@ -76,6 +70,7 @@ const warning = {
 
 const error = {
   850: '#5D1313',
+  700: '#A82929',
   600: '#D13333',
   500: '#FF4040',
   400: '#FF6666',
@@ -100,9 +95,4 @@ export const colors = {
   warning,
   error,
   purple,
-};
-
-export const text = {
-  heading: neutral.black,
-  description: neutral.grey[700],
-};
+} as const;

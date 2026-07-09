@@ -8,10 +8,10 @@ type TOSAgreementProps = {
   productName: string;
   description: ReactNode | string;
   onConfirm: VoidFunction;
-
   children?: ReactNode;
   sx?: SxProps;
   confirmBtnDisabled?: boolean;
+  confirmBtnError?: boolean;
   confirmBtnLabel?: string;
 };
 
@@ -20,9 +20,9 @@ export function TOSAgreement({
   description,
   children,
   onConfirm,
-
   sx,
   confirmBtnDisabled,
+  confirmBtnError = false,
   confirmBtnLabel = 'Accedi',
 }: TOSAgreementProps) {
   const isDescriptionComponentAString = typeof description === 'string';
@@ -42,7 +42,22 @@ export function TOSAgreement({
         </Stack>
         {children && <Box>{children}</Box>}
         <Box sx={{ textAlign: 'center' }}>
-          <Button onClick={onConfirm} variant="contained" disabled={confirmBtnDisabled}>
+          <Button
+            onClick={onConfirm}
+            variant="contained"
+            disabled={confirmBtnDisabled}
+            sx={
+              confirmBtnError
+                ? {
+                    bgcolor: 'error.main',
+                    color: '#FFF',
+                    '&&:hover': {
+                      bgcolor: 'error.main',
+                    },
+                  }
+                : undefined
+            }
+          >
             {confirmBtnLabel}
           </Button>
         </Box>

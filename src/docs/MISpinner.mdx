@@ -1,0 +1,68 @@
+import { Meta, Title, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
+
+import Overview from './components/Overview';
+import Section from './components/Section';
+import SubSection from './components/SubSection';
+import * as MISpinnerStories from '../stories/MISpinner.stories.tsx';
+
+<Meta of={MISpinnerStories} />
+
+<Title />
+
+<Overview
+  githubRelativePath={'MISpinner/MISpinner.tsx'}
+  figmaNodeId={'109-2426'}
+  muiRelativePath={'react-progress'}
+>
+  <strong>MISpinner</strong> è un indicatore di caricamento basato su CircularProgress di MUI. È
+  pensato per rappresentare un’operazione in corso di durata indefinita, usando dimensioni e colori
+  allineati al Design System.
+</Overview>
+
+<Section
+  title="Playground"
+  description="Usa i controlli per modificare i parametri principali del componente e verificare il risultato live."
+>
+  <Primary />
+  <Controls />
+</Section>
+
+<Section
+  title="Varianti"
+  description="MISpinner supporta più colori per adattarsi al contesto visivo in cui viene mostrato."
+>
+  <SubSection title="Colori">
+    <Story of={MISpinnerStories.ColorVariants} />
+  </SubSection>
+</Section>
+
+<Section
+  title="Dimensioni"
+  description="La dimensione dello spinner può essere configurata tramite la prop size."
+>
+  <Story of={MISpinnerStories.SizeVariants} />
+</Section>
+
+<Section
+  title="Accessibilità"
+  description="MISpinner è basato su CircularProgress e mantiene il ruolo accessibile di progressbar. L’accessibilità finale dipende dalla corretta valorizzazione delle props testuali."
+>
+  <SubSection title="Props rilevanti">
+    <ul>
+      <li>
+        <strong>aria-label</strong>: descrive lo stato di caricamento quando non è presente un testo
+      visibile associato.
+      </li>
+      <li>
+        <strong>aria-labelledby</strong>: può essere usata in alternativa ad aria-label quando lo
+      spinner è descritto da un testo visibile nella pagina.
+      </li>
+    </ul>
+  </SubSection>
+
+  <SubSection title="Esempio accessibile">
+    ```tsx
+      <MISpinner color="primary" size="24" aria-label="Caricamento dei dati in corso" />
+    ```
+  </SubSection>
+</Section>

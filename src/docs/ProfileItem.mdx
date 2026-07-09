@@ -1,0 +1,95 @@
+import { Meta, Title, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
+
+import Section from './components/Section';
+import SubSection from './components/SubSection';
+import * as ProfileItemStories from '../components/ProfileItem/ProfileItem.stories';
+
+<Meta of={ProfileItemStories} />
+
+<Title />
+
+Il componente **ProfileItem** mostra il profilo operativo corrente, composto da iniziali, nome del
+profilo e, quando prevista, l'azione per cambiare profilo. Il layout si adatta allo spazio
+disponibile: nella vista estesa mostra caption, nome e bottone testuale; nella vista compatta
+mantiene accessibile l'azione tramite l'avatar.
+
+<Section
+  title="Playground"
+  description="Usa i controlli per modificare i parametri principali del componente e verificare il risultato live."
+>
+  <Primary />
+  <Controls />
+</Section>
+
+<Section
+  title="Varianti"
+  description="ProfileItem supporta layout pensati per la visualizzazione del profilo in aree laterali o header compatti."
+>
+  <SubSection title="Default">
+    <Story of={ProfileItemStories.Default} />
+  </SubSection>
+
+  <SubSection title="Compatto">
+    <Story of={ProfileItemStories.Compact} />
+  </SubSection>
+
+  <SubSection title="Nome lungo">
+    <Story of={ProfileItemStories.LongProfileName} />
+  </SubSection>
+
+  <SubSection title="Senza cambio profilo">
+    <Story of={ProfileItemStories.WithoutSwitchProfile} />
+  </SubSection>
+</Section>
+
+<Section
+  title="Comportamento"
+  description="Il componente mostra l'azione di cambio profilo quando richiesta, adattandone la presentazione allo spazio disponibile."
+>
+  <SubSection title="Layout responsivo">
+    Il componente usa la larghezza effettiva del contenitore per passare alla versione compatta. In
+    questa modalita, se l'azione e visibile, l'avatar diventa il controllo interattivo e conserva la
+    stessa etichetta accessibile del bottone esteso.
+  </SubSection>
+
+  <SubSection title="Azione nascosta">
+    Quando <code>showSwitchProfile</code> e false, l'azione di cambio profilo non viene renderizzata.
+    Nel layout compatto l'avatar resta visibile, ma non e interattivo.
+  </SubSection>
+</Section>
+
+<Section
+  title="Accessibilita"
+  description="ProfileItem espone un controllo per cambiare profilo e richiede testi significativi per descrivere l'azione alle tecnologie assistive."
+>
+  <SubSection title="Props rilevanti">
+    <ul>
+      <li>
+        <strong>profileName</strong>: identifica il profilo corrente e viene usato anche per costruire
+        l'etichetta accessibile predefinita dell'azione.
+      </li>
+      <li>
+        <strong>switchLabel</strong>: definisce il testo visibile del bottone nella vista estesa.
+      </li>
+      <li>
+        <strong>switchAriaLabel</strong>: permette di personalizzare l'etichetta accessibile
+        dell'azione, utile quando il testo visibile non e sufficiente.
+      </li>
+      <li>
+        <strong>showSwitchProfile</strong>: permette di nascondere l'azione di cambio profilo quando
+        non deve essere disponibile nella UI.
+      </li>
+    </ul>
+  </SubSection>
+
+  <SubSection title="Esempio accessibile">
+    ```tsx
+    <ProfileItem
+      profileInitials="EC"
+      profileName="Ente Creditore"
+      switchAriaLabel="Cambia profilo: Ente Creditore"
+      onSwitchProfile={handleSwitchProfile}
+    />
+    ```
+  </SubSection>
+</Section>
