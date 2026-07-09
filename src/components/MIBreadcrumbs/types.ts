@@ -1,4 +1,8 @@
+import type * as Icons from '@mui/icons-material';
+
 type BreadcrumbsVariant = 'responsive' | 'mobileOnly';
+
+export type MIIconName = keyof typeof Icons;
 
 export interface MIBreadcrumbsProps {
   /**
@@ -16,7 +20,12 @@ export interface MIBreadcrumbsProps {
    * - utilizzare string vuota per nascondere l'etichetta e mostrare solo l'icona di back
    * - oppure è possibile valorizzare la prop per gestire le traduzioni 
    */
-  backButtonLabel?: string;
+  mobileButtonLabel?: string;
+  /**
+   * Nome dell'icona da importare da @mui/icons-material da usare nel bottone "Indietro".
+   * E.g. 'Home', 'ArrowBack', etc.
+   */
+  mobileButtonIcon?: MIIconName;
   /**
    * Variante del breadcrumb
    * @default "responsive"
@@ -28,8 +37,21 @@ export interface MIBreadcrumbsProps {
 
 export interface MIBreadcrumbProps {
   label: string;
-  showBackButton?: boolean;
+  /**
+   * Callback che viene eseguita quando l'elemento viene cliccato.
+   * Se non specificato, l'elemento non sarà cliccabile.
+   */
   onClick?: () => void;
   target?: React.HTMLAttributeAnchorTarget;
   href?: string;
+  /**
+   * Nome dell'icona da importare da @mui/icons-material.
+   * E.g. 'Home', 'ArrowBack', etc.
+   */
+  icon?: MIIconName;
+  /**
+   * Se true, l'elemento è disattivo (non cliccabile e con stile non attivo).
+   * @default false
+   */
+  disabled?: boolean;
 }

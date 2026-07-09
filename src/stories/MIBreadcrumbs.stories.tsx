@@ -20,7 +20,11 @@ export type Story = StoryObj<MIBreadcrumbsProps>;
 export const Default: Story = {};
 
 Default.args = {
-  elements: [{ label: 'Dashboard' }, { label: 'Elenco Ricevute' }, { label: 'Dettaglio Ricevuta' }],
+  elements: [
+    { label: 'Dashboard' },
+    { label: 'Elenco Ricevute' },
+    { label: 'Dettaglio Ricevuta' }
+  ],
 }
 
 export const MobileOnly: Story = {};
@@ -31,8 +35,17 @@ MobileOnly.args = {
 export const MobileOnlyWithCustomBackButtonLabel: Story = {};
 MobileOnlyWithCustomBackButtonLabel.args = {
   variant: 'mobileOnly',
-  backButtonLabel: 'About',
+  mobileButtonLabel: 'About',
 }
+
+export const WithIcons: Story = {};
+WithIcons.args = {
+  elements: [
+    { label: 'Home', icon: 'Home', href: '#' },
+    { label: 'Ricevute', icon: 'Receipt', href: '#' },
+    { label: 'Dettaglio', disabled: true }
+  ]
+};
 
 export const Variants: Story = {
   tags: ['!dev'],
