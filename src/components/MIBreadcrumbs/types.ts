@@ -22,8 +22,8 @@ export interface MIBreadcrumbsProps {
    */
   mobileButtonLabel?: string;
   /**
-   * Nome dell'icona da importare da @mui/icons-material da usare nel bottone "Indietro".
-   * E.g. 'Home', 'ArrowBack', etc.
+   * Nome dell'icona da importare da "@mui/icons-material" da usare nel bottone "Indietro".
+   * @default "ArrowBack"
    */
   mobileButtonIcon?: MIIconName;
   /**

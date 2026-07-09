@@ -32,18 +32,19 @@ MobileOnly.args = {
   variant: 'mobileOnly',
 }
 
-export const MobileOnlyWithCustomBackButtonLabel: Story = {};
-MobileOnlyWithCustomBackButtonLabel.args = {
+export const CustomMobileOnly: Story = {};
+CustomMobileOnly.args = {
   variant: 'mobileOnly',
-  mobileButtonLabel: 'About',
+  mobileButtonLabel: 'Esci',
+  mobileButtonIcon: 'Close'
 }
 
 export const WithIcons: Story = {};
 WithIcons.args = {
   elements: [
-    { label: 'Home', icon: 'Home', href: '#' },
-    { label: 'Ricevute', icon: 'Receipt', href: '#' },
-    { label: 'Dettaglio', disabled: true }
+    { label: 'Home', icon: 'Home', onClick: () => console.log('Home') },
+    { label: 'Ricevute', icon: 'Receipt', onClick: () => console.log('Ricevute') },
+    { label: 'Dettaglio', disabled: true, onClick: () => console.log('Dettaglio'), href: '#' }
   ]
 };
 

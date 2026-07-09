@@ -2,8 +2,9 @@ import { StyledBreadcrumbs } from './StyledBreadcrumbs';
 import React from 'react';
 import { MIBreadcrumbsProps, MIBreadcrumbProps } from './types';
 import { Link, Theme, useMediaQuery, SvgIconProps } from '@mui/material';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
-const Breadcrumb: React.FC<MIBreadcrumbProps> = ({ label, onClick, href, target, icon }) => {
+const Breadcrumb: React.FC<MIBreadcrumbProps> = ({ label, onClick, href, target, icon, disabled = false }) => {
   const [IconComponent, setIconComponent] = React.useState<React.ComponentType<SvgIconProps> | null>(null);
 
   React.useEffect(() => {
@@ -28,6 +29,11 @@ const Breadcrumb: React.FC<MIBreadcrumbProps> = ({ label, onClick, href, target,
   }, [icon]);
 
   const onClickHandler = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    if (disabled) {
+      e.preventDefault();
+      return;
+    }
+
     if (onClick) {
       e.preventDefault();
       onClick();
@@ -36,6 +42,7 @@ const Breadcrumb: React.FC<MIBreadcrumbProps> = ({ label, onClick, href, target,
 
   return (
     <Link
+      className={disabled ? 'MuiLink-disabled' : ''}
       onClick={onClickHandler}
       underline="hover"
       aria-current="page"
@@ -43,7 +50,7 @@ const Breadcrumb: React.FC<MIBreadcrumbProps> = ({ label, onClick, href, target,
       key={label}
       target={target}
     >
-      {icon && IconComponent && <IconComponent sx={{ mr: 1 }} />}
+      {icon && IconComponent && <IconComponent />}
       {label}
     </Link>
   );
@@ -54,7 +61,7 @@ export const MIBreadcrumbs: React.FC<MIBreadcrumbsProps> = ({ elements, mobileBu
 
   return (
     <>
-      <StyledBreadcrumbs aria-label="breadcrumb" separator="›">
+      <StyledBreadcrumbs aria-label="breadcrumb" separator={<ChevronRightIcon />}>
         {
           variant === 'mobileOnly' || isMobile ? <Breadcrumb label={mobileButtonLabel} icon={mobileButtonIcon} /> : elements?.map((element) =>
             <Breadcrumb key={element.label} {...element} />
