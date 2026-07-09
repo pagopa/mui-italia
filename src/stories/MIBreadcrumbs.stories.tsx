@@ -20,17 +20,17 @@ export type Story = StoryObj<MIBreadcrumbsProps>;
 export const Default: Story = {};
 
 Default.args = {
-  breadcrumbs: [{ label: 'Home' }, { label: 'About' }, { label: 'Contact' }],
+  elements: [{ label: 'Dashboard' }, { label: 'Elenco Ricevute' }, { label: 'Dettaglio Ricevuta' }],
 }
 
-export const Wizard: Story = {};
-Wizard.args = {
-  variant: 'wizard',
+export const MobileOnly: Story = {};
+MobileOnly.args = {
+  variant: 'mobileOnly',
 }
 
-export const WizardWithCustomBackButtonLabel: Story = {};
-WizardWithCustomBackButtonLabel.args = {
-  variant: 'wizard',
+export const MobileOnlyWithCustomBackButtonLabel: Story = {};
+MobileOnlyWithCustomBackButtonLabel.args = {
+  variant: 'mobileOnly',
   backButtonLabel: 'About',
 }
 
@@ -39,7 +39,7 @@ export const Variants: Story = {
   render: () => (
     <Stack direction="column" spacing={4} alignItems="center">
       <MIBreadcrumbs {...Default.args} />
-      <MIBreadcrumbs {...Wizard.args} />
+      <MIBreadcrumbs {...MobileOnly.args} />
     </Stack>
   ),
 };

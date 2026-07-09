@@ -30,9 +30,43 @@ import * as MIBreadcrumbsStories from '../stories/MIBreadcrumbs.stories.tsx';
 
 <Section
   title="Varianti"
-  description="MIBreadcrumbs supporta due varianti: default e wizard.
-  Nella variante wizard, indipendentemente dal numero di breadcrumbs e dalla risoluzione,
+  description="MIBreadcrumbs supporta due varianti: responsive e mobileOnly.
+  Nella variante mobileOnly, indipendentemente dal numero di elementi delle breadcrumbs e dalla risoluzione,
   viene mostrata solo il pulsante 'Indietro'. (Il cui testo è personalizzabile)"
 >
   <Story of={MIBreadcrumbsStories.Variants} />
+</Section>
+
+
+<Section
+  title="Routing"
+  description="MIBreadcrumbs supporta due modalità di routing: Link e OnClick."
+>
+  Per sfruttare la navigazione standard basata su URL, è necessario specificare la prop href. 
+  Per sfruttare la navigazione personalizzata, è necessario specificare la prop onClick.
+  Segue un esempio di implementazione che sfrutta la navigazione client side di react-router-dom:
+
+    <pre>
+    ```js filename="index.js"
+    ...
+    import { MIBreadcrumbs } from 'components/MIBreadcrumbs';
+    import { useNavigate } from 'react-router-dom';
+    ...
+    const navigate = useNavigate();
+    ...
+    return (
+      <MIBreadcrumbs
+        breadcrumbs={
+          [
+            { label: 'Home', onClick: () => navigate('/') },
+            { label: 'About', onClick: () => navigate('/about') }
+            { label: 'Contact', onClick: () => navigate('/about/contact') }
+          ]
+        }
+      />
+    )
+    ...
+    ```
+    </pre>
+    Se entrambe le modalità sono state specificate, prevale onClick (tramite un preventDefault sull'evento click).
 </Section>

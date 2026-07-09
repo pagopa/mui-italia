@@ -17,7 +17,8 @@ export const StyledBreadcrumbs = styled(Breadcrumbs)(({ theme }) => {
       color: theme.colors.neutral.black,
       '&:hover': {
         color: theme.colors.blue[500],
-        textDecoration: 'underline !important'
+        textDecoration: 'underline',
+        cursor: 'pointer',
       },
     },
   };
