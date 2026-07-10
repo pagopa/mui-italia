@@ -3,7 +3,7 @@
 import { ButtonNaked } from '@components/ButtonNaked';
 import { ElementType, HTMLAttributeAnchorTarget, ReactNode } from 'react';
 import { StyledAlert } from './StyledAlert';
-import { AlertTitle as MUIAlertTitle, Stack, useMediaQuery, useTheme } from '@mui/material';
+import { Box, AlertTitle as MUIAlertTitle, Stack, useMediaQuery, useTheme } from '@mui/material';
 import { AlertProps as MUIAlertProps } from '@mui/material/Alert';
 import { getColor, getIcon } from './utils';
 import { AllowedAlertSeverity, MarginSxProps } from '@types';
@@ -82,9 +82,7 @@ export const MIAlert: React.FC<MIAlertProps> = ({
       }}
     >
       <Stack direction="row" flex={1} columnGap={8} rowGap={2} flexWrap="wrap">
-        <Stack
-          direction="column"
-          gap={title ? '4px' : 0}
+        <Box
           sx={{
             flex: {
               xs: '1 1 100%',
@@ -93,9 +91,13 @@ export const MIAlert: React.FC<MIAlertProps> = ({
             overflowWrap: 'anywhere',
           }}
         >
-          {title && <MUIAlertTitle color={getColor(theme, severity)}>{title}</MUIAlertTitle>}
+          {title && (
+            <MUIAlertTitle color={getColor(theme, severity)} sx={{ mb: '4px' }}>
+              {title}
+            </MUIAlertTitle>
+          )}
           {children}
-        </Stack>
+        </Box>
         {action && <MIAlertCta cta={action} severity={severity} isMobile={isMobile} />}
       </Stack>
     </StyledAlert>
