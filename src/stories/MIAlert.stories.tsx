@@ -319,27 +319,6 @@ export const CtaWrapSizes: Story = {
   ),
 };
 
-export const SmallContainer: Story = {
-  parameters: {
-    controls: { disable: true },
-  },
-  render: () => (
-    <Box sx={{ width: 488, maxWidth: '100%' }}>
-      <MIAlert
-        severity="info"
-        title="Container stretto"
-        action={{
-          label: DEFAULT_CTA,
-          href: 'https://test.com',
-        }}
-      >
-        Il layout dell’alert permette alla CTA di andare a capo quando lo spazio orizzontale non è
-        sufficiente.
-      </MIAlert>
-    </Box>
-  ),
-};
-
 export const NoTitle: Story = {
   args: {
     title: undefined,
