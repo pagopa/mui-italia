@@ -91,10 +91,6 @@ export const MIAlert: React.FC<MIAlertProps> = ({
               sm: `1 1 ${flexBasis}`,
             },
             overflowWrap: 'anywhere',
-            backgroundColor: {
-              xs: 'red',
-              sm: 'transparent',
-            },
           }}
         >
           {title && <MUIAlertTitle color={getColor(theme, severity)}>{title}</MUIAlertTitle>}
