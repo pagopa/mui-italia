@@ -22,6 +22,7 @@ export const StyledAlert = styled(MUIAlert, {
     backgroundColor: severityPalette[100],
     justifyContent: isHeaderVariant ? 'center' : undefined,
     alignItems: isDefaultVariant || title ? 'flex-start' : 'center',
+    flex: 1,
 
     ...(isDefaultVariant && {
       border: '1px solid',

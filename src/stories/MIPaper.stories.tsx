@@ -1,4 +1,4 @@
-import MIPaper from '@components/MIPaper/MIPaper';
+import { MIPaper } from '@components/MIPaper';
 import { Box, Stack, Typography } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ComponentProps } from 'react';
