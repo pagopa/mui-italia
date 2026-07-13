@@ -58,24 +58,26 @@ const Container = styled('div', {
     prop !== 'variant' &&
     prop !== 'icon' &&
     prop !== 'slotProps',
-})<{ borderColor?: React.CSSProperties['borderColor'] }>(({ theme, borderColor }) => ({
-  fontSize: pxToRem(12),
-  fontWeight: 600,
-  userSelect: 'none',
-  padding: `${pxToRem(4)} ${pxToRem(8)}`,
-  backgroundColor: theme.palette.common.white,
-  color: theme.palette.grey[700],
-  fontFamily: theme.typography.fontFamily,
-  borderRadius: pxToRem(6),
-  border: `1px solid ${borderColor ?? theme.palette.grey[100]}`,
-  display: 'inline-flex',
-  alignItems: 'center',
-  gap: theme.spacing(1),
-  lineHeight: pxToRem(18),
-  textTransform: 'uppercase',
-  maxWidth: '100%',
-  boxSizing: 'border-box',
-}));
+})<{ slotProps?: { borderColor?: React.CSSProperties['borderColor'] } }>(({ theme, slotProps }) => {
+  return {
+    fontSize: pxToRem(12),
+    fontWeight: 600,
+    userSelect: 'none',
+    padding: `${pxToRem(4)} ${pxToRem(8)}`,
+    backgroundColor: theme.palette.common.white,
+    color: theme.palette.grey[700],
+    fontFamily: theme.typography.fontFamily,
+    borderRadius: pxToRem(6),
+    border: `1px solid ${slotProps?.borderColor ?? theme.palette.grey[100]}`,
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: theme.spacing(1),
+    lineHeight: pxToRem(18),
+    textTransform: 'uppercase',
+    maxWidth: '100%',
+    boxSizing: 'border-box',
+  };
+});
 
 const Value = styled('span', {
   shouldForwardProp: (prop) => prop !== 'mode',
@@ -168,7 +170,7 @@ const Icon = ({
 export const Tag: React.FC<TagProps> = (props) => {
   const valueRef = useRef<HTMLSpanElement>(null);
 
-  const { variant = 'default' } = props;
+  const { variant = 'default', slotProps, ...rest } = props;
   const hasIcon = 'icon' in props && props.icon;
   const hasValue = 'value' in props && props.value;
   const hasMode = 'mode' in props && props.mode;
@@ -181,8 +183,9 @@ export const Tag: React.FC<TagProps> = (props) => {
   if (variant === 'only-icon' && hasIcon) {
     return <Icon variant={variant} icon={props.icon} slotProps={props.slotProps?.icon} />;
   }
+
   return (
-    <Container slotProps={props.slotProps?.root} {...props}>
+    <Container {...rest} slotProps={slotProps?.root}>
       <Icon
         variant={variant}
         icon={hasIcon ? props.icon : undefined}
