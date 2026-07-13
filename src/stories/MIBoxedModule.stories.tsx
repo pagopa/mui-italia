@@ -1,9 +1,23 @@
-import { MIBoxedModule, MIBoxedModuleTitle } from '@components/MIBoxedModule';
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { ComponentProps, FC } from 'react';
+import {
+  Avatar,
+  Box,
+  FormControlLabel,
+  Radio,
+  Stack,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import { Avatar, Box, useTheme } from '@mui/material';
+import EmojiObjectsOutlinedIcon from '@mui/icons-material/EmojiObjectsOutlined';
+import HowToRegIcon from '@mui/icons-material/HowToReg';
+import SaveAltIcon from '@mui/icons-material/SaveAlt';
+
+import { MIBoxedModule, MIBoxedModuleTitle } from '@components/MIBoxedModule';
 import { MIButton } from '@components/MIButton';
+import { MIChip } from '@components/MIChip';
 
 type MIBoxedModuleStoryArgs = ComponentProps<typeof MIBoxedModule> & {
   title?: string;
@@ -35,7 +49,7 @@ const meta: Meta<MIBoxedModuleStoryArgs> = {
   title: 'Components/MIBoxedModule',
   component: MIBoxedModule,
   parameters: {
-    layout: 'centered',
+    layout: 'padded',
     controls: {
       include: ['loading', 'content', 'enableIcon', 'title', 'enableAction'],
     },
@@ -44,8 +58,8 @@ const meta: Meta<MIBoxedModuleStoryArgs> = {
     loading: false,
     title: 'Product title',
     content: 'Description',
-    enableIcon: false,
-    enableAction: false,
+    enableIcon: true,
+    enableAction: true,
   },
   argTypes: {
     loading: {
@@ -106,6 +120,8 @@ const meta: Meta<MIBoxedModuleStoryArgs> = {
     },
   },
   render: ({ content, enableIcon, title, children, enableAction, ...rest }) => {
+    const theme = useTheme();
+
     const boxedContent = content ?? children;
     const Icon = enableIcon ? <BoxedIcon /> : undefined;
     const Action = enableAction ? <BoxedAction /> : undefined;
@@ -113,7 +129,17 @@ const meta: Meta<MIBoxedModuleStoryArgs> = {
     return (
       <MIBoxedModule icon={Icon} action={Action} {...rest}>
         {title && <MIBoxedModuleTitle>{title}</MIBoxedModuleTitle>}
-        {boxedContent && <Box>{boxedContent}</Box>}
+        {boxedContent && (
+          <Box>
+            {boxedContent}
+            <Stack direction="row" mt={1} alignItems="center">
+              <EmojiObjectsOutlinedIcon htmlColor={theme.colors.purple[500]} fontSize="small" />
+              <Typography variant="caption-semibold" color={theme.colors.purple[500]}>
+                Suggested because you are already client
+              </Typography>
+            </Stack>
+          </Box>
+        )}
       </MIBoxedModule>
     );
   },
@@ -125,14 +151,165 @@ type Story = StoryObj<MIBoxedModuleStoryArgs>;
 
 export const Playground: Story = {};
 
+export const NoTitle: Story = {
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => {
+    const theme = useTheme();
+
+    return (
+      <MIBoxedModule
+        action={<SaveAltIcon htmlColor={theme.colors.blue[500]} />}
+        direction="row"
+        alignItems="center"
+      >
+        <Stack
+          direction={{ xs: 'column', sm: 'row' }}
+          alignItems={{ xs: 'flex-start', sm: 'center' }}
+        >
+          <Typography variant="caption" mr={0.5} color={theme.colors.neutral.grey[700]}>
+            Codice avviso
+          </Typography>
+          <Typography
+            variant="caption-semibold"
+            mr={{ xs: 0, sm: 1 }}
+            mb={{ xs: 1, sm: 0 }}
+            color={theme.colors.neutral.grey[700]}
+          >
+            0000 0000 0000 0000 00
+          </Typography>
+          <MIChip label="Pagato" color="success" />
+        </Stack>
+      </MIBoxedModule>
+    );
+  },
+};
+
+export const ForceDirection: Story = {
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => {
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+    const Action = () => (
+      <Stack direction={{ xs: 'column-reverse', sm: 'row' }} spacing={3} mt={3}>
+        <MIButton endIcon={<SaveAltIcon />} variant="text" fullWidth={isMobile}>
+          Scarica documento
+        </MIButton>
+        <MIButton fullWidth={isMobile}>Paga 774,00 €</MIButton>
+      </Stack>
+    );
+
+    return (
+      <MIBoxedModule action={<Action />} direction="column" alignItems="flex-end">
+        <MIBoxedModuleTitle>0000 0000 0000 0000 00</MIBoxedModuleTitle>
+        <Stack direction="row" mt="6px">
+          <Typography variant="caption" color={theme.colors.neutral.grey[700]} mr={0.5}>
+            Oggetto
+          </Typography>
+          <Typography variant="caption-semibold" color={theme.colors.neutral.grey[700]}>
+            Accertamento TARI 2025 - 00016/2026
+          </Typography>
+        </Stack>
+        <Stack direction="row" mt="6px">
+          <Typography variant="caption" color={theme.colors.neutral.grey[700]} mr={0.5}>
+            Pagato il
+          </Typography>
+          <Typography variant="caption-semibold" color={theme.colors.neutral.grey[700]}>
+            12/04/2026
+          </Typography>
+        </Stack>
+        <Stack direction="row" mt="6px">
+          <Typography variant="caption" color={theme.colors.neutral.grey[700]} mr={0.5}>
+            Status
+          </Typography>
+          <MIChip label="Pagato" color="success" />
+        </Stack>
+      </MIBoxedModule>
+    );
+  },
+};
+
 export const Loading: Story = {
   args: {
     loading: true,
   },
 };
 
-export const WithIcon: Story = {
-  args: {
-    enableIcon: true,
+export const ComplexContent: Story = {
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => {
+    const theme = useTheme();
+
+    const RadioLabel = (
+      <Stack
+        direction={{ sm: 'column', md: 'row' }}
+        spacing={2}
+        alignItems={{ sm: 'flex-end', md: 'center' }}
+      >
+        <Box sx={{ flex: '1 1 auto', width: '100%' }}>
+          <MIBoxedModuleTitle>Payment object</MIBoxedModuleTitle>
+          <Box>
+            <Typography variant="caption" mr={0.5} color={theme.colors.neutral.grey[700]}>
+              Codice avviso
+            </Typography>
+            <Typography variant="caption-semibold" color={theme.colors.neutral.grey[700]}>
+              0000 0000 0000 0000 00
+            </Typography>
+          </Box>
+          <Box>
+            <Typography variant="caption" mr={0.5} color={theme.colors.neutral.grey[700]}>
+              Scade il
+            </Typography>
+            <Typography variant="caption-semibold" color={theme.colors.neutral.grey[700]}>
+              [gg/mm/aaaa]
+            </Typography>
+          </Box>
+          <Stack direction="row" mt={0.5} alignItems="center">
+            <HowToRegIcon htmlColor={theme.colors.purple[500]} fontSize="small" />
+            <Typography variant="caption-semibold" color={theme.colors.purple[500]}>
+              Sei già cliente
+            </Typography>
+          </Stack>
+        </Box>
+        <Box textAlign="right" sx={{ flexShrink: 0 }}>
+          <Typography
+            variant="caption-semibold"
+            color={theme.colors.blue[500]}
+            fontSize="1rem"
+            display="block"
+          >
+            398,50 €
+          </Typography>
+          <Typography
+            variant="caption-semibold"
+            fontSize="0.75"
+            color={theme.colors.neutral.grey[700]}
+          >
+            Costi di notifica inclusi
+          </Typography>
+        </Box>
+      </Stack>
+    );
+
+    return (
+      <MIBoxedModule>
+        <FormControlLabel
+          control={<Radio />}
+          label={RadioLabel}
+          labelPlacement="start"
+          sx={{
+            width: '100%',
+            alignItems: { sm: 'flex-start', md: 'center' },
+            '.MuiFormControlLabel-label': { width: '100%' },
+          }}
+        />
+      </MIBoxedModule>
+    );
   },
 };
