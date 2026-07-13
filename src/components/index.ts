@@ -41,3 +41,4 @@ export * from './MISpinner';
 export * from './MIWizard';
 export * from './MISnackbar';
 export * from './MIPaper';
+export * from './MIBoxedModule';
