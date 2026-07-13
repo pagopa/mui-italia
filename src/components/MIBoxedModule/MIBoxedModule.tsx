@@ -38,7 +38,11 @@ const MIBoxedModule: FC<Props> = ({
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const internalDirection = isMobile ? 'column' : 'row';
+  const effectiveDirection = direction ?? internalDirection;
   const internalAlignItems = isMobile ? 'flex-start' : 'center';
+
+  const shouldStretchAction =
+    isMobile && (effectiveDirection === 'column' || effectiveDirection === 'column-reverse');
 
   if (loading) {
     return (
@@ -51,7 +55,7 @@ const MIBoxedModule: FC<Props> = ({
     <StyledStack {...rest} direction="row" alignItems="center" spacing={2}>
       {icon}
       <Stack
-        direction={direction ? direction : internalDirection}
+        direction={effectiveDirection}
         alignItems={alignItems ? alignItems : internalAlignItems}
         columnGap={2}
         rowGap={1}
@@ -60,7 +64,11 @@ const MIBoxedModule: FC<Props> = ({
         <Box sx={{ flex: 1, width: '100%' }} color={theme.colors.neutral.grey[700]}>
           {children}
         </Box>
-        {action && <Box sx={{ flexShrink: 0, width: isMobile ? '100%' : 'auto' }}>{action}</Box>}
+        {action && (
+          <Box sx={{ flexShrink: 0, alignSelf: shouldStretchAction ? 'stretch' : 'auto' }}>
+            {action}
+          </Box>
+        )}
       </Stack>
     </StyledStack>
   );

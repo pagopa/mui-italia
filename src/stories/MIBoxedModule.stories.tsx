@@ -195,7 +195,7 @@ export const ForceDirection: Story = {
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
     const Action = () => (
-      <Stack direction={{ xs: 'column-reverse', sm: 'row' }} spacing={3} mt={3}>
+      <Stack direction={{ xs: 'column-reverse', sm: 'row' }} spacing={3} mt={3} alignSelf="stretch">
         <MIButton endIcon={<SaveAltIcon />} variant="text" fullWidth={isMobile}>
           Scarica documento
         </MIButton>
@@ -248,9 +248,9 @@ export const ComplexContent: Story = {
 
     const RadioLabel = (
       <Stack
-        direction={{ sm: 'column', md: 'row' }}
+        direction={{ xs: 'column', sm: 'row' }}
         spacing={2}
-        alignItems={{ sm: 'flex-end', md: 'center' }}
+        alignItems={{ xs: 'flex-end', sm: 'center' }}
       >
         <Box sx={{ flex: '1 1 auto', width: '100%' }}>
           <MIBoxedModuleTitle>Payment object</MIBoxedModuleTitle>
@@ -305,7 +305,7 @@ export const ComplexContent: Story = {
           labelPlacement="start"
           sx={{
             width: '100%',
-            alignItems: { sm: 'flex-start', md: 'center' },
+            alignItems: { xs: 'flex-start', sm: 'center' },
             '.MuiFormControlLabel-label': { width: '100%' },
           }}
         />
