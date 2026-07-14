@@ -5,6 +5,7 @@ import {
   Box,
   FormControlLabel,
   Radio,
+  Skeleton,
   Stack,
   Typography,
   useMediaQuery,
@@ -113,6 +114,12 @@ const meta: Meta<MIBoxedModuleStoryArgs> = {
       },
     },
     action: {
+      control: false,
+      table: {
+        disable: true,
+      },
+    },
+    slots: {
       control: false,
       table: {
         disable: true,
@@ -311,5 +318,56 @@ export const ComplexContent: Story = {
         />
       </MIBoxedModule>
     );
+  },
+};
+
+export const CustomSkeleton: Story = {
+  parameters: {
+    controls: { disable: true },
+  },
+  args: {
+    loading: true,
+    slots: {
+      skeleton: () => (
+        <Box gap={1} display="flex" alignItems={'center'} flexDirection={'row'}>
+          <Box display="flex" gap={1} flexDirection="column" flex="1 0 0">
+            <Skeleton variant="rounded" width="196px" height="23px" sx={{ borderRadius: '8px' }} />
+            <Box display="flex" flexDirection={'row'}>
+              <Skeleton
+                variant="rounded"
+                width="79px"
+                height="15px"
+                sx={{ borderRadius: '8px', mr: 2, my: 0 }}
+              />
+              <Skeleton
+                variant="rounded"
+                width="160px"
+                height="15px"
+                sx={{ borderRadius: '8px' }}
+              />
+            </Box>
+            <Skeleton variant="rounded" width="137px" height="15px" sx={{ borderRadius: '8px' }} />
+          </Box>
+          <Box
+            display="flex"
+            flexDirection="row"
+            alignItems="center"
+            justifyContent={'flex-end'}
+            gap={1}
+          >
+            <Box display="flex" flexDirection="column" gap={1}>
+              <Skeleton variant="rounded" width="79px" height="23px" sx={{ borderRadius: '8px' }} />
+              <Skeleton
+                variant="rounded"
+                width="120px"
+                height="15px"
+                sx={{ borderRadius: '8px' }}
+              />
+            </Box>
+            <Skeleton variant="circular" width="22px" height="22px" />
+          </Box>
+        </Box>
+      ),
+    },
   },
 };

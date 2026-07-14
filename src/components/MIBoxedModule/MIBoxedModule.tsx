@@ -1,12 +1,16 @@
 'use-client';
 
-import { FC, ReactNode } from 'react';
+import { ComponentType, FC, ReactNode } from 'react';
 import { Box, Stack, StackProps, styled, useMediaQuery, useTheme } from '@mui/material';
+import MIBoxedModuleSkeleton from './MIBoxedModuleSkeleton';
 
-interface Props extends Pick<StackProps, 'children' | 'direction' | 'alignItems'> {
+interface Props extends Pick<StackProps, 'children' | 'direction' | 'alignItems' | 'sx'> {
   loading?: boolean;
   icon?: ReactNode;
   action?: ReactNode;
+  slots?: {
+    skeleton: ComponentType;
+  };
 }
 
 const StyledStack = styled(
@@ -33,6 +37,7 @@ const MIBoxedModule: FC<Props> = ({
   icon,
   children,
   action,
+  slots,
   ...rest
 }) => {
   const theme = useTheme();
@@ -44,10 +49,12 @@ const MIBoxedModule: FC<Props> = ({
   const shouldStretchAction =
     isMobile && (effectiveDirection === 'column' || effectiveDirection === 'column-reverse');
 
+  const Skeleton = slots?.skeleton ?? MIBoxedModuleSkeleton;
+
   if (loading) {
     return (
-      <StyledStack {...rest} direction="row" alignItems="center" spacing={2}>
-        loading...
+      <StyledStack {...rest} direction="column" spacing={0.5}>
+        <Skeleton />
       </StyledStack>
     );
   }
