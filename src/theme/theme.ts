@@ -1012,14 +1012,6 @@ export const theme: Theme = createTheme(foundation, {
         },
       },
     },
-    MuiSkeleton: {
-      styleOverrides: {
-        root: {
-          backgroundColor: foundation.colors.neutral.grey[50],
-          borderRadius: foundation.shape.radius[4],
-        },
-      },
-    },
   },
 });
 
