@@ -5,11 +5,9 @@ import ReportRoundedIcon from '@mui/icons-material/ReportRounded';
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 
-import { styled } from '@mui/material/styles';
-
 import { pxToRem } from '@theme';
 import React, { ComponentType, useRef } from 'react';
-import { SvgIconProps } from '@mui/material';
+import { SvgIconProps, styled } from '@mui/material';
 import MITooltip from '../MITooltip/MITooltip';
 import { useIsTruncated } from '../../hooks/useIsTruncated';
 
@@ -19,9 +17,19 @@ type SpanHTMLAttributes = Pick<React.HTMLAttributes<HTMLSpanElement>, 'aria-labe
 
 type ValueMode = 'truncate' | 'wrap';
 
+type TagSlotProps = {
+  root?: {
+    borderColor?: React.CSSProperties['borderColor'];
+  };
+  icon?: {
+    color?: React.CSSProperties['color'];
+  };
+};
+
 interface OnlyIconTagProps extends SpanHTMLAttributes {
   variant: 'only-icon';
   icon: ComponentType<SvgIconProps>;
+  slotProps?: TagSlotProps;
 }
 
 interface DefaultTagProps extends SpanHTMLAttributes {
@@ -29,12 +37,14 @@ interface DefaultTagProps extends SpanHTMLAttributes {
   value: string;
   mode?: ValueMode;
   icon?: ComponentType<SvgIconProps>;
+  slotProps?: TagSlotProps;
 }
 
 interface OtherTagProps extends SpanHTMLAttributes {
   variant: Exclude<Variants, 'default' | 'only-icon'>;
   value: string;
   mode?: ValueMode;
+  slotProps?: never;
 }
 
 export type TagProps = OnlyIconTagProps | DefaultTagProps | OtherTagProps;
@@ -43,25 +53,31 @@ export type TagProps = OnlyIconTagProps | DefaultTagProps | OtherTagProps;
 in order to accept `sx` prop */
 const Container = styled('div', {
   shouldForwardProp: (prop) =>
-    prop !== 'value' && prop !== 'mode' && prop !== 'variant' && prop !== 'icon',
-})(({ theme }) => ({
-  fontSize: pxToRem(12),
-  fontWeight: 600,
-  userSelect: 'none',
-  padding: `${pxToRem(4)} ${pxToRem(8)}`,
-  backgroundColor: theme.palette.common.white,
-  color: theme.palette.grey[700],
-  fontFamily: theme.typography.fontFamily,
-  borderRadius: pxToRem(6),
-  border: `1px solid ${theme.palette.grey[100]}`,
-  display: 'inline-flex',
-  alignItems: 'center',
-  gap: theme.spacing(1),
-  lineHeight: pxToRem(18),
-  textTransform: 'uppercase',
-  maxWidth: '100%',
-  boxSizing: 'border-box',
-}));
+    prop !== 'value' &&
+    prop !== 'mode' &&
+    prop !== 'variant' &&
+    prop !== 'icon' &&
+    prop !== 'slotProps',
+})<{ slotProps?: { borderColor?: React.CSSProperties['borderColor'] } }>(({ theme, slotProps }) => {
+  return {
+    fontSize: pxToRem(12),
+    fontWeight: 600,
+    userSelect: 'none',
+    padding: `${pxToRem(4)} ${pxToRem(8)}`,
+    backgroundColor: theme.palette.common.white,
+    color: theme.palette.grey[700],
+    fontFamily: theme.typography.fontFamily,
+    borderRadius: pxToRem(6),
+    border: `1px solid ${slotProps?.borderColor ?? theme.palette.grey[100]}`,
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: theme.spacing(1),
+    lineHeight: pxToRem(18),
+    textTransform: 'uppercase',
+    maxWidth: '100%',
+    boxSizing: 'border-box',
+  };
+});
 
 const Value = styled('span', {
   shouldForwardProp: (prop) => prop !== 'mode',
@@ -84,10 +100,12 @@ const fontSize = pxToRem(14);
 const Icon = ({
   variant,
   icon,
+  slotProps,
   ariaLabel,
 }: {
   variant: Variants;
   icon?: ComponentType<SvgIconProps>;
+  slotProps?: { color?: React.CSSProperties['color'] };
   ariaLabel?: string;
 }) => {
   const CustomIcon = icon;
@@ -130,7 +148,7 @@ const Icon = ({
   if (variant === 'default' && CustomIcon) {
     return (
       <CustomIcon
-        sx={(theme) => ({ color: theme.colors.blue[500], fontSize })}
+        sx={(theme) => ({ color: slotProps?.color ?? theme.colors.blue[500], fontSize })}
         aria-hidden="false"
         aria-label={ariaLabel || 'Stato: standard'}
       />
@@ -139,7 +157,7 @@ const Icon = ({
   if (variant === 'only-icon' && CustomIcon) {
     return (
       <CustomIcon
-        sx={(theme) => ({ color: theme.colors.neutral.grey[700], fontSize })}
+        sx={(theme) => ({ color: slotProps?.color ?? theme.colors.neutral.grey[700], fontSize })}
         aria-hidden={ariaLabel ? 'false' : undefined}
         aria-label={ariaLabel}
       />
@@ -152,7 +170,7 @@ const Icon = ({
 export const Tag: React.FC<TagProps> = (props) => {
   const valueRef = useRef<HTMLSpanElement>(null);
 
-  const { variant = 'default' } = props;
+  const { variant = 'default', slotProps, ...rest } = props;
   const hasIcon = 'icon' in props && props.icon;
   const hasValue = 'value' in props && props.value;
   const hasMode = 'mode' in props && props.mode;
@@ -163,11 +181,16 @@ export const Tag: React.FC<TagProps> = (props) => {
   );
 
   if (variant === 'only-icon' && hasIcon) {
-    return <Icon variant={variant} icon={props.icon} />;
+    return <Icon variant={variant} icon={props.icon} slotProps={props.slotProps?.icon} />;
   }
+
   return (
-    <Container {...props}>
-      <Icon variant={variant} icon={hasIcon ? props.icon : undefined} />
+    <Container {...rest} slotProps={slotProps?.root}>
+      <Icon
+        variant={variant}
+        icon={hasIcon ? props.icon : undefined}
+        slotProps={hasIcon ? props.slotProps?.icon : undefined}
+      />
       {hasValue && (
         <MITooltip title={props.value} disabled={!isTruncated}>
           <Value
