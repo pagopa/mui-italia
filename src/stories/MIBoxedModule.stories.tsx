@@ -305,7 +305,7 @@ export const ComplexContent: Story = {
     );
 
     return (
-      <MIBoxedModule>
+      <MIBoxedModule data-testid="ciao">
         <FormControlLabel
           control={<Radio />}
           label={RadioLabel}

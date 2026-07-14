@@ -1,7 +1,9 @@
 'use-client';
 
 import { ComponentType, FC, ReactNode } from 'react';
-import { Box, Stack, StackProps, styled, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Stack, StackProps, styled, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { visuallyHidden } from '@mui/utils';
+
 import MIBoxedModuleSkeleton from './MIBoxedModuleSkeleton';
 
 interface Props extends Pick<StackProps, 'children' | 'direction' | 'alignItems' | 'sx'> {
@@ -10,6 +12,9 @@ interface Props extends Pick<StackProps, 'children' | 'direction' | 'alignItems'
   action?: ReactNode;
   slots?: {
     skeleton: ComponentType;
+  };
+  localeText?: {
+    loadingLabel?: string;
   };
 }
 
@@ -38,6 +43,7 @@ const MIBoxedModule: FC<Props> = ({
   children,
   action,
   slots,
+  localeText,
   ...rest
 }) => {
   const theme = useTheme();
@@ -53,7 +59,10 @@ const MIBoxedModule: FC<Props> = ({
 
   if (loading) {
     return (
-      <StyledStack {...rest} direction="column" spacing={0.5}>
+      <StyledStack {...rest} direction="column" spacing={0.5} aria-busy="true">
+        <Typography sx={visuallyHidden}>
+          {localeText?.loadingLabel ?? 'Content loading, please wait...'}
+        </Typography>
         <Skeleton />
       </StyledStack>
     );
