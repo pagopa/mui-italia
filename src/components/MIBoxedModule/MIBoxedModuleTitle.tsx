@@ -1,7 +1,7 @@
-import { Typography, TypographyProps, useTheme } from '@mui/material';
+import { Typography, useTheme } from '@mui/material';
 import { FC } from 'react';
 
-interface Props extends Pick<TypographyProps, 'color'> {
+interface Props {
   children: string | number | boolean;
 }
 

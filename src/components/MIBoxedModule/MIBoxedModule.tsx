@@ -1,17 +1,31 @@
-'use-client';
+'use client';
 
-import { ComponentType, FC, ReactNode } from 'react';
-import { Box, Stack, StackProps, styled, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { ComponentType, FC, HTMLAttributes, ReactNode } from 'react';
+import {
+  Box,
+  SkeletonProps,
+  Stack,
+  StackProps,
+  styled,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
 
 import MIBoxedModuleSkeleton from './MIBoxedModuleSkeleton';
 
-interface Props extends Pick<StackProps, 'children' | 'direction' | 'alignItems' | 'sx'> {
+interface Props
+  extends Pick<StackProps, 'children' | 'direction' | 'alignItems' | 'sx'>,
+    Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'style' | 'onClick'> {
   loading?: boolean;
   icon?: ReactNode;
   action?: ReactNode;
   slots?: {
     skeleton: ComponentType;
+  };
+  slotProps?: {
+    skeleton: SkeletonProps;
   };
   localeText?: {
     loadingLabel?: string;
@@ -43,6 +57,7 @@ const MIBoxedModule: FC<Props> = ({
   children,
   action,
   slots,
+  slotProps,
   localeText,
   ...rest
 }) => {
@@ -63,7 +78,7 @@ const MIBoxedModule: FC<Props> = ({
         <Typography sx={visuallyHidden}>
           {localeText?.loadingLabel ?? 'Content loading, please wait...'}
         </Typography>
-        <Skeleton />
+        <Skeleton {...slotProps?.skeleton} />
       </StyledStack>
     );
   }
