@@ -16,9 +16,10 @@ import { visuallyHidden } from '@mui/utils';
 import MIBoxedModuleSkeleton from './MIBoxedModuleSkeleton';
 
 interface Props
-  extends Pick<StackProps, 'children' | 'direction' | 'alignItems' | 'sx'>,
+  extends Pick<StackProps, 'children' | 'sx'>,
     Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'style' | 'onClick'> {
   loading?: boolean;
+  direction?: 'horizontal' | 'vertical';
   icon?: ReactNode;
   action?: ReactNode;
   slots?: {
@@ -31,6 +32,16 @@ interface Props
     loadingLabel?: string;
   };
 }
+
+const getDirection = (isMobile: boolean, direction?: 'horizontal' | 'vertical') => {
+  if (!direction) {
+    return isMobile ? 'column' : 'row';
+  }
+  if (direction === 'horizontal') {
+    return 'row';
+  }
+  return 'column';
+};
 
 const StyledStack = styled(
   Stack,
@@ -52,7 +63,6 @@ const StyledStack = styled(
 const MIBoxedModule: FC<Props> = ({
   loading = false,
   direction,
-  alignItems,
   icon,
   children,
   action,
@@ -63,12 +73,10 @@ const MIBoxedModule: FC<Props> = ({
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const internalDirection = isMobile ? 'column' : 'row';
-  const effectiveDirection = direction ?? internalDirection;
-  const internalAlignItems = isMobile ? 'flex-start' : 'center';
+  const interlaDirection = getDirection(isMobile, direction);
 
-  const shouldStretchAction =
-    isMobile && (effectiveDirection === 'column' || effectiveDirection === 'column-reverse');
+  /*const shouldStretchAction =
+    isMobile && (effectiveDirection === 'column' || effectiveDirection === 'column-reverse');*/
 
   const Skeleton = slots?.skeleton ?? MIBoxedModuleSkeleton;
 
@@ -83,20 +91,28 @@ const MIBoxedModule: FC<Props> = ({
     );
   }
   return (
-    <StyledStack {...rest} direction="row" alignItems="center" spacing={2}>
+    <StyledStack
+      {...rest}
+      direction="row"
+      alignItems={isMobile ? 'flex-start' : 'center'}
+      spacing={2}
+    >
       {icon}
       <Stack
-        direction={effectiveDirection}
-        alignItems={alignItems ? alignItems : internalAlignItems}
+        direction={getDirection(isMobile, direction)}
+        alignItems={interlaDirection === 'column' ? 'stretch' : 'center'}
         columnGap={2}
         rowGap={1}
-        sx={{ flex: '1 1 auto', width: '100%' }}
+        sx={{ flex: '1 1 auto' }}
       >
-        <Box sx={{ flex: 1, width: '100%' }} color={theme.colors.neutral.grey[700]}>
+        <Box
+          sx={{ flex: interlaDirection === 'column' ? 'none' : '1 1 auto' }}
+          color={theme.colors.neutral.grey[700]}
+        >
           {children}
         </Box>
         {action && (
-          <Box sx={{ flexShrink: 0, alignSelf: shouldStretchAction ? 'stretch' : 'auto' }}>
+          <Box sx={{ flexShrink: 0, width: interlaDirection === 'column' ? '100%' : 'auto' }}>
             {action}
           </Box>
         )}

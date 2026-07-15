@@ -61,7 +61,6 @@ const meta: Meta<MIBoxedModuleStoryArgs> = {
         'enableIcon',
         'enableAction',
         'direction',
-        'alignItems',
       ],
     },
   },
@@ -85,18 +84,9 @@ const meta: Meta<MIBoxedModuleStoryArgs> = {
     },
     direction: {
       control: { type: 'radio' },
-      options: ['row', 'row-reverse', 'column', 'column-reverse'],
+      options: ['horizontal', 'vertical'],
       description:
-        'Direzione del contenuto interno. Se non valorizzata, il componente usa row su desktop e column su mobile.',
-      table: {
-        category: 'MIBoxedModule',
-      },
-    },
-    alignItems: {
-      control: { type: 'select' },
-      options: ['flex-start', 'center', 'flex-end', 'stretch', 'baseline'],
-      description:
-        'Allineamento del contenuto interno. Se non valorizzato, il componente usa center su desktop e flex-start su mobile.',
+        'Direzione del contenuto interno. Se non valorizzata, il componente usa horizontal su desktop e vertical su mobile.',
       table: {
         category: 'MIBoxedModule',
       },
@@ -177,7 +167,6 @@ const meta: Meta<MIBoxedModuleStoryArgs> = {
     loadingLabel,
     loading,
     direction,
-    alignItems,
     ...props
   }) => {
     const theme = useTheme();
@@ -191,7 +180,6 @@ const meta: Meta<MIBoxedModuleStoryArgs> = {
         {...props}
         loading={loading}
         direction={direction}
-        alignItems={alignItems}
         icon={icon}
         action={action}
         localeText={{ loadingLabel }}
@@ -231,20 +219,19 @@ export const NoTitle: Story = {
     return (
       <MIBoxedModule
         action={<SaveAltIcon htmlColor={theme.colors.blue[500]} />}
-        direction="row"
-        alignItems="center"
+        direction="horizontal"
       >
         <Stack
-          direction={{ xs: 'column', sm: 'row' }}
-          alignItems={{ xs: 'flex-start', sm: 'center' }}
+          direction={{ xs: 'column', md: 'row' }}
+          alignItems={{ xs: 'flex-start', md: 'center' }}
         >
           <Typography variant="caption" mr={0.5} color={theme.colors.neutral.grey[700]}>
             Codice avviso
           </Typography>
           <Typography
             variant="caption-semibold"
-            mr={{ xs: 0, sm: 1 }}
-            mb={{ xs: 1, sm: 0 }}
+            mr={{ xs: 0, md: 1 }}
+            mb={{ xs: 1, md: 0 }}
             color={theme.colors.neutral.grey[700]}
           >
             0000 0000 0000 0000 00
@@ -262,10 +249,15 @@ export const ForceDirection: Story = {
   },
   render: () => {
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 
     const Action = () => (
-      <Stack direction={{ xs: 'column-reverse', sm: 'row' }} spacing={3} mt={3} alignSelf="stretch">
+      <Stack
+        direction={{ xs: 'column-reverse', md: 'row' }}
+        justifyContent="flex-end"
+        spacing={3}
+        mt={3}
+      >
         <MIButton endIcon={<SaveAltIcon />} variant="text" fullWidth={isMobile}>
           Scarica documento
         </MIButton>
@@ -274,7 +266,7 @@ export const ForceDirection: Story = {
     );
 
     return (
-      <MIBoxedModule action={<Action />} direction="column" alignItems="flex-end">
+      <MIBoxedModule action={<Action />} direction="vertical">
         <MIBoxedModuleTitle>0000 0000 0000 0000 00</MIBoxedModuleTitle>
 
         <Stack direction="row" mt="6px">
@@ -384,11 +376,11 @@ export const ComplexContent: Story = {
 
     const radioLabel = (
       <Stack
-        direction={{ xs: 'column', sm: 'row' }}
+        direction={{ xs: 'column', md: 'row' }}
         spacing={2}
-        alignItems={{ xs: 'flex-end', sm: 'center' }}
+        alignItems={{ xs: 'flex-start', md: 'center' }}
       >
-        <Box sx={{ flex: '1 1 auto', width: '100%' }}>
+        <Box sx={{ flex: '1 1 auto' }}>
           <MIBoxedModuleTitle>Payment object</MIBoxedModuleTitle>
 
           <Box>
@@ -417,7 +409,7 @@ export const ComplexContent: Story = {
           </Stack>
         </Box>
 
-        <Box textAlign="right" sx={{ flexShrink: 0 }}>
+        <Box textAlign="right" sx={{ flexShrink: 0, width: { xs: '100%', md: 'auto' } }}>
           <Typography
             variant="caption-semibold"
             color={theme.colors.blue[500]}
@@ -444,9 +436,12 @@ export const ComplexContent: Story = {
           label={radioLabel}
           labelPlacement="start"
           sx={{
+            alignItems: { xs: 'flex-start', md: 'center' },
             width: '100%',
-            alignItems: { xs: 'flex-start', sm: 'center' },
-            '.MuiFormControlLabel-label': { width: '100%' },
+            justifyContent: 'space-between',
+            '& .MuiFormControlLabel-label': {
+              width: '100%',
+            },
           }}
         />
       </MIBoxedModule>
