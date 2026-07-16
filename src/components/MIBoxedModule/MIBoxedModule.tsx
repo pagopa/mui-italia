@@ -73,10 +73,7 @@ const MIBoxedModule: FC<Props> = ({
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const interlaDirection = getDirection(isMobile, direction);
-
-  /*const shouldStretchAction =
-    isMobile && (effectiveDirection === 'column' || effectiveDirection === 'column-reverse');*/
+  const internalDirection = getDirection(isMobile, direction);
 
   const Skeleton = slots?.skeleton ?? MIBoxedModuleSkeleton;
 
@@ -99,20 +96,20 @@ const MIBoxedModule: FC<Props> = ({
     >
       {icon}
       <Stack
-        direction={getDirection(isMobile, direction)}
-        alignItems={interlaDirection === 'column' ? 'stretch' : 'center'}
+        direction={internalDirection}
+        alignItems={internalDirection === 'column' ? 'stretch' : 'center'}
         columnGap={2}
         rowGap={1}
         sx={{ flex: '1 1 auto' }}
       >
         <Box
-          sx={{ flex: interlaDirection === 'column' ? 'none' : '1 1 auto' }}
+          sx={{ flex: internalDirection === 'column' ? 'none' : '1 1 auto' }}
           color={theme.colors.neutral.grey[700]}
         >
           {children}
         </Box>
         {action && (
-          <Box sx={{ flexShrink: 0, width: interlaDirection === 'column' ? '100%' : 'auto' }}>
+          <Box sx={{ flexShrink: 0, width: internalDirection === 'column' ? '100%' : 'auto' }}>
             {action}
           </Box>
         )}
