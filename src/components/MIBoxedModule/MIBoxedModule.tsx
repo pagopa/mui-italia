@@ -2,6 +2,7 @@
 
 import { ComponentType, FC, HTMLAttributes, ReactNode } from 'react';
 import {
+  Box,
   SkeletonProps,
   Stack,
   StackProps,
@@ -84,13 +85,13 @@ const MIBoxedModule: FC<Props> = ({
       spacing={2}
     >
       {icon}
-      {action ? (
+      {action && (
         <MIBoxedModuleContent direction={direction} action={action}>
           {children}
         </MIBoxedModuleContent>
-      ) : (
-        <>{children}</>
       )}
+      {icon && !action && <Box>{children}</Box>}
+      {!icon && !action && children}
     </StyledStack>
   );
 };
