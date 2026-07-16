@@ -2,7 +2,6 @@
 
 import { ComponentType, FC, HTMLAttributes, ReactNode } from 'react';
 import {
-  Box,
   SkeletonProps,
   Stack,
   StackProps,
@@ -14,6 +13,7 @@ import {
 import { visuallyHidden } from '@mui/utils';
 
 import MIBoxedModuleSkeleton from './MIBoxedModuleSkeleton';
+import MIBoxedModuleContent from './MIBoxedModuleContent';
 
 interface Props
   extends Pick<StackProps, 'children' | 'sx'>,
@@ -32,16 +32,6 @@ interface Props
     loadingLabel?: string;
   };
 }
-
-const getDirection = (isMobile: boolean, direction?: 'horizontal' | 'vertical') => {
-  if (!direction) {
-    return isMobile ? 'column' : 'row';
-  }
-  if (direction === 'horizontal') {
-    return 'row';
-  }
-  return 'column';
-};
 
 const StyledStack = styled(
   Stack,
@@ -73,7 +63,6 @@ const MIBoxedModule: FC<Props> = ({
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const internalDirection = getDirection(isMobile, direction);
 
   const Skeleton = slots?.skeleton ?? MIBoxedModuleSkeleton;
 
@@ -95,25 +84,13 @@ const MIBoxedModule: FC<Props> = ({
       spacing={2}
     >
       {icon}
-      <Stack
-        direction={internalDirection}
-        alignItems={internalDirection === 'column' ? 'stretch' : 'center'}
-        columnGap={2}
-        rowGap={1}
-        sx={{ flex: '1 1 auto' }}
-      >
-        <Box
-          sx={{ flex: internalDirection === 'column' ? 'none' : '1 1 auto' }}
-          color={theme.colors.neutral.grey[700]}
-        >
+      {action ? (
+        <MIBoxedModuleContent direction={direction} action={action}>
           {children}
-        </Box>
-        {action && (
-          <Box sx={{ flexShrink: 0, width: internalDirection === 'column' ? '100%' : 'auto' }}>
-            {action}
-          </Box>
-        )}
-      </Stack>
+        </MIBoxedModuleContent>
+      ) : (
+        <>{children}</>
+      )}
     </StyledStack>
   );
 };

@@ -409,7 +409,12 @@ export const ComplexContent: Story = {
           </Stack>
         </Box>
 
-        <Box textAlign="right" sx={{ flexShrink: 0, width: { xs: '100%', md: 'auto' } }}>
+        <Box
+          textAlign="right"
+          sx={{ flexShrink: 0, width: { xs: '100%', md: 'auto' } }}
+          position="relative"
+          left={{ xs: '35px', md: 0 }}
+        >
           <Typography
             variant="caption-semibold"
             color={theme.colors.blue[500]}
