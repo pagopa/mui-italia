@@ -90,8 +90,7 @@ const MIBoxedModule: FC<Props> = ({
           {children}
         </MIBoxedModuleContent>
       )}
-      {icon && !action && <Box>{children}</Box>}
-      {!icon && !action && children}
+      {!action && <Box>{children}</Box>}
     </StyledStack>
   );
 };
