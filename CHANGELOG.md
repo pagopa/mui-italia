@@ -1,3 +1,17 @@
+# [2.6.0-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v2.6.0-RC.1) (2026-07-16)
+
+
+### Features
+
+* **M20DS-33:** Simplify the html structure of boxed module ([#733](https://github.com/pagopa/mui-italia/issues/733)) ([f0bef00](https://github.com/pagopa/mui-italia/commit/f0bef00356bc8985be8ac408d34df24a48be83d4))
+* **M20DS-33:** boxed module ([#731](https://github.com/pagopa/mui-italia/issues/731)) ([95d8c1b](https://github.com/pagopa/mui-italia/commit/95d8c1b0fd2fea172e842b97a36aab9f176c2ab5))
+* **PIDM-2148:** [ProfileItem] new component ([#726](https://github.com/pagopa/mui-italia/issues/726)) ([ae46408](https://github.com/pagopa/mui-italia/commit/ae46408aa36699880b1036deac39cab8bdba8d35))
+
+
+### Bug Fixes
+
+* **M20DS-118:** make default tag 100% configurable ([#732](https://github.com/pagopa/mui-italia/issues/732)) ([c5ad5a6](https://github.com/pagopa/mui-italia/commit/c5ad5a604250c3fd36c4ca74536f95b878ee8634))
+* **M20DS-30:** fixed MIAlert layout on small screen ([#729](https://github.com/pagopa/mui-italia/issues/729)) ([06c975e](https://github.com/pagopa/mui-italia/commit/06c975e66bdeb857c390842e15c42d1c76f14af0))
 # [2.6.0-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.6.0-RC.0) (2026-07-07)
 
 
