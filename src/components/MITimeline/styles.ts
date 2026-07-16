@@ -1,4 +1,4 @@
-import { theme } from '@theme';
+import { Theme } from '@mui/material/styles';
 import { MITimelineItemProps } from './types';
 
 type VariantColor = {
@@ -8,7 +8,9 @@ type VariantColor = {
   feedbackDotColor: string;
 };
 
-export const itemVariantColor: Record<MITimelineItemProps['variant'], VariantColor> = {
+export const getItemVariantColor = (
+  theme: Theme,
+): Record<MITimelineItemProps['variant'], VariantColor> => ({
   normal: {
     border: theme.colors.neutral.grey[100],
     background: theme.colors.neutral.white,
@@ -39,4 +41,4 @@ export const itemVariantColor: Record<MITimelineItemProps['variant'], VariantCol
     text: theme.colors.error[850],
     feedbackDotColor: theme.colors.error[600],
   },
-};
+});

@@ -1,7 +1,6 @@
 import { TimelineDot } from '@mui/lab';
-import { alpha, styled } from '@mui/material/styles';
-import { theme } from '@theme';
-import { itemVariantColor } from './styles';
+import { alpha, styled, useTheme } from '@mui/material/styles';
+import { getItemVariantColor } from './styles';
 import { MITimelineItemProps } from './types';
 
 const DOT_BOX = 24;
@@ -14,8 +13,10 @@ type MITimelineDotProps = {
 export const MITimelineDot = styled(TimelineDot, {
   shouldForwardProp: (prop) => prop !== 'dotVariant' && prop !== 'isFirst',
 })<MITimelineDotProps>(({ isFirst, dotVariant }) => {
+  const theme = useTheme();
+
   const dotColor = isFirst
-    ? itemVariantColor[dotVariant].feedbackDotColor
+    ? getItemVariantColor(theme)[dotVariant].feedbackDotColor
     : theme.colors.neutral.grey[300];
 
   const size = isFirst ? 12 : 6;
