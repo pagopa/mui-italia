@@ -90,7 +90,7 @@ const MIBoxedModule: FC<Props> = ({
           {children}
         </MIBoxedModuleContent>
       )}
-      {!action && <Box>{children}</Box>}
+      {!action && <Box sx={{ width: '100%' }}>{children}</Box>}
     </StyledStack>
   );
 };
