@@ -143,7 +143,7 @@ export const MISpidSelectOIDialog: React.FC<Props> = ({
             id="spid-select"
             fontWeight="bold"
             fontSize={{ xs: '18px', sm: '24px' }}
-            sx={{ color: '#0E0F13' }}
+            sx={{ color: theme.colors.neutral.black }}
           >
             {t.title}
           </Typography>
@@ -154,7 +154,7 @@ export const MISpidSelectOIDialog: React.FC<Props> = ({
             size="small"
             aria-label={t.closeButtonAriaLabel}
             disabled={!!authorizingEntityId}
-            sx={{ color: '#0E0F13' }}
+            sx={{ color: theme.colors.neutral.black }}
           >
             <ClearOutlinedIcon />
           </IconButton>

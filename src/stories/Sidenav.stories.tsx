@@ -22,6 +22,8 @@ import ExpandLessRoundedIcon from '@mui/icons-material/ExpandLessRounded';
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 import ExitToAppRoundedIcon from '@mui/icons-material/ExitToAppRounded';
 
+import { ProfileItem } from '@components/ProfileItem';
+
 export default {
   title: 'Composition/Sidenav',
   component: List,
@@ -43,6 +45,14 @@ export const Default: StoryFn<typeof List> = () => {
         backgroundColor: 'background.paper',
       }}
     >
+      <ProfileItem
+        profileInitials="EC"
+        profileName="Ente Creditore"
+        onSwitchProfile={() => {
+          console.log('Clicked/Tapped on switch profile');
+        }}
+        sx={{ borderBottom: 1, borderColor: 'divider' }}
+      />
       <List component="nav" aria-label="main piattaforma-notifiche sender">
         <ListItemButton selected={selectedIndex === 0} onClick={() => handleListItemClick(0)}>
           <ListItemIcon>

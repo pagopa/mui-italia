@@ -53,6 +53,7 @@ const foundation: Theme = createTheme({
   shape: {
     borderRadius: 4,
     radius: {
+      4: '4px',
       8: '8px',
       16: '16px',
       24: '24px',
