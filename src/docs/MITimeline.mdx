@@ -1,0 +1,171 @@
+import { Meta, Title, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
+
+import Overview from './components/Overview';
+import Section from './components/Section';
+import SubSection from './components/SubSection';
+import * as MITimelineStories from '../stories/MITimeline.stories.tsx';
+
+<Meta of={MITimelineStories} />
+
+<Title />
+
+<Overview>
+  Il componente <strong>MITimeline</strong> è la timeline del Design System basata sul componente{' '}
+  <a href="https://mui.com/material-ui/react-timeline/">Timeline</a> di MUI Lab. Rappresenta una
+  sequenza verticale di step, ognuno reso da un <strong>MITimelineItem</strong>, con dot, connettori
+  e card colorate previsti dal Design System.
+</Overview>
+
+<Section
+  title="Playground"
+  description="Usa i controlli per modificare i parametri principali del componente e verificare il risultato live."
+>
+  <Primary />
+  <Controls />
+</Section>
+
+<Section
+  title="Anatomia"
+  description="MITimeline gestisce internamente la sequenza degli item e la posizione di primo e ultimo elemento."
+>
+  <SubSection title="Struttura del componente">
+    <code>MITimeline</code> è un contenitore che accetta <strong>solo figli di tipo <code>MITimelineItem</code></strong>:
+    la validazione dei children è automatica e segnala in console eventuali nodi non ammessi. La
+    posizione di ogni item, primo o ultimo, viene gestita internamente da <code>MITimeline</code>,
+    che mantiene trasparente il connettore sopra il primo item e sotto l'ultimo. Non è quindi
+    richiesta — né possibile — alcuna configurazione manuale da parte di chi utilizza il componente.
+
+    ```tsx
+    <MITimeline>
+      <MITimelineItem variant="success" icon={CheckCircleIcon} title="Notifica inviata">
+        <Typography variant="body2" color="text.secondary">
+          La notifica è stata depositata e presa in carico dal sistema.
+        </Typography>
+      </MITimelineItem>
+
+      <MITimelineItem variant="normal" icon={InfoIcon} title="In elaborazione">
+        <Typography variant="body2" color="text.secondary">
+          Stiamo verificando i dati del destinatario.
+        </Typography>
+      </MITimelineItem>
+    </MITimeline>
+    ```
+
+  </SubSection>
+</Section>
+
+<Section
+  title="Props di MITimelineItem"
+  description="Ogni MITimelineItem espone le prop necessarie a definire variante, icona, titolo e contenuto."
+>
+  <ul>
+    <li>
+      <strong>
+        <code>variant</code>
+      </strong>{' '}
+      obbligatoria — il colore/significato dell'item: <code>normal</code>, <code>info</code>,{' '}
+      <code>success</code>, <code>warning</code>, <code>error</code>. Determina i colori di bordo,
+      sfondo della card, testo e dot.
+    </li>
+    <li>
+      <strong>
+        <code>icon</code>
+      </strong>{' '}
+      obbligatoria — il componente icona, ad esempio un'icona di <code>@mui/icons-material</code>,
+      mostrato all'interno della card.
+    </li>
+    <li>
+      <strong>
+        <code>title</code>
+      </strong>{' '}
+      obbligatoria — il titolo dell'item; accetta qualsiasi <code>ReactNode</code>.
+    </li>
+    <li>
+      <strong>
+        <code>children</code>
+      </strong>{' '}
+      — il corpo dell'item; accetta qualsiasi <code>ReactNode</code>.
+    </li>
+  </ul>
+</Section>
+
+<Section
+  title="Varianti"
+  description="MITimelineItem supporta cinque varianti, che ne definiscono colore e semantica."
+>
+  <SubSection title="Panoramica delle varianti">
+    <ul>
+      <li>
+        <strong><code>normal</code></strong> — variante neutra, per gli step standard del flusso
+        con sfondo bianco e bordo grigio.
+      </li>
+      <li>
+        <strong><code>info</code></strong> — variante informativa, per comunicazioni neutre da
+        evidenziare.
+      </li>
+      <li>
+        <strong><code>success</code></strong> — per esiti positivi e operazioni completate.
+      </li>
+      <li>
+        <strong><code>warning</code></strong> — per situazioni che richiedono attenzione.
+      </li>
+      <li>
+        <strong><code>error</code></strong> — per esiti negativi e operazioni fallite.
+      </li>
+    </ul>
+
+    <Story of={MITimelineStories.Variants} />
+
+  </SubSection>
+
+  <SubSection title="Dot in evidenza">
+    Quando il <strong>primo</strong> item ha una variante diversa da <code>normal</code>, cioè una
+    variante feedback, il suo dot viene reso più grande e con un alone, per dare risalto allo stato
+    corrente in cima alla timeline. Gli altri dot restano piccoli e neutri.
+  </SubSection>
+</Section>
+
+<Section
+  title="Contenuto"
+  description="Title e children accettano ReactNode, permettendo contenuti testuali, componenti e strutture più articolate."
+>
+  <SubSection title="Contenuto strutturato">
+    Sia <code>title</code> che <code>children</code> accettano qualsiasi <code>ReactNode</code>: è
+    quindi possibile inserire testo formattato, liste, link o altri componenti all'interno del corpo
+    di ogni item.
+
+    <Story of={MITimelineStories.RichContent} />
+
+  </SubSection>
+
+  <SubSection title="Titolo personalizzato">
+    Anche <code>title</code> accetta qualsiasi <code>ReactNode</code>: oltre al testo è possibile
+    comporre elementi più ricchi, ad esempio affiancando un{' '}
+    <a href="?path=/docs/components-tag--docs">Tag</a> al testo del titolo.
+
+    <Story of={MITimelineStories.CustomTitle} />
+
+  </SubSection>
+</Section>
+
+<Section
+  title="Accessibilità"
+  description="L’accessibilità finale dipende dal contenuto testuale passato agli item e dal modo in cui la timeline viene usata nel contesto dell’interfaccia."
+>
+  <SubSection title="Icone decorative">
+    Le icone degli item sono di supporto visivo: assicurati che il <code>title</code> e il contenuto
+    comunichino già l'informazione in forma testuale, senza affidarti al solo colore della variante.
+  </SubSection>
+
+{' '}
+<SubSection title="Significato non solo cromatico">
+  Le varianti, ad esempio <code>success</code> o <code>error</code>, usano il colore per comunicare
+  lo stato: accompagna sempre il colore con un titolo e un'icona coerenti, così l'informazione resta
+  percepibile anche in caso di daltonismo o bassa visione.
+</SubSection>
+
+  <SubSection title="Struttura coerente">
+    Mantieni l'ordine cronologico/logico degli item nel markup, così che l'ordine di lettura degli
+    screen reader rispecchi la sequenza della timeline.
+  </SubSection>
+</Section>
