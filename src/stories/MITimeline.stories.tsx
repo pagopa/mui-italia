@@ -12,15 +12,82 @@ import TroubleshootIcon from '@mui/icons-material/Troubleshoot';
 import WarningIcon from '@mui/icons-material/Warning';
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { colors } from 'theme/foundations/colors';
 
 const componentMaxWidth = 600;
 
-const meta: Meta<typeof MITimeline> = {
+const iconOptions = {
+  gavel: GavelIcon,
+  info: InfoIcon,
+  success: CheckCircleIcon,
+  warning: WarningIcon,
+  error: ErrorIcon,
+  mobile: MobileFriendlyIcon,
+  search: SearchIcon,
+  troubleshoot: TroubleshootIcon,
+};
+
+type MITimelineStoryArgs = React.ComponentProps<typeof MITimeline> & {
+  itemVariant: 'normal' | 'info' | 'success' | 'warning' | 'error';
+  itemIcon: keyof typeof iconOptions;
+  itemTitle: string;
+  itemContent: string;
+};
+
+const meta: Meta<MITimelineStoryArgs> = {
   title: 'Components/MITimeline',
   component: MITimeline,
-  subcomponents: { MITimelineItem },
+  parameters: {
+    controls: {
+      include: ['itemVariant', 'itemIcon', 'itemTitle', 'itemContent'],
+    },
+  },
+  args: {
+    itemVariant: 'info',
+    itemIcon: 'gavel',
+    itemTitle: 'La notifica ha assunto valore di legge',
+    itemContent:
+      'Né Mario Rossi né un suo delegato hanno effettuato un accesso entro i termini, ma la notifica SEND si è comunque perfezionata il giorno 29/06/2026.',
+  },
+  argTypes: {
+    itemVariant: {
+      options: ['normal', 'info', 'success', 'warning', 'error'],
+      control: { type: 'select' },
+      description: 'Controllo Storybook: variante visuale applicata al primo MITimelineItem.',
+      table: {
+        category: 'Storybook controls',
+      },
+    },
+    itemIcon: {
+      options: Object.keys(iconOptions),
+      control: { type: 'select' },
+      description: 'Controllo Storybook: icona mostrata nel primo MITimelineItem.',
+      table: {
+        category: 'Storybook controls',
+      },
+    },
+    itemTitle: {
+      control: { type: 'text' },
+      description: 'Controllo Storybook: testo usato come title del primo MITimelineItem.',
+      table: {
+        category: 'Storybook controls',
+      },
+    },
+    itemContent: {
+      control: { type: 'text' },
+      description: 'Controllo Storybook: testo usato come children del primo MITimelineItem.',
+      table: {
+        category: 'Storybook controls',
+      },
+    },
+    children: {
+      control: false,
+      table: {
+        disable: true,
+      },
+    },
+  },
   decorators: [
     (Story) => (
       <Box sx={{ p: 2, boxSizing: 'border-box', maxWidth: componentMaxWidth, mx: 'auto' }}>
@@ -28,46 +95,47 @@ const meta: Meta<typeof MITimeline> = {
       </Box>
     ),
   ],
+  render: ({ itemVariant, itemIcon, itemTitle, itemContent }) => {
+    const Icon = iconOptions[itemIcon];
+
+    return (
+      <MITimeline>
+        <MITimelineItem variant={itemVariant} icon={Icon} title={itemTitle}>
+          <Typography variant="body2">{itemContent}</Typography>
+        </MITimelineItem>
+        <MITimelineItem
+          variant="normal"
+          icon={MobileFriendlyIcon}
+          title="Invio della notifica in corso"
+        >
+          <Typography variant="body2">Stiamo verificando i dati del destinatario.</Typography>
+        </MITimelineItem>
+        <MITimelineItem variant="normal" icon={SearchIcon} title="Notifica pronta per l’invio">
+          <Typography variant="body2">
+            La notifica digitale ha superato i test di validazione. È possibile effettuare il
+            download dell’attestazione.
+          </Typography>
+        </MITimelineItem>
+        <MITimelineItem variant="normal" icon={TroubleshootIcon} title="Notifica in validazione">
+          <Typography variant="body2">La notifica SEND è in attesa di validazione.</Typography>
+        </MITimelineItem>
+      </MITimeline>
+    );
+  },
 };
 
 export default meta;
 
-type Story = StoryObj<typeof MITimeline>;
+type Story = StoryObj<MITimelineStoryArgs>;
 
-export const Default: Story = {
-  render: () => (
-    <MITimeline>
-      <MITimelineItem
-        variant="info"
-        icon={GavelIcon}
-        title="La notifica ha assunto valore di legge"
-      >
-        <Typography variant="body2">
-          Né Mario Rossi né un suo delegato hanno effettuato un accesso entro i termini, ma la
-          notifica SEND si è comunque perfezionata il giorno 29/06/2026.
-        </Typography>
-      </MITimelineItem>
-      <MITimelineItem
-        variant="normal"
-        icon={MobileFriendlyIcon}
-        title="Invio della notifica in corso"
-      >
-        <Typography variant="body2">Stiamo verificando i dati del destinatario.</Typography>
-      </MITimelineItem>
-      <MITimelineItem variant="normal" icon={SearchIcon} title="Notifica pronta per l’invio">
-        <Typography variant="body2">
-          La notifica digitale ha superato i test di validazione. È possibile effettuare il download
-          dell’attestazione.
-        </Typography>
-      </MITimelineItem>
-      <MITimelineItem variant="normal" icon={TroubleshootIcon} title="Notifica in validazione">
-        <Typography variant="body2">La notifica SEND è in attesa di validazione.</Typography>
-      </MITimelineItem>
-    </MITimeline>
-  ),
-};
+export const Default: Story = {};
 
 export const Variants: Story = {
+  parameters: {
+    controls: {
+      disable: true,
+    },
+  },
   render: () => (
     <>
       <MITimeline>
@@ -100,6 +168,11 @@ export const Variants: Story = {
 };
 
 export const RichContent: Story = {
+  parameters: {
+    controls: {
+      disable: true,
+    },
+  },
   render: () => (
     <MITimeline>
       <MITimelineItem variant="success" icon={CheckCircleIcon} title="Ultimo step">
@@ -137,6 +210,11 @@ const TitleWithTag = () => (
 );
 
 export const CustomTitle: Story = {
+  parameters: {
+    controls: {
+      disable: true,
+    },
+  },
   render: () => (
     <MITimeline>
       <MITimelineItem variant="info" icon={InfoIcon} title={<TitleWithTag />}>
