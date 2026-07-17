@@ -570,13 +570,6 @@ export const themeNext: Theme = createTheme(foundationNext, {
         },
       },
     },
-    MuiTimelineDot: {
-      styleOverrides: {
-        root: {
-          boxShadow: 'none',
-        },
-      },
-    },
     MuiSwitch: muiSwitch,
 
     /** Start LIST ITEM (used in Sidenav) */
