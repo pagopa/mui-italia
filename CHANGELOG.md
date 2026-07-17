@@ -1,3 +1,10 @@
+# [2.6.0-RC.2](https://github.com/pagopa/mui-italia/releases/tag/v2.6.0-RC.2) (2026-07-17)
+
+
+### Features
+
+* **M20DS-54:** create MITimeline component ([#725](https://github.com/pagopa/mui-italia/issues/725)) ([5033952](https://github.com/pagopa/mui-italia/commit/5033952ecc5049e249c6159f90348d0445353c0c))
+* **M20DS-17:** expose ref ([#734](https://github.com/pagopa/mui-italia/issues/734)) ([af42fa1](https://github.com/pagopa/mui-italia/commit/af42fa1f9e8a7ae6f7438d393dff87a84707b534))
 # [2.6.0-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v2.6.0-RC.1) (2026-07-16)
 
 
