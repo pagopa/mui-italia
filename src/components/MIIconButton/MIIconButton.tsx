@@ -5,7 +5,7 @@ import { FC } from 'react';
 import { focusWidth } from 'theme/theme';
 import { pxToRem } from 'theme/utility';
 
-interface MIIconButtonProps
+export interface MIIconButtonProps
   extends Pick<IconButtonProps, 'onClick' | 'size' | 'edge' | 'aria-label' | 'children'> {
   sx?: MarginSxProps;
 }

@@ -29,7 +29,7 @@ const defaultTranslationsMap = {
   },
 };
 
-type Props = {
+export type MISpidSelectOIDialogProps = {
   /** Controls the visibility of the dialog. When `true` the dialog is open. */
   show: boolean;
   /** List of SPID Identity Providers to display. */
@@ -73,7 +73,7 @@ type Props = {
  * flight the dialog is locked and cannot be closed. All visible copy can be
  * localized through `translationsMap`.
  */
-export const MISpidSelectOIDialog: React.FC<Props> = ({
+const MISpidSelectOIDialog: React.FC<MISpidSelectOIDialogProps> = ({
   show,
   idps,
   loading,
@@ -186,3 +186,5 @@ export const MISpidSelectOIDialog: React.FC<Props> = ({
     </Dialog>
   );
 };
+
+export default MISpidSelectOIDialog;

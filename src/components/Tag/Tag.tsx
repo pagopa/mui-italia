@@ -167,7 +167,7 @@ const Icon = ({
 };
 
 // here we cannot use destructured object because TagProps is a Discriminated Union of Interfaces
-export const Tag: React.FC<TagProps> = (props) => {
+const Tag: React.FC<TagProps> = (props) => {
   const valueRef = useRef<HTMLSpanElement>(null);
 
   const { variant = 'default', slotProps, ...rest } = props;
@@ -205,3 +205,5 @@ export const Tag: React.FC<TagProps> = (props) => {
     </Container>
   );
 };
+
+export default Tag;

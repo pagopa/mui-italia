@@ -1,7 +1,7 @@
+import { Theme } from '@mui/material';
 import MuiCircularProgress, { CircularProgressProps } from '@mui/material/CircularProgress';
 import { styled } from '@mui/material/styles';
 import { MarginSxProps } from '@types';
-import { colors } from 'theme/foundations/colors';
 
 export type AllowedMISpinnerColor = 'primary' | 'secondary' | 'error';
 
@@ -12,15 +12,15 @@ export interface MISpinnerProps
   sx?: MarginSxProps;
 }
 
-const SPINNER_COLOR: Record<AllowedMISpinnerColor, string> = {
-  primary: colors.blue[500],
-  secondary: colors.neutral.white,
-  error: colors.error[600],
-};
+const SPINNER_COLOR: (theme: Theme) => Record<AllowedMISpinnerColor, string> = (theme) => ({
+  primary: theme.colors.blue[500],
+  secondary: theme.colors.neutral.white,
+  error: theme.colors.error[600],
+});
 
-const StyledSpinner = styled(MuiCircularProgress)(({ color = 'primary' }) => ({
+const StyledSpinner = styled(MuiCircularProgress)(({ theme, color = 'primary' }) => ({
   borderRadius: '50%',
-  color: SPINNER_COLOR[color as AllowedMISpinnerColor],
+  color: SPINNER_COLOR(theme)[color as AllowedMISpinnerColor],
   '&.MuiCircularProgress-indeterminate': {
     '@supports (mask-image: radial-gradient(farthest-side, transparent 0, black 100%))': {
       '& svg': {
@@ -38,6 +38,8 @@ const StyledSpinner = styled(MuiCircularProgress)(({ color = 'primary' }) => ({
   },
 }));
 
-export const MISpinner: React.FC<MISpinnerProps> = ({ color = 'primary', ...rest }) => (
+const MISpinner: React.FC<MISpinnerProps> = ({ color = 'primary', ...rest }) => (
   <StyledSpinner color={color} size={24} {...rest} />
 );
+
+export default MISpinner;

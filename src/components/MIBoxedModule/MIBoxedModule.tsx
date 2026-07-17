@@ -16,7 +16,7 @@ import { visuallyHidden } from '@mui/utils';
 import MIBoxedModuleSkeleton from './MIBoxedModuleSkeleton';
 import MIBoxedModuleContent from './MIBoxedModuleContent';
 
-interface Props
+export interface MIBoxedModuleProps
   extends Pick<StackProps, 'children' | 'sx'>,
     Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'style' | 'onClick'> {
   loading?: boolean;
@@ -51,7 +51,7 @@ const StyledStack = styled(
   };
 });
 
-const MIBoxedModule: FC<Props> = ({
+const MIBoxedModule: FC<MIBoxedModuleProps> = ({
   loading = false,
   direction,
   icon,

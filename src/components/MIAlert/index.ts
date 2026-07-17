@@ -1,2 +1,2 @@
 export * from './MIAlert';
-export * from './StyledAlert';
+export type { MIAlertProps } from './MIAlert';

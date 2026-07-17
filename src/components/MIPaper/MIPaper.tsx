@@ -6,18 +6,18 @@ import { RadiusVariant } from '@types';
 type Padding = 16 | 24;
 type AllowedMIPaperVariants = 'flat' | 'outlined';
 
-type BaseMIPaperProps = Omit<MuiPaperProps, 'elevation' | 'square' | 'variant'> & {
-  borderRadius?: RadiusVariant;
-  padding?: Padding;
-  variant?: AllowedMIPaperVariants;
-};
-
 type StyledPaperProps = {
   ownerState: {
     borderRadius: RadiusVariant;
     padding: Padding;
     variant: AllowedMIPaperVariants;
   };
+};
+
+export type MIPaperProps = Omit<MuiPaperProps, 'elevation' | 'square' | 'variant'> & {
+  borderRadius?: RadiusVariant;
+  padding?: Padding;
+  variant?: AllowedMIPaperVariants;
 };
 
 const StyledPaper = styled(MuiPaper, {
@@ -38,7 +38,7 @@ const StyledPaper = styled(MuiPaper, {
   };
 });
 
-const MIPaper: FC<BaseMIPaperProps> = (props) => {
+const MIPaper: FC<MIPaperProps> = (props) => {
   const { borderRadius = 8, padding = 16, variant = 'flat', sx, ...other } = props;
 
   return (

@@ -7,7 +7,7 @@ export type MISnackbarProps = MISnackbarAlertProps & {
   anchorOrigin?: SnackbarProps['anchorOrigin'];
 };
 
-export const MISnackbar = (props: MISnackbarProps) => {
+const MISnackbar = (props: MISnackbarProps) => {
   const { open, anchorOrigin, ...alertProps } = props;
 
   const alertRef = useRef<HTMLDivElement>(null);
@@ -49,3 +49,5 @@ export const MISnackbar = (props: MISnackbarProps) => {
     </Snackbar>
   );
 };
+
+export default MISnackbar;

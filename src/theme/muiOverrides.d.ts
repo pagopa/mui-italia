@@ -1,4 +1,5 @@
 import '@mui/system';
+import '@mui/material/styles';
 
 declare module '@mui/system' {
   interface ShapeOptions {
@@ -17,5 +18,15 @@ declare module '@mui/system' {
       16: string;
       24: string;
     };
+  }
+}
+
+declare module '@mui/material/styles' {
+  interface ThemeOptions {
+    colors?: typeof colors;
+  }
+
+  interface Theme {
+    colors: typeof colors;
   }
 }

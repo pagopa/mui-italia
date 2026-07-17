@@ -35,7 +35,7 @@ type DeletableMIChipProps = BaseMIChipProps & {
   onDelete?: React.EventHandler<any>;
 };
 
-type CustomMIChipProps = StandardMIChipProps | DeletableMIChipProps;
+export type MIChipProps = StandardMIChipProps | DeletableMIChipProps;
 
 const StyledChip = styled(MuiChip, {
   shouldForwardProp: (prop) => prop !== 'customColor',
@@ -122,7 +122,7 @@ const StyledChip = styled(MuiChip, {
   },
 }));
 
-const MIChip: FC<CustomMIChipProps> = (props) => {
+const MIChip: FC<MIChipProps> = (props) => {
   const { color: colorProp, sx, label, onDelete, 'aria-label': ariaLabel, ...other } = props;
 
   const isDeletable = Boolean(onDelete);

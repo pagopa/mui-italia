@@ -10,7 +10,7 @@ import {
 import { Tooltip, TooltipProps, ClickAwayListener, useMediaQuery } from '@mui/material';
 import { theme } from '@theme';
 
-export interface Props
+export interface MITooltipProps
   extends Pick<
     TooltipProps,
     'id' | 'title' | 'onOpen' | 'onClose' | 'placement' | 'describeChild' | 'children'
@@ -37,7 +37,12 @@ const getTargetElem = (children: ReactNode): ReactElement => {
   return <>{children}</>;
 };
 
-const MITooltip = ({ title, disabled = false, describeValue = false, ...props }: Props) => {
+const MITooltip = ({
+  title,
+  disabled = false,
+  describeValue = false,
+  ...props
+}: MITooltipProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const enterTimer = useRef<NodeJS.Timeout | null>(null);

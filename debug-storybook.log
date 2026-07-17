@@ -1,0 +1,35 @@
+[14:59:16.508] [INFO] storybook v10.3.5
+[14:59:17.867] [DEBUG] Getting package.json info for /Users/andrea.cimini/Workspace/mui-italia/package.json...
+[14:59:19.779] [INFO] Starting...
+[14:59:20.222] [DEBUG] Starting preview..
+[14:59:20.359] [DEBUG] Using tsconfig paths for react-docgen
+[14:59:20.398] [WARN] 🚨 Unable to index ./src/docs/MISnackbar.mdx:
+  Error: Invariant failed: Could not find or load CSF file at path "../../stories/MISnackbar.stories" referenced by `of={}` in docs file "src/docs/MISnackbar.mdx".
+
+- Does that file exist?
+- If so, is it a CSF file (`.stories.*`)?
+- If so, is it matched by the `stories` glob in `main.js`?
+- If so, has the file successfully loaded in Storybook and are its stories visible?
+    at invariant (file:///Users/andrea.cimini/Workspace/mui-italia/node_modules/storybook/dist/_node-chunks/chunk-KIK2P2SN.js:20:11)
+    at _StoryIndexGenerator.extractDocs (file:///Users/andrea.cimini/Workspace/mui-italia/node_modules/storybook/dist/core-server/index.js:6178:13)
+    at async file:///Users/andrea.cimini/Workspace/mui-italia/node_modules/storybook/dist/core-server/index.js:6028:39
+    at async Promise.all (index 8)
+    at async Promise.all (index 0)
+    at async _StoryIndexGenerator.updateExtracted (file:///Users/andrea.cimini/Workspace/mui-italia/node_modules/storybook/dist/core-server/index.js:6016:5)
+    at async _StoryIndexGenerator.ensureExtracted (file:///Users/andrea.cimini/Workspace/mui-italia/node_modules/storybook/dist/core-server/index.js:6053:8)
+    at async _StoryIndexGenerator.initialize (file:///Users/andrea.cimini/Workspace/mui-italia/node_modules/storybook/dist/core-server/index.js:6012:5)
+    at async file:///Users/andrea.cimini/Workspace/mui-italia/node_modules/storybook/dist/core-server/presets/common-preset.js:1855:10
+[14:59:20.404] [ERROR] Failed to build the preview
+[14:59:20.405] [ERROR] Error: Unable to index ./src/docs/MISnackbar.mdx
+    at _StoryIndexGenerator.getIndexAndStats (file://./node_modules/storybook/dist/core-server/index.js:6282:15)
+    at async _StoryIndexGenerator.getIndex (file://./node_modules/storybook/dist/core-server/index.js:6271:13)
+    at async BasicMinimalPluginContext.config (file://./node_modules/@storybook/builder-vite/dist/_node-chunks/chunk-FQ4EAKAD.js:184:19)
+    at async runConfigHook (file://./node_modules/vite/dist/node/chunks/config.js:36023:15)
+    at async resolveConfig (file://./node_modules/vite/dist/node/chunks/config.js:35525:13)
+    at async _createServer (file://./node_modules/vite/dist/node/chunks/config.js:25441:67)
+    at async Module.start (file://./node_modules/@storybook/builder-vite/dist/index.js:1557:17)
+    at async storybookDevServer (file://./node_modules/storybook/dist/core-server/index.js:7503:83)
+    at async buildOrThrow (file://./node_modules/storybook/dist/core-server/index.js:4508:12)
+    at async buildDevStandalone (file://./node_modules/storybook/dist/core-server/index.js:8033:41)
+[14:59:20.407] [WARN] Broken build, fix the error above.
+You may need to refresh the browser.

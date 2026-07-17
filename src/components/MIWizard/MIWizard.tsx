@@ -36,7 +36,7 @@ type PrevButtonProps = Omit<MIButtonProps, 'onClick' | 'href'> & {
   herf?: never;
 };
 
-type Props = {
+export type MIWizardProps = {
   activeStep: number;
   setActiveStep: (step: number) => void;
   title: ReactNode;
@@ -67,7 +67,7 @@ type Props = {
   };
 };
 
-const MIWizard: React.FC<Props> = ({
+const MIWizard: React.FC<MIWizardProps> = ({
   activeStep,
   setActiveStep,
   title,
