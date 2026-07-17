@@ -23,19 +23,19 @@ const MITimelineItem: React.FC<MITimelineItemInternalProps> = ({
     <TimelineItem sx={{ '&:before': { display: 'none' } }}>
       <TimelineSeparator sx={{ width: 24, flex: 'none' }}>
         <TimelineConnector
-          sx={(theme) => ({
+          sx={{
             bgcolor: isFirst ? 'transparent' : theme.colors.neutral.grey[300],
             position: 'relative',
             zIndex: 1,
-          })}
+          }}
         />
         <MITimelineDot isFirst={isFirst} dotVariant={variant} />
         <TimelineConnector
-          sx={(theme) => ({
+          sx={{
             bgcolor: isLast ? 'transparent' : theme.colors.neutral.grey[300],
             position: 'relative',
             zIndex: 1,
-          })}
+          }}
         />
       </TimelineSeparator>
       <TimelineContent sx={{ pb: isLast ? 0 : 2 }}>
