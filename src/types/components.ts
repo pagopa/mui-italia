@@ -25,4 +25,5 @@ type MarginKeys =
 
 export type MarginSxProps = Pick<SystemProps<Theme>, MarginKeys>;
 
+export type AllowedAlertSeverity = 'success' | 'info' | 'warning' | 'error';
 export type RadiusVariant = keyof MuiTheme['shape']['radius'];

@@ -8,6 +8,7 @@ import {
   ListItemButton,
   Skeleton,
   Typography,
+  useTheme,
 } from '@mui/material';
 
 import { IDP } from 'types/spid';
@@ -39,6 +40,7 @@ const SpidList: React.FC<Props> = ({
   oneIdentityCdnBaseUrl,
   onSelect,
 }) => {
+  const theme = useTheme();
   const shuffledIDPS = useMemo(() => shuffleList<IDP>(idps), [idps]);
 
   const getImageUrl = (entityID: string) =>
@@ -82,7 +84,7 @@ const SpidList: React.FC<Props> = ({
                   fontWeight="500"
                   textTransform="uppercase"
                   noWrap
-                  sx={{ color: '#555C70' }}
+                  sx={{ color: theme.colors.neutral.grey[700] }}
                 >
                   {displayName}
                 </Typography>

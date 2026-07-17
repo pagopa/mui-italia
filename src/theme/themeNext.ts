@@ -160,6 +160,7 @@ export const themeNext: Theme = createTheme(foundationNext, {
     /* End: To be revised */
   },
   components: {
+    ////////////////////////////////////// TO BE REMOVED //////////////////////////////////////
     MuiButton: {
       defaultProps: {
         disableElevation: true,
@@ -744,6 +745,15 @@ export const themeNext: Theme = createTheme(foundationNext, {
         labelContainer: {
           padding: pxToRem(14),
           paddingLeft: 0,
+        },
+      },
+    },
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    MuiSkeleton: {
+      styleOverrides: {
+        root: {
+          backgroundColor: foundationNext.colors.neutral.grey[50],
+          borderRadius: foundationNext.shape.radius[4],
         },
       },
     },
