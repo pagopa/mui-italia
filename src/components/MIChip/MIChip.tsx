@@ -1,9 +1,8 @@
-import React, { FC } from 'react';
+import React, { forwardRef } from 'react';
 import MuiChip, { ChipProps } from '@mui/material/Chip';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import { styled } from '@mui/material/styles';
+import { styled, SxProps } from '@mui/material/styles';
 import { useTheme } from '@mui/material';
-import { MarginSxProps } from '@types';
 
 type AllowedMIChipColors =
   | 'default'
@@ -14,12 +13,8 @@ type AllowedMIChipColors =
   | 'neutral'
   | 'info';
 
-type BaseMIChipProps = Omit<
-  ChipProps,
-  'color' | 'deleteIcon' | 'label' | 'onClick' | 'onDelete' | 'size'
-> & {
-  label: string;
-  sx?: MarginSxProps;
+type BaseMIChipProps = Omit<ChipProps, 'color' | 'deleteIcon' | 'onClick' | 'onDelete' | 'size'> & {
+  sx?: SxProps;
 };
 
 // Props for the standard mode
@@ -122,7 +117,7 @@ const StyledChip = styled(MuiChip, {
   },
 }));
 
-const MIChip: FC<CustomMIChipProps> = (props) => {
+const MIChip = forwardRef<HTMLDivElement, CustomMIChipProps>((props, ref) => {
   const { color: colorProp, sx, label, onDelete, 'aria-label': ariaLabel, ...other } = props;
 
   const isDeletable = Boolean(onDelete);
@@ -135,7 +130,7 @@ const MIChip: FC<CustomMIChipProps> = (props) => {
   const deleteIconProps = {
     tabIndex: 0,
     role: 'button',
-    'aria-label': (ariaLabel ?? `Delete %s`).replace('%s', label),
+    'aria-label': ariaLabel ?? 'Delete',
     style: { cursor: 'pointer' },
     'aria-hidden': false,
     focusable: true,
@@ -161,10 +156,11 @@ const MIChip: FC<CustomMIChipProps> = (props) => {
       deleteIcon={<CloseRoundedIcon {...deleteIconProps} />}
       sx={sx}
       aria-label={ariaLabel}
+      ref={ref}
       {...other}
       {...accessibilityProps}
     />
   );
-};
+});
 
 export default MIChip;
