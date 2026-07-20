@@ -3,13 +3,16 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 
 export const StyledBreadcrumbs = styled(Breadcrumbs)(({ theme }) => {
   return {
+    '& .MIBreadcrumbItem-current': {
+      color: theme.colors.neutral.grey[700],
+    },
     fontWeight: 500,
     '& .MuiBreadcrumbs-separator svg': {
-      fontSize: "16px",
+      fontSize: theme.typography.pxToRem(16),
       color: theme.colors.neutral.black,
     },
     '& .MuiBreadcrumbs-li svg': {
-      fontSize: "24px",
+      fontSize: theme.typography.pxToRem(24),
     },
     '& .MuiLink-root.MuiLink-underlineHover': {
       display: 'flex',
@@ -21,10 +24,6 @@ export const StyledBreadcrumbs = styled(Breadcrumbs)(({ theme }) => {
         color: theme.colors.blue[500],
         textDecoration: 'underline',
         cursor: 'pointer',
-      },
-      '&.MuiLink-disabled': {
-        cursor: 'not-allowed',
-        color: theme.colors.neutral.grey[450],
       },
     },
   };

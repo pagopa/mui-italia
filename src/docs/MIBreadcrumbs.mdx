@@ -30,8 +30,8 @@ import * as MIBreadcrumbsStories from '../stories/MIBreadcrumbs.stories.tsx';
 
 <Section
   title="Varianti"
-  description="MIBreadcrumbs supporta due varianti: responsive e mobileOnly.
-  Nella variante mobileOnly, indipendentemente dal numero di elementi delle breadcrumbs e dalla risoluzione,
+  description="MIBreadcrumbs supporta due varianti: extended e compact.
+  Nella variante compact, indipendentemente dal numero di elementi delle breadcrumbs e dalla risoluzione,
   viene mostrata solo il pulsante 'Indietro'. (Il cui testo è personalizzabile)"
 >
   <Story of={MIBreadcrumbsStories.Variants} />
@@ -48,21 +48,17 @@ import * as MIBreadcrumbsStories from '../stories/MIBreadcrumbs.stories.tsx';
     <pre>
     ```js filename="index.js"
     ...
-    import { MIBreadcrumbs } from 'components/MIBreadcrumbs';
+    import { MIBreadcrumbs, MIBreadcrumbItem } from 'components/MIBreadcrumbs';
     import { useNavigate } from 'react-router-dom';
     ...
     const navigate = useNavigate();
     ...
     return (
-      <MIBreadcrumbs
-        breadcrumbs={
-          [
-            { label: 'Home', onClick: () => navigate('/') },
-            { label: 'About', onClick: () => navigate('/about') }
-            { label: 'Contact', onClick: () => navigate('/about/contact') }
-          ]
-        }
-      />
+      <MIBreadcrumbs>
+        <MIBreadcrumbItem label="Home" onClick={() => navigate('/')} />
+        <MIBreadcrumbItem label="About" onClick={() => navigate('/about')} />
+        <MIBreadcrumbItem label="Contact" current/>
+      </MIBreadcrumbs>
     )
     ...
     ```

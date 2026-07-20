@@ -1,4 +1,4 @@
-import { MIBreadcrumbs } from '../components/MIBreadcrumbs';
+import { MIBreadcrumbItem, MIBreadcrumbs } from '../components/MIBreadcrumbs';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { MIBreadcrumbsProps } from '@components/MIBreadcrumbs/types';
 import { Stack } from '@mui/system';
@@ -20,41 +20,31 @@ export type Story = StoryObj<MIBreadcrumbsProps>;
 export const Default: Story = {};
 
 Default.args = {
-  elements: [
-    { label: 'Dashboard' },
-    { label: 'Elenco Ricevute' },
-    { label: 'Dettaglio Ricevuta' }
+  children: [
+    <MIBreadcrumbItem key="1" label="Dashboard" href="/"></MIBreadcrumbItem>,
+    <MIBreadcrumbItem key="2" label="Elenco Ricevute" href="/list"></MIBreadcrumbItem>,
+    <MIBreadcrumbItem key="3" label="Dettaglio Ricevuta" current></MIBreadcrumbItem>
   ],
 }
 
-export const MobileOnly: Story = {};
-MobileOnly.args = {
-  variant: 'mobileOnly',
+export const CompactOnly: Story = {};
+CompactOnly.args = {
+  variant: 'compact',
 }
 
-export const CustomMobileOnly: Story = {};
-CustomMobileOnly.args = {
-  variant: 'mobileOnly',
-  mobileButtonLabel: 'Esci',
-  mobileButtonIcon: 'Close',
-  mobileButtonAction: () => console.log('Esci')
+export const CustomCompactOnly: Story = {};
+CustomCompactOnly.args = {
+  variant: 'compact',
+  backButtonLabel: 'Elenco Ricevute',
+  backButtonAction: () => console.log('Esci')
 }
-
-export const WithIcons: Story = {};
-WithIcons.args = {
-  elements: [
-    { label: 'Home', icon: 'Home', onClick: () => console.log('Home') },
-    { label: 'Ricevute', icon: 'Receipt', onClick: () => console.log('Ricevute') },
-    { label: 'Dettaglio', disabled: true, onClick: () => console.log('Dettaglio'), href: '#' }
-  ]
-};
 
 export const Variants: Story = {
   tags: ['!dev'],
   render: () => (
     <Stack direction="column" spacing={4} alignItems="center">
       <MIBreadcrumbs {...Default.args} />
-      <MIBreadcrumbs {...MobileOnly.args} />
+      <MIBreadcrumbs {...CompactOnly.args} />
     </Stack>
   ),
 };
