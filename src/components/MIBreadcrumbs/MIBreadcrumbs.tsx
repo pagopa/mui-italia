@@ -10,15 +10,12 @@ export const MIBreadcrumbs: React.FC<MIBreadcrumbsProps> = ({ children, backButt
   const isMobileResolution = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
   return (
-    <>
-      <StyledBreadcrumbs aria-label="breadcrumb" separator={<ChevronRightIcon />}>
-        {
-          isMobileResolution || variant === 'compact' ? <MIBreadcrumbItem label={backButtonLabel} type='back' onClick={backButtonAction} /> :
-            children
-        }
-      </StyledBreadcrumbs>
-    </>
-
+    <StyledBreadcrumbs aria-label="breadcrumbs" separator={<ChevronRightIcon />}>
+      {
+        isMobileResolution || variant === 'compact' ? <MIBreadcrumbItem label={backButtonLabel} type='back' onClick={backButtonAction} /> :
+          children
+      }
+    </StyledBreadcrumbs>
   );
 };
 
