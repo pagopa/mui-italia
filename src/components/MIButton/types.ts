@@ -1,7 +1,6 @@
 import { ButtonProps } from '@mui/material/Button';
-import { SxProps } from '@mui/system';
 
-type PickedButtonProps = Pick<ButtonProps, 'fullWidth' | 'endIcon' | 'startIcon' | 'size'>;
+type PickedButtonProps = Pick<ButtonProps, 'fullWidth' | 'endIcon' | 'startIcon' | 'size' | 'sx'>;
 
 export enum MIButtonLoaderType {
   SKELETON = 'skeleton',
@@ -22,7 +21,6 @@ interface MIButtonBaseProps extends PickedButtonProps, React.HTMLAttributes<HTML
   isLoading?: boolean;
   loaderType?: MIButtonLoaderType;
   loadingAriaLabel?: string;
-  sx?: SxProps;
 }
 
 interface MITextButtonProps extends MIButtonBaseProps {
