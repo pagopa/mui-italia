@@ -1,5 +1,5 @@
 import { alpha, type SxProps, type Theme } from '@mui/material';
-import { blue } from 'theme/colors';
+import { colors } from 'theme/foundations/colors';
 
 export const sidenavStyles = (theme: Theme, open: boolean): Record<string, SxProps> => ({
   container: {
@@ -8,7 +8,7 @@ export const sidenavStyles = (theme: Theme, open: boolean): Record<string, SxPro
     zIndex: open ? 10 : 1,
     display: 'block',
     position: 'sticky',
-    height: 'calc(100vh - 8rem)',
+    height: 'calc(100vh - 1rem)',
     width: open ? '300px' : 'fit-content',
     overscrollBehavior: 'auto',
     overflowY: 'auto',
@@ -17,25 +17,26 @@ export const sidenavStyles = (theme: Theme, open: boolean): Record<string, SxPro
 
   itemButtonActive: {
     '.MuiListItemIcon-root': {
-      fill: blue[500],
-      color: `${blue[500]}!important`,
+      fill: colors.blue[500],
+      color: `${colors.blue[500]}!important`,
     },
 
     '&.Mui-selected': {
-      borderRight: `4px solid ${blue[500]}`,
-      backgroundColor: blue[50],
+      borderRight: `4px solid ${colors.blue[500]}`,
+      backgroundColor: colors.blue[50],
     },
 
     '&.active': {
       fontWeight: 'bold',
       '.MuiTypography-root': {
         fontWeight: 600,
-        color: blue[500],
+        color: colors.blue[500],
       },
     },
   },
   hamburgerBox: {
     marginTop: 'auto',
+   
   },
   hamburgerIcon: {
     pt: 3,

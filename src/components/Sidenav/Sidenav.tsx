@@ -1,5 +1,5 @@
-import { Divider, IconButton, List, Tooltip, Typography, useTheme } from '@mui/material';
-import { Box, Stack } from '@mui/system';
+import { Box, Divider, IconButton, List, Stack, Tooltip, Typography, useTheme } from '@mui/material';
+import { colors } from 'theme/foundations/colors';
 import MenuIcon from '@mui/icons-material/Menu';
 import React, { useState } from 'react';
 import { sidenavStyles } from './style/sidenav.styles';
@@ -43,7 +43,10 @@ export function Sidenav({
   onSidenavOpen,
   mobile,
   labelMobile,
-}: SidenavContextProps & { children: React.ReactNode; labelMobile: string }) {
+}: SidenavContextProps & {
+  children: React.ReactNode;
+  labelMobile: string;
+}) {
   const theme = useTheme();
 
   const styles = sidenavStyles(theme, open);
@@ -51,8 +54,8 @@ export function Sidenav({
   return (
     <SidenavContextProvider mobile={mobile} open={open} onSidenavOpen={onSidenavOpen}>
       {!mobile ? (
-        <Box sx={styles.container} component="aside">
-          <Stack component="nav" role="navigation" aria-expanded={!open}>
+        <Box sx={styles.container} component="aside" >
+          <Stack component="nav" role="navigation" aria-expanded={!open} height="100%">
             <List disablePadding sx={{ marginTop: 1 }}>
               {children}
             </List>
@@ -60,7 +63,9 @@ export function Sidenav({
           </Stack>
         </Box>
       ) : (
-        <SidenavMobile labelMobile={labelMobile}>{children}</SidenavMobile>
+        <SidenavMobile labelMobile={labelMobile}>
+          {children}
+        </SidenavMobile>
       )}
     </SidenavContextProvider>
   );
@@ -80,14 +85,14 @@ const HamburgerBox: React.FC<HamburgerMenuBoxProps> = ({ open, handleSidenavOpen
     <Box sx={styles.hamburgerBox} data-testid="hamburger-box-icon">
       {/* <Divider orientation="horizontal" /> */}
       <Box sx={styles.hamburgerIcon}>
-        <Tooltip placement="right" title={tooltipTitle}>
+        <Tooltip placement="right" title={tooltipTitle}>  
           <IconButton
-            sx={{ padding: { xs: 1 } }}
+            sx={{ padding: { xs: 1 }, position: 'absolute', bottom: '1rem', left:'1rem'}}
             aria-label="open or close Sidenav"
             onClick={handleSidenavOpen}
             size="large"
           >
-            <MenuIcon sx={{ fill: '#17324D' }} />
+            <MenuIcon sx={{ fill: colors.blue[500] }} />
           </IconButton>
         </Tooltip>
       </Box>
@@ -95,10 +100,10 @@ const HamburgerBox: React.FC<HamburgerMenuBoxProps> = ({ open, handleSidenavOpen
   );
 };
 
-const SidenavMobile: React.FC<{ children: React.ReactNode; labelMobile: string }> = ({
-  children,
-  labelMobile,
-}) => {
+const SidenavMobile: React.FC<{
+  children: React.ReactNode;
+  labelMobile: string;
+}> = ({ children, labelMobile }) => {
   const [isOpenSidenav, setIsOpenSidenav] = useState(false);
 
   const handleOpenSidenav = () => {

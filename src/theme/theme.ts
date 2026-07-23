@@ -621,7 +621,7 @@ export const theme: Theme = createTheme(foundation, {
             position: 'relative',
             transform: 'translate(0,0)',
             boxShadow: `0 0 0 2px ${alpha(foundation.palette.common.white, 0.5)}`,
-            backgroundColor: 'red',
+            backgroundColor: colors.blue[500], 
             color: colors.neutral.white,
           },
 

@@ -1,0 +1,99 @@
+import { Meta, Title, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as SidenavStories from '../stories/Sidenav.stories.tsx';
+
+<Meta of={SidenavStories} />
+
+<Title />
+
+`Sidenav` organizza la navigazione laterale dell'applicazione e permette di mostrare le voci di menu in modalità estesa o compatta. Il componente supporta sia l'esperienza desktop (apertura/chiusura controllata dall'esterno) sia l'esperienza mobile (menu a comparsa gestito internamente).
+
+È utile quando serve mantenere una struttura di navigazione coerente tra sezioni principali e secondarie, mantenendo chiaro quale voce è attiva.
+
+**Link utili**
+
+- 🎨 [Link Figma](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=920-7388&m=dev)
+- 💻 Link sorgente GitHub - TODO: confermare con lo sviluppatore
+
+---
+
+## Playground
+
+<Canvas of={SidenavStories.Playground} />
+
+<Controls of={SidenavStories.Playground} />
+
+---
+
+## Varianti e stati
+
+### Default
+
+Mostra la configurazione desktop standard con sidenav aperta e callback di toggle collegata. E' lo scenario base da cui partire per verificare layout, etichette e selezione della voce attiva.
+
+<Canvas of={SidenavStories.Default} />
+
+### Collapsed
+
+Rappresenta lo stato desktop compatto con menu collassato. Le etichette vengono nascoste e restano visibili principalmente le icone di navigazione.
+
+<Canvas of={SidenavStories.Collapsed} />
+
+### Con ProfileItem
+
+Mostra il Sidenav con ProfileItem in alto, utile per visualizzare l'utente o ente corrente e offrire la possibilità di cambiare profilo.
+
+<Canvas of={SidenavStories.WithProfileItem} />
+
+### Mobile
+
+Mostra il comportamento su viewport mobile, con intestazione del menu e pulsante hamburger. L'apertura del contenuto avviene tramite interazione utente sul controllo interno.
+
+<Canvas of={SidenavStories.Mobile} />
+
+---
+
+## Note per gli sviluppatori
+
+- In desktop il componente e' controllato: `open` e `onSidenavOpen` devono essere gestiti dal parent.
+- In mobile il componente usa uno stato interno per mostrare/nascondere il contenuto del menu.
+- Le voci possono essere composte con `SidenavItem` (ed eventualmente `SidenavItemGroup`) per mantenere coerenza visiva con il design system.
+- `children` e' flessibile (`ReactNode`): inserisci elementi con etichette testuali chiare per preservare leggibilita' e navigazione.
+- **ProfileItem come child:** Per mostrare il profilo utente/ente in cima al menu, passa `ProfileItem` come primo child seguito da un `Divider` per separarlo visivamente dalle voci di menu.
+
+```ts
+export type SidenavContextProps = {
+  open: boolean;
+  onSidenavOpen: (open: boolean) => void;
+  mobile: boolean;
+};
+
+export type SidenavProps = SidenavContextProps & {
+  children: React.ReactNode;
+  labelMobile: string;
+};
+```
+
+**Esempio con ProfileItem:**
+
+```tsx
+<Sidenav open={open} onSidenavOpen={setOpen} mobile={false} labelMobile="Menu">
+  <ProfileItem
+    profileName="Ente Creditore"
+    profileInitials="EC"
+    onSwitchProfile={handleSwitch}
+  />
+  <Divider orientation="horizontal" />
+  <SidenavItem label="Dashboard" ... />
+  <SidenavItem label="Impostazioni" ... />
+</Sidenav>
+```
+
+---
+
+## Note per i designer
+
+- Riferimento principale: componente nel file Figma linkato sopra.
+- Stati da progettare sempre: `Default` (desktop aperto), `Collapsed` (desktop chiuso), `Mobile` (header mobile + menu espandibile).
+- La tipografia e i colori delle voci attive/inattive derivano dai token del tema MUI Italia; mantenere coerenza tra icone, testo e stato selezionato.
+- Il comportamento responsive documentato in Storybook e' allineato a `componentMaxWidth = 1280`, così da includere tutte le viewport Chromatic pertinenti.
+- Vincolo noto: nello stato mobile la lista interna e' visibile solo dopo interazione sul pulsante hamburger.

@@ -46,14 +46,13 @@ export const ProfileItem = ({
   const resolvedSwitchAriaLabel = switchAriaLabel ?? `${switchLabel}: ${profileName}`;
   const rootSx: SxProps<Theme> = [
     {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
+      display: 'flex', 
+      justifyContent: 'flex-start',
       gap: isCompact ? 0 : 3,
-      width: '100%',
+      
       boxSizing: 'border-box',
       py: 2,
-      px: isCompact ? 1 : 2,
+      px: 3,
       backgroundColor: 'background.paper',
     },
     ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
@@ -69,6 +68,7 @@ export const ProfileItem = ({
         color: 'common.white',
         fontSize: 23,
         fontWeight: 600,
+        alignSelf: 'center',
       }}
     >
       {profileInitials}

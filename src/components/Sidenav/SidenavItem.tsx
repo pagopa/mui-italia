@@ -14,7 +14,8 @@ import { sidenavStyles } from './style/sidenav.styles';
 import type { SvgIconComponent } from '@mui/icons-material';
 import { SidenavIcon } from './SidenavIcon';
 import { useSidenavContext } from './Sidenav';
-import { blue, neutral } from 'theme/colors';
+import { colors } from 'theme/foundations/colors';
+import { MIChip } from '@components/MIChip';
 
 type PolymorphicProps<C extends ElementType, P = {}> = P & { component?: C } & Omit<
     ComponentPropsWithoutRef<C>,
@@ -32,6 +33,7 @@ export type SidenavItem<C extends ElementType = 'a'> = PolymorphicProps<
     notification?: number;
     isSelected?: boolean;
     divider?: boolean;
+    chipProps?: ComponentPropsWithoutRef<typeof MIChip>;
   }
 >;
 
@@ -45,6 +47,7 @@ export function SidenavItem<C extends ElementType = 'a'>({
   label,
   notification,
   divider = false,
+  chipProps,
   ...props
 }: SidenavItem<C>) {
   const theme = useTheme();
@@ -60,7 +63,8 @@ export function SidenavItem<C extends ElementType = 'a'>({
             component={component ?? 'a'}
             to={props.to}
             sx={{
-              pl: 4,
+              flexWrap: 'wrap',
+              pl: 3,
               '.MuiCollapse-root &': {
                 pl: 2,
               },
@@ -75,10 +79,14 @@ export function SidenavItem<C extends ElementType = 'a'>({
             {open && (
               <ListItemText
                 disableTypography
-                sx={{ marginLeft: 7 }}
+                sx={{
+                  '.MuiCollapse-root &': {
+                    marginLeft: 6,
+                  },
+                }}
                 primary={
                   <Typography
-                    color={isSelected ? blue[500] : neutral.black}
+                    color={isSelected ? colors.blue[500] : colors.neutral.black}
                     {...typographyProps}
                     sx={{
                       fontWeight: 600,
@@ -90,9 +98,10 @@ export function SidenavItem<C extends ElementType = 'a'>({
                 }
               />
             )}
-            {notification !== undefined && notification !== 0 && (
+            {open && notification !== undefined && notification !== 0 && (
               <BadgeNotification badgeContent={notification} />
             )}
+            {open && chipProps && <MIChip {...chipProps} />}
             {open && EndIcon && (
               <ListItemIcon>
                 <EndIcon data-testid="itemlink-end-icon" fontSize="inherit" color="action" />

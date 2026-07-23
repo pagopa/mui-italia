@@ -14,7 +14,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { type SvgIconComponent } from '@mui/icons-material';
 import { useSidenavContext } from './Sidenav';
 import { SidenavIcon } from './SidenavIcon';
-import { blue } from 'theme/colors';
+import { colors } from 'theme/foundations/colors';
+import { pxToRem } from 'theme/utility';
 
 type SidenavItemGroupProps = {
   notification?: number;
@@ -49,28 +50,35 @@ export const SidenavItemGroup: React.FC<SidenavItemGroupProps> = ({
           selected={isSelected}
           onClick={handleExpandParent}
           sx={{
-            paddingRight: 6,
+            paddingRight: 2,
             '&.Mui-selected': {
-              backgroundColor: blue[50],
-              borderRight: `4px solid ${blue[500]}`,
+              backgroundColor: colors.blue[50],
+              borderRight: `4px solid ${colors.blue[500]}`,
               '& .MuiTypography-root': {
                 fontWeight: 600,
-                color: blue[500],
+                color: colors.blue[500],
               },
               '& .MuiListItemIcon-root, & .MuiSvgIcon-root': {
-                fill: blue[500],
-                color: blue[500],
+                fill: colors.blue[500],
+                color: colors.blue[500],
               },
             },
           }}
         >
-          <Stack direction="row" sx={{ flexGrow: 1, paddingLeft: 2 }}>
+          <Stack direction="row" sx={{ flexGrow: 1, marginLeft: 1 }}>
             <SidenavIcon Icon={StartIcon} notification={notification} />
             {open && (
               <>
                 <ListItemText
                   disableTypography
-                  primary={<Typography fontWeight={600}>{label}</Typography>}
+                  primary={
+                    <Typography
+                      color={isSelected ? colors.blue[500] : colors.neutral.black}
+                      fontWeight={600}
+                    >
+                      {label}
+                    </Typography>
+                  }
                 />
                 {isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
               </>
