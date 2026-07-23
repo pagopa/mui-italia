@@ -1,10 +1,6 @@
 import { ButtonProps } from '@mui/material/Button';
-import { MarginSxProps } from '@types';
 
-type PickedButtonProps = Pick<
-  ButtonProps,
-  'fullWidth' | 'endIcon' | 'startIcon' | 'size' | 'children' | 'onClick'
->;
+type PickedButtonProps = Pick<ButtonProps, 'fullWidth' | 'endIcon' | 'startIcon' | 'size' | 'sx'>;
 
 export enum MIButtonLoaderType {
   SKELETON = 'skeleton',
@@ -20,12 +16,11 @@ export type MIButtonColor = 'primary' | 'error' | 'contrasted';
  */
 export type MIButtonVariant = 'contained' | 'outlined' | 'text';
 
-interface MIButtonBaseProps extends PickedButtonProps {
+interface MIButtonBaseProps extends PickedButtonProps, React.HTMLAttributes<HTMLButtonElement> {
   color?: MIButtonColor;
   isLoading?: boolean;
   loaderType?: MIButtonLoaderType;
   loadingAriaLabel?: string;
-  sx?: MarginSxProps;
 }
 
 interface MITextButtonProps extends MIButtonBaseProps {
