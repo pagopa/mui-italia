@@ -45,6 +45,9 @@ const MIButton: FC<MIButtonProps> = ({
       aria-busy={isLoading || undefined}
       disableRipple
       disableTouchRipple
+      fullWidth={fullWidth}
+      startIcon={isLoading ? null : props.startIcon}
+      endIcon={isLoading ? null : props.endIcon}
       sx={mergeSx(extraSx)}
     >
       {isLoading ? (
