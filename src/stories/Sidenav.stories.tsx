@@ -1,4 +1,4 @@
-import { useState, type ComponentProps } from 'react';
+import { useEffect, useState, type ComponentProps } from 'react';
 import { Meta, StoryObj } from '@storybook/react-vite';
 import MailOutlineRoundedIcon from '@mui/icons-material/MailOutlineRounded';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
@@ -92,13 +92,21 @@ const SendFeedbackCard = () => (
 );
 
 export const Playground: StoryObj<SidenavStoryArgs> = {
-  render: ({ open, mobile, labelMobile, showTeamItem }) => (
-    <Box sx={{ minHeight: 480, bgcolor: 'background.paper' }}>
-      <Sidenav open={open} mobile={mobile} labelMobile={labelMobile} onSidenavOpen={() => {}}>
-        <DemoSidenavItems selectedKey="notifiche" showTeamItem={showTeamItem} />
-      </Sidenav>
-    </Box>
-  ),
+  render: ({ open, mobile, labelMobile, showTeamItem }) => {
+    const [isOpen, setIsOpen] = useState(open);
+
+    useEffect(() => {
+      setIsOpen(open);
+    }, [open]);
+
+    return (
+      <Box sx={{ minHeight: 480, bgcolor: 'background.paper' }}>
+        <Sidenav open={isOpen} mobile={mobile} labelMobile={labelMobile} onSidenavOpen={setIsOpen}>
+          <DemoSidenavItems selectedKey="notifiche" showTeamItem={showTeamItem} />
+        </Sidenav>
+      </Box>
+    );
+  },
   args: {
     open: true,
     mobile: false,
@@ -125,13 +133,17 @@ export const Default: StoryObj<SidenavStoryArgs> = {
 };
 
 export const Collapsed: StoryObj<SidenavStoryArgs> = {
-  render: () => (
-    <Box sx={{ minHeight: 480, bgcolor: 'background.paper' }}>
-      <Sidenav open={false} mobile={false} labelMobile="" onSidenavOpen={() => {}}>
-        <DemoSidenavItems selectedKey="impostazioni" />
-      </Sidenav>
-    </Box>
-  ),
+  render: () => {
+    const [open, setOpen] = useState(false);
+
+    return (
+      <Box sx={{ minHeight: 480, bgcolor: 'background.paper' }}>
+        <Sidenav open={open} mobile={false} labelMobile="" onSidenavOpen={setOpen}>
+          <DemoSidenavItems selectedKey="impostazioni" />
+        </Sidenav>
+      </Box>
+    );
+  },
 };
 
 export const Mobile: StoryObj<SidenavStoryArgs> = {
@@ -146,11 +158,12 @@ export const Mobile: StoryObj<SidenavStoryArgs> = {
 
 export const WithProfileItem: StoryObj<SidenavStoryArgs> = {
   render: () => {
+    const [open, setOpen] = useState(true);
     const [selected, setSelected] = useState<'notifiche' | 'recapiti' | 'deleghe' | 'team'>('notifiche');
 
     return (
       <Box sx={{ minHeight: 640, bgcolor: 'background.paper' }}>
-        <Sidenav open={true} mobile={false} labelMobile="" onSidenavOpen={() => {}}>
+        <Sidenav open={open} mobile={false} labelMobile="" onSidenavOpen={setOpen}>
           <ProfileItem
             caption="Stai operando come"
             profileName="Ente Creditore"
@@ -197,6 +210,7 @@ export const WithProfileItem: StoryObj<SidenavStoryArgs> = {
 
 export const SendPersoneFisiche: StoryObj<SidenavStoryArgs> = {
   render: () => {
+    const [open, setOpen] = useState(true);
     const [selected, setSelected] = useState<
       'notifiche-tue' | 'notifiche-giovanna' | 'recapiti' | 'deleghe' | 'stato' | 'utenti' | 'gruppi'
     >('notifiche-tue');
@@ -204,7 +218,7 @@ export const SendPersoneFisiche: StoryObj<SidenavStoryArgs> = {
 
     return (
       <Box sx={{ minHeight: 800, bgcolor: 'background.paper' }}>
-        <Sidenav open={true} mobile={false} labelMobile="SEND Persone fisiche" onSidenavOpen={() => {}}>
+        <Sidenav open={open} mobile={false} labelMobile="SEND Persone fisiche" onSidenavOpen={setOpen}>
           <SidenavItemGroup
             label="Notifiche"
             icon={MailOutlineRoundedIcon}
@@ -274,6 +288,7 @@ export const SendPersoneFisiche: StoryObj<SidenavStoryArgs> = {
 
 export const Interoperabilita: StoryObj<SidenavStoryArgs> = {
   render: () => {
+    const [open, setOpen] = useState(true);
     const [selected, setSelected] = useState<
       | 'catalogo'
       | 'notifiche'
@@ -293,7 +308,7 @@ export const Interoperabilita: StoryObj<SidenavStoryArgs> = {
 
     return (
       <Box sx={{ minHeight: 800, bgcolor: 'background.paper' }}>
-        <Sidenav open={true} mobile={false} labelMobile="Interoperabilità" onSidenavOpen={() => {}}>
+        <Sidenav open={open} mobile={false} labelMobile="Interoperabilità" onSidenavOpen={setOpen}>
           <SidenavItem
             component="button"
             label="Catalogo e-service"
@@ -406,6 +421,7 @@ export const Interoperabilita: StoryObj<SidenavStoryArgs> = {
 
 export const InformativaPrivacy: StoryObj<SidenavStoryArgs> = {
   render: () => {
+    const [open, setOpen] = useState(true);
     const [selected, setSelected] = useState<
       | 'introduzione'
       | 'titolare'
@@ -422,7 +438,7 @@ export const InformativaPrivacy: StoryObj<SidenavStoryArgs> = {
 
     return (
       <Box sx={{ minHeight: 800, bgcolor: 'background.paper' }}>
-        <Sidenav open={true} mobile={false} labelMobile="Informativa Privacy" onSidenavOpen={() => {}}>
+        <Sidenav open={open} mobile={false} labelMobile="Informativa Privacy" onSidenavOpen={setOpen}>
           <SidenavItem
             component="button"
             label="Introduzione"
@@ -503,11 +519,12 @@ export const InformativaPrivacy: StoryObj<SidenavStoryArgs> = {
 
 export const MultilineLabels: StoryObj<SidenavStoryArgs> = {
   render: () => {
+    const [open, setOpen] = useState(true);
     const [selected, setSelected] = useState<string>('team');
 
     return (
       <Box sx={{ minHeight: 480, bgcolor: 'background.paper' }}>
-        <Sidenav open={true} mobile={false} labelMobile="" onSidenavOpen={() => {}}>
+        <Sidenav open={open} mobile={false} labelMobile="" onSidenavOpen={setOpen}>
           <SidenavItem
             component="button"
             label="Label molto lungo che va su più righe per testare il comportamento del testo"
@@ -547,11 +564,12 @@ export const MultilineLabels: StoryObj<SidenavStoryArgs> = {
 
 export const AreaRiservataUtenti: StoryObj<SidenavStoryArgs> = {
   render: () => {
+    const [open, setOpen] = useState(true);
     const [selected, setSelected] = useState<string>('profilo');
 
     return (
       <Box sx={{ minHeight: 600, bgcolor: 'background.paper' }}>
-        <Sidenav open={true} mobile={false} labelMobile="Area Riservata" onSidenavOpen={() => {}}>
+        <Sidenav open={open} mobile={false} labelMobile="Area Riservata" onSidenavOpen={setOpen}>
           <SidenavItem
             component="button"
             label="Dashboard"

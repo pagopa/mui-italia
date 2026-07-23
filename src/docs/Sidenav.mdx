@@ -60,6 +60,63 @@ Mostra il comportamento su viewport mobile, con intestazione del menu e pulsante
 - `children` e' flessibile (`ReactNode`): inserisci elementi con etichette testuali chiare per preservare leggibilita' e navigazione.
 - **ProfileItem come child:** Per mostrare il profilo utente/ente in cima al menu, passa `ProfileItem` come primo child seguito da un `Divider` per separarlo visivamente dalle voci di menu.
 
+### Come costruire un sidenav
+
+Il componente `Sidenav` e' un contenitore di navigazione: non genera automaticamente le voci, ma si limita a renderizzare i `children` nel layout desktop o mobile. La composizione tipica e' questa:
+
+- `Sidenav` come wrapper principale.
+- `ProfileItem` opzionale come primo elemento.
+- `Divider` opzionale per separare il blocco profilo dal menu.
+- `SidenavItem` per le voci semplici.
+- `SidenavItemGroup` per le sezioni espandibili con elementi annidati.
+
+### Gestione dello stato
+
+- Lo stato `open` controlla solo il layout del menu desktop: aperto mostra testo, chip, badge e action icon; chiuso mostra principalmente le icone.
+- Lo stato della voce selezionata deve essere gestito dal componente parent o dalla story tramite una chiave esplicita, per esempio `selectedItem`.
+- Ogni `SidenavItemGroup` richiede uno stato dedicato, per esempio `isExpanded`, da aggiornare con `handleExpandParent`.
+- Quando una voce figlia di un gruppo e' selezionata, conviene derivare `isSelected` del gruppo dal valore della chiave attiva, cosi il parent rimane evidenziato correttamente.
+
+### Quando usare SidenavItem
+
+Usa `SidenavItem` per tutte le voci non annidate. Le props piu utili sono:
+
+- `label`: testo della voce, sempre obbligatorio.
+- `StartIcon`: icona principale a sinistra.
+- `EndIcon`: icona finale, utile per link esterni o azioni secondarie.
+- `notification`: badge numerico per stati come notifiche o richieste.
+- `chipProps`: chip testuale, utile per stati come `Attiva`.
+- `divider`: separatore sotto la voce, utile per chiudere una sezione.
+- `isSelected`: evidenzia la voce attiva.
+
+Nota pratica: `chipProps` e `notification` sono visibili solo quando il sidenav e' aperto. In stato collassato restano visibili solo gli elementi essenziali per la navigazione.
+
+### Quando usare SidenavItemGroup
+
+Usa `SidenavItemGroup` quando una sezione ha un parent cliccabile che apre una lista di elementi figli, come per esempio `Notifiche` o `Fruizione`.
+
+- `label` definisce il testo del parent.
+- `icon` definisce l'icona del parent.
+- `isExpanded` controlla apertura e chiusura del gruppo.
+- `isSelected` deve riflettere se il gruppo o uno dei suoi figli e' attivo.
+- `renderOnCollapsed` definisce cosa mostrare quando il sidenav e' chiuso.
+
+I figli del gruppo sono normali `SidenavItem`, quindi puoi riusare la stessa logica di selezione e le stesse props del primo livello.
+
+### Comportamento nei layout
+
+- In desktop aperto, il sidenav mostra testo, badge, chip, icone finali e gruppi espansi o collassati.
+- In desktop chiuso, il sidenav mantiene la navigazione in forma compatta e nasconde il contenuto testuale secondario.
+- In mobile, il componente espone un header con hamburger e gestisce internamente l'apertura della lista.
+
+### Linee guida consigliate
+
+- Mantieni le label brevi e chiare; se la label e' molto lunga verifica il comportamento di wrapping nella story dedicata.
+- Usa `divider` per separare blocchi funzionali distinti, non per ogni singola voce.
+- Evita di inserire contenuti arbitrari tra le voci, salvo componenti chiaramente previsti dalla UX, come `ProfileItem`, `Divider` o banner informativi.
+- Se una sezione deve essere evidenziata ma non e' navigabile direttamente, usa `SidenavItemGroup` invece di simulare il comportamento con un `SidenavItem` normale.
+- Per una documentazione affidabile, crea sempre almeno una story aperta, una collassata e una con gruppo espandibile.
+
 ```ts
 export type SidenavContextProps = {
   open: boolean;
@@ -85,6 +142,37 @@ export type SidenavProps = SidenavContextProps & {
   <Divider orientation="horizontal" />
   <SidenavItem label="Dashboard" ... />
   <SidenavItem label="Impostazioni" ... />
+</Sidenav>
+```
+
+**Esempio con gruppo espandibile:**
+
+```tsx
+const [selectedItem, setSelectedItem] = useState<'notifiche' | 'richieste'>('notifiche');
+const [isExpanded, setIsExpanded] = useState(true);
+
+<Sidenav open={open} onSidenavOpen={setOpen} mobile={false} labelMobile="Menu">
+  <SidenavItemGroup
+    label="Notifiche"
+    icon={MailOutlineRoundedIcon}
+    isExpanded={isExpanded}
+    isSelected={selectedItem === 'notifiche' || selectedItem === 'richieste'}
+    handleExpandParent={() => setIsExpanded((value) => !value)}
+    renderOnCollapsed={<SidenavIcon Icon={MailOutlineRoundedIcon} />}
+  >
+    <SidenavItem
+      component="button"
+      label="Le tue notifiche"
+      isSelected={selectedItem === 'notifiche'}
+      onClick={() => setSelectedItem('notifiche')}
+    />
+    <SidenavItem
+      component="button"
+      label="Richieste inoltrate"
+      isSelected={selectedItem === 'richieste'}
+      onClick={() => setSelectedItem('richieste')}
+    />
+  </SidenavItemGroup>
 </Sidenav>
 ```
 
