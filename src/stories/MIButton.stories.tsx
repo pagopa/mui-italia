@@ -28,6 +28,7 @@ const getIcon = (iconPosition: MIButtonStoryArgs['iconPosition']) => {
 const meta: Meta<MIButtonStoryArgs> = {
   title: 'Components/MIButton',
   component: MIButton,
+  tags: ['!dev'],
   parameters: {
     layout: 'centered',
     controls: {
