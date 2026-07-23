@@ -1,8 +1,15 @@
 'use client';
 
 import { ButtonNaked } from '@components/ButtonNaked';
-import { AlertTitle as MUIAlertTitle, Stack, styled, useMediaQuery, useTheme } from '@mui/material';
-import MUIAlert, { AlertProps as MUIAlertProps } from '@mui/material/Alert';
+import {
+  Alert as MUIAlert,
+  AlertProps as MUIAlertProps,
+  AlertTitle as MUIAlertTitle,
+  Stack,
+  styled,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import { ElementType, HTMLAttributeAnchorTarget } from 'react';
 import { getColor, getIcon } from './utils';
 import { MarginSxProps } from '@types';
