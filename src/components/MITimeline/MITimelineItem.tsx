@@ -7,6 +7,8 @@ import React from 'react';
 import { MITimelineDot } from './MITimelineDot';
 import { getItemVariantColor } from './styles';
 import { MITimelineItemInternalProps, MITimelineItemProps } from './types';
+import { pxToRem } from '@theme';
+import { isPrimitiveNode } from 'utils/children.utility';
 
 const MITimelineItem: React.FC<MITimelineItemInternalProps> = ({
   variant,
@@ -49,20 +51,23 @@ const MITimelineItem: React.FC<MITimelineItemInternalProps> = ({
         >
           <Stack direction="row" alignItems="center" gap="12px">
             <Icon sx={{ fontSize: '24px', color: variantColor.text }} />
-            <Typography component="div" fontWeight={600} sx={{ color: variantColor.text }}>
-              {title}
-            </Typography>
+            {isPrimitiveNode(title) ? (
+              <Typography fontWeight={600} sx={{ color: variantColor.text }}>
+                {title}
+              </Typography>
+            ) : (
+              title
+            )}
           </Stack>
           {children && (
-            <Box
-              sx={{
-                mt: '4px',
-                pl: 'calc(24px + 12px)',
-                color: variantColor.text,
-                '& .MuiTypography-root': { color: 'inherit', fontSize: '16px' },
-              }}
-            >
-              {children}
+            <Box sx={{ mt: 0.5, pl: 'calc(24px + 12px)', color: variantColor.text }}>
+              {isPrimitiveNode(children) ? (
+                <Typography sx={{ color: variantColor.text, fontSize: pxToRem(14) }}>
+                  {children}
+                </Typography>
+              ) : (
+                children
+              )}
             </Box>
           )}
         </MIPaper>
