@@ -49,7 +49,7 @@ const MITimelineItem: React.FC<MITimelineItemInternalProps> = ({
         >
           <Stack direction="row" alignItems="center" gap="12px">
             <Icon sx={{ fontSize: '24px', color: variantColor.text }} />
-            <Typography fontWeight={600} sx={{ color: variantColor.text }}>
+            <Typography component="div" fontWeight={600} sx={{ color: variantColor.text }}>
               {title}
             </Typography>
           </Stack>
