@@ -1,5 +1,4 @@
-import { styled } from '@mui/material';
-import MUIAlert from '@mui/material/Alert';
+import { styled, Alert as MUIAlert } from '@mui/material';
 import { AllowedAlertSeverity } from '@types';
 
 type StyledAlertProps = {
