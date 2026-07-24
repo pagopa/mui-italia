@@ -40,7 +40,7 @@ const containedStyles: (theme: Theme) => Record<MIButtonColor, ButtonSx> = (them
 
 const outlinedStyles: (theme: Theme) => Record<MIButtonColor, ButtonSx> = (theme) => ({
   primary: {
-    backgroundColor: theme.colors.neutral.white,
+    backgroundColor: 'transparent',
     color: theme.colors.blue[500],
     borderColor: theme.colors.blue[500],
     '&:hover': {
@@ -50,7 +50,7 @@ const outlinedStyles: (theme: Theme) => Record<MIButtonColor, ButtonSx> = (theme
     },
   },
   error: {
-    backgroundColor: theme.colors.neutral.white,
+    backgroundColor: 'transparent',
     color: theme.colors.error[500],
     borderColor: theme.colors.error[500],
     '&:hover': {
@@ -60,7 +60,7 @@ const outlinedStyles: (theme: Theme) => Record<MIButtonColor, ButtonSx> = (theme
     },
   },
   contrasted: {
-    backgroundColor: theme.colors.blue[500],
+    backgroundColor: 'transparent',
     color: theme.colors.neutral.white,
     borderColor: theme.colors.neutral.white,
     '&:hover': {

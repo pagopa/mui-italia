@@ -1,15 +1,16 @@
 import Button, { ButtonProps } from '@mui/material/Button';
 import { SxProps, Theme, useTheme } from '@mui/material/styles';
-import React from 'react';
+import { FC } from 'react';
 import MIButtonLoader from './MIButtonLoader';
 import { getColorSx } from './styles';
 import { MIButtonLoaderType, MIButtonProps } from './types';
 
-const MIButton: React.FC<MIButtonProps> = ({
+const MIButton: FC<MIButtonProps> = ({
   color = 'primary',
   variant = 'contained',
   loaderType,
   isLoading,
+  fullWidth,
   loadingAriaLabel,
   children,
   sx,
@@ -34,7 +35,7 @@ const MIButton: React.FC<MIButtonProps> = ({
 
   const extraSx =
     isLoading && loaderType !== MIButtonLoaderType.SKELETON
-      ? { minWidth: props.fullWidth ? '100%' : '72px' }
+      ? { minWidth: fullWidth ? '100%' : '72px' }
       : undefined;
 
   return (
@@ -45,6 +46,9 @@ const MIButton: React.FC<MIButtonProps> = ({
       aria-busy={isLoading || undefined}
       disableRipple
       disableTouchRipple
+      fullWidth={fullWidth}
+      startIcon={isLoading ? null : props.startIcon}
+      endIcon={isLoading ? null : props.endIcon}
       sx={mergeSx(extraSx)}
     >
       {isLoading ? (
@@ -53,7 +57,7 @@ const MIButton: React.FC<MIButtonProps> = ({
           variant={variant}
           loaderType={loaderType}
           loadingAriaLabel={loadingAriaLabel}
-          fullWidth={props.fullWidth}
+          fullWidth={fullWidth}
         />
       ) : (
         children
