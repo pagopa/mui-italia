@@ -9,10 +9,12 @@ import {
   copyFileSync,
   cpSync,
   writeFileSync,
+  mkdirSync,
 } from 'fs';
 import { execFileSync } from 'child_process';
 
 const TO_TRANSFORM_EXTENSIONS = ['.js', '.jsx', '.ts', '.tsx'];
+const DECLARATION_EXTENSION = '.d.ts';
 
 const STATIC_FILES = [
   {
@@ -105,6 +107,20 @@ function copyFiles(sourceDir, buildDir) {
   }
 }
 
+function copyDeclarationFiles(sourceDir, buildDir) {
+  const declarationFiles = getAllFiles(sourceDir).filter((file) =>
+    file.endsWith(DECLARATION_EXTENSION)
+  );
+
+  for (const sourcePath of declarationFiles) {
+    const relativePath = sourcePath.replace(`${sourceDir}/`, '');
+    const destPath = join(buildDir, relativePath);
+
+    mkdirSync(destPath.substring(0, destPath.lastIndexOf('/')), { recursive: true });
+    copyFileSync(sourcePath, destPath);
+  }
+}
+
 function writePackageJson(buildDir) {
   // first read the package.json
   const cwd = process.cwd();
@@ -179,6 +195,8 @@ async function build() {
   createTypes();
   // copy static files
   copyFiles(cwd, buildDir);
+  // copy source declaration files not emitted by tsc
+  copyDeclarationFiles(sourceDir, buildDir);
   // create package.json for the builded library
   writePackageJson(buildDir);
   // log files with extensions
