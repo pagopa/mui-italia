@@ -1,5 +1,11 @@
-import '@mui/system';
 import '@mui/material/styles';
+import '@mui/system';
+
+declare module '@mui/material/styles' {
+  interface BreakpointOverrides {
+    xxl: true;
+  }
+}
 
 declare module '@mui/system' {
   interface ShapeOptions {
