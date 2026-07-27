@@ -1,6 +1,8 @@
 import '@mui/material/styles';
 import '@mui/system';
 
+import { colors } from '../theme/colors';
+
 declare module '@mui/material/styles' {
   interface BreakpointOverrides {
     xxl: true;

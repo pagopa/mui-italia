@@ -1,5 +1,5 @@
 import { indigo } from '@mui/material/colors';
-import { colors } from './colors';
+import { colors } from '../colors';
 
 /**
  * Semantic palette definitions and MUI palette extensions.

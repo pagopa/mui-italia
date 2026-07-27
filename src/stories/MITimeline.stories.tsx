@@ -13,7 +13,7 @@ import WarningIcon from '@mui/icons-material/Warning';
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { colors } from 'theme/foundations/colors';
+import { colors } from 'theme/colors';
 
 const componentMaxWidth = 600;
 
