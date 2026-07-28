@@ -48,7 +48,7 @@ const meta: Meta<MITimelineStoryArgs> = {
     itemIcon: 'gavel',
     itemTitle: 'La notifica ha assunto valore di legge',
     itemContent:
-      'Né Mario Rossi né un suo delegato hanno effettuato un accesso entro i termini, ma la notifica SEND si è comunque perfezionata il giorno 29/06/2026.',
+      'Né Mario Rossi né un suo delegato hanno effettuato un accesso entro i termini, ma la notifica SEND si è comunque perfezionata.',
   },
   argTypes: {
     itemVariant: {
@@ -101,23 +101,26 @@ const meta: Meta<MITimelineStoryArgs> = {
     return (
       <MITimeline>
         <MITimelineItem variant={itemVariant} icon={Icon} title={itemTitle}>
-          <Typography variant="body2">{itemContent}</Typography>
+          <Typography color="inherit" fontSize="14px">
+            {itemContent}
+          </Typography>
+          <Typography component="span" fontSize="12px">
+            19 Lug, 15:00
+          </Typography>
         </MITimelineItem>
         <MITimelineItem
           variant="normal"
           icon={MobileFriendlyIcon}
           title="Invio della notifica in corso"
         >
-          <Typography variant="body2">Stiamo verificando i dati del destinatario.</Typography>
+          Stiamo verificando i dati del destinatario.
         </MITimelineItem>
         <MITimelineItem variant="normal" icon={SearchIcon} title="Notifica pronta per l’invio">
-          <Typography variant="body2">
-            La notifica digitale ha superato i test di validazione. È possibile effettuare il
-            download dell’attestazione.
-          </Typography>
+          La notifica digitale ha superato i test di validazione. È possibile effettuare il download
+          dell’attestazione.
         </MITimelineItem>
         <MITimelineItem variant="normal" icon={TroubleshootIcon} title="Notifica in validazione">
-          <Typography variant="body2">La notifica SEND è in attesa di validazione.</Typography>
+          La notifica SEND è in attesa di validazione.
         </MITimelineItem>
       </MITimeline>
     );
@@ -140,27 +143,27 @@ export const Variants: Story = {
     <>
       <MITimeline>
         <MITimelineItem variant="normal" icon={InfoIcon} title="Normal">
-          <Typography variant="body2">Variante neutra</Typography>
+          Variante neutra
         </MITimelineItem>
       </MITimeline>
       <MITimeline>
         <MITimelineItem variant="info" icon={InfoIcon} title="Info">
-          <Typography variant="body2">Variante informativa</Typography>
+          Variante informativa
         </MITimelineItem>
       </MITimeline>
       <MITimeline>
         <MITimelineItem variant="success" icon={CheckCircleIcon} title="Success">
-          <Typography variant="body2">Variante di successo</Typography>
+          Variante di successo
         </MITimelineItem>
       </MITimeline>
       <MITimeline>
         <MITimelineItem variant="warning" icon={WarningIcon} title="Warning">
-          <Typography variant="body2">Variante di avviso</Typography>
+          Variante di avviso
         </MITimelineItem>
       </MITimeline>
       <MITimeline>
         <MITimelineItem variant="error" icon={ErrorIcon} title="Error">
-          <Typography variant="body2">Variante di errore</Typography>
+          Variante di errore
         </MITimelineItem>
       </MITimeline>
     </>
@@ -176,7 +179,7 @@ export const RichContent: Story = {
   render: () => (
     <MITimeline>
       <MITimelineItem variant="success" icon={CheckCircleIcon} title="Ultimo step">
-        <Typography variant="body2">Flusso completato</Typography>
+        Flusso completato
       </MITimelineItem>
       <MITimelineItem variant="normal" icon={InfoIcon} title="Dettaglio con contenuto strutturato">
         <Typography variant="body2" gutterBottom>
@@ -185,7 +188,7 @@ export const RichContent: Story = {
         <Accordion elevation={0} disableGutters>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <MailOutline fontSize="small" sx={{ mr: 1 }} />
-            <Typography fontWeight={600} color={colors.neutral.black}>
+            <Typography variant="body2" fontWeight={600} color={colors.neutral.black}>
               Prima Raccomandata · {111111111}
             </Typography>
           </AccordionSummary>
@@ -202,7 +205,7 @@ export const RichContent: Story = {
 
 const TitleWithTag = () => (
   <Stack direction="row" alignItems="center" spacing={1}>
-    <Typography variant="subtitle1" component="span">
+    <Typography component="span" fontWeight={600} sx={{ color: colors.warning[850] }}>
       Operazione in corso
     </Typography>
     <Tag variant="warning" value="Evento non valido" />
@@ -217,8 +220,8 @@ export const CustomTitle: Story = {
   },
   render: () => (
     <MITimeline>
-      <MITimelineItem variant="info" icon={InfoIcon} title={<TitleWithTag />}>
-        <Typography variant="body2">Esempio di MITimelineItem con title custom</Typography>
+      <MITimelineItem variant="warning" icon={InfoIcon} title={<TitleWithTag />}>
+        Esempio di MITimelineItem con title custom
       </MITimelineItem>
     </MITimeline>
   ),
