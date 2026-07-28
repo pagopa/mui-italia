@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { join, resolve } from 'path';
+import { dirname, join, relative, resolve } from 'path';
 import {
   readFileSync,
   rmSync,
@@ -116,10 +116,10 @@ function copyDeclarationFiles(sourceDir, buildDir) {
   );
 
   for (const sourcePath of declarationFiles) {
-    const relativePath = sourcePath.replace(`${sourceDir}/`, '');
+    const relativePath = relative(sourceDir, sourcePath);
     const destPath = join(buildDir, relativePath);
 
-    mkdirSync(destPath.substring(0, destPath.lastIndexOf('/')), { recursive: true });
+    mkdirSync(dirname(destPath), { recursive: true });
     copyFileSync(sourcePath, destPath);
   }
 }

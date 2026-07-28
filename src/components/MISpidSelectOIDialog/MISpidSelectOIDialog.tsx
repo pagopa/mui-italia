@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 
 import { MIAlert } from '@components/MIAlert';
-import { IDP } from '@components/MISpidSelectOIDialog/MISpidSelectOIDialog.types';
+import { IDP } from './MISpidSelectOIDialog.types';
 import ErrorState from './ErrorState';
 import SpidList from './SpidList';
 import { getSpidDisplayName } from './utils';
