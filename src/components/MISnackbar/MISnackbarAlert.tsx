@@ -12,7 +12,7 @@ import { StyledAlert } from '@components/MIAlert/StyledAlert';
 import { CopyToClipboardButton } from '@components/CopyToClipboardButton';
 import { forwardRef } from 'react';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import { AllowedAlertSeverity } from '@lib-types/MIAlert';
+import { AllowedAlertSeverity } from '@lib-types/alert.types';
 
 // props that apply to all severities
 type BaseAlertProps = {

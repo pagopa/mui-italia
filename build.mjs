@@ -15,6 +15,7 @@ import { execFileSync } from 'child_process';
 
 const TO_TRANSFORM_EXTENSIONS = ['.js', '.jsx', '.ts', '.tsx'];
 const DECLARATION_EXTENSION = '.d.ts';
+const TYPE_ONLY_SOURCE_PATTERNS = ['**/*.types.ts', '**/*.type.ts'];
 
 const STATIC_FILES = [
   {
@@ -47,6 +48,8 @@ async function babelBuild(sourceDir, buildDir) {
         configFile,
         '--extensions',
         TO_TRANSFORM_EXTENSIONS.join(','),
+        '--ignore',
+        TYPE_ONLY_SOURCE_PATTERNS.join(','),
       ],
       {
         env: {

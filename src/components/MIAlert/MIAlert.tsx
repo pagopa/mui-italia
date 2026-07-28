@@ -2,8 +2,8 @@
 
 import { ElementType, HTMLAttributeAnchorTarget, ReactNode } from 'react';
 import { ButtonNaked } from '@components/ButtonNaked';
-import { MarginSxProps } from '@lib-types/components';
-import { AllowedAlertSeverity } from '@lib-types/MIAlert';
+import { MarginSxProps } from '@lib-types/shared.types';
+import { AllowedAlertSeverity } from '@lib-types/alert.types';
 import {
   Box,
   AlertProps as MUIAlertProps,

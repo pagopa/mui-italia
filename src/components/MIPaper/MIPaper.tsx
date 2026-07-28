@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import MuiPaper, { PaperProps as MuiPaperProps } from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import { RadiusVariant } from '@lib-types/components';
+import { RadiusVariant } from 'theme/theme.types';
 
 type Padding = 16 | 24;
 type AllowedMIPaperVariants = 'flat' | 'outlined';

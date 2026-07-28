@@ -1,5 +1,2 @@
-export { CTA } from './components';
-export { AutocompleteProps } from './autocomplete';
-export { IDP } from './spid';
+export { CTA } from './shared.types';
 export * from './muiOverrides';
-export * from './images';

@@ -1,7 +1,7 @@
 'use client';
 
 import { Box, Button, Container, Stack, Typography } from '@mui/material';
-import { CTA } from '@lib-types/components';
+import { CTA } from '@lib-types/shared.types';
 export interface InfoblockProps {
   overline?: string;
   title: string;

@@ -1,4 +1,4 @@
-import { IDP } from 'types/spid';
+import { IDP } from '@components/MISpidSelectOIDialog/MISpidSelectOIDialog.types';
 
 export const SPID_DISPLAY_NAME = {
   'https://posteid.poste.it': 'Poste ID',

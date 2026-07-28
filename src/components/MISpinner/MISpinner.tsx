@@ -1,7 +1,7 @@
 import { Theme } from '@mui/material';
 import MuiCircularProgress, { CircularProgressProps } from '@mui/material/CircularProgress';
 import { styled } from '@mui/material/styles';
-import { MarginSxProps } from '@lib-types/components';
+import { MarginSxProps } from '@lib-types/shared.types';
 
 export type AllowedMISpinnerColor = 'primary' | 'secondary' | 'error';
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { Box, Button, Stack, Typography, Container } from '@mui/material';
-import { CTA } from '@lib-types/components';
+import { CTA } from '@lib-types/shared.types';
 
 interface HeroTextProps {
   title: string;
