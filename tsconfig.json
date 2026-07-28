@@ -9,7 +9,7 @@
       "@assets/*": ["assets/*"],
       "@icons/*": ["icons/*"],
       "@static/*": ["static/*"],
-      "@types": ["types"],
+      "@lib-types/*": ["types/*"],
       "@hooks/*": ["hooks/*"]
     },
     "rootDir": "src",

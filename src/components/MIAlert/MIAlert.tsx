@@ -2,6 +2,8 @@
 
 import { ElementType, HTMLAttributeAnchorTarget, ReactNode } from 'react';
 import { ButtonNaked } from '@components/ButtonNaked';
+import { MarginSxProps } from '@lib-types/components';
+import { AllowedAlertSeverity } from '@lib-types/MIAlert';
 import {
   Box,
   AlertProps as MUIAlertProps,
@@ -11,7 +13,6 @@ import {
   useTheme,
 } from '@mui/material';
 import { getColor, getIcon } from './utils';
-import { AllowedAlertSeverity, MarginSxProps } from '@types';
 import { StyledAlert } from './StyledAlert';
 
 type CtaWrapSize = 'tight' | 'normal' | 'wide';

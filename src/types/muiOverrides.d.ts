@@ -7,6 +7,14 @@ declare module '@mui/material/styles' {
   interface BreakpointOverrides {
     xxl: true;
   }
+
+  interface ThemeOptions {
+    colors?: typeof colors;
+  }
+
+  interface Theme {
+    colors: typeof colors;
+  }
 }
 
 declare module '@mui/system' {
@@ -26,15 +34,5 @@ declare module '@mui/system' {
       16: string;
       24: string;
     };
-  }
-}
-
-declare module '@mui/material/styles' {
-  interface ThemeOptions {
-    colors?: typeof colors;
-  }
-
-  interface Theme {
-    colors: typeof colors;
   }
 }

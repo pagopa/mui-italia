@@ -5,7 +5,7 @@ import {
   CheckCircleRounded as CheckCircleRoundedIcon,
 } from '@mui/icons-material';
 import type { Theme } from '@mui/material/styles';
-import { AllowedAlertSeverity } from '@types';
+import { AllowedAlertSeverity } from '@lib-types/MIAlert';
 
 const iconSize = '24px';
 
