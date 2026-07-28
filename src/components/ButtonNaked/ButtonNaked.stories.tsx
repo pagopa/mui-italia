@@ -1,8 +1,10 @@
 import { StoryFn, Meta } from '@storybook/react-vite';
 
 import { ButtonNaked } from '@components/ButtonNaked';
-import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
-import AttachFileRoundedIcon from '@mui/icons-material/AttachFileRounded';
+import {
+  LogoutRounded as LogoutRoundedIcon,
+  AttachFileRounded as AttachFileRoundedIcon,
+} from '@mui/icons-material';
 
 const disableControl = {
   table: {

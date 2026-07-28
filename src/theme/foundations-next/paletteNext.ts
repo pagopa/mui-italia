@@ -1,4 +1,4 @@
-import { colors } from '../foundations/colors';
+import { colors } from '../colors';
 
 /**
  * Semantic palette NEXT definitions and MUI palette extensions.

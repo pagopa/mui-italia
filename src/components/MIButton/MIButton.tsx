@@ -1,5 +1,5 @@
 import Button, { ButtonProps } from '@mui/material/Button';
-import { SxProps, Theme } from '@mui/material/styles';
+import { SxProps, Theme, useTheme } from '@mui/material/styles';
 import { FC } from 'react';
 import MIButtonLoader from './MIButtonLoader';
 import { getColorSx } from './styles';
@@ -17,7 +17,8 @@ const MIButton: FC<MIButtonProps> = ({
   onClick,
   ...props
 }) => {
-  const colorSx = getColorSx(color, variant);
+  const theme = useTheme();
+  const colorSx = getColorSx(theme, color, variant);
 
   const mergeSx = (extra?: SxProps<Theme>): SxProps<Theme> => [
     colorSx,

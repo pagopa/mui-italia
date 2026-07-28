@@ -1,13 +1,13 @@
-import type { ComponentType } from 'react';
-import type { Meta, StoryObj } from '@storybook/react-vite';
-import type { SvgIconProps } from '@mui/material';
-import { Box, Stack, Typography } from '@mui/material';
 import AttachFileRoundedIcon from '@mui/icons-material/AttachFileRounded';
 import LocalOfferRoundedIcon from '@mui/icons-material/LocalOfferRounded';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
+import type { SvgIconProps } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { ComponentType } from 'react';
 
-import { Tag } from '@components/Tag';
-import type { TagProps, Variants as TagVariants } from '@components/Tag';
+import { Tag, TagProps } from '@components/Tag';
+import type { Variants as TagVariants } from '../components/Tag/Tag';
 
 type IconName = 'none' | 'star' | 'attachFile' | 'localOffer';
 

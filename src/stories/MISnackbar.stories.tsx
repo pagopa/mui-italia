@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { Box, Button, Stack, TextField, Typography } from '@mui/material';
-import { MISnackbar } from '@components/MISnackbar/MISnackbar';
+import MISnackbar from '@components/MISnackbar/MISnackbar';
 
 const meta: Meta<typeof MISnackbar> = {
   title: 'Components/MISnackbar',

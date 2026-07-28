@@ -1,4 +1,21 @@
+import '@mui/material/styles';
 import '@mui/system';
+
+import { colors } from '../theme/colors';
+
+declare module '@mui/material/styles' {
+  interface BreakpointOverrides {
+    xxl: true;
+  }
+
+  interface ThemeOptions {
+    colors?: typeof colors;
+  }
+
+  interface Theme {
+    colors: typeof colors;
+  }
+}
 
 declare module '@mui/system' {
   interface ShapeOptions {

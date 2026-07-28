@@ -1,8 +1,8 @@
-import React, { forwardRef } from 'react';
-import MuiChip, { ChipProps } from '@mui/material/Chip';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import { styled, SxProps } from '@mui/material/styles';
-import { useTheme } from '@mui/material';
+'use client';
+
+import { CloseRounded as CloseRoundedIcon } from '@mui/icons-material';
+import { ChipProps, Chip as MuiChip, styled, SxProps, useTheme } from '@mui/material';
+import { EventHandler, forwardRef, KeyboardEvent } from 'react';
 
 type AllowedMIChipColors =
   | 'default'
@@ -27,10 +27,10 @@ type StandardMIChipProps = BaseMIChipProps & {
 type DeletableMIChipProps = BaseMIChipProps & {
   color?: 'neutral';
   variant?: 'filled';
-  onDelete?: React.EventHandler<any>;
+  onDelete?: EventHandler<any>;
 };
 
-type CustomMIChipProps = StandardMIChipProps | DeletableMIChipProps;
+export type MIChipProps = StandardMIChipProps | DeletableMIChipProps;
 
 const StyledChip = styled(MuiChip, {
   shouldForwardProp: (prop) => prop !== 'customColor',
@@ -117,7 +117,7 @@ const StyledChip = styled(MuiChip, {
   },
 }));
 
-const MIChip = forwardRef<HTMLDivElement, CustomMIChipProps>((props, ref) => {
+const MIChip = forwardRef<HTMLDivElement, MIChipProps>((props, ref) => {
   const { color: colorProp, sx, label, onDelete, 'aria-label': ariaLabel, ...other } = props;
 
   const isDeletable = Boolean(onDelete);
@@ -134,7 +134,7 @@ const MIChip = forwardRef<HTMLDivElement, CustomMIChipProps>((props, ref) => {
     style: { cursor: 'pointer' },
     'aria-hidden': false,
     focusable: true,
-    onKeyDown: (e: React.KeyboardEvent<SVGSVGElement>) => {
+    onKeyDown: (e: KeyboardEvent<SVGSVGElement>) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         e.stopPropagation();

@@ -11,9 +11,8 @@ import { getColor, getIcon } from '@components/MIAlert/utils';
 import { StyledAlert } from '@components/MIAlert/StyledAlert';
 import { CopyToClipboardButton } from '@components/CopyToClipboardButton';
 import { forwardRef } from 'react';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import { colors } from 'theme/foundations/colors';
-import { AllowedAlertSeverity } from '@types';
+import { CloseRounded as CloseRoundedIcon } from '@mui/icons-material';
+import { AllowedAlertSeverity } from '@lib-types/alert.types';
 
 // props that apply to all severities
 type BaseAlertProps = {
@@ -55,10 +54,10 @@ export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
       .join('. ');
 
     return (
-      <StyledAlert 
+      <StyledAlert
         ownerState={{
           severity,
-          title
+          title,
         }}
         ref={ref}
         severity={severity}
@@ -86,7 +85,7 @@ export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
             },
           }),
           '& .MuiAlert-action .MuiIconButton-root': {
-            color: colors.neutral.black,
+            color: theme.colors.neutral.black,
             opacity: 1,
             pt: 0,
           },
@@ -142,14 +141,14 @@ export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
                   px: 1.5,
 
                   '& fieldset': {
-                    borderColor: colors.neutral.grey[650],
+                    borderColor: theme.colors.neutral.grey[650],
                     borderRadius: 2,
                   },
                   '&:hover fieldset': {
-                    borderColor: colors.neutral.grey[650],
+                    borderColor: theme.colors.neutral.grey[650],
                   },
                   '&.Mui-focused fieldset': {
-                    borderColor: colors.neutral.grey[650],
+                    borderColor: theme.colors.neutral.grey[650],
                   },
                 },
                 '& .MuiInputBase-input': {

@@ -1,11 +1,11 @@
 import { IconButton, IconButtonProps } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { MarginSxProps } from '@types';
+import { MarginSxProps } from '@lib-types/shared.types';
 import { FC } from 'react';
 import { focusWidth } from 'theme/theme';
 import { pxToRem } from 'theme/utility';
 
-interface MIIconButtonProps
+export interface MIIconButtonProps
   extends Pick<IconButtonProps, 'onClick' | 'size' | 'edge' | 'aria-label' | 'children'> {
   sx?: MarginSxProps;
 }

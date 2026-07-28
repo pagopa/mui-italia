@@ -52,6 +52,18 @@ export default defineConfig([
       complexity: 'error',
       'arrow-body-style': 'error',
       'import/order': 'error',
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['@mui/icons-material/*'],
+              message:
+                "Use named imports from the root package instead of direct paths (e.g., import { Close as CloseIcon } from '@mui/icons-material'). Direct path imports cause ESM/CJS interop issues in Vite and Next.js.",
+            },
+          ],
+        },
+      ],
       '@typescript-eslint/no-unused-vars': 'off',
       // Enable if we want to enforce the return type for all the functions
       '@typescript-eslint/explicit-module-boundary-types': 'off',

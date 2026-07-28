@@ -3,11 +3,11 @@
 import { Typography, useTheme } from '@mui/material';
 import { FC } from 'react';
 
-interface Props {
+export interface MIBoxedModuleTitleProps {
   children: string | number | boolean;
 }
 
-const MIBoxedModuleTitle: FC<Props> = ({ children }) => {
+const MIBoxedModuleTitle: FC<MIBoxedModuleTitleProps> = ({ children }) => {
   const theme = useTheme();
 
   return (

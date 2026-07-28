@@ -1,8 +1,10 @@
 import { MIIconButton } from '@components/MIIconButton';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
-import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
-import EditRoundedIcon from '@mui/icons-material/EditRounded';
+import {
+  CloseRounded as CloseRoundedIcon,
+  DeleteRounded as DeleteRoundedIcon,
+  DownloadRounded as DownloadRoundedIcon,
+  EditRounded as EditRoundedIcon,
+} from '@mui/icons-material';
 import { Stack } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 

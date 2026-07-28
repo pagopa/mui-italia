@@ -1,8 +1,10 @@
 import { MIButton } from '@components/MIButton';
 import { MIButtonLoaderType } from '@components/MIButton/types';
-import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
-import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
-import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
+import {
+  ArrowBackRounded as ArrowBackRoundedIcon,
+  ArrowForwardRounded as ArrowForwardRoundedIcon,
+  DeleteOutlineRounded as DeleteOutlineRoundedIcon,
+} from '@mui/icons-material';
 import { Box, Stack } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
