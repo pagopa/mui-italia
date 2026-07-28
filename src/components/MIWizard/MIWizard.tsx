@@ -2,7 +2,7 @@
 
 import React, { JSXElementConstructor, ReactElement, ReactNode } from 'react';
 
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { ArrowBack as ArrowBackIcon } from '@mui/icons-material';
 import { Box, Paper, PaperProps, Stack, StackProps, Typography } from '@mui/material';
 import { IllusCompleted } from '../../illustrations/Completed';
 import { IllustrationProps } from '@components/Illustration';

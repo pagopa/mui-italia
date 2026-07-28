@@ -14,7 +14,7 @@ import {
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 /* Icons */
-import SubtitlesRoundedIcon from '@mui/icons-material/SubtitlesRounded';
+import { SubtitlesRounded as SubtitlesRoundedIcon } from '@mui/icons-material';
 
 export default {
   title: 'MUI Components/Inputs/Select',

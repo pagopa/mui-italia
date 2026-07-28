@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
+import { ClearOutlined as ClearOutlinedIcon } from '@mui/icons-material';
 import {
   Dialog,
   DialogContent,

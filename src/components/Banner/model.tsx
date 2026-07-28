@@ -1,5 +1,5 @@
 import { AriaAttributes, ReactNode } from 'react';
-import EmojiObjectsOutlinedIcon from '@mui/icons-material/EmojiObjectsOutlined';
+import { EmojiObjectsOutlined as EmojiObjectsOutlinedIcon } from '@mui/icons-material';
 import type { Theme } from '@mui/material/styles';
 import { IllusPush } from '../../illustrations/Push';
 

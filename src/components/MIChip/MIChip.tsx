@@ -1,8 +1,8 @@
 'use client';
 
-import { EventHandler, KeyboardEvent, forwardRef } from 'react';
-import { Chip as MuiChip, ChipProps, styled, SxProps, useTheme } from '@mui/material';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import { CloseRounded as CloseRoundedIcon } from '@mui/icons-material';
+import { ChipProps, Chip as MuiChip, styled, SxProps, useTheme } from '@mui/material';
+import { EventHandler, forwardRef, KeyboardEvent } from 'react';
 
 type AllowedMIChipColors =
   | 'default'

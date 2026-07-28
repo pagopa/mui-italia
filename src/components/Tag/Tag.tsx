@@ -1,15 +1,17 @@
 'use client';
 
-import ReportProblemRounded from '@mui/icons-material/ReportProblemRounded';
-import ReportRoundedIcon from '@mui/icons-material/ReportRounded';
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
-import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
+import {
+  CheckCircleRounded as CheckCircleRoundedIcon,
+  InfoRounded as InfoRoundedIcon,
+  ReportProblemRounded,
+  ReportRounded as ReportRoundedIcon,
+} from '@mui/icons-material';
 
+import { SvgIconProps, styled } from '@mui/material';
 import { pxToRem } from '@theme';
 import React, { ComponentType, useRef } from 'react';
-import { SvgIconProps, styled } from '@mui/material';
-import MITooltip from '../MITooltip/MITooltip';
 import { useIsTruncated } from '../../hooks/useIsTruncated';
+import MITooltip from '../MITooltip/MITooltip';
 
 export type Variants = 'default' | 'info' | 'warning' | 'error' | 'success' | 'only-icon';
 

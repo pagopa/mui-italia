@@ -3,8 +3,7 @@
 import { useState, useRef, useEffect, FC } from 'react';
 import { IconButton, Tooltip } from '@mui/material';
 import type { IconButtonProps } from '@mui/material';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import CheckIcon from '@mui/icons-material/Check';
+import { ContentCopy as ContentCopyIcon, Check as CheckIcon } from '@mui/icons-material';
 
 export interface CopyToClipboardProps extends Omit<IconButtonProps, 'onClick' | 'value'> {
   /** Value or a function that returns what should be copied to clipboard */

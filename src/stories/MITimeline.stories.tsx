@@ -1,15 +1,17 @@
 import { MITimeline, MITimelineItem } from '@components/MITimeline';
 import { Tag } from '@components/Tag';
-import { MailOutline } from '@mui/icons-material';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import ErrorIcon from '@mui/icons-material/Error';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import GavelIcon from '@mui/icons-material/Gavel';
-import InfoIcon from '@mui/icons-material/Info';
-import MobileFriendlyIcon from '@mui/icons-material/MobileFriendly';
-import SearchIcon from '@mui/icons-material/Search';
-import TroubleshootIcon from '@mui/icons-material/Troubleshoot';
-import WarningIcon from '@mui/icons-material/Warning';
+import {
+  CheckCircle as CheckCircleIcon,
+  Error as ErrorIcon,
+  ExpandMore as ExpandMoreIcon,
+  Gavel as GavelIcon,
+  Info as InfoIcon,
+  MailOutline,
+  MobileFriendly as MobileFriendlyIcon,
+  Search as SearchIcon,
+  Troubleshoot as TroubleshootIcon,
+  Warning as WarningIcon,
+} from '@mui/icons-material';
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import type { Meta, StoryObj } from '@storybook/react-vite';

@@ -1,5 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
-import { ComponentProps, FC } from 'react';
+import {
+  AccountBalance as AccountBalanceIcon,
+  EmojiObjectsOutlined as EmojiObjectsOutlinedIcon,
+  HowToReg as HowToRegIcon,
+  SaveAlt as SaveAltIcon,
+} from '@mui/icons-material';
 import {
   Avatar,
   Box,
@@ -11,10 +15,8 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import EmojiObjectsOutlinedIcon from '@mui/icons-material/EmojiObjectsOutlined';
-import HowToRegIcon from '@mui/icons-material/HowToReg';
-import SaveAltIcon from '@mui/icons-material/SaveAlt';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { ComponentProps, FC } from 'react';
 
 import { MIBoxedModule, MIBoxedModuleTitle } from '@components/MIBoxedModule';
 import { MIButton } from '@components/MIButton';
