@@ -58,21 +58,13 @@ export default function getBabelConfig(api) {
       // exclude Storybook MDX docs
       'src/docs/**/*'
     );
-    config.plugins.push(
-      [
-        'babel-plugin-module-resolver',
-        {
-          root: ['./'],
-          alias: resolveAliases(),
-        },
-      ],
-      [
-        'babel-plugin-transform-rewrite-imports',
-        {
-          replaceExtensions: { '^@mui/icons-material(.+?)': `@mui/icons-material/esm$1` },
-        },
-      ]
-    );
+    config.plugins.push([
+      'babel-plugin-module-resolver',
+      {
+        root: ['./'],
+        alias: resolveAliases(),
+      },
+    ]);
     config.presets.push(
       ['@babel/preset-env', { modules: false }], // modules false preserve es modules
       [
