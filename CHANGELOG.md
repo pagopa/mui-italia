@@ -1,3 +1,21 @@
+# [2.6.0-RC.3](https://github.com/pagopa/mui-italia/releases/tag/v2.6.0-RC.3) (2026-07-29)
+
+
+### Features
+
+* **M20DS-2:** expose theme.colors ([#743](https://github.com/pagopa/mui-italia/issues/743)) ([4fcfd2e](https://github.com/pagopa/mui-italia/commit/4fcfd2e64cc4613a3133ac913a0c4f0d35e583d0))
+
+
+### Bug Fixes
+
+* **M20DS-54:** wrap timeline item title inside a div ([#741](https://github.com/pagopa/mui-italia/issues/741)) ([0cfb18f](https://github.com/pagopa/mui-italia/commit/0cfb18f49d41441120f703ab10ebf99d2947c1bd))
+* **M20DS-128:** add export in index.ts for MIStepper component  ([#739](https://github.com/pagopa/mui-italia/issues/739)) ([3bd3ac5](https://github.com/pagopa/mui-italia/commit/3bd3ac56875ab03aed7198f8490a532629bc1120))
+* **M20DS-126:** add missing props to MIButton and fix outlined style ([#736](https://github.com/pagopa/mui-italia/issues/736)) ([2c7f850](https://github.com/pagopa/mui-italia/commit/2c7f850f9ef314933e3c40a409c88b6f0f27d622))
+
+
+### Chores
+
+* hotfix 2.5.1 ([#742](https://github.com/pagopa/mui-italia/issues/742)) ([2151487](https://github.com/pagopa/mui-italia/commit/215148742c9b1caf28947c3611736727e309a0ac))
 # [2.5.1](https://github.com/pagopa/mui-italia/releases/tag/v2.5.1) (2026-07-23)
 
 
