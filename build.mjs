@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { join, resolve } from 'path';
+import { dirname, join, relative, resolve } from 'path';
 import {
   readFileSync,
   rmSync,
@@ -9,10 +9,13 @@ import {
   copyFileSync,
   cpSync,
   writeFileSync,
+  mkdirSync,
 } from 'fs';
 import { execFileSync } from 'child_process';
 
 const TO_TRANSFORM_EXTENSIONS = ['.js', '.jsx', '.ts', '.tsx'];
+const DECLARATION_EXTENSION = '.d.ts';
+const TYPE_ONLY_SOURCE_PATTERNS = ['**/*.types.ts', '**/*.type.ts'];
 
 const STATIC_FILES = [
   {
@@ -45,6 +48,8 @@ async function babelBuild(sourceDir, buildDir) {
         configFile,
         '--extensions',
         TO_TRANSFORM_EXTENSIONS.join(','),
+        '--ignore',
+        TYPE_ONLY_SOURCE_PATTERNS.join(','),
       ],
       {
         env: {
@@ -102,6 +107,20 @@ function copyFiles(sourceDir, buildDir) {
     } else if (stats.isDirectory()) {
       cpSync(sourcePath, destPath, { recursive: true });
     }
+  }
+}
+
+function copyDeclarationFiles(sourceDir, buildDir) {
+  const declarationFiles = getAllFiles(sourceDir).filter((file) =>
+    file.endsWith(DECLARATION_EXTENSION)
+  );
+
+  for (const sourcePath of declarationFiles) {
+    const relativePath = relative(sourceDir, sourcePath);
+    const destPath = join(buildDir, relativePath);
+
+    mkdirSync(dirname(destPath), { recursive: true });
+    copyFileSync(sourcePath, destPath);
   }
 }
 
@@ -179,6 +198,8 @@ async function build() {
   createTypes();
   // copy static files
   copyFiles(cwd, buildDir);
+  // copy source declaration files not emitted by tsc
+  copyDeclarationFiles(sourceDir, buildDir);
   // create package.json for the builded library
   writePackageJson(buildDir);
   // log files with extensions

@@ -1,12 +1,19 @@
 'use client';
 
-import { ButtonNaked } from '@components/ButtonNaked';
 import { ElementType, HTMLAttributeAnchorTarget, ReactNode } from 'react';
-import { StyledAlert } from './StyledAlert';
-import { Box, AlertTitle as MUIAlertTitle, Stack, useMediaQuery, useTheme } from '@mui/material';
-import { AlertProps as MUIAlertProps } from '@mui/material/Alert';
+import { ButtonNaked } from '@components/ButtonNaked';
+import { MarginSxProps } from '@lib-types/shared.types';
+import { AllowedAlertSeverity } from '@lib-types/alert.types';
+import {
+  Box,
+  AlertProps as MUIAlertProps,
+  AlertTitle as MUIAlertTitle,
+  Stack,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import { getColor, getIcon } from './utils';
-import { AllowedAlertSeverity, MarginSxProps } from '@types';
+import { StyledAlert } from './StyledAlert';
 
 type CtaWrapSize = 'tight' | 'normal' | 'wide';
 

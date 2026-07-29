@@ -1,6 +1,5 @@
-import { styled } from '@mui/material';
-import MUIAlert from '@mui/material/Alert';
-import { AllowedAlertSeverity } from '@types';
+import { styled, Alert as MUIAlert } from '@mui/material';
+import { AllowedAlertSeverity } from '@lib-types/alert.types';
 
 type StyledAlertProps = {
   ownerState: {

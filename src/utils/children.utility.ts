@@ -107,3 +107,13 @@ export function isExplicitChild(child: React.ReactNode, displayName: string): bo
   }
   return false;
 }
+
+/**
+ * Determines whether a React node is a primitive value (string, number or
+ * boolean), as opposed to a React element or other non-primitive node.
+ *
+ * @param {ReactNode} node - The React node to inspect
+ * @returns {boolean} True if the node is a string, number or boolean.
+ */
+export const isPrimitiveNode = (node: React.ReactNode): node is string | number | boolean =>
+  typeof node === 'string' || typeof node === 'number' || typeof node === 'boolean';

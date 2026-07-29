@@ -2,7 +2,7 @@ import { StoryFn, Meta } from '@storybook/react-vite';
 
 // Components
 import { Tag } from '@components/Tag';
-import { TagGroup } from './TagGroup';
+import TagGroup from './TagGroup';
 import { Box, Typography } from '@mui/material';
 
 const groupLabels: Array<string> = [

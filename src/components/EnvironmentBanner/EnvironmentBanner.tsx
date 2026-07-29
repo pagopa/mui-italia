@@ -1,6 +1,6 @@
 'use client';
 import { ButtonNaked } from '@components/ButtonNaked';
-import CloseIcon from '@mui/icons-material/Close';
+import { Close as CloseIcon } from '@mui/icons-material';
 import { Alert, Box, IconButton, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { ReactNode } from 'react';
 export interface EnvironmentBannerProps {

@@ -43,3 +43,4 @@ export * from './MITimeline';
 export * from './MISnackbar';
 export * from './MIPaper';
 export * from './MIBoxedModule';
+export * from './MIStepper';

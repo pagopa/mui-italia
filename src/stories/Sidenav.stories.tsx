@@ -1,26 +1,28 @@
+import { Meta, StoryFn } from '@storybook/react-vite';
 import { useState } from 'react';
-import { StoryFn, Meta } from '@storybook/react-vite';
 
 import {
+  Badge,
+  Box,
+  Collapse,
+  Divider,
   List,
   ListItemButton,
-  ListItemText,
   ListItemIcon,
-  Collapse,
-  Box,
-  Badge,
-  Divider,
+  ListItemText,
 } from '@mui/material';
 
 /* Icons */
-import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
-import KeyRoundedIcon from '@mui/icons-material/KeyRounded';
-import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
-import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded';
-import SupervisedUserCircleRoundedIcon from '@mui/icons-material/SupervisedUserCircleRounded';
-import ExpandLessRoundedIcon from '@mui/icons-material/ExpandLessRounded';
-import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
-import ExitToAppRoundedIcon from '@mui/icons-material/ExitToAppRounded';
+import {
+  EmailRounded as EmailRoundedIcon,
+  ExitToAppRounded as ExitToAppRoundedIcon,
+  ExpandLessRounded as ExpandLessRoundedIcon,
+  ExpandMoreRounded as ExpandMoreRoundedIcon,
+  KeyRounded as KeyRoundedIcon,
+  PeopleRounded as PeopleRoundedIcon,
+  SettingsRounded as SettingsRoundedIcon,
+  SupervisedUserCircleRounded as SupervisedUserCircleRoundedIcon,
+} from '@mui/icons-material';
 
 import { ProfileItem } from '@components/ProfileItem';
 

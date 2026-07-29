@@ -1,16 +1,10 @@
 import { FC } from 'react';
 import MuiPaper, { PaperProps as MuiPaperProps } from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import { RadiusVariant } from '@types';
+import { RadiusVariant } from 'theme/theme.types';
 
 type Padding = 16 | 24;
 type AllowedMIPaperVariants = 'flat' | 'outlined';
-
-type BaseMIPaperProps = Omit<MuiPaperProps, 'elevation' | 'square' | 'variant'> & {
-  borderRadius?: RadiusVariant;
-  padding?: Padding;
-  variant?: AllowedMIPaperVariants;
-};
 
 type StyledPaperProps = {
   ownerState: {
@@ -18,6 +12,12 @@ type StyledPaperProps = {
     padding: Padding;
     variant: AllowedMIPaperVariants;
   };
+};
+
+export type MIPaperProps = Omit<MuiPaperProps, 'elevation' | 'square' | 'variant'> & {
+  borderRadius?: RadiusVariant;
+  padding?: Padding;
+  variant?: AllowedMIPaperVariants;
 };
 
 const StyledPaper = styled(MuiPaper, {
@@ -38,7 +38,7 @@ const StyledPaper = styled(MuiPaper, {
   };
 });
 
-const MIPaper: FC<BaseMIPaperProps> = (props) => {
+const MIPaper: FC<MIPaperProps> = (props) => {
   const { borderRadius = 8, padding = 16, variant = 'flat', sx, ...other } = props;
 
   return (

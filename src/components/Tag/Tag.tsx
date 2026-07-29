@@ -1,15 +1,17 @@
 'use client';
 
-import ReportProblemRounded from '@mui/icons-material/ReportProblemRounded';
-import ReportRoundedIcon from '@mui/icons-material/ReportRounded';
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
-import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
+import {
+  CheckCircleRounded as CheckCircleRoundedIcon,
+  InfoRounded as InfoRoundedIcon,
+  ReportProblemRounded,
+  ReportRounded as ReportRoundedIcon,
+} from '@mui/icons-material';
 
+import { SvgIconProps, styled } from '@mui/material';
 import { pxToRem } from '@theme';
 import React, { ComponentType, useRef } from 'react';
-import { SvgIconProps, styled } from '@mui/material';
-import MITooltip from '../MITooltip/MITooltip';
 import { useIsTruncated } from '../../hooks/useIsTruncated';
+import MITooltip from '../MITooltip/MITooltip';
 
 export type Variants = 'default' | 'info' | 'warning' | 'error' | 'success' | 'only-icon';
 
@@ -167,7 +169,7 @@ const Icon = ({
 };
 
 // here we cannot use destructured object because TagProps is a Discriminated Union of Interfaces
-export const Tag: React.FC<TagProps> = (props) => {
+const Tag: React.FC<TagProps> = (props) => {
   const valueRef = useRef<HTMLSpanElement>(null);
 
   const { variant = 'default', slotProps, ...rest } = props;
@@ -205,3 +207,5 @@ export const Tag: React.FC<TagProps> = (props) => {
     </Container>
   );
 };
+
+export default Tag;

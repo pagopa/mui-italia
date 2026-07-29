@@ -1,7 +1,6 @@
 import { MISpinner } from '@components/MISpinner';
 import { Skeleton } from '@mui/material';
 import { Box } from '@mui/system';
-import { colors } from 'theme/foundations/colors';
 import { getSpinnerColor } from './styles';
 import { MIButtonColor, MIButtonLoaderType, MIButtonVariant } from './types';
 
@@ -24,7 +23,7 @@ const MIButtonLoader: React.FC<MIButtonLoaderProps> = ({
     return (
       <Box sx={{ width: fullWidth ? '80%' : '141px' }}>
         <Skeleton
-          sx={{ backgroundColor: colors.neutral.grey[450] }}
+          sx={{ backgroundColor: (theme) => theme.colors.neutral.grey[450] }}
           aria-label={loadingAriaLabel}
         />
       </Box>

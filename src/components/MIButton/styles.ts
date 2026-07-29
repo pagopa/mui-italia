@@ -1,75 +1,75 @@
 import { CSSObject } from '@mui/material/styles';
-import { colors } from '../../theme/foundations/colors';
-import { AllowedMISpinnerColor } from '../MISpinner';
+import { AllowedMISpinnerColor } from '../MISpinner/MISpinner';
 import { MIButtonColor, MIButtonVariant } from './types';
+import { Theme } from '@mui/material';
 
 type ButtonSx = CSSObject;
 
-const containedStyles: Record<MIButtonColor, ButtonSx> = {
+const containedStyles: (theme: Theme) => Record<MIButtonColor, ButtonSx> = (theme) => ({
   primary: {
-    backgroundColor: colors.blue[500],
-    color: colors.neutral.white,
-    border: `2px solid ${colors.blue[500]}`,
+    backgroundColor: theme.colors.blue[500],
+    color: theme.colors.neutral.white,
+    border: `2px solid ${theme.colors.blue[500]}`,
     '&:hover': {
-      backgroundColor: colors.blue[600],
-      color: colors.neutral.white,
-      borderColor: colors.blue[600],
+      backgroundColor: theme.colors.blue[600],
+      color: theme.colors.neutral.white,
+      borderColor: theme.colors.blue[600],
     },
   },
   error: {
-    backgroundColor: colors.error[600],
-    color: colors.neutral.white,
-    border: `2px solid ${colors.error[600]}`,
+    backgroundColor: theme.colors.error[600],
+    color: theme.colors.neutral.white,
+    border: `2px solid ${theme.colors.error[600]}`,
     '&:hover': {
-      backgroundColor: colors.error[700],
-      color: colors.neutral.white,
-      borderColor: colors.error[700],
+      backgroundColor: theme.colors.error[700],
+      color: theme.colors.neutral.white,
+      borderColor: theme.colors.error[700],
     },
   },
   contrasted: {
-    backgroundColor: colors.neutral.white,
-    color: colors.blue[500],
-    border: `2px solid ${colors.neutral.white}`,
+    backgroundColor: theme.colors.neutral.white,
+    color: theme.colors.blue[500],
+    border: `2px solid ${theme.colors.neutral.white}`,
     '&:hover': {
-      backgroundColor: colors.blue[50],
-      color: colors.blue[600],
-      borderColor: colors.blue[50],
+      backgroundColor: theme.colors.blue[50],
+      color: theme.colors.blue[600],
+      borderColor: theme.colors.blue[50],
     },
   },
-};
+});
 
-const outlinedStyles: Record<MIButtonColor, ButtonSx> = {
+const outlinedStyles: (theme: Theme) => Record<MIButtonColor, ButtonSx> = (theme) => ({
   primary: {
-    backgroundColor: colors.neutral.white,
-    color: colors.blue[500],
-    borderColor: colors.blue[500],
+    backgroundColor: 'transparent',
+    color: theme.colors.blue[500],
+    borderColor: theme.colors.blue[500],
     '&:hover': {
-      backgroundColor: colors.blue[50],
-      color: colors.blue[600],
-      borderColor: colors.blue[600],
+      backgroundColor: theme.colors.blue[50],
+      color: theme.colors.blue[600],
+      borderColor: theme.colors.blue[600],
     },
   },
   error: {
-    backgroundColor: colors.neutral.white,
-    color: colors.error[500],
-    borderColor: colors.error[500],
+    backgroundColor: 'transparent',
+    color: theme.colors.error[500],
+    borderColor: theme.colors.error[500],
     '&:hover': {
-      backgroundColor: colors.error[100],
-      color: colors.error[700],
-      borderColor: colors.error[700],
+      backgroundColor: theme.colors.error[100],
+      color: theme.colors.error[700],
+      borderColor: theme.colors.error[700],
     },
   },
   contrasted: {
-    backgroundColor: colors.blue[500],
-    color: colors.neutral.white,
-    borderColor: colors.neutral.white,
+    backgroundColor: 'transparent',
+    color: theme.colors.neutral.white,
+    borderColor: theme.colors.neutral.white,
     '&:hover': {
-      backgroundColor: colors.blue[600],
-      color: colors.neutral.white,
-      borderColor: colors.neutral.white,
+      backgroundColor: theme.colors.blue[600],
+      color: theme.colors.neutral.white,
+      borderColor: theme.colors.neutral.white,
     },
   },
-};
+});
 
 const textButtonBaseStyle: ButtonSx = {
   backgroundColor: 'transparent',
@@ -79,23 +79,23 @@ const textButtonBaseStyle: ButtonSx = {
   '&:hover, &:active, &.Mui-focusVisible': { backgroundColor: 'transparent' },
 };
 
-const textStyles: Record<MIButtonColor, ButtonSx> = {
+const textStyles: (theme: Theme) => Record<MIButtonColor, ButtonSx> = (theme) => ({
   primary: {
     ...textButtonBaseStyle,
-    color: colors.blue[500],
-    '&:hover': { backgroundColor: 'transparent', color: colors.blue[600] },
+    color: theme.colors.blue[500],
+    '&:hover': { backgroundColor: 'transparent', color: theme.colors.blue[600] },
   },
   error: {
     ...textButtonBaseStyle,
-    color: colors.error[600],
-    '&:hover': { backgroundColor: 'transparent', color: colors.error[700] },
+    color: theme.colors.error[600],
+    '&:hover': { backgroundColor: 'transparent', color: theme.colors.error[700] },
   },
   contrasted: {
     ...textButtonBaseStyle,
-    color: colors.neutral.white,
-    '&:hover': { backgroundColor: 'transparent', color: colors.neutral.white },
+    color: theme.colors.neutral.white,
+    '&:hover': { backgroundColor: 'transparent', color: theme.colors.neutral.white },
   },
-};
+});
 
 const stylesByVariant = {
   contained: containedStyles,
@@ -103,11 +103,11 @@ const stylesByVariant = {
   text: textStyles,
 };
 
-const focusRing: Record<MIButtonColor, string> = {
-  primary: colors.blue[400],
-  error: colors.error[500],
-  contrasted: colors.blue[150],
-};
+const focusRing: (theme: Theme) => Record<MIButtonColor, string> = (theme) => ({
+  primary: theme.colors.blue[400],
+  error: theme.colors.error[500],
+  contrasted: theme.colors.blue[150],
+});
 
 const spinnerColorByVariant: Record<
   keyof typeof stylesByVariant,
@@ -129,14 +129,18 @@ export const getSpinnerColor = (
   return variantColors[color];
 };
 
-export const getColorSx = (color: MIButtonColor, variant: MIButtonVariant): ButtonSx => {
+export const getColorSx = (
+  theme: Theme,
+  color: MIButtonColor,
+  variant: MIButtonVariant
+): ButtonSx => {
   const variantStyles = stylesByVariant[variant as keyof typeof stylesByVariant] ?? containedStyles;
   // `&&` raises specificity to beat the global MuiButton theme's compound
   // hover/focus selectors (e.g. `&.MuiButton-contained:hover`).
   return {
     '&&': {
-      ...variantStyles[color],
-      '&.Mui-focusVisible': { outlineColor: focusRing[color] },
+      ...variantStyles(theme)[color],
+      '&.Mui-focusVisible': { outlineColor: focusRing(theme)[color] },
     },
   };
 };

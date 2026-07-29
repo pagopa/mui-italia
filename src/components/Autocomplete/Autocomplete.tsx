@@ -13,7 +13,7 @@ import {
   FocusEvent,
   useId,
 } from 'react';
-import { AutocompleteProps, AutocompleteValue, InputChangeReason } from 'types/autocomplete';
+import { AutocompleteProps, AutocompleteValue, InputChangeReason } from './Autocomplete.types';
 import { isMobileDevice } from 'utils/device';
 import { filterOptionsInternal } from 'utils/autocomplete';
 import AutocompleteContent from './AutocompleteContent';

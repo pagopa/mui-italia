@@ -11,7 +11,7 @@ import {
   useTheme,
 } from '@mui/material';
 
-import { IDP } from 'types/spid';
+import { IDP } from './MISpidSelectOIDialog.types';
 import { shuffleList } from 'utils/array';
 import { getSpidDisplayName } from './utils';
 

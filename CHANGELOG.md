@@ -1,3 +1,15 @@
+# [2.5.1](https://github.com/pagopa/mui-italia/releases/tag/v2.5.1) (2026-07-23)
+
+
+### Chore
+
+* Bump version to v2.5.1
+# [2.5.1-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.5.1-RC.0) (2026-07-21)
+
+
+### Bug Fixes
+
+* **M20DS-125:** fix MIAlert crash under Nextjs Pages Router webpack bundling ([#735](https://github.com/pagopa/mui-italia/issues/735)) ([8397438](https://github.com/pagopa/mui-italia/commit/8397438ead5e37fa55f19a6b5b7ccb1ffdaffd30))
 # [2.6.0-RC.2](https://github.com/pagopa/mui-italia/releases/tag/v2.6.0-RC.2) (2026-07-17)
 
 

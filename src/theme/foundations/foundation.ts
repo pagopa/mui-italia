@@ -1,6 +1,6 @@
 import { alpha, createTheme, Theme } from '@mui/material/styles';
 
-import { colors } from './colors';
+import { colors } from '../colors';
 import { palette } from './palette';
 import { mainTypeface } from '../fonts';
 
