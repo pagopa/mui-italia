@@ -180,12 +180,12 @@ export const themeNext: Theme = createTheme(foundationNext, {
           '&.MuiButton-text': {
             '&:hover': {
               backgroundColor: 'transparent',
-              color: '#0055AA',
+              color: foundationNext.palette.primary.dark,
             },
           },
           '&.MuiButton-contained': {
             '&:hover': {
-              backgroundColor: '#0055AA',
+              backgroundColor: foundationNext.palette.primary.dark,
             },
           },
         },

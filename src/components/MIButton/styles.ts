@@ -51,8 +51,8 @@ const outlinedStyles: (theme: Theme) => Record<MIButtonColor, ButtonSx> = (theme
   },
   error: {
     backgroundColor: 'transparent',
-    color: theme.colors.error[500],
-    borderColor: theme.colors.error[500],
+    color: theme.colors.error[600],
+    borderColor: theme.colors.error[600],
     '&:hover': {
       backgroundColor: theme.colors.error[100],
       color: theme.colors.error[700],
