@@ -55,10 +55,10 @@ const muiSwitch = {
         border: `6px solid #fff`,
       },
       '&.MuiSwitch-colorError + .MuiSwitch-track': {
-        backgroundColor: foundation.palette.error.main,
+        backgroundColor: foundation.palette.error.dark,
       },
       '&.MuiSwitch-colorError.Mui-focusVisible .MuiSwitch-thumb': {
-        color: foundation.palette.error.main,
+        color: foundation.palette.error.dark,
         border: `6px solid #fff`,
       },
       '&.MuiSwitch-colorError:hover': {
