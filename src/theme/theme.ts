@@ -777,7 +777,7 @@ export const theme: Theme = createTheme(foundation, {
           fontWeight: foundation.typography.fontWeightMedium,
           '& .MuiOutlinedInput-notchedOutline': {},
           '&.Mui-error .MuiOutlinedInput-notchedOutline': {
-            borderColor: foundation.palette.error.dark,
+            borderColor: foundation.palette.error.main,
           },
         },
       },
@@ -788,7 +788,7 @@ export const theme: Theme = createTheme(foundation, {
           color: foundation.palette.text.secondary,
           fontWeight: foundation.typography.fontWeightMedium,
           '&.Mui-error': {
-            color: foundation.palette.error.dark,
+            color: foundation.palette.error.main,
           },
         },
       },
@@ -797,7 +797,7 @@ export const theme: Theme = createTheme(foundation, {
       styleOverrides: {
         root: {
           '& .MuiSvgIcon-colorError': {
-            color: `${foundation.palette.error.dark}`,
+            color: `${foundation.palette.error.main}`,
           },
         },
       },
@@ -811,7 +811,7 @@ export const theme: Theme = createTheme(foundation, {
           fontWeight: foundation.typography.fontWeightMedium,
           letterSpacing: 0.5,
           '&.Mui-error': {
-            color: foundation.palette.error.dark,
+            color: foundation.palette.error.main,
           },
         },
       },
