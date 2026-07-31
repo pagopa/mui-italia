@@ -180,12 +180,12 @@ export const themeNext: Theme = createTheme(foundationNext, {
           '&.MuiButton-text': {
             '&:hover': {
               backgroundColor: 'transparent',
-              color: '#0055AA',
+              color: foundationNext.palette.primary.dark,
             },
           },
           '&.MuiButton-contained': {
             '&:hover': {
-              backgroundColor: '#0055AA',
+              backgroundColor: foundationNext.palette.primary.dark,
             },
           },
         },
@@ -520,7 +520,7 @@ export const themeNext: Theme = createTheme(foundationNext, {
           fontWeight: foundationNext.typography.fontWeightMedium,
           '& .MuiOutlinedInput-notchedOutline': {},
           '&.Mui-error .MuiOutlinedInput-notchedOutline': {
-            borderColor: foundationNext.palette.error.dark,
+            borderColor: foundationNext.palette.error.main,
           },
         },
       },
@@ -531,7 +531,7 @@ export const themeNext: Theme = createTheme(foundationNext, {
           color: foundationNext.palette.text.secondary,
           fontWeight: foundationNext.typography.fontWeightMedium,
           '&.Mui-error': {
-            color: foundationNext.palette.error.dark,
+            color: foundationNext.palette.error.main,
           },
         },
       },
@@ -540,7 +540,7 @@ export const themeNext: Theme = createTheme(foundationNext, {
       styleOverrides: {
         root: {
           '& .MuiSvgIcon-colorError': {
-            color: `${foundationNext.palette.error.dark}`,
+            color: `${foundationNext.palette.error.main}`,
           },
         },
       },
@@ -554,7 +554,7 @@ export const themeNext: Theme = createTheme(foundationNext, {
           fontWeight: foundationNext.typography.fontWeightMedium,
           letterSpacing: 0.5,
           '&.Mui-error': {
-            color: foundationNext.palette.error.dark,
+            color: foundationNext.palette.error.main,
           },
         },
       },

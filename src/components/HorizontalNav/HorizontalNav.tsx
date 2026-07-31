@@ -1,14 +1,7 @@
-"use client";
+'use client';
 
-import {
-  Box,
-  Button,
-  Container,
-  Stack,
-  Typography,
-  useTheme,
-} from "@mui/material";
-import ArrowForward from "@mui/icons-material/ArrowForward";
+import { ArrowForward } from '@mui/icons-material';
+import { Box, Button, Container, Stack, Typography, useTheme } from '@mui/material';
 
 interface sectionCTA {
   label: string;
@@ -49,15 +42,15 @@ export const HorizontalNav = ({ sections }: HorizontalNavProps) => {
       <Container maxWidth="xl" disableGutters>
         <Box
           sx={{
-            display: "grid",
+            display: 'grid',
             columnGap: 3,
             rowGap: 3,
-            gridTemplateColumns: "repeat(12, minmax(0, 1fr))",
+            gridTemplateColumns: 'repeat(12, minmax(0, 1fr))',
           }}
         >
-          <Box gridColumn={{ xs: "1 / span 12", md: "2 / span 10" }} my="auto">
+          <Box gridColumn={{ xs: '1 / span 12', md: '2 / span 10' }} my="auto">
             <Stack
-              direction={{ xs: "column", md: "row" }}
+              direction={{ xs: 'column', md: 'row' }}
               width="100%"
               color="primary.contrastText"
               textAlign="center"
@@ -86,18 +79,13 @@ export const HorizontalNav = ({ sections }: HorizontalNavProps) => {
                         },
                       }}
                     >
-                      <Stack
-                        spacing={4}
-                        height="100%"
-                        alignItems="center"
-                        justifyContent="center"
-                      >
+                      <Stack spacing={4} height="100%" alignItems="center" justifyContent="center">
                         <Box
                           color="primary.contrastText"
                           sx={{
                             svg: {
-                              height: "60px",
-                              width: "60px",
+                              height: '60px',
+                              width: '60px',
                             },
                           }}
                         >
@@ -108,26 +96,18 @@ export const HorizontalNav = ({ sections }: HorizontalNavProps) => {
                             {section.title}
                           </Typography>
                           <>
+                            {section.subtitle && typeof section.subtitle === 'string' && (
+                              <Typography variant="body1" color="primary.contrastText">
+                                {section.subtitle}
+                              </Typography>
+                            )}
                             {section.subtitle &&
-                              typeof section.subtitle === "string" && (
-                                <Typography
-                                  variant="body1"
-                                  color="primary.contrastText"
-                                >
-                                  {section.subtitle}
-                                </Typography>
-                              )}
-                            {section.subtitle &&
-                              typeof section.subtitle !== "string" &&
+                              typeof section.subtitle !== 'string' &&
                               section.subtitle}
                           </>
                         </Stack>
                         {section.cta && (
-                          <Button
-                            variant="text"
-                            color="negative"
-                            endIcon={<ArrowForward />}
-                          >
+                          <Button variant="text" color="negative" endIcon={<ArrowForward />}>
                             {section.cta.label}
                           </Button>
                         )}
