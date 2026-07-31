@@ -1,3 +1,15 @@
+# [2.6.0-RC.4](https://github.com/pagopa/mui-italia/releases/tag/v2.6.0-RC.4) (2026-07-31)
+
+
+### Bug Fixes
+
+* **M20DS-2:** update colors for input error case ([#746](https://github.com/pagopa/mui-italia/issues/746)) ([77fc132](https://github.com/pagopa/mui-italia/commit/77fc1323f1f7bb19d52f4c3097a57788e61e29d6))
+* **M20DS-2:** fix colors for MIButton and Mui Button ([#745](https://github.com/pagopa/mui-italia/issues/745)) ([335df5a](https://github.com/pagopa/mui-italia/commit/335df5ab57472c06cedad8b9bfd35ac24a54ee83))
+
+
+### Chores
+
+* fixed icon imports ([#748](https://github.com/pagopa/mui-italia/issues/748)) ([03446c1](https://github.com/pagopa/mui-italia/commit/03446c1636aa694bc89ae3885f4dd27172198c54))
 # [2.6.0-RC.3](https://github.com/pagopa/mui-italia/releases/tag/v2.6.0-RC.3) (2026-07-29)
 
 
