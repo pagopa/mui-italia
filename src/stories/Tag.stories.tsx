@@ -1,6 +1,8 @@
-import AttachFileRoundedIcon from '@mui/icons-material/AttachFileRounded';
-import LocalOfferRoundedIcon from '@mui/icons-material/LocalOfferRounded';
-import StarRoundedIcon from '@mui/icons-material/StarRounded';
+import {
+  AttachFileRounded as AttachFileRoundedIcon,
+  LocalOfferRounded as LocalOfferRoundedIcon,
+  StarRounded as StarRoundedIcon,
+} from '@mui/icons-material';
 import type { SvgIconProps } from '@mui/material';
 import { Box, Stack, Typography } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
