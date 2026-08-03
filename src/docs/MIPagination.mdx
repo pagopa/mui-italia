@@ -3,15 +3,15 @@ import { Meta, Title, Canvas, Primary, Controls, Story } from '@storybook/addon-
 import Overview from './components/Overview';
 import Section from './components/Section';
 
-import * as MIPaginationStories from '../stories/MIPagination.stories.tsx'
+import * as MIPaginationStories from '../stories/MIPagination.stories.tsx';
 
 <Meta of={MIPaginationStories} />
 
 <Title />
 
 <Overview>
-  <strong>MIPagination</strong> è un componente pensato per gestire la paginazione
-  all'interno di sezioni contententi liste di elementi.
+  <strong>MIPagination</strong> è un componente pensato per gestire la paginazione all'interno di
+  sezioni contententi liste di elementi.
 </Overview>
 
 <Section
@@ -23,15 +23,15 @@ import * as MIPaginationStories from '../stories/MIPagination.stories.tsx'
 </Section>
 
 <Section
-    title="First page"
-    description="Mostra il comportamento del componente quando viene selezionata la prima pagina"
+  title="First page"
+  description="Mostra il comportamento del componente quando viene selezionata la prima pagina"
 >
-    <Story of={MIPaginationStories.FirstPage} />
+  <Story of={MIPaginationStories.FirstPage} />
 </Section>
 
 <Section
-    title="Last page"
-    description="Mostra il comportamento del componente quando viene selezionata l'ultima pagina"
+  title="Last page"
+  description="Mostra il comportamento del componente quando viene selezionata l'ultima pagina"
 >
-    <Story of={MIPaginationStories.LastPage} />
+  <Story of={MIPaginationStories.LastPage} />
 </Section>

@@ -1,7 +1,6 @@
-import MuiPaginationItem, { PaginationItemProps } from '@mui/material/PaginationItem';
+import MuiPaginationItem from '@mui/material/PaginationItem';
 import MuiPagination, { PaginationProps } from '@mui/material/Pagination';
 import { styled } from '@mui/material/styles';
-import { maxWidth } from '@mui/system';
 
 interface MIPaginationProps extends PaginationProps {}
 
