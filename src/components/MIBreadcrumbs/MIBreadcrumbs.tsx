@@ -6,11 +6,11 @@ import { MIBreadcrumbsProps } from './types';
 import { Theme, useMediaQuery } from '@mui/material';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
-export const MIBreadcrumbs: React.FC<MIBreadcrumbsProps> = ({ children, backButtonLabel = 'Indietro', backButtonAction = () => window.history.back(), variant = 'extended' }) => {
+export const MIBreadcrumbs: React.FC<MIBreadcrumbsProps> = ({ children, backButtonLabel = 'Indietro', backButtonAction = () => window.history.back(), variant = 'extended', ...props}) => {
   const isMobileResolution = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
   return (
-    <StyledBreadcrumbs aria-label="breadcrumbs" separator={<ChevronRightIcon />}>
+    <StyledBreadcrumbs aria-label="breadcrumbs" separator={<ChevronRightIcon />} {...props} >
       {
         isMobileResolution || variant === 'compact' ? <MIBreadcrumbItem label={backButtonLabel} type='back' onClick={backButtonAction} /> :
           children

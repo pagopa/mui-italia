@@ -1,27 +1,46 @@
-'use client'
-import { Link, Typography } from '@mui/material';
+'use client';
+import { Button, Link, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { MIBreadcrumbItemProps } from './types';
 import React from 'react';
 
-export const MIBreadcrumbItem: React.FC<MIBreadcrumbItemProps> = ({ label, onClick, href, target, current = false, type = 'regular' }) => {
+export const MIBreadcrumbItem: React.FC<MIBreadcrumbItemProps> = ({ label, onClick, href, current = false, type = 'regular', ...props } ) => {
 
-  const onClickHandler = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+  const onClickHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     if (onClick) {
       e.preventDefault();
       onClick();
     }
   }
 
-  return current ? (
-    <Typography className={'MIBreadcrumbItem-current'} aria-current='page'>{label}</Typography>
-  ) : <Link
-    onClick={onClickHandler}
-    underline="hover"
-    href={href}
-    target={target}
-  >
-    {type === 'back' && <ArrowBackIcon />}
-    {label}
-  </Link>;
-}
+  if (current) {
+    return (
+      <Typography className={'MIBreadcrumbItem-current'} aria-current='page' {...props}>{label}</Typography>
+    );
+  }
+  if (href) {  
+    return (
+      <Link
+        underline="hover"
+        {...props}
+      >
+        {label}
+      </Link>
+    );
+  }
+  if (onClick) {
+    return (
+      <Link
+        component={Button}
+        underline="hover"
+        {...props}
+        onClick={onClickHandler}
+        type="button"
+      >
+        {type === 'back' && <ArrowBackIcon />}
+        {label}
+      </Link>
+    );
+  }
+  return null;
+};

@@ -1,10 +1,12 @@
 
 import { BreadcrumbsOwnProps } from '@mui/material/Breadcrumbs/Breadcrumbs';
-import { ReactElement } from 'react';
+import { LinkProps } from '@mui/material/Link';
+import { TypographyProps } from '@mui/material/Typography';
+import { ComponentPropsWithoutRef, ReactElement } from 'react';
 
 type MIBreadcrumbsVariant = 'extended' | 'compact';
 
-export interface MIBreadcrumbsProps extends Pick<BreadcrumbsOwnProps, 'children'> {
+export interface MIBreadcrumbsProps extends ComponentPropsWithoutRef<'nav'>, Pick<BreadcrumbsOwnProps, 'sx'> {
   /**
    * Array di componenti MIBreadcrumbItem
    * L'ordine degli elementi è importante e deve rispecchiare l'ordine gerarchico di navigazione.
@@ -39,34 +41,39 @@ export interface MIBreadcrumbsProps extends Pick<BreadcrumbsOwnProps, 'children'
   variant?: MIBreadcrumbsVariant;
 }
 
-export interface MIBreadcrumbItemProps {
-  /**
-   * Etichetta del breadcrumb.
-   */
+type BaseMIBreadcrumbItemProps = {
   label: string;
-  /**
-   * Callback che viene eseguita quando l'elemento viene cliccato.
-   * Se non specificato, l'elemento non sarà cliccabile.
-   */
-  onClick?: () => void;
-  /**
-   * Target dell'elemento (solo se href è specificato).
-   */
-  target?: React.HTMLAttributeAnchorTarget;
-  /**
-   * URL a cui punta l'elemento (solo se onClick non è specificato).
-   */
-  href?: string;
-  /**
-   * Se true, l'elemento è l'elemento corrente (non cliccabile e con stile non attivo).
-   * @default false
-   */
-  current?: boolean;
-  /**
-   * Tipo di elemento.
-   * @default "regular"
-   * - "regular": elemento regolare
-   * - "back": elemento di tipo "back"
-   */
   type?: 'regular' | 'back';
-}
+};
+
+type CurrentBreadcrumbItemProps =
+  BaseMIBreadcrumbItemProps &
+  Pick<TypographyProps, 'sx'> & {
+    current: true;
+    href?: never;
+    onClick?: never;
+    target?: never;
+    rel?: never;
+  };
+
+type LinkBreadcrumbItemProps =
+  BaseMIBreadcrumbItemProps &
+  Pick<LinkProps, 'href' | 'target' | 'rel' | 'sx'> & {
+    current?: false;
+    onClick?: never;
+  };
+
+type ActionBreadcrumbItemProps =
+  BaseMIBreadcrumbItemProps &
+  Pick<LinkProps, 'sx'> & {
+    current?: false;
+    onClick: () => void;
+    href?: never;
+    target?: never;
+    rel?: never;
+  };
+
+export type MIBreadcrumbItemProps =
+  | CurrentBreadcrumbItemProps
+  | LinkBreadcrumbItemProps
+  | ActionBreadcrumbItemProps;
