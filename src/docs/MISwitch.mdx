@@ -1,0 +1,36 @@
+import { Meta, Title, Canvas, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
+
+
+import Overview from './components/Overview';
+import Section from './components/Section';
+import SubSection from './components/SubSection';
+import * as MISwitchStories from '../stories/MISwitch.stories.tsx'
+
+<Meta  of={MISwitchStories} />
+
+<Title />
+
+<Overview>
+  <strong>MISwitch</strong> è un componente utilizzabile all'interno di form pensato per richiedere
+  un input all'utente di tipo booleano.
+</Overview>
+
+<Section
+  title="Playground"
+  description="Usa i controlli per modificare i parametri principali del componente e verificare il risultato live."
+>
+  <Primary />
+  <Controls />
+</Section>
+
+<Section
+    title="Checked"
+    description="Esempio di MISwitch nello stato 'checked=true' nello stato attivo/disabilitato">
+    <Story of={MISwitchStories.Checked} />
+</Section>
+
+<Section
+    title="Unchecked"
+    description="Esempio di MISwitch nello stato 'checked=false' nello stato attivo/disabilitato">
+    <Story of={MISwitchStories.Unchecked} />
+</Section>
