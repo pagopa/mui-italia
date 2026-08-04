@@ -1,11 +1,12 @@
-import { Stack } from '@mui/material';
+import { FormControlLabel, Stack, FormGroup, Typography } from '@mui/material';
 import { MISwitch } from '@components/MISwitch';
 import { Meta, StoryObj } from '@storybook/react-vite';
+import { Report } from '@mui/icons-material';
 
 type MISwitchStoryArgs = React.ComponentProps<typeof MISwitch>;
 
 const meta: Meta<MISwitchStoryArgs> = {
-  title: 'Components/MISwitch',
+  title: 'MUI Components/Inputs/MISwitch',
   component: MISwitch,
 };
 
@@ -19,34 +20,85 @@ export const Playground: Story = {
   },
 };
 
-export const Checked: Story = {
+export const PrimaryChecked: Story = {
+  args: {
+    color: 'primary',
+    checked: true,
+  },
+};
+
+export const PrimaryDisabled: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Varianti switch checked enabled/disabled',
+        story: "Switch color='primary' nello stato disabled='true'",
       },
     },
   },
   render: () => (
-    <Stack direction="row" spacing={1}>
-      <MISwitch color="primary" checked />
+    <Stack direction="row" alignContent="center" gap={4}>
       <MISwitch color="primary" checked disabled />
+      <MISwitch color="primary" disabled />
     </Stack>
   ),
 };
 
-export const Unchecked: Story = {
+export const WithLabel: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Varianti switch unchecked enabled/disabled',
+        story: "Switch con label all'interno di un form con label",
       },
     },
   },
   render: () => (
-    <Stack direction="row" spacing={1}>
-      <MISwitch color="primary" />
-      <MISwitch color="primary" disabled />
-    </Stack>
+    <FormGroup>
+      <FormControlLabel
+        control={<MISwitch color="primary" />}
+        label={
+          <Stack
+            sx={{
+              ml: 1,
+            }}
+          >
+            <Typography variant="caption-semibold">Label</Typography>
+            <Typography variant="body2">Label</Typography>
+          </Stack>
+        }
+      />
+    </FormGroup>
+  ),
+};
+
+export const WithError: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: "Switch con label all'interno di un form con lable e un errore",
+      },
+    },
+  },
+  render: () => (
+    <FormGroup>
+      <FormControlLabel
+        control={<MISwitch color="primary" />}
+        label={
+          <Stack
+            sx={{
+              ml: 1,
+            }}
+          >
+            <Typography variant="caption-semibold">Label</Typography>
+            <Typography variant="body2">Label</Typography>
+            <Stack direction={'row'} alignContent="center">
+              <Report color="error" fontSize="small" />
+              <Typography color="error" variant="caption">
+                Helper text
+              </Typography>
+            </Stack>
+          </Stack>
+        }
+      />
+    </FormGroup>
   ),
 };
