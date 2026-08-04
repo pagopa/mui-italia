@@ -5,7 +5,7 @@ import { MenuItem, Select, Stack } from '@mui/material';
 type MIPaginationStoryArgs = React.ComponentProps<typeof MIPagination>;
 
 const meta: Meta<MIPaginationStoryArgs> = {
-  title: 'Components/MIPagination',
+  title: 'MUI Components/Navigation/MIPagination',
   component: MIPagination,
 };
 
