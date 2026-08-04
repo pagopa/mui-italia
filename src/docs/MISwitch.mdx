@@ -1,12 +1,11 @@
 import { Meta, Title, Canvas, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
 
-
 import Overview from './components/Overview';
 import Section from './components/Section';
 import SubSection from './components/SubSection';
-import * as MISwitchStories from '../stories/MISwitch.stories.tsx'
+import * as MISwitchStories from '../stories/MISwitch.stories.tsx';
 
-<Meta  of={MISwitchStories} />
+<Meta of={MISwitchStories} />
 
 <Title />
 
@@ -24,13 +23,12 @@ import * as MISwitchStories from '../stories/MISwitch.stories.tsx'
 </Section>
 
 <Section
-    title="Checked"
-    description="Esempio di MISwitch nello stato 'checked=true' nello stato attivo/disabilitato">
-    <Story of={MISwitchStories.Checked} />
+  title="Primary Checked"
+  description="Esempio di MISwitch color='primary' con stato checked='true'"
+>
+  <Story of={MISwitchStories.WithLabel} />
 </Section>
 
-<Section
-    title="Unchecked"
-    description="Esempio di MISwitch nello stato 'checked=false' nello stato attivo/disabilitato">
-    <Story of={MISwitchStories.Unchecked} />
+<Section title="With Label" description="Esempio di MISwitch in un form con label">
+  <Story of={MISwitchStories.WithLabel} />
 </Section>
