@@ -1,1 +1,1 @@
-export { default as MIPagination } from './MiPagination';
+export { default as MIPagination } from './MIPagination';
