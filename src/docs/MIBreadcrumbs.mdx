@@ -1,0 +1,67 @@
+import { Meta, Title, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
+import { Typography } from '@mui/material';
+
+import Overview from './components/Overview';
+import Section from './components/Section';   
+import * as MIBreadcrumbsStories from '../stories/MIBreadcrumbs.stories.tsx';
+
+<Meta of={MIBreadcrumbsStories} />
+
+<Title />
+
+<Overview
+  githubRelativePath={'MIBreadcrumbs/MIBreadcrumbs.tsx'}
+  figmaNodeId={'1-21'}
+  muiRelativePath={'react-breadcrumbs'}
+>
+  Il componente <strong>MIBreadcrumbs</strong> è utilizzato per mostrare la gerarchia
+  delle pagine e la posizione attuale dell'utente all'interno del prodotto.
+  È basato sul componente [Breadcrumbs](https://mui.com/material-ui/react-breadcrumbs/) di MUI,
+  opportunamente semplificato e adatto alle esigenze del design system MUI Italia Next.
+</Overview>
+
+<Section
+  title="Playground"
+  description="Usa i controlli per modificare i parametri principali del componente e verificare il risultato live."
+>
+  <Primary />
+  <Controls />
+</Section>
+
+<Section
+  title="Varianti"
+  description="MIBreadcrumbs supporta due varianti: extended e compact.
+  Nella variante compact, indipendentemente dal numero di elementi delle breadcrumbs e dalla risoluzione,
+  viene mostrata solo il pulsante 'Indietro'. (Il cui testo è personalizzabile)"
+>
+  <Story of={MIBreadcrumbsStories.Variants} />
+</Section>
+
+<Section
+  title="Routing"
+  description="MIBreadcrumbs supporta due modalità di routing: Link e OnClick."
+>
+  Per sfruttare la navigazione standard basata su URL, è necessario specificare la prop href. 
+  Per sfruttare la navigazione personalizzata, è necessario specificare la prop onClick.
+  Segue un esempio di implementazione che sfrutta la navigazione client side di react-router-dom:
+
+    <pre>
+    ```js filename="index.js"
+    ...
+    import { MIBreadcrumbs, MIBreadcrumbItem } from 'components/MIBreadcrumbs';
+    import { useNavigate } from 'react-router-dom';
+    ...
+    const navigate = useNavigate();
+    ...
+    return (
+      <MIBreadcrumbs>
+        <MIBreadcrumbItem label="Home" onClick={() => navigate('/')} />
+        <MIBreadcrumbItem label="About" onClick={() => navigate('/about')} />
+        <MIBreadcrumbItem label="Contact" current/>
+      </MIBreadcrumbs>
+    )
+    ...
+    ```
+    </pre>
+    Se entrambe le modalità sono state specificate, prevale onClick.
+</Section>
