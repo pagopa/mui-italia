@@ -1,9 +1,8 @@
 'use client';
 
-import { ElementType, HTMLAttributeAnchorTarget, ReactNode } from 'react';
 import { ButtonNaked } from '@components/ButtonNaked';
-import { MarginSxProps } from '@lib-types/shared.types';
 import { AllowedAlertSeverity } from '@lib-types/alert.types';
+import { MarginSxProps } from '@lib-types/shared.types';
 import {
   Box,
   AlertProps as MUIAlertProps,
@@ -12,8 +11,9 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import { getColor, getIcon } from './utils';
+import { ElementType, HTMLAttributeAnchorTarget, ReactNode } from 'react';
 import { StyledAlert } from './StyledAlert';
+import { getColor, getIcon } from './utils';
 
 type CtaWrapSize = 'tight' | 'normal' | 'wide';
 

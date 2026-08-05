@@ -1,5 +1,5 @@
-import { join } from 'path';
 import { readFileSync } from 'fs';
+import { join } from 'path';
 
 function resolveAliases() {
   const aliases = {};
