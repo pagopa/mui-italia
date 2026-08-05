@@ -1,13 +1,12 @@
 /* import { useState } from "react"; */
-import { StoryFn, Meta } from '@storybook/react-vite';
+import { Meta, StoryFn } from '@storybook/react-vite';
 
 /* Icons */
-import SettingsIcon from '@mui/icons-material/Settings';
-import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
+import { LogoutRounded as LogoutRoundedIcon, Settings as SettingsIcon } from '@mui/icons-material';
 
 import { breakpointsChromaticValues } from '@theme';
 
-import { HeaderAccount, RootLinkType, JwtUser } from './HeaderAccount';
+import { HeaderAccount, JwtUser, RootLinkType } from './HeaderAccount';
 
 export default {
   title: 'Components/HeaderAccount (WIP)',

@@ -1,12 +1,14 @@
 'use client';
 
-import { SyntheticEvent, useState } from 'react';
-import { Menu, MenuItem, Typography, Box } from '@mui/material';
 import { ButtonNaked } from '@components/ButtonNaked';
+import { Box, Menu, MenuItem, Typography } from '@mui/material';
+import { SyntheticEvent, useState } from 'react';
 
 /* Icons */
-import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
-import KeyboardArrowUpRoundedIcon from '@mui/icons-material/KeyboardArrowUpRounded';
+import {
+  KeyboardArrowDownRounded as KeyboardArrowDownRoundedIcon,
+  KeyboardArrowUpRounded as KeyboardArrowUpRoundedIcon,
+} from '@mui/icons-material';
 
 export type LangCode = 'it' | 'en' | 'de' | 'fr' | 'sl';
 
@@ -62,60 +64,60 @@ export function LangSwitch({
   };
 
   return (
-      <Box>
-        <ButtonNaked
-          id="lang-menu-button"
-          sx={{
-            color: 'text.primary',
-            justifyContent: 'space-between',
-            p: 0,
-            height: 'auto',
-            display: 'flex',
-          }}
-          aria-label={`Seleziona lingua: ${getLabel(currentLangCode)}`}
-          aria-haspopup="true"
-          aria-expanded={open}
-          aria-controls={open ? 'lang-menu' : undefined}
-          onClick={handleClick}
-        >
-          {currentLangCode && (
-            <Box component="span" sx={{ textAlign: 'left' }}>
-              <Typography color="inherit" component="span" variant="subtitle2">
-                {getLabel(currentLangCode)}
-              </Typography>
-            </Box>
-          )}
-
-          {open ? (
-            <KeyboardArrowUpRoundedIcon fontSize="small" />
-          ) : (
-            <KeyboardArrowDownRoundedIcon fontSize="small" />
-          )}
-        </ButtonNaked>
-        {Boolean(Object.keys(languages).length > 0) && (
-          <Menu
-            id="lang-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{ 'aria-labelledby': 'lang-menu-button' }}
-          >
-            {Object.keys(languages).map((langCode) => {
-              const code = langCode as LangCode;
-              const label = getLabel(code);
-              return (
-                <MenuItem
-                  aria-label={label}
-                  key={code}
-                  onClick={wrapUpdateActiveLang(code)}
-                  lang={flat ? code : undefined}
-                >
-                  {label}
-                </MenuItem>
-              );
-            })}
-          </Menu>
+    <Box>
+      <ButtonNaked
+        id="lang-menu-button"
+        sx={{
+          color: 'text.primary',
+          justifyContent: 'space-between',
+          p: 0,
+          height: 'auto',
+          display: 'flex',
+        }}
+        aria-label={`Seleziona lingua: ${getLabel(currentLangCode)}`}
+        aria-haspopup="true"
+        aria-expanded={open}
+        aria-controls={open ? 'lang-menu' : undefined}
+        onClick={handleClick}
+      >
+        {currentLangCode && (
+          <Box component="span" sx={{ textAlign: 'left' }}>
+            <Typography color="inherit" component="span" variant="subtitle2">
+              {getLabel(currentLangCode)}
+            </Typography>
+          </Box>
         )}
-      </Box>
+
+        {open ? (
+          <KeyboardArrowUpRoundedIcon fontSize="small" />
+        ) : (
+          <KeyboardArrowDownRoundedIcon fontSize="small" />
+        )}
+      </ButtonNaked>
+      {Boolean(Object.keys(languages).length > 0) && (
+        <Menu
+          id="lang-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{ 'aria-labelledby': 'lang-menu-button' }}
+        >
+          {Object.keys(languages).map((langCode) => {
+            const code = langCode as LangCode;
+            const label = getLabel(code);
+            return (
+              <MenuItem
+                aria-label={label}
+                key={code}
+                onClick={wrapUpdateActiveLang(code)}
+                lang={flat ? code : undefined}
+              >
+                {label}
+              </MenuItem>
+            );
+          })}
+        </Menu>
+      )}
+    </Box>
   );
 }

@@ -1,9 +1,8 @@
-import React, { FC } from 'react';
-import MuiChip, { ChipProps } from '@mui/material/Chip';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import { styled } from '@mui/material/styles';
-import { colors, none } from 'theme/foundations/colors';
-import { MarginSxProps } from '@types';
+'use client';
+
+import { CloseRounded as CloseRoundedIcon } from '@mui/icons-material';
+import { ChipProps, Chip as MuiChip, styled, SxProps, useTheme } from '@mui/material';
+import { EventHandler, forwardRef, KeyboardEvent } from 'react';
 
 type AllowedMIChipColors =
   | 'default'
@@ -14,12 +13,8 @@ type AllowedMIChipColors =
   | 'neutral'
   | 'info';
 
-type BaseMIChipProps = Omit<
-  ChipProps,
-  'color' | 'deleteIcon' | 'label' | 'onClick' | 'onDelete' | 'size'
-> & {
-  label: string;
-  sx?: MarginSxProps;
+type BaseMIChipProps = Omit<ChipProps, 'color' | 'deleteIcon' | 'onClick' | 'onDelete' | 'size'> & {
+  sx?: SxProps;
 };
 
 // Props for the standard mode
@@ -31,10 +26,11 @@ type StandardMIChipProps = BaseMIChipProps & {
 // Props for the deletable mode, with color fixed to 'neutral'
 type DeletableMIChipProps = BaseMIChipProps & {
   color?: 'neutral';
-  onDelete?: React.EventHandler<any>;
+  variant?: 'filled';
+  onDelete?: EventHandler<any>;
 };
 
-type CustomMIChipProps = StandardMIChipProps | DeletableMIChipProps;
+export type MIChipProps = StandardMIChipProps | DeletableMIChipProps;
 
 const StyledChip = styled(MuiChip, {
   shouldForwardProp: (prop) => prop !== 'customColor',
@@ -50,78 +46,78 @@ const StyledChip = styled(MuiChip, {
     padding: `3px ${theme.spacing(1)}`,
   },
   '& .MuiChip-deleteIcon': {
-    color: colors.blue[500],
+    color: theme.colors.blue[500],
     opacity: 1,
   },
   '&&': {
     //outlined variant
     ...(variant === 'outlined' && {
       ...(customColor === 'default' && {
-        color: colors.blue[600],
-        borderColor: colors.blue[600],
+        color: theme.colors.blue[600],
+        borderColor: theme.colors.blue[600],
       }),
       ...(customColor === 'neutral' && {
-        color: colors.neutral.black,
-        borderColor: colors.neutral.black,
+        color: theme.colors.neutral.black,
+        borderColor: theme.colors.neutral.black,
       }),
       ...(customColor === 'warning' && {
-        color: colors.warning[850],
-        borderColor: colors.warning[850],
+        color: theme.colors.warning[850],
+        borderColor: theme.colors.warning[850],
       }),
       ...(customColor === 'error' && {
-        color: colors.error[600],
-        borderColor: colors.error[600],
+        color: theme.colors.error[600],
+        borderColor: theme.colors.error[600],
         backgroundColor: 'transparent',
       }),
       ...(customColor === 'success' && {
-        color: colors.success[850],
-        borderColor: colors.success[850],
+        color: theme.colors.success[850],
+        borderColor: theme.colors.success[850],
       }),
       ...(customColor === 'highlight' && {
-        color: colors.turquoise[850],
-        borderColor: colors.turquoise[850],
-        backgroundColor: none,
+        color: theme.colors.turquoise[850],
+        borderColor: theme.colors.turquoise[850],
+        backgroundColor: 'transparent',
       }),
       ...(customColor === 'info' && {
-        color: colors.info[850],
-        borderColor: colors.info[850],
+        color: theme.colors.info[850],
+        borderColor: theme.colors.info[850],
       }),
     }),
 
     // filled variant
     ...(variant === 'filled' && {
       ...(customColor === 'default' && {
-        backgroundColor: colors.blue[50],
-        color: colors.blue[850],
+        backgroundColor: theme.colors.blue[50],
+        color: theme.colors.blue[850],
       }),
       ...(customColor === 'error' && {
-        backgroundColor: colors.error[100],
-        color: colors.error[850],
+        backgroundColor: theme.colors.error[100],
+        color: theme.colors.error[850],
       }),
       ...(customColor === 'success' && {
-        backgroundColor: colors.success[100],
-        color: colors.success[850],
+        backgroundColor: theme.colors.success[100],
+        color: theme.colors.success[850],
       }),
       ...(customColor === 'warning' && {
-        backgroundColor: colors.warning[100],
-        color: colors.warning[850],
+        backgroundColor: theme.colors.warning[100],
+        color: theme.colors.warning[850],
       }),
       ...(customColor === 'neutral' && {
-        color: colors.neutral.black,
+        color: theme.colors.neutral.black,
       }),
       ...(customColor === 'highlight' && {
-        backgroundColor: colors.turquoise[50],
-        color: colors.turquoise[850],
+        backgroundColor: theme.colors.turquoise[50],
+        color: theme.colors.turquoise[850],
       }),
       ...(customColor === 'info' && {
-        backgroundColor: colors.info[100],
-        color: colors.info[850],
+        backgroundColor: theme.colors.info[100],
+        color: theme.colors.info[850],
       }),
     }),
   },
 }));
 
-const MIChip: FC<CustomMIChipProps> = (props) => {
+const MIChip = forwardRef<HTMLDivElement, MIChipProps>((props, ref) => {
   const { color: colorProp, sx, label, onDelete, 'aria-label': ariaLabel, ...other } = props;
 
   const isDeletable = Boolean(onDelete);
@@ -129,15 +125,16 @@ const MIChip: FC<CustomMIChipProps> = (props) => {
   const color = colorProp ?? (isDeletable ? 'neutral' : 'default');
 
   const accessibilityProps = isDeletable ? { tabIndex: -1, role: undefined } : {};
+  const theme = useTheme();
 
   const deleteIconProps = {
     tabIndex: 0,
     role: 'button',
-    'aria-label': (ariaLabel ?? `Delete %s`).replace('%s', label),
+    'aria-label': ariaLabel ?? 'Delete',
     style: { cursor: 'pointer' },
     'aria-hidden': false,
     focusable: true,
-    onKeyDown: (e: React.KeyboardEvent<SVGSVGElement>) => {
+    onKeyDown: (e: KeyboardEvent<SVGSVGElement>) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         e.stopPropagation();
@@ -145,7 +142,7 @@ const MIChip: FC<CustomMIChipProps> = (props) => {
       }
     },
     sx: {
-      color: colors.blue[500],
+      color: theme.colors.blue[500],
       backgroundColor: 'transparent',
       borderRadius: 0,
     },
@@ -159,10 +156,11 @@ const MIChip: FC<CustomMIChipProps> = (props) => {
       deleteIcon={<CloseRoundedIcon {...deleteIconProps} />}
       sx={sx}
       aria-label={ariaLabel}
+      ref={ref}
       {...other}
       {...accessibilityProps}
     />
   );
-};
+});
 
 export default MIChip;

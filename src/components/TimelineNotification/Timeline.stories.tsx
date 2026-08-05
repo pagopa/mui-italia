@@ -6,7 +6,7 @@ import { Chip, Box, Typography } from '@mui/material';
 import { breakpointsChromaticValues } from '@theme';
 
 /* Icons */
-import AttachFileRoundedIcon from '@mui/icons-material/AttachFileRounded';
+import { AttachFileRounded as AttachFileRoundedIcon } from '@mui/icons-material';
 
 import { ButtonNaked } from '@components/ButtonNaked';
 import {

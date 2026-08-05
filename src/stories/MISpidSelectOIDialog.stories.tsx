@@ -3,10 +3,7 @@ import { Meta, StoryObj } from '@storybook/react-vite';
 import { breakpointsChromaticValues } from '@theme';
 import { useEffect, useState } from 'react';
 
-import {
-  IDPS_MOCK,
-  MOCK_IDP_UNAVAILABLE,
-} from '../components/MISpidSelectOIDialog/__mocks__/IDPS.mock';
+import { IDPS_MOCK, MOCK_IDP_UNAVAILABLE } from './__mocks__/IDPS.mock';
 import { MISpidSelectOIDialog } from '@components/MISpidSelectOIDialog';
 
 const meta: Meta<typeof MISpidSelectOIDialog> = {

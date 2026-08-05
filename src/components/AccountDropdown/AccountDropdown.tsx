@@ -2,9 +2,11 @@
 
 import { Fragment, ReactNode, SyntheticEvent, useState } from 'react';
 import { Menu, MenuItem, IconButton, ListItemIcon, ListItemText } from '@mui/material';
-import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
-import ArrowDropUpRoundedIcon from '@mui/icons-material/ArrowDropUpRounded';
-import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
+import {
+  AccountCircleRounded as AccountCircleRoundedIcon,
+  ArrowDropUpRounded as ArrowDropUpRoundedIcon,
+  ArrowDropDownRounded as ArrowDropDownRoundedIcon,
+} from '@mui/icons-material';
 
 import { ButtonNaked } from '@components/ButtonNaked';
 

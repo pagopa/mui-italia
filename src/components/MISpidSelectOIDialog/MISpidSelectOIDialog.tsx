@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
+import { ClearOutlined as ClearOutlinedIcon } from '@mui/icons-material';
 import {
   Dialog,
   DialogContent,
@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 
 import { MIAlert } from '@components/MIAlert';
-import { IDP } from 'types/spid';
+import { IDP } from './MISpidSelectOIDialog.types';
 import ErrorState from './ErrorState';
 import SpidList from './SpidList';
 import { getSpidDisplayName } from './utils';
@@ -29,7 +29,7 @@ const defaultTranslationsMap = {
   },
 };
 
-type Props = {
+export type MISpidSelectOIDialogProps = {
   /** Controls the visibility of the dialog. When `true` the dialog is open. */
   show: boolean;
   /** List of SPID Identity Providers to display. */
@@ -73,7 +73,7 @@ type Props = {
  * flight the dialog is locked and cannot be closed. All visible copy can be
  * localized through `translationsMap`.
  */
-export const MISpidSelectOIDialog: React.FC<Props> = ({
+const MISpidSelectOIDialog: React.FC<MISpidSelectOIDialogProps> = ({
   show,
   idps,
   loading,
@@ -143,7 +143,7 @@ export const MISpidSelectOIDialog: React.FC<Props> = ({
             id="spid-select"
             fontWeight="bold"
             fontSize={{ xs: '18px', sm: '24px' }}
-            sx={{ color: '#0E0F13' }}
+            sx={{ color: theme.colors.neutral.black }}
           >
             {t.title}
           </Typography>
@@ -154,18 +154,16 @@ export const MISpidSelectOIDialog: React.FC<Props> = ({
             size="small"
             aria-label={t.closeButtonAriaLabel}
             disabled={!!authorizingEntityId}
-            sx={{ color: '#0E0F13' }}
+            sx={{ color: theme.colors.neutral.black }}
           >
             <ClearOutlinedIcon />
           </IconButton>
         </Stack>
 
         {unavailableIdp && (
-          <MIAlert
-            severity="warning"
-            description={t.unavailableIdpWarning.replace('%s', unavailableIdp)}
-            data-testid="spid-select-unavailable-idp-alert"
-          />
+          <MIAlert severity="warning" data-testid="spid-select-unavailable-idp-alert">
+            {t.unavailableIdpWarning.replace('%s', unavailableIdp)}
+          </MIAlert>
         )}
 
         {hasError ? (
@@ -188,3 +186,5 @@ export const MISpidSelectOIDialog: React.FC<Props> = ({
     </Dialog>
   );
 };
+
+export default MISpidSelectOIDialog;
