@@ -37,6 +37,11 @@ const StyledPaginationItem = styled(MuiPaginationItem)(({ theme }) => ({
     '&:hover': {
       color: theme.colors.blue[500],
     },
+    '&.Mui-focusVisible': {
+      background: 'transparent',
+      outlineOffset: 0,
+      outline: `2px solid ${theme.colors.blue[400]}`,
+    },
     '&.Mui-selected': {
       background: theme.colors.blue[500],
       '&.Mui-disabled': {
@@ -47,11 +52,6 @@ const StyledPaginationItem = styled(MuiPaginationItem)(({ theme }) => ({
         color: theme.colors.neutral.white,
         textDecoration: 'none',
       },
-    },
-    '&.Mui-focusVisible': {
-      background: 'transparent',
-      outlineOffset: 0,
-      outline: `2px solid ${theme.colors.blue[400]}`,
     },
     '& .MuiPaginationItem-icon': {
       color: theme.colors.blue[500],
