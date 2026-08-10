@@ -15,14 +15,11 @@ export default meta;
 type Story = StoryObj<MISwitchStoryArgs>;
 
 export const Playground: Story = {
-  args: {
-    color: 'primary',
-  },
+  args: {},
 };
 
 export const PrimaryChecked: Story = {
   args: {
-    color: 'primary',
     checked: true,
   },
 };
@@ -37,8 +34,8 @@ export const PrimaryDisabled: Story = {
   },
   render: () => (
     <Stack direction="row" alignContent="center" gap={4}>
-      <MISwitch color="primary" checked disabled />
-      <MISwitch color="primary" disabled />
+      <MISwitch checked disabled />
+      <MISwitch disabled />
     </Stack>
   ),
 };
@@ -54,7 +51,7 @@ export const WithLabel: Story = {
   render: () => (
     <FormGroup>
       <FormControlLabel
-        control={<MISwitch color="primary" />}
+        control={<MISwitch />}
         label={
           <Stack
             sx={{
@@ -81,7 +78,7 @@ export const WithError: Story = {
   render: () => (
     <FormGroup>
       <FormControlLabel
-        control={<MISwitch color="primary" />}
+        control={<MISwitch />}
         label={
           <Stack
             sx={{
