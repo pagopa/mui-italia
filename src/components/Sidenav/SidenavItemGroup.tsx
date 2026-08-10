@@ -48,7 +48,7 @@ export const SidenavItemGroup: React.FC<SidenavItemGroupProps> = ({
           <ListItemButton
             data-testid="Sidenav-item-group-button"
             onClick={handleExpandParent}
-            sx={{ pl: 3 }}
+            sx={{ pl: 3, '&:hover': { backgroundColor: colors.neutral.grey[50] } }}
           >
             {renderOnCollapsed}
           </ListItemButton>
@@ -65,6 +65,9 @@ export const SidenavItemGroup: React.FC<SidenavItemGroupProps> = ({
           onClick={handleExpandParent}
           sx={{
             paddingRight: 2,
+            '&:hover': {
+              backgroundColor: colors.neutral.grey[50],
+            },
           }}
         >
           <Stack direction="row" sx={{ flexGrow: 1, marginLeft: 1 }}>

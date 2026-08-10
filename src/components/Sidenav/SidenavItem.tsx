@@ -68,6 +68,9 @@ export function SidenavItem<C extends ElementType = 'a'>({
               '.MuiCollapse-root &': {
                 pl: 2,
               },
+              '&:hover': {
+                backgroundColor: colors.neutral.grey[50],
+              },
               ...(isSelected && styles.itemButtonActive),
             }}
             selected={isSelected}
