@@ -355,6 +355,7 @@ export const Interoperabilita: StoryObj<SidenavStoryArgs> = {
             <SidenavItem
               component="button"
               label="Erogazione item 1"
+              StartIcon={ImageOutlinedIcon}
               isSelected={selected === 'erogazione-1'}
               onClick={() => setSelected('erogazione-1')}
             />
@@ -398,7 +399,10 @@ export const Interoperabilita: StoryObj<SidenavStoryArgs> = {
             onClick={() => setSelected('tool')}
           />
           <SidenavItem
-            component="button"
+            component="a"
+            href="https://www.pagopa.it"
+            target="_blank"
+            rel="noopener noreferrer"
             label="Utenti"
             StartIcon={GroupRoundedIcon}
             EndIcon={OpenInNewRoundedIcon}
@@ -406,7 +410,10 @@ export const Interoperabilita: StoryObj<SidenavStoryArgs> = {
             onClick={() => setSelected('utenti')}
           />
           <SidenavItem
-            component="button"
+            component="a"
+            href="https://www.pagopa.it"
+            target="_blank"
+            rel="noopener noreferrer"
             label="Gruppi"
             StartIcon={GroupRoundedIcon}
             EndIcon={OpenInNewRoundedIcon}
@@ -621,6 +628,77 @@ export const AreaRiservataUtenti: StoryObj<SidenavStoryArgs> = {
             isSelected={selected === 'esci'}
             onClick={() => setSelected('esci')}
           />
+        </Sidenav>
+      </Box>
+    );
+  },
+};
+
+export const GroupAndChildrenWithIcons: StoryObj<SidenavStoryArgs> = {
+  render: () => {
+    const [open, setOpen] = useState(true);
+    const [selected, setSelected] = useState<
+      'catalogo' | 'fruizione-richieste' | 'fruizione-finalita' | 'ente-anagrafica' | 'ente-utenti'
+    >('fruizione-richieste');
+    const [isFruizioneExpanded, setIsFruizioneExpanded] = useState(true);
+    const [isIlMioEnteExpanded, setIsIlMioEnteExpanded] = useState(false);
+
+    return (
+      <Box sx={{ minHeight: 640, bgcolor: 'background.paper' }}>
+        <Sidenav open={open} mobile={false} labelMobile="Interoperabilità" onSidenavOpen={setOpen}>
+          <SidenavItem
+            component="button"
+            label="Catalogo e-service"
+            StartIcon={ImageOutlinedIcon}
+            isSelected={selected === 'catalogo'}
+            onClick={() => setSelected('catalogo')}
+          />
+          <SidenavItemGroup
+            label="Fruizione"
+            icon={ImageOutlinedIcon}
+            isExpanded={isFruizioneExpanded}
+            isSelected={selected === 'fruizione-richieste' || selected === 'fruizione-finalita'}
+            handleExpandParent={() => setIsFruizioneExpanded((value) => !value)}
+            renderOnCollapsed={<SidenavIcon Icon={ImageOutlinedIcon} />}
+          >
+            <SidenavItem
+              component="button"
+              label="Richieste inoltrate"
+              StartIcon={ArticleOutlinedIcon}
+              isSelected={selected === 'fruizione-richieste'}
+              onClick={() => setSelected('fruizione-richieste')}
+            />
+            <SidenavItem
+              component="button"
+              label="Finalità inoltrate"
+              StartIcon={ArticleOutlinedIcon}
+              isSelected={selected === 'fruizione-finalita'}
+              onClick={() => setSelected('fruizione-finalita')}
+            />
+          </SidenavItemGroup>
+          <SidenavItemGroup
+            label="Il mio ente"
+            icon={AccountBalanceOutlinedIcon}
+            isExpanded={isIlMioEnteExpanded}
+            isSelected={selected === 'ente-anagrafica' || selected === 'ente-utenti'}
+            handleExpandParent={() => setIsIlMioEnteExpanded((value) => !value)}
+            renderOnCollapsed={<SidenavIcon Icon={AccountBalanceOutlinedIcon} />}
+          >
+            <SidenavItem
+              component="button"
+              label="Anagrafica"
+              StartIcon={PinDropOutlinedIcon}
+              isSelected={selected === 'ente-anagrafica'}
+              onClick={() => setSelected('ente-anagrafica')}
+            />
+            <SidenavItem
+              component="button"
+              label="Utenti"
+              StartIcon={GroupRoundedIcon}
+              isSelected={selected === 'ente-utenti'}
+              onClick={() => setSelected('ente-utenti')}
+            />
+          </SidenavItemGroup>
         </Sidenav>
       </Box>
     );

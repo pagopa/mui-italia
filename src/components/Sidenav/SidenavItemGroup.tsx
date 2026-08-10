@@ -80,14 +80,14 @@ export const SidenavItemGroup: React.FC<SidenavItemGroupProps> = ({
                 </Typography>
               }
             />
-            {isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            {isExpanded ? <ExpandLessIcon sx={{color :  colors.blue[500]}}/> : <ExpandMoreIcon sx={{color :  colors.blue[500]}} />}
           </Stack>
         </ListItemButton>
       </ListItem>
       {divider && <Divider data-testid="Sidenav-item-group-divider" sx={{ mb: 2 }} />}
       <Collapse in={isExpanded} timeout="auto" unmountOnExit>
-        <List disablePadding>{children}</List>
+        <List disablePadding>{children} </List>
       </Collapse>
     </>
-  );
+  );  
 };

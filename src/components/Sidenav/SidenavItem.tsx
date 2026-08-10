@@ -54,6 +54,11 @@ export function SidenavItem<C extends ElementType = 'a'>({
   const { open } = useSidenavContext();
   const styles = sidenavStyles(theme, open);
 
+  // when nested under a SidenavItemGroup, the icon itself provides most of the indent,
+  // so the button needs less left padding and the text needs less extra margin to stay aligned
+  const nestedButtonPl = StartIcon ? 5 : 3;
+  const nestedTextMarginLeft = StartIcon ? 2 : 5;
+
   return (
     <>
       <ListItem data-testid={label} sx={{ p: 0 }}>
@@ -66,7 +71,7 @@ export function SidenavItem<C extends ElementType = 'a'>({
               flexWrap: 'wrap',
               pl: 3,
               '.MuiCollapse-root &': {
-                pl: 2,
+                pl: nestedButtonPl,
               },
               '&:hover': {
                 backgroundColor: colors.neutral.grey[50],
@@ -84,7 +89,7 @@ export function SidenavItem<C extends ElementType = 'a'>({
                 disableTypography
                 sx={{
                   '.MuiCollapse-root &': {
-                    marginLeft: 6,
+                    marginLeft: nestedTextMarginLeft,
                   },
                 }}
                 primary={
