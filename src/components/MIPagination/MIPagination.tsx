@@ -1,28 +1,52 @@
 import MuiPaginationItem from '@mui/material/PaginationItem';
 import MuiPagination, { PaginationProps } from '@mui/material/Pagination';
 import { styled } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/system';
 
-interface MIPaginationProps extends PaginationProps {}
+type MIPaginationProps = Omit<
+  PaginationProps,
+  | 'color'
+  | 'shape'
+  | 'size'
+  | 'sx'
+  | 'variant'
+  | 'classes'
+  | 'renderItem'
+  | 'siblingCount'
+  | 'boundaryCount'
+  | 'hideNextButton'
+  | 'hidePrevButton'
+  | 'showFirstButton'
+  | 'showLastButton'
+>;
 
 const StyledPaginationItem = styled(MuiPaginationItem)(({ theme }) => ({
   background: 'transparent',
   color: theme.colors.neutral.black,
-  padding: '12px',
-  height: '46px',
-  minWidth: '40px',
+  padding: theme.spacing(1.5),
+  height: theme.spacing(5.75),
+  minWidth: theme.spacing(5),
   fontWeight: 500,
   fontSize: '16px',
   lineHeight: '22px',
-  '&.MuiPaginationItem-rounded': {
-    borderRadius: '8px',
-  },
+  borderRadius: theme.shape.radius[8],
   '&:hover': {
     background: 'transparent',
     textDecoration: 'underline',
+    color: theme.colors.blue[500],
   },
   '&.Mui-selected': {
+    background: theme.colors.blue[500],
+    color: theme.colors.neutral.white,
     '&:hover': {
       textDecoration: 'none',
+      color: theme.colors.neutral.white,
+      background: theme.colors.blue[500],
+    },
+    '&.Mui-disabled': {
+      color: theme.colors.neutral.white,
+      background: '#E8EBF1',
     },
   },
   '&.MuiPaginationItem-previousNext': {
@@ -33,36 +57,37 @@ const StyledPaginationItem = styled(MuiPaginationItem)(({ theme }) => ({
       display: 'none',
     },
   },
-  '&.MuiPaginationItem-colorPrimary': {
-    '&:hover': {
-      color: theme.colors.blue[500],
-    },
-    '&.Mui-focusVisible': {
-      background: 'transparent',
-      outlineOffset: 0,
-      outline: `2px solid ${theme.colors.blue[400]}`,
-    },
-    '&.Mui-selected': {
-      background: theme.colors.blue[500],
-      '&.Mui-disabled': {
-        color: theme.colors.neutral.white,
-        background: '#E8EBF1',
-      },
-      '&:hover': {
-        color: theme.colors.neutral.white,
-        textDecoration: 'none',
-      },
-    },
-    '& .MuiPaginationItem-icon': {
-      color: theme.colors.blue[500],
-    },
+  '&.Mui-focusVisible': {
+    background: 'transparent',
+    outlineOffset: 0,
+    outline: `2px solid ${theme.colors.blue[400]}`,
+  },
+  '& .MuiPaginationItem-icon': {
+    color: theme.colors.blue[500],
   },
 }));
 
 const StyledPagination = styled(MuiPagination)({});
 
 export const MIPagination: React.FC<MIPaginationProps> = (props) => {
-  return <StyledPagination renderItem={(item) => <StyledPaginationItem {...item} />} {...props} />;
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  return (
+    <StyledPagination
+      siblingCount={0}
+      renderItem={(item) => {
+        if (isMobile) {
+          const isNavButton = item.type === 'previous' || item.type === 'next';
+          if (!isNavButton && !item.selected) {
+            return null;
+          }
+        }
+        return <StyledPaginationItem {...item} />;
+      }}
+      {...props}
+    />
+  );
 };
 
 export default MIPagination;

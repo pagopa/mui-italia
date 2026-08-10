@@ -15,7 +15,7 @@ type Story = StoryObj<MIPaginationStoryArgs>;
 
 export const Playground: Story = {
   render: () => (
-    <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'} gap={40}>
+    <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'} width="100%">
       <Select value={10}>
         {[10, 24, 36].map((option) => (
           <MenuItem key={option} value={option}>
@@ -23,7 +23,7 @@ export const Playground: Story = {
           </MenuItem>
         ))}
       </Select>
-      <MIPagination count={110} color="primary" shape="rounded" />
+      <MIPagination count={110} />
     </Stack>
   ),
 };
@@ -32,8 +32,6 @@ export const FirstPage: Story = {
   args: {
     count: 110,
     page: 1,
-    color: 'primary',
-    shape: 'rounded',
   },
 };
 
@@ -41,7 +39,5 @@ export const LastPage: Story = {
   args: {
     count: 110,
     page: 110,
-    color: 'primary',
-    shape: 'rounded',
   },
 };
