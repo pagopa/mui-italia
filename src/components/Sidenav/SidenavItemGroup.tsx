@@ -8,6 +8,8 @@ import {
   List,
   Stack,
   Divider,
+  Tooltip,
+  useTheme,
 } from '@mui/material';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -15,7 +17,7 @@ import { type SvgIconComponent } from '@mui/icons-material';
 import { useSidenavContext } from './Sidenav';
 import { SidenavIcon } from './SidenavIcon';
 import { colors } from 'theme/foundations/colors';
-import { pxToRem } from 'theme/utility';
+import { sidenavStyles } from './style/sidenav.styles';
 
 type SidenavItemGroupProps = {
   notification?: number;
@@ -41,8 +43,31 @@ export const SidenavItemGroup: React.FC<SidenavItemGroupProps> = ({
   renderOnCollapsed,
 }) => {
   const { open } = useSidenavContext();
+  const theme = useTheme();
+  const styles = sidenavStyles(theme, open);
 
-  return open ? (
+  if (!open) {
+    return (
+      <ListItem data-testid={label} sx={{ p: 0 }}>
+        <Tooltip title={label} placement="right">
+          <ListItemButton
+            data-testid="Sidenav-item-group-button"
+            aria-selected={isSelected}
+            onClick={handleExpandParent}
+            selected={isSelected}
+            sx={{
+              pl: 3,
+              ...(isSelected && styles.itemButtonActive),
+            }}
+          >
+            {renderOnCollapsed}
+          </ListItemButton>
+        </Tooltip>
+      </ListItem>
+    );
+  }
+
+  return (
     <>
       <ListItem disablePadding>
         <ListItemButton
@@ -67,33 +92,25 @@ export const SidenavItemGroup: React.FC<SidenavItemGroupProps> = ({
         >
           <Stack direction="row" sx={{ flexGrow: 1, marginLeft: 1 }}>
             <SidenavIcon Icon={StartIcon} notification={notification} />
-            {open && (
-              <>
-                <ListItemText
-                  disableTypography
-                  primary={
-                    <Typography
-                      color={isSelected ? colors.blue[500] : colors.neutral.black}
-                      fontWeight={600}
-                    >
-                      {label}
-                    </Typography>
-                  }
-                />
-                {isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-              </>
-            )}
+            <ListItemText
+              disableTypography
+              primary={
+                <Typography
+                  color={isSelected ? colors.blue[500] : colors.neutral.black}
+                  fontWeight={600}
+                >
+                  {label}
+                </Typography>
+              }
+            />
+            {isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </Stack>
         </ListItemButton>
       </ListItem>
       {divider && <Divider data-testid="Sidenav-item-group-divider" sx={{ mb: 2 }} />}
-      {open && (
-        <Collapse in={isExpanded} timeout="auto" unmountOnExit>
-          <List disablePadding>{children}</List>
-        </Collapse>
-      )}
+      <Collapse in={isExpanded} timeout="auto" unmountOnExit>
+        <List disablePadding>{children}</List>
+      </Collapse>
     </>
-  ) : (
-    renderOnCollapsed
   );
 };
