@@ -46,18 +46,22 @@ export const SidenavItemGroup: React.FC<SidenavItemGroupProps> = ({
   const theme = useTheme();
   const styles = sidenavStyles(theme, open);
 
+  // when the group is expanded its children already show their own selected state,
+  // so the group header itself should only be highlighted while collapsed
+  const isGroupHighlighted = isSelected && !isExpanded;
+
   if (!open) {
     return (
       <ListItem data-testid={label} sx={{ p: 0 }}>
         <Tooltip title={label} placement="right">
           <ListItemButton
             data-testid="Sidenav-item-group-button"
-            aria-selected={isSelected}
+            aria-selected={isGroupHighlighted}
             onClick={handleExpandParent}
-            selected={isSelected}
+            selected={isGroupHighlighted}
             sx={{
               pl: 3,
-              ...(isSelected && styles.itemButtonActive),
+              ...(isGroupHighlighted && styles.itemButtonActive),
             }}
           >
             {renderOnCollapsed}
@@ -72,7 +76,7 @@ export const SidenavItemGroup: React.FC<SidenavItemGroupProps> = ({
       <ListItem disablePadding>
         <ListItemButton
           data-testid="Sidenav-item-group-button"
-          selected={isSelected}
+          selected={isGroupHighlighted}
           onClick={handleExpandParent}
           sx={{
             paddingRight: 2,
@@ -96,7 +100,7 @@ export const SidenavItemGroup: React.FC<SidenavItemGroupProps> = ({
               disableTypography
               primary={
                 <Typography
-                  color={isSelected ? colors.blue[500] : colors.neutral.black}
+                  color={isGroupHighlighted ? colors.blue[500] : colors.neutral.black}
                   fontWeight={600}
                 >
                   {label}
