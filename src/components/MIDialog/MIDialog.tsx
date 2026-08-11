@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-interface MIDialogProps extends DialogProps {}
+type MIDialogProps = Omit<DialogProps, 'sx' | 'classes' | 'className'>;
 
 const StyledDialog = styled(MuiDialog)(() => ({
   '& .MuiDialog-paper': {
@@ -48,7 +48,11 @@ interface MIDialogActionsProps extends DialogActionsProps {}
 
 const StyledDialogActions = styled(MuiDialogActions)(() => ({
   padding: '16px 24px',
-  gap: '10px',
+  gap: '20px',
+  flexDirection: 'column',
+  ['@media only screen and (min-width: 599px)']: {
+    flexDirection: 'row',
+  },
 }));
 
 export const MIDialogActions: React.FC<MIDialogActionsProps> = (props) => {
