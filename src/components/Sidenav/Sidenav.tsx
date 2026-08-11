@@ -59,8 +59,8 @@ export function Sidenav({
             <List disablePadding sx={{ marginTop: 1 }}>
               {children}
             </List>
-            <HamburgerBox open={open} handleSidenavOpen={() => onSidenavOpen(!open)} />
           </Stack>
+          <HamburgerBox open={open} handleSidenavOpen={() => onSidenavOpen(!open)} />
         </Box>
       ) : (
         <SidenavMobile labelMobile={labelMobile}>

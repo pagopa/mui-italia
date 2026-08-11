@@ -68,7 +68,6 @@ export function SidenavItem<C extends ElementType = 'a'>({
             component={component ?? 'a'}
             to={props.to}
             sx={{
-              flexWrap: 'wrap',
               pl: 3,
               '.MuiCollapse-root &': {
                 pl: nestedButtonPl,
@@ -97,6 +96,7 @@ export function SidenavItem<C extends ElementType = 'a'>({
                     color={isSelected ? colors.blue[500] : colors.neutral.black}
                     {...typographyProps}
                     sx={{
+                      width: 1,
                       fontWeight: 600,
                       ...typographyProps?.sx,
                     }}

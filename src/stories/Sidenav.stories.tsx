@@ -354,9 +354,10 @@ export const Interoperabilita: StoryObj<SidenavStoryArgs> = {
           >
             <SidenavItem
               component="button"
-              label="Erogazione item 1"
+              label="I Miei template e-service"
               StartIcon={ImageOutlinedIcon}
               isSelected={selected === 'erogazione-1'}
+              notification={10}
               onClick={() => setSelected('erogazione-1')}
             />
           </SidenavItemGroup>
@@ -682,7 +683,7 @@ export const GroupAndChildrenWithIcons: StoryObj<SidenavStoryArgs> = {
             isExpanded={isIlMioEnteExpanded}
             isSelected={selected === 'ente-anagrafica' || selected === 'ente-utenti'}
             handleExpandParent={() => setIsIlMioEnteExpanded((value) => !value)}
-            renderOnCollapsed={<SidenavIcon Icon={AccountBalanceOutlinedIcon} />}
+            renderOnCollapsed={<SidenavItem component="button" onClick={() => setIsIlMioEnteExpanded((value) => !value) } label="Il mio ente" StartIcon={AccountBalanceOutlinedIcon} />}
           >
             <SidenavItem
               component="button"

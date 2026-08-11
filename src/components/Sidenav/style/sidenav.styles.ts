@@ -1,4 +1,4 @@
-import { alpha, type SxProps, type Theme } from '@mui/material';
+import {  type SxProps, type Theme } from '@mui/material';
 import { colors } from 'theme/foundations/colors';
 
 export const sidenavStyles = (theme: Theme, open: boolean): Record<string, SxProps> => ({
@@ -35,8 +35,9 @@ export const sidenavStyles = (theme: Theme, open: boolean): Record<string, SxPro
     },
   },
   hamburgerBox: {
-    marginTop: 'auto',
-   
+    position: 'absolute',
+    bottom:1,
+    marginTop: '0',
   },
   hamburgerIcon: {
     pt: 3,

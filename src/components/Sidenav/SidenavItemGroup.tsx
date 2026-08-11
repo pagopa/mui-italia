@@ -8,7 +8,6 @@ import {
   List,
   Stack,
   Divider,
-  Tooltip,
 } from '@mui/material';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -42,19 +41,7 @@ export const SidenavItemGroup: React.FC<SidenavItemGroupProps> = ({
   const { open } = useSidenavContext();
 
   if (!open) {
-    return (
-      <ListItem data-testid={label} sx={{ p: 0 }}>
-        <Tooltip title={label} placement="right">
-          <ListItemButton
-            data-testid="Sidenav-item-group-button"
-            onClick={handleExpandParent}
-            sx={{ pl: 3, '&:hover': { backgroundColor: colors.neutral.grey[50] } }}
-          >
-            {renderOnCollapsed}
-          </ListItemButton>
-        </Tooltip>
-      </ListItem>
-    );
+        return renderOnCollapsed;
   }
 
   return (
