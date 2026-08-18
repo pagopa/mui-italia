@@ -246,6 +246,7 @@ export const themeNext: Theme = createTheme(foundationNext, {
             height: 'auto',
             minWidth: 'auto',
             '&:hover': {
+              color: alpha(foundationNext.palette.text.primary, 0.8),
               backgroundColor: 'transparent',
             },
             '&.Mui-focusVisible': {
