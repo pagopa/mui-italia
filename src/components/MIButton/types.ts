@@ -1,3 +1,4 @@
+import React from 'react';
 import { ButtonProps } from '@mui/material/Button';
 
 type PickedButtonProps = Pick<ButtonProps, 'fullWidth' | 'endIcon' | 'startIcon' | 'size' | 'sx'>;
@@ -16,7 +17,9 @@ export type MIButtonColor = 'primary' | 'error' | 'contrasted';
  */
 export type MIButtonVariant = 'contained' | 'outlined' | 'text';
 
-interface MIButtonBaseProps extends PickedButtonProps, React.HTMLAttributes<HTMLButtonElement> {
+interface MIButtonBaseProps
+  extends PickedButtonProps,
+    React.ButtonHTMLAttributes<HTMLButtonElement> {
   color?: MIButtonColor;
   isLoading?: boolean;
   loaderType?: MIButtonLoaderType;
