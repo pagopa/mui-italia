@@ -23,16 +23,12 @@ import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import ReportIcon from '@mui/icons-material/Report';
 
 /* Utils */
-import {
-  generateRandomID,
-  getContainerStyle,
-  getStatus,
-  truncateFileName,
-  verifyAccept,
-} from './utils';
+import { getContainerStyle, getStatus } from './utils';
 import { theme } from '@theme';
 import { MIButton } from '@components/MIButton';
 import foundationNext from 'theme/foundations-next/foundationNext';
+import { UploadStatus } from 'types/singleFileInput';
+import { generateRandomID, verifyAccept, truncateFileName } from 'utils/singleFileInput';
 
 export type MISingleFileInputProps = {
   /** The file to be displayed. */
@@ -110,15 +106,6 @@ const formatLastModified = (timestamp: number) =>
   })
     .format(new Date(timestamp))
     .replace(', ', ',');
-
-export enum UploadStatus {
-  IDLE = 'IDLE',
-  DRAG_OVER = 'DRAG_OVER',
-  LOADING = 'LOADING',
-  REJECTED = 'REJECTED',
-  ERROR = 'ERROR',
-  SELECTED = 'SELECTED',
-}
 
 export const MISingleFileInput = ({
   value,
