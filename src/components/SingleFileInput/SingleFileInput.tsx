@@ -1,5 +1,7 @@
 'use client';
+'use client';
 
+import { useRef, ChangeEvent, DragEvent, ReactNode, useState } from 'react';
 import {
   Box,
   Button,
@@ -10,25 +12,17 @@ import {
   LinearProgress,
   Typography,
 } from '@mui/material';
-import { ChangeEvent, DragEvent, ReactNode, useRef, useState } from 'react';
 
 /* Icons */
-import {
-  AttachFile as AttachFileIcon,
-  Close as CloseIcon,
-  CloudUpload as CloudUploadIcon,
-  Error as ErrorIcon,
-} from '@mui/icons-material';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
+import CloseIcon from '@mui/icons-material/Close';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import ErrorIcon from '@mui/icons-material/Error';
 
 /* Utils */
-import {
-  generateRandomID,
-  getColorStyle,
-  getContainerStyle,
-  getStatus,
-  truncateFileName,
-  verifyAccept,
-} from './utils';
+import { getContainerStyle, getColorStyle, getStatus } from './utils';
+import { UploadStatus } from 'types/singleFileInput';
+import { generateRandomID, verifyAccept, truncateFileName } from 'utils/singleFileInput';
 
 export type SingleFileInputProps = {
   /** The file to be displayed. */
@@ -81,6 +75,7 @@ const OrientedBox = ({ vertical, children }: { vertical?: boolean; children: Rea
     justifyContent="center"
     alignItems="center"
     flexDirection={vertical ? 'column' : 'row'}
+    flexDirection={vertical ? 'column' : 'row'}
     margin="auto"
     flex={1}
     p={3}
@@ -88,14 +83,6 @@ const OrientedBox = ({ vertical, children }: { vertical?: boolean; children: Rea
     {children}
   </Box>
 );
-
-export enum UploadStatus {
-  IDLE = 'IDLE',
-  LOADING = 'LOADING',
-  REJECTED = 'REJECTED',
-  ERROR = 'ERROR',
-  SELECTED = 'SELECTED',
-}
 
 export const SingleFileInput = ({
   value,
