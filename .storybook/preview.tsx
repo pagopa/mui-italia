@@ -18,6 +18,10 @@ const backgrounds = {
     name: 'default',
     value: theme.colors.blue[100],
   },
+  white: {
+    name: 'white',
+    value: theme.colors.neutral.white,
+  },
 } as const;
 
 type BackgroundKey = keyof typeof backgrounds;
