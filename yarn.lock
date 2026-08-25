@@ -2476,7 +2476,7 @@ __metadata:
     tsc-alias: ^1.8.16
     typescript: ^5.9.3
     vite: ^7.3.5
-    vite-tsconfig-paths: ^6.0.3
+    vite-tsconfig-paths: ^6.1.1
     vitest: ^3.2.0
   peerDependencies:
     "@emotion/react": ^11.14.0
@@ -8458,7 +8458,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-tsconfig-paths@npm:^6.0.3":
+"vite-tsconfig-paths@npm:^6.1.1":
   version: 6.1.1
   resolution: "vite-tsconfig-paths@npm:6.1.1"
   dependencies:

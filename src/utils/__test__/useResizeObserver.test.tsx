@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { act, render, screen } from '@testing-library/react';
+import { act, render, screen } from '../../test-utils';
 
 import { ResizeObserverSize, useResizeObserver } from '../useResizeObserver';
 
