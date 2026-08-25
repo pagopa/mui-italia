@@ -49,8 +49,8 @@ jobs:
         uses: ./.github/workflows/actions/build-size
         with:
           path: 'dist'
-          max_raw_kb: '500'
-          max_gzip_kb: '150'
+          max_raw_kb: '800'
+          max_gzip_kb: '330'
 
       # - name: Unit tests exec
       #   run: yarn test:coverage

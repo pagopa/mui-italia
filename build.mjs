@@ -59,7 +59,6 @@ async function babelBuild(sourceDir, buildDir) {
         encoding: 'utf8',
       }
     );
-    console.log(result);
   } catch (error) {
     console.error(error);
     throw new Error(error);
@@ -69,23 +68,21 @@ async function babelBuild(sourceDir, buildDir) {
 async function createTypes() {
   try {
     const tscCommand = process.platform === 'win32' ? 'tsc.cmd' : 'tsc';
-    const tscResult = execFileSync(tscCommand, ['--project', 'tsconfig.prod.json'], {
+    execFileSync(tscCommand, ['--project', 'tsconfig.prod.json'], {
       env: {
         ...process.env,
         NODE_ENV: 'production',
       },
       encoding: 'utf8',
     });
-    console.log(tscResult);
     const tscAliasCommand = process.platform === 'win32' ? 'tsc-alias.cmd' : 'tsc-alias';
-    const tscAliasResult = execFileSync(tscAliasCommand, ['-p', 'tsconfig.prod.json'], {
+    execFileSync(tscAliasCommand, ['-p', 'tsconfig.prod.json'], {
       env: {
         ...process.env,
         NODE_ENV: 'production',
       },
       encoding: 'utf8',
     });
-    console.log(tscAliasResult);
   } catch (error) {
     console.error(error);
     throw new Error(error);
@@ -177,6 +174,15 @@ function getAllFiles(dirPath, arrayOfFiles = []) {
   return arrayOfFiles;
 }
 
+function formatBytes(bytes, decimals = 2) {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024;
+  const dm = decimals < 0 ? 0 : decimals;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
+
 async function build() {
   const cwd = process.cwd();
   // get the build directory and remove it if it exists
@@ -193,6 +199,22 @@ async function build() {
   copyDeclarationFiles(sourceDir, buildDir);
   // create package.json for the builded library
   writePackageJson(buildDir);
+  // log files with extensions
+  // 1. get all files in build directory
+  const allFiles = getAllFiles(buildDir);
+  // 2. calc files sizes
+  const fileSizes = allFiles.map((file) => {
+    const stats = statSync(file);
+    return { path: file, size: stats.size };
+  });
+  // 3. order from the lighter to the heavier
+  fileSizes.sort((a, b) => a.size - b.size);
+  // 4. calc total size
+  const totalSize = fileSizes.reduce((acc, file) => acc + file.size, 0);
+  // 5. log results
+  console.log('---------------------------------');
+  console.log(`Total dimension: ${formatBytes(totalSize)}`);
+  console.log('---------------------------------');
 }
 
 build();

@@ -1,15 +1,16 @@
 # 📦 Bundle Size Check Action
 
-A custom GitHub Action to monitor your project's compiled bundle size, enforce size limits, and post a detailed Markdown report directly to your Pull Requests. 
+A custom GitHub Action to monitor your project's compiled bundle size and enforce size limits.
 
-It calculates both **Raw** and **Gzip** sizes.
+It calculates both **Raw** and **Gzip** sizes, prints the report in the job logs and in the
+GitHub Actions Job Summary, and fails the check when the limits are exceeded.
 
 ## ✨ Features
 
 - **Size Enforcement:** Fails the CI pipeline if the bundle exceeds your specified `max_raw_kb` or `max_gzip_kb` limits.
 - **Gzip Calculation:** Accurately calculates the real network cost of your files using native Node.js `zlib` compression.
-- **PR Integration:** Posts a clean Markdown comment on the Pull Request.
-- **Zero External Dependencies:** Built with native Node.js modules and standard GitHub Action core toolkits (`@actions/core`, `@actions/github`).
+- **No PR noise:** The report is written to the job logs and to the Job Summary — no comments are created on the Pull Request, so nothing unresolvable is left in the PR history.
+- **Minimal dependencies:** Built with native Node.js modules and `@actions/core` only. No `GITHUB_TOKEN` or write permissions required.
 
 ## 🚀 Usage
 
@@ -23,52 +24,71 @@ on:
     types: [opened, synchronize, reopened, ready_for_review]
 
 permissions:
-  contents: read
-  pull-requests: write # ⚠️ Required for Octokit to post the PR comment
+  contents: read # no write permission needed
 
 jobs:
-  build-and-measure:
-    runs-on: ubuntu-latest
+  js_code_review:
+    runs-on: ubuntu-24.04
     steps:
       - name: Check-out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
-      - name: Setup Node & Build
-        run: |
-          yarn install
-          yarn build
-
-      - name: Check Bundle Size & Post Comment
-        uses: ./.github/actions/build-size
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          path: 'dist'
-          max_raw_kb: '500'
-          max_gzip_kb: '150'
+          node-version-file: '.node-version'
+          cache: 'yarn'
 
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Build
+        run: yarn build
+
+      - name: Check Build Size
+        uses: ./.github/workflows/actions/build-size
+        with:
+          path: 'dist'
+          max_raw_kb: '800'
+          max_gzip_kb: '330'
 ```
 
 ## ⚙️ Inputs
 
 | Input | Description | Required | Default |
 | --- | --- | --- | --- |
-| `github_token` | The `GITHUB_TOKEN` provided by Actions, used to interact with the Octokit API (fetching PR files and posting comments). | **Yes** | - |
-| `path` | The relative path to the directory containing your compiled files. | No | `dist` |
+| `path` | The relative path to the directory containing your compiled files. | **Yes** | `dist` |
 | `max_raw_kb` | The maximum allowed total size of the directory in Kilobytes (Raw/Uncompressed). | **Yes** | - |
 | `max_gzip_kb` | The maximum allowed total size of the directory in Kilobytes (Gzipped). | **Yes** | - |
 
+> ℹ️ The current limits are set with a ~10–15% margin over the actual bundle size.
+> When adding significant new components, update `max_raw_kb` / `max_gzip_kb` in the workflow accordingly.
+
 ## 📊 Report Example
 
-When the action runs, it will output a summary in the GitHub Actions UI and post a comment on the PR looking like this:
+### Job logs
 
-### 📦 Bundle Size Report
+```text
+Bundle Size Report
+Path:  dist
+Raw:   720.51 KB (max 800 KB)
+Gzip:  292.72 KB (max 330 KB)
+Files: 583
+```
 
-#### 📊 Totals
+When the limits are exceeded, the action emits one `::error::` annotation per exceeded metric and
+fails the step with `Bundle size limits exceeded.`
+
+### Job Summary
+
+#### 📦 Bundle Size Report
+
+##### 📊 Totals
 
 | Metric | Current Size | Maximum Limit |
 | --- | --- | --- |
-| **Raw** | 340.50 KB | 500 KB |
-| **Gzip** | 95.20 KB | 150 KB |
+| **Raw** | 720.51 KB | 800 KB |
+| **Gzip** | 292.72 KB | 330 KB |
 
 ✅ **SUCCESS:** The bundle size is within the allowed limits.
 
@@ -76,6 +96,7 @@ When the action runs, it will output a summary in the GitHub Actions UI and post
 
 If you need to update the logic of this Action:
 
-1. Make your changes in `index.js`.
-2. Since this action relies on `@actions/core` and `@actions/github`, make sure dependencies are installed (`npm install` inside the action folder).
-3. Commit the code.
+1. Make your changes in `src/index.js`.
+2. Install the dependencies inside the action folder (`yarn install` / `npm install`).
+3. Rebuild the bundle consumed by `action.yml` (`dist/index.js`).
+4. Commit both the source and the generated `dist/` output.
