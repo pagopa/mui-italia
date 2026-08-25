@@ -92,7 +92,11 @@ export type MISingleFileInputProps = {
   /** Helper text shown below the container. */
   helperText?: string;
 
+  /** Aria label for the remove file button. */
   onFileRemoveAriaLabel?: string;
+
+  /** Label for the cancel button in loading state. */
+  cancelButtonLabel?: string;
 };
 
 const formatFileSize = (size: number) => `${Math.max(0, Math.round(size / 1024))} KB`;
@@ -130,6 +134,7 @@ export const MISingleFileInput = ({
   retryButtonLabel = 'Riprova',
   helperText,
   onFileRemoveAriaLabel = 'Rimuovi file',
+  cancelButtonLabel = 'Annulla',
 }: MISingleFileInputProps): JSX.Element => {
   const muiTheme = useTheme();
   const isMobileViewport = useMediaQuery(muiTheme.breakpoints.down('md'));
@@ -157,6 +162,14 @@ export const MISingleFileInput = ({
     status === UploadStatus.REJECTED ? rejectedLabel ?? dropzoneLabel : dropzoneLabel;
   const showDropzoneActionButton = status !== UploadStatus.DRAG_OVER;
   const dropzoneButtonLabel = status === UploadStatus.REJECTED ? retryButtonLabel : dropzoneButton;
+  const dropzonePrimaryLabelId = `${id}-dropzone-primary-label`;
+  const dropzoneSupportTextId = `${id}-dropzone-support-text`;
+
+  const dropzoneAriaLabel = [dropzoneButtonLabel, dropzonePrimaryLabel, dropzoneSupportText]
+    .filter(Boolean)
+    .join('. ');
+  const loadingAriaLabel = [loadingLabel, cancelButtonLabel].filter(Boolean).join('. ');
+  const removeFileAriaLabel = [onFileRemoveAriaLabel, value?.name].filter(Boolean).join('. ');
 
   const chooseFileHandler = () => {
     setIsFileRejected(false);
@@ -260,8 +273,7 @@ export const MISingleFileInput = ({
             onDrop={handleDrop}
             onDragEnter={handleDragEnter}
             onDragLeave={handleDragLeave}
-            component="button"
-            type="button"
+            component="div"
             onClick={chooseFileHandler}
             data-testid="loadFromPc"
           >
@@ -300,6 +312,7 @@ export const MISingleFileInput = ({
                   }}
                 >
                   <Typography
+                    id={dropzonePrimaryLabelId}
                     display="inline"
                     variant="body2"
                     sx={{
@@ -313,6 +326,7 @@ export const MISingleFileInput = ({
                   </Typography>
                   {dropzoneSupportText && (
                     <Typography
+                      id={dropzoneSupportTextId}
                       display="inline"
                       variant="body2"
                       sx={{
@@ -335,21 +349,15 @@ export const MISingleFileInput = ({
                   variant="contained"
                   color={isDropzoneErrorLike ? 'error' : 'primary'}
                   sx={{ whiteSpace: 'nowrap' }}
+                  aria-label={dropzoneAriaLabel}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    chooseFileHandler();
+                  }}
                 >
                   {dropzoneButtonLabel}
                 </MIButton>
               )}
-
-              <Input
-                inputProps={{ accept: accept?.join(',') }}
-                type="file"
-                id={id}
-                sx={{ display: 'none' }}
-                required={required}
-                inputRef={uploadInputRef}
-                onChange={handleSelectFile}
-                data-testid="fileInput"
-              />
             </Stack>
           </Box>
         )}
@@ -402,6 +410,7 @@ export const MISingleFileInput = ({
               {/* Cancel Button */}
               <MIButton
                 variant="outlined"
+                aria-label={loadingAriaLabel}
                 onClick={handleRemoveFile}
                 sx={{
                   whiteSpace: 'nowrap',
@@ -410,7 +419,7 @@ export const MISingleFileInput = ({
                   textTransform: 'none',
                 }}
               >
-                Annulla
+                {cancelButtonLabel}
               </MIButton>
             </Stack>
           </Box>
@@ -476,16 +485,28 @@ export const MISingleFileInput = ({
               </Stack>
             </Box>
             {onFileRemoved && (
-              <IconButton onClick={handleRemoveFile} sx={{ p: 0, alignSelf: 'flex-start' }}>
-                <CloseIcon
-                  sx={{ color: theme.colors.neutral.black }}
-                  aria-label={onFileRemoveAriaLabel}
-                />
+              <IconButton
+                onClick={handleRemoveFile}
+                aria-label={removeFileAriaLabel}
+                sx={{ p: 0, alignSelf: 'flex-start' }}
+              >
+                <CloseIcon sx={{ color: theme.colors.neutral.black }} />
               </IconButton>
             )}
           </Box>
         )}
       </Box>
+
+      <Input
+        inputProps={{ accept: accept?.join(',') }}
+        type="file"
+        id={id}
+        sx={{ display: 'none' }}
+        required={required}
+        inputRef={uploadInputRef}
+        onChange={handleSelectFile}
+        data-testid="fileInput"
+      />
 
       {helperText && (
         <FormHelperText
