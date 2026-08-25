@@ -1,8 +1,8 @@
 import { Meta, Title, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
-import { Typography } from '@mui/material';
 
 import Overview from './components/Overview';
-import Section from './components/Section';   
+import Section from './components/Section';
+import SubSection from './components/SubSection';
 import * as MIBreadcrumbsStories from '../stories/MIBreadcrumbs.stories.tsx';
 
 <Meta of={MIBreadcrumbsStories} />
@@ -10,58 +10,238 @@ import * as MIBreadcrumbsStories from '../stories/MIBreadcrumbs.stories.tsx';
 <Title />
 
 <Overview
-  githubRelativePath={'MIBreadcrumbs/MIBreadcrumbs.tsx'}
-  figmaNodeId={'1-21'}
-  muiRelativePath={'react-breadcrumbs'}
+  githubRelativePath="MIBreadcrumbs/MIBreadcrumbs.tsx"
+  figmaNodeId="1-21"
+  muiRelativePath="react-breadcrumbs"
 >
-  Il componente <strong>MIBreadcrumbs</strong> è utilizzato per mostrare la gerarchia
-  delle pagine e la posizione attuale dell'utente all'interno del prodotto.
-  È basato sul componente [Breadcrumbs](https://mui.com/material-ui/react-breadcrumbs/) di MUI,
-  opportunamente semplificato e adatto alle esigenze del design system MUI Italia Next.
+  <strong>MIBreadcrumbs</strong> è un componente di navigazione basato su Breadcrumbs di MUI. Mostra
+  una sequenza ordinata di <code>MIBreadcrumbItem</code> per rappresentare la gerarchia delle pagine
+  e identifica la pagina corrente. Gli elementi precedenti possono essere configurati come link
+  oppure come azioni. Il componente può mostrare la gerarchia completa o un singolo pulsante
+  Indietro e adatta automaticamente la presentazione alle risoluzioni mobile.
 </Overview>
 
 <Section
   title="Playground"
-  description="Usa i controlli per modificare i parametri principali del componente e verificare il risultato live."
+  description="Usa i controlli per scegliere la modalità di navigazione, modificare le etichette e confrontare le varianti del componente."
 >
   <Primary />
   <Controls />
 </Section>
 
 <Section
-  title="Varianti"
-  description="MIBreadcrumbs supporta due varianti: extended e compact.
-  Nella variante compact, indipendentemente dal numero di elementi delle breadcrumbs e dalla risoluzione,
-  viene mostrata solo il pulsante 'Indietro'. (Il cui testo è personalizzabile)"
+  title="Navigazione"
+  description="Gli elementi precedenti alla pagina corrente possono essere configurati come link tramite href oppure come azioni tramite onClick."
 >
-  <Story of={MIBreadcrumbsStories.Variants} />
+  <SubSection title="Link">
+    La prop <code>href</code> configura l'elemento come collegamento. Le props pubbliche
+    dell'elemento link espongono anche <code>target</code> e <code>rel</code>.
+
+    <Story of={MIBreadcrumbsStories.LinkNavigation} />
+
+    ```tsx
+    <MIBreadcrumbs aria-label="Percorso di navigazione">
+      <MIBreadcrumbItem label="Dashboard" href="/dashboard" />
+      <MIBreadcrumbItem label="Elenco ricevute" href="/ricevute" />
+      <MIBreadcrumbItem label="Dettaglio ricevuta" current />
+    </MIBreadcrumbs>
+    ```
+
+  </SubSection>
+
+{' '}
+
+  <SubSection title="Azione">
+    La prop <code>onClick</code> permette di delegare la navigazione a una funzione, ad esempio
+    quando l'applicazione usa un sistema di routing client-side. L'elemento viene renderizzato
+    come controllo interattivo di tipo button.
+
+    <Story of={MIBreadcrumbsStories.ActionNavigation} />
+
+    ```tsx
+    <MIBreadcrumbs aria-label="Percorso di navigazione">
+      <MIBreadcrumbItem
+        label="Dashboard"
+        onClick={() => navigate('/dashboard')}
+      />
+      <MIBreadcrumbItem
+        label="Elenco ricevute"
+        onClick={() => navigate('/ricevute')}
+      />
+      <MIBreadcrumbItem label="Dettaglio ricevuta" current />
+    </MIBreadcrumbs>
+    ```
+
+  </SubSection>
+
+{' '}
+
+  <SubSection title="Configurazioni alternative">
+    Le configurazioni <code>href</code>, <code>onClick</code> e <code>current</code> sono
+    alternative tra loro. In base alle props pubbliche, un <code>MIBreadcrumbItem</code> non può
+    rappresentare contemporaneamente un link, un'azione e la pagina corrente.
+  </SubSection>
 </Section>
 
 <Section
-  title="Routing"
-  description="MIBreadcrumbs supporta due modalità di routing: Link e OnClick."
+  title="Varianti"
+  description="MIBreadcrumbs espone le varianti extended e compact, che determinano se mostrare la gerarchia completa oppure il pulsante Indietro."
 >
-  Per sfruttare la navigazione standard basata su URL, è necessario specificare la prop href. 
-  Per sfruttare la navigazione personalizzata, è necessario specificare la prop onClick.
-  Segue un esempio di implementazione che sfrutta la navigazione client side di react-router-dom:
+  <SubSection title="Extended">
+    La variante <code>extended</code> mostra gli elementi ricevuti tramite <code>children</code>.
+    Alle risoluzioni mobile sostituisce automaticamente la gerarchia con il pulsante Indietro.
 
-    <pre>
-    ```js filename="index.js"
-    ...
-    import { MIBreadcrumbs, MIBreadcrumbItem } from 'components/MIBreadcrumbs';
-    import { useNavigate } from 'react-router-dom';
-    ...
-    const navigate = useNavigate();
-    ...
-    return (
-      <MIBreadcrumbs>
-        <MIBreadcrumbItem label="Home" onClick={() => navigate('/')} />
-        <MIBreadcrumbItem label="About" onClick={() => navigate('/about')} />
-        <MIBreadcrumbItem label="Contact" current/>
-      </MIBreadcrumbs>
-    )
-    ...
+    <Story of={MIBreadcrumbsStories.Extended} />
+
+  </SubSection>
+
+{' '}
+
+  <SubSection title="Compact">
+    La variante <code>compact</code> mostra sempre il pulsante Indietro e non renderizza gli
+    elementi ricevuti tramite <code>children</code>.
+
+    <Story of={MIBreadcrumbsStories.Compact} />
+
+  </SubSection>
+
+{' '}
+
+  <SubSection title="Confronto">
+    La story seguente permette di confrontare le due varianti senza modificare manualmente
+    i Controls.
+
+    <Story of={MIBreadcrumbsStories.Variants} />
+
+  </SubSection>
+</Section>
+
+<Section
+  title="Composizione"
+  description="La gerarchia viene costruita tramite una sequenza ordinata di MIBreadcrumbItem."
+>
+  <SubSection title="Ordine degli elementi">
+    L'ordine degli elementi deve rispecchiare la gerarchia di navigazione. Gli elementi
+    precedenti rappresentano destinazioni o azioni disponibili, mentre l'ultimo elemento
+    può identificare la pagina corrente tramite <code>current</code>.
+
+    ```tsx
+    <MIBreadcrumbs aria-label="Percorso di navigazione">
+      <MIBreadcrumbItem label="Dashboard" href="/dashboard" />
+      <MIBreadcrumbItem label="Elenco ricevute" href="/ricevute" />
+      <MIBreadcrumbItem label="Dettaglio ricevuta" current />
+    </MIBreadcrumbs>
     ```
-    </pre>
-    Se entrambe le modalità sono state specificate, prevale onClick.
+
+  </SubSection>
+
+{' '}
+
+  <SubSection title="Navigazione indietro">
+    La prop <code>backButtonAction</code> definisce l'azione eseguita dal pulsante Indietro.
+    Se non viene fornita, il componente usa <code>window.history.back()</code>. La relativa
+    etichetta può essere personalizzata tramite <code>backButtonLabel</code>.
+
+    ```tsx
+    <MIBreadcrumbs
+      variant="compact"
+      backButtonLabel="Elenco ricevute"
+      backButtonAction={() => navigate('/ricevute')}
+      aria-label="Navigazione alla pagina precedente"
+    />
+    ```
+
+  </SubSection>
+</Section>
+
+<Section
+  title="Comportamento responsive"
+  description="La presentazione dipende dalla variante selezionata e dalla larghezza del viewport."
+>
+  <SubSection title="Risoluzioni mobile">
+    Con la variante <code>extended</code>, alle risoluzioni inferiori o uguali al breakpoint
+    <code>sm</code> del tema, la gerarchia viene sostituita dal pulsante Indietro.
+  </SubSection>
+
+{' '}
+
+  <SubSection title="Variante compact">
+    Con <code>variant="compact"</code> il pulsante Indietro viene mostrato a tutte le
+    risoluzioni, indipendentemente dal numero di elementi passati come <code>children</code>.
+  </SubSection>
+</Section>
+
+<Section
+  title="Accessibilità"
+  description="MIBreadcrumbs usa un elemento di navigazione e identifica semanticamente la pagina corrente. L’accessibilità finale dipende da etichette significative e dalla corretta composizione degli elementi."
+>
+  <SubSection title="Props rilevanti">
+    <ul>
+      <li>
+        <strong>aria-label</strong>: descrive la navigazione che contiene le breadcrumb. Il
+        componente usa <code>breadcrumbs</code> come valore predefinito e consente di
+        sovrascriverlo tramite le props del contenitore.
+      </li>
+      <li>
+        <strong>label</strong>: fornisce il testo visibile di ogni elemento e deve descrivere
+        chiaramente la relativa destinazione o pagina.
+      </li>
+      <li>
+        <strong>current</strong>: identifica la pagina attuale. L'elemento corrispondente viene
+        renderizzato con <code>aria-current="page"</code>.
+      </li>
+      <li>
+        <strong>backButtonLabel</strong>: costituisce il testo visibile del pulsante Indietro.
+        Deve descrivere in modo significativo la navigazione eseguita.
+      </li>
+      <li>
+        <strong>target</strong> e <strong>rel</strong>: sono disponibili sugli elementi
+        configurati tramite <code>href</code> e devono essere valorizzati coerentemente con il
+        comportamento del collegamento.
+      </li>
+    </ul>
+  </SubSection>
+
+{' '}
+
+{' '}
+<SubSection title="Pagina corrente">
+  L'elemento con <code>current</code> viene renderizzato come testo non interattivo e riceve
+  automaticamente <code>aria-current="page"</code>. Nella composizione della gerarchia deve
+  rappresentare la pagina attualmente visualizzata.
+</SubSection>
+
+{' '}
+
+{' '}
+<SubSection title="Navigazione da tastiera">
+  Gli elementi configurati tramite <code>href</code> sono collegamenti, mentre quelli configurati
+  tramite <code>onClick</code> vengono renderizzati come pulsanti. Entrambi sono raggiungibili
+  tramite tastiera. L'elemento con <code>current</code> è invece informativo e non interattivo.
+</SubSection>
+
+{' '}
+
+{' '}
+<SubSection title="Pulsante Indietro">
+  Nelle visualizzazioni mobile e nella variante <code>compact</code>, la gerarchia viene sostituita
+  dal pulsante Indietro. Evita una <code>backButtonLabel</code> vuota finché il componente non
+  espone un'etichetta accessibile separata per la configurazione con la sola icona.
+</SubSection>
+
+{' '}
+
+  <SubSection title="Esempio accessibile">
+    ```tsx
+    <MIBreadcrumbs
+      aria-label="Percorso di navigazione"
+      backButtonLabel="Torna all'elenco ricevute"
+      backButtonAction={() => navigate('/ricevute')}
+    >
+      <MIBreadcrumbItem label="Dashboard" href="/dashboard" />
+      <MIBreadcrumbItem label="Elenco ricevute" href="/ricevute" />
+      <MIBreadcrumbItem label="Dettaglio ricevuta" current />
+    </MIBreadcrumbs>
+    ```
+  </SubSection>
 </Section>
