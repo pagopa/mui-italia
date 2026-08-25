@@ -154,6 +154,8 @@ module.exports = {
     '@typescript-eslint/unified-signatures': 'error',
     // show an error if a condition (like if or an operator) is useless
     '@typescript-eslint/no-unnecessary-condition': 'error',
+    // show a warning if any is used
+    '@typescript-eslint/no-explicit-any': 'warn',
     // ------------------------------------------------------------ React rules ------------------------------------------------------------
     // the check on the types of the properties is demanded to Typescript
     'react/prop-types': 'off',
@@ -192,6 +194,9 @@ module.exports = {
         'no-console': 'off',
       },
     },
-    { files: ['./src/types/images.d.ts'], rules: { '@typescript-eslint/no-explicit-any': 'off' } },
+    {
+      files: ['./src/types/images.d.ts'],
+      rules: { '@typescript-eslint/no-explicit-any': 'off' },
+    },
   ],
 };
