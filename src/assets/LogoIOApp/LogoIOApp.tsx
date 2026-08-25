@@ -2,7 +2,7 @@
 import { styled } from '@mui/material';
 
 import { theme } from '@theme';
-import { colors } from 'theme/foundations/colors';
+import { colors } from 'theme/colors';
 
 const StyledSvg = styled('svg')({
   display: 'inline-block',

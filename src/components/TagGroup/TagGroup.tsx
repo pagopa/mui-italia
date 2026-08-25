@@ -11,7 +11,7 @@ export interface TagGroupProps {
   tagRef?: Ref<HTMLButtonElement>;
 }
 
-export const TagGroup = ({ children, visibleItems = NaN }: TagGroupProps): JSX.Element => (
+const TagGroup = ({ children, visibleItems = NaN }: TagGroupProps): JSX.Element => (
   <Stack
     spacing={0.5}
     direction="row"
@@ -35,3 +35,5 @@ export const TagGroup = ({ children, visibleItems = NaN }: TagGroupProps): JSX.E
       : children}
   </Stack>
 );
+
+export default TagGroup;

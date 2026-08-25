@@ -1,5 +1,5 @@
-import { join } from 'path';
 import { readFileSync } from 'fs';
+import { join } from 'path';
 
 function resolveAliases() {
   const aliases = {};
@@ -28,11 +28,15 @@ export default function getBabelConfig(api) {
       'src/**/*.test.tsx',
       'src/**/*.spec.ts',
       'src/**/*.spec.tsx',
-      // exclude tests foldders
+      // exclude tests foldders and files
       'src/**/__tests__/**/*',
+      'src/test-utils.ts',
       // exclude typing files
       'src/**/*.d.ts',
       'src/**/*.d.tsx',
+      // exclude vite files
+      'vite.config.mts',
+      'vite.setup.ts',
     ],
     presets: ['@babel/preset-typescript'],
     plugins: [],
@@ -50,23 +54,17 @@ export default function getBabelConfig(api) {
       'src/**/stories/**/*',
       // exclude all stories files
       'src/**/*.stories.ts',
-      'src/**/*.stories.tsx'
+      'src/**/*.stories.tsx',
+      // exclude Storybook MDX docs
+      'src/docs/**/*'
     );
-    config.plugins.push(
-      [
-        'babel-plugin-module-resolver',
-        {
-          root: ['./'],
-          alias: resolveAliases(),
-        },
-      ],
-      [
-        'babel-plugin-transform-rewrite-imports',
-        {
-          replaceExtensions: { '^@mui/icons-material(.+?)': `@mui/icons-material/esm$1` },
-        },
-      ]
-    );
+    config.plugins.push([
+      'babel-plugin-module-resolver',
+      {
+        root: ['./'],
+        alias: resolveAliases(),
+      },
+    ]);
     config.presets.push(
       ['@babel/preset-env', { modules: false }], // modules false preserve es modules
       [

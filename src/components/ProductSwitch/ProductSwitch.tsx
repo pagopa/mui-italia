@@ -1,23 +1,25 @@
 'use client';
 
+import { useButton } from '@mui/base/useButton';
+import {
+  ArrowDropDownRounded as ArrowDropDownRoundedIcon,
+  ArrowDropUpRounded as ArrowDropUpRoundedIcon,
+} from '@mui/icons-material';
+import { ButtonProps, Menu, MenuItem, Typography } from '@mui/material';
+import { styled } from '@mui/system';
+import clsx from 'clsx';
 import {
   ForwardedRef,
+  MouseEvent,
   ReactNode,
   forwardRef,
   useEffect,
   useMemo,
   useState,
-  MouseEvent,
 } from 'react';
-import clsx from 'clsx';
-import { Menu, MenuItem, Typography, ButtonProps } from '@mui/material';
-import { styled } from '@mui/system';
-import { useButton } from '@mui/base/useButton';
-import ArrowDropUpRoundedIcon from '@mui/icons-material/ArrowDropUpRounded';
-import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
 
-import { focusBorderRadius, focusOffset, focusWidth, theme } from '@theme';
 import { LinkType } from '@components/Footer';
+import { focusBorderRadius, focusOffset, focusWidth, theme } from '@theme';
 
 export type ProductSwitchItem = {
   id: string;

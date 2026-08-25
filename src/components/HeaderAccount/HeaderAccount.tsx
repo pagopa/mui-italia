@@ -1,13 +1,15 @@
 'use client';
 
-import { ReactNode } from 'react';
-import { Container, Button, Stack, IconButton } from '@mui/material';
-import { ButtonNaked } from '@components/ButtonNaked';
 import { AccountDropdown } from '@components/AccountDropdown';
+import { ButtonNaked } from '@components/ButtonNaked';
+import { Button, Container, IconButton, Stack } from '@mui/material';
+import { ReactNode } from 'react';
 
 /* Icons */
-import HelpOutlineRoundedIcon from '@mui/icons-material/HelpOutlineRounded';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
+import {
+  HelpOutlineRounded as HelpOutlineRoundedIcon,
+  MenuBook as MenuBookIcon,
+} from '@mui/icons-material';
 
 export type JwtUser = {
   id: string;

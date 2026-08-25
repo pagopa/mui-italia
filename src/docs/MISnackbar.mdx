@@ -1,0 +1,90 @@
+import { Meta, Title, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as MISnackbarStories from '../stories/MISnackbar.stories';
+
+<Meta of={MISnackbarStories} />
+
+<Title />
+
+Il componente **MISnackbar** mostra notifiche temporanee e non bloccanti per
+comunicare l'esito di un'azione o uno stato del sistema. Combina il contenitore
+`Snackbar` di MUI con il contenuto semantico di `MISnackbarAlert`, mantenendo una
+resa coerente con il Design System per severita, tipografia e spaziature.
+
+Usalo per fornire un feedback rapido, contestuale e accessibile, senza interrompere
+il flusso dell'utente.
+
+**Link utili**
+
+- 🎨 [Figma](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=357-4968&m=dev)
+- 💻 [GitHub](https://github.com/pagopa/mui-italia/blob/develop/src/components/MISnackbar/MISnackbar.tsx)
+
+## Playground
+
+<Canvas of={MISnackbarStories.Default} />
+
+<Controls of={MISnackbarStories.Default} />
+
+## Severity
+
+La prop `severity` definisce il significato del messaggio e ne determina stile e
+icona, secondo i livelli semantici del Design System:
+
+- **`success`** - operazione completata correttamente.
+- **`info`** - informazione neutra o contestuale.
+- **`warning`** - avviso che richiede attenzione.
+- **`error`** - errore o problema che richiede azione.
+
+## Varianti di contenuto
+
+`MISnackbar` supporta titolo opzionale e descrizione obbligatoria. Quando il titolo
+non e presente, il layout resta compatto e privilegia il testo principale.
+
+### Default
+
+<Canvas of={MISnackbarStories.Default} />
+
+### Senza titolo
+
+<Canvas of={MISnackbarStories.SnackbarWithoutTitle} />
+
+## Error code
+
+Nei casi di errore puoi mostrare un codice tecnico tramite `errorCode`. Il codice
+viene presentato in un campo read-only con azione di copia, utile per assistenza e
+troubleshooting.
+
+### Con error code
+
+<Canvas of={MISnackbarStories.SnackbarWithErrorCode} />
+
+```tsx
+<MISnackbar
+  open={open}
+  severity="error"
+  title="Operazione non completata"
+  description="Si e verificato un errore. Contatta l'assistenza e condividi il codice."
+  errorCode="ERROR-404"
+  errorCodeAriaLabel="Codice errore ERROR-404"
+  onClose={handleClose}
+/>
+```
+
+## Comportamento
+
+- **Componente controllato.** La visibilita e gestita dal parent tramite `open`.
+- **Chiusura.** `onClose` deve aggiornare lo stato del parent per chiudere la snackbar.
+- **Auto-hide.** Se `severity="error"` e `errorCode` e valorizzato, l'auto-hide e disabilitato.
+- **Posizionamento.** `anchorOrigin` permette di cambiare posizione (es. bottom-right).
+
+## Accessibilità
+
+`MISnackbar` implementa una gestione del focus pensata per tecnologie assistive:
+
+- all'apertura sposta il focus sulla snackbar per favorire l'annuncio del contenuto;
+- alla chiusura ripristina il focus all'elemento precedentemente attivo.
+
+Per un'esperienza accessibile:
+
+- usa testi chiari in `description` e, quando presente, in `title`;
+- fornisci `errorCodeAriaLabel` descrittivo per i codici errore;
+- evita messaggi generici: indica sempre cosa e successo e cosa puo fare l'utente.

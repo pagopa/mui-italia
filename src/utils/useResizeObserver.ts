@@ -34,19 +34,22 @@ export function useResizeObserver<T extends HTMLElement>() {
       return;
     }
 
-    const rect = elem.getBoundingClientRect();
-    setSize({ width: rect.width, height: rect.height });
+    const updateSize = () => {
+      const { width, height } = elem.getBoundingClientRect();
+      setSize((currentSize) =>
+        currentSize?.width === width && currentSize.height === height
+          ? currentSize
+          : { width, height }
+      );
+    };
+
+    updateSize();
 
     if (typeof ResizeObserver === 'undefined') {
       return;
     }
 
-    const resizeObserver = new ResizeObserver((entries) => {
-      const [entry] = entries;
-
-      const { width, height } = entry.contentRect;
-      setSize({ width, height });
-    });
+    const resizeObserver = new ResizeObserver(updateSize);
 
     resizeObserver.observe(elem);
     return () => resizeObserver.disconnect();

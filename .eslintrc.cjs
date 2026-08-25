@@ -79,6 +79,19 @@ module.exports = {
     'arrow-body-style': 'error',
     // force to write imports in a specific order
     'import/order': 'error',
+    // avoid restricted imports
+    'no-restricted-imports': [
+      'error',
+      {
+        patterns: [
+          {
+            group: ['@mui/icons-material/*'],
+            message:
+              "Use named imports from the root package instead of direct paths (e.g., import { Close as CloseIcon } from '@mui/icons-material'). Direct path imports cause ESM/CJS interop issues in Vite and Next.js.",
+          },
+        ],
+      },
+    ],
     // force using the const declaration, if a variable is never reassigned
     'prefer-const': [
       'error',

@@ -5,20 +5,20 @@ import { Box, IconButton, Paper, Popper, TextField } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
 import {
   ChangeEvent,
-  useEffect,
-  useRef,
-  useState,
+  FocusEvent,
   KeyboardEvent,
   MouseEvent,
-  FocusEvent,
+  useEffect,
   useId,
+  useRef,
+  useState,
 } from 'react';
-import { AutocompleteProps, AutocompleteValue, InputChangeReason } from 'types/autocomplete';
-import { isMobileDevice } from 'utils/device';
 import { filterOptionsInternal } from 'utils/autocomplete';
+import { isMobileDevice } from 'utils/device';
+import { AutocompleteProps, AutocompleteValue, InputChangeReason } from './Autocomplete.types';
 import AutocompleteContent from './AutocompleteContent';
-import MultiSelectChips from './MultiSelectChips';
 import DefaultEmptyState from './DefaultEmptyState';
+import MultiSelectChips from './MultiSelectChips';
 
 const defaultGetOptionLabel = <T,>(option: T) => {
   if (typeof option === 'string') {
@@ -108,6 +108,10 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
     inputValue: currentInputValue,
     getOptionLabel,
   });
+
+  const hasSelectedValue = Array.isArray(currentValue)
+    ? currentValue.length > 0
+    : currentValue != null;
 
   const setInputValue = (v: string, reason: InputChangeReason) => {
     // non controlled input
@@ -391,6 +395,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
           error={error}
           helperText={helperText}
           inputProps={{
+            required: required && !hasSelectedValue,
             role: 'combobox',
             'aria-expanded': isOpen,
             'aria-controls': listboxId,

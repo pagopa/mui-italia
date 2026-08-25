@@ -118,7 +118,7 @@ export const Banner = (props: BannerProps) => {
   });
 
   return (
-    <Root colorStyle={model.colorStyle} {...rest}>
+    <Root {...rest} component="section" colorStyle={model.colorStyle} aria-labelledby={titleId}>
       <Inner>{content}</Inner>
     </Root>
   );

@@ -3,7 +3,7 @@ import { StoryFn, Meta } from '@storybook/react-vite';
 
 import { Menu, MenuItem, Button, ListItemIcon, ListItemText } from '@mui/material';
 
-import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
+import { AddCircleRounded as AddCircleRoundedIcon } from '@mui/icons-material';
 
 /* Icons */
 

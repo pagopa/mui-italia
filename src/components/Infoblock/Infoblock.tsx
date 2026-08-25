@@ -1,7 +1,8 @@
 'use client';
 
+import { CTA } from '@lib-types/shared.types';
 import { Box, Button, Container, Stack, Typography } from '@mui/material';
-import { CTA } from '@types';
+
 export interface InfoblockProps {
   overline?: string;
   title: string;

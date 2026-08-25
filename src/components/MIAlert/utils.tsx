@@ -1,9 +1,11 @@
-import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
-import ReportRoundedIcon from '@mui/icons-material/ReportRounded';
-import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
+import {
+  InfoRounded as InfoRoundedIcon,
+  ReportRounded as ReportRoundedIcon,
+  WarningRounded as WarningRoundedIcon,
+  CheckCircleRounded as CheckCircleRoundedIcon,
+} from '@mui/icons-material';
 import type { Theme } from '@mui/material/styles';
-import type { AllowedAlertSeverity } from './MIAlert';
+import { AllowedAlertSeverity } from '@lib-types/alert.types';
 
 const iconSize = '24px';
 
@@ -18,4 +20,4 @@ export const getIcon = (severity?: AllowedAlertSeverity) =>
   severity !== undefined ? iconBySeverity[severity] : iconBySeverity.success;
 
 export const getColor = (theme: Theme, severity?: AllowedAlertSeverity) =>
-  severity !== undefined ? theme.palette[severity][850] : theme.palette.success[850];
+  severity !== undefined ? theme.colors[severity][850] : theme.colors.success[850];

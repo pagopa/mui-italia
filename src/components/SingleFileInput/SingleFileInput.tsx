@@ -1,28 +1,30 @@
 'use client';
 
-import { useRef, ChangeEvent, DragEvent, ReactNode, useState } from 'react';
 import {
   Box,
   Button,
-  LinearProgress,
   FormControl,
   FormLabel,
   IconButton,
   Input,
+  LinearProgress,
   Typography,
 } from '@mui/material';
+import { ChangeEvent, DragEvent, ReactNode, useRef, useState } from 'react';
 
 /* Icons */
-import AttachFileIcon from '@mui/icons-material/AttachFile';
-import CloseIcon from '@mui/icons-material/Close';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import ErrorIcon from '@mui/icons-material/Error';
+import {
+  AttachFile as AttachFileIcon,
+  Close as CloseIcon,
+  CloudUpload as CloudUploadIcon,
+  Error as ErrorIcon,
+} from '@mui/icons-material';
 
 /* Utils */
 import {
   generateRandomID,
-  getContainerStyle,
   getColorStyle,
+  getContainerStyle,
   getStatus,
   truncateFileName,
   verifyAccept,

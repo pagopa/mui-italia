@@ -1,12 +1,14 @@
 'use client';
 
-import { SyntheticEvent, useState } from 'react';
-import { Menu, MenuItem, Typography, Box } from '@mui/material';
 import { ButtonNaked } from '@components/ButtonNaked';
+import { Box, Menu, MenuItem, Typography } from '@mui/material';
+import { SyntheticEvent, useState } from 'react';
 
 /* Icons */
-import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
-import KeyboardArrowUpRoundedIcon from '@mui/icons-material/KeyboardArrowUpRounded';
+import {
+  KeyboardArrowDownRounded as KeyboardArrowDownRoundedIcon,
+  KeyboardArrowUpRounded as KeyboardArrowUpRoundedIcon,
+} from '@mui/icons-material';
 
 export type LangCode = 'it' | 'en' | 'de' | 'fr' | 'sl';
 

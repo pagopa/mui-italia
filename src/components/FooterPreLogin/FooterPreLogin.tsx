@@ -7,9 +7,11 @@ import { LangSwitch, LangSwitchProps } from '@components/LangSwitch';
 import { isRight, toError } from 'fp-ts/lib/Either';
 
 /* Icons */
-import LinkedIcon from '@mui/icons-material/LinkedIn';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import TwitterIcon from '@mui/icons-material/Twitter';
+import {
+  LinkedIn as LinkedIcon,
+  Instagram as InstagramIcon,
+  Twitter as TwitterIcon,
+} from '@mui/icons-material';
 import { LogoPagoPACompany } from '@assets/LogoPagoPACompany';
 import { FundedByNextGenerationEU } from '@assets/FundedByNextGenerationEU';
 import { ThreadsIcon } from '@icons/ThreadsIcon';

@@ -1,23 +1,5 @@
 name: Deploy Pipelines - Release and Publish
 
-# Release Method:
-# Only Manual
-# Define if it ia a release or an hotfix
-
-# Define if it is a major, minor or path
-# E.g. If latest tag is v0.0.0
-#      major -> v1.0.0
-#      minor -> v0.1.0
-#      patch -> v0.0.1
-# if is a prerelease name of the branch have to start with 'release-**'
-#    set the prerelease input with the right version (alpha, beta, rc) and also the release type (major, minor, patch)
-#    E.g. If latest tag is v0.2.0 a possible branch name can be release-test
-#         major rc    -> v1.0.0-rc.20240911132220
-#         minor beta  -> v0.3.0-beta.20240911132220
-#         patch alpha -> v0.2.1-alpha.20240911132220
-# NOTE: in case of official release the tag will be in the form vX.Y.Z
-#       in case of prerelease the tag will be in the form vX.Y.Z-PRERELEASE_SEMVER.TIMESTAMP
-
 on:
   workflow_dispatch:
     inputs:
@@ -53,7 +35,7 @@ permissions:
 
 jobs:
   release:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     environment: prod-cd
     outputs:
       release_branch: ${{ steps.release.outputs.release_branch }}
@@ -75,7 +57,7 @@ jobs:
           git config user.email "<>"
 
       - name: Install Packages
-        run: npm install
+        run: npm ci
         working-directory: .github/workflows/actions/release
 
       - name: Release
@@ -90,7 +72,7 @@ jobs:
 
   build:
     needs: release
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Check-out code
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
@@ -133,7 +115,7 @@ jobs:
   deploy:
     if: ${{ !github.event.act }}
     needs: [release, build]
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     environment: prod-cd
     env:
       NPM_REGISTRY: 'registry.npmjs.org'

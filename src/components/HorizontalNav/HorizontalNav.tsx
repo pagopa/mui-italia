@@ -1,7 +1,7 @@
 'use client';
 
+import { ArrowForward } from '@mui/icons-material';
 import { Box, Button, Container, Stack, Typography, useTheme } from '@mui/material';
-import ArrowForward from '@mui/icons-material/ArrowForward';
 
 interface sectionCTA {
   label: string;
