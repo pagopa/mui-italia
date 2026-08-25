@@ -91,6 +91,8 @@ export type MISingleFileInputProps = {
 
   /** Helper text shown below the container. */
   helperText?: string;
+
+  onFileRemoveAriaLabel?: string;
 };
 
 const formatFileSize = (size: number) => `${Math.max(0, Math.round(size / 1024))} KB`;
@@ -114,7 +116,6 @@ export const MISingleFileInput = ({
   required = false,
   accept,
   loading,
-  vertical = false,
 
   onFileSelected,
   onFileRemoved,
@@ -128,10 +129,11 @@ export const MISingleFileInput = ({
   rejected = false,
   retryButtonLabel = 'Riprova',
   helperText,
+  onFileRemoveAriaLabel = 'Rimuovi file',
 }: MISingleFileInputProps): JSX.Element => {
   const muiTheme = useTheme();
   const isMobileViewport = useMediaQuery(muiTheme.breakpoints.down('md'));
-  const isVerticalLayout = vertical || isMobileViewport;
+  const isVerticalLayout = isMobileViewport;
 
   const uploadInputRef = useRef<HTMLInputElement>(null);
 
@@ -228,17 +230,6 @@ export const MISingleFileInput = ({
     status === UploadStatus.REJECTED ||
     status === UploadStatus.ERROR;
 
-  const minHeight =
-    status === UploadStatus.SELECTED
-      ? isVerticalLayout
-        ? 118
-        : 94
-      : isVerticalLayout
-      ? 236
-      : status === UploadStatus.DRAG_OVER
-      ? 92
-      : 96;
-
   return (
     <FormControl sx={{ width: '100%' }}>
       <FormLabel error={!!error || hasRequiredError} sx={{ fontWeight: 600, mb: 1 }} htmlFor={id}>
@@ -248,7 +239,6 @@ export const MISingleFileInput = ({
       <Box
         sx={{
           position: 'relative',
-          minHeight,
           borderRadius: '10px',
           display: 'flex',
           justifyContent: 'center',
@@ -264,8 +254,7 @@ export const MISingleFileInput = ({
               border: 'none',
               flex: 1,
               width: '100%',
-              px: 3,
-              py: isVerticalLayout ? 3 : 0,
+              p: 3,
             }}
             onDragOver={handleDragOver}
             onDrop={handleDrop}
@@ -488,7 +477,10 @@ export const MISingleFileInput = ({
             </Box>
             {onFileRemoved && (
               <IconButton onClick={handleRemoveFile} sx={{ p: 0, alignSelf: 'flex-start' }}>
-                <CloseIcon sx={{ color: theme.colors.neutral.black }} />
+                <CloseIcon
+                  sx={{ color: theme.colors.neutral.black }}
+                  aria-label={onFileRemoveAriaLabel}
+                />
               </IconButton>
             )}
           </Box>
@@ -501,7 +493,7 @@ export const MISingleFileInput = ({
           sx={{
             display: 'flex',
             alignItems: 'center',
-            mt: 1,
+            mt: 0.5,
             mx: 3,
             columnGap: 0.5,
           }}
