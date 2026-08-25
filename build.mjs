@@ -1,17 +1,17 @@
 #!/usr/bin/env node
-import { dirname, join, relative, resolve } from 'path';
+import { execFileSync } from 'child_process';
 import {
-  readFileSync,
-  rmSync,
-  readdirSync,
-  statSync,
-  existsSync,
   copyFileSync,
   cpSync,
-  writeFileSync,
+  existsSync,
   mkdirSync,
+  readdirSync,
+  readFileSync,
+  rmSync,
+  statSync,
+  writeFileSync,
 } from 'fs';
-import { execFileSync } from 'child_process';
+import { dirname, join, relative, resolve } from 'path';
 
 const TO_TRANSFORM_EXTENSIONS = ['.js', '.jsx', '.ts', '.tsx'];
 const DECLARATION_EXTENSION = '.d.ts';
@@ -177,15 +177,6 @@ function getAllFiles(dirPath, arrayOfFiles = []) {
   return arrayOfFiles;
 }
 
-function formatBytes(bytes, decimals = 2) {
-  if (bytes === 0) return '0 Bytes';
-  const k = 1024;
-  const dm = decimals < 0 ? 0 : decimals;
-  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
-}
-
 async function build() {
   const cwd = process.cwd();
   // get the build directory and remove it if it exists
@@ -202,25 +193,6 @@ async function build() {
   copyDeclarationFiles(sourceDir, buildDir);
   // create package.json for the builded library
   writePackageJson(buildDir);
-  // log files with extensions
-  // 1. get all files in build directory
-  const allFiles = getAllFiles(buildDir);
-  // 2. calc files sizes
-  const fileSizes = allFiles.map((file) => {
-    const stats = statSync(file);
-    return { path: file, size: stats.size };
-  });
-  // 3. order from the lighter to the heavier
-  fileSizes.sort((a, b) => a.size - b.size);
-  // 4. calc total size
-  const totalSize = fileSizes.reduce((acc, file) => acc + file.size, 0);
-  // 5. log results
-  fileSizes.forEach((file) => {
-    console.log(`${formatBytes(file.size).padEnd(10)} | ${file.path}`);
-  });
-  console.log('---------------------------------');
-  console.log(`Total dimension: ${formatBytes(totalSize)}`);
-  console.log('---------------------------------');
 }
 
 build();

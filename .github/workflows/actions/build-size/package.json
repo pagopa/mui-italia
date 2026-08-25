@@ -5,9 +5,13 @@
   "private": true,
   "main": "src/index.js",
   "author": "Andrea Cimini",
-  "type": "module",
+  "scripts": {
+    "build": "rimraf dist && ncc build src/index.js -o dist"
+  },
   "dependencies": {
-    "@actions/core": "^1.11.1",
-    "@actions/github": "^6.0.1"
+    "@actions/core": "^1.11.1"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.38.4"
   }
 }

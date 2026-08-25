@@ -10,13 +10,12 @@ concurrency:
 
 permissions:
   contents: read
-  pull-requests: write
 
 jobs:
   js_code_review:
     # Ignore draft pull request and pull request opened from branch below
     if: |
-      ${{ github.event.pull_request.draft == false }} &&
+      github.event.pull_request.draft == false &&
       !startsWith(github.head_ref, 'renovate/') &&
       !startsWith(github.head_ref, 'dependabot') &&
       !startsWith(github.head_ref, 'release/') &&
@@ -37,23 +36,21 @@ jobs:
         run: yarn install --immutable
         working-directory: .
 
+      - name: Test
+        run: yarn test
+
       - name: Lint
         run: yarn lint
 
       - name: Build
         run: yarn build
 
-      # - name: Install Packages
-      #   run: npm install
-      #   working-directory: .github/workflows/actions/build-size
-
-      # - name: Check Build Size
-      #   uses: ./.github/workflows/actions/build-size
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     path: 'dist'
-      #     max_raw_kb: '500'
-      #     max_gzip_kb: '150'
+      - name: Check Build Size
+         uses: ./.github/workflows/actions/build-size
+         with:
+           path: 'dist'
+           max_raw_kb: '500'
+           max_gzip_kb: '150'
 
       # - name: Unit tests exec
       #   run: yarn test:coverage

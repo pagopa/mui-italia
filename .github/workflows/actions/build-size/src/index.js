@@ -1,6 +1,5 @@
-import { getInput, info, summary, setFailed } from '@actions/core';
-import { getOctokit, context } from '@actions/github';
-import { readdirSync, statSync, existsSync, readFileSync } from 'fs';
+import { getInput, info, error as logError, setFailed, summary } from '@actions/core';
+import { existsSync, readdirSync, readFileSync, statSync } from 'fs';
 import { join } from 'path';
 import zlib from 'zlib';
 
@@ -21,13 +20,9 @@ function getAllFiles(dirPath, arrayOfFiles = []) {
 async function run() {
   try {
     // Read inputs defined in action.yml
-    const token = getInput('github_token', { required: true });
     const targetPath = getInput('path', { required: true });
     const maxRawKb = parseFloat(getInput('max_raw_kb', { required: true }));
     const maxGzipKb = parseFloat(getInput('max_gzip_kb', { required: true }));
-
-    // Initialize Octokit and GitHub Context
-    const octokit = getOctokit(token);
 
     // Calculate folder size
     let totalRaw = 0;
@@ -44,49 +39,50 @@ async function run() {
       totalGzip += zlib.gzipSync(content).length;
     });
 
-    const rawKb = (totalRaw / 1024).toFixed(2);
-    const gzipKb = (totalGzip / 1024).toFixed(2);
-
-    // Generate Markdown report
-    let message = `### 📦 Bundle Size Report\n\n`;
-
-    // --- Totals Section ---
-    message += `#### 📊 Totals\n`;
-    message += `| Metric | Current Size | Maximum Limit |\n`;
-    message += `| --- | --- | --- |\n`;
-    message += `| **Raw** | ${rawKb} KB | ${maxRawKb} KB |\n`;
-    message += `| **Gzip** | ${gzipKb} KB | ${maxGzipKb} KB |\n`;
+    const rawKb = totalRaw / 1024;
+    const gzipKb = totalGzip / 1024;
 
     const isExceeded = rawKb > maxRawKb || gzipKb > maxGzipKb;
 
-    if (isExceeded) {
-      message += `\n❌ **ERROR:** The bundle size exceeds the allowed limits!\n\n`;
-    } else {
-      message += `\n✅ **SUCCESS:** The bundle size is within the allowed limits.\n\n`;
-    }
+    // Generate Markdown report
+    let message = `### 📦 Bundle Size Report\n\n`;
+    message += `#### 📊 Totals\n`;
+    message += `| Metric | Current Size | Maximum Limit |\n`;
+    message += `| --- | --- | --- |\n`;
+    message += `| **Raw** | ${rawKb.toFixed(2)} KB | ${maxRawKb} KB |\n`;
+    message += `| **Gzip** | ${gzipKb.toFixed(2)} KB | ${maxGzipKb} KB |\n`;
+    message += isExceeded
+      ? `\n❌ **ERROR:** The bundle size exceeds the allowed limits!\n\n`
+      : `\n✅ **SUCCESS:** The bundle size is within the allowed limits.\n\n`;
 
-    // Post comment on the Pull Request (if triggered by a PR event)
-    if (context.payload.pull_request) {
-      await octokit.rest.issues.createComment({
-        owner: context.repo.owner,
-        repo: context.repo.repo,
-        issue_number: context.payload.pull_request.number,
-        body: message,
-      });
-      info('Comment successfully posted on the Pull Request.');
-    } else {
-      info('This event is not a Pull Request. Skipping comment creation.');
-    }
+    // Plain-text report for the action logs
+    const logReport = [
+      'Bundle Size Report',
+      `Path:  ${targetPath}`,
+      `Raw:   ${rawKb.toFixed(2)} KB (max ${maxRawKb} KB)`,
+      `Gzip:  ${gzipKb.toFixed(2)} KB (max ${maxGzipKb} KB)`,
+      `Files: ${files.length}`,
+    ].join('\n');
 
-    // 6. Output report to the GitHub Actions Job Summary UI
+    info(`\n${logReport}\n`);
+
+    // Output report to the GitHub Actions Job Summary UI
     await summary.addRaw(message).write();
 
-    // 7. Fail the action step if limits are exceeded
+    // Fail the action step if limits are exceeded
     if (isExceeded) {
+      if (rawKb > maxRawKb) {
+        logError(`Raw bundle size ${rawKb.toFixed(2)} KB exceeds the limit of ${maxRawKb} KB.`);
+      }
+      if (gzipKb > maxGzipKb) {
+        logError(`Gzip bundle size ${gzipKb.toFixed(2)} KB exceeds the limit of ${maxGzipKb} KB.`);
+      }
       setFailed('Bundle size limits exceeded.');
+    } else {
+      info('The bundle size is within the allowed limits.');
     }
-  } catch (error) {
-    setFailed(`Action execution failed: ${error.message}`);
+  } catch (err) {
+    setFailed(`Action execution failed: ${err.message}`);
   }
 }
 

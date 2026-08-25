@@ -17,6 +17,6 @@
     "src/**/__tests__/**/*",
     "src/test-utils.ts",
     "vite.config.mts",
-    "vite.setup.ts"
+    "vitest.setup.ts"
   ]
 }

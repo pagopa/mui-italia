@@ -19,10 +19,9 @@ export interface MITooltipProps extends Pick<
 }
 
 const callAll =
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   <T extends (...args: Array<any>) => any>(...fns: Array<T | undefined>) =>
-    (...args: Parameters<T>) =>
-      fns.forEach((fn) => fn && fn(...args));
+  (...args: Parameters<T>) =>
+    fns.forEach((fn) => fn && fn(...args));
 
 const getTargetElem = (children: ReactNode): ReactElement => {
   if (typeof children === 'string' || typeof children === 'number') {
@@ -95,7 +94,6 @@ const MITooltip = ({
   };
 
   const targetElement = getTargetElem(props.children);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const childProps = targetElement.props as Record<string, any>;
   const triggerElement = cloneElement(targetElement, {
     onMouseEnter: callAll(handleOpen, childProps.onMouseEnter),

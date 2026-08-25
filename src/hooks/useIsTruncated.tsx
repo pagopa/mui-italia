@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, RefObject } from 'react';
+import { RefObject, useEffect, useRef, useState } from 'react';
 
 /**
  * Hook to detect if an element's text content is truncated (overflowing)
@@ -10,7 +10,6 @@ import { useState, useRef, useEffect, RefObject } from 'react';
 export function useIsTruncated<T extends HTMLElement>(
   ref: RefObject<T | null>,
   enabled = true,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dependencies: Array<any> = []
 ): boolean {
   const [isTruncated, setIsTruncated] = useState(false);

@@ -27,7 +27,6 @@ type StandardMIChipProps = BaseMIChipProps & {
 type DeletableMIChipProps = BaseMIChipProps & {
   color?: 'neutral';
   variant?: 'filled';
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onDelete?: EventHandler<any>;
 };
 

@@ -1,22 +1,22 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { Grid, Stack, Box, Typography, Container, Link } from '@mui/material';
 import { CompanyLinkType, FooterSocialIcon, PreLoginFooterLinksType } from '@components/Footer';
 import { LangSwitch, LangSwitchProps } from '@components/LangSwitch';
+import { Box, Container, Grid, Link, Stack, Typography } from '@mui/material';
 import { isRight, toError } from 'fp-ts/lib/Either';
+import { useEffect, useState } from 'react';
 
 /* Icons */
-import {
-  LinkedIn as LinkedIcon,
-  Instagram as InstagramIcon,
-  Twitter as TwitterIcon,
-} from '@mui/icons-material';
-import { LogoPagoPACompany } from '@assets/LogoPagoPACompany';
 import { FundedByNextGenerationEU } from '@assets/FundedByNextGenerationEU';
+import { LogoPagoPACompany } from '@assets/LogoPagoPACompany';
+import { MediumIcon } from '@icons/MediumIcon';
 import { ThreadsIcon } from '@icons/ThreadsIcon';
 import { YoutubeIcon } from '@icons/YoutubeIcon';
-import { MediumIcon } from '@icons/MediumIcon';
+import {
+  Instagram as InstagramIcon,
+  LinkedIn as LinkedIcon,
+  Twitter as TwitterIcon,
+} from '@mui/icons-material';
 
 /* Enum */
 import { hrefNoOp, wrapHandleExitAction } from '../../utils/ts-utils';
@@ -32,7 +32,6 @@ type FooterPreLoginProps = LangSwitchProps & {
   productsTitle?: string;
   // error passed through the catch block can be of different types
   // so we must cast it to any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onProductsJsonFetchError?: (reason: any) => void;
   /** If true, it will not render the products column. As default, the column will be visible */
   hideProductsColumn?: boolean;

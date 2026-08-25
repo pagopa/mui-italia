@@ -1,7 +1,7 @@
 import { Children, ComponentType, isValidElement } from 'react';
 
 type AllowedTypes = {
-  cmp: React.FC<unknown>;
+  cmp: React.FC<any>;
   maxCount?: number;
   required?: boolean;
 };
@@ -88,7 +88,7 @@ export function checkChildren(
 export function isExplicitChild(child: React.ReactNode, displayName: string): boolean {
   if (isValidElement(child)) {
     // child.type can be a string (for HTML tags like 'div') or a function/object (for components)
-    const type = child.type as ComponentType<unknown> | string;
+    const type = child.type as ComponentType<any> | string;
 
     if (typeof type === 'function' || typeof type === 'object') {
       // Method 1: Check the explicit displayName (React best practice)
