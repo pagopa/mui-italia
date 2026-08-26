@@ -1,10 +1,10 @@
 'use client';
 
-import { Box } from '@mui/material';
 import { FooterLegal } from '@components/FooterLegal';
 import { FooterPostLogin } from '@components/FooterPostLogin';
 import { FooterPreLogin } from '@components/FooterPreLogin';
 import { LangSwitchProps } from '@components/LangSwitch';
+import { Box } from '@mui/material';
 
 // We need to validate this. It might be possible that the fields differ from product to product
 /* type JwtUser = {
@@ -27,6 +27,8 @@ type FooterProps = LangSwitchProps & {
   onExit?: (exitAction: () => void) => void;
   productsJsonUrl?: string;
   productsTitle?: string;
+  // error passed through the catch block can be of different types
+  // so we must cast it to any
   onProductsJsonFetchError?: (reason: any) => void;
   hideProductsColumn?: boolean;
 };

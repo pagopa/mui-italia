@@ -1,7 +1,8 @@
 'use client';
 
-import { Box, Button, Container, Stack, Typography } from '@mui/material';
 import { CTA } from '@lib-types/shared.types';
+import { Box, Button, Container, Stack, Typography } from '@mui/material';
+
 export interface InfoblockProps {
   overline?: string;
   title: string;
@@ -153,7 +154,7 @@ export const Infoblock = ({
                     paddingLeft: inverse ? 5 : 0,
                     paddingTop: 5,
                   }}
-                ></Box>
+                />
               )}
               <Box
                 sx={{

@@ -2,16 +2,16 @@
 
 import React, { JSXElementConstructor, ReactElement, ReactNode } from 'react';
 
+import { IllustrationProps } from '@components/Illustration';
+import { MIButton } from '@components/MIButton';
+import { MIButtonProps } from '@components/MIButton/types';
 import { ArrowBack as ArrowBackIcon } from '@mui/icons-material';
 import { Box, Paper, PaperProps, Stack, StackProps, Typography } from '@mui/material';
-import { IllusCompleted } from '../../illustrations/Completed';
-import { IllustrationProps } from '@components/Illustration';
 
+import { IllusCompleted } from '../../illustrations/Completed';
 import { checkChildren } from '../../utils/children.utility';
 import MIStep, { MIStepProps } from '../MIStepper/MIStep';
 import MIStepper, { MIStepperLocaleText } from '../MIStepper/MIStepper';
-import { MIButton } from '@components/MIButton';
-import { MIButtonProps } from '@components/MIButton/types';
 
 type MIWizardLocaleText = MIStepperLocaleText & {
   exitButton?: string;
@@ -118,7 +118,7 @@ const MIWizard: React.FC<MIWizardProps> = ({
   };
 
   if (activeStep >= childrens.length && slotsProps?.feedback) {
-    const feedback = slotsProps?.feedback;
+    const feedback = slotsProps.feedback;
 
     feedback.onFeedbackShow?.();
 
@@ -128,7 +128,7 @@ const MIWizard: React.FC<MIWizardProps> = ({
         data-testid="wizard-feedback-step"
       >
         <Box sx={{ mt: 11, mx: 'auto', textAlign: 'center', width: '80vw' }}>
-          <FeedbackIcon {...slotsProps?.feedback?.iconProps} />
+          <FeedbackIcon {...slotsProps.feedback.iconProps} />
           <Typography
             data-testid="wizard-feedback-title"
             variant="h4"

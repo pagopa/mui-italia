@@ -2,101 +2,99 @@ import { StoryFn, Meta } from '@storybook/react-vite';
 
 import { Box, Divider, Typography } from '@mui/material';
 
-import {
-  IllusCompleted,
-  IllusError,
-  IllusUploadFile,
-  IllusSms,
-  IllusEmailValidation,
-  IllusEmail,
-  IllusPiggyBank,
-  IllusLogin,
-  IllusSafeDeposit,
-  IllusQuick,
-  IllusSharingInfo,
-  IllusRepository,
-  IllusHistoryDoc,
-  IllusDataSecurity,
-  IllusSimplify,
-  IllusPaymentCompleted,
-  IllusInProgress,
-  IllusUmbrella,
-  IllusAlarmClock,
-  IllusUserUnauthorized,
-  IllusMIMessage,
-  IllusMIAward,
-  IllusMIEmailValidation,
-  IllusMIQuick,
-  IllusMICompleted,
-  IllusMIMaintenance,
-  IllusMISavingMoney,
-  IllusMIDataSecurity,
-  IllusMIError,
-  IllusMIMultipleFiles,
-  IllusMINews,
-  IllusMISimplify,
-  IllusMIAlarmClock,
-  IllusMIIdea,
-  IllusMIInstitution,
-  IllusMISafeDeposit,
-  IllusMIBell,
-  IllusMIEnvelope,
-  IllusMILeggi,
-  IllusMIPush,
-  IllusMIUploadFile,
-  IllusMIAssistance,
-  IllusMICode,
-  IllusMIFileCheck,
-  IllusMIFlag,
-  IllusMIUserManual,
-  IllusMIBadge,
-  IllusMIBug,
-  IllusMICitizen,
-  IllusMICloud,
-  IllusMICreditCard,
-  IllusMIDesktop,
-  IllusMIDownload,
-  IllusMIEarth,
-  IllusMIEnterprise,
-  IllusMIHome,
-  IllusMIImage,
-  IllusMIMapPin,
-  IllusMIOpenFolder,
-  IllusMIPersonalFile,
-  IllusMISchool,
-  IllusMISmartphoneValidation,
-  IllusMISms,
-  IllusMIUpload,
-  IllusMIBuilding,
-  IllusMICalendar,
-  IllusMIEuro,
-  IllusMIHistoryDoc,
-  IllusMIPieChart,
-  IllusMISingleFile,
-  IllusMIStorage,
-  IllusMIUserCheck,
-  IllusMIDelega,
-  IllusMIFingerPrint,
-  IllusMIInbox,
-  IllusMIKeypad,
-  IllusMIOptions,
-  IllusMISync,
-  IllusMIWallet,
-  IllusMIBusiness,
-  IllusMIDirection,
-  IllusMIDocumentation,
-  IllusMIGraduation,
-  IllusMIMessages,
-  IllusMIRepository,
-  IllusMISecurity,
-  IllusMIAccess,
-  IllusMILineChart,
-  IllusMITrash,
-  IllusMIIdCard,
-  IllusMICalendarCheck,
-} from './';
 import { JSX } from 'react';
 import { IllusMIFirma } from './MIFirma';
+import { IllusAlarmClock } from './AlarmClock';
+import { IllusCompleted } from './Completed';
+import { IllusDataSecurity } from './DataSecurity';
+import { IllusEmail } from './Email';
+import { IllusEmailValidation } from './EmailValidation';
+import { IllusError } from './Error';
+import { IllusHistoryDoc } from './HistoryDoc';
+import { IllusInProgress } from './InProgress';
+import { IllusLogin } from './Login';
+import { IllusMIAccess } from './MIAccess';
+import { IllusMIAlarmClock } from './MIAlarmClock';
+import { IllusMIAssistance } from './MIAssistance';
+import { IllusMIAward } from './MIAward';
+import { IllusMIBadge } from './MIBadge';
+import { IllusMIBell } from './MIBell';
+import { IllusMIBug } from './MIBug';
+import { IllusMIBuilding } from './MIBuilding';
+import { IllusMIBusiness } from './MIBusiness';
+import { IllusMICalendar } from './MICalendar';
+import { IllusMICalendarCheck } from './MICalendarCheck';
+import { IllusMICitizen } from './MICitizen';
+import { IllusMICloud } from './MICloud';
+import { IllusMICode } from './MICode';
+import { IllusMICompleted } from './MICompleted';
+import { IllusMICreditCard } from './MICreditCard';
+import { IllusMIDataSecurity } from './MIDataSecurity';
+import { IllusMIDelega } from './MIDelega';
+import { IllusMIDesktop } from './MIDesktop';
+import { IllusMIDirection } from './MIDirection';
+import { IllusMIDocumentation } from './MIDocumentation';
+import { IllusMIDownload } from './MIDownload';
+import { IllusMIEarth } from './MIEarth';
+import { IllusMIEmailValidation } from './MIEmailValidation';
+import { IllusMIEnterprise } from './MIEnterprise';
+import { IllusMIEnvelope } from './MIEnvelope';
+import { IllusMIError } from './MIError';
+import { IllusMIEuro } from './MIEuro';
+import { IllusMIFileCheck } from './MIFileCheck';
+import { IllusMIFingerPrint } from './MIFingerPrint';
+import { IllusMIFlag } from './MIFlag';
+import { IllusMIGraduation } from './MIGraduation';
+import { IllusMIHistoryDoc } from './MIHistoryDoc';
+import { IllusMIHome } from './MIHome';
+import { IllusMIIdCard } from './MIIdCard';
+import { IllusMIIdea } from './MIIdea';
+import { IllusMIImage } from './MIImage';
+import { IllusMIInbox } from './MIInbox';
+import { IllusMIInstitution } from './MIInstitution';
+import { IllusMIKeypad } from './MIKeypad';
+import { IllusMILeggi } from './MILeggi';
+import { IllusMILineChart } from './MILineChart';
+import { IllusMIMaintenance } from './MIMaintenance';
+import { IllusMIMapPin } from './MIMapPin';
+import { IllusMIMessage } from './MIMessage';
+import { IllusMIMessages } from './MIMessages';
+import { IllusMIMultipleFiles } from './MIMultipleFiles';
+import { IllusMINews } from './MINews';
+import { IllusMIOpenFolder } from './MIOpenFolder';
+import { IllusMIOptions } from './MIOptions';
+import { IllusMIPersonalFile } from './MIPersonalFile';
+import { IllusMIPieChart } from './MIPieChart';
+import { IllusMIPush } from './MIPush';
+import { IllusMIQuick } from './MIQuick';
+import { IllusMIRepository } from './MIRepository';
+import { IllusMISafeDeposit } from './MISafeDeposit';
+import { IllusMISavingMoney } from './MISavingMoney';
+import { IllusMISchool } from './MISchool';
+import { IllusMISecurity } from './MISecurity';
+import { IllusMISimplify } from './MISimplify';
+import { IllusMISingleFile } from './MISingleFile';
+import { IllusMISmartphoneValidation } from './MISmartphoneValidation';
+import { IllusMISms } from './MISms';
+import { IllusMIStorage } from './MIStorage';
+import { IllusMISync } from './MISync';
+import { IllusMITrash } from './MITrash';
+import { IllusMIUpload } from './MIUpload';
+import { IllusMIUploadFile } from './MIUploadFile';
+import { IllusMIUserCheck } from './MIUserCheck';
+import { IllusMIUserManual } from './MIUserManual';
+import { IllusMIWallet } from './MIWallet';
+import { IllusPaymentCompleted } from './PaymentCompleted';
+import { IllusPiggyBank } from './PiggyBank';
+import { IllusQuick } from './Quick';
+import { IllusRepository } from './Repository';
+import { IllusSafeDeposit } from './SafeDeposit';
+import { IllusSharingInfo } from './SharingInfo';
+import { IllusSimplify } from './Simplify';
+import { IllusSms } from './Sms';
+import { IllusUmbrella } from './Umbrella';
+import { IllusUploadFile } from './UploadFile';
+import { IllusUserUnauthorized } from './UserUnauthorized';
 
 export interface IllusBoxProps {
   illustration: JSX.Element;

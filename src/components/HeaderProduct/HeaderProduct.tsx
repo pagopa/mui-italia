@@ -1,37 +1,30 @@
-"use client";
+'use client';
 
-import { ReactNode, useMemo, useState } from "react";
-import {
-  Box,
-  Chip,
-  Container,
-  IconButton,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { ReactNode, useMemo, useState } from 'react';
+import { Box, Chip, Container, IconButton, Stack, Typography } from '@mui/material';
 
-import { ProductSwitch, ProductSwitchItem } from "@components/ProductSwitch";
-import { PartySwitchItem, PartySwitch } from "@components/PartySwitch";
-import { PartyAccountItem } from "@components/PartyAccountItem";
+import { ProductSwitch, ProductSwitchItem } from '@components/ProductSwitch';
+import { PartySwitchItem, PartySwitch } from '@components/PartySwitch';
+import { PartyAccountItem } from '@components/PartyAccountItem';
 
 export type ProductEntity = ProductSwitchItem;
 export type PartyEntity = PartySwitchItem;
 export type ChipColors =
-  | "default"
-  | "indigo"
-  | "primary"
-  | "secondary"
-  | "error"
-  | "info"
-  | "success"
-  | "warning";
+  | 'default'
+  | 'indigo'
+  | 'primary'
+  | 'secondary'
+  | 'error'
+  | 'info'
+  | 'success'
+  | 'warning';
 
 export type HeaderProductProps = {
   borderBottom?: number;
   borderColor?: string;
   chipColor?: ChipColors;
   chipLabel?: string;
-  chipSize?: "small" | "medium";
+  chipSize?: 'small' | 'medium';
   /* The number of characters beyond which the multiLine is applied in component PartyAccountItemButton */
   maxCharactersNumberMultiLineButton?: number;
   /* The number of characters beyond which the multiLine is applied in component PartyAccountItem */
@@ -44,12 +37,30 @@ export type HeaderProductProps = {
   productsList: Array<ProductEntity>;
 };
 
+const HeaderChip: React.FC<Pick<HeaderProductProps, 'chipColor' | 'chipSize' | 'chipLabel'>> = ({
+  chipColor,
+  chipLabel,
+  chipSize,
+}) => (
+  <Chip
+    sx={{
+      py: 0,
+      '& .MuiChip-labelSmall': {
+        py: '2px',
+      },
+    }}
+    color={chipColor}
+    label={chipLabel}
+    size={chipSize}
+  />
+);
+
 export const HeaderProduct = ({
   borderBottom,
   borderColor,
-  chipColor = "primary",
+  chipColor = 'primary',
   chipLabel,
-  chipSize = "small",
+  chipSize = 'small',
   maxCharactersNumberMultiLineButton,
   maxCharactersNumberMultiLineItem,
   onSelectedParty,
@@ -59,36 +70,22 @@ export const HeaderProduct = ({
   productId,
   productsList,
 }: HeaderProductProps) => {
-  const selectedProduct = useMemo(
-    () =>
-      productId
-        ? productsList.find((p) => p.id === productId)
-        : productsList[0],
-    [productId, productsList]
-  ) as ProductSwitchItem;
-  const [iconSelected, setIconSelected] = useState<
-    ReactNode | null | undefined
-  >(selectedProduct.icon || null);
+  const selectedProduct = useMemo(() => {
+    if (productsList.length === 0) {
+      return;
+    }
+    return productId ? productsList.find((p) => p.id === productId) : productsList[0];
+  }, [productId, productsList]);
+
+  const [iconSelected, setIconSelected] = useState<ReactNode | null | undefined>(
+    selectedProduct?.icon || null
+  );
   const selectedParty = useMemo(() => {
-    if (!partyList) {
+    if (!partyList || partyList.length === 0) {
       return;
     }
     return partyId ? partyList.find((e) => e.id === partyId) : partyList[0];
-  }, [partyList, partyId]) as PartySwitchItem;
-
-  const ChipComponent = (
-    <Chip
-      sx={{
-        py: 0,
-        "& .MuiChip-labelSmall": {
-          py: "2px",
-        },
-      }}
-      color={chipColor}
-      label={chipLabel}
-      size={chipSize}
-    ></Chip>
-  );
+  }, [partyList, partyId]);
 
   const onSelectedProductChangeIcon = (e: ProductEntity) => {
     setIconSelected(e.icon);
@@ -101,11 +98,11 @@ export const HeaderProduct = ({
       display="flex"
       alignItems="center"
       sx={{
-        backgroundColor: "background.paper",
+        backgroundColor: 'background.paper',
         borderBottom: borderBottom ?? 1,
-        borderColor: borderColor ?? "divider",
-        boxSizing: "border-box",
-        minHeight: { xs: "auto", md: "80px" },
+        borderColor: borderColor ?? 'divider',
+        boxSizing: 'border-box',
+        minHeight: { xs: 'auto', md: '80px' },
       }}
     >
       <Container maxWidth={false}>
@@ -119,45 +116,43 @@ export const HeaderProduct = ({
           {/* Left side of the component */}
           <Stack alignItems="center" direction="row">
             {!!iconSelected && <IconButton>{iconSelected}</IconButton>}
-            {productsList.length > 1 && (
+            {selectedProduct && productsList.length > 1 && (
               <Stack spacing={2} direction="row" alignItems="center">
                 {/* Switcher Product */}
                 <ProductSwitch
                   currentProductId={selectedProduct.id}
                   products={productsList}
                   onExit={onSelectedProductChangeIcon}
-                ></ProductSwitch>
-                {chipLabel && chipLabel !== "" && ChipComponent}
+                />
+                {chipLabel && (
+                  <HeaderChip chipColor={chipColor} chipLabel={chipLabel} chipSize={chipSize} />
+                )}
               </Stack>
             )}
             {selectedProduct && productsList.length === 1 && (
               <Stack spacing={2} direction="row" alignItems="center">
-                <Typography
-                  sx={{ fontSize: { xs: 20, sm: 28 }, fontWeight: "bold" }}
-                >
-                  {selectedProduct?.title}
+                <Typography sx={{ fontSize: { xs: 20, sm: 28 }, fontWeight: 'bold' }}>
+                  {selectedProduct.title}
                 </Typography>
-                {chipLabel && chipLabel !== "" && ChipComponent}
+                {chipLabel && (
+                  <HeaderChip chipColor={chipColor} chipLabel={chipLabel} chipSize={chipSize} />
+                )}
               </Stack>
             )}
           </Stack>
           {/* insert maxWidth to limit component width when the const multiLine is used in PartySwitch and PartyAccountItem */}
           <Box maxWidth="25rem">
             {/* Right side of the component */}
-            {partyList && partyList.length > 1 && (
+            {partyList && selectedParty && partyList.length > 1 && (
               <>
                 {/* Switcher Party */}
                 <PartySwitch
                   currentPartyId={selectedParty.id}
                   parties={partyList}
                   onExit={onSelectedParty}
-                  maxCharactersNumberMultiLineItem={
-                    maxCharactersNumberMultiLineItem
-                  }
-                  maxCharactersNumberMultiLineButton={
-                    maxCharactersNumberMultiLineButton
-                  }
-                ></PartySwitch>
+                  maxCharactersNumberMultiLineItem={maxCharactersNumberMultiLineItem}
+                  maxCharactersNumberMultiLineButton={maxCharactersNumberMultiLineButton}
+                />
               </>
             )}
             {partyList && selectedParty && partyList.length === 1 && (
@@ -167,7 +162,7 @@ export const HeaderProduct = ({
                 partyRole={selectedParty.productRole}
                 image={selectedParty.logoUrl}
                 infoContainerSx={{
-                  display: { xs: "none", md: "block" },
+                  display: { xs: 'none', md: 'block' },
                 }}
                 parentPartyName={selectedParty.parentName}
               />

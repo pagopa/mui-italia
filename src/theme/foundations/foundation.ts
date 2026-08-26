@@ -1,8 +1,8 @@
-import { alpha, createTheme, Theme } from '@mui/material/styles';
+import { alpha, createTheme, Shadows, Theme } from '@mui/material/styles';
 
 import { colors } from '../colors';
-import { palette } from './palette';
 import { mainTypeface } from '../fonts';
+import { palette } from './palette';
 
 const shadowValues = {
   /* Elevation 4 */
@@ -19,7 +19,7 @@ const shadowValues = {
         0px 6px 30px 5px ${alpha(palette.shadow.main, 0.1)}`,
 };
 
-const shadowsArray = Array(25).fill('none') as any;
+const shadowsArray = Array(25).fill('none') as Shadows;
 
 const foundation: Theme = createTheme({
   colors,

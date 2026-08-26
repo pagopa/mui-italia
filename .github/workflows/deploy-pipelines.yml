@@ -25,7 +25,7 @@ on:
         required: true
 
 concurrency:
-  group: ${{ github.workflow }}-cd
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-cd
   cancel-in-progress: true
 
 permissions:
@@ -55,7 +55,7 @@ jobs:
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
-    
+
       - name: Install Packages
         run: npm ci
         working-directory: .github/workflows/actions/release
@@ -85,7 +85,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
         with:
-          node-version: '24'
+          node-version-file: '.node-version'
           cache: ${{ !github.event.act && 'yarn' || '' }}
           cache-dependency-path: ${{ !github.event.act && 'yarn.lock' || '' }}
 
@@ -127,7 +127,7 @@ jobs:
           path: 'bundle'
       - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
         with:
-          node-version: '24'
+          node-version-file: '.node-version'
           registry-url: 'https://registry.npmjs.org'
 
       - name: Publish

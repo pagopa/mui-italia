@@ -3,12 +3,13 @@ import { TimelineConnector, TimelineContent, TimelineItem, TimelineSeparator } f
 import { Box, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { Stack } from '@mui/system';
+import { pxToRem } from '@theme';
 import React from 'react';
+
+import { isPrimitiveNode } from '../../utils/children.utility';
 import { MITimelineDot } from './MITimelineDot';
 import { getItemVariantColor } from './styles';
 import { MITimelineItemInternalProps, MITimelineItemProps } from './types';
-import { pxToRem } from '@theme';
-import { isPrimitiveNode } from 'utils/children.utility';
 
 const MITimelineItem: React.FC<MITimelineItemInternalProps> = ({
   variant,

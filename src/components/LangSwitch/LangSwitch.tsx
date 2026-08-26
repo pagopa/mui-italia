@@ -55,9 +55,7 @@ export function LangSwitch({
   };
 
   const wrapUpdateActiveLang = (newLang: LangCode) => (e: SyntheticEvent) => {
-    if (e) {
-      e.preventDefault();
-    }
+    e.preventDefault();
 
     onLanguageChanged(newLang);
     handleClose();
@@ -80,13 +78,11 @@ export function LangSwitch({
         aria-controls={open ? 'lang-menu' : undefined}
         onClick={handleClick}
       >
-        {currentLangCode && (
-          <Box component="span" sx={{ textAlign: 'left' }}>
-            <Typography color="inherit" component="span" variant="subtitle2">
-              {getLabel(currentLangCode)}
-            </Typography>
-          </Box>
-        )}
+        <Box component="span" sx={{ textAlign: 'left' }}>
+          <Typography color="inherit" component="span" variant="subtitle2">
+            {getLabel(currentLangCode)}
+          </Typography>
+        </Box>
 
         {open ? (
           <KeyboardArrowUpRoundedIcon fontSize="small" />

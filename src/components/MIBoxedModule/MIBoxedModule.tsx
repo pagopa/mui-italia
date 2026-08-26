@@ -1,6 +1,5 @@
 'use client';
 
-import { ComponentType, FC, HTMLAttributes, ReactNode } from 'react';
 import {
   Box,
   SkeletonProps,
@@ -12,9 +11,10 @@ import {
   useTheme,
 } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
+import { ComponentType, FC, HTMLAttributes, ReactNode } from 'react';
 
-import MIBoxedModuleSkeleton from './MIBoxedModuleSkeleton';
 import MIBoxedModuleContent from './MIBoxedModuleContent';
+import MIBoxedModuleSkeleton from './MIBoxedModuleSkeleton';
 
 export interface MIBoxedModuleProps
   extends Pick<StackProps, 'children' | 'sx'>,
@@ -37,8 +37,7 @@ export interface MIBoxedModuleProps
 const StyledStack = styled(
   Stack,
   {}
-)<StackProps>(({ theme }) => {
-  return {
+)<StackProps>(({ theme }) => ({
     border: '1px solid',
     borderColor: theme.colors.neutral.grey[100],
     borderRadius: theme.shape.radius[8],
@@ -48,8 +47,7 @@ const StyledStack = styled(
     width: '100%',
     flex: '1 1 auto',
     minWidth: 0,
-  };
-});
+  }));
 
 const MIBoxedModule: FC<MIBoxedModuleProps> = ({
   loading = false,

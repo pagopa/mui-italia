@@ -1,11 +1,11 @@
 'use client';
 
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { ArrowBack as ArrowBackIcon } from '@mui/icons-material';
 import { Button, Link, Typography } from '@mui/material';
 import React from 'react';
 import { MIBreadcrumbItemProps } from './types';
 
-export const MIBreadcrumbItem: React.FC<MIBreadcrumbItemProps> = ({
+const MIBreadcrumbItem: React.FC<MIBreadcrumbItemProps> = ({
   label,
   onClick,
   href,
@@ -44,3 +44,5 @@ export const MIBreadcrumbItem: React.FC<MIBreadcrumbItemProps> = ({
   }
   return null;
 };
+
+export default MIBreadcrumbItem;
