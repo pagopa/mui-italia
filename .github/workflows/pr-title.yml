@@ -6,7 +6,7 @@ on:
     types: [opened, edited, reopened, synchronize]
 
 concurrency:
-  group: ${{ github.workflow }}-cd
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-cd
   cancel-in-progress: true
 
 permissions:

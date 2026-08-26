@@ -13,7 +13,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: ${{ github.workflow }}-cd
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-cd
   cancel-in-progress: true
 
 # List of jobs
