@@ -1,17 +1,21 @@
 import { styled } from '@mui/material';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
+import { pxToRem } from '@theme';
 
 export const StyledBreadcrumbs = styled(Breadcrumbs)(({ theme }) => ({
   '& .MIBreadcrumbItem-current': {
     color: theme.colors.neutral.grey[700],
   },
   fontWeight: 500,
+  '& .MuiBreadcrumbs-separator': {
+    margin: '0 6px',
+  },
   '& .MuiBreadcrumbs-separator svg': {
-    fontSize: theme.typography.pxToRem(16),
+    fontSize: pxToRem(16),
     color: theme.colors.neutral.black,
   },
   '& .MuiBreadcrumbs-li svg': {
-    fontSize: theme.typography.pxToRem(24),
+    fontSize: pxToRem(24),
   },
   '& .MuiLink-root.MuiLink-underlineHover': {
     display: 'flex',
@@ -24,5 +28,8 @@ export const StyledBreadcrumbs = styled(Breadcrumbs)(({ theme }) => ({
       textDecoration: 'underline',
       cursor: 'pointer',
     },
+  },
+  '& .MuiLink-root .MIBackIcon': {
+    margin: 0,
   },
 }));

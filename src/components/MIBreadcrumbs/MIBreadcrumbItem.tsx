@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowBack as ArrowBackIcon } from '@mui/icons-material';
+import { ArrowBackRounded as ArrowBackIcon } from '@mui/icons-material';
 import { Button, Link, Typography } from '@mui/material';
 import React from 'react';
 import { MIBreadcrumbItemProps } from './types';
@@ -42,8 +42,8 @@ const MIBreadcrumbItem: React.FC<MIBreadcrumbItemProps> = ({
         underline="hover"
         fontWeight="bold"
         onClick={onClickHandler}
+        startIcon={type === 'back' && <ArrowBackIcon className="MIBackIcon" />}
       >
-        {type === 'back' && <ArrowBackIcon />}
         {label}
       </Link>
     );
