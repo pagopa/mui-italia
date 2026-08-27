@@ -6,17 +6,14 @@ applyTo: '**/*.tsx,**/*.jsx,**/*.mdx'
 
 Considera l’accessibilità un requisito funzionale, non un miglioramento opzionale.
 
-Oltre alle istruzioni generali, applica questi controlli a componenti ed esempi. **Tutti i commenti pubblicati nella pull request devono essere in inglese.**
-
 ## Semantica HTML
 
 Verifica:
 
-- uso dell’elemento HTML semanticamente corretto;
-- preferenza per elementi nativi rispetto a ruoli ARIA equivalenti;
+- uso dell’elemento HTML semanticamente corretto e preferenza per elementi nativi rispetto a ruoli ARIA equivalenti;
 - gerarchia corretta delle intestazioni;
 - uso appropriato di link e pulsanti;
-- markup valido e senza elementi interattivi annidati;
+- markup valido, senza elementi interattivi annidati;
 - conservazione della semantica quando viene usata la prop `component`.
 
 Non suggerire attributi ARIA quando un elemento HTML nativo risolve già il problema.
@@ -25,14 +22,10 @@ Non suggerire attributi ARIA quando un elemento HTML nativo risolve già il prob
 
 Controlla:
 
-- raggiungibilità tramite tastiera di tutti i controlli;
-- supporto dei tasti previsti dal pattern del componente;
-- ordine del focus logico;
-- focus visibile;
-- assenza di focus trap involontarie;
-- gestione corretta del focus per dialog, menu, modali e contenuti dinamici;
-- ripristino del focus alla chiusura di overlay;
-- assenza di `tabIndex` positivi;
+- raggiungibilità e attivazione da tastiera di tutti i controlli;
+- ordine logico e visibilità del focus;
+- assenza di focus trap involontarie e di `tabIndex` positivi;
+- gestione e ripristino del focus per dialog, menu, modali e contenuti dinamici;
 - equivalenza tra interazioni da mouse e tastiera.
 
 ## Nome, ruolo e stato accessibili
@@ -40,47 +33,35 @@ Controlla:
 Verifica:
 
 - nome accessibile per pulsanti, link, campi e controlli icon-only;
-- associazione tra label e input;
-- associazione dei messaggi di errore e delle descrizioni;
+- associazione tra label, input, messaggi di errore e descrizioni;
 - uso corretto di `aria-describedby`, `aria-labelledby` e `aria-label`;
 - aggiornamento degli attributi ARIA in base allo stato;
-- esposizione corretta di stati quali expanded, selected, checked, pressed, invalid e disabled;
+- esposizione corretta di stati come expanded, selected, checked, pressed, invalid e disabled;
 - assenza di attributi ARIA non validi, ridondanti o in conflitto con la semantica nativa.
 
 ## Contenuti dinamici e screen reader
 
 Controlla:
 
-- annunci necessari per errori e aggiornamenti dinamici;
-- uso prudente di live region;
-- contenuti nascosti correttamente anche alle tecnologie assistive, quando necessario;
+- annunci necessari per errori e aggiornamenti dinamici, usando con prudenza le live region;
+- contenuti nascosti correttamente alle tecnologie assistive;
 - testo alternativo appropriato per immagini e icone informative;
 - esclusione delle icone decorative dall’accessibility tree;
-- presenza di istruzioni che non dipendano esclusivamente dalla percezione visiva.
+- istruzioni che non dipendano esclusivamente dalla percezione visiva.
 
 ## Aspetto visivo accessibile
 
 Verifica:
 
-- contrasto sufficiente;
-- stato di focus distinguibile;
-- stati `hover`, `focus`, `active`, `disabled` ed `error` riconoscibili;
+- contrasto sufficiente e focus distinguibile;
+- riconoscibilità degli stati interattivi;
 - assenza di informazioni comunicate solo tramite colore;
 - leggibilità con zoom e ridimensionamento del testo;
 - assenza di contenuti essenziali tagliati ai breakpoint supportati;
 - target interattivi ragionevolmente utilizzabili.
 
-## Qualità dei commenti
+## Commenti di review
 
-Quando segnali un problema:
+Collega ogni rilievo a un comportamento concreto: identifica l’interazione, gli utenti interessati, il risultato atteso e, quando possibile, una soluzione basata sulla semantica nativa.
 
-- identifica l’interazione coinvolta;
-- spiega quali utenti ne sono interessati;
-- indica il comportamento atteso;
-- suggerisci l’uso di semantica nativa quando possibile.
-
-Esempio:
-
-> This clickable `div` cannot be reached or activated with the keyboard. Users who navigate without a pointer therefore cannot trigger the action. Please render it as a `button`, or implement the equivalent focus and keyboard behavior if a native button cannot be used.
-
-Non segnalare problemi WCAG generici senza collegarli a un comportamento concreto introdotto dalla pull request.
+Non segnalare genericamente una violazione WCAG senza spiegare come si manifesta nella modifica.
