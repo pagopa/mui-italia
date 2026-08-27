@@ -22,21 +22,27 @@ const MIBreadcrumbItem: React.FC<MIBreadcrumbItemProps> = ({
 
   if (current) {
     return (
-      <Typography className={'MIBreadcrumbItem-current'} aria-current="page" {...props}>
+      <Typography {...props} className={'MIBreadcrumbItem-current'} aria-current="page">
         {label}
       </Typography>
     );
   }
   if (href) {
     return (
-      <Link underline="hover" href={href} {...props}>
+      <Link {...props} underline="hover" href={href} fontWeight="bold">
         {label}
       </Link>
     );
   }
   if (onClick) {
     return (
-      <Link component={Button} underline="hover" {...props} onClick={onClickHandler}>
+      <Link
+        {...props}
+        component={Button}
+        underline="hover"
+        fontWeight="bold"
+        onClick={onClickHandler}
+      >
         {type === 'back' && <ArrowBackIcon />}
         {label}
       </Link>
