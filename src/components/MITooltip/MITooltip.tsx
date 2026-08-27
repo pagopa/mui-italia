@@ -1,27 +1,26 @@
-import {
-  useState,
-  useRef,
-  useEffect,
-  ReactElement,
-  cloneElement,
-  ReactNode,
-  isValidElement,
-} from 'react';
-import { Tooltip, TooltipProps, ClickAwayListener, useMediaQuery } from '@mui/material';
+import { ClickAwayListener, Tooltip, TooltipProps, useMediaQuery } from '@mui/material';
 import { theme } from '@theme';
+import {
+  ReactElement,
+  ReactNode,
+  cloneElement,
+  isValidElement,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
-export interface Props
-  extends Pick<
-    TooltipProps,
-    'id' | 'title' | 'onOpen' | 'onClose' | 'placement' | 'describeChild' | 'children'
-  > {
+export interface MITooltipProps extends Pick<
+  TooltipProps,
+  'id' | 'title' | 'onOpen' | 'onClose' | 'placement' | 'describeChild' | 'children'
+> {
   disabled?: boolean;
   describeValue?: boolean;
 }
 
 const callAll =
-  (...fns: (Function | undefined)[]) =>
-  (...args: any[]) =>
+  <T extends (...args: Array<any>) => any>(...fns: Array<T | undefined>) =>
+  (...args: Parameters<T>) =>
     fns.forEach((fn) => fn && fn(...args));
 
 const getTargetElem = (children: ReactNode): ReactElement => {
@@ -37,7 +36,12 @@ const getTargetElem = (children: ReactNode): ReactElement => {
   return <>{children}</>;
 };
 
-const MITooltip = ({ title, disabled = false, describeValue = false, ...props }: Props) => {
+const MITooltip = ({
+  title,
+  disabled = false,
+  describeValue = false,
+  ...props
+}: MITooltipProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const enterTimer = useRef<NodeJS.Timeout | null>(null);
@@ -45,13 +49,19 @@ const MITooltip = ({ title, disabled = false, describeValue = false, ...props }:
   const isOpening = useRef(false);
 
   const clearTimers = () => {
-    if (enterTimer.current) clearTimeout(enterTimer.current);
-    if (leaveTimer.current) clearTimeout(leaveTimer.current);
+    if (enterTimer.current) {
+      clearTimeout(enterTimer.current);
+    }
+    if (leaveTimer.current) {
+      clearTimeout(leaveTimer.current);
+    }
   };
 
   const handleOpen = () => {
     isOpening.current = true;
-    if (isMobile || disabled) return;
+    if (isMobile || disabled) {
+      return;
+    }
 
     clearTimers();
     enterTimer.current = setTimeout(() => {
@@ -61,7 +71,9 @@ const MITooltip = ({ title, disabled = false, describeValue = false, ...props }:
 
   const handleClose = () => {
     isOpening.current = false;
-    if (isMobile || disabled) return;
+    if (isMobile || disabled) {
+      return;
+    }
 
     clearTimers();
     leaveTimer.current = setTimeout(() => {
@@ -92,9 +104,7 @@ const MITooltip = ({ title, disabled = false, describeValue = false, ...props }:
     'aria-label': describeValue ? title : undefined,
   });
 
-  useEffect(() => {
-    return () => clearTimers();
-  }, []);
+  useEffect(() => () => clearTimers(), []);
 
   useEffect(() => {
     if (disabled) {
@@ -116,10 +126,8 @@ const MITooltip = ({ title, disabled = false, describeValue = false, ...props }:
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape' || event.key === 'Esc') {
-        if (isOpen) {
-          setIsOpen(false);
-          clearTimers();
-        }
+        setIsOpen(false);
+        clearTimers();
       }
     };
 

@@ -1,18 +1,21 @@
 #!/usr/bin/env node
-import { join, resolve } from 'path';
+import { execFileSync } from 'child_process';
 import {
-  readFileSync,
-  rmSync,
-  readdirSync,
-  statSync,
-  existsSync,
   copyFileSync,
   cpSync,
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  rmSync,
+  statSync,
   writeFileSync,
 } from 'fs';
-import { execFileSync } from 'child_process';
+import { dirname, join, relative, resolve } from 'path';
 
 const TO_TRANSFORM_EXTENSIONS = ['.js', '.jsx', '.ts', '.tsx'];
+const DECLARATION_EXTENSION = '.d.ts';
+const TYPE_ONLY_SOURCE_PATTERNS = ['**/*.types.ts', '**/*.type.ts'];
 
 const STATIC_FILES = [
   {
@@ -45,6 +48,8 @@ async function babelBuild(sourceDir, buildDir) {
         configFile,
         '--extensions',
         TO_TRANSFORM_EXTENSIONS.join(','),
+        '--ignore',
+        TYPE_ONLY_SOURCE_PATTERNS.join(','),
       ],
       {
         env: {
@@ -54,7 +59,6 @@ async function babelBuild(sourceDir, buildDir) {
         encoding: 'utf8',
       }
     );
-    console.log(result);
   } catch (error) {
     console.error(error);
     throw new Error(error);
@@ -64,23 +68,21 @@ async function babelBuild(sourceDir, buildDir) {
 async function createTypes() {
   try {
     const tscCommand = process.platform === 'win32' ? 'tsc.cmd' : 'tsc';
-    const tscResult = execFileSync(tscCommand, ['--project', 'tsconfig.prod.json'], {
+    execFileSync(tscCommand, ['--project', 'tsconfig.prod.json'], {
       env: {
         ...process.env,
         NODE_ENV: 'production',
       },
       encoding: 'utf8',
     });
-    console.log(tscResult);
     const tscAliasCommand = process.platform === 'win32' ? 'tsc-alias.cmd' : 'tsc-alias';
-    const tscAliasResult = execFileSync(tscAliasCommand, ['-p', 'tsconfig.prod.json'], {
+    execFileSync(tscAliasCommand, ['-p', 'tsconfig.prod.json'], {
       env: {
         ...process.env,
         NODE_ENV: 'production',
       },
       encoding: 'utf8',
     });
-    console.log(tscAliasResult);
   } catch (error) {
     console.error(error);
     throw new Error(error);
@@ -102,6 +104,20 @@ function copyFiles(sourceDir, buildDir) {
     } else if (stats.isDirectory()) {
       cpSync(sourcePath, destPath, { recursive: true });
     }
+  }
+}
+
+function copyDeclarationFiles(sourceDir, buildDir) {
+  const declarationFiles = getAllFiles(sourceDir).filter((file) =>
+    file.endsWith(DECLARATION_EXTENSION)
+  );
+
+  for (const sourcePath of declarationFiles) {
+    const relativePath = relative(sourceDir, sourcePath);
+    const destPath = join(buildDir, relativePath);
+
+    mkdirSync(dirname(destPath), { recursive: true });
+    copyFileSync(sourcePath, destPath);
   }
 }
 
@@ -179,6 +195,8 @@ async function build() {
   createTypes();
   // copy static files
   copyFiles(cwd, buildDir);
+  // copy source declaration files not emitted by tsc
+  copyDeclarationFiles(sourceDir, buildDir);
   // create package.json for the builded library
   writePackageJson(buildDir);
   // log files with extensions
@@ -194,9 +212,6 @@ async function build() {
   // 4. calc total size
   const totalSize = fileSizes.reduce((acc, file) => acc + file.size, 0);
   // 5. log results
-  fileSizes.forEach((file) => {
-    console.log(`${formatBytes(file.size).padEnd(10)} | ${file.path}`);
-  });
   console.log('---------------------------------');
   console.log(`Total dimension: ${formatBytes(totalSize)}`);
   console.log('---------------------------------');

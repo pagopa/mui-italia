@@ -3,10 +3,11 @@ name: 'Validate PR title'
 # Event for the workflow
 on:
   pull_request:
-    types:
-      - opened
-      - edited
-      - reopened
+    types: [opened, edited, reopened, synchronize]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-cd
+  cancel-in-progress: true
 
 permissions:
   pull-requests: write
@@ -14,13 +15,17 @@ permissions:
 jobs:
   validate-pr-title:
     runs-on: ubuntu-24.04
-    # ignore pr opened from the branches below
+    # When a check is required if it is skipped by the on condition, it remains pending on pull request
+    # To avoid this we must use the if condition on job:
+    # - It always runs on pull request if there isn't a push
+    # - Ignore pr opened from the branches below
     if: |
       !startsWith(github.head_ref, 'renovate/') &&
       !startsWith(github.head_ref, 'dependabot') &&
       !startsWith(github.head_ref, 'release/') &&
       !startsWith(github.head_ref, 'hotfix/') &&
-      !startsWith(github.head_ref, 'main')
+      !startsWith(github.head_ref, 'main') &&
+      github.event.action != 'synchronize'
     steps:
       - name: Checkout
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0

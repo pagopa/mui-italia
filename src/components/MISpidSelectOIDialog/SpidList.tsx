@@ -8,10 +8,11 @@ import {
   ListItemButton,
   Skeleton,
   Typography,
+  useTheme,
 } from '@mui/material';
 
-import { IDP } from 'types/spid';
 import { shuffleList } from 'utils/array';
+import { IDP } from './MISpidSelectOIDialog.types';
 import { getSpidDisplayName } from './utils';
 
 type Props = {
@@ -39,6 +40,7 @@ const SpidList: React.FC<Props> = ({
   oneIdentityCdnBaseUrl,
   onSelect,
 }) => {
+  const theme = useTheme();
   const shuffledIDPS = useMemo(() => shuffleList<IDP>(idps), [idps]);
 
   const getImageUrl = (entityID: string) =>
@@ -77,7 +79,13 @@ const SpidList: React.FC<Props> = ({
               aria-label={displayName}
             >
               <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">
-                <Typography fontSize="14px" fontWeight="500" noWrap sx={{ color: '#555C70' }}>
+                <Typography
+                  fontSize="14px"
+                  fontWeight="500"
+                  textTransform="uppercase"
+                  noWrap
+                  sx={{ color: theme.colors.neutral.grey[700] }}
+                >
                   {displayName}
                 </Typography>
 

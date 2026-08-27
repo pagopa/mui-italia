@@ -1,13 +1,15 @@
 'use client';
 
-import { ReactNode } from 'react';
-import { Container, Button, Stack, IconButton } from '@mui/material';
-import { ButtonNaked } from '@components/ButtonNaked';
 import { AccountDropdown } from '@components/AccountDropdown';
+import { ButtonNaked } from '@components/ButtonNaked';
+import { Button, Container, IconButton, Stack } from '@mui/material';
+import { ReactNode } from 'react';
 
 /* Icons */
-import HelpOutlineRoundedIcon from '@mui/icons-material/HelpOutlineRounded';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
+import {
+  HelpOutlineRounded as HelpOutlineRoundedIcon,
+  MenuBook as MenuBookIcon,
+} from '@mui/icons-material';
 
 export type JwtUser = {
   id: string;
@@ -81,20 +83,18 @@ export const HeaderAccount = ({
   >
     <Container maxWidth={false}>
       <Stack spacing={2} direction="row" justifyContent="space-between" alignItems="center">
-        {rootLink && (
-          <ButtonNaked
-            component="a"
-            size="small"
-            aria-label={rootLink?.ariaLabel}
-            href={rootLink?.href}
-            target="_blank"
-            rel="noreferrer"
-            title={rootLink?.title}
-            sx={{ fontWeight: 'bold' }}
-          >
-            {rootLink?.label}
-          </ButtonNaked>
-        )}
+        <ButtonNaked
+          component="a"
+          size="small"
+          aria-label={rootLink.ariaLabel}
+          href={rootLink.href}
+          target="_blank"
+          rel="noreferrer"
+          title={rootLink.title}
+          sx={{ fontWeight: 'bold' }}
+        >
+          {rootLink.label}
+        </ButtonNaked>
 
         <Stack direction="row" alignItems="center" spacing={{ xs: 1, sm: 3, md: 4 }}>
           {/* START Documentation MOBILE/DESKTOP */}

@@ -33,21 +33,14 @@ export const FooterPostLogin = ({
         justifyContent="space-between"
         sx={{ alignItems: 'center' }}
       >
-        {companyLink && (
-          <Link
-            aria-label={companyLink?.ariaLabel}
-            href={companyLink?.href ?? hrefNoOp}
-            onClick={wrapHandleExitAction(
-              companyLink.href ?? hrefNoOp,
-              companyLink.onClick,
-              onExit
-            )}
-            sx={{ display: 'inline-flex' }}
-          >
-            <LogoPagoPACompany />
-          </Link>
-        )}
-
+        <Link
+          aria-label={companyLink.ariaLabel}
+          href={companyLink.href ?? hrefNoOp}
+          onClick={wrapHandleExitAction(companyLink.href ?? hrefNoOp, companyLink.onClick, onExit)}
+          sx={{ display: 'inline-flex' }}
+        >
+          <LogoPagoPACompany />
+        </Link>
         <Stack
           spacing={{ xs: 1, md: 3 }}
           direction={{ xs: 'column', md: 'row' }}

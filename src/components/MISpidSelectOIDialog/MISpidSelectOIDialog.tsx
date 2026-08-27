@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
+import { ClearOutlined as ClearOutlinedIcon } from '@mui/icons-material';
 import {
   Dialog,
   DialogContent,
@@ -12,10 +12,10 @@ import {
 } from '@mui/material';
 
 import { MIAlert } from '@components/MIAlert';
-import { IDP } from 'types/spid';
+import ErrorState from './ErrorState';
+import { IDP } from './MISpidSelectOIDialog.types';
 import SpidList from './SpidList';
 import { getSpidDisplayName } from './utils';
-import ErrorState from './ErrorState';
 
 const defaultTranslationsMap = {
   title: 'Accedi con SPID',
@@ -29,7 +29,7 @@ const defaultTranslationsMap = {
   },
 };
 
-type Props = {
+export type MISpidSelectOIDialogProps = {
   /** Controls the visibility of the dialog. When `true` the dialog is open. */
   show: boolean;
   /** List of SPID Identity Providers to display. */
@@ -73,7 +73,7 @@ type Props = {
  * flight the dialog is locked and cannot be closed. All visible copy can be
  * localized through `translationsMap`.
  */
-export const MISpidSelectOIDialog: React.FC<Props> = ({
+const MISpidSelectOIDialog: React.FC<MISpidSelectOIDialogProps> = ({
   show,
   idps,
   loading,
@@ -89,6 +89,7 @@ export const MISpidSelectOIDialog: React.FC<Props> = ({
 
   const [authorizingEntityId, setAuthorizingEntityId] = useState<string | null>(null);
   const [unavailableIdp, setUnavailableIdp] = useState<string | null>(null);
+  const dialogContentRef = useRef<HTMLDivElement>(null);
 
   const t = { ...defaultTranslationsMap, ...translationsMap };
 
@@ -97,6 +98,7 @@ export const MISpidSelectOIDialog: React.FC<Props> = ({
   const onSpidSelect = (idp: IDP) => {
     if (!idp.active || idp.status !== 'OK') {
       setUnavailableIdp(getSpidDisplayName(idp));
+      dialogContentRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
       onUnavailableIdpClick?.(idp);
       return;
     }
@@ -106,12 +108,15 @@ export const MISpidSelectOIDialog: React.FC<Props> = ({
   };
 
   const handleCloseDialog = () => {
-    if (!!authorizingEntityId) return;
+    if (authorizingEntityId) {
+      return;
+    }
     onClose();
   };
 
   useEffect(() => {
     if (!show) {
+      setAuthorizingEntityId(null);
       setUnavailableIdp(null);
     }
   }, [show]);
@@ -124,7 +129,11 @@ export const MISpidSelectOIDialog: React.FC<Props> = ({
       transitionDuration={0}
       onClose={handleCloseDialog}
     >
-      <DialogContent id="spidSelect" sx={{ p: 3, width: { xs: '100%', sm: '410px', lg: '600px' } }}>
+      <DialogContent
+        id="spidSelect"
+        ref={dialogContentRef}
+        sx={{ p: 3, width: { xs: '100%', sm: '410px', lg: '600px' } }}
+      >
         <Stack
           direction="row"
           display="flex"
@@ -136,7 +145,7 @@ export const MISpidSelectOIDialog: React.FC<Props> = ({
             id="spid-select"
             fontWeight="bold"
             fontSize={{ xs: '18px', sm: '24px' }}
-            sx={{ color: '#0E0F13' }}
+            sx={{ color: theme.colors.neutral.black }}
           >
             {t.title}
           </Typography>
@@ -147,18 +156,16 @@ export const MISpidSelectOIDialog: React.FC<Props> = ({
             size="small"
             aria-label={t.closeButtonAriaLabel}
             disabled={!!authorizingEntityId}
-            sx={{ color: '#0E0F13' }}
+            sx={{ color: theme.colors.neutral.black }}
           >
             <ClearOutlinedIcon />
           </IconButton>
         </Stack>
 
         {unavailableIdp && (
-          <MIAlert
-            severity="warning"
-            description={t.unavailableIdpWarning.replace('%s', unavailableIdp)}
-            data-testid="spid-select-unavailable-idp-alert"
-          />
+          <MIAlert severity="warning" data-testid="spid-select-unavailable-idp-alert">
+            {t.unavailableIdpWarning.replace('%s', unavailableIdp)}
+          </MIAlert>
         )}
 
         {hasError ? (
@@ -181,3 +188,5 @@ export const MISpidSelectOIDialog: React.FC<Props> = ({
     </Dialog>
   );
 };
+
+export default MISpidSelectOIDialog;
