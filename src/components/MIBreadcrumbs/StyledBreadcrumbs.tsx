@@ -29,7 +29,7 @@ export const StyledBreadcrumbs = styled(Breadcrumbs)(({ theme }) => ({
       cursor: 'pointer',
     },
   },
-  '& .MuiLink-root .MIBackIcon': {
+  '& .MuiLink-root .MIBreadcrumbBackIcon': {
     margin: 0,
   },
 }));

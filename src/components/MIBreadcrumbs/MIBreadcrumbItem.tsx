@@ -42,7 +42,7 @@ const MIBreadcrumbItem: React.FC<MIBreadcrumbItemProps> = ({
         underline="hover"
         fontWeight="bold"
         onClick={onClickHandler}
-        startIcon={type === 'back' && <ArrowBackIcon className="MIBackIcon" />}
+        startIcon={type === 'back' && <ArrowBackIcon className="MIBreadcrumbBackIcon" />}
       >
         {label}
       </Link>
