@@ -1,5 +1,4 @@
 import { readFile } from 'fs/promises';
-import { resolve } from 'path';
 import { fileURLToPath } from 'url';
 
 // the elements of this map are ordered by priority
@@ -24,7 +23,7 @@ export async function createWriterOpts() {
     readFile(fileURLToPath(new URL('./templates/template.hbs', import.meta.url)), 'utf-8'),
     readFile(fileURLToPath(new URL('./templates/header.hbs', import.meta.url)), 'utf-8'),
     readFile(fileURLToPath(new URL('./templates/commit.hbs', import.meta.url)), 'utf-8'),
-    readFile(fileURLToPath(new URL('./templates/footer.hbs', import.meta.url)), 'utf-8')
+    readFile(fileURLToPath(new URL('./templates/footer.hbs', import.meta.url)), 'utf-8'),
   ]);
   const writerOpts = getWriterOpts();
 
@@ -89,7 +88,7 @@ function getWriterOpts() {
       const { commitGroups } = context;
       if (!commitGroups || commitGroups.length === 0) {
         const versionBumpCommit = {
-          title: 'Chore',
+          title: 'Chores',
           commits: [
             {
               scope: '',
