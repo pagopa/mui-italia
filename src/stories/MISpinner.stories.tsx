@@ -77,18 +77,18 @@ export const ColorVariants: Story = {
     },
   },
   render: () => (
-    <Stack direction="row" spacing={4} alignItems="center">
-      <Stack spacing={1} alignItems="center">
+    <Stack direction="row" spacing={4} sx={{ alignItems: 'center' }}>
+      <Stack spacing={1} sx={{ alignItems: 'center' }}>
         <MISpinner color="primary" aria-label="Caricamento primary" />
         <Typography variant="caption">primary</Typography>
       </Stack>
 
-      <Stack spacing={1} alignItems="center">
+      <Stack spacing={1} sx={{ alignItems: 'center' }}>
         <MISpinner color="secondary" aria-label="Caricamento secondary" />
         <Typography variant="caption">secondary</Typography>
       </Stack>
 
-      <Stack spacing={1} alignItems="center">
+      <Stack spacing={1} sx={{ alignItems: 'center' }}>
         <MISpinner color="error" aria-label="Caricamento error" />
         <Typography variant="caption">error</Typography>
       </Stack>
@@ -106,9 +106,9 @@ export const SizeVariants: Story = {
     },
   },
   render: () => (
-    <Stack direction="row" spacing={4} alignItems="center">
+    <Stack direction="row" spacing={4} sx={{ alignItems: 'center' }}>
       {[16, 24, 32, 40].map((size) => (
-        <Stack key={size} spacing={1} alignItems="center">
+        <Stack key={size} spacing={1} sx={{ alignItems: 'center' }}>
           <MISpinner size={size} aria-label={`Caricamento size ${size}`} />
           <Typography variant="caption">{size}px</Typography>
         </Stack>

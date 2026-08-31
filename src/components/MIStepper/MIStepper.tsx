@@ -40,7 +40,7 @@ const MIStepper: React.FC<MIStepperProps> = ({ steps, activeStep, localeText }) 
   };
 
   return isMobile ? (
-    <Stack direction="row" spacing={2} alignItems="center">
+    <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
       <Box sx={{ position: 'relative', display: 'inline-flex' }} data-testid="mobileStepper">
         <CircularProgress
           variant="determinate"
@@ -71,7 +71,7 @@ const MIStepper: React.FC<MIStepperProps> = ({ steps, activeStep, localeText }) 
           <Typography
             variant="caption"
             component="div"
-            fontSize="12px"
+            sx={{ fontSize: '12px' }}
             data-testid="mobileStepperLabel"
           >
             {resolvedLocaleText.stepOfLabel(activeStep + 1, steps.length)}
@@ -82,7 +82,7 @@ const MIStepper: React.FC<MIStepperProps> = ({ steps, activeStep, localeText }) 
         <Typography variant="caption" data-testid="mobileStepperActive">
           {resolvedLocaleText.stepLabel(activeStep + 1)}
         </Typography>
-        <Typography variant="caption" fontWeight={600}>
+        <Typography variant="caption" sx={{ fontWeight: 600 }}>
           {steps[activeStep].label}
         </Typography>
       </Stack>

@@ -1,8 +1,8 @@
 'use client';
 
-import { Stack, Box, Container, Link } from '@mui/material';
 import { CompanyLinkType, FooterLinksType } from '@components/Footer';
 import { LangSwitch, LangSwitchProps } from '@components/LangSwitch';
+import { Box, Container, Link, Stack } from '@mui/material';
 
 import { LogoPagoPACompany } from '@assets/LogoPagoPACompany';
 import { hrefNoOp, wrapHandleExitAction } from '../../utils/ts-utils';
@@ -28,10 +28,8 @@ export const FooterPostLogin = ({
   >
     <Container maxWidth={false} sx={{ py: { xs: 3, md: 2 } }}>
       <Stack
-        spacing={{ xs: 4, md: 3 }}
         direction={{ xs: 'column', md: 'row' }}
-        justifyContent="space-between"
-        sx={{ alignItems: 'center' }}
+        sx={{ alignItems: 'center', spacing: { xs: 4, md: 3 }, justifyContent: 'space-between' }}
       >
         <Link
           aria-label={companyLink.ariaLabel}

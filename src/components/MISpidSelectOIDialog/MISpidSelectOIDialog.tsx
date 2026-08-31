@@ -136,16 +136,20 @@ const MISpidSelectOIDialog: React.FC<MISpidSelectOIDialogProps> = ({
       >
         <Stack
           direction="row"
-          display="flex"
-          alignItems="center"
-          justifyContent="space-between"
-          mb={3}
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            mb: 3,
+          }}
         >
           <Typography
             id="spid-select"
-            fontWeight="bold"
-            fontSize={{ xs: '18px', sm: '24px' }}
-            sx={{ color: theme.colors.neutral.black }}
+            sx={{
+              color: theme.colors.neutral.black,
+              fontWeight: 'bold',
+              fontSize: { xs: '18px', sm: '24px' },
+            }}
           >
             {t.title}
           </Typography>

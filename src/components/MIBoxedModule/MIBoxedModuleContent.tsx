@@ -25,10 +25,12 @@ const MIBoxedModuleContent: FC<Props> = ({ direction, children, action }) => {
   return (
     <Stack
       direction={internalDirection}
-      alignItems={internalDirection === 'column' ? 'stretch' : 'center'}
-      columnGap={2}
-      rowGap={1}
-      sx={{ flex: '1 1 auto' }}
+      sx={{
+        flex: '1 1 auto',
+        alignItems: internalDirection === 'column' ? 'stretch' : 'center',
+        columnGap: 2,
+        rowGap: 1,
+      }}
     >
       <Box
         sx={{ flex: internalDirection === 'column' ? 'none' : '1 1 auto' }}

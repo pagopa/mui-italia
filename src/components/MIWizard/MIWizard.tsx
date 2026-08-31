@@ -141,8 +141,13 @@ const MIWizard: React.FC<MIWizardProps> = ({
             data-testid="wizard-feedback-content"
             color="text.primary"
             variant="body2"
-            fontWeight="400"
-            sx={{ mt: 1, mb: 2, mx: '0px auto', fontSize: { xs: '14px', sm: '16px' } }}
+            sx={{
+              mt: 1,
+              mb: 2,
+              mx: '0px auto',
+              fontSize: { xs: '14px', sm: '16px' },
+              fontWeight: 400,
+            }}
           >
             {feedback.content}
           </Typography>
@@ -161,8 +166,16 @@ const MIWizard: React.FC<MIWizardProps> = ({
   }
 
   return (
-    <Stack display="flex" alignItems="center" justifyContent="center" {...slotsProps?.container}>
-      <Box p={3}>
+    <Stack
+      {...slotsProps?.container}
+      sx={{
+        ...slotsProps?.container?.sx,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <Box sx={{ p: 3 }}>
         <ExitButton
           {...slotsProps?.exitButton}
           data-testid="exit-button"
@@ -192,9 +205,9 @@ const MIWizard: React.FC<MIWizardProps> = ({
         {slotsProps?.belowStepContent}
 
         <Stack
-          direction={{ xs: 'column-reverse', md: 'row' }}
-          justifyContent="space-between"
           {...slotsProps?.actions}
+          direction={{ xs: 'column-reverse', md: 'row' }}
+          sx={{ ...slotsProps?.actions?.sx, justifyContent: 'space-between' }}
         >
           <PrevButton
             {...slotsProps?.prevButton}

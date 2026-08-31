@@ -95,7 +95,7 @@ export default meta;
 type Story = StoryObj<MIChipStoryArgs>;
 
 const ChipGrid = ({ variant }: { variant: 'filled' | 'outlined' }) => (
-  <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
+  <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: 'wrap' }}>
     {ALL_COLORS.map((color) => (
       <MIChip
         key={`${variant}-${color}`}

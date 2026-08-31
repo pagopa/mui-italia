@@ -375,7 +375,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
 
   return (
     <>
-      <Box position="relative" ref={containerRef} onBlur={handleBlur} sx={sx} {...other}>
+      <Box ref={containerRef} onBlur={handleBlur} sx={{ ...sx, position: 'relative' }} {...other}>
         <TextField
           id={inputId}
           fullWidth
@@ -394,20 +394,22 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
           required={required}
           error={error}
           helperText={helperText}
-          inputProps={{
-            required: required && !hasSelectedValue,
-            role: 'combobox',
-            'aria-expanded': isOpen,
-            'aria-controls': listboxId,
-            'aria-autocomplete': 'list',
-            'aria-activedescendant':
-              activeIndex >= 0 ? `${listboxId}-option-${activeIndex}` : undefined,
-            'aria-haspopup': 'listbox',
-            'aria-disabled': disabled,
-          }}
-          InputProps={{
-            startAdornment: getStartInputAdornment(),
-            endAdornment: getEndInputAdornment(),
+          slotProps={{
+            input: {
+              startAdornment: getStartInputAdornment(),
+              endAdornment: getEndInputAdornment(),
+            },
+            htmlInput: {
+              required: required && !hasSelectedValue,
+              role: 'combobox',
+              'aria-expanded': isOpen,
+              'aria-controls': listboxId,
+              'aria-autocomplete': 'list',
+              'aria-activedescendant':
+                activeIndex >= 0 ? `${listboxId}-option-${activeIndex}` : undefined,
+              'aria-haspopup': 'listbox',
+              'aria-disabled': disabled,
+            },
           }}
           sx={{
             '& .MuiInputBase-root': {

@@ -88,7 +88,7 @@ export const MIAlert: React.FC<MIAlertProps> = ({
         title,
       }}
     >
-      <Stack direction="row" flex={1} columnGap={8} rowGap={2} flexWrap="wrap">
+      <Stack direction="row" sx={{ flex: 1, columnGap: 8, rowGap: 2, flexWrap: 'wrap' }}>
         <Box
           sx={{
             flex: {
@@ -119,7 +119,7 @@ const MIAlertCta = ({ cta, severity = 'success', isMobile }: Readonly<MIAlertCta
 
   if (isLink) {
     target = cta.target ?? '_self';
-    rel = target === '_blank' ? cta.rel ?? 'noopener noreferrer' : cta.rel;
+    rel = target === '_blank' ? (cta.rel ?? 'noopener noreferrer') : cta.rel;
   }
 
   const commonProps = {

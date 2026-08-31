@@ -1,18 +1,17 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
     "paths": {
-      "@components/*": ["components/*"],
-      "@tokens": ["tokens/index"],
-      "@theme": ["theme/index"],
-      "@illustrations/*": ["illustrations/*"],
-      "@assets/*": ["assets/*"],
-      "@icons/*": ["icons/*"],
-      "@static/*": ["static/*"],
-      "@lib-types/*": ["types/*"],
-      "@hooks/*": ["hooks/*"]
+      "@components/*": ["./src/components/*"],
+      "@tokens": ["./src/tokens/index"],
+      "@theme": ["./src/theme/index"],
+      "@illustrations/*": ["./src/illustrations/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@icons/*": ["./src/icons/*"],
+      "@static/*": ["./src/static/*"],
+      "@lib-types/*": ["./src/types/*"],
+      "@hooks/*": ["./src/hooks/*"]
     },
-    "rootDir": "src",
+    // "rootDir": "src",
     "outDir": "dist",
     "target": "ES2020",
     "module": "ES2020",

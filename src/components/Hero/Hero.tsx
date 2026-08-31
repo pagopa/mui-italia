@@ -1,7 +1,7 @@
 'use client';
 
-import { Box, Button, Stack, Typography, Container } from '@mui/material';
 import { CTA } from '@lib-types/shared.types';
+import { Box, Button, Container, Stack, Typography } from '@mui/material';
 
 interface HeroTextProps {
   title: string;
@@ -32,12 +32,12 @@ const HERO_TEXT_PADDING = { xs: 4, sm: 4, md: 8 };
 const HeroTextContent = ({ title, subtitle, ctaPrimary, ctaSecondary }: HeroTextProps) => (
   <Stack spacing={4}>
     <Stack spacing={2}>
-      <Typography variant="h1" color="primary.contrastText">
+      <Typography variant="h1" sx={{ color: 'primary.contrastText' }}>
         {title}
       </Typography>
       <>
         {subtitle && typeof subtitle === 'string' && (
-          <Typography variant="body1" color="primary.contrastText">
+          <Typography variant="body1" sx={{ color: 'primary.contrastText' }}>
             {subtitle}
           </Typography>
         )}
@@ -101,28 +101,32 @@ const HeroWithImage = ({
       }}
     >
       <Box
-        gridColumn={{
-          xs: 'span 6',
-          md: inverse ? '7 / span 5' : '2 / span 5',
+        sx={{
+          gridColumn: {
+            xs: 'span 6',
+            md: inverse ? '7 / span 5' : '2 / span 5',
+          },
+          gridRow: {
+            xs: 'auto',
+            md: 1,
+          },
+          my: 'auto',
         }}
-        gridRow={{
-          xs: 'auto',
-          md: 1,
-        }}
-        my="auto"
       >
         <HeroTextContent {...props} />
       </Box>
       <Box
-        gridColumn={{
-          xs: 'span 6',
-          md: inverse ? '2 / span 5' : '7 / span 5',
+        sx={{
+          gridColumn: {
+            xs: 'span 6',
+            md: inverse ? '2 / span 5' : '7 / span 5',
+          },
+          gridRow: {
+            xs: 'auto',
+            md: 1,
+          },
+          alignSelf: 'center',
         }}
-        gridRow={{
-          xs: 'auto',
-          md: 1,
-        }}
-        alignSelf="center"
       >
         <img
           alt={altText}
@@ -143,10 +147,10 @@ const HeroWithImage = ({
 
 export const Hero = (props: HeroProps) => (
   <Box
-    bgcolor="primary.main"
     sx={{
       backgroundImage: `url(${props.background})`,
       backgroundSize: 'cover',
+      bgcolor: 'primary.main',
     }}
   >
     <Container maxWidth="xl">

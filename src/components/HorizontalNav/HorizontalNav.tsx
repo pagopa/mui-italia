@@ -48,12 +48,10 @@ export const HorizontalNav = ({ sections }: HorizontalNavProps) => {
             gridTemplateColumns: 'repeat(12, minmax(0, 1fr))',
           }}
         >
-          <Box gridColumn={{ xs: '1 / span 12', md: '2 / span 10' }} my="auto">
+          <Box sx={{ gridColumn: { xs: '1 / span 12', md: '2 / span 10' }, my: 'auto' }}>
             <Stack
               direction={{ xs: 'column', md: 'row' }}
-              width="100%"
-              color="primary.contrastText"
-              textAlign="center"
+              sx={{ width: '100%', color: 'primary.contrastText', textAlign: 'center' }}
             >
               {sections.map((section, index) => (
                 <>
@@ -62,14 +60,6 @@ export const HorizontalNav = ({ sections }: HorizontalNavProps) => {
                   ) : (
                     <Box
                       key={index}
-                      bgcolor={
-                        index === 0
-                          ? theme.palette.primary.dark
-                          : index === 1
-                            ? theme.palette.primary.main
-                            : theme.palette.primary.light
-                      }
-                      flex="1 0"
                       sx={{
                         px: 4,
                         py: {
@@ -77,9 +67,19 @@ export const HorizontalNav = ({ sections }: HorizontalNavProps) => {
                           sm: 4,
                           md: 8,
                         },
+                        bgcolor:
+                          index === 0
+                            ? theme.palette.primary.dark
+                            : index === 1
+                              ? theme.palette.primary.main
+                              : theme.palette.primary.light,
+                        flex: '1 0',
                       }}
                     >
-                      <Stack spacing={4} height="100%" alignItems="center" justifyContent="center">
+                      <Stack
+                        spacing={4}
+                        sx={{ height: '100%', alignItems: 'center', justifyContent: 'center' }}
+                      >
                         <Box
                           color="primary.contrastText"
                           sx={{

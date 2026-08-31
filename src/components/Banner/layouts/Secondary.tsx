@@ -1,6 +1,6 @@
 import { Stack } from '@mui/material';
 import { BannerCTAWithId, BannerModel, ViewState } from '../model';
-import { Cta, Message, Title, CloseButton } from '../shared';
+import { CloseButton, Cta, Message, Title } from '../shared';
 
 export function Secondary({
   model,
@@ -35,8 +35,8 @@ export function Secondary({
     : undefined;
 
   return (
-    <Stack direction="row" justifyContent="space-between" width="100%" gap={2}>
-      <Stack direction="column" flex={1} gap={1} minWidth={0}>
+    <Stack direction="row" sx={{ justifyContent: 'space-between', width: '100%', gap: 2 }}>
+      <Stack direction="column" sx={{ flex: 1, gap: 1, minWidth: 0 }}>
         <Title
           id={titleId}
           text={title}
@@ -51,7 +51,7 @@ export function Secondary({
         )}
       </Stack>
 
-      <Stack direction="column" alignItems="flex-end" gap={2} flexShrink={0}>
+      <Stack direction="column" sx={{ alignItems: 'flex-end', gap: 2, flexShrink: 0 }}>
         {onClose && <CloseButton onClose={onClose} ariaLabel={closeAriaLabel} />}
 
         {isHorizontal && ctaCommonProps && (

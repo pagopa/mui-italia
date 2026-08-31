@@ -1,8 +1,8 @@
 'use client';
 
 // Components
-import { Stack } from '@mui/material';
 import { Tag } from '@components/Tag';
+import { Stack } from '@mui/material';
 import { Children, Ref } from 'react';
 
 export interface TagGroupProps {
@@ -15,9 +15,9 @@ const TagGroup = ({ children, visibleItems = NaN }: TagGroupProps): JSX.Element 
   <Stack
     spacing={0.5}
     direction="row"
-    justifyContent="flex-start"
-    alignItems="flex-start"
     sx={(theme) => ({
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
       flexWrap: 'wrap',
       mt: -0.5,
       ml: -0.5,

@@ -101,7 +101,7 @@ export const Sizes: Story = {
     },
   },
   render: () => (
-    <Stack direction="row" spacing={2} alignItems="center">
+    <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
       <MIIconButton size="small" aria-label="Elimina elemento">
         <DeleteRoundedIcon fontSize="small" />
       </MIIconButton>
@@ -127,7 +127,7 @@ export const Icons: Story = {
     },
   },
   render: () => (
-    <Stack direction="row" spacing={2} alignItems="center">
+    <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
       <MIIconButton aria-label="Elimina elemento">
         <DeleteRoundedIcon />
       </MIIconButton>
@@ -158,7 +158,7 @@ export const Edge: Story = {
     },
   },
   render: () => (
-    <Stack direction="row" spacing={3} alignItems="center">
+    <Stack direction="row" spacing={3} sx={{ alignItems: 'center' }}>
       <MIIconButton edge="start" aria-label="Indietro">
         <CloseRoundedIcon />
       </MIIconButton>

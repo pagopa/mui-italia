@@ -224,7 +224,7 @@ export const Variants: Story = {
     },
   },
   render: () => (
-    <Stack direction="column" spacing={4} alignItems="flex-start">
+    <Stack direction="column" spacing={4} sx={{ alignItems: 'flex-start' }}>
       <Stack spacing={1}>
         <Typography variant="caption">Extended</Typography>
 

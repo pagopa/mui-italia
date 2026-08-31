@@ -77,13 +77,15 @@ export type SingleFileInputProps = {
 
 const OrientedBox = ({ vertical, children }: { vertical?: boolean; children: ReactNode }) => (
   <Box
-    display="flex"
-    justifyContent="center"
-    alignItems="center"
-    flexDirection={vertical ? 'column' : 'row'}
-    margin="auto"
-    flex={1}
-    p={3}
+    sx={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: vertical ? 'column' : 'row',
+      margin: 'auto',
+      flex: 1,
+      p: 3,
+    }}
   >
     {children}
   </Box>
@@ -223,7 +225,7 @@ export const SingleFileInput = ({
                       mr: vertical ? 0 : '10px',
                     }}
                   />
-                  <Typography color="error" display="inline" variant="body2">
+                  <Typography color="error" variant="body2" sx={{ display: 'inline' }}>
                     {rejectedLabel}
                   </Typography>
                 </>
@@ -238,11 +240,11 @@ export const SingleFileInput = ({
                         ? getColorStyle(status)
                         : 'text.' + getColorStyle(status)
                     }
-                    display="inline"
                     variant="body2"
                     sx={{
                       my: vertical ? '10px' : 0,
                       mx: vertical ? 0 : '10px',
+                      display: 'inline',
                     }}
                   >
                     {dropzoneLabel}
@@ -266,7 +268,7 @@ export const SingleFileInput = ({
 
         {status === UploadStatus.LOADING && (
           <OrientedBox vertical={vertical}>
-            <Typography display="inline-block" variant="body2" component="span">
+            <Typography variant="body2" component="span" sx={{ display: 'inline-block' }}>
               {loadingLabel}
             </Typography>
 
@@ -293,15 +295,17 @@ export const SingleFileInput = ({
 
         {status === UploadStatus.SELECTED && value && (
           <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            sx={{ width: '100%' }}
+            sx={{
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
           >
-            <Box display="flex" justifyContent="center" alignItems="center">
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <AttachFileIcon sx={{ mr: 1 }} color="primary" />
               <Typography color="primary">{truncateFileName(value.name)}</Typography>
-              <Typography fontWeight={600} sx={{ marginLeft: '30px' }}>
+              <Typography sx={{ marginLeft: '30px', fontWeight: 600 }}>
                 {(value.size / 1024).toFixed(2)}&nbsp;KB
               </Typography>
             </Box>

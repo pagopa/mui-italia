@@ -1,7 +1,7 @@
-import { useState, MouseEvent } from 'react';
-import { StoryFn, Meta } from '@storybook/react-vite';
+import { Meta, StoryFn } from '@storybook/react-vite';
+import { MouseEvent, useState } from 'react';
 
-import { Menu, MenuItem, Button, ListItemIcon, ListItemText } from '@mui/material';
+import { Button, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material';
 
 import { AddCircleRounded as AddCircleRoundedIcon } from '@mui/icons-material';
 
@@ -39,8 +39,10 @@ export const Default: StoryFn<typeof Menu> = () => {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
+        slotProps={{
+          list: {
+            'aria-labelledby': 'basic-button',
+          },
         }}
       >
         <MenuItem onClick={handleClose}>A very looooong item</MenuItem>

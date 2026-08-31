@@ -1,8 +1,8 @@
 'use client';
 
-import { ReactNode } from 'react';
-import { Stack, Typography, Box, Button } from '@mui/material';
+import { Box, Button, Stack, Typography } from '@mui/material';
 import { SxProps } from '@mui/system';
+import { ReactNode } from 'react';
 
 type TOSAgreementProps = {
   productName: string;
@@ -29,9 +29,13 @@ export function TOSAgreement({
 
   return (
     <Stack
-      alignItems="center"
-      justifyContent="center"
-      sx={{ py: { xs: 4, lg: 16 }, backgroundColor: '#FAFAFA', ...sx }}
+      sx={{
+        py: { xs: 4, lg: 16 },
+        backgroundColor: '#FAFAFA',
+        alignItems: 'center',
+        justifyContent: 'center',
+        ...sx,
+      }}
     >
       <Stack sx={{ maxWidth: 680, mx: 'auto', px: { xs: 3, lg: 4 } }} spacing={{ xs: 4, lg: 8 }}>
         <Stack sx={{ textAlign: 'center' }} spacing={1}>

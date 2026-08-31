@@ -52,15 +52,17 @@ export const Infoblock = ({
           }}
         >
           <Box
-            gridColumn={{
-              xs: 'span 6',
-              md: inverse ? '7 / span 5' : '2 / span 5',
+            sx={{
+              gridColumn: {
+                xs: 'span 6',
+                md: inverse ? '7 / span 5' : '2 / span 5',
+              },
+              gridRow: {
+                xs: 'auto',
+                md: 1,
+              },
+              my: 'auto',
             }}
-            gridRow={{
-              xs: 'auto',
-              md: 1,
-            }}
-            my="auto"
           >
             <Stack spacing={4}>
               <Stack spacing={2}>
@@ -108,15 +110,17 @@ export const Infoblock = ({
             </Stack>
           </Box>
           <Box
-            gridColumn={{
-              xs: 'span 6',
-              md: inverse ? '2 / span 5' : '7 / span 5',
+            sx={{
+              gridColumn: {
+                xs: 'span 6',
+                md: inverse ? '2 / span 5' : '7 / span 5',
+              },
+              gridRow: {
+                xs: 'auto',
+                md: 1,
+              },
+              my: 'auto',
             }}
-            gridRow={{
-              xs: 'auto',
-              md: 1,
-            }}
-            my="auto"
           >
             <Box
               sx={{

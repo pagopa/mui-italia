@@ -14,15 +14,15 @@ const DefaultEmptyState = <T,>({ noResultsText, filteredOptions }: Props<T>) => 
   return (
     <Stack
       spacing={1}
-      alignItems="center"
-      textAlign="center"
       sx={{
         backgroundColor: '#F4F5F8',
         py: 3,
+        alignItems: 'center',
+        textAlign: 'center',
       }}
     >
       <ErrorOutlineOutlined sx={{ color: '#D9D9D9' }} />
-      <Typography fontWeight={600} fontSize="1.125rem" color="textSecondary">
+      <Typography color="textSecondary" sx={{ fontWeight: 600, fontSize: '1.125rem' }}>
         {noResultsText}
       </Typography>
     </Stack>

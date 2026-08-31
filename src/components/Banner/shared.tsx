@@ -1,16 +1,20 @@
-import type { ElementType } from 'react';
-import { Close as CloseIcon } from '@mui/icons-material';
-import { Box, Button, Chip, IconButton, Typography, styled } from '@mui/material';
-import type { SxProps, Theme } from '@mui/material/styles';
 import { ButtonNaked } from '@components/ButtonNaked';
+import { Close as CloseIcon } from '@mui/icons-material';
+import { Box, BoxProps, Button, Chip, IconButton, styled, Typography } from '@mui/material';
+import type { SxProps, Theme } from '@mui/material/styles';
+import type { ElementType } from 'react';
 import type { BannerColorStyle, BannerCTA, BannerVariant, CtaKind, ThemeColor } from './model';
 
 const resolveColor = (theme: Theme, value: ThemeColor) =>
   typeof value === 'function' ? value(theme) : value;
 
+type RootProps = BoxProps & {
+  colorStyle: BannerColorStyle;
+};
+
 export const Root = styled(Box, {
   shouldForwardProp: (prop) => prop !== 'colorStyle',
-})<{ colorStyle: BannerColorStyle }>(({ theme, colorStyle }) => ({
+})<RootProps>(({ theme, colorStyle }) => ({
   backgroundColor: resolveColor(theme, colorStyle.background),
   border: `1px solid ${resolveColor(theme, colorStyle.border)}`,
   borderRadius: theme.spacing(1),
@@ -170,12 +174,12 @@ export function Title({
     <Typography
       id={id}
       component="h6"
-      color={(theme) => theme.colors.neutral.black}
       sx={{
         fontWeight: 700,
         fontSize,
         lineHeight: 1.2,
         textAlign,
+        color: (theme) => theme.colors.neutral.black,
         // prevents long unbroken strings from overflowing the banner.
         overflowWrap: 'anywhere',
         wordBreak: 'break-word',

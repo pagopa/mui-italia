@@ -1,8 +1,8 @@
 'use client';
 
-import { Stack, Box, Link } from '@mui/material';
 import { CompanyLinkType, FooterLinksType } from '@components/Footer';
 import { LangSwitch, LangSwitchProps } from '@components/LangSwitch';
+import { Box, Link, Stack } from '@mui/material';
 
 import { LogoPagoPACompany } from '@assets/LogoPagoPACompany';
 import { hrefNoOp, wrapHandleExitAction } from '../../utils/ts-utils';
@@ -22,9 +22,11 @@ export const FooterCheckout = ({
   <Box sx={{ p: 3, backgroundColor: 'background.paper' }}>
     <Stack
       spacing={3}
-      direction={{ xs: 'column', sm: 'row' }}
-      justifyContent="space-between"
-      sx={{ alignItems: 'center' }}
+      sx={{
+        alignItems: 'center',
+        direction: { xs: 'column', sm: 'row' },
+        justifyContent: 'space-between',
+      }}
     >
       <Stack
         spacing={{ xs: 1, sm: 3 }}

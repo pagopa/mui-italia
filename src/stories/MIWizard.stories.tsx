@@ -44,7 +44,7 @@ const WizardDemo = ({ initialStep = 0 }: WizardDemoProps) => {
       activeStep={activeStep}
       setActiveStep={setActiveStep}
       title={
-        <Typography variant="h4" fontWeight={700}>
+        <Typography variant="h4" sx={{ fontWeight: 700 }}>
           Example wizard
         </Typography>
       }
