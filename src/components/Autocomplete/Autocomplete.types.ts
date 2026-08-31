@@ -53,7 +53,7 @@ export type InputChangeReason = 'input' | 'clear' | 'selectOption';
 
 // if multiple is true, value is an array of T
 // otherwise we have a single element
-export type AutocompleteValue<T, Multiple> = Multiple extends true ? Array<T> : T;
+export type AutocompleteValue<T, Multiple> = Multiple extends true ? Array<T> : T | null;
 
 export interface AutocompleteProps<T, Multiple extends boolean | undefined>
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
