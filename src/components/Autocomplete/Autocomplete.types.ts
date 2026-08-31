@@ -6,8 +6,8 @@ interface AutocompleteSlots<T> {
   startIcon?: ComponentType<SvgIconProps>;
   /** Custom loading skeleton component shown during loading state */
   loadingSkeleton?: ComponentType;
-   /** Custom empty state component */
-  emptyState?: JSXElementConstructor<{filteredOptions: Array<T>}>;
+  /** Custom empty state component */
+  emptyState?: JSXElementConstructor<{ filteredOptions: Array<T> }>;
 }
 
 interface AutocompleteSlotProps {
@@ -99,7 +99,7 @@ export interface AutocompleteProps<T, Multiple extends boolean | undefined>
   /** Show loading state with skeleton */
   loading?: boolean;
 
-   /** Text displayed when no options are available */
+  /** Text displayed when no options are available */
   noResultsText?: string;
 
   /** Custom components to replace default icons and states */
