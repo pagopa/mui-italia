@@ -13,10 +13,10 @@ Controlla che:
 - colori, spaziature, breakpoint, tipografia, bordi, ombre e raggi usino token appropriati quando disponibili;
 - non vengano introdotti valori hard-coded che impediscono la personalizzazione;
 - gli stili supportino temi personalizzati;
-- estensioni runtime del tema siano accompagnate dai tipi TypeScript necessari;
+- le estensioni runtime del tema siano accompagnate dai tipi TypeScript necessari;
 - i token siano scelti per significato, non soltanto per il valore visivo corrente.
 
-Non segnalare ogni valore letterale: commenta solo quelli che introducono incoerenza, duplicazione o problemi di personalizzazione e accessibilità.
+Non segnalare ogni valore letterale. Commenta soltanto quelli che introducono incoerenza, duplicazione o problemi di personalizzazione e accessibilità.
 
 ## Accesso al tema
 
@@ -27,7 +27,9 @@ I componenti devono usare il tema attualmente fornito dal `ThemeProvider` tramit
 - `useTheme`, quando serve nella logica del componente;
 - API equivalenti che ricevono il tema attivo.
 
-Non importare nei componenti l’istanza concreta del tema definita nel repository: li legherebbe a una configurazione specifica, ignorando il tema del consumatore. L’import diretto è appropriato soltanto nel codice che crea o compone il tema stesso.
+Non importare nei componenti l’istanza concreta del tema definita nel repository: li legherebbe a una configurazione specifica, ignorando il tema del consumatore.
+
+L’import diretto è appropriato soltanto nel codice che crea o compone il tema stesso.
 
 Esempio da evitare:
 
@@ -55,15 +57,31 @@ Usa:
 - token dedicati ad action e stati interattivi quando appropriato;
 - `spacing`, `typography`, `shape`, `shadows` e `breakpoints` per il rispettivo scopo.
 
-Non usare, per esempio, `palette.text.primary` per un bordo, uno sfondo o un elemento decorativo solo perché ha il colore desiderato. Quando manca un token adatto, valuta un token dedicato anziché riutilizzarne uno semanticamente scorretto.
+Non usare, per esempio, `palette.text.primary` per un bordo, uno sfondo o un elemento decorativo solo perché ha il colore desiderato.
 
-Segnala una scelta quando può produrre incoerenze con temi personalizzati, modalità differenti, contrasto o futura evoluzione del design system.
+Quando manca un token adatto, valuta un token dedicato anziché riutilizzarne uno semanticamente scorretto.
+
+Segnala una scelta quando può produrre incoerenze con:
+
+- temi personalizzati;
+- modalità differenti;
+- contrasto e riconoscibilità degli stati;
+- futura evoluzione del design system.
 
 ## Unità di misura e dimensioni
 
-Evita valori dimensionali hard-coded, come `16px`, quando esiste un token semanticamente appropriato. Preferisci in particolare `theme.spacing`, `theme.typography`, `theme.shape` e `theme.breakpoints`.
+Evita valori dimensionali hard-coded, come `16px`, quando esiste un token semanticamente appropriato.
 
-Una misura specifica è accettabile per requisiti tecnici, spessori grafici precisi, allineamento ad asset o vincoli non espressi dal tema. In tali casi verifica che l’unità sia adeguata:
+Preferisci in particolare:
+
+- `theme.spacing` per spaziature e distanze;
+- `theme.typography` per dimensioni, pesi e interlinea del testo;
+- `theme.shape` per i raggi;
+- `theme.breakpoints` per il comportamento responsive.
+
+Una misura specifica è accettabile per requisiti tecnici, spessori grafici precisi, allineamento ad asset o vincoli non espressi dal tema.
+
+In tali casi verifica che l’unità sia adeguata:
 
 - preferisci `rem` per tipografia e dimensioni che devono adattarsi alle impostazioni del testo;
 - usa unità relative per elementi e spaziature che devono scalare con testo o contenitore;
@@ -96,4 +114,16 @@ Controlla:
 
 ## Documentazione ed esempi MDX
 
-Controlla che nuove varianti e API siano documentate, che import, props e valori di default corrispondano all’implementazione, che gli snippet siano validi e accessibili e che eventuali breaking change siano evidenziate.
+Controlla che:
+
+- nuove varianti e API siano documentate;
+- import, props e valori di default corrispondano all’implementazione;
+- gli snippet siano validi e accessibili;
+- eventuali breaking change siano evidenziate;
+- label e messaggi configurabili siano documentati;
+- gli esempi dimostrino che i contenuti possono essere sostituiti;
+- i testi di esempio non vengano interpretati come valori fissi imposti dalla libreria;
+- i contenuti lunghi o tradotti non compromettano il layout;
+- le story includano, quando pertinente, contenuti di lunghezza diversa per verificare la resilienza del componente.
+
+L’internazionalizzazione non riguarda soltanto la sostituzione delle stringhe: verifica anche che layout, spaziature e dimensioni non dipendano rigidamente dalla lunghezza del testo predefinito.

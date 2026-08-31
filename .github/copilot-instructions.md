@@ -4,7 +4,7 @@
 
 Questo repository contiene una libreria TypeScript per React che estende e personalizza Material UI. Il tema e i componenti seguono i principi, le API e le convenzioni del design system di Material UI.
 
-Durante le pull request, concentrati sulla correttezza, sulla compatibilità delle API pubbliche, sull’accessibilità, sulla coerenza con Material UI e sulla manutenibilità.
+Durante le pull request, concentrati sulla correttezza, sulla compatibilità delle API pubbliche, sull’accessibilità, sull’internazionalizzazione, sulla coerenza con Material UI e sulla manutenibilità.
 
 ## Lingua dei commenti
 
@@ -20,13 +20,14 @@ Valuta, in ordine di importanza:
 2. Problemi di sicurezza.
 3. Breaking change involontarie nelle API pubbliche.
 4. Problemi di accessibilità.
-5. Incompatibilità con React, Material UI o TypeScript.
-6. Errori nella gestione del tema, delle varianti e degli stati.
-7. Aumenti ingiustificati del peso della build o modifiche ai relativi limiti.
-8. Test mancanti, copertura inefficace o uso eccessivo di mock.
-9. Documentazione Storybook o MDX mancante per nuovi componenti pubblici.
-10. Altri problemi rilevanti di prestazioni.
-11. Leggibilità, complessità, duplicazione e organizzazione del codice.
+5. Testi rivolti all’utente non configurabili dall’esterno e quindi non traducibili.
+6. Incompatibilità con React, Material UI o TypeScript.
+7. Errori nella gestione del tema, delle varianti e degli stati.
+8. Aumenti ingiustificati del peso della build o modifiche ai relativi limiti.
+9. Test mancanti, copertura inefficace o uso eccessivo di mock.
+10. Documentazione Storybook o MDX mancante per nuovi componenti pubblici.
+11. Altri problemi rilevanti di prestazioni.
+12. Leggibilità, complessità, duplicazione e organizzazione del codice.
 
 Evita commenti puramente stilistici quando il problema è già gestito da formatter, linter o CI.
 
@@ -66,6 +67,7 @@ Richiedi test quando la pull request:
 - cambia rendering condizionale, eventi o stati interattivi;
 - modifica accessibilità o navigazione da tastiera;
 - introduce configurazioni tramite discriminated unions;
+- introduce o modifica testi configurabili;
 - cambia tipi, API pubbliche, varianti, breakpoint o override del tema.
 
 Per un nuovo componente verifica, quando applicabile:
@@ -74,9 +76,22 @@ Per un nuovo componente verifica, quando applicabile:
 - forwarding delle props HTML e Material UI esposte;
 - event handler, configurazioni pubbliche e stati significativi;
 - comportamento da tastiera e attributi accessibili;
+- configurabilità di label visibili, messaggi e testi accessibili;
 - casi limite e regressioni della logica custom.
 
 I test devono verificare il comportamento osservabile dal consumatore con interazioni realistiche, non i dettagli interni dell’implementazione.
+
+### Test dei contenuti configurabili
+
+Quando un componente introduce label, messaggi o altri testi rivolti all’utente, verifica che i test:
+
+- forniscano almeno un valore personalizzato diverso dall’eventuale default;
+- dimostrino che il valore ricevuto dall’esterno viene effettivamente renderizzato o annunciato;
+- coprano le label associate agli stati condizionali rilevanti;
+- controllino separatamente le label accessibili quando non coincidono con il testo visibile;
+- non si limitino a verificare stringhe hard-coded interne al componente.
+
+Non è necessario testare una specifica libreria di internazionalizzazione. Deve essere verificato il contratto pubblico che consente al consumatore di fornire contenuti tradotti.
 
 ### Copertura
 
@@ -84,7 +99,7 @@ Non considerare sufficiente la sola presenza di un test o il superamento della s
 
 - il comportamento principale e i rami significativi siano coperti da assertion utili;
 - i test falliscano se il comportamento implementato si rompe;
-- righe escluse dalla copertura abbiano una motivazione valida e circoscritta;
+- le righe escluse dalla copertura abbiano una motivazione valida e circoscritta;
 - soglie e configurazioni di coverage non siano ridotte o aggirate senza una giustificazione esplicita.
 
 Una modifica alle soglie di coverage non è automaticamente errata, ma deve essere intenzionale, documentata, proporzionata e non deve nascondere codice non testato.
@@ -93,18 +108,28 @@ Una modifica alle soglie di coverage non è automaticamente errata, ma deve esse
 
 Limita mock, stub e sostituzioni allo stretto necessario. Preferisci componenti, utility, provider e tema reali.
 
-Un mock è appropriato soprattutto per dipendenze esterne, rete, comportamento non deterministico, API del browser non disponibili o componenti estranei all’unità sotto test. Verifica che:
+Un mock è appropriato soprattutto per dipendenze esterne, rete, comportamento non deterministico, API del browser non disponibili o componenti estranei all’unità sotto test.
+
+Verifica che il mock:
 
 - riproduca il contratto rilevante della dipendenza reale;
-- non replichi l’implementazione sotto test o preconfiguri esattamente il risultato atteso;
+- non replichi l’implementazione sotto test;
+- non preconfiguri esattamente il risultato atteso rendendo il test tautologico;
 - non nasconda problemi di integrazione;
-- sia limitato ai test che ne hanno bisogno e venga ripristinato correttamente.
+- sia limitato ai test che ne hanno bisogno;
+- venga ripristinato correttamente tra i test.
 
 Segnala test che possono produrre falsi positivi perché verificano soltanto risposte definite dai mock. Non richiedere test duplicati o test unitari per modifiche esclusivamente documentali.
 
 ## Prestazioni, sicurezza e peso della build
 
-Segnala problemi concreti quali calcoli o rendering costosi, HTML non sanitizzato, uso non sicuro di `dangerouslySetInnerHTML`, URL costruiti da input non attendibile o esposizione di informazioni sensibili.
+Segnala problemi concreti quali:
+
+- calcoli o rendering inutilmente costosi;
+- HTML non sanitizzato;
+- uso non sicuro di `dangerouslySetInnerHTML`;
+- URL costruiti da input non attendibile;
+- esposizione di token, credenziali o informazioni sensibili.
 
 Non suggerire `useMemo`, `useCallback` o altre ottimizzazioni senza un beneficio concreto o un problema di identità referenziale.
 
@@ -128,14 +153,25 @@ Se la giustificazione non è verificabile, chiedi in inglese di documentare l’
 
 ## Documentazione dei nuovi componenti
 
-Ogni nuovo componente pubblico deve includere story nello Storybook e documentazione MDX sotto `docs`.
+Ogni nuovo componente pubblico deve includere:
+
+- una o più story nello Storybook;
+- documentazione MDX sotto `docs`;
+- esempi delle configurazioni pubbliche principali;
+- descrizione delle props e dei comportamenti rilevanti;
+- esempi accessibili e coerenti con l’uso previsto.
 
 Verifica che documentazione e story:
 
 - usino il nome con prefisso `MI` e gli entry point pubblici;
 - siano coerenti con props, valori di default, `children` e discriminated unions;
 - mostrino configurazione di base, varianti, stati e casi limite rilevanti;
-- includano esempi accessibili.
+- includano esempi accessibili;
+- documentino tutte le label configurabili;
+- mostrino almeno un esempio di personalizzazione dei testi;
+- chiariscano come configurare testi visibili, messaggi dinamici e label accessibili;
+- documentino eventuali callback per quantità, plurali o valori dinamici;
+- non presentino i valori predefiniti come unica lingua supportata.
 
 Non richiedere documentazione pubblica per componenti esclusivamente interni, purché tale scelta sia intenzionale.
 
@@ -156,7 +192,14 @@ Meno righe non significa automaticamente codice migliore. Non suggerire espressi
 
 Suggerisci una separazione quando esistono responsabilità autonome, logica riutilizzabile o blocchi difficili da testare insieme. Puoi proporre componenti, hook o funzioni pure, mantenendo però nello stesso file gli elementi brevi, locali e strettamente correlati.
 
-Un nuovo file è giustificato quando l’elemento è riutilizzato, ha responsabilità o complessità autonome, possiede test dedicati oppure migliora sensibilmente la lettura. Evitalo se aumenta import, export e navigazione senza ridurre la complessità o anticipa un riuso ipotetico.
+Un nuovo file è giustificato quando l’elemento:
+
+- è riutilizzato;
+- ha responsabilità o complessità autonome;
+- possiede test dedicati;
+- migliora sensibilmente la leggibilità.
+
+Evita nuovi file quando aumentano import, export e navigazione senza ridurre la complessità oppure anticipano un riuso soltanto ipotetico.
 
 Commenta la leggibilità solo indicando il problema concreto e una semplificazione attuabile. Non richiedere refactoring estranei allo scopo della pull request, salvo che la modifica introduca complessità fragile o difficile da verificare.
 
@@ -174,7 +217,7 @@ Quando la correzione è breve, locale e sicura, usa una GitHub suggestion.
 Considera:
 
 - **Blocking:** bug, regressione, vulnerabilità, breaking change involontaria, grave problema di accessibilità o disattivazione ingiustificata dei controlli sul peso della build.
-- **Important:** comportamento fragile, test essenziale mancante, aumento significativo e ingiustificato del peso della build o problema concreto di manutenibilità.
+- **Important:** comportamento fragile, testo user-facing non traducibile, test essenziale mancante, aumento significativo e ingiustificato del peso della build o problema concreto di manutenibilità.
 - **Suggestion:** miglioramento utile ma non necessario per approvare la pull request.
 
 Non presentare preferenze personali come problemi bloccanti.
@@ -186,7 +229,8 @@ Non:
 - riepilogare il diff tramite commenti inline o descrivere semplicemente il codice;
 - ripetere lo stesso problema su più righe;
 - chiedere refactoring estranei allo scopo della pull request;
-- proporre modifiche puramente estetiche o duplicare problemi già segnalati dalla CI;
+- proporre modifiche puramente estetiche;
+- duplicare problemi già segnalati chiaramente dalla CI;
 - inventare requisiti o lasciare commenti vaghi;
 - ridurre le righe rendendo il codice più denso;
 - creare file o astrazioni senza una chiara responsabilità;
