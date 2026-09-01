@@ -1,3 +1,20 @@
+# [2.7.0-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.7.0-RC.0) (2026-09-01)
+
+
+### Features
+
+* **M20DS-7:** introducing MIBreadcrumbs component ([#730](https://github.com/pagopa/mui-italia/issues/730)) ([faa4d06](https://github.com/pagopa/mui-italia/commit/faa4d0619ce6696158f7c948a042bdafa97a495d))
+
+
+### Bug Fixes
+
+* **M20DS-134:** replaced icon with rounded version and applied bold to navigable voices ([#757](https://github.com/pagopa/mui-italia/issues/757)) ([9512e19](https://github.com/pagopa/mui-italia/commit/9512e19acc39291f11ec18af657362079c3b02b7))
+
+
+### Build System
+
+* **MUI-229:** fixed problems when picking node version ([#762](https://github.com/pagopa/mui-italia/issues/762)) ([24f72f8](https://github.com/pagopa/mui-italia/commit/24f72f8d16649828c71b24526b6b40c9e3caa12d))
+* **MUI-234:** restore build check on pr ([#663](https://github.com/pagopa/mui-italia/issues/663)) ([6a2e308](https://github.com/pagopa/mui-italia/commit/6a2e3089c4012e3eaaca694fe468e6107c8fcd80))
 # [2.6.1](https://github.com/pagopa/mui-italia/releases/tag/v2.6.1) (2026-09-01)
 
 
