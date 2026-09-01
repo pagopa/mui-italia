@@ -1,13 +1,17 @@
 import type { FC } from 'react';
 import { MIPaper } from '../MIPaper';
-import LinearProgress from '@mui/material/LinearProgress';
-import { Typography } from '@mui/material';
+import MIKpiBar from './MIKpiBar';
+import { Stack, Typography } from '@mui/material';
 import { theme } from '../../theme';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import Tooltip from '@mui/material/Tooltip';
+
 
 interface KPI {
-  description?: string;
+  label?: string;
   numerator: number;
   denominator: number;
+  variant?: 'small' | 'regular';
 }
 
 
@@ -18,8 +22,6 @@ interface MIKpiCardProps {
   bars: KPI[];
 }
 
-const numberFormatter = new Intl.NumberFormat('it-IT', { useGrouping: true });
-
 const MIKpiCardPercentage: FC<{ numerator: number; denominator: number }> = ({ numerator, denominator }) => {
   return (
     <Typography fontSize={32} fontWeight={600}>
@@ -28,45 +30,31 @@ const MIKpiCardPercentage: FC<{ numerator: number; denominator: number }> = ({ n
   );
 };
 
-const MIKpiCardHeader: FC<Pick<MIKpiCardProps, 'title' | 'icon' | 'tooltipText'>> = ({ title }) => {
+const MIKpiCardHeader: FC<Pick<MIKpiCardProps, 'title' | 'icon' | 'tooltipText'>> = ({ title, icon, tooltipText }) => {
   return (
-    <Typography fontSize={16} fontWeight={500} color={theme.colors.neutral.grey[700]} lineHeight={1.375}>
-      {title}
-    </Typography>
+    <Stack direction="row" alignItems="center" justifyContent="space-between">
+      <Typography fontSize={16} fontWeight={500} color={theme.colors.neutral.grey[700]} lineHeight={1.375}>
+        {title}
+      </Typography>
+      { tooltipText && (
+        <Tooltip title={tooltipText} arrow placement="top">
+          <InfoOutlinedIcon sx={{ color: theme.colors.blue[500], width: 24, height: 24 }} />
+        </Tooltip>
+      ) }
+    </Stack>
   );
 };
 
-const MIKpiCardKpiNumerator: FC<{ numerator: number }> = ({ numerator }) => {
-  return (
-    <Typography fontSize={16} fontWeight={600} sx={{ display: 'inline-block' }}>
-      {numberFormatter.format(numerator)}
-    </Typography>
-  );
-};
-
-const MIKpiCardKpiDenominator: FC<{ denominator: number }> = ({ denominator }) => {
-  return (
-    <Typography fontSize={16} fontWeight={400} sx={{ display: 'inline-block' }}>
-      {numberFormatter.format(denominator)}
-    </Typography>
-  );
-};
-
-const MIKpiCard: FC<MIKpiCardProps> = ({ title, bars }) => {
+const MIKpiCard: FC<MIKpiCardProps> = ({ title, icon, tooltipText, bars }) => {
   console.log(theme);
   return (
     <MIPaper padding={24} variant='outlined' sx={{ width: '204px', boxSizing: 'border-box' }}>
-      <MIKpiCardHeader title={title} />
+      <MIKpiCardHeader title={title} icon={icon} tooltipText={tooltipText} />
 
       <MIKpiCardPercentage numerator={bars[0].numerator} denominator={bars[0].denominator} />
 
       {bars.map((bar, index) => (
-        <div key={index}>
-          {bar.description && <Typography variant="body1">{bar.description}</Typography>}
-          
-          <LinearProgress variant="determinate" value={(bar.numerator / bar.denominator) * 100} />
-          <MIKpiCardKpiNumerator numerator={bar.numerator} /> / <MIKpiCardKpiDenominator denominator={bar.denominator} />
-        </div>
+        <MIKpiBar numerator={bar.numerator} denominator={bar.denominator} label={bar.label} variant={bar.variant} key={index}/>
       ))}
     </MIPaper>
   );
