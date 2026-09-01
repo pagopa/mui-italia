@@ -13,8 +13,8 @@ import {
   useRef,
   useState,
 } from 'react';
-import { filterOptionsInternal } from 'utils/autocomplete';
-import { isMobileDevice } from 'utils/device';
+import { filterOptionsInternal } from '../../utils/autocomplete';
+import { isMobileDevice } from '../../utils/device';
 import { AutocompleteProps, AutocompleteValue, InputChangeReason } from './Autocomplete.types';
 import AutocompleteContent from './AutocompleteContent';
 import DefaultEmptyState from './DefaultEmptyState';

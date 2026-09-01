@@ -209,18 +209,22 @@ export const CustomEmptyState: Story<City, false> = {
       emptyState: () => (
         <Stack
           spacing={1}
-          alignItems="center"
-          textAlign="center"
           sx={{
+            alignItems: 'center',
+            textAlign: 'center',
             backgroundColor: '#F4F5F8',
             py: 3,
           }}
         >
           <Warning sx={{ color: '#D9D9D9' }} />
-          <Typography fontWeight={600} fontSize="1.125rem" color="textSecondary">
+          <Typography color="textSecondary" sx={{ fontWeight: 600, fontSize: '1.125rem' }}>
             Il caricamento delle città è fallito
           </Typography>
-          <Typography color="textSecondary" variant="body1" fontSize="16px" fontWeight={400}>
+          <Typography
+            color="textSecondary"
+            variant="body1"
+            sx={{ fontWeight: 400, fontSize: '1rem' }}
+          >
             <Button onClick={(e) => e.stopPropagation()}>Prova di nuovo</Button>
           </Typography>
         </Stack>

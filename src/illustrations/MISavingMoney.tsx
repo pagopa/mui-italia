@@ -1,5 +1,5 @@
 import { Illustration } from '@components/Illustration';
-import { useIllustrationColors, MIIllustrationProps } from 'utils/useIllustrations';
+import { MIIllustrationProps, useIllustrationColors } from '../utils/useIllustrations';
 
 export const IllusMISavingMoney = ({
   title = 'MISavingMoney',

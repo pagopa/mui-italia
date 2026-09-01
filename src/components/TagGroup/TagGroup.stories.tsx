@@ -33,7 +33,7 @@ export const Default: StoryFn<typeof TagGroup> = (args) => (
 );
 
 export const TruncateValueTag: StoryFn<typeof TagGroup> = (args) => (
-  <Box width="400px" p="10px" sx={{ border: `1px solid blue`, borderRadius: '5px' }}>
+  <Box sx={{ width: '400px', p: '10px', border: `1px solid blue`, borderRadius: '5px' }}>
     <Typography variant="body1">Tags must be in this Box</Typography>
     <hr />
     <TagGroup {...args}>
@@ -48,7 +48,7 @@ export const TruncateValueTag: StoryFn<typeof TagGroup> = (args) => (
 );
 
 export const WrapValueTag: StoryFn<typeof TagGroup> = (args) => (
-  <Box width="400px" p="10px" sx={{ border: `1px solid blue`, borderRadius: '5px' }}>
+  <Box sx={{ width: '400px', p: '10px', border: `1px solid blue`, borderRadius: '5px' }}>
     <Typography variant="body1">Tags must be in this Box</Typography>
     <hr />
     <TagGroup {...args}>

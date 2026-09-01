@@ -1,4 +1,4 @@
-import { StoryFn, Meta } from '@storybook/react-vite';
+import { Meta, StoryFn } from '@storybook/react-vite';
 
 import { Box, Stack } from '@mui/material';
 
@@ -46,7 +46,7 @@ export const Compact: StoryFn<typeof ProfileItem> = (args) => (
 );
 
 export const LongProfileName: StoryFn<typeof ProfileItem> = () => (
-  <Stack gap={2} sx={{ maxWidth: componentMaxWidth }}>
+  <Stack sx={{ gap: 2, maxWidth: componentMaxWidth }}>
     <ProfileItem
       profileInitials="IT"
       profileName="Intermediario Tecnologico"

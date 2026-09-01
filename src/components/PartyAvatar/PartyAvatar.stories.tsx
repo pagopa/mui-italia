@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { StoryFn, Meta } from '@storybook/react-vite';
+import { Meta, StoryFn } from '@storybook/react-vite';
 
 import { Button, Stack, Typography } from '@mui/material';
 
@@ -112,7 +112,7 @@ export const Default: StoryFn<typeof PartyAvatar> = () => {
   };
 
   return (
-    <Stack gap={2} alignItems="flex-start">
+    <Stack sx={{ gap: 2, alignItems: 'flex-start' }}>
       <PartyAvatar customSrc={item.image} customAlt={item.name} />
       <div>
         <Typography variant="overline">Party:</Typography>

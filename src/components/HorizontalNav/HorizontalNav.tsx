@@ -81,8 +81,8 @@ export const HorizontalNav = ({ sections }: HorizontalNavProps) => {
                         sx={{ height: '100%', alignItems: 'center', justifyContent: 'center' }}
                       >
                         <Box
-                          color="primary.contrastText"
                           sx={{
+                            color: 'primary.contrastText',
                             svg: {
                               height: '60px',
                               width: '60px',

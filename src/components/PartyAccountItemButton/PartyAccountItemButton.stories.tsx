@@ -1,5 +1,5 @@
+import { Meta, StoryFn } from '@storybook/react-vite';
 import { useState } from 'react';
-import { StoryFn, Meta } from '@storybook/react-vite';
 
 import { Button, Stack } from '@mui/material';
 
@@ -144,7 +144,7 @@ const Template: StoryFn<typeof PartyAccountItemButton> = (args) => {
   };
 
   return (
-    <Stack gap={2} alignItems="flex-start" sx={{ maxWidth: componentMaxWidth }}>
+    <Stack sx={{ gap: 2, alignItems: 'flex-start', maxWidth: componentMaxWidth }}>
       <Button variant="contained" onClick={getRandomParty}>
         Get random Party
       </Button>

@@ -1,5 +1,5 @@
+import { Meta, StoryFn } from '@storybook/react-vite';
 import { useState } from 'react';
-import { StoryFn, Meta } from '@storybook/react-vite';
 
 import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -11,12 +11,10 @@ export default {
 } as Meta<typeof DesktopDatePicker>;
 
 export const Default: StoryFn<typeof DesktopDatePicker> = () => {
-  const [value, setValue] = useState<Date>(new Date(2022, 0, 17));
+  const [value, setValue] = useState<Date | null>(new Date(2022, 0, 17));
 
   const onChangeHandler = (_date: Date | null) => {
-    if (_date) {
-      setValue(_date);
-    }
+    setValue(_date);
   };
 
   return (
@@ -28,7 +26,9 @@ export const Default: StoryFn<typeof DesktopDatePicker> = () => {
         onChange={onChangeHandler}
         slotProps={{
           textField: {
-            inputProps: { placeholder: 'dd/mm/aaaa' },
+            slotProps: {
+              htmlInput: { placeholder: 'dd/mm/aaaa' },
+            },
           },
         }}
       />
