@@ -262,7 +262,7 @@ export const themeNext: Theme = createTheme(foundationNext, {
           style: {
             color: foundationNext.palette.primary.main,
             '&:hover': {
-              color: foundationNext.palette.primaryContained.hover,
+              color: foundationNext.palette.primary.dark,
             },
             '&.Mui-focusVisible': {
               borderRadius: `${focusBorderRadius}`,
@@ -277,7 +277,7 @@ export const themeNext: Theme = createTheme(foundationNext, {
           style: {
             color: foundationNext.palette.error.main,
             '&:hover': {
-              color: foundationNext.palette.error.light,
+              color: foundationNext.palette.error.dark,
             },
             '&.Mui-focusVisible': {
               borderRadius: `${focusBorderRadius}`,

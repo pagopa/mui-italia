@@ -50,8 +50,5 @@ export const paletteNext = {
     background: '#17324D',
   },
 
-  primaryContained: {
-    hover: '#0055AA',
-  },
   divider: colors.neutral.grey[100],
 } as const;
