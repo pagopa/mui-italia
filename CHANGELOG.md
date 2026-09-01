@@ -1,3 +1,39 @@
+# [2.6.1](https://github.com/pagopa/mui-italia/releases/tag/v2.6.1) (2026-09-01)
+
+
+### Chore
+
+* Bump version to v2.6.1
+# [2.6.1-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.6.1-RC.0) (2026-08-18)
+
+
+### Bug Fixes
+
+* **M20DS-2:** button naked colors ([#753](https://github.com/pagopa/mui-italia/issues/753)) ([86b9dd0](https://github.com/pagopa/mui-italia/commit/86b9dd041ac89a95f7044a97bef3cb9dfa147bc1))
+
+
+### Chores
+
+* **M20DS-126:** fix MiButton props in order to accept type ([#754](https://github.com/pagopa/mui-italia/issues/754)) ([099ab8f](https://github.com/pagopa/mui-italia/commit/099ab8fe72736cd57a26329059f3e11847c81322))
+
+# [2.5.1](https://github.com/pagopa/mui-italia/releases/tag/v2.5.1) (2026-07-23)
+
+
+### Chores
+
+* Bump version to v2.5.1 ([f0a6adb](https://github.com/pagopa/mui-italia/commit/f0a6adb2a13429ed6da8eb5f21a900b72782523c))
+
+# [2.5.1-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.5.1-RC.0) (2026-07-21)
+
+
+### Bug Fixes
+
+* **M20DS-125:** fix MIAlert crash under Nextjs Pages Router webpack bundling ([#735](https://github.com/pagopa/mui-italia/issues/735)) ([8397438](https://github.com/pagopa/mui-italia/commit/8397438ead5e37fa55f19a6b5b7ccb1ffdaffd30))
+
+
+### Chores
+
+* Bump version to v2.5.1-RC.0 ([021ac9e](https://github.com/pagopa/mui-italia/commit/021ac9e0128f4df30fe61778fb4541c99d3178a7))
 # [2.6.0](https://github.com/pagopa/mui-italia/releases/tag/v2.6.0) (2026-08-03)
 
 
