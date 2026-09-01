@@ -1,10 +1,11 @@
 import { alpha, createTheme, Theme } from '@mui/material/styles';
+/* Design Tokens */
+import { italia } from '@tokens';
+
+import { mainTypeface, monospacedTypeface } from './fonts';
 import foundationNext from './foundations-next/foundationNext';
 import muiSwitch from './muiSwitch';
 import { pxToRem } from './utility';
-import { mainTypeface, monospacedTypeface } from './fonts';
-/* Design Tokens */
-import { italia } from '@tokens';
 
 /* Basic Configuration */
 
@@ -160,7 +161,7 @@ export const themeNext: Theme = createTheme(foundationNext, {
     /* End: To be revised */
   },
   components: {
-    ////////////////////////////////////// TO BE REMOVED //////////////////////////////////////
+    // //////////////////////////////////// TO BE REMOVED //////////////////////////////////////
     MuiButton: {
       defaultProps: {
         disableElevation: true,
@@ -748,7 +749,7 @@ export const themeNext: Theme = createTheme(foundationNext, {
         },
       },
     },
-    ///////////////////////////////////////////////////////////////////////////////////////////
+    // /////////////////////////////////////////////////////////////////////////////////////////
     MuiSkeleton: {
       styleOverrides: {
         root: {

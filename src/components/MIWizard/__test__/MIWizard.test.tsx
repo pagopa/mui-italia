@@ -1,7 +1,6 @@
-import { render, fireEvent } from '@testing-library/react';
-
-import MIWizard from '../MIWizard';
+import { fireEvent, render } from '../../../test-utils';
 import { MIStep } from '../../MIStepper';
+import MIWizard from '../MIWizard';
 
 describe('MIWizard Component', () => {
   const setActiveStep = vi.fn();

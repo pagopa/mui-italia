@@ -1,7 +1,7 @@
+import MISnackbar from '@components/MISnackbar/MISnackbar';
+import { Box, Button, Stack, TextField, Typography } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { Box, Button, Stack, TextField, Typography } from '@mui/material';
-import MISnackbar from '@components/MISnackbar/MISnackbar';
 
 const meta: Meta<typeof MISnackbar> = {
   title: 'Components/MISnackbar',
@@ -42,7 +42,7 @@ export const Default: Story = {
     description: 'Ut enim ad minim veniam, quis ullamco laboris nisi ut aliquid',
     open: false,
   },
-  render: (args) => {
+  render: function RenderWithState(args) {
     const [isOpen, setIsOpen] = useState(false);
 
     const handleOpen = () => setIsOpen(true);
@@ -89,7 +89,7 @@ export const Default: Story = {
             open={isOpen || args.open}
             onClose={() => {
               handleClose();
-              args.onClose?.();
+              args.onClose();
             }}
           />
         </Stack>
@@ -104,7 +104,7 @@ export const SnackbarWithoutTitle: Story = {
     description: 'Ut enim ad minim veniam, quis ullamco laboris nisi ut aliquid',
     open: false,
   },
-  render: (args) => {
+  render: function RenderWithState(args) {
     const [isOpen, setIsOpen] = useState(false);
 
     const handleOpen = () => setIsOpen(true);
@@ -121,7 +121,7 @@ export const SnackbarWithoutTitle: Story = {
           open={isOpen || args.open}
           onClose={() => {
             handleClose();
-            args.onClose?.();
+            args.onClose();
           }}
         />
       </div>
@@ -137,7 +137,7 @@ export const SnackbarWithErrorCode: Story = {
     errorCode: 'ERROR-404',
     open: false,
   },
-  render: (args) => {
+  render: function RenderWithState(args) {
     const [isOpen, setIsOpen] = useState(false);
 
     const handleOpen = () => setIsOpen(true);
@@ -154,7 +154,7 @@ export const SnackbarWithErrorCode: Story = {
           open={isOpen || args.open}
           onClose={() => {
             handleClose();
-            args.onClose?.();
+            args.onClose();
           }}
           anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         />

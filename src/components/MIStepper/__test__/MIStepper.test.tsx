@@ -1,11 +1,11 @@
-import { render } from '@testing-library/react';
+import { render } from '../../../test-utils';
 
-import MIStepper from '../MIStepper';
 import { createMatchMedia } from '../../../test-utils';
+import MIStepper from '../MIStepper';
 
 describe('MIStepper', () => {
   afterEach(() => {
-    delete (window as any).matchMedia;
+    Reflect.deleteProperty(window, 'matchMedia');
   });
 
   const steps = [{ label: 'First Step' }, { label: 'Second Step' }, { label: 'Third Step' }];

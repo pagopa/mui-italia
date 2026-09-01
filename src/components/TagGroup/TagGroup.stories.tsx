@@ -1,9 +1,9 @@
-import { StoryFn, Meta } from '@storybook/react-vite';
+import { Meta, StoryFn } from '@storybook/react-vite';
 
 // Components
 import { Tag } from '@components/Tag';
-import TagGroup from './TagGroup';
 import { Box, Typography } from '@mui/material';
+import TagGroup from './TagGroup';
 
 const groupLabels: Array<string> = [
   'Pagamenti',

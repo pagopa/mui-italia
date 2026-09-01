@@ -12,8 +12,8 @@ import {
 } from '@mui/material';
 
 import { MIAlert } from '@components/MIAlert';
-import { IDP } from './MISpidSelectOIDialog.types';
 import ErrorState from './ErrorState';
+import { IDP } from './MISpidSelectOIDialog.types';
 import SpidList from './SpidList';
 import { getSpidDisplayName } from './utils';
 
@@ -108,7 +108,9 @@ const MISpidSelectOIDialog: React.FC<MISpidSelectOIDialogProps> = ({
   };
 
   const handleCloseDialog = () => {
-    if (!!authorizingEntityId) return;
+    if (authorizingEntityId) {
+      return;
+    }
     onClose();
   };
 

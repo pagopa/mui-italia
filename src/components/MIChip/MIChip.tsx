@@ -50,7 +50,7 @@ const StyledChip = styled(MuiChip, {
     opacity: 1,
   },
   '&&': {
-    //outlined variant
+    // outlined variant
     ...(variant === 'outlined' && {
       ...(customColor === 'default' && {
         color: theme.colors.blue[600],
@@ -162,5 +162,7 @@ const MIChip = forwardRef<HTMLDivElement, MIChipProps>((props, ref) => {
     />
   );
 });
+
+MIChip.displayName = 'MIChip';
 
 export default MIChip;

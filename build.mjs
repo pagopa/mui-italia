@@ -1,17 +1,17 @@
 #!/usr/bin/env node
-import { dirname, join, relative, resolve } from 'path';
+import { execFileSync } from 'child_process';
 import {
-  readFileSync,
-  rmSync,
-  readdirSync,
-  statSync,
-  existsSync,
   copyFileSync,
   cpSync,
-  writeFileSync,
+  existsSync,
   mkdirSync,
+  readdirSync,
+  readFileSync,
+  rmSync,
+  statSync,
+  writeFileSync,
 } from 'fs';
-import { execFileSync } from 'child_process';
+import { dirname, join, relative, resolve } from 'path';
 
 const TO_TRANSFORM_EXTENSIONS = ['.js', '.jsx', '.ts', '.tsx'];
 const DECLARATION_EXTENSION = '.d.ts';
@@ -59,7 +59,6 @@ async function babelBuild(sourceDir, buildDir) {
         encoding: 'utf8',
       }
     );
-    console.log(result);
   } catch (error) {
     console.error(error);
     throw new Error(error);
@@ -69,23 +68,21 @@ async function babelBuild(sourceDir, buildDir) {
 async function createTypes() {
   try {
     const tscCommand = process.platform === 'win32' ? 'tsc.cmd' : 'tsc';
-    const tscResult = execFileSync(tscCommand, ['--project', 'tsconfig.prod.json'], {
+    execFileSync(tscCommand, ['--project', 'tsconfig.prod.json'], {
       env: {
         ...process.env,
         NODE_ENV: 'production',
       },
       encoding: 'utf8',
     });
-    console.log(tscResult);
     const tscAliasCommand = process.platform === 'win32' ? 'tsc-alias.cmd' : 'tsc-alias';
-    const tscAliasResult = execFileSync(tscAliasCommand, ['-p', 'tsconfig.prod.json'], {
+    execFileSync(tscAliasCommand, ['-p', 'tsconfig.prod.json'], {
       env: {
         ...process.env,
         NODE_ENV: 'production',
       },
       encoding: 'utf8',
     });
-    console.log(tscAliasResult);
   } catch (error) {
     console.error(error);
     throw new Error(error);
@@ -215,9 +212,6 @@ async function build() {
   // 4. calc total size
   const totalSize = fileSizes.reduce((acc, file) => acc + file.size, 0);
   // 5. log results
-  fileSizes.forEach((file) => {
-    console.log(`${formatBytes(file.size).padEnd(10)} | ${file.path}`);
-  });
   console.log('---------------------------------');
   console.log(`Total dimension: ${formatBytes(totalSize)}`);
   console.log('---------------------------------');

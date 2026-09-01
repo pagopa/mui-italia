@@ -1,24 +1,24 @@
-import { debug, info, getInput, setFailed, setOutput } from '@actions/core';
+import { debug, getInput, info, setFailed, setOutput } from '@actions/core';
 import { getOctokit } from '@actions/github';
 
-import { checkInputs } from './input-helper.js';
-import {
-  getLatestRelease,
-  getRef,
-  createRef,
-  mergeBranch,
-  commitChanges,
-  updateRef,
-  createRelease,
-  createPullRequest,
-} from './repository-helper.js';
-import { calcNextTag, toSentenceCase } from './utility-helper.js';
 import {
   generateChangelog,
   generateChangelogSection,
   updatePackageVersion,
 } from './file-helper.js';
 import { checkout, log } from './git-helper.js';
+import { checkInputs } from './input-helper.js';
+import {
+  commitChanges,
+  createPullRequest,
+  createRef,
+  createRelease,
+  getLatestRelease,
+  getRef,
+  mergeBranch,
+  updateRef,
+} from './repository-helper.js';
+import { calcNextTag, toSentenceCase } from './utility-helper.js';
 
 async function run() {
   try {
@@ -37,7 +37,7 @@ async function run() {
       // check if ref exists
       const startingRef = await getRef(octokit, ref);
       if (!startingRef) {
-        throw new Error(`${toSentenceCase(refType)} ${ref} doesn't exist`);
+        throw new Error(`${toSentenceCase(type)} ${ref} doesn't exist`);
       }
       // get the latest tag that is in the history of the current branch
       // to get the latest tag we need to get the latest release and check what is the tag linked to it
