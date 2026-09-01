@@ -37,7 +37,7 @@ async function run() {
       // check if ref exists
       const startingRef = await getRef(octokit, ref);
       if (!startingRef) {
-        throw new Error(`${toSentenceCase(refType)} ${ref} doesn't exist`);
+        throw new Error(`${toSentenceCase(type)} ${ref} doesn't exist`);
       }
       // get the latest tag that is in the history of the current branch
       // to get the latest tag we need to get the latest release and check what is the tag linked to it
