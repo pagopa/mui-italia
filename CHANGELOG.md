@@ -1,7 +1,7 @@
 # [2.6.0](https://github.com/pagopa/mui-italia/releases/tag/v2.6.0) (2026-08-03)
 
 
-### Chore
+### Chores
 
 * Bump version to v2.6.0
 # [2.6.0-RC.4](https://github.com/pagopa/mui-italia/releases/tag/v2.6.0-RC.4) (2026-07-31)
@@ -37,7 +37,7 @@
 # [2.5.1](https://github.com/pagopa/mui-italia/releases/tag/v2.5.1) (2026-07-23)
 
 
-### Chore
+### Chores
 
 * Bump version to v2.5.1
 # [2.5.1-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.5.1-RC.0) (2026-07-21)
@@ -113,7 +113,7 @@
 # [2.5.0](https://github.com/pagopa/mui-italia/releases/tag/v2.5.0) (2026-06-16)
 
 
-### Chore
+### Chores
 
 * Bump version to v2.5.0
 # [2.5.0-RC.3](https://github.com/pagopa/mui-italia/releases/tag/v2.5.0-RC.3) (2026-06-16)
@@ -167,7 +167,7 @@
 # [2.4.1](https://github.com/pagopa/mui-italia/releases/tag/v2.4.1) (2026-05-06)
 
 
-### Chore
+### Chores
 
 * Bump version to v2.4.1
 # [2.4.1-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.4.1-RC.0) (2026-05-06)
@@ -179,7 +179,7 @@
 # [2.4.0](https://github.com/pagopa/mui-italia/releases/tag/v2.4.0) (2026-05-05)
 
 
-### Chore
+### Chores
 
 * Bump version to v2.4.0
 # [2.4.0-RC.2](https://github.com/pagopa/mui-italia/releases/tag/v2.4.0-RC.2) (2026-05-04)
@@ -225,7 +225,7 @@
 # [2.3.1](https://github.com/pagopa/mui-italia/releases/tag/v2.3.1) (2026-03-23)
 
 
-### Chore
+### Chores
 
 * Bump version to v2.3.1 
 
@@ -304,7 +304,7 @@
 # [2.3.0](https://github.com/pagopa/mui-italia/releases/tag/v2.3.0) (2026-02-12)
 
 
-### Chore
+### Chores
 
 * Bump version to v2.3.0 
 
@@ -405,7 +405,7 @@
 # [2.2.0](https://github.com/pagopa/mui-italia/releases/tag/v2.2.0) (2025-12-09)
 
 
-### Chore
+### Chores
 
 * Bump version to v2.2.0 
 
@@ -423,7 +423,7 @@
 # [2.1.0](https://github.com/pagopa/mui-italia/releases/tag/v2.1.0) (2025-12-03)
 
 
-### Chore
+### Chores
 
 * Bump version to v2.1.0 
 
