@@ -29,7 +29,8 @@ export const FooterPostLogin = ({
     <Container maxWidth={false} sx={{ py: { xs: 3, md: 2 } }}>
       <Stack
         direction={{ xs: 'column', md: 'row' }}
-        sx={{ alignItems: 'center', spacing: { xs: 4, md: 3 }, justifyContent: 'space-between' }}
+        spacing={{ xs: 4, md: 3 }}
+        sx={{ alignItems: 'center', justifyContent: 'space-between' }}
       >
         <Link
           aria-label={companyLink.ariaLabel}

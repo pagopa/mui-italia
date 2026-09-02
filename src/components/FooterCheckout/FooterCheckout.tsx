@@ -22,9 +22,9 @@ export const FooterCheckout = ({
   <Box sx={{ p: 3, backgroundColor: 'background.paper' }}>
     <Stack
       spacing={3}
+      direction={{ xs: 'column', sm: 'row' }}
       sx={{
         alignItems: 'center',
-        direction: { xs: 'column', sm: 'row' },
         justifyContent: 'space-between',
       }}
     >
