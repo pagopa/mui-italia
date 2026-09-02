@@ -109,11 +109,21 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
     getOptionLabel,
   });
 
-  const selectedOptions: Array<T> = Array.isArray(currentValue) ? currentValue : [];
+  const isCurrentValueAnArray = Array.isArray(currentValue);
 
-  const singleSelectedValue: T | null = Array.isArray(currentValue)
-    ? null
-    : (currentValue as T | null);
+  /**
+   * if currentValue is an array we set this variable with currentValue,
+   * otherwise we set it as [] because it will be not used as the component is not multiple
+   * The set as [] is necessary so the type could be Array<T>
+   */
+  const selectedOptions: Array<T> = isCurrentValueAnArray ? currentValue : [];
+
+  /**
+   * if currentValue is an array we set this variable as null
+   * because it will be not used as the component is multiple,
+   * otherwise we set it as currentValue
+   */
+  const singleSelectedValue: T | null = isCurrentValueAnArray ? null : (currentValue as T | null);
 
   const hasSelectedValue = multiple ? selectedOptions.length > 0 : singleSelectedValue != null;
 
