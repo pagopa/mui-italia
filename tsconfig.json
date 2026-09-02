@@ -11,7 +11,7 @@
       "@lib-types/*": ["./src/types/*"],
       "@hooks/*": ["./src/hooks/*"]
     },
-    // "rootDir": "src",
+    "rootDir": "src",
     "outDir": "dist",
     "target": "ES2020",
     "module": "ES2020",
@@ -38,6 +38,6 @@
     "resolveJsonModule": true,
     "types": ["vitest/globals", "@testing-library/jest-dom"]
   },
-  "include": ["src/**/*", "vitest.setup.ts", "vite.config.mts"],
+  "include": ["src/**/*"],
   "exclude": ["dist", "node_modules"]
 }

@@ -1266,7 +1266,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.24.6, @babel/runtime@npm:^7.26.0, @babel/runtime@npm:^7.28.6, @babel/runtime@npm:^7.29.2, @babel/runtime@npm:^7.29.7, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.7":
+"@babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.26.0, @babel/runtime@npm:^7.29.2, @babel/runtime@npm:^7.29.7, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.7":
   version: 7.29.7
   resolution: "@babel/runtime@npm:7.29.7"
   checksum: bc311855c6dbf5356030979584ca0f8b6cee39fe058175b02e85a73e246fc76ae30248b0d40e70c2652101faeb43279468ed2d086a670673eb9783c1fee1df2b
@@ -1956,7 +1956,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@floating-ui/react-dom@npm:^2.0.8":
+"@floating-ui/react-dom@npm:^2.1.1":
   version: 2.1.9
   resolution: "@floating-ui/react-dom@npm:2.1.9"
   dependencies:
@@ -2095,25 +2095,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/base@npm:^5.0.0-beta.70":
-  version: 5.0.0-dev.20240529-082515-213b5e33ab
-  resolution: "@mui/base@npm:5.0.0-dev.20240529-082515-213b5e33ab"
+"@mui/base@npm:5.0.0-beta.70":
+  version: 5.0.0-beta.70
+  resolution: "@mui/base@npm:5.0.0-beta.70"
   dependencies:
-    "@babel/runtime": ^7.24.6
-    "@floating-ui/react-dom": ^2.0.8
-    "@mui/types": ^7.2.14-dev.20240529-082515-213b5e33ab
-    "@mui/utils": ^6.0.0-dev.20240529-082515-213b5e33ab
+    "@babel/runtime": ^7.26.0
+    "@floating-ui/react-dom": ^2.1.1
+    "@mui/types": ~7.2.24
+    "@mui/utils": ^6.4.8
     "@popperjs/core": ^2.11.8
     clsx: ^2.1.1
     prop-types: ^15.8.1
   peerDependencies:
-    "@types/react": ^17.0.0 || ^18.0.0
-    react: ^17.0.0 || ^18.0.0
-    react-dom: ^17.0.0 || ^18.0.0
+    "@types/react": ^17.0.0 || ^18.0.0 || ^19.0.0
+    react: ^17.0.0 || ^18.0.0 || ^19.0.0
+    react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 7ca5d369c5f4dfa2bb36fe49d721f3dc28a6d067bd74492e8f4531671ff9debe33bade579d0cdcb7d5f899bfc5003c8f710b1f9422edd22f06d805dbc68c9f4e
+  checksum: 7de3c86c3785250d15b2effeb7f0553e39faea2a7cfc970f42aca0b2d5b4201585cb776cb284cd5babe0a137cc2b75b576b7aecf8f12b5e3ead18055cc5bf649
   languageName: node
   linkType: hard
 
@@ -2140,7 +2140,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/lab@npm:^9.0.0-beta.9":
+"@mui/lab@npm:9.0.0-beta.9":
   version: 9.0.0-beta.9
   resolution: "@mui/lab@npm:9.0.0-beta.9"
   dependencies:
@@ -2275,20 +2275,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/types@npm:^7.2.14-dev.20240529-082515-213b5e33ab":
-  version: 7.4.12
-  resolution: "@mui/types@npm:7.4.12"
-  dependencies:
-    "@babel/runtime": ^7.28.6
-  peerDependencies:
-    "@types/react": ^17.0.0 || ^18.0.0 || ^19.0.0
-  peerDependenciesMeta:
-    "@types/react":
-      optional: true
-  checksum: f3217cc0a7beaf7f5e6557e5a55c8597d7a7bfc42f69472ac0fe2de6aeee6e7d85828f05a09ccc31de1261e713cf4203f597cd6b839e269829b534df2109ad98
-  languageName: node
-  linkType: hard
-
 "@mui/types@npm:^9.4.0":
   version: 9.4.0
   resolution: "@mui/types@npm:9.4.0"
@@ -2315,7 +2301,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/utils@npm:^6.0.0-dev.20240529-082515-213b5e33ab":
+"@mui/utils@npm:^6.4.8":
   version: 6.4.9
   resolution: "@mui/utils@npm:6.4.9"
   dependencies:
@@ -2466,9 +2452,9 @@ __metadata:
     "@emotion/styled": ^11.14.1
     "@fontsource/dm-mono": ^4.5.10
     "@fontsource/titillium-web": ^4.5.9
-    "@mui/base": ^5.0.0-beta.70
+    "@mui/base": 5.0.0-beta.70
     "@mui/icons-material": ^9.4.0
-    "@mui/lab": ^9.0.0-beta.9
+    "@mui/lab": 9.0.0-beta.9
     "@mui/material": ^9.4.0
     "@mui/system": ^9.4.0
     "@mui/x-date-pickers": ^9.12.0
@@ -2515,8 +2501,9 @@ __metadata:
   peerDependencies:
     "@emotion/react": ^11.14.0
     "@emotion/styled": ^11.14.1
+    "@mui/base": 5.0.0-beta.70
     "@mui/icons-material": ^9.4.0
-    "@mui/lab": ^9.0.0-beta.9
+    "@mui/lab": 9.0.0-beta.9
     "@mui/material": ^9.4.0
     "@mui/system": ^9.4.0
     "@mui/x-date-pickers": ^9.12.0
