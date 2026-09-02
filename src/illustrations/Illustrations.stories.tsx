@@ -59,6 +59,7 @@ import { IllusMIMaintenance } from './MIMaintenance';
 import { IllusMIMapPin } from './MIMapPin';
 import { IllusMIMessage } from './MIMessage';
 import { IllusMIMessages } from './MIMessages';
+import { IllusMIMouse } from './MIMouse';
 import { IllusMIMultipleFiles } from './MIMultipleFiles';
 import { IllusMINews } from './MINews';
 import { IllusMIOpenFolder } from './MIOpenFolder';
@@ -95,6 +96,9 @@ import { IllusSms } from './Sms';
 import { IllusUmbrella } from './Umbrella';
 import { IllusUploadFile } from './UploadFile';
 import { IllusUserUnauthorized } from './UserUnauthorized';
+import { IllusMIQuestion } from './MIQuestion';
+import { IllusMIHourglass } from './MIHourglass';
+import { IllusMIInProgress } from './MIInProgress';
 
 export interface IllusBoxProps {
   illustration: JSX.Element;
@@ -213,6 +217,10 @@ export const Overview: StoryFn<typeof Box> = () => (
       <IllusBox name={'<IllusMIIdCard />'} illustration={<IllusMIIdCard />} />
       <IllusBox name={'<IllusMICalendarCheck />'} illustration={<IllusMICalendarCheck />} />
       <IllusBox name={'<IllusMIFirma />'} illustration={<IllusMIFirma />} />
+      <IllusBox name={'<IllusMIMouse />'} illustration={<IllusMIMouse />} />
+      <IllusBox name={'<IllusMIHourglass />'} illustration={<IllusMIHourglass />} />
+      <IllusBox name={'<IllusMIQuestion />'} illustration={<IllusMIQuestion />} />
+      <IllusBox name={'<IllusMIInProgress />'} illustration={<IllusMIInProgress />} />
     </Box>
     <Divider sx={{ my: 4 }} />
     <Typography variant="h5" mb={2}>
