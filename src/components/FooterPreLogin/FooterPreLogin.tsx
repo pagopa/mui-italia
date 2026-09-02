@@ -86,8 +86,8 @@ export const FooterPreLogin = ({
     >
       <Container maxWidth={false} sx={{ py: 8 }}>
         <Grid container spacing={{ xs: 6, sm: 3 }}>
-          <Grid item xs={12} sm={3}>
-            <Stack spacing={2} alignItems={{ xs: 'center', sm: 'start' }}>
+          <Grid size={{ xs: 12, sm: 3 }}>
+            <Stack spacing={2} sx={{ alignItems: { xs: 'center', sm: 'start' } }}>
               <Link
                 aria-label={companyLink.ariaLabel}
                 href={companyLink.href ?? hrefNoOp}
@@ -103,8 +103,7 @@ export const FooterPreLogin = ({
 
               <Stack
                 component="ul"
-                alignItems={{ xs: 'center', sm: 'start' }}
-                sx={{ padding: 0, listStyle: 'none' }}
+                sx={{ padding: 0, listStyle: 'none', alignItems: { xs: 'center', sm: 'start' } }}
               >
                 {aboutUs.links.map(({ href = hrefNoOp, label, ariaLabel, onClick }, i) => (
                   <li key={i}>
@@ -126,14 +125,12 @@ export const FooterPreLogin = ({
             </Stack>
           </Grid>
           {!hideProductsColumn && (
-            <Grid item xs={12} sm={3}>
-              <Stack spacing={2} alignItems={{ xs: 'center', sm: 'start' }}>
+            <Grid size={{ xs: 12, sm: 3 }}>
+              <Stack spacing={2} sx={{ alignItems: { xs: 'center', sm: 'start' } }}>
                 <Typography variant="overline">{productsTitle}</Typography>
-
                 <Stack
                   component="ul"
-                  alignItems={{ xs: 'center', sm: 'start' }}
-                  sx={{ padding: 0, listStyle: 'none' }}
+                  sx={{ padding: 0, listStyle: 'none', alignItems: { xs: 'center', sm: 'start' } }}
                 >
                   {jsonProducts.map(({ href = hrefNoOp, label, ariaLabel, onClick }, i) => (
                     <li key={i}>
@@ -157,14 +154,13 @@ export const FooterPreLogin = ({
             </Grid>
           )}
 
-          <Grid item xs={12} sm={3}>
-            <Stack spacing={2} alignItems={{ xs: 'center', sm: 'start' }}>
+          <Grid size={{ xs: 12, sm: 3 }}>
+            <Stack spacing={2} sx={{ alignItems: { xs: 'center', sm: 'start' } }}>
               {resources.title && <Typography variant="overline">{resources.title}</Typography>}
 
               <Stack
                 component="ul"
-                alignItems={{ xs: 'center', sm: 'start' }}
-                sx={{ padding: 0, listStyle: 'none' }}
+                sx={{ padding: 0, listStyle: 'none', alignItems: { xs: 'center', sm: 'start' } }}
               >
                 {resources.links.map(({ href = hrefNoOp, label, ariaLabel, onClick }, i) => (
                   <li key={i}>
@@ -186,23 +182,29 @@ export const FooterPreLogin = ({
             </Stack>
           </Grid>
 
-          <Grid item xs={12} sm={3}>
+          <Grid size={{ xs: 12, sm: 3 }}>
             <Stack
               spacing={3}
-              justifyContent="space-between"
-              sx={{ height: '100%' }}
-              alignItems={{ xs: 'center', sm: 'start' }}
+              sx={{
+                height: '100%',
+                justifyContent: 'space-between',
+                alignItems: { xs: 'center', sm: 'start' },
+              }}
             >
-              <Stack spacing={2} alignItems={{ xs: 'center', sm: 'start' }}>
+              <Stack spacing={2} sx={{ alignItems: { xs: 'center', sm: 'start' } }}>
                 {followUs.title && <Typography variant="overline">{followUs.title}</Typography>}
 
-                <Stack alignItems={{ xs: 'center', sm: 'start' }}>
+                <Stack sx={{ alignItems: { xs: 'center', sm: 'start' } }}>
                   <Stack
                     spacing={{ xs: 3, sm: 1.5, lg: 3 }}
                     direction="row"
                     component="ul"
-                    alignItems={{ xs: 'center', sm: 'start' }}
-                    sx={{ padding: 0, mt: 0.5, listStyle: 'none' }}
+                    sx={{
+                      padding: 0,
+                      mt: 0.5,
+                      listStyle: 'none',
+                      alignItems: { xs: 'center', sm: 'start' },
+                    }}
                   >
                     {followUs.socialLinks
                       .filter(({ icon }) => icon in iconMap)
@@ -225,8 +227,12 @@ export const FooterPreLogin = ({
 
                   <Stack
                     component="ul"
-                    alignItems={{ xs: 'center', sm: 'start' }}
-                    sx={{ padding: 0, margin: 0, listStyle: 'none' }}
+                    sx={{
+                      padding: 0,
+                      margin: 0,
+                      listStyle: 'none',
+                      alignItems: { xs: 'center', sm: 'start' },
+                    }}
                   >
                     {followUs.links.map(({ href = hrefNoOp, label, ariaLabel, onClick }, i) => (
                       <li key={i}>

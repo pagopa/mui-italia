@@ -6,7 +6,7 @@ import {
   ExpandMore as ExpandMoreIcon,
   Gavel as GavelIcon,
   Info as InfoIcon,
-  MailOutline,
+  MailOutlined,
   MobileFriendly as MobileFriendlyIcon,
   Search as SearchIcon,
   Troubleshoot as TroubleshootIcon,
@@ -15,7 +15,6 @@ import {
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { colors } from 'theme/colors';
 
 const componentMaxWidth = 600;
 
@@ -103,10 +102,10 @@ const meta: Meta<MITimelineStoryArgs> = {
     return (
       <MITimeline>
         <MITimelineItem variant={itemVariant} icon={Icon} title={itemTitle}>
-          <Typography color="inherit" fontSize="14px">
+          <Typography color="inherit" sx={{ fontSize: '14px' }}>
             {itemContent}
           </Typography>
-          <Typography component="span" fontSize="12px">
+          <Typography component="span" sx={{ fontSize: '12px' }}>
             19 Lug, 15:00
           </Typography>
         </MITimelineItem>
@@ -189,8 +188,11 @@ export const RichContent: Story = {
         </Typography>
         <Accordion elevation={0} disableGutters>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <MailOutline fontSize="small" sx={{ mr: 1 }} />
-            <Typography variant="body2" fontWeight={600} color={colors.neutral.black}>
+            <MailOutlined fontSize="small" sx={{ mr: 1 }} />
+            <Typography
+              variant="body2"
+              sx={{ color: (theme) => theme.colors.neutral.black, fontWeight: 600 }}
+            >
               Prima Raccomandata · {111111111}
             </Typography>
           </AccordionSummary>
@@ -206,8 +208,11 @@ export const RichContent: Story = {
 };
 
 const TitleWithTag = () => (
-  <Stack direction="row" alignItems="center" spacing={1}>
-    <Typography component="span" fontWeight={600} sx={{ color: colors.warning[850] }}>
+  <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
+    <Typography
+      component="span"
+      sx={{ color: (theme) => theme.colors.warning[850], fontWeight: 600 }}
+    >
       Operazione in corso
     </Typography>
     <Tag variant="warning" value="Evento non valido" />

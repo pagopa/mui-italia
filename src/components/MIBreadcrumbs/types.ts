@@ -1,4 +1,4 @@
-import { BreadcrumbsOwnProps } from '@mui/material/Breadcrumbs/Breadcrumbs';
+import { BreadcrumbsOwnProps } from '@mui/material';
 import { LinkProps } from '@mui/material/Link';
 import { TypographyProps } from '@mui/material/Typography';
 import { ComponentPropsWithoutRef, ReactElement } from 'react';

@@ -1,6 +1,6 @@
 'use client';
 
-import { useButton } from '@mui/base/useButton';
+import { useButton, UseButtonParameters } from '@mui/base/useButton';
 import {
   ArrowDropDownRounded as ArrowDropDownRoundedIcon,
   ArrowDropUpRounded as ArrowDropUpRoundedIcon,
@@ -10,9 +10,9 @@ import { styled } from '@mui/system';
 import clsx from 'clsx';
 import {
   ForwardedRef,
+  forwardRef,
   MouseEvent,
   ReactNode,
-  forwardRef,
   useEffect,
   useMemo,
   useState,
@@ -89,8 +89,8 @@ export const ProductSwitch = ({
         anchorEl={anchorEl}
         open={open}
         onClose={() => handleClose()}
-        MenuListProps={{
-          'aria-labelledby': 'Seleziona i tuoi prodotti',
+        slotProps={{
+          list: { 'aria-labelledby': 'Seleziona i tuoi prodotti' },
         }}
       >
         {products.map((product) => (
@@ -136,7 +136,7 @@ const StyledSwitcherButton = styled('div')(({ theme }) => ({
 }));
 
 const ProductSwitchButton = forwardRef(function ProductSwitchButton(
-  props: ButtonProps,
+  props: Omit<ButtonProps, 'type'> & { type?: UseButtonParameters['type'] },
   ref: ForwardedRef<HTMLButtonElement>
 ) {
   const { children, disabled } = props;

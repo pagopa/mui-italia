@@ -102,7 +102,7 @@ export const Variants: Story = {
           width: 280,
         }}
       >
-        <Typography variant="subtitle1" fontWeight={600} gutterBottom>
+        <Typography variant="subtitle1" gutterBottom sx={{ fontWeight: 600 }}>
           Flat
         </Typography>
         <Typography variant="body2">
@@ -118,7 +118,7 @@ export const Variants: Story = {
           width: 280,
         }}
       >
-        <Typography variant="subtitle1" fontWeight={600} gutterBottom>
+        <Typography variant="subtitle1" gutterBottom sx={{ fontWeight: 600 }}>
           Outlined
         </Typography>
         <Typography variant="body2">Variante con bordo neutro e ombra disabilitata.</Typography>
@@ -148,7 +148,7 @@ export const BorderRadius: Story = {
             width: 220,
           }}
         >
-          <Typography variant="subtitle1" fontWeight={600} gutterBottom>
+          <Typography variant="subtitle1" gutterBottom sx={{ fontWeight: 600 }}>
             Radius {borderRadius}
           </Typography>
           <Typography variant="body2">Angoli arrotondati tramite token del tema.</Typography>
@@ -168,7 +168,7 @@ export const Padding: Story = {
     },
   },
   render: () => (
-    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={3} alignItems="flex-start">
+    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={3} sx={{ alignItems: 'flex-start' }}>
       {paddingOptions.map((padding) => (
         <MIPaper
           key={padding}
@@ -179,7 +179,7 @@ export const Padding: Story = {
             width: 260,
           }}
         >
-          <Typography variant="subtitle1" fontWeight={600} gutterBottom>
+          <Typography variant="subtitle1" gutterBottom sx={{ fontWeight: 600 }}>
             Padding {padding}
           </Typography>
           <Typography variant="body2">
@@ -214,7 +214,7 @@ export const ContentExample: Story = {
       }}
     >
       <Stack spacing={1.5}>
-        <Typography id="paper-example-title" variant="h3" fontSize={20} fontWeight={600}>
+        <Typography id="paper-example-title" variant="h3" sx={{ fontSize: 20, fontWeight: 600 }}>
           Titolo sezione
         </Typography>
         <Typography variant="body2" color="text.secondary">

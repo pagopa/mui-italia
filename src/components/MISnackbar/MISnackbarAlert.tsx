@@ -100,15 +100,15 @@ const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
       >
         <Stack
           direction={isMobile ? 'column' : 'row'}
-          flex={1}
           sx={{
             ...(errorCode && {
               gridColumn: 2,
               gridRow: 1,
             }),
+            flex: 1,
           }}
         >
-          <Stack direction="column" flex={1} minWidth={0} gap={title ? '4px' : 0}>
+          <Stack direction="column" sx={{ flex: 1, minWidth: 0, gap: title ? '4px' : 0 }}>
             {title && <MUIAlertTitle color={getColor(theme, severity)}>{title}</MUIAlertTitle>}
             {description}
           </Stack>
@@ -124,14 +124,16 @@ const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
             }}
           >
             <TextField
-              inputProps={{
-                'aria-label': errorCodeAriaLabel ?? `Error code: ${errorCode}`,
+              slotProps={{
+                input: {
+                  readOnly: true,
+                  endAdornment: <CopyToClipboardButton value={errorCode} sx={{ p: 0.5, mr: 0 }} />,
+                },
+                htmlInput: {
+                  'aria-label': errorCodeAriaLabel ?? `Error code: ${errorCode}`,
+                },
               }}
               value={errorCode}
-              InputProps={{
-                readOnly: true,
-                endAdornment: <CopyToClipboardButton value={errorCode} sx={{ p: 0.5, mr: 0 }} />,
-              }}
               sx={{
                 background: theme.palette.background.paper,
                 borderRadius: 2,

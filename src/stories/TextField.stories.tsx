@@ -86,12 +86,14 @@ WithIcon.args = {
   ...Default.args,
   label: 'Nome sulla carta',
   placeholder: 'Mario Rossi',
-  InputProps: {
-    startAdornment: (
-      <InputAdornment position="start">
-        <PersonOutlineRoundedIcon />
-      </InputAdornment>
-    ),
+  slotProps: {
+    input: {
+      startAdornment: (
+        <InputAdornment position="start">
+          <PersonOutlineRoundedIcon />
+        </InputAdornment>
+      ),
+    },
   },
 };
 
@@ -102,32 +104,40 @@ StateError.args = {
   error: true,
   placeholder: "Ripeti l'indirizzo",
   helperText: 'Gli indirizzi email devono coincidere',
-  InputProps: {
-    endAdornment: (
-      <InputAdornment position="end">
-        <ErrorOutlineRoundedIcon color="error" />
-      </InputAdornment>
-    ),
+  slotProps: {
+    input: {
+      endAdornment: (
+        <InputAdornment position="end">
+          <ErrorOutlineRoundedIcon color="error" />
+        </InputAdornment>
+      ),
+    },
   },
 };
 StateError.argTypes = {
-  InputProps: { table: { disable: true } },
+  slotProps: {
+    input: { table: { disable: true } },
+  },
 };
 
 export const StateSuccess = Template.bind({});
 StateSuccess.args = {
   ...Default.args,
   label: 'Indirizzo mail',
-  InputProps: {
-    endAdornment: (
-      <InputAdornment position="end">
-        <DoneRoundedIcon color="success" />
-      </InputAdornment>
-    ),
+  slotProps: {
+    input: {
+      endAdornment: (
+        <InputAdornment position="end">
+          <DoneRoundedIcon color="success" />
+        </InputAdornment>
+      ),
+    },
   },
 };
 StateSuccess.argTypes = {
-  InputProps: { table: { disable: true } },
+  slotProps: {
+    input: { table: { disable: true } },
+  },
   error: { table: { disable: true } },
 };
 

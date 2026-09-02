@@ -1,6 +1,6 @@
 'use client';
 
-import { useButton } from '@mui/base/useButton';
+import { useButton, UseButtonParameters } from '@mui/base/useButton';
 import {
   Box,
   Button,
@@ -17,8 +17,8 @@ import clsx from 'clsx';
 import {
   ChangeEvent,
   ForwardedRef,
-  KeyboardEvent,
   forwardRef,
+  KeyboardEvent,
   useEffect,
   useMemo,
   useState,
@@ -188,9 +188,11 @@ export const PartySwitch = ({
         }}
         onClose={() => toggleDrawer(false)}
         tabIndex={0}
-        PaperProps={{ ref: (ref: HTMLDivElement) => setContainerRef(ref) }}
+        slotProps={{
+          paper: { ref: (ref: HTMLDivElement) => setContainerRef(ref) },
+        }}
       >
-        <Box m={3} display="flex" justifyContent="space-between" alignItems="center">
+        <Box sx={{ m: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Typography variant="overline">Accedi per un altro ente</Typography>
           <IconButton onClick={() => toggleDrawer(false)}>
             <CloseIcon aria-label="chiudi" />
@@ -198,23 +200,25 @@ export const PartySwitch = ({
         </Box>
         <TextField
           label="Cerca ente"
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            ),
-            endAdornment: filter && isMobile && (
-              <InputAdornment
-                position="end"
-                onClick={() => setFilter('')}
-                sx={{ cursor: 'pointer' }}
-              >
-                <IconButton aria-label="elimina">
-                  <CloseIcon />
-                </IconButton>
-              </InputAdornment>
-            ),
+          slotProps={{
+            input: {
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+              endAdornment: filter && isMobile && (
+                <InputAdornment
+                  position="end"
+                  onClick={() => setFilter('')}
+                  sx={{ cursor: 'pointer' }}
+                >
+                  <IconButton aria-label="elimina">
+                    <CloseIcon />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            },
           }}
           variant="outlined"
           size="small"
@@ -239,15 +243,15 @@ export const PartySwitch = ({
           <>
             <Box
               component="div"
-              display="flex"
               sx={{
+                display: 'flex',
                 flexDirection: 'row',
                 justifyContent: 'center',
                 my: 2.5,
               }}
             >
               <SentimentDissatisfied sx={{ verticalAlign: 'middle', margin: '0 10px' }} />
-              <Typography variant="body2" fontWeight={700} fontSize={18}>
+              <Typography variant="body2" sx={{ fontWeight: 700, fontSize: 18 }}>
                 Nessun ente trovato
               </Typography>
             </Box>
@@ -283,7 +287,7 @@ const StyledSwitcherButton = styled('div')(({ theme }) => ({
 }));
 
 const PartySwitchButton = forwardRef(function PartySwitchButton(
-  props: ButtonProps,
+  props: Omit<ButtonProps, 'type'> & { type?: UseButtonParameters['type'] },
   ref: ForwardedRef<HTMLButtonElement>
 ) {
   const { children, disabled } = props;

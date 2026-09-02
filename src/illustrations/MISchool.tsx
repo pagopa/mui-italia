@@ -1,5 +1,5 @@
 import { Illustration } from '@components/Illustration';
-import { useIllustrationColors, MIIllustrationProps } from 'utils/useIllustrations';
+import { MIIllustrationProps, useIllustrationColors } from '../utils/useIllustrations';
 
 export const IllusMISchool = ({ title = 'MISchool', mode, ...rest }: MIIllustrationProps) => {
   const { colorPrimary, colorSecondary } = useIllustrationColors(mode);

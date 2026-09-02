@@ -96,7 +96,9 @@ export function LangSwitch({
           anchorEl={anchorEl}
           open={open}
           onClose={handleClose}
-          MenuListProps={{ 'aria-labelledby': 'lang-menu-button' }}
+          slotProps={{
+            list: { 'aria-labelledby': 'lang-menu-button' },
+          }}
         >
           {Object.keys(languages).map((langCode) => {
             const code = langCode as LangCode;

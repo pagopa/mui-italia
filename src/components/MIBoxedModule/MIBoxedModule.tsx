@@ -17,7 +17,8 @@ import MIBoxedModuleContent from './MIBoxedModuleContent';
 import MIBoxedModuleSkeleton from './MIBoxedModuleSkeleton';
 
 export interface MIBoxedModuleProps
-  extends Pick<StackProps, 'children' | 'sx'>,
+  extends
+    Pick<StackProps, 'children' | 'sx'>,
     Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'style' | 'onClick'> {
   loading?: boolean;
   direction?: 'horizontal' | 'vertical';
@@ -38,16 +39,16 @@ const StyledStack = styled(
   Stack,
   {}
 )<StackProps>(({ theme }) => ({
-    border: '1px solid',
-    borderColor: theme.colors.neutral.grey[100],
-    borderRadius: theme.shape.radius[8],
-    padding: theme.spacing(2),
-    backgroundColor: theme.colors.neutral.white,
-    boxSizing: 'border-box',
-    width: '100%',
-    flex: '1 1 auto',
-    minWidth: 0,
-  }));
+  border: '1px solid',
+  borderColor: theme.colors.neutral.grey[100],
+  borderRadius: theme.shape.radius[8],
+  padding: theme.spacing(2),
+  backgroundColor: theme.colors.neutral.white,
+  boxSizing: 'border-box',
+  width: '100%',
+  flex: '1 1 auto',
+  minWidth: 0,
+}));
 
 const MIBoxedModule: FC<MIBoxedModuleProps> = ({
   loading = false,
@@ -79,8 +80,11 @@ const MIBoxedModule: FC<MIBoxedModuleProps> = ({
     <StyledStack
       {...rest}
       direction="row"
-      alignItems={isMobile ? 'flex-start' : 'center'}
       spacing={2}
+      sx={{
+        ...rest.sx,
+        alignItems: isMobile ? 'flex-start' : 'center',
+      }}
     >
       {icon}
       {action && (

@@ -31,7 +31,7 @@ type Props<T> = {
 };
 
 const DefaultLoadingSkeleton: FC = () => (
-  <Stack width="100%">
+  <Stack sx={{ width: '100%' }}>
     {Array.from({ length: 4 }).map((_, index) => (
       <Box key={`skeleton-${index}`} sx={{ py: 1, px: 2 }}>
         <Skeleton variant="text" width="40%" sx={{ borderRadius: 8, lineHeight: 1.5 }} />

@@ -1,9 +1,8 @@
-import { StoryFn, Meta } from '@storybook/react-vite';
+import { Meta, StoryFn } from '@storybook/react-vite';
 
 import { Box, Divider, Typography } from '@mui/material';
 
 import { JSX } from 'react';
-import { IllusMIFirma } from './MIFirma';
 import { IllusAlarmClock } from './AlarmClock';
 import { IllusCompleted } from './Completed';
 import { IllusDataSecurity } from './DataSecurity';
@@ -43,6 +42,7 @@ import { IllusMIError } from './MIError';
 import { IllusMIEuro } from './MIEuro';
 import { IllusMIFileCheck } from './MIFileCheck';
 import { IllusMIFingerPrint } from './MIFingerPrint';
+import { IllusMIFirma } from './MIFirma';
 import { IllusMIFlag } from './MIFlag';
 import { IllusMIGraduation } from './MIGraduation';
 import { IllusMIHistoryDoc } from './MIHistoryDoc';
@@ -132,7 +132,7 @@ const IllusBox = ({ name, illustration }: IllusBoxProps): JSX.Element => (
 
 export const Overview: StoryFn<typeof Box> = () => (
   <>
-    <Typography variant="h5" mb={2}>
+    <Typography variant="h5" sx={{ mb: 2 }}>
       Mui Italia 2.0 Illustrations
     </Typography>
     <Box
@@ -223,7 +223,7 @@ export const Overview: StoryFn<typeof Box> = () => (
       <IllusBox name={'<IllusMIInProgress />'} illustration={<IllusMIInProgress />} />
     </Box>
     <Divider sx={{ my: 4 }} />
-    <Typography variant="h5" mb={2}>
+    <Typography variant="h5" sx={{ mb: 2 }}>
       Mui Italia Illustrations
     </Typography>
     <Box

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { StoryFn, Meta } from '@storybook/react-vite';
+import { Meta, StoryFn } from '@storybook/react-vite';
 
 import { Button, Stack, Typography } from '@mui/material';
 
@@ -90,7 +90,7 @@ export const Default: StoryFn<typeof ProductAvatar> = () => {
   };
 
   return (
-    <Stack gap={2} alignItems="flex-start">
+    <Stack sx={{ gap: 2, alignItems: 'flex-start' }}>
       <ProductAvatar logoUrl={url} logoBgColor={bgColor} logoAltText={altText} size="small" />
       <ProductAvatar logoUrl={url} logoBgColor={bgColor} logoAltText={altText} />
       <ProductAvatar logoUrl={url} logoBgColor={bgColor} logoAltText={altText} size="large" />

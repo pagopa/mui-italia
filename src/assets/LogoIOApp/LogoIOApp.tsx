@@ -1,8 +1,5 @@
 // Components
-import { styled } from '@mui/material';
-
-import { theme } from '@theme';
-import { colors } from 'theme/colors';
+import { styled, Theme } from '@mui/material';
 
 const StyledSvg = styled('svg')({
   display: 'inline-block',
@@ -20,12 +17,12 @@ export interface LogoIOAppProps {
   color: LogoIOAppColors;
 }
 
-const colorMap = {
+const colorMap = (theme: Theme) => ({
   default: theme.palette.primary.main,
   dark: theme.palette.common.black,
   light: theme.palette.common.white,
-  blue500: colors.blue[500],
-};
+  blue500: theme.colors.blue[500],
+});
 
 export const LogoIOApp = ({
   title = 'App IO',
@@ -39,7 +36,7 @@ export const LogoIOApp = ({
     role="img"
     sx={{
       width: size,
-      fill: colorMap[color],
+      fill: (theme) => colorMap(theme)[color],
     }}
   >
     <path d="M11.25 0C17.463 0 22.5 5.037 22.5 11.25S17.463 22.5 11.25 22.5 0 17.463 0 11.25 5.037 0 11.25 0Z" />

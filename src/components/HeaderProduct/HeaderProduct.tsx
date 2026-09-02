@@ -1,11 +1,11 @@
 'use client';
 
-import { ReactNode, useMemo, useState } from 'react';
 import { Box, Chip, Container, IconButton, Stack, Typography } from '@mui/material';
+import { ReactNode, useMemo, useState } from 'react';
 
-import { ProductSwitch, ProductSwitchItem } from '@components/ProductSwitch';
-import { PartySwitchItem, PartySwitch } from '@components/PartySwitch';
 import { PartyAccountItem } from '@components/PartyAccountItem';
+import { PartySwitch, PartySwitchItem } from '@components/PartySwitch';
+import { ProductSwitch, ProductSwitchItem } from '@components/ProductSwitch';
 
 export type ProductEntity = ProductSwitchItem;
 export type PartyEntity = PartySwitchItem;
@@ -95,29 +95,27 @@ export const HeaderProduct = ({
   return (
     <Box
       component="div"
-      display="flex"
-      alignItems="center"
       sx={{
         backgroundColor: 'background.paper',
         borderBottom: borderBottom ?? 1,
         borderColor: borderColor ?? 'divider',
         boxSizing: 'border-box',
         minHeight: { xs: 'auto', md: '80px' },
+        display: 'flex',
+        alignItems: 'center',
       }}
     >
       <Container maxWidth={false}>
         <Stack
-          alignItems="center"
           direction="row"
-          justifyContent="space-between"
           spacing={2}
-          sx={{ py: 2 }}
+          sx={{ py: 2, alignItems: 'center', justifyContent: 'space-between' }}
         >
           {/* Left side of the component */}
-          <Stack alignItems="center" direction="row">
+          <Stack direction="row" sx={{ alignItems: 'center' }}>
             {!!iconSelected && <IconButton>{iconSelected}</IconButton>}
             {selectedProduct && productsList.length > 1 && (
-              <Stack spacing={2} direction="row" alignItems="center">
+              <Stack spacing={2} direction="row" sx={{ alignItems: 'center' }}>
                 {/* Switcher Product */}
                 <ProductSwitch
                   currentProductId={selectedProduct.id}
@@ -130,7 +128,7 @@ export const HeaderProduct = ({
               </Stack>
             )}
             {selectedProduct && productsList.length === 1 && (
-              <Stack spacing={2} direction="row" alignItems="center">
+              <Stack spacing={2} direction="row" sx={{ alignItems: 'center' }}>
                 <Typography sx={{ fontSize: { xs: 20, sm: 28 }, fontWeight: 'bold' }}>
                   {selectedProduct.title}
                 </Typography>
@@ -141,7 +139,7 @@ export const HeaderProduct = ({
             )}
           </Stack>
           {/* insert maxWidth to limit component width when the const multiLine is used in PartySwitch and PartyAccountItem */}
-          <Box maxWidth="25rem">
+          <Box sx={{ maxWidth: '25rem' }}>
             {/* Right side of the component */}
             {partyList && selectedParty && partyList.length > 1 && (
               <>

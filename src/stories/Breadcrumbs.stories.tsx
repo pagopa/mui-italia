@@ -1,7 +1,7 @@
-import { StoryFn, Meta } from '@storybook/react-vite';
+import { Meta, StoryFn } from '@storybook/react-vite';
 
-import { Breadcrumbs, Link, Typography } from '@mui/material';
 import { EmailRounded as EmailRoundedIcon } from '@mui/icons-material';
+import { Breadcrumbs, Link, Typography } from '@mui/material';
 
 export default {
   title: 'MUI Components/Navigation/Breadcrumbs',
@@ -15,7 +15,7 @@ export const TwoItems: StoryFn<typeof Breadcrumbs> = () => (
       <EmailRoundedIcon sx={{ mr: 1 }} fontSize="inherit" />
       Notifiche
     </Link>
-    <Typography sx={{ display: 'flex', alignItems: 'center' }} color="inherit" fontWeight={600}>
+    <Typography sx={{ display: 'flex', alignItems: 'center', fontWeight: 600 }} color="inherit">
       Dettaglio Notifica
     </Typography>
   </Breadcrumbs>

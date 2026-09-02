@@ -1,6 +1,6 @@
 import { Box, Stack } from '@mui/material';
 import { BannerCTAWithId, BannerModel, ViewState } from '../model';
-import { Cta, Message, Title, CloseButton } from '../shared';
+import { CloseButton, Cta, Message, Title } from '../shared';
 
 export function Tertiary({
   model,
@@ -27,17 +27,21 @@ export function Tertiary({
   return (
     <Stack
       direction="row"
-      justifyContent="space-between"
-      width="100%"
-      gap={2}
-      alignItems="flex-start"
+      sx={{
+        justifyContent: 'space-between',
+        width: '100%',
+        gap: 2,
+        alignItems: 'flex-start',
+      }}
     >
       <Stack
         direction={isHorizontal ? 'row' : 'column'}
-        flex={1}
-        alignItems={isHorizontal ? 'flex-start' : 'center'}
-        gap={`${view.contentGapPx}px`}
-        minWidth={0}
+        sx={{
+          flex: 1,
+          alignItems: isHorizontal ? 'flex-start' : 'center',
+          gap: `${view.contentGapPx}px`,
+          minWidth: 0,
+        }}
       >
         {model.topIcon && (
           <Box sx={{ color: (theme) => theme.colors.blue[200], mt: isHorizontal ? 0.25 : 0 }}>
@@ -47,9 +51,11 @@ export function Tertiary({
 
         <Stack
           direction="column"
-          flex={1}
-          gap={1}
-          alignItems={isHorizontal ? 'flex-start' : 'center'}
+          sx={{
+            flex: 1,
+            gap: 1,
+            alignItems: isHorizontal ? 'flex-start' : 'center',
+          }}
         >
           <Title id={titleId} text={title} textAlign={model.textAlign} variant={view.variant} />
           {message && <Message text={message} textAlign={model.textAlign} variant={view.variant} />}

@@ -1,6 +1,6 @@
+import { Box } from '@mui/material';
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { useEffect, useState } from 'react';
-import { Box } from '@mui/material';
 import CodeInput, { CodeInputProps } from '../components/CodeInput/CodeInput';
 
 const meta: Meta<typeof CodeInput> = {
@@ -28,7 +28,7 @@ const StatefulTemplate = (args: CodeInputProps) => {
   return (
     <Box>
       <CodeInput {...args} value={value} onChange={setValue} />
-      <Box mt={2} fontSize="0.75rem" color="text.secondary">
+      <Box sx={{ mt: 2, fontSize: '0.75rem', color: 'text.secondary' }}>
         <div>
           <strong>Value:</strong> {value}
         </div>
@@ -155,7 +155,7 @@ export const Uncontrolled: Story = {
     return (
       <Box>
         <CodeInput ariaLabel={ariaLabel} length={5} onChange={setValue} />
-        <Box mt={2} fontSize="0.75rem" color="text.secondary">
+        <Box sx={{ mt: 2, fontSize: '0.75rem', color: 'text.secondary' }}>
           <div>
             <strong>Value:</strong> {value}
           </div>
@@ -181,12 +181,12 @@ export const ResetWhileFocused: Story = {
           ariaLabel={ariaLabel}
         />
 
-        <Box mt={2} display="flex" gap={1}>
+        <Box sx={{ mt: 2, display: 'flex', gap: 1 }}>
           <button onClick={() => setValue('')}>Reset value to empty</button>
           <button onClick={() => setValue('9876')}>Set value to 9876</button>
         </Box>
 
-        <Box mt={1} fontSize="0.75rem" color="text.secondary">
+        <Box sx={{ mt: 1, fontSize: '0.75rem', color: 'text.secondary' }}>
           <strong>Value:</strong> {value}
         </Box>
       </Box>

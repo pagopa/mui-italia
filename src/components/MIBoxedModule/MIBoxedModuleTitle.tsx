@@ -11,7 +11,11 @@ const MIBoxedModuleTitle: FC<MIBoxedModuleTitleProps> = ({ children }) => {
   const theme = useTheme();
 
   return (
-    <Typography variant="caption-semibold" color={theme.colors.neutral.black} fontSize="1rem">
+    <Typography
+      variant="caption-semibold"
+      color={theme.colors.neutral.black}
+      sx={{ fontSize: '1rem' }}
+    >
       {children}
     </Typography>
   );

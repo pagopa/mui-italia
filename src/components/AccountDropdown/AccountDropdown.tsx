@@ -1,12 +1,12 @@
 'use client';
 
-import { Fragment, ReactNode, SyntheticEvent, useState } from 'react';
-import { Menu, MenuItem, IconButton, ListItemIcon, ListItemText } from '@mui/material';
 import {
   AccountCircleRounded as AccountCircleRoundedIcon,
-  ArrowDropUpRounded as ArrowDropUpRoundedIcon,
   ArrowDropDownRounded as ArrowDropDownRoundedIcon,
+  ArrowDropUpRounded as ArrowDropUpRoundedIcon,
 } from '@mui/icons-material';
+import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material';
+import { Fragment, ReactNode, SyntheticEvent, useState } from 'react';
 
 import { ButtonNaked } from '@components/ButtonNaked';
 
@@ -85,7 +85,9 @@ export const AccountDropdown = ({ user, userActions }: AccountDropdownProps) => 
           anchorEl={anchorEl}
           open={open}
           onClose={handleClose}
-          MenuListProps={{ 'aria-labelledby': 'party-menu-button' }}
+          slotProps={{
+            list: { 'aria-labelledby': 'party-menu-button' },
+          }}
         >
           {userActions.map(({ id, label, onClick, icon }) => (
             <MenuItem key={id} onClick={wrapOnClick(onClick)} sx={{ display: 'flex' }}>

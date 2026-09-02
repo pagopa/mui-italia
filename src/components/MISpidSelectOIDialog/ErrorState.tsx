@@ -15,15 +15,17 @@ const ErrorState: React.FC<Props> = ({ title, description, closeButtonLabel, onC
   return (
     <Stack
       spacing={3}
-      alignItems="center"
-      textAlign="center"
-      my={8}
+      sx={{
+        alignItems: 'center',
+        textAlign: 'center',
+        my: 8,
+      }}
       data-testid="spid-select-error-state"
     >
       <IllusMIError size={56} />
 
       <Box>
-        <Typography fontWeight={700} fontSize="32px" sx={{ color: theme.colors.neutral.black }}>
+        <Typography sx={{ color: theme.colors.neutral.black, fontWeight: 700, fontSize: '32px' }}>
           {title}
         </Typography>
         <Typography variant="body2" color="textSecondary">

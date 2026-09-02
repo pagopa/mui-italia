@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { Box, Container, Stack, Typography } from "@mui/material";
+import { Box, Container, Stack, Typography } from '@mui/material';
 
 export interface ShowcaseItem {
   icon?: JSX.Element;
@@ -14,7 +14,7 @@ export interface ShowcaseProps {
 }
 
 export const Showcase = ({ title, items }: ShowcaseProps) => (
-  <Box bgcolor="#FAFAFA">
+  <Box sx={{ bgcolor: '#FAFAFA' }}>
     <Container
       maxWidth="xl"
       sx={{
@@ -25,39 +25,38 @@ export const Showcase = ({ title, items }: ShowcaseProps) => (
         },
       }}
     >
-      <Stack alignContent="center" textAlign="center" spacing={8}>
+      <Stack spacing={8} sx={{ alignContent: 'center', textAlign: 'center' }}>
         <Typography variant="h4">{title}</Typography>
         <Box
           sx={{
-            display: "grid",
+            display: 'grid',
             gap: 3,
-            gridTemplateColumns: "repeat(12, 1fr)",
+            gridTemplateColumns: 'repeat(12, 1fr)',
           }}
         >
-          <Box gridColumn="2 / span 10">
+          <Box sx={{ gridColumn: '2 / span 10' }}>
             <Stack
-              direction={{ xs: "column", md: "row" }}
-              alignContent="center"
-              justifyContent="center"
+              direction={{ xs: 'column', md: 'row' }}
               spacing={{ xs: 6, md: 4 }}
+              sx={{ alignContent: 'center', justifyContent: 'center' }}
             >
               {items.map((item, index) => (
                 <Stack
                   key={index}
-                  alignContent="center"
-                  justifyContent="flex-start"
                   spacing={{ xs: 1, md: 4 }}
                   sx={{
                     flex: 1,
+                    alignContent: 'center',
+                    justifyContent: 'flex-start',
                   }}
                 >
                   <Box
-                    mx="auto"
                     sx={{
-                      color: "primary.dark",
+                      mx: 'auto',
+                      color: 'primary.dark',
                       svg: {
-                        height: "64px",
-                        width: "64px",
+                        height: '64px',
+                        width: '64px',
                       },
                     }}
                   >
@@ -66,12 +65,10 @@ export const Showcase = ({ title, items }: ShowcaseProps) => (
                   <Stack spacing={1}>
                     <Typography variant="h6">{item.title}</Typography>
                     <>
-                      {item.subtitle && typeof item.subtitle === "string" && (
+                      {item.subtitle && typeof item.subtitle === 'string' && (
                         <Typography variant="body2">{item.subtitle}</Typography>
                       )}
-                      {item.subtitle &&
-                        typeof item.subtitle !== "string" &&
-                        item.subtitle}
+                      {item.subtitle && typeof item.subtitle !== 'string' && item.subtitle}
                     </>
                   </Stack>
                 </Stack>

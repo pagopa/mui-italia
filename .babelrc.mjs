@@ -1,18 +1,24 @@
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import { dirname, join } from 'path';
+import ts from 'typescript';
 
 function resolveAliases() {
-  const aliases = {};
-  // read tsconfig
   const cwd = process.cwd();
   const tsConfigPath = join(cwd, 'tsconfig.json');
-  const tsConfig = JSON.parse(readFileSync(tsConfigPath, { encoding: 'utf8' }));
-  const paths = tsConfig.compilerOptions.paths;
-  const baseUrl = tsConfig.compilerOptions.baseUrl;
-  for (const [key, value] of Object.entries(paths)) {
-    aliases[key.replace('/*', '')] = `${baseUrl}/${value[0].replace('/*', '')}`;
+
+  const { config, error } = ts.readConfigFile(tsConfigPath, ts.sys.readFile);
+  if (error) {
+    throw new Error(ts.flattenDiagnosticMessageText(error.messageText, '\n'));
   }
-  return aliases;
+
+  const parsed = ts.parseJsonConfigFileContent(config, ts.sys, dirname(tsConfigPath));
+  const baseUrl = parsed.options.baseUrl ?? dirname(tsConfigPath);
+
+  return Object.fromEntries(
+    Object.entries(parsed.options.paths ?? {}).map(([alias, targets]) => [
+      alias.replace(/\/\*$/, ''),
+      targets[0].replace(/\/\*$/, ''),
+    ])
+  );
 }
 
 export default function getBabelConfig(api) {

@@ -1,6 +1,6 @@
 import { Box, Stack } from '@mui/material';
 import { BannerCTAWithId, BannerModel, ViewState } from '../model';
-import { BadgeChip, BlueBar, Cta, Message, Title, CloseButton } from '../shared';
+import { BadgeChip, BlueBar, CloseButton, Cta, Message, Title } from '../shared';
 
 export function Primary({
   model,
@@ -25,11 +25,11 @@ export function Primary({
   const showBadge = view.variant === 'primary' && Boolean(model.badgeText);
 
   return (
-    <Stack direction="row" alignItems="stretch">
+    <Stack direction="row" sx={{ alignItems: 'stretch' }}>
       <BlueBar />
 
-      <Stack direction="row" justifyContent="space-between" width="100%" gap={2}>
-        <Stack direction="column" flex={1} gap={1} minWidth={0}>
+      <Stack direction="row" sx={{ width: '100%', justifyContent: 'space-between', gap: 2 }}>
+        <Stack direction="column" sx={{ flex: 1, gap: 1, minWidth: 0 }}>
           {showBadge && model.badgeText && <BadgeChip text={model.badgeText} />}
 
           <Title
@@ -55,7 +55,7 @@ export function Primary({
           )}
         </Stack>
 
-        <Stack direction="column" alignItems="flex-end" gap={2} flexShrink={0}>
+        <Stack direction="column" sx={{ alignItems: 'flex-end', gap: 2, flexShrink: 0 }}>
           {onClose && <CloseButton onClose={onClose} ariaLabel={closeAriaLabel} />}
 
           {model.illustrationNode && (

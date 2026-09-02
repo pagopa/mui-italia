@@ -73,16 +73,20 @@ export const HeaderAccount = ({
 }: HeaderAccountProps) => (
   <Stack
     component="div"
-    justifyContent="center"
     sx={{
       borderBottom: 1,
       borderColor: 'divider',
       backgroundColor: 'background.paper',
       minHeight: '48px',
+      justifyContent: 'center',
     }}
   >
     <Container maxWidth={false}>
-      <Stack spacing={2} direction="row" justifyContent="space-between" alignItems="center">
+      <Stack
+        spacing={2}
+        direction="row"
+        sx={{ justifyContent: 'space-between', alignItems: 'center' }}
+      >
         <ButtonNaked
           component="a"
           size="small"
@@ -96,7 +100,7 @@ export const HeaderAccount = ({
           {rootLink.label}
         </ButtonNaked>
 
-        <Stack direction="row" alignItems="center" spacing={{ xs: 1, sm: 3, md: 4 }}>
+        <Stack direction="row" spacing={{ xs: 1, sm: 3, md: 4 }} sx={{ alignItems: 'center' }}>
           {/* START Documentation MOBILE/DESKTOP */}
           {onDocumentationClick && (
             <>

@@ -28,7 +28,7 @@ const MultiSelectChips = <T,>({
   };
 
   return (
-    <Box display="contents" role="list" {...slotProps.list}>
+    <Box role="list" {...slotProps.list} sx={{ display: 'contents' }}>
       {selectedOptions.map((option, index) => (
         <MIChip
           key={getOptionKey(option, index)}

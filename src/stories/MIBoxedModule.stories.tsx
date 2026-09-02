@@ -192,7 +192,7 @@ const meta: Meta<MIBoxedModuleStoryArgs> = {
           <Box>
             {boxedContent}
 
-            <Stack direction="row" mt={1} alignItems="center">
+            <Stack direction="row" sx={{ alignItems: 'center', mt: 1 }}>
               <EmojiObjectsOutlinedIcon htmlColor={theme.colors.purple[500]} fontSize="small" />
               <Typography variant="caption-semibold" color={theme.colors.purple[500]}>
                 Suggested because you are already client
@@ -225,16 +225,15 @@ export const NoTitle: Story = {
       >
         <Stack
           direction={{ xs: 'column', md: 'row' }}
-          alignItems={{ xs: 'flex-start', md: 'center' }}
+          sx={{ alignItems: { xs: 'flex-start', md: 'center' } }}
         >
-          <Typography variant="caption" mr={0.5} color={theme.colors.neutral.grey[700]}>
+          <Typography variant="caption" color={theme.colors.neutral.grey[700]} sx={{ mr: 0.5 }}>
             Codice avviso
           </Typography>
           <Typography
             variant="caption-semibold"
-            mr={{ xs: 0, md: 1 }}
-            mb={{ xs: 1, md: 0 }}
             color={theme.colors.neutral.grey[700]}
+            sx={{ mr: { xs: 0, md: 1 }, mb: { xs: 1, md: 0 } }}
           >
             0000 0000 0000 0000 00
           </Typography>
@@ -256,9 +255,11 @@ export const ForceDirection: Story = {
     const Action = () => (
       <Stack
         direction={{ xs: 'column-reverse', md: 'row' }}
-        justifyContent="flex-end"
         spacing={3}
-        mt={3}
+        sx={{
+          justifyContent: 'flex-end',
+          mt: 3,
+        }}
       >
         <MIButton endIcon={<SaveAltIcon />} variant="text" fullWidth={isMobile}>
           Scarica documento
@@ -271,8 +272,8 @@ export const ForceDirection: Story = {
       <MIBoxedModule action={<Action />} direction="vertical">
         <MIBoxedModuleTitle>0000 0000 0000 0000 00</MIBoxedModuleTitle>
 
-        <Stack direction="row" mt="6px">
-          <Typography variant="caption" color={theme.colors.neutral.grey[700]} mr={0.5}>
+        <Stack direction="row" sx={{ mt: '6px' }}>
+          <Typography variant="caption" color={theme.colors.neutral.grey[700]} sx={{ mr: 0.5 }}>
             Oggetto
           </Typography>
           <Typography variant="caption-semibold" color={theme.colors.neutral.grey[700]}>
@@ -280,8 +281,8 @@ export const ForceDirection: Story = {
           </Typography>
         </Stack>
 
-        <Stack direction="row" mt="6px">
-          <Typography variant="caption" color={theme.colors.neutral.grey[700]} mr={0.5}>
+        <Stack direction="row" sx={{ mt: '6px' }}>
+          <Typography variant="caption" color={theme.colors.neutral.grey[700]} sx={{ mr: 0.5 }}>
             Pagato il
           </Typography>
           <Typography variant="caption-semibold" color={theme.colors.neutral.grey[700]}>
@@ -289,8 +290,8 @@ export const ForceDirection: Story = {
           </Typography>
         </Stack>
 
-        <Stack direction="row" mt="6px" alignItems="center">
-          <Typography variant="caption" color={theme.colors.neutral.grey[700]} mr={0.5}>
+        <Stack direction="row" sx={{ alignItems: 'center', mt: '6px' }}>
+          <Typography variant="caption" color={theme.colors.neutral.grey[700]} sx={{ mr: 0.5 }}>
             Status
           </Typography>
           <MIChip label="Pagato" color="success" />
@@ -323,11 +324,11 @@ export const CustomSkeleton: Story = {
     },
     slots: {
       skeleton: () => (
-        <Box gap={1} display="flex" alignItems="center" flexDirection="row">
-          <Box display="flex" gap={1} flexDirection="column" flex="1 0 0">
+        <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'row', gap: 1 }}>
+          <Box sx={{ display: 'flex', gap: 1, flexDirection: 'column', flex: '1 0 0' }}>
             <Skeleton variant="rounded" width="196px" height="23px" sx={{ borderRadius: '8px' }} />
 
-            <Box display="flex" flexDirection="row">
+            <Box sx={{ display: 'flex', flexDirection: 'row' }}>
               <Skeleton
                 variant="rounded"
                 width="79px"
@@ -346,13 +347,15 @@ export const CustomSkeleton: Story = {
           </Box>
 
           <Box
-            display="flex"
-            flexDirection="row"
-            alignItems="center"
-            justifyContent="flex-end"
-            gap={1}
+            sx={{
+              alignItems: 'center',
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'flex-end',
+              gap: 1,
+            }}
           >
-            <Box display="flex" flexDirection="column" gap={1}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
               <Skeleton variant="rounded" width="79px" height="23px" sx={{ borderRadius: '8px' }} />
               <Skeleton
                 variant="rounded"
@@ -380,13 +383,13 @@ export const ComplexContent: Story = {
       <Stack
         direction={{ xs: 'column', md: 'row' }}
         spacing={2}
-        alignItems={{ xs: 'flex-start', md: 'center' }}
+        sx={{ alignItems: { xs: 'flex-start', md: 'center' } }}
       >
         <Box sx={{ flex: '1 1 auto' }}>
           <MIBoxedModuleTitle>Payment object</MIBoxedModuleTitle>
 
           <Box>
-            <Typography variant="caption" mr={0.5} color={theme.colors.neutral.grey[700]}>
+            <Typography variant="caption" color={theme.colors.neutral.grey[700]} sx={{ mr: 0.5 }}>
               Codice avviso
             </Typography>
             <Typography variant="caption-semibold" color={theme.colors.neutral.grey[700]}>
@@ -395,7 +398,7 @@ export const ComplexContent: Story = {
           </Box>
 
           <Box>
-            <Typography variant="caption" mr={0.5} color={theme.colors.neutral.grey[700]}>
+            <Typography variant="caption" color={theme.colors.neutral.grey[700]} sx={{ mr: 0.5 }}>
               Scade il
             </Typography>
             <Typography variant="caption-semibold" color={theme.colors.neutral.grey[700]}>
@@ -403,7 +406,7 @@ export const ComplexContent: Story = {
             </Typography>
           </Box>
 
-          <Stack direction="row" mt={0.5} alignItems="center">
+          <Stack direction="row" sx={{ alignItems: 'center', mr: 0.5 }}>
             <HowToRegIcon htmlColor={theme.colors.purple[500]} fontSize="small" />
             <Typography variant="caption-semibold" color={theme.colors.purple[500]}>
               Sei già cliente
@@ -412,23 +415,28 @@ export const ComplexContent: Story = {
         </Box>
 
         <Box
-          textAlign="right"
-          sx={{ flexShrink: 0, width: { xs: '100%', md: 'auto' } }}
-          position="relative"
-          left={{ xs: '35px', md: 0 }}
+          sx={{
+            textAlign: 'right',
+            flexShrink: 0,
+            width: { xs: '100%', md: 'auto' },
+            position: 'relative',
+            left: { xs: '35px', md: 0 },
+          }}
         >
           <Typography
             variant="caption-semibold"
             color={theme.colors.blue[500]}
-            fontSize="1rem"
-            display="block"
+            sx={{
+              fontSize: '1rem',
+              display: 'block',
+            }}
           >
             398,50 €
           </Typography>
           <Typography
             variant="caption-semibold"
-            fontSize="0.75rem"
             color={theme.colors.neutral.grey[700]}
+            sx={{ fontSize: '0.75rem' }}
           >
             Costi di notifica inclusi
           </Typography>

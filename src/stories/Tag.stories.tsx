@@ -170,7 +170,7 @@ export const Variants: Story = {
     controls: { disable: true },
   },
   render: () => (
-    <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap alignItems="center">
+    <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: 'wrap', alignItems: 'center' }}>
       <Tag variant="default" value="Default" icon={StarRoundedIcon} />
       <Tag variant="info" value="Info" />
       <Tag variant="warning" value="Warning" />
@@ -191,7 +191,7 @@ export const DefaultCustomization: Story = {
         Personalizzazione della variante default tramite slotProps.
       </Typography>
 
-      <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+      <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: 'wrap' }}>
         <Tag
           variant="default"
           value="Icona blu"
@@ -231,11 +231,9 @@ export const ValueModes: Story = {
   render: () => (
     <Stack spacing={3}>
       <Box
-        width="220px"
-        p={2}
-        sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 1 }}
+        sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 1, width: '220px', p: 2 }}
       >
-        <Typography variant="body2" mb={1}>
+        <Typography variant="body2" sx={{ mb: 1 }}>
           mode="truncate"
         </Typography>
         <Tag
@@ -247,11 +245,9 @@ export const ValueModes: Story = {
       </Box>
 
       <Box
-        width="220px"
-        p={2}
-        sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 1 }}
+        sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 1, width: '220px', p: 2 }}
       >
-        <Typography variant="body2" mb={1}>
+        <Typography variant="body2" sx={{ mb: 1 }}>
           mode="wrap"
         </Typography>
         <Tag
@@ -270,7 +266,7 @@ export const OnlyIcon: Story = {
     controls: { disable: true },
   },
   render: () => (
-    <Stack direction="row" spacing={1} alignItems="center">
+    <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
       <Tag variant="only-icon" icon={AttachFileRoundedIcon} aria-label="Allegato" />
       <Tag
         variant="only-icon"

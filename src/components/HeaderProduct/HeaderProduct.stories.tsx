@@ -1,9 +1,9 @@
-import { StoryFn, Meta } from '@storybook/react-vite';
+import { Meta, StoryFn } from '@storybook/react-vite';
 
 import { breakpointsChromaticValues, theme } from '@theme';
 
-import { HeaderProduct, PartyEntity, ProductEntity } from '@components/HeaderProduct';
 import { LogoIOApp } from '@assets/LogoIOApp';
+import { HeaderProduct, PartyEntity, ProductEntity } from '@components/HeaderProduct';
 
 export default {
   title: 'Components/HeaderProduct (WIP)',

@@ -234,7 +234,7 @@ export const Variants: Story = {
     },
   },
   render: () => (
-    <Stack direction="row" spacing={2} alignItems="center">
+    <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
       <MIButton variant="contained">Contained</MIButton>
       <MIButton variant="outlined">Outlined</MIButton>
       <MIButton variant="text">Text</MIButton>
@@ -252,7 +252,7 @@ export const Colors: Story = {
     },
   },
   render: () => (
-    <Stack direction="row" spacing={2} alignItems="center">
+    <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
       <MIButton color="primary">Primary</MIButton>
       <MIButton color="error">Error</MIButton>
       <MIButton color="contrasted">Contrasted</MIButton>
@@ -270,7 +270,7 @@ export const Sizes: Story = {
     },
   },
   render: () => (
-    <Stack direction="row" spacing={2} alignItems="center">
+    <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
       <MIButton size="small">Small</MIButton>
       <MIButton size="medium">Medium</MIButton>
       <MIButton size="large">Large</MIButton>
@@ -288,7 +288,7 @@ export const Icons: Story = {
     },
   },
   render: () => (
-    <Stack direction="row" spacing={2} alignItems="center">
+    <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
       <MIButton startIcon={<ArrowBackRoundedIcon />}>Back</MIButton>
       <MIButton endIcon={<ArrowForwardRoundedIcon />}>Next</MIButton>
       <MIButton color="error" startIcon={<DeleteOutlineRoundedIcon />}>
@@ -324,7 +324,7 @@ export const LoadingStates: Story = {
     },
   },
   render: () => (
-    <Stack direction="row" spacing={2} alignItems="center">
+    <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
       <MIButton
         isLoading
         loaderType={MIButtonLoaderType.SPINNER}

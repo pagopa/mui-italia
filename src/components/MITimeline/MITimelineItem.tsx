@@ -50,12 +50,10 @@ const MITimelineItem: React.FC<MITimelineItemInternalProps> = ({
             borderColor: variantColor.border,
           }}
         >
-          <Stack direction="row" alignItems="center" gap="12px">
+          <Stack direction="row" sx={{ alignItems: 'center', gap: '12px' }}>
             <Icon sx={{ fontSize: '24px', color: variantColor.text }} />
             {isPrimitiveNode(title) ? (
-              <Typography fontWeight={600} sx={{ color: variantColor.text }}>
-                {title}
-              </Typography>
+              <Typography sx={{ color: variantColor.text, fontWeight: 600 }}>{title}</Typography>
             ) : (
               title
             )}

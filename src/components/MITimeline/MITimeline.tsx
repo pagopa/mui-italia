@@ -1,6 +1,6 @@
 import { Timeline } from '@mui/lab';
 import React, { ReactElement } from 'react';
-import { checkChildren } from 'utils/children.utility';
+import { checkChildren } from '../../utils/children.utility';
 import MITimelineItem from './MITimelineItem';
 import { MITimelineItemInternalProps, MITimelineItemProps, MITimelineProps } from './types';
 

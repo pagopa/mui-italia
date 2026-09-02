@@ -1,9 +1,9 @@
 'use client';
 
-import { FC, ReactElement } from 'react';
 import { TimelineContent, TimelineContentProps } from '@mui/lab';
 import { Stack } from '@mui/material';
 import { theme } from '@theme';
+import { FC, ReactElement } from 'react';
 
 export const TimelineNotificationContent: FC<TimelineContentProps> = (props): ReactElement => {
   const { children } = props;
@@ -16,7 +16,7 @@ export const TimelineNotificationContent: FC<TimelineContentProps> = (props): Re
         ...props.sx,
       }}
     >
-      <Stack spacing={1} alignItems="baseline">
+      <Stack spacing={1} sx={{ alignItems: 'baseline' }}>
         {children}
       </Stack>
     </TimelineContent>

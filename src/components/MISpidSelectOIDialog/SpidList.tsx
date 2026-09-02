@@ -11,7 +11,7 @@ import {
   useTheme,
 } from '@mui/material';
 
-import { shuffleList } from 'utils/array';
+import { shuffleList } from '../../utils/array';
 import { IDP } from './MISpidSelectOIDialog.types';
 import { getSpidDisplayName } from './utils';
 
@@ -78,13 +78,22 @@ const SpidList: React.FC<Props> = ({
               sx={ListItemSx}
               aria-label={displayName}
             >
-              <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  width: '100%',
+                }}
+              >
                 <Typography
-                  fontSize="14px"
-                  fontWeight="500"
-                  textTransform="uppercase"
                   noWrap
-                  sx={{ color: theme.colors.neutral.grey[700] }}
+                  sx={{
+                    color: theme.colors.neutral.grey[700],
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    textTransform: 'uppercase',
+                  }}
                 >
                   {displayName}
                 </Typography>

@@ -1,16 +1,15 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
     "paths": {
-      "@components/*": ["components/*"],
-      "@tokens": ["tokens/index"],
-      "@theme": ["theme/index"],
-      "@illustrations/*": ["illustrations/*"],
-      "@assets/*": ["assets/*"],
-      "@icons/*": ["icons/*"],
-      "@static/*": ["static/*"],
-      "@lib-types/*": ["types/*"],
-      "@hooks/*": ["hooks/*"]
+      "@components/*": ["./src/components/*"],
+      "@tokens": ["./src/tokens/index"],
+      "@theme": ["./src/theme/index"],
+      "@illustrations/*": ["./src/illustrations/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@icons/*": ["./src/icons/*"],
+      "@static/*": ["./src/static/*"],
+      "@lib-types/*": ["./src/types/*"],
+      "@hooks/*": ["./src/hooks/*"]
     },
     "rootDir": "src",
     "outDir": "dist",
@@ -39,6 +38,6 @@
     "resolveJsonModule": true,
     "types": ["vitest/globals", "@testing-library/jest-dom"]
   },
-  "include": ["src/**/*", "vitest.setup.ts", "vite.config.mts"],
+  "include": ["src/**/*"],
   "exclude": ["dist", "node_modules"]
 }
