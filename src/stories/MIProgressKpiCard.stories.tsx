@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
+import { pxToRem, theme } from 'index';
 import MIProgressKpiCard from '../components/MIProgressKpiCard';
-import { theme } from 'index';
 
 const meta: Meta<typeof MIProgressKpiCard> = {
   title: 'Components/MIProgressKpiCard',
@@ -42,7 +42,6 @@ export const Full: Story = {
   },
 };
 
-console.log(theme)
 export const FullWithIconAndTooltip: Story = {
   args: {
     title: 'Inviate',
@@ -58,7 +57,7 @@ export const FullWithIconAndTooltip: Story = {
 export const MultipleBars: Story = {
   args: {
     title: 'Fallite',
-    icon: <SendOutlinedIcon sx={{ color: theme.colors.neutral.grey[300], width: 24, height: 24 }} />,
+    icon: <SendOutlinedIcon sx={{ color: theme.colors.neutral.grey[300], width: pxToRem(24), height: pxToRem(24) }} />,
     tooltipText: 'Descrizione di approfondimento su più righe più righe più righe',
     denominator: 100,
     bars: [

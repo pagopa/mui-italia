@@ -9,7 +9,7 @@ interface MIProgressKpiCardProps {
   icon?: React.ReactNode;
   tooltipText?: string;
   denominator: number;
-  bars: MIProgressKpiCardData[];
+  bars: Array<MIProgressKpiCardData>;
 }
 
 type MIProgressKpiCardBarProps = Pick<MIProgressKpiCardProps, 'denominator'> & Pick<MIProgressKpiCardData, 'numerator' | 'variant' | 'label'>;
@@ -21,7 +21,7 @@ interface BorderLinearProgressProps {
 
 const percentageFormatter = new Intl.NumberFormat('it-IT', {
   minimumFractionDigits: 0,
-  maximumFractionDigits: 2,
+  maximumFractionDigits: 1,
 });
 
 const ratioFormatter = new Intl.NumberFormat('it-IT', { useGrouping: true });
