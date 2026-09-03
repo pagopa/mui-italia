@@ -1,0 +1,117 @@
+import { Meta, Title, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
+
+import Overview from './components/Overview';
+import Section from './components/Section';
+import SubSection from './components/SubSection';
+import * as MIProgressKpiCardStories from '../stories/MIProgressKpiCard.stories.tsx';
+
+<Meta of={MIProgressKpiCardStories} />
+
+<Title />
+
+<Overview>
+	<strong>MIProgressKpiCard</strong> visualizza l'avanzamento di uno o più indicatori rispetto a
+	un denominatore comune. Mostra la percentuale complessiva, una barra per ogni indicatore e il
+	relativo rapporto numeratore/denominatore.
+</Overview>
+
+<Section
+	title="Playground"
+	description="Usa i controlli per modificare i dati della card e verificarne il risultato live."
+>
+	<Primary />
+	<Controls />
+</Section>
+
+<Section
+	title="Utilizzo"
+	description="Passa il totale di riferimento a denominator e gli indicatori da visualizzare a bars."
+>
+	```tsx
+	import MIProgressKpiCard from '@pagopa/mui-italia/components/MIProgressKpiCard';
+
+	<MIProgressKpiCard
+		title="Notifiche inviate"
+		denominator={10000}
+		bars={[
+			{ label: 'PEC', numerator: 6000 },
+			{ label: 'App IO', numerator: 2500, variant: 'small' },
+		]}
+	/>
+	```
+</Section>
+
+<Section
+	title="Props"
+	description="La card riceve il denominatore comune e un array di indicatori."
+>
+	<ul>
+		<li>
+			<strong><code>title</code></strong> obbligatoria - il titolo della card.
+		</li>
+		<li>
+			<strong><code>denominator</code></strong> obbligatoria - il valore totale usato per calcolare
+			percentuale e avanzamento di ogni barra.
+		</li>
+		<li>
+			<strong><code>bars</code></strong> obbligatoria - l'array degli indicatori da visualizzare.
+		</li>
+		<li>
+			<strong><code>icon</code></strong> - un elemento React visualizzato nell'intestazione.
+		</li>
+		<li>
+			<strong><code>tooltipText</code></strong> - il testo mostrato nel tooltip dell'intestazione.
+		</li>
+	</ul>
+
+	<SubSection title="Dati di una barra">
+		<ul>
+			<li>
+				<strong><code>numerator</code></strong> obbligatoria - il valore raggiunto dall'indicatore.
+			</li>
+			<li>
+				<strong><code>label</code></strong> - l'etichetta visualizzata sopra la barra.
+			</li>
+			<li>
+				<strong><code>variant</code></strong> - <code>regular</code> (predefinita) mostra una barra
+				alta 16px; <code>small</code> una barra alta 8px.
+			</li>
+		</ul>
+	</SubSection>
+</Section>
+
+<Section
+	title="Stati e formattazione"
+	description="La card rende immediatamente leggibili avanzamento, valori e completamento."
+>
+	<SubSection title="Completamento">
+		Quando il numeratore di una barra e' maggiore o uguale al denominatore, la barra diventa verde
+		e viene visualizzata un'icona di conferma. Se la somma dei numeratori supera il denominatore,
+		il componente segnala la condizione nella console.
+
+		<Story of={MIProgressKpiCardStories.Full} />
+	</SubSection>
+
+	<SubSection title="Più indicatori">
+		Tutte le barre condividono lo stesso denominatore. Usa una label per distinguere gli indicatori
+		e la variante <code>small</code> per ridurre l'enfasi visiva di una barra secondaria.
+
+		<Story of={MIProgressKpiCardStories.MultipleBars} />
+	</SubSection>
+
+	<SubSection title="Numeri e percentuali">
+		Numeratore e denominatore usano la formattazione italiana con separatore delle migliaia, ad
+		esempio <code>6000</code> viene mostrato come <code>6.000</code>. La percentuale complessiva
+		mostra fino a due decimali, eliminando gli zeri finali non significativi.
+	</SubSection>
+</Section>
+
+<Section
+	title="Accessibilità"
+	description="Associa a ogni barra un'etichetta che ne chiarisca il significato."
+>
+	Il colore segnala visivamente il completamento, ma il rapporto numeratore/denominatore resta
+	sempre visibile. Usa <code>label</code> per rendere comprensibili gli indicatori anche senza
+	affidarsi al solo colore e fornisci un <code>tooltipText</code> conciso quando sono necessari
+	dettagli aggiuntivi sul KPI.
+</Section>
