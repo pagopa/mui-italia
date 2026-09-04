@@ -45,7 +45,7 @@ export const paletteNext = {
     disabled: colors.neutral.grey[450],
   },
   backdrop: {
-    background: alpha(colors.neutral.black, 0.2),
+    background: alpha(colors.neutral.black, 0.35),
   },
 
   menuItem: {
