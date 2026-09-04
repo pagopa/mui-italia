@@ -1,3 +1,9 @@
+# [2.7.0-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v2.7.0-RC.1) (2026-09-04)
+
+
+### Features
+
+* **M20DS-131:** add new illustrations ([#758](https://github.com/pagopa/mui-italia/issues/758)) ([9967336](https://github.com/pagopa/mui-italia/commit/9967336538e25fd8f6770cd5ff96786869fe5329))
 # [2.7.0-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.7.0-RC.0) (2026-09-01)
 
 
