@@ -1,3 +1,9 @@
+# [2.7.0-RC.2](https://github.com/pagopa/mui-italia/releases/tag/v2.7.0-RC.2) (2026-09-04)
+
+
+### Bug Fixes
+
+* **M20DS-2:** fix semantics colors ([#767](https://github.com/pagopa/mui-italia/issues/767)) ([999ee89](https://github.com/pagopa/mui-italia/commit/999ee890775fed07a625b7d588079583af3117a9))
 # [2.7.0-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v2.7.0-RC.1) (2026-09-04)
 
 
