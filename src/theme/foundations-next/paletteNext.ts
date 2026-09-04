@@ -1,3 +1,4 @@
+import { alpha } from '@mui/system';
 import { colors } from '../colors';
 
 /**
@@ -8,6 +9,7 @@ export const paletteNext = {
   mode: 'light',
   background: {
     paper: colors.neutral.white,
+    main: colors.neutral.grey[50],
   },
   primary: {
     main: colors.blue[500],
@@ -43,7 +45,7 @@ export const paletteNext = {
     disabled: colors.neutral.grey[450],
   },
   backdrop: {
-    background: '#17324D',
+    background: alpha(colors.neutral.black, 0.35),
   },
 
   menuItem: {
