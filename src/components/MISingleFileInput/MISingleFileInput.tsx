@@ -128,6 +128,85 @@ type DropzoneStateProps = {
   handleDragLeave: (e: DragEvent) => void;
 };
 
+type DropzoneLayout = {
+  rootDirection: 'column' | 'row';
+  rootJustifyContent: 'center' | 'space-between';
+  rootSpacing: number;
+  contentDirection: 'column' | 'row';
+  contentSpacing: number;
+  contentWidth: '100%' | 'auto';
+  contentJustifyContent: 'center';
+  labelTextAlign: 'center' | 'left';
+  labelWidth: '100%' | 'auto';
+  labelAlignItems: 'center' | 'flex-start';
+};
+
+type DropzoneVisualState = {
+  isDropzoneErrorLike: boolean;
+  primaryLabel: string;
+  actionButtonLabel: string;
+  supportTextColor: string;
+  primaryLabelColor: string;
+  actionButtonColor: 'error' | 'primary';
+  showErrorIcon: boolean;
+  showUploadErrorColor: boolean;
+};
+
+const getDropzoneLayout = (isVerticalLayout: boolean): DropzoneLayout => {
+  if (isVerticalLayout) {
+    return {
+      rootDirection: 'column',
+      rootJustifyContent: 'center',
+      rootSpacing: 2,
+      contentDirection: 'column',
+      contentSpacing: 1,
+      contentWidth: '100%',
+      contentJustifyContent: 'center',
+      labelTextAlign: 'center',
+      labelWidth: '100%',
+      labelAlignItems: 'center',
+    };
+  }
+
+  return {
+    rootDirection: 'row',
+    rootJustifyContent: 'space-between',
+    rootSpacing: 1,
+    contentDirection: 'row',
+    contentSpacing: 1.5,
+    contentWidth: 'auto',
+    contentJustifyContent: 'center',
+    labelTextAlign: 'left',
+    labelWidth: 'auto',
+    labelAlignItems: 'flex-start',
+  };
+};
+
+const getDropzoneVisualState = (
+  status: UploadStatus,
+  dropzoneLabel: string,
+  rejectedLabel: string | undefined,
+  retryButtonLabel: string,
+  dropzoneButton: string
+): DropzoneVisualState => {
+  const isRejected = status === UploadStatus.REJECTED;
+  const isError = status === UploadStatus.ERROR;
+  const isDropzoneErrorLike = isRejected || isError;
+
+  return {
+    isDropzoneErrorLike,
+    primaryLabel: isRejected ? rejectedLabel ?? dropzoneLabel : dropzoneLabel,
+    actionButtonLabel: isRejected ? retryButtonLabel : dropzoneButton,
+    supportTextColor: isDropzoneErrorLike
+      ? theme.colors.error[850]
+      : theme.colors.neutral.grey[700],
+    primaryLabelColor: isDropzoneErrorLike ? theme.colors.error[850] : theme.colors.neutral.black,
+    actionButtonColor: isDropzoneErrorLike ? 'error' : 'primary',
+    showErrorIcon: isRejected,
+    showUploadErrorColor: isError,
+  };
+};
+
 const DropzoneState = ({
   status,
   isVerticalLayout,
@@ -146,11 +225,15 @@ const DropzoneState = ({
   handleDragEnter,
   handleDragLeave,
 }: DropzoneStateProps): JSX.Element => {
-  const isDropzoneErrorLike = status === UploadStatus.REJECTED || status === UploadStatus.ERROR;
-  const dropzonePrimaryLabel =
-    status === UploadStatus.REJECTED ? rejectedLabel ?? dropzoneLabel : dropzoneLabel;
+  const layout = getDropzoneLayout(isVerticalLayout);
+  const visualState = getDropzoneVisualState(
+    status,
+    dropzoneLabel,
+    rejectedLabel,
+    retryButtonLabel,
+    dropzoneButton
+  );
   const showDropzoneActionButton = status !== UploadStatus.DRAG_OVER;
-  const dropzoneButtonLabel = status === UploadStatus.REJECTED ? retryButtonLabel : dropzoneButton;
 
   return (
     <Box
@@ -171,27 +254,27 @@ const DropzoneState = ({
       data-testid="loadFromPc"
     >
       <Stack
-        direction={isVerticalLayout ? 'column' : 'row'}
+        direction={layout.rootDirection}
         alignItems="center"
-        justifyContent={isVerticalLayout ? 'center' : 'space-between'}
-        spacing={isVerticalLayout ? 2 : 1}
+        justifyContent={layout.rootJustifyContent}
+        spacing={layout.rootSpacing}
         sx={{ width: '100%', height: '100%' }}
       >
         <Stack
-          direction={isVerticalLayout ? 'column' : 'row'}
-          spacing={isVerticalLayout ? 1 : 1.5}
+          direction={layout.contentDirection}
+          spacing={layout.contentSpacing}
           alignItems="center"
           sx={{
-            width: isVerticalLayout ? '100%' : 'auto',
-            justifyContent: 'center',
+            width: layout.contentWidth,
+            justifyContent: layout.contentJustifyContent,
           }}
         >
-          {status === UploadStatus.REJECTED ? (
+          {visualState.showErrorIcon ? (
             <ErrorIcon sx={{ color: theme.colors.error[850] }} />
           ) : (
             <FileUploadOutlinedIcon
               sx={{
-                color: status === UploadStatus.ERROR ? theme.colors.error[850] : undefined,
+                color: visualState.showUploadErrorColor ? theme.colors.error[850] : undefined,
               }}
             />
           )}
@@ -199,9 +282,9 @@ const DropzoneState = ({
           <Stack
             spacing={0.5}
             sx={{
-              textAlign: isVerticalLayout ? 'center' : 'left',
-              width: isVerticalLayout ? '100%' : 'auto',
-              alignItems: isVerticalLayout ? 'center' : 'flex-start',
+              textAlign: layout.labelTextAlign,
+              width: layout.labelWidth,
+              alignItems: layout.labelAlignItems,
             }}
           >
             <Typography
@@ -210,10 +293,10 @@ const DropzoneState = ({
               variant="body2"
               sx={{
                 fontWeight: typographySemiBoldFontWeight,
-                color: isDropzoneErrorLike ? theme.colors.error[850] : theme.colors.neutral.black,
+                color: visualState.primaryLabelColor,
               }}
             >
-              {dropzonePrimaryLabel}
+              {visualState.primaryLabel}
             </Typography>
             {dropzoneSupportText && (
               <Typography
@@ -221,9 +304,7 @@ const DropzoneState = ({
                 display="inline"
                 variant="body2"
                 sx={{
-                  color: isDropzoneErrorLike
-                    ? theme.colors.error[850]
-                    : theme.colors.neutral.grey[700],
+                  color: visualState.supportTextColor,
                   fontWeight: typographySemiBoldFontWeight,
                   fontSize: '12px',
                   lineHeight: '18px',
@@ -238,7 +319,7 @@ const DropzoneState = ({
         {showDropzoneActionButton && (
           <MIButton
             variant="contained"
-            color={isDropzoneErrorLike ? 'error' : 'primary'}
+            color={visualState.actionButtonColor}
             sx={{ whiteSpace: 'nowrap' }}
             aria-label={dropzoneAriaLabel}
             onClick={(event) => {
@@ -246,7 +327,7 @@ const DropzoneState = ({
               chooseFileHandler();
             }}
           >
-            {dropzoneButtonLabel}
+            {visualState.actionButtonLabel}
           </MIButton>
         )}
       </Stack>
