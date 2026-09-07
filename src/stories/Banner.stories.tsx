@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { breakpointsChromaticValues } from '@theme';
-import { Banner } from '@components/Banner';
+import { MIBanner } from '@components/MIBanner';
 
 const componentMaxWidth = 900;
 
@@ -15,14 +15,14 @@ const DEFAULT_CTA = "Vai all'iniziativa";
 const LONG_UNBROKEN =
   'Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong';
 
-type StoryArgs = React.ComponentProps<typeof Banner> & {
+type StoryArgs = React.ComponentProps<typeof MIBanner> & {
   enableClose?: boolean;
   enableCta?: boolean;
 };
 
 const meta: Meta<StoryArgs> = {
   title: 'Components/Banner',
-  component: Banner,
+  component: MIBanner,
   args: {
     enableClose: true,
     enableCta: true,
@@ -67,7 +67,7 @@ const meta: Meta<StoryArgs> = {
         : undefined);
 
     return (
-      <Banner {...bannerArgs} onClose={enableClose ? () => {} : undefined} cta={resolvedCta} />
+      <MIBanner {...bannerArgs} onClose={enableClose ? () => {} : undefined} cta={resolvedCta} />
     );
   },
 };
