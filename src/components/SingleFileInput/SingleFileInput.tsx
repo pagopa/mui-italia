@@ -1,5 +1,7 @@
 'use client';
+'use client';
 
+import { useRef, ChangeEvent, DragEvent, ReactNode, useState } from 'react';
 import {
   Box,
   Button,
@@ -10,7 +12,6 @@ import {
   LinearProgress,
   Typography,
 } from '@mui/material';
-import { ChangeEvent, DragEvent, ReactNode, useRef, useState } from 'react';
 
 /* Icons */
 import {
@@ -21,14 +22,9 @@ import {
 } from '@mui/icons-material';
 
 /* Utils */
-import {
-  generateRandomID,
-  getColorStyle,
-  getContainerStyle,
-  getStatus,
-  truncateFileName,
-  verifyAccept,
-} from './utils';
+import { UploadStatus } from 'types/singleFileInput';
+import { generateRandomID, verifyAccept, truncateFileName } from 'utils/singleFileInput';
+import { getColorStyle, getContainerStyle, getStatus } from './utils';
 
 export type SingleFileInputProps = {
   /** The file to be displayed. */
@@ -88,14 +84,6 @@ const OrientedBox = ({ vertical, children }: { vertical?: boolean; children: Rea
     {children}
   </Box>
 );
-
-export enum UploadStatus {
-  IDLE = 'IDLE',
-  LOADING = 'LOADING',
-  REJECTED = 'REJECTED',
-  ERROR = 'ERROR',
-  SELECTED = 'SELECTED',
-}
 
 export const SingleFileInput = ({
   value,
