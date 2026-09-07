@@ -14,15 +14,17 @@ import {
 } from '@mui/material';
 
 /* Icons */
-import AttachFileIcon from '@mui/icons-material/AttachFile';
-import CloseIcon from '@mui/icons-material/Close';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import ErrorIcon from '@mui/icons-material/Error';
+import {
+  AttachFile as AttachFileIcon,
+  Close as CloseIcon,
+  CloudUpload as CloudUploadIcon,
+  Error as ErrorIcon,
+} from '@mui/icons-material';
 
 /* Utils */
-import { getContainerStyle, getColorStyle, getStatus } from './utils';
 import { UploadStatus } from 'types/singleFileInput';
 import { generateRandomID, verifyAccept, truncateFileName } from 'utils/singleFileInput';
+import { getColorStyle, getContainerStyle, getStatus } from './utils';
 
 export type SingleFileInputProps = {
   /** The file to be displayed. */
@@ -74,7 +76,6 @@ const OrientedBox = ({ vertical, children }: { vertical?: boolean; children: Rea
     display="flex"
     justifyContent="center"
     alignItems="center"
-    flexDirection={vertical ? 'column' : 'row'}
     flexDirection={vertical ? 'column' : 'row'}
     margin="auto"
     flex={1}

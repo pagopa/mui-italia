@@ -16,19 +16,21 @@ import {
 import { useTheme } from '@mui/material/styles';
 
 /* Icons */
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
-import CloseIcon from '@mui/icons-material/Close';
-import ErrorIcon from '@mui/icons-material/Error';
-import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
-import ReportIcon from '@mui/icons-material/Report';
+import {
+  CheckCircleRounded as CheckCircleRoundedIcon,
+  Close as CloseIcon,
+  Error as ErrorIcon,
+  FileUploadOutlined as FileUploadOutlinedIcon,
+  Report as ReportIcon,
+} from '@mui/icons-material';
 
 /* Utils */
-import { getContainerStyle, getStatus } from './utils';
 import { theme } from '@theme';
 import { MIButton } from '@components/MIButton';
 import foundationNext from 'theme/foundations-next/foundationNext';
 import { UploadStatus } from 'types/singleFileInput';
 import { generateRandomID, verifyAccept, truncateFileName } from 'utils/singleFileInput';
+import { getContainerStyle, getStatus } from './utils';
 
 export type MISingleFileInputProps = {
   /** The file to be displayed. */
