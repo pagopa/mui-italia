@@ -40,17 +40,11 @@ export type MISingleFileInputProps = {
   /** Sets the error status. */
   error?: boolean;
 
-  /** If true and no file is selected, the component is shown in error state. */
-  required?: boolean;
-
   /** The MIME types that the input should accept. */
   accept?: Array<string>;
 
   /** Sets the loading status */
   loading?: boolean;
-
-  /** If enabled, sets the icon and the dropzone label alligned vertically. */
-  vertical?: boolean;
 
   /** Callback called when the file is selected. */
   onFileSelected: (file: File) => void;
@@ -117,7 +111,6 @@ export const MISingleFileInput = ({
   value,
   label,
   error,
-  required = false,
   accept,
   loading,
 
@@ -145,12 +138,11 @@ export const MISingleFileInput = ({
   const [id, _] = useState(generateRandomID);
   const [isFileRejected, setIsFileRejected] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
-  const hasRequiredError = required && !value;
 
   const status = getStatus(
     value,
     !!loading,
-    !!error || hasRequiredError,
+    !!error,
     (rejected || isFileRejected) && !!rejectedLabel,
     dragOver || isDragOver
   );
@@ -165,7 +157,12 @@ export const MISingleFileInput = ({
   const dropzonePrimaryLabelId = `${id}-dropzone-primary-label`;
   const dropzoneSupportTextId = `${id}-dropzone-support-text`;
 
-  const dropzoneAriaLabel = [dropzoneButtonLabel, dropzonePrimaryLabel, dropzoneSupportText]
+  const dropzoneAriaLabel = [
+    dropzoneButtonLabel,
+    dropzonePrimaryLabel,
+    dropzoneSupportText,
+    helperText,
+  ]
     .filter(Boolean)
     .join('. ');
   const loadingAriaLabel = [loadingLabel, cancelButtonLabel].filter(Boolean).join('. ');
@@ -245,7 +242,7 @@ export const MISingleFileInput = ({
 
   return (
     <FormControl sx={{ width: '100%' }}>
-      <FormLabel error={!!error || hasRequiredError} sx={{ fontWeight: 600, mb: 1 }} htmlFor={id}>
+      <FormLabel error={!!error} sx={{ fontWeight: 600, mb: 1 }} htmlFor={id}>
         {label}
       </FormLabel>
 
@@ -502,7 +499,6 @@ export const MISingleFileInput = ({
         type="file"
         id={id}
         sx={{ display: 'none' }}
-        required={required}
         inputRef={uploadInputRef}
         onChange={handleSelectFile}
         data-testid="fileInput"
