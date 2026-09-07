@@ -109,6 +109,450 @@ const formatLastModified = (timestamp: number) =>
     .format(new Date(timestamp))
     .replace(', ', ',');
 
+type DropzoneStateProps = {
+  status: UploadStatus;
+  isVerticalLayout: boolean;
+  dropzoneLabel: string;
+  rejectedLabel?: string;
+  dropzoneSupportText?: string;
+  retryButtonLabel: string;
+  dropzoneButton: string;
+  typographySemiBoldFontWeight: string | number | undefined;
+  dropzonePrimaryLabelId: string;
+  dropzoneSupportTextId: string;
+  dropzoneAriaLabel: string;
+  chooseFileHandler: () => void;
+  handleDragOver: (e: DragEvent) => void;
+  handleDrop: (e: DragEvent) => void;
+  handleDragEnter: (e: DragEvent) => void;
+  handleDragLeave: (e: DragEvent) => void;
+};
+
+const DropzoneState = ({
+  status,
+  isVerticalLayout,
+  dropzoneLabel,
+  rejectedLabel,
+  dropzoneSupportText,
+  retryButtonLabel,
+  dropzoneButton,
+  typographySemiBoldFontWeight,
+  dropzonePrimaryLabelId,
+  dropzoneSupportTextId,
+  dropzoneAriaLabel,
+  chooseFileHandler,
+  handleDragOver,
+  handleDrop,
+  handleDragEnter,
+  handleDragLeave,
+}: DropzoneStateProps): JSX.Element => {
+  const isDropzoneErrorLike = status === UploadStatus.REJECTED || status === UploadStatus.ERROR;
+  const dropzonePrimaryLabel =
+    status === UploadStatus.REJECTED ? rejectedLabel ?? dropzoneLabel : dropzoneLabel;
+  const showDropzoneActionButton = status !== UploadStatus.DRAG_OVER;
+  const dropzoneButtonLabel = status === UploadStatus.REJECTED ? retryButtonLabel : dropzoneButton;
+
+  return (
+    <Box
+      sx={{
+        cursor: 'pointer',
+        backgroundColor: 'transparent',
+        border: 'none',
+        flex: 1,
+        width: '100%',
+        p: 3,
+      }}
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
+      onDragEnter={handleDragEnter}
+      onDragLeave={handleDragLeave}
+      component="div"
+      onClick={chooseFileHandler}
+      data-testid="loadFromPc"
+    >
+      <Stack
+        direction={isVerticalLayout ? 'column' : 'row'}
+        alignItems="center"
+        justifyContent={isVerticalLayout ? 'center' : 'space-between'}
+        spacing={isVerticalLayout ? 2 : 1}
+        sx={{ width: '100%', height: '100%' }}
+      >
+        <Stack
+          direction={isVerticalLayout ? 'column' : 'row'}
+          spacing={isVerticalLayout ? 1 : 1.5}
+          alignItems="center"
+          sx={{
+            width: isVerticalLayout ? '100%' : 'auto',
+            justifyContent: 'center',
+          }}
+        >
+          {status === UploadStatus.REJECTED ? (
+            <ErrorIcon sx={{ color: theme.colors.error[850] }} />
+          ) : (
+            <FileUploadOutlinedIcon
+              sx={{
+                color: status === UploadStatus.ERROR ? theme.colors.error[850] : undefined,
+              }}
+            />
+          )}
+
+          <Stack
+            spacing={0.5}
+            sx={{
+              textAlign: isVerticalLayout ? 'center' : 'left',
+              width: isVerticalLayout ? '100%' : 'auto',
+              alignItems: isVerticalLayout ? 'center' : 'flex-start',
+            }}
+          >
+            <Typography
+              id={dropzonePrimaryLabelId}
+              display="inline"
+              variant="body2"
+              sx={{
+                fontWeight: typographySemiBoldFontWeight,
+                color: isDropzoneErrorLike ? theme.colors.error[850] : theme.colors.neutral.black,
+              }}
+            >
+              {dropzonePrimaryLabel}
+            </Typography>
+            {dropzoneSupportText && (
+              <Typography
+                id={dropzoneSupportTextId}
+                display="inline"
+                variant="body2"
+                sx={{
+                  color: isDropzoneErrorLike
+                    ? theme.colors.error[850]
+                    : theme.colors.neutral.grey[700],
+                  fontWeight: typographySemiBoldFontWeight,
+                  fontSize: '12px',
+                  lineHeight: '18px',
+                }}
+              >
+                {dropzoneSupportText}
+              </Typography>
+            )}
+          </Stack>
+        </Stack>
+
+        {showDropzoneActionButton && (
+          <MIButton
+            variant="contained"
+            color={isDropzoneErrorLike ? 'error' : 'primary'}
+            sx={{ whiteSpace: 'nowrap' }}
+            aria-label={dropzoneAriaLabel}
+            onClick={(event) => {
+              event.stopPropagation();
+              chooseFileHandler();
+            }}
+          >
+            {dropzoneButtonLabel}
+          </MIButton>
+        )}
+      </Stack>
+    </Box>
+  );
+};
+
+type LoadingStateProps = {
+  isVerticalLayout: boolean;
+  typographySemiBoldFontWeight: string | number | undefined;
+  loadingLabel: string;
+  loadingAriaLabel: string;
+  cancelButtonLabel: string;
+  handleRemoveFile: () => void;
+};
+
+const LoadingState = ({
+  isVerticalLayout,
+  typographySemiBoldFontWeight,
+  loadingLabel,
+  loadingAriaLabel,
+  cancelButtonLabel,
+  handleRemoveFile,
+}: LoadingStateProps): JSX.Element => (
+  <Box p={3} width="100%">
+    <Stack
+      direction={isVerticalLayout ? 'column' : 'row'}
+      justifyContent={isVerticalLayout ? 'center' : 'space-between'}
+      alignItems="center"
+      spacing={3}
+    >
+      <Stack
+        direction="column"
+        spacing={1.5}
+        sx={{
+          width: '100%',
+          alignItems: isVerticalLayout ? 'center' : 'flex-start',
+        }}
+      >
+        <Typography
+          variant="body2"
+          component="span"
+          sx={{
+            fontWeight: typographySemiBoldFontWeight,
+            textAlign: isVerticalLayout ? 'center' : 'left',
+          }}
+        >
+          {loadingLabel}
+        </Typography>
+
+        <LinearProgress
+          variant="indeterminate"
+          sx={{
+            width: '100%',
+            height: '6px',
+            '&.MuiLinearProgress-root': {
+              backgroundColor: theme.colors.neutral.grey[100],
+              borderRadius: '4px',
+            },
+            '& .MuiLinearProgress-bar': {
+              backgroundColor: theme.colors.blue[500],
+              width: '32px',
+              borderRadius: '4px',
+            },
+          }}
+        />
+      </Stack>
+
+      <MIButton
+        variant="outlined"
+        aria-label={loadingAriaLabel}
+        onClick={handleRemoveFile}
+        sx={{
+          whiteSpace: 'nowrap',
+          minWidth: '106px',
+          fontWeight: 600,
+          textTransform: 'none',
+        }}
+      >
+        {cancelButtonLabel}
+      </MIButton>
+    </Stack>
+  </Box>
+);
+
+type SelectedStateProps = {
+  isVerticalLayout: boolean;
+  value: File;
+  onFileRemoved?: (file: File) => void;
+  handleRemoveFile: () => void;
+  removeFileAriaLabel: string;
+  typographySemiBoldFontWeight: string | number | undefined;
+};
+
+const SelectedState = ({
+  isVerticalLayout,
+  value,
+  onFileRemoved,
+  handleRemoveFile,
+  removeFileAriaLabel,
+  typographySemiBoldFontWeight,
+}: SelectedStateProps): JSX.Element => (
+  <Box
+    display="flex"
+    justifyContent="space-between"
+    alignItems="flex-start"
+    sx={{ width: '100%', columnGap: 1, py: 3 }}
+  >
+    <CheckCircleRoundedIcon sx={(theme) => ({ mr: 1, color: theme.colors.success[700] })} />
+    <Box
+      display="flex"
+      justifyContent="flex-start"
+      alignItems="flex-start"
+      flexDirection="column"
+      flex={1}
+      minWidth={0}
+    >
+      <Typography
+        fontWeight={typographySemiBoldFontWeight}
+        variant="body2"
+        sx={{
+          width: '100%',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap',
+        }}
+      >
+        {truncateFileName(value.name)}
+      </Typography>
+      <Stack
+        direction={isVerticalLayout ? 'column' : 'row'}
+        spacing={isVerticalLayout ? 0.25 : 1}
+        sx={{ width: '100%', minWidth: 0 }}
+      >
+        <Typography
+          variant="caption"
+          sx={{
+            flexShrink: 0,
+            color: theme.colors.neutral.grey[700],
+            fontWeight: typographySemiBoldFontWeight,
+          }}
+        >
+          {formatFileSize(value.size)}
+        </Typography>
+        {value.lastModified && (
+          <Typography
+            variant="caption"
+            sx={{
+              minWidth: 0,
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+              color: theme.colors.neutral.grey[700],
+            }}
+          >
+            {formatLastModified(value.lastModified)}
+          </Typography>
+        )}
+      </Stack>
+    </Box>
+    {onFileRemoved && (
+      <IconButton
+        onClick={handleRemoveFile}
+        aria-label={removeFileAriaLabel}
+        sx={{ p: 0, alignSelf: 'flex-start' }}
+      >
+        <CloseIcon sx={{ color: theme.colors.neutral.black }} />
+      </IconButton>
+    )}
+  </Box>
+);
+
+type StatusContentProps = {
+  status: UploadStatus;
+  value: File | null;
+  isVerticalLayout: boolean;
+  dropzoneLabel: string;
+  rejectedLabel?: string;
+  dropzoneSupportText?: string;
+  retryButtonLabel: string;
+  dropzoneButton: string;
+  typographySemiBoldFontWeight: string | number | undefined;
+  dropzonePrimaryLabelId: string;
+  dropzoneSupportTextId: string;
+  dropzoneAriaLabel: string;
+  loadingLabel: string;
+  loadingAriaLabel: string;
+  cancelButtonLabel: string;
+  onFileRemoved?: (file: File) => void;
+  removeFileAriaLabel: string;
+  chooseFileHandler: () => void;
+  handleDragOver: (e: DragEvent) => void;
+  handleDrop: (e: DragEvent) => void;
+  handleDragEnter: (e: DragEvent) => void;
+  handleDragLeave: (e: DragEvent) => void;
+  handleRemoveFile: () => void;
+};
+
+const StatusContent = ({
+  status,
+  value,
+  isVerticalLayout,
+  dropzoneLabel,
+  rejectedLabel,
+  dropzoneSupportText,
+  retryButtonLabel,
+  dropzoneButton,
+  typographySemiBoldFontWeight,
+  dropzonePrimaryLabelId,
+  dropzoneSupportTextId,
+  dropzoneAriaLabel,
+  loadingLabel,
+  loadingAriaLabel,
+  cancelButtonLabel,
+  onFileRemoved,
+  removeFileAriaLabel,
+  chooseFileHandler,
+  handleDragOver,
+  handleDrop,
+  handleDragEnter,
+  handleDragLeave,
+  handleRemoveFile,
+}: StatusContentProps): JSX.Element => {
+  if (status === UploadStatus.LOADING) {
+    return (
+      <LoadingState
+        isVerticalLayout={isVerticalLayout}
+        typographySemiBoldFontWeight={typographySemiBoldFontWeight}
+        loadingLabel={loadingLabel}
+        loadingAriaLabel={loadingAriaLabel}
+        cancelButtonLabel={cancelButtonLabel}
+        handleRemoveFile={handleRemoveFile}
+      />
+    );
+  }
+
+  if (status === UploadStatus.SELECTED && value) {
+    return (
+      <SelectedState
+        isVerticalLayout={isVerticalLayout}
+        value={value}
+        onFileRemoved={onFileRemoved}
+        handleRemoveFile={handleRemoveFile}
+        removeFileAriaLabel={removeFileAriaLabel}
+        typographySemiBoldFontWeight={typographySemiBoldFontWeight}
+      />
+    );
+  }
+
+  return (
+    <DropzoneState
+      status={status}
+      isVerticalLayout={isVerticalLayout}
+      dropzoneLabel={dropzoneLabel}
+      rejectedLabel={rejectedLabel}
+      dropzoneSupportText={dropzoneSupportText}
+      retryButtonLabel={retryButtonLabel}
+      dropzoneButton={dropzoneButton}
+      typographySemiBoldFontWeight={typographySemiBoldFontWeight}
+      dropzonePrimaryLabelId={dropzonePrimaryLabelId}
+      dropzoneSupportTextId={dropzoneSupportTextId}
+      dropzoneAriaLabel={dropzoneAriaLabel}
+      chooseFileHandler={chooseFileHandler}
+      handleDragOver={handleDragOver}
+      handleDrop={handleDrop}
+      handleDragEnter={handleDragEnter}
+      handleDragLeave={handleDragLeave}
+    />
+  );
+};
+
+const HelperTextSection = ({
+  helperText,
+  status,
+}: {
+  helperText?: string;
+  status: UploadStatus;
+}): JSX.Element | null => {
+  if (!helperText) {
+    return null;
+  }
+
+  return (
+    <FormHelperText
+      error
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        mt: 0.5,
+        mx: 3,
+        columnGap: 0.5,
+      }}
+    >
+      {status === UploadStatus.ERROR && <ReportIcon sx={{ fontSize: 16 }} />}
+      <Typography
+        variant="caption"
+        sx={{
+          color: theme.colors.error[600],
+        }}
+      >
+        {helperText}
+      </Typography>
+    </FormHelperText>
+  );
+};
+
 export const MISingleFileInput = ({
   value,
   label,
@@ -137,7 +581,7 @@ export const MISingleFileInput = ({
 
   const uploadInputRef = useRef<HTMLInputElement>(null);
 
-  const [id, _] = useState(generateRandomID);
+  const [id] = useState(generateRandomID);
   const [isFileRejected, setIsFileRejected] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
 
@@ -150,18 +594,17 @@ export const MISingleFileInput = ({
   );
   const containerStyle = getContainerStyle(status);
   const typographySemiBoldFontWeight = foundationNext.typography.fontWeightMedium;
-
-  const isDropzoneErrorLike = status === UploadStatus.REJECTED || status === UploadStatus.ERROR;
-  const dropzonePrimaryLabel =
-    status === UploadStatus.REJECTED ? rejectedLabel ?? dropzoneLabel : dropzoneLabel;
-  const showDropzoneActionButton = status !== UploadStatus.DRAG_OVER;
-  const dropzoneButtonLabel = status === UploadStatus.REJECTED ? retryButtonLabel : dropzoneButton;
   const dropzonePrimaryLabelId = `${id}-dropzone-primary-label`;
   const dropzoneSupportTextId = `${id}-dropzone-support-text`;
 
+  const dropzonePrimaryLabelForAria =
+    status === UploadStatus.REJECTED ? rejectedLabel ?? dropzoneLabel : dropzoneLabel;
+  const dropzoneButtonLabelForAria =
+    status === UploadStatus.REJECTED ? retryButtonLabel : dropzoneButton;
+
   const dropzoneAriaLabel = [
-    dropzoneButtonLabel,
-    dropzonePrimaryLabel,
+    dropzoneButtonLabelForAria,
+    dropzonePrimaryLabelForAria,
     dropzoneSupportText,
     helperText,
   ]
@@ -206,9 +649,6 @@ export const MISingleFileInput = ({
     setIsDragOver(false);
 
     const droppedFile = e.dataTransfer.files[0];
-    if (!droppedFile) {
-      return;
-    }
 
     if (verifyAccept(droppedFile.type, accept)) {
       onFileSelected(droppedFile);
@@ -236,12 +676,6 @@ export const MISingleFileInput = ({
     }
   };
 
-  const showDropzone =
-    status === UploadStatus.IDLE ||
-    status === UploadStatus.DRAG_OVER ||
-    status === UploadStatus.REJECTED ||
-    status === UploadStatus.ERROR;
-
   return (
     <FormControl sx={{ width: '100%' }}>
       <FormLabel error={!!error} sx={{ fontWeight: 600, mb: 1 }} htmlFor={id}>
@@ -258,242 +692,31 @@ export const MISingleFileInput = ({
           ...containerStyle,
         }}
       >
-        {showDropzone && (
-          <Box
-            sx={{
-              cursor: 'pointer',
-              backgroundColor: 'transparent',
-              border: 'none',
-              flex: 1,
-              width: '100%',
-              p: 3,
-            }}
-            onDragOver={handleDragOver}
-            onDrop={handleDrop}
-            onDragEnter={handleDragEnter}
-            onDragLeave={handleDragLeave}
-            component="div"
-            onClick={chooseFileHandler}
-            data-testid="loadFromPc"
-          >
-            <Stack
-              direction={isVerticalLayout ? 'column' : 'row'}
-              alignItems="center"
-              justifyContent={isVerticalLayout ? 'center' : 'space-between'}
-              spacing={isVerticalLayout ? 2 : 1}
-              sx={{ width: '100%', height: '100%' }}
-            >
-              <Stack
-                direction={isVerticalLayout ? 'column' : 'row'}
-                spacing={isVerticalLayout ? 1 : 1.5}
-                alignItems="center"
-                sx={{
-                  width: isVerticalLayout ? '100%' : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                {status === UploadStatus.REJECTED ? (
-                  <ErrorIcon sx={{ color: theme.colors.error[850] }} />
-                ) : (
-                  <FileUploadOutlinedIcon
-                    sx={{
-                      color: status === UploadStatus.ERROR ? theme.colors.error[850] : undefined,
-                    }}
-                  />
-                )}
-
-                <Stack
-                  spacing={0.5}
-                  sx={{
-                    textAlign: isVerticalLayout ? 'center' : 'left',
-                    width: isVerticalLayout ? '100%' : 'auto',
-                    alignItems: isVerticalLayout ? 'center' : 'flex-start',
-                  }}
-                >
-                  <Typography
-                    id={dropzonePrimaryLabelId}
-                    display="inline"
-                    variant="body2"
-                    sx={{
-                      fontWeight: typographySemiBoldFontWeight,
-                      color: isDropzoneErrorLike
-                        ? theme.colors.error[850]
-                        : theme.colors.neutral.black,
-                    }}
-                  >
-                    {dropzonePrimaryLabel}
-                  </Typography>
-                  {dropzoneSupportText && (
-                    <Typography
-                      id={dropzoneSupportTextId}
-                      display="inline"
-                      variant="body2"
-                      sx={{
-                        color: isDropzoneErrorLike
-                          ? theme.colors.error[850]
-                          : theme.colors.neutral.grey[700],
-                        fontWeight: typographySemiBoldFontWeight,
-                        fontSize: '12px',
-                        lineHeight: '18px',
-                      }}
-                    >
-                      {dropzoneSupportText}
-                    </Typography>
-                  )}
-                </Stack>
-              </Stack>
-
-              {showDropzoneActionButton && (
-                <MIButton
-                  variant="contained"
-                  color={isDropzoneErrorLike ? 'error' : 'primary'}
-                  sx={{ whiteSpace: 'nowrap' }}
-                  aria-label={dropzoneAriaLabel}
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    chooseFileHandler();
-                  }}
-                >
-                  {dropzoneButtonLabel}
-                </MIButton>
-              )}
-            </Stack>
-          </Box>
-        )}
-
-        {status === UploadStatus.LOADING && (
-          <Box p={3} width="100%">
-            <Stack
-              direction={isVerticalLayout ? 'column' : 'row'}
-              justifyContent={isVerticalLayout ? 'center' : 'space-between'}
-              alignItems="center"
-              spacing={3}
-            >
-              <Stack
-                direction="column"
-                spacing={1.5}
-                sx={{
-                  width: '100%',
-                  alignItems: isVerticalLayout ? 'center' : 'flex-start',
-                }}
-              >
-                <Typography
-                  variant="body2"
-                  component="span"
-                  sx={{
-                    fontWeight: typographySemiBoldFontWeight,
-                    textAlign: isVerticalLayout ? 'center' : 'left',
-                  }}
-                >
-                  {loadingLabel}
-                </Typography>
-
-                <LinearProgress
-                  variant="indeterminate"
-                  sx={{
-                    width: '100%',
-                    height: '6px',
-                    '&.MuiLinearProgress-root': {
-                      backgroundColor: theme.colors.neutral.grey[100],
-                      borderRadius: '4px',
-                    },
-                    '& .MuiLinearProgress-bar': {
-                      backgroundColor: theme.colors.blue[500],
-                      width: '32px',
-                      borderRadius: '4px',
-                    },
-                  }}
-                />
-              </Stack>
-
-              {/* Cancel Button */}
-              <MIButton
-                variant="outlined"
-                aria-label={loadingAriaLabel}
-                onClick={handleRemoveFile}
-                sx={{
-                  whiteSpace: 'nowrap',
-                  minWidth: '106px',
-                  fontWeight: 600,
-                  textTransform: 'none',
-                }}
-              >
-                {cancelButtonLabel}
-              </MIButton>
-            </Stack>
-          </Box>
-        )}
-
-        {status === UploadStatus.SELECTED && value && (
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="flex-start"
-            sx={{ width: '100%', columnGap: 1, py: 3 }}
-          >
-            <CheckCircleRoundedIcon sx={(theme) => ({ mr: 1, color: theme.colors.success[700] })} />
-            <Box
-              display="flex"
-              justifyContent="flex-start"
-              alignItems="flex-start"
-              flexDirection="column"
-              flex={1}
-              minWidth={0}
-            >
-              <Typography
-                fontWeight={typographySemiBoldFontWeight}
-                variant="body2"
-                sx={{
-                  width: '100%',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-                }}
-              >
-                {truncateFileName(value.name)}
-              </Typography>
-              <Stack
-                direction={isVerticalLayout ? 'column' : 'row'}
-                spacing={isVerticalLayout ? 0.25 : 1}
-                sx={{ width: '100%', minWidth: 0 }}
-              >
-                <Typography
-                  variant="caption"
-                  sx={{
-                    flexShrink: 0,
-                    color: theme.colors.neutral.grey[700],
-                    fontWeight: typographySemiBoldFontWeight,
-                  }}
-                >
-                  {formatFileSize(value.size)}
-                </Typography>
-                {value.lastModified && (
-                  <Typography
-                    variant="caption"
-                    sx={{
-                      minWidth: 0,
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap',
-                      color: theme.colors.neutral.grey[700],
-                    }}
-                  >
-                    {formatLastModified(value.lastModified)}
-                  </Typography>
-                )}
-              </Stack>
-            </Box>
-            {onFileRemoved && (
-              <IconButton
-                onClick={handleRemoveFile}
-                aria-label={removeFileAriaLabel}
-                sx={{ p: 0, alignSelf: 'flex-start' }}
-              >
-                <CloseIcon sx={{ color: theme.colors.neutral.black }} />
-              </IconButton>
-            )}
-          </Box>
-        )}
+        <StatusContent
+          status={status}
+          value={value}
+          isVerticalLayout={isVerticalLayout}
+          dropzoneLabel={dropzoneLabel}
+          rejectedLabel={rejectedLabel}
+          dropzoneSupportText={dropzoneSupportText}
+          retryButtonLabel={retryButtonLabel}
+          dropzoneButton={dropzoneButton}
+          typographySemiBoldFontWeight={typographySemiBoldFontWeight}
+          dropzonePrimaryLabelId={dropzonePrimaryLabelId}
+          dropzoneSupportTextId={dropzoneSupportTextId}
+          dropzoneAriaLabel={dropzoneAriaLabel}
+          loadingLabel={loadingLabel}
+          loadingAriaLabel={loadingAriaLabel}
+          cancelButtonLabel={cancelButtonLabel}
+          onFileRemoved={onFileRemoved}
+          removeFileAriaLabel={removeFileAriaLabel}
+          chooseFileHandler={chooseFileHandler}
+          handleDragOver={handleDragOver}
+          handleDrop={handleDrop}
+          handleDragEnter={handleDragEnter}
+          handleDragLeave={handleDragLeave}
+          handleRemoveFile={handleRemoveFile}
+        />
       </Box>
 
       <Input
@@ -506,28 +729,7 @@ export const MISingleFileInput = ({
         data-testid="fileInput"
       />
 
-      {helperText && (
-        <FormHelperText
-          error
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            mt: 0.5,
-            mx: 3,
-            columnGap: 0.5,
-          }}
-        >
-          {status === UploadStatus.ERROR && <ReportIcon sx={{ fontSize: 16 }} />}
-          <Typography
-            variant="caption"
-            sx={{
-              color: theme.colors.error[600],
-            }}
-          >
-            {helperText}
-          </Typography>
-        </FormHelperText>
-      )}
+      <HelperTextSection helperText={helperText} status={status} />
     </FormControl>
   );
 };

@@ -1,16 +1,15 @@
-/**
- * Truncate file name string if it is longer than 30 characters.
- * Keeps the file extension.
- *
- * @param fileName
- * @returns truncated file name
- */
 export const truncateFileName = (fileName: string) => {
-  const splittedFileName = fileName.split('.');
-  const fileExtension = splittedFileName[1];
-  const truncatedFileName = splittedFileName[0];
-  if (truncatedFileName.length >= 30) {
-    return `${truncatedFileName}... .${fileExtension ?? ''}`;
+  // a file name can have multiple dots, so we must take the last one
+  const lastDotIndex = fileName.lastIndexOf('.');
+  // file name without extension
+  if (lastDotIndex <= 0) {
+    return fileName.length >= 30 ? `${fileName.substring(0, 30)}...` : fileName;
+  }
+  // file name with extension
+  const namePart = fileName.substring(0, lastDotIndex);
+  const extensionPart = fileName.substring(lastDotIndex);
+  if (namePart.length >= 30) {
+    return `${namePart.substring(0, 30)}...${extensionPart}`;
   }
   return fileName;
 };
