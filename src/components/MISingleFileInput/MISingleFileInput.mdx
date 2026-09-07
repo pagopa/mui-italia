@@ -1,0 +1,101 @@
+import { Meta, Title, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as MISingleFileInputStories from './MISingleFileInput.stories';
+
+<Meta of={MISingleFileInputStories} />
+
+<Title />
+
+Il componente **MISingleFileInput** gestisce il caricamento di un singolo file
+con interazione drag and drop o selezione da file picker.
+
+Fornisce stati visivi dedicati per caricamento, errore, file selezionato e file
+rifiutato, mantenendo coerenza con il Design System su tipografia, colori e
+spaziature.
+
+**Link utili**
+
+- 🎨 [Figma](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?timeline=keyframe&node-id=813-5421&t=oaB7w1sBtzAo91ie-0)
+- 💻 [GitHub](https://github.com/pagopa/mui-italia/blob/develop/src/components/MISingleFileInput/MISingleFileInput.tsx)
+
+## Playground
+
+<Canvas of={MISingleFileInputStories.Default} />
+
+<Controls of={MISingleFileInputStories.Default} />
+
+## Stati
+
+Il componente espone diversi stati operativi:
+
+- **Idle**: area di upload pronta alla selezione del file.
+- **Drag over**: feedback visivo durante trascinamento file nell'area.
+- **Loading**: caricamento in corso con progress bar indeterminata.
+- **Selected**: file caricato con nome, peso e data ultima modifica.
+- **Error**: stato di errore applicativo tramite prop `error`.
+- **Rejected**: stato di file rifiutato per tipo non ammesso.
+
+### Default
+
+<Canvas of={MISingleFileInputStories.Default} />
+
+### Loading
+
+<Canvas of={MISingleFileInputStories.Loading} />
+
+### Error
+
+<Canvas of={MISingleFileInputStories.Error} />
+
+### Failed
+
+<Canvas of={MISingleFileInputStories.Failed} />
+
+## Visualizzazione file selezionato
+
+Quando `value` contiene un file valido, il componente mostra:
+
+- nome file (con troncamento automatico se troppo lungo);
+- dimensione in KB;
+- data e ora dell'ultima modifica, se disponibile;
+- azione di rimozione, se `onFileRemoved` e valorizzata.
+
+### Con file
+
+<Canvas of={MISingleFileInputStories.WithFile} />
+
+### Nome file lungo
+
+<Canvas of={MISingleFileInputStories.WithTruncatedFileName} />
+
+```tsx
+<MISingleFileInput
+  value={file}
+  label="Documento"
+  accept={['application/pdf']}
+  onFileSelected={handleFileSelected}
+  onFileRemoved={handleFileRemoved}
+  dropzoneLabel="Trascina qui il documento firmato"
+  dropzoneButton="carica il file"
+  dropzoneSupportText="Formato PDF, dimensione massima 5MB"
+  helperText="Campo obbligatorio"
+  onFileRemoveAriaLabel="Rimuovi il documento selezionato"
+/>
+```
+
+## Comportamento
+
+- **Componente controllato.** Il file visualizzato e gestito dal parent tramite `value`.
+- **Selezione file.** `onFileSelected` riceve il file selezionato o droppato.
+- **Rimozione file.** Se `onFileRemoved` e fornita, il componente mostra il controllo di rimozione.
+- **Validazione formato.** La prop `accept` filtra i MIME type ammessi e abilita lo stato `rejected` su mismatch.
+- **Stato rifiutato custom.** `rejected` e `rejectedLabel` possono forzare la visualizzazione di un errore di upload.
+- **Helper text.** `helperText` e mostrato sotto il container e usa una resa visuale di errore.
+
+## Accessibilità
+
+Per un'esperienza accessibile:
+
+- usa testi chiari in `dropzoneLabel`, `dropzoneSupportText` e `helperText`;
+- valorizza `onFileRemoveAriaLabel` con una descrizione esplicita dell'azione;
+- personalizza `loadingLabel` e `cancelButtonLabel` per descrivere correttamente lo stato;
+- evita etichette ambigue su `dropzoneButton` e `retryButtonLabel`.
