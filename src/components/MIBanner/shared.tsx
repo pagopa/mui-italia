@@ -60,7 +60,6 @@ export function Cta({
   kind,
   cta,
   alignSelf,
-  variant,
   id,
   ariaLabelledBy,
   sx,
@@ -79,6 +78,7 @@ export function Cta({
   let rel: string | undefined;
 
   if (isLink) {
+    // eslint-disable-next-line prefer-const
     target = cta.target ?? '_self';
 
     if (target === '_blank') {

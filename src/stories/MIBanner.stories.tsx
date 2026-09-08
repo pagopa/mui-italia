@@ -21,7 +21,7 @@ type StoryArgs = React.ComponentProps<typeof MIBanner> & {
 };
 
 const meta: Meta<StoryArgs> = {
-  title: 'Components/Banner',
+  title: 'Components/MIBanner',
   component: MIBanner,
   args: {
     enableClose: true,
