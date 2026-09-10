@@ -28,19 +28,19 @@ const MITableList: FC<MITableListProps> = ({
 }) => {
   const Skeleton = slots?.skeleton ?? MITableListSkeleton;
 
+  let items;
   if (!loading) {
     checkChildren(children, [{ cmp: MITableListItem }], 'MITableList');
-  }
+    items = Children.map(children, (child) => {
+      if (!isValidElement<MITableListItemProps>(child)) {
+        return child;
+      }
 
-  const items = Children.map(children, (child) => {
-    if (!isValidElement<MITableListItemProps>(child)) {
-      return child;
-    }
-
-    return cloneElement(child, {
-      columns: child.props.columns ?? columns,
+      return cloneElement(child, {
+        columns: child.props.columns ?? columns,
+      });
     });
-  });
+  }
 
   return (
     <>
