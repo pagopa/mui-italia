@@ -1,3 +1,9 @@
+# [2.7.0-RC.3](https://github.com/pagopa/mui-italia/releases/tag/v2.7.0-RC.3) (2026-09-11)
+
+
+### Code Refactoring
+
+* added Palette on muiOverrides.d ([#770](https://github.com/pagopa/mui-italia/issues/770)) ([7355294](https://github.com/pagopa/mui-italia/commit/73552943c157270057e281333d3b5072a60515b4))
 # [2.7.0-RC.2](https://github.com/pagopa/mui-italia/releases/tag/v2.7.0-RC.2) (2026-09-04)
 
 
