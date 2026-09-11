@@ -120,54 +120,6 @@ export const palette = {
   },
 } as const;
 
-declare module '@mui/material/styles' {
-  interface Palette {
-    pagoPA: Palette['primary'];
-    europeanUnion: Palette['primary'];
-    checkIban: Palette['primary'];
-    extraLight: Palette['warning'];
-    primaryAction: Palette['action'];
-    primaryContained: PrimaryContainedPalette;
-    shadow: ShadowPalette;
-    backdrop: BackgroundPalette;
-    menuItem: BackgroundPalette;
-    decorativeIcon?: string;
-    negative: SimplePaletteColorOptions;
-    indigo: Palette['primary'];
-  }
+// declare module '@mui/material/styles' {
 
-  type PrimaryContainedPalette = {
-    hover: string;
-  };
-
-  type ShadowPalette = {
-    main: string;
-  };
-
-  type BackgroundPalette = {
-    background: string;
-  };
-
-  interface PaletteOptions {
-    pagoPA?: PaletteOptions['primary'];
-    europeanUnion?: PaletteOptions['primary'];
-    checkIban?: PaletteOptions['primary'];
-    extraLight?: PaletteOptions['warning'];
-    primaryAction?: PaletteOptions['action'];
-    negative?: SimplePaletteColorOptions;
-    indigo?: SimplePaletteColorOptions;
-  }
-
-  interface PaletteColor {
-    extraLight?: string;
-    100: string;
-    850: string;
-  }
-
-  interface SimplePaletteColorOptions {
-    dark?: string;
-    light?: string;
-    contrastText?: string;
-    extraLight?: string;
-  }
-}
+// }
