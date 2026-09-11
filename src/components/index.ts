@@ -1,6 +1,5 @@
 export * from './AccountDropdown';
 export * from './Autocomplete';
-export * from './Banner';
 export * from './ButtonNaked';
 export * from './CodeInput';
 export * from './CopyToClipboardButton';
@@ -33,6 +32,7 @@ export * from './Walkthrough';
 export * from './MIChip';
 export * from './Autocomplete';
 export * from './MIAlert';
+export * from './MIBanner';
 export * from './MIButton';
 export * from './MIIconButton';
 export * from './MITooltip';

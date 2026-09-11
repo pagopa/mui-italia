@@ -78,7 +78,7 @@ function renderBannerLayout(args: {
   }
 }
 
-export const Banner = (props: BannerProps) => {
+export const MIBanner = (props: BannerProps) => {
   const { title, message, onClose, closeAriaLabel, cta, ...rest } = props;
 
   const titleId = useId();
