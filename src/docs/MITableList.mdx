@@ -1,0 +1,190 @@
+import { Meta, Title, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
+
+import Overview from './components/Overview';
+import Section from './components/Section';
+import SubSection from './components/SubSection';
+import * as MITableListStories from '../stories/MITableList.stories.tsx';
+
+<Meta of={MITableListStories} />
+
+<Title />
+
+<Overview>
+  <strong>MITableList</strong> rappresenta una lista attraverso elementi boxed, adatta a contenuti
+  informativi flessibili.
+</Overview>
+
+<Section
+  title="Playground"
+  description="Usa i controlli per modificare i parametri principali del componente e verificare il risultato live."
+>
+  <Primary />
+  <Controls />
+</Section>
+
+<Section
+  title="Utilizzo"
+  description="MITableList è pensata per liste di entità organizzate visivamente in modo simile alle righe di una tabella."
+>
+  <SubSection title="Quando usarla">
+    È indicata per liste a <strong>bassa densità informativa</strong>, nelle quali i dati possono
+    avere lunghezze variabili o occupare più righe.
+
+    <ul>
+      <li>i contenuti dei campi possono avere lunghezze variabili;</li>
+      <li>è utile lasciare maggiore spazio visivo tra un elemento e l'altro.</li>
+    </ul>
+
+  </SubSection>
+
+  <SubSection title="Quando preferire una Table">
+    Una <code>Table</code> è preferibile quando:
+
+    <ul>
+      <li>è importante confrontare rapidamente i valori tra le diverse righe per colonna;</li>
+      <li>la pagina presenta un'elevata densità di dati;</li>
+      <li>
+        sono necessarie funzionalità avanzate di griglia, come ordinamento, filtri per colonna o
+        ridimensionamento delle colonne.
+      </li>
+    </ul>
+
+  </SubSection>
+</Section>
+
+<Section
+  title="Struttura e layout"
+  description="MITableList contiene una serie di MITableListItem, composti a loro volta da MITableListItemField."
+>
+  <SubSection title="Anatomia">
+    <code>MITableList</code> accetta come figli diretti solo componenti{' '}
+    <code>MITableListItem</code>. Ogni item accetta a sua volta solo componenti{' '}
+    <code>MITableListItemField</code>.
+
+    Ogni <code>MITableListItem</code> gestisce una propria griglia indipendente. Su desktop i campi
+    vengono distribuiti orizzontalmente all'interno dell'item, mentre su viewport più piccoli il
+    contenuto viene disposto verticalmente.
+
+    ```tsx
+    <MITableList columns={[2, 1, 1]}>
+      <MITableListItem action={{ content: 'Apri', onClick: handleOpen }}>
+        <MITableListItemField label="22/11/2025">
+          Titolo campagna
+        </MITableListItemField>
+
+        <MITableListItemField label="Codice ID">
+          0000000000
+        </MITableListItemField>
+
+        <MITableListItemField label="Comunicazioni" icon={<MailOutlineIcon />}>
+          10
+        </MITableListItemField>
+      </MITableListItem>
+    </MITableList>
+    ```
+
+  </SubSection>
+
+  <SubSection title="Campi con peso uniforme">
+    Se la prop <code>columns</code> non viene specificata, i campi di ciascun item vengono
+    distribuiti con lo stesso peso nello spazio disponibile.
+
+    <Story of={MITableListStories.Default} />
+
+  </SubSection>
+
+  <SubSection title="Proporzioni personalizzate">
+    La prop opzionale <code>columns</code> permette di definire il peso relativo dei campi. I valori
+    non rappresentano larghezze fisse, ma proporzioni dello spazio disponibile all'interno del
+    singolo item.
+
+    Quando <code>columns</code> viene specificata su <code>MITableList</code>, la configurazione
+    viene utilizzata dagli item della lista. Un <code>MITableListItem</code> può specificare una
+    propria <code>columns</code>, sovrascrivendo quella ricevuta dalla lista.
+
+    ```tsx
+    <MITableList columns={[2, 1, 1]}>
+      <MITableListItem>
+        ...
+      </MITableListItem>
+
+      <MITableListItem columns={[1, 2, 1]}>
+        ...
+      </MITableListItem>
+    </MITableList>
+    ```
+
+    <Story of={MITableListStories.CustomColumns} />
+
+  </SubSection>
+</Section>
+
+<Section
+  title="Action"
+  description="L'action di MITableListItem è separata dai campi informativi e può essere configurata o personalizzata."
+>
+  <SubSection title="Item senza action">
+    L'action non è obbligatoria: il componente può essere utilizzato anche come semplice lista
+    informativa.
+
+    <Story of={MITableListStories.WithoutAction} />
+
+  </SubSection>
+
+  <SubSection title="Action predefinita">
+    Quando viene fornita la prop <code>action</code>, il componente utilizza di default{' '}
+    <code>ButtonNaked</code> e mostra un'icona di navigazione.
+
+    Il contenuto e il comportamento al click vengono definiti tramite <code>action.content</code> e{' '}
+    <code>action.onClick</code>. È possibile sostituire l'icona tramite <code>action.icon</code>,
+    oppure rimuoverla passando <code>null</code>.
+
+  </SubSection>
+
+  <SubSection title="Personalizzazione dell'action">
+    <code>slots.actionButton</code> permette di sostituire il componente button utilizzato per
+    l'action con uno compatibile con l'API prevista, mentre <code>slotProps.actionButton</code>
+    consente di configurarne le props aggiuntive.
+
+    L'action occupa lo spazio necessario al proprio contenuto all'interno del singolo item.
+
+    <Story of={MITableListStories.CustomAction} />
+
+  </SubSection>
+</Section>
+
+<Section
+  title="Stato di caricamento"
+  description="Quando loading è attivo, la lista sostituisce temporaneamente il contenuto con uno skeleton."
+>
+  <SubSection title="Skeleton">
+    Il numero di righe, il numero di colonne e la presenza del placeholder dell'action possono
+    essere configurati tramite <code>slotProps.skeleton</code>.
+
+    <Story of={MITableListStories.Loading} />
+
+  </SubSection>
+
+  <SubSection title="Personalizzazione">
+    Lo skeleton predefinito può essere sostituito tramite <code>slots.skeleton</code>.
+
+    Il testo annunciato durante il caricamento può essere personalizzato tramite{' '}
+    <code>localeText.loadingLabel</code>.
+
+  </SubSection>
+</Section>
+
+<Section
+  title="Accessibilità"
+  description="Considerazioni per l'utilizzo del componente con tecnologie assistive."
+>
+  <SubSection title="Stato di caricamento">
+    Durante il caricamento la lista espone <code>aria-busy="true"</code>. Una live region
+    visivamente nascosta annuncia il cambio di stato alle tecnologie assistive.
+  </SubSection>
+
+  <SubSection title="Action">
+    Quando il testo visibile dell'action non è sufficientemente specifico nel contesto della lista,
+    usa <code>action.ariaLabel</code> per fornire un'etichetta accessibile più descrittiva.
+  </SubSection>
+</Section>
