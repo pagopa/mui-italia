@@ -119,7 +119,3 @@ export const palette = {
     850: '#614C15',
   },
 } as const;
-
-// declare module '@mui/material/styles' {
-
-// }
