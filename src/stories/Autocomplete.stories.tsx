@@ -100,6 +100,17 @@ export const MultiSelectWithIcon: Story<City, true> = {
   },
 };
 
+export const MultiSelectCountChip: Story<City, true> = {
+  args: {
+    options: cities,
+    label: 'Seleziona le città',
+    placeholder: 'Seleziona più città...',
+    multiple: true,
+    showSelectionCountOnly: true,
+    isOptionEqualToValue: (option, value) => option.id === value.id,
+  },
+};
+
 export const NoArrow: Story<City, false> = {
   args: {
     options: cities,
