@@ -1,0 +1,8 @@
+# dependencies
+/node_modules
+.eslintrc.cjs
+.babelrc.mjs
+
+# production
+build.mjs
+/dist

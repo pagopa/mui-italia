@@ -5,25 +5,45 @@ import { Box, IconButton, Paper, Popper, TextField } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
 import {
   ChangeEvent,
-  useEffect,
-  useRef,
-  useState,
+  FocusEvent,
   KeyboardEvent,
   MouseEvent,
-  FocusEvent,
+  useEffect,
   useId,
+  useRef,
+  useState,
 } from 'react';
-import { AutocompleteProps, AutocompleteValue, InputChangeReason } from './Autocomplete.types';
-import { isMobileDevice } from 'utils/device';
 import { filterOptionsInternal } from 'utils/autocomplete';
+import { isMobileDevice } from 'utils/device';
+import { AutocompleteProps, AutocompleteValue, InputChangeReason } from './Autocomplete.types';
 import AutocompleteContent from './AutocompleteContent';
-import MultiSelectChips from './MultiSelectChips';
 import DefaultEmptyState from './DefaultEmptyState';
+import MultiSelectChips from './MultiSelectChips';
+
+const defaultGetOptionLabel = <T,>(option: T) => {
+  if (typeof option === 'string') {
+    return option;
+  }
+  if (typeof option === 'number' || typeof option === 'boolean') {
+    return option.toString();
+  }
+  if (typeof option === 'object' && option !== null && 'label' in option) {
+    if (typeof option.label === 'string') {
+      return option.label;
+    }
+    if (typeof option.label === 'number' || typeof option.label === 'boolean') {
+      return option.label.toString();
+    }
+  }
+  throw new Error(
+    'Unable to get the label of the option. Try to define your own getOptionLabel method'
+  );
+};
 
 const Autocomplete = <T, M extends boolean | undefined = false>({
   id,
   options,
-  getOptionLabel = (option: any) => option.label ?? option,
+  getOptionLabel = defaultGetOptionLabel,
   isOptionEqualToValue = (option, value) => option === value,
   label,
   placeholder,
@@ -327,8 +347,8 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
             disabled={disabled}
             sx={{
               padding: 0,
-              color: disabled ? 'text.disabled' : 'text.secondary',
-              cursor: disabled ? 'default' : 'pointer',
+              color: 'text.secondary',
+              cursor: 'pointer',
             }}
           >
             {isOpen ? <KeyboardArrowUp /> : <KeyboardArrowDown />}

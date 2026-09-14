@@ -27,8 +27,8 @@ export const HorizontalNav = ({ sections }: HorizontalNavProps) => {
     sections.length === 1
       ? theme.palette.primary.dark
       : sections.length === 2
-      ? theme.palette.primary.main
-      : theme.palette.primary.light;
+        ? theme.palette.primary.main
+        : theme.palette.primary.light;
 
   return (
     <Box
@@ -66,8 +66,8 @@ export const HorizontalNav = ({ sections }: HorizontalNavProps) => {
                         index === 0
                           ? theme.palette.primary.dark
                           : index === 1
-                          ? theme.palette.primary.main
-                          : theme.palette.primary.light
+                            ? theme.palette.primary.main
+                            : theme.palette.primary.light
                       }
                       flex="1 0"
                       sx={{
@@ -106,11 +106,9 @@ export const HorizontalNav = ({ sections }: HorizontalNavProps) => {
                               section.subtitle}
                           </>
                         </Stack>
-                        {section.cta && (
-                          <Button variant="text" color="negative" endIcon={<ArrowForward />}>
-                            {section.cta.label}
-                          </Button>
-                        )}
+                        <Button variant="text" color="negative" endIcon={<ArrowForward />}>
+                          {section.cta.label}
+                        </Button>
                       </Stack>
                     </Box>
                   )}

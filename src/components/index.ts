@@ -45,3 +45,4 @@ export * from './MIPaper';
 export * from './MIBoxedModule';
 export * from './MIStepper';
 export * from './MIPagination';
+export * from './MIBreadcrumbs';

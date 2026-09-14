@@ -60,8 +60,8 @@ const Container = styled('div', {
     prop !== 'variant' &&
     prop !== 'icon' &&
     prop !== 'slotProps',
-})<{ slotProps?: { borderColor?: React.CSSProperties['borderColor'] } }>(({ theme, slotProps }) => {
-  return {
+})<{ slotProps?: { borderColor?: React.CSSProperties['borderColor'] } }>(({ theme, slotProps }) => (
+  {
     fontSize: pxToRem(12),
     fontWeight: 600,
     userSelect: 'none',
@@ -78,8 +78,8 @@ const Container = styled('div', {
     textTransform: 'uppercase',
     maxWidth: '100%',
     boxSizing: 'border-box',
-  };
-});
+  }
+));
 
 const Value = styled('span', {
   shouldForwardProp: (prop) => prop !== 'mode',

@@ -14,7 +14,12 @@ export const SPID_DISPLAY_NAME = {
   'https://idp.intesigroup.com': 'Intesi Group SPID',
   'https://spid.teamsystem.com/idp': 'TeamSystem ID',
   'https://idp.uat.oneid.pagopa.it': 'INTERNAL IDP',
-};
+} as const;
 
-export const getSpidDisplayName = (idp: IDP): string =>
-  SPID_DISPLAY_NAME[idp.entityID as keyof typeof SPID_DISPLAY_NAME] ?? idp.friendlyName;
+export const getSpidDisplayName = (idp: IDP): string => {
+  if (idp.entityID in SPID_DISPLAY_NAME) {
+    return SPID_DISPLAY_NAME[idp.entityID as keyof typeof SPID_DISPLAY_NAME];
+  }
+
+  return idp.friendlyName;
+};

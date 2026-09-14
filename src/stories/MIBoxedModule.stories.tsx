@@ -160,7 +160,7 @@ const meta: Meta<MIBoxedModuleStoryArgs> = {
       },
     },
   },
-  render: ({
+  render: function RenderWithState({
     content,
     enableIcon,
     title,
@@ -170,7 +170,7 @@ const meta: Meta<MIBoxedModuleStoryArgs> = {
     loading,
     direction,
     ...props
-  }) => {
+  }) {
     const theme = useTheme();
 
     const boxedContent = content ?? children;
@@ -215,7 +215,7 @@ export const NoTitle: Story = {
   parameters: {
     controls: { disable: true },
   },
-  render: () => {
+  render: function RenderWithState() {
     const theme = useTheme();
 
     return (
@@ -249,7 +249,7 @@ export const ForceDirection: Story = {
   parameters: {
     controls: { disable: true },
   },
-  render: () => {
+  render: function RenderWithState() {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 
@@ -373,7 +373,7 @@ export const ComplexContent: Story = {
   parameters: {
     controls: { disable: true },
   },
-  render: () => {
+  render: function RenderWithState() {
     const theme = useTheme();
 
     const radioLabel = (
