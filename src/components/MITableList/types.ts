@@ -1,5 +1,5 @@
 import type { ListProps } from '@mui/material';
-import type { ComponentType, ReactNode } from 'react';
+import type { ComponentType, ReactElement, ReactNode } from 'react';
 
 import { MIButtonProps } from '@components/MIButton';
 import { MIIconButtonProps } from '@components/MIIconButton';
@@ -24,30 +24,12 @@ export interface MITableListProps extends Pick<ListProps, 'children' | 'sx'> {
   };
 }
 
-export interface MITableListItemAction {
-  content: ReactNode;
-  onClick: () => void;
-  ariaLabel?: string;
-  icon?: ReactNode | null;
-}
-
 type MITableListActionButtonProps = MIButtonProps | MIIconButtonProps;
-
-type MITableListActionButtonSlotProps = Omit<
-  MITableListActionButtonProps,
-  'children' | 'onClick' | 'aria-label' | 'endIcon'
->;
 
 export interface MITableListItemProps {
   children: ReactNode;
   columns?: Array<number>;
-  action?: MITableListItemAction;
-  slots?: {
-    actionButton?: ComponentType<MITableListActionButtonProps>;
-  };
-  slotProps?: {
-    actionButton?: MITableListActionButtonSlotProps;
-  };
+  action?: ReactElement<MITableListActionButtonProps>;
   sx?: ListProps['sx'];
 }
 

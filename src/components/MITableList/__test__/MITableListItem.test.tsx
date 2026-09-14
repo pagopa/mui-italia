@@ -1,3 +1,8 @@
+import { MailOutline as MailOutlineIcon } from '@mui/icons-material';
+
+import { MIButton } from '@components/MIButton';
+import { MIIconButton } from '@components/MIIconButton';
+
 import { fireEvent, render, screen } from '../../../test-utils';
 
 import MITableList from '../MITableList';
@@ -29,94 +34,23 @@ describe('MITableListItem', () => {
     expect(screen.queryByRole('button')).not.toBeInTheDocument();
   });
 
-  it('renders the action and calls onClick', () => {
+  it('renders the action element as it is', () => {
+    render(
+      <MITableListItem action={<MIButton variant="text">Apri</MIButton>}>{fields}</MITableListItem>
+    );
+
+    expect(screen.getByRole('button', { name: 'Apri' })).toBeInTheDocument();
+  });
+
+  it('calls the onClick defined on the action element', () => {
     const onClick = vi.fn();
-    render(<MITableListItem action={{ content: 'Apri', onClick }}>{fields}</MITableListItem>);
-
-    fireEvent.click(screen.getByRole('button', { name: 'Apri' }));
-
-    expect(onClick).toHaveBeenCalledOnce();
-  });
-
-  it('uses the action ariaLabel when provided', () => {
-    render(
-      <MITableListItem action={{ content: 'Apri', onClick: vi.fn(), ariaLabel: 'Apri campagna' }}>
-        {fields}
-      </MITableListItem>
-    );
-
-    expect(screen.getByRole('button', { name: 'Apri campagna' })).toBeInTheDocument();
-  });
-
-  it('renders the default action icon', () => {
-    render(
-      <MITableListItem action={{ content: 'Apri', onClick: vi.fn() }}>{fields}</MITableListItem>
-    );
-
-    expect(screen.getByTestId('ArrowForwardIcon')).toBeInTheDocument();
-  });
-
-  it('renders a custom action icon', () => {
     render(
       <MITableListItem
-        action={{ content: 'Apri', onClick: vi.fn(), icon: <span data-testid="custom-icon" /> }}
-      >
-        {fields}
-      </MITableListItem>
-    );
-
-    expect(screen.getByTestId('custom-icon')).toBeInTheDocument();
-    expect(screen.queryByTestId('ArrowForwardIcon')).not.toBeInTheDocument();
-  });
-
-  it('renders no icon when action.icon is null', () => {
-    render(
-      <MITableListItem action={{ content: 'Apri', onClick: vi.fn(), icon: null }}>
-        {fields}
-      </MITableListItem>
-    );
-
-    expect(screen.queryByTestId('ArrowForwardIcon')).not.toBeInTheDocument();
-  });
-
-  it('renders a custom action button through slots and forwards slotProps', () => {
-    const CustomButton = ({
-      children,
-      endIcon,
-      ...props
-    }: {
-      children?: React.ReactNode;
-      endIcon?: React.ReactNode;
-    } & React.ComponentProps<'button'>) => (
-      <button data-testid="custom-button" {...props}>
-        {children}
-        {endIcon}
-      </button>
-    );
-
-    render(
-      <MITableListItem
-        action={{ content: 'Apri', onClick: vi.fn() }}
-        slots={{ actionButton: CustomButton as never }}
-        slotProps={{ actionButton: { disabled: true } }}
-      >
-        {fields}
-      </MITableListItem>
-    );
-
-    const button = screen.getByTestId('custom-button');
-    expect(button).toHaveTextContent('Apri');
-    expect(button).toBeDisabled();
-  });
-
-  it('does not let slotProps override onClick', () => {
-    const onClick = vi.fn();
-    const slotOnClick = vi.fn();
-
-    render(
-      <MITableListItem
-        action={{ content: 'Apri', onClick }}
-        slotProps={{ actionButton: { onClick: slotOnClick } as never }}
+        action={
+          <MIButton variant="text" onClick={onClick}>
+            Apri
+          </MIButton>
+        }
       >
         {fields}
       </MITableListItem>
@@ -125,7 +59,61 @@ describe('MITableListItem', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Apri' }));
 
     expect(onClick).toHaveBeenCalledOnce();
-    expect(slotOnClick).not.toHaveBeenCalled();
+  });
+
+  it('keeps the props defined on the action element', () => {
+    render(
+      <MITableListItem
+        action={
+          <MIButton variant="text" endIcon={<MailOutlineIcon data-testid="action-icon" />}>
+            Apri
+          </MIButton>
+        }
+      >
+        {fields}
+      </MITableListItem>
+    );
+
+    expect(screen.getByRole('button', { name: 'Apri' })).toBeInTheDocument();
+    expect(screen.getByTestId('action-icon')).toBeInTheDocument();
+  });
+
+  it('supports an icon only action', () => {
+    const onClick = vi.fn();
+    render(
+      <MITableListItem
+        action={
+          <MIIconButton aria-label="Apri campagna" onClick={onClick}>
+            <MailOutlineIcon />
+          </MIIconButton>
+        }
+      >
+        {fields}
+      </MITableListItem>
+    );
+
+    const button = screen.getByRole('button', { name: 'Apri campagna' });
+    fireEvent.click(button);
+
+    expect(onClick).toHaveBeenCalledOnce();
+    expect(button).toHaveTextContent('');
+  });
+
+  it('does not add a default icon to the action element', () => {
+    render(
+      <MITableListItem action={<MIButton variant="text">Apri</MIButton>}>{fields}</MITableListItem>
+    );
+
+    expect(screen.queryByTestId('ArrowForwardIcon')).not.toBeInTheDocument();
+  });
+
+  it('renders the action inside the item', () => {
+    render(
+      <MITableListItem action={<MIButton variant="text">Apri</MIButton>}>{fields}</MITableListItem>
+    );
+
+    const item = screen.getByRole('listitem');
+    expect(item).toContainElement(screen.getByRole('button', { name: 'Apri' }));
   });
 
   it('throws when columns length does not match the fields count', () => {
@@ -138,10 +126,19 @@ describe('MITableListItem', () => {
     consoleSpy.mockRestore();
   });
 
+  it('does not count the action as a field', () => {
+    expect(() =>
+      render(
+        <MITableListItem columns={[2, 1]} action={<MIButton variant="text">Apri</MIButton>}>
+          {fields}
+        </MITableListItem>
+      )
+    ).not.toThrow();
+  });
+
   it('receives the columns coming from the list', () => {
     const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
-    // la lista passa columns di lunghezza 3 a un item con 2 campi
     expect(() =>
       render(
         <MITableList columns={[1, 1, 1]}>

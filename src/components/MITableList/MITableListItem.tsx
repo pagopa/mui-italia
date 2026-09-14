@@ -2,13 +2,11 @@
 
 import { Children } from 'react';
 
-import { ArrowForward as ArrowForwardIcon } from '@mui/icons-material';
-import { Box, ListItem, Stack, styled } from '@mui/material';
 import { MIPaper } from '@components/MIPaper';
+import { Box, ListItem, Stack, styled } from '@mui/material';
 
 import { checkChildren } from 'utils/children.utility';
 
-import { ButtonNaked } from '../ButtonNaked';
 import MITableListItemField from './MITableListItemField';
 import type { MITableListItemProps } from './types';
 
@@ -26,14 +24,7 @@ const ItemContent = styled(Box)(({ theme }) => ({
   },
 }));
 
-const MITableListItem = ({
-  children,
-  columns,
-  action,
-  slots,
-  slotProps,
-  sx,
-}: MITableListItemProps) => {
+const MITableListItem = ({ children, columns, action, sx }: MITableListItemProps) => {
   checkChildren(children, [{ cmp: MITableListItemField }], 'MITableListItem');
 
   const fieldsCount = Children.count(children);
@@ -47,9 +38,6 @@ const MITableListItem = ({
   const dataColumns = columns
     ? columns.map((column) => `minmax(0, ${column}fr)`).join(' ')
     : `repeat(${fieldsCount}, minmax(0, 1fr))`;
-
-  const ActionButton = slots?.actionButton ?? ButtonNaked;
-  const actionIcon = action?.icon === undefined ? <ArrowForwardIcon /> : action.icon;
 
   return (
     <ListItem disablePadding sx={[{ width: '100%' }, ...(Array.isArray(sx) ? sx : [sx])]}>
@@ -72,15 +60,7 @@ const MITableListItem = ({
               alignSelf="center"
               minWidth={0}
             >
-              <ActionButton
-                color="primary"
-                {...slotProps?.actionButton}
-                onClick={action.onClick}
-                aria-label={action.ariaLabel}
-                endIcon={actionIcon}
-              >
-                {action.content}
-              </ActionButton>
+              {action}
             </Stack>
           )}
         </ItemContent>
