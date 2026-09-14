@@ -1,7 +1,8 @@
 import type { ListProps } from '@mui/material';
-import type { ComponentProps, ComponentType, ReactNode } from 'react';
+import type { ComponentType, ReactNode } from 'react';
 
-import type { ButtonNaked } from '../ButtonNaked';
+import { MIButtonProps } from '@components/MIButton';
+import { MIIconButtonProps } from '@components/MIIconButton';
 
 export interface MITableListSkeletonProps {
   rows?: number;
@@ -30,7 +31,7 @@ export interface MITableListItemAction {
   icon?: ReactNode | null;
 }
 
-type MITableListActionButtonProps = ComponentProps<typeof ButtonNaked>;
+type MITableListActionButtonProps = MIButtonProps | MIIconButtonProps;
 
 type MITableListActionButtonSlotProps = Omit<
   MITableListActionButtonProps,

@@ -1,9 +1,9 @@
 import type { ComponentProps } from 'react';
 
 import { MailOutline as MailOutlineIcon } from '@mui/icons-material';
-import { Button } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
+import { MIButton } from '@components/MIButton';
 import { MITableList, MITableListItem, MITableListItemField } from '@components/MITableList';
 
 type ColumnLayout = 'uniform' | 'custom';
@@ -274,7 +274,7 @@ export const CustomAction: Story = {
           ariaLabel: 'Visualizza dettaglio campagna',
         }}
         slots={{
-          actionButton: Button,
+          actionButton: MIButton,
         }}
       >
         <MITableListItemField label="22/11/2025">Titolo campagna</MITableListItemField>
