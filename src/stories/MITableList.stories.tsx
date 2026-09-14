@@ -1,6 +1,6 @@
-import type { ComponentProps } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 
-import { MailOutline as MailOutlineIcon } from '@mui/icons-material';
+import { ArrowForward, MailOutline as MailOutlineIcon } from '@mui/icons-material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { MIButton } from '@components/MIButton';
@@ -21,8 +21,20 @@ const columnsByLayout: Record<ColumnLayout, Array<number> | undefined> = {
   custom: [2, 1, 1.3],
 };
 
+type ArrowButtonProps = {
+  onClick?: () => void;
+  'aria-label'?: string;
+  children: ReactNode;
+};
+
+const ArrowButton = ({ onClick, 'aria-label': ariaLabel, children }: ArrowButtonProps) => (
+  <MIButton variant="text" endIcon={<ArrowForward />} onClick={onClick} aria-label={ariaLabel}>
+    {children}
+  </MIButton>
+);
+
 const renderItems = () => [
-  <MITableListItem key="campaign-1" action={{ content: 'Apri', onClick: () => {} }}>
+  <MITableListItem key="campaign-1" action={<ArrowButton>Apri</ArrowButton>}>
     <MITableListItemField label="22/11/2025">
       Titolo campagna molto lungo che potrebbe andare su più righe
     </MITableListItemField>
@@ -34,7 +46,7 @@ const renderItems = () => [
     </MITableListItemField>
   </MITableListItem>,
 
-  <MITableListItem key="campaign-2" action={{ content: 'Apri', onClick: () => {} }}>
+  <MITableListItem key="campaign-2" action={<ArrowButton>Apri</ArrowButton>}>
     <MITableListItemField label="23/11/2025">Seconda campagna</MITableListItemField>
 
     <MITableListItemField label="Codice ID">0000000001</MITableListItemField>
@@ -44,7 +56,7 @@ const renderItems = () => [
     </MITableListItemField>
   </MITableListItem>,
 
-  <MITableListItem key="campaign-3" action={{ content: 'Apri', onClick: () => {} }}>
+  <MITableListItem key="campaign-3" action={<ArrowButton>Apri</ArrowButton>}>
     <MITableListItemField label="24/11/2025">
       Terza campagna con contenuto differente
     </MITableListItemField>
@@ -196,7 +208,7 @@ export const CustomColumns: Story = {
   },
   render: () => (
     <MITableList columns={[2, 1, 1]}>
-      <MITableListItem action={{ content: 'Apri', onClick: () => {} }}>
+      <MITableListItem action={<ArrowButton>Apri</ArrowButton>}>
         <MITableListItemField label="22/11/2025">
           Titolo campagna molto lungo che potrebbe andare su più righe
         </MITableListItemField>
@@ -208,7 +220,7 @@ export const CustomColumns: Story = {
         </MITableListItemField>
       </MITableListItem>
 
-      <MITableListItem columns={[1, 2, 1]} action={{ content: 'Apri', onClick: () => {} }}>
+      <MITableListItem columns={[1, 2, 1]} action={<ArrowButton>Apri</ArrowButton>}>
         <MITableListItemField label="23/11/2025">Seconda campagna</MITableListItemField>
 
         <MITableListItemField label="Codice ID">0000000001</MITableListItemField>
@@ -218,7 +230,7 @@ export const CustomColumns: Story = {
         </MITableListItemField>
       </MITableListItem>
 
-      <MITableListItem action={{ content: 'Apri', onClick: () => {} }}>
+      <MITableListItem action={<ArrowButton>Apri</ArrowButton>}>
         <MITableListItemField label="24/11/2025">Terza campagna</MITableListItemField>
 
         <MITableListItemField label="Codice ID">0000000002</MITableListItemField>
@@ -268,14 +280,9 @@ export const CustomAction: Story = {
   render: () => (
     <MITableList columns={[2, 1, 1]}>
       <MITableListItem
-        action={{
-          content: 'Visualizza dettaglio',
-          onClick: () => {},
-          ariaLabel: 'Visualizza dettaglio campagna',
-        }}
-        slots={{
-          actionButton: MIButton,
-        }}
+        action={
+          <ArrowButton aria-label="Visualizza dettaglio campagna">Visualizza dettaglio</ArrowButton>
+        }
       >
         <MITableListItemField label="22/11/2025">Titolo campagna</MITableListItemField>
 
