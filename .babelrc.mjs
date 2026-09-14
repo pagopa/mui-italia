@@ -30,13 +30,13 @@ export default function getBabelConfig(api) {
       'src/**/*.spec.tsx',
       // exclude tests foldders and files
       'src/**/__tests__/**/*',
-      'src/test-utils.ts',
+      'src/test-utils.tsx',
       // exclude typing files
       'src/**/*.d.ts',
       'src/**/*.d.tsx',
       // exclude vite files
       'vite.config.mts',
-      'vite.setup.ts',
+      'vitest.setup.ts',
     ],
     presets: ['@babel/preset-typescript'],
     plugins: [],

@@ -1,3 +1,44 @@
+# [2.7.0](https://github.com/pagopa/mui-italia/releases/tag/v2.7.0) (2026-09-14)
+
+
+### Chores
+
+* Bump version to v2.7.0
+# [2.7.0-RC.3](https://github.com/pagopa/mui-italia/releases/tag/v2.7.0-RC.3) (2026-09-11)
+
+
+### Code Refactoring
+
+* added Palette on muiOverrides.d ([#770](https://github.com/pagopa/mui-italia/issues/770)) ([7355294](https://github.com/pagopa/mui-italia/commit/73552943c157270057e281333d3b5072a60515b4))
+# [2.7.0-RC.2](https://github.com/pagopa/mui-italia/releases/tag/v2.7.0-RC.2) (2026-09-04)
+
+
+### Bug Fixes
+
+* **M20DS-2:** fix semantics colors ([#767](https://github.com/pagopa/mui-italia/issues/767)) ([999ee89](https://github.com/pagopa/mui-italia/commit/999ee890775fed07a625b7d588079583af3117a9))
+# [2.7.0-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v2.7.0-RC.1) (2026-09-04)
+
+
+### Features
+
+* **M20DS-131:** add new illustrations ([#758](https://github.com/pagopa/mui-italia/issues/758)) ([9967336](https://github.com/pagopa/mui-italia/commit/9967336538e25fd8f6770cd5ff96786869fe5329))
+# [2.7.0-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.7.0-RC.0) (2026-09-01)
+
+
+### Features
+
+* **M20DS-7:** introducing MIBreadcrumbs component ([#730](https://github.com/pagopa/mui-italia/issues/730)) ([faa4d06](https://github.com/pagopa/mui-italia/commit/faa4d0619ce6696158f7c948a042bdafa97a495d))
+
+
+### Bug Fixes
+
+* **M20DS-134:** replaced icon with rounded version and applied bold to navigable voices ([#757](https://github.com/pagopa/mui-italia/issues/757)) ([9512e19](https://github.com/pagopa/mui-italia/commit/9512e19acc39291f11ec18af657362079c3b02b7))
+
+
+### Build System
+
+* **MUI-229:** fixed problems when picking node version ([#762](https://github.com/pagopa/mui-italia/issues/762)) ([24f72f8](https://github.com/pagopa/mui-italia/commit/24f72f8d16649828c71b24526b6b40c9e3caa12d))
+* **MUI-234:** restore build check on pr ([#663](https://github.com/pagopa/mui-italia/issues/663)) ([6a2e308](https://github.com/pagopa/mui-italia/commit/6a2e3089c4012e3eaaca694fe468e6107c8fcd80))
 # [2.6.1](https://github.com/pagopa/mui-italia/releases/tag/v2.6.1) (2026-09-01)
 
 
@@ -37,7 +78,7 @@
 # [2.6.0](https://github.com/pagopa/mui-italia/releases/tag/v2.6.0) (2026-08-03)
 
 
-### Chore
+### Chores
 
 * Bump version to v2.6.0
 # [2.6.0-RC.4](https://github.com/pagopa/mui-italia/releases/tag/v2.6.0-RC.4) (2026-07-31)
@@ -73,7 +114,7 @@
 # [2.5.1](https://github.com/pagopa/mui-italia/releases/tag/v2.5.1) (2026-07-23)
 
 
-### Chore
+### Chores
 
 * Bump version to v2.5.1
 # [2.5.1-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.5.1-RC.0) (2026-07-21)
@@ -149,7 +190,7 @@
 # [2.5.0](https://github.com/pagopa/mui-italia/releases/tag/v2.5.0) (2026-06-16)
 
 
-### Chore
+### Chores
 
 * Bump version to v2.5.0
 # [2.5.0-RC.3](https://github.com/pagopa/mui-italia/releases/tag/v2.5.0-RC.3) (2026-06-16)
@@ -203,7 +244,7 @@
 # [2.4.1](https://github.com/pagopa/mui-italia/releases/tag/v2.4.1) (2026-05-06)
 
 
-### Chore
+### Chores
 
 * Bump version to v2.4.1
 # [2.4.1-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.4.1-RC.0) (2026-05-06)
@@ -215,7 +256,7 @@
 # [2.4.0](https://github.com/pagopa/mui-italia/releases/tag/v2.4.0) (2026-05-05)
 
 
-### Chore
+### Chores
 
 * Bump version to v2.4.0
 # [2.4.0-RC.2](https://github.com/pagopa/mui-italia/releases/tag/v2.4.0-RC.2) (2026-05-04)
@@ -261,7 +302,7 @@
 # [2.3.1](https://github.com/pagopa/mui-italia/releases/tag/v2.3.1) (2026-03-23)
 
 
-### Chore
+### Chores
 
 * Bump version to v2.3.1 
 
@@ -340,7 +381,7 @@
 # [2.3.0](https://github.com/pagopa/mui-italia/releases/tag/v2.3.0) (2026-02-12)
 
 
-### Chore
+### Chores
 
 * Bump version to v2.3.0 
 
@@ -441,7 +482,7 @@
 # [2.2.0](https://github.com/pagopa/mui-italia/releases/tag/v2.2.0) (2025-12-09)
 
 
-### Chore
+### Chores
 
 * Bump version to v2.2.0 
 
@@ -459,7 +500,7 @@
 # [2.1.0](https://github.com/pagopa/mui-italia/releases/tag/v2.1.0) (2025-12-03)
 
 
-### Chore
+### Chores
 
 * Bump version to v2.1.0 
 

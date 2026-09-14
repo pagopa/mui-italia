@@ -1,10 +1,12 @@
 import { alpha, createTheme, Theme } from '@mui/material/styles';
+/* Design Tokens */
+import { italia } from '@tokens';
+
+import { mainTypeface, monospacedTypeface } from './fonts';
 import foundationNext from './foundations-next/foundationNext';
 import muiSwitch from './muiSwitch';
 import { pxToRem } from './utility';
-import { mainTypeface, monospacedTypeface } from './fonts';
-/* Design Tokens */
-import { italia } from '@tokens';
+import { colors } from './colors';
 
 /* Basic Configuration */
 
@@ -160,7 +162,7 @@ export const themeNext: Theme = createTheme(foundationNext, {
     /* End: To be revised */
   },
   components: {
-    ////////////////////////////////////// TO BE REMOVED //////////////////////////////////////
+    // //////////////////////////////////// TO BE REMOVED //////////////////////////////////////
     MuiButton: {
       defaultProps: {
         disableElevation: true,
@@ -518,7 +520,9 @@ export const themeNext: Theme = createTheme(foundationNext, {
       styleOverrides: {
         root: {
           fontWeight: foundationNext.typography.fontWeightMedium,
-          '& .MuiOutlinedInput-notchedOutline': {},
+          '& .MuiOutlinedInput-notchedOutline': {
+            borderColor: colors.neutral.grey[650], // to do: remove when input are updated to next
+          },
           '&.Mui-error .MuiOutlinedInput-notchedOutline': {
             borderColor: foundationNext.palette.error.main,
           },
@@ -563,7 +567,7 @@ export const themeNext: Theme = createTheme(foundationNext, {
     MuiBackdrop: {
       styleOverrides: {
         root: {
-          backgroundColor: alpha(foundationNext.palette.backdrop.background, 0.7),
+          backgroundColor: foundationNext.palette.backdrop.background,
         },
         invisible: {
           backgroundColor: 'transparent',
@@ -748,7 +752,7 @@ export const themeNext: Theme = createTheme(foundationNext, {
         },
       },
     },
-    ///////////////////////////////////////////////////////////////////////////////////////////
+    // /////////////////////////////////////////////////////////////////////////////////////////
     MuiSkeleton: {
       styleOverrides: {
         root: {

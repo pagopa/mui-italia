@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '../../../test-utils';
 
 import { ProfileItem, ProfileItemProps } from '../ProfileItem';
 
@@ -94,8 +94,6 @@ describe('ProfileItem', () => {
   it('uses a custom aria-label for the switch action', () => {
     renderProfileItem({ switchAriaLabel: 'Seleziona un altro profilo' });
 
-    expect(
-      screen.getByRole('button', { name: 'Seleziona un altro profilo' })
-    ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Seleziona un altro profilo' })).toBeInTheDocument();
   });
 });

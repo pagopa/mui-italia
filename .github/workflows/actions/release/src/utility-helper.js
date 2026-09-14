@@ -8,7 +8,7 @@ export function toSentenceCase(word) {
 }
 
 export function isTagOrBranch(ref) {
-  const tagRegex = new RegExp(/^v(\d+)\.(\d+)\.(\d+)(?:-RC|-rc\.(\d+))?$/);
+  const tagRegex = /^v\d+\.\d+\.\d+(?:-[Rr][Cc]\.\d+)?$/;
   if (ref.match(tagRegex)) {
     return 'tag';
   }
