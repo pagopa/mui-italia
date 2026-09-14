@@ -3,6 +3,7 @@
 import { Close, KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 import { Box, IconButton, Paper, Popper, TextField } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
+import { MIChip } from '@components/MIChip';
 import {
   ChangeEvent,
   FocusEvent,
@@ -48,6 +49,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
   label,
   placeholder,
   multiple = false,
+  showSelectionCountOnly = false,
   handleFiltering = filterOptionsInternal,
   disabled = false,
   required = false,
@@ -304,7 +306,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
             }}
           />
         )}
-        {multiple && selectedOptions.length > 0 && (
+        {multiple && selectedOptions.length > 0 && !showSelectionCountOnly && (
           <MultiSelectChips
             selectedOptions={selectedOptions}
             handleChipDelete={handleChipDelete}
@@ -321,7 +323,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
   };
 
   const getEndInputAdornment = () => {
-    const showClearIcon = currentInputValue || hasSelectedValue;
+    const showClearIcon = (currentInputValue || hasSelectedValue) && !showSelectionCountOnly;
     const showArrowIcon = !toggleButtonProps.hidden;
 
     if ((!showClearIcon && !showArrowIcon) || disabled) {
@@ -336,9 +338,19 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
           gap: 0.5,
         }}
       >
+        {multiple && selectedOptions.length > 0 && showSelectionCountOnly && (
+          <MIChip
+            label={selectedOptions.length}
+            onDelete={handleClearValue}
+            disabled={disabled}
+            role="listitem"
+            aria-setsize={1}
+            aria-posinset={1}
+            aria-label={selectionChipProps['aria-label']?.replace('%s', `${selectedOptions.length}`)}
+          />
+        )}
         {showClearIcon && (
           <IconButton
-            size="small"
             onClick={handleClearValue}
             onMouseDown={(e) => e.preventDefault()}
             aria-label={clearButtonProps['aria-label']}
@@ -348,7 +360,10 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
               color: 'text.secondary',
             }}
           >
-            <Close />
+             <Close sx ={{ 
+              width: '1.5rem',
+              height: '1.5rem',
+            }} />
           </IconButton>
         )}
         {showArrowIcon && (
@@ -385,7 +400,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
       );
       optionElement?.scrollIntoView({ block: 'nearest' });
     }
-  }, [activeIndex, isOpen, disabled]);
+  }, [activeIndex, isOpen, disabled, listboxId]);
 
   return (
     <>
