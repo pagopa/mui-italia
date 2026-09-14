@@ -1,3 +1,5 @@
+'use client';
+
 import type { ReactNode } from 'react';
 
 import { Box, ListItemIcon, ListItemText, Typography } from '@mui/material';

@@ -1,3 +1,5 @@
+'use client';
+
 import { Children } from 'react';
 
 import { ArrowForward as ArrowForwardIcon } from '@mui/icons-material';

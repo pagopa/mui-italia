@@ -1,6 +1,8 @@
+'use client';
+
 import { Children, cloneElement, isValidElement, type FC } from 'react';
 
-import { List, styled, Typography } from '@mui/material';
+import { Box, List, styled, Typography } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
 
 import { checkChildren } from 'utils/children.utility';
@@ -13,7 +15,6 @@ const StyledList = styled(List)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(2),
-  padding: theme.spacing(2.5),
   width: '100%',
 }));
 
@@ -48,13 +49,13 @@ const MITableList: FC<MITableListProps> = ({
         {loading ? (localeText?.loadingLabel ?? 'Content loading, please wait...') : ''}
       </Typography>
 
-      <StyledList disablePadding sx={sx} aria-busy={loading || undefined}>
+      <Box aria-busy={loading || undefined} sx={{ width: '100%', p: 2.5, ...sx }}>
         {loading ? (
           <Skeleton {...slotProps?.skeleton} cols={slotProps?.skeleton?.cols ?? columns?.length} />
         ) : (
-          items
+          <StyledList disablePadding>{items}</StyledList>
         )}
-      </StyledList>
+      </Box>
     </>
   );
 };

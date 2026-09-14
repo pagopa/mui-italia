@@ -1,3 +1,5 @@
+'use client';
+
 import { Skeleton, Stack } from '@mui/material';
 
 import { MIPaper } from '@components/MIPaper';
