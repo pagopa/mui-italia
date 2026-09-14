@@ -1,8 +1,9 @@
-import type { ElementType } from 'react';
+import type { ComponentProps, ElementType } from 'react';
 import { Close as CloseIcon } from '@mui/icons-material';
-import { Box, Button, Chip, IconButton, Typography, styled } from '@mui/material';
+import { Box, IconButton, Typography, styled } from '@mui/material';
 import type { SxProps, Theme } from '@mui/material/styles';
-import { ButtonNaked } from '@components/ButtonNaked';
+import { MIButton } from '@components/MIButton';
+import { MIChip } from '@components/MIChip';
 import type { BannerColorStyle, BannerCTA, BannerVariant, CtaKind, ThemeColor } from './model';
 
 const resolveColor = (theme: Theme, value: ThemeColor) =>
@@ -35,8 +36,7 @@ export function CloseButton({
   return (
     <IconButton
       onClick={onClose}
-      size="small"
-      sx={{ color: (theme) => theme.colors.neutral.black }}
+      sx={{ color: (theme) => theme.palette.text.primary }}
       aria-label={ariaLabel}
     >
       <CloseIcon fontSize="small" />
@@ -46,22 +46,11 @@ export function CloseButton({
 
 export function BadgeChip({ text }: Readonly<{ text: string }>) {
   return (
-    <Chip
+    <MIChip
       label={text}
-      size="small"
+      color="highlight"
       sx={{
-        fontWeight: 600,
         alignSelf: 'flex-start',
-        '&.MuiChip-root': {
-          backgroundColor: (theme) => theme.colors.turquoise[50],
-          color: (theme) => theme.colors.turquoise[850],
-        },
-        '& .MuiChip-label': {
-          fontSize: '12px',
-          whiteSpace: 'normal',
-          overflowWrap: 'anywhere',
-          wordBreak: 'break-word',
-        },
       }}
     />
   );
@@ -71,7 +60,6 @@ export function Cta({
   kind,
   cta,
   alignSelf,
-  variant,
   id,
   ariaLabelledBy,
   sx,
@@ -90,6 +78,7 @@ export function Cta({
   let rel: string | undefined;
 
   if (isLink) {
+    // eslint-disable-next-line prefer-const
     target = cta.target ?? '_self';
 
     if (target === '_blank') {
@@ -110,43 +99,43 @@ export function Cta({
   };
 
   if (kind === 'contained') {
+    /**
+     * MIButton types allow `href` only for the `text` variant, but here the CTA
+     * can be rendered as an anchor while keeping the contained look.
+     */
+    const containedProps = {
+      ...commonProps,
+      variant: 'contained',
+    } as unknown as ComponentProps<typeof MIButton>;
+
     return (
-      <Button
-        {...commonProps}
-        variant="contained"
+      <MIButton
+        {...containedProps}
         sx={{
-          borderRadius: '8px',
-          textTransform: 'none',
-          fontWeight: 600,
-          backgroundColor: (theme) => theme.colors.blue[500],
-          fontSize: '14px',
-          px: 2,
-          whiteSpace: 'nowrap',
           alignSelf,
           ...sx,
         }}
       >
         {cta.label}
-      </Button>
+      </MIButton>
     );
   }
 
+  const textProps = {
+    ...commonProps,
+    variant: 'text',
+  } as unknown as ComponentProps<typeof MIButton>;
+
   return (
-    <ButtonNaked
-      {...commonProps}
+    <MIButton
+      {...textProps}
       sx={{
-        p: 0,
-        minWidth: 'auto',
-        fontWeight: 600,
-        fontSize: variant === 'tertiary' ? '16px' : '14px',
-        color: (theme) => theme.colors.blue[500],
-        textDecoration: 'none',
         alignSelf,
         ...sx,
       }}
     >
       {cta.label}
-    </ButtonNaked>
+    </MIButton>
   );
 }
 
