@@ -1,3 +1,9 @@
+# [2.7.0](https://github.com/pagopa/mui-italia/releases/tag/v2.7.0) (2026-09-14)
+
+
+### Chores
+
+* Bump version to v2.7.0
 # [2.7.0-RC.3](https://github.com/pagopa/mui-italia/releases/tag/v2.7.0-RC.3) (2026-09-11)
 
 
