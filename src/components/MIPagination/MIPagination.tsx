@@ -1,10 +1,12 @@
+'use client';
+
 import MuiPaginationItem from '@mui/material/PaginationItem';
 import MuiPagination, { PaginationProps } from '@mui/material/Pagination';
 import { styled } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/system';
 
-type MIPaginationProps = Omit<
+export type MIPaginationProps = Omit<
   PaginationProps,
   | 'color'
   | 'shape'
@@ -46,13 +48,13 @@ const StyledPaginationItem = styled(MuiPaginationItem)(({ theme }) => ({
     },
     '&.Mui-disabled': {
       color: theme.colors.neutral.white,
-      background: '#E8EBF1',
+      background: theme.colors.neutral.grey[100],
     },
   },
   '&.MuiPaginationItem-previousNext': {
     width: '40px',
     height: '40px',
-    border: `2px solid #E8EBF1`,
+    border: `2px solid ${theme.colors.neutral.grey[100]}`,
     '&.Mui-disabled': {
       display: 'none',
     },
