@@ -1,0 +1,40 @@
+import { Meta, Title, Canvas, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
+
+import Overview from './components/Overview';
+import Section from './components/Section';
+import SubSection from './components/SubSection';
+import * as MIDialogStories from '../stories/MIDialog.stories.tsx';
+
+<Meta of={MIDialogStories} />
+
+<Title />
+
+<Overview>
+  <strong>MIDialog</strong> è un componente pensato per mostrare finestra modale che appare sopra il
+  contenuto di un'app per fornire informazioni importanti o richiedere una decisione. Le finestre di
+  dialogo disabilitano tutte le funzionalità dell'app quando vengono visualizzate e rimangono sullo
+  schermo finché non vengono confermate, chiuse o non viene eseguita l'azione richiesta..
+</Overview>
+
+<Section
+  title="Playground"
+  description="Usa i controlli per modificare i parametri principali del componente e verificare il risultato live."
+>
+  <Primary />
+  <Controls />
+</Section>
+
+<Section title="Simple Dialog" description="Esempio di `Dialog` semplice con testo e azioni">
+  <Story of={MIDialogStories.SimpleDialog} />
+</Section>
+
+<Section title="Dialog with Checkbox" description="Esempio di `Dialog` semplice con `Checkbox`">
+  <Story of={MIDialogStories.DialogWithCheckbox} />
+</Section>
+
+<Section
+  title="Dialog with Error Code"
+  description="Esempio di `Dialog` semplice con codice errore"
+>
+  <Story of={MIDialogStories.DialogWithError} />
+</Section>
