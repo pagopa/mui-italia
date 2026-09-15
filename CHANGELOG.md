@@ -1,3 +1,14 @@
+# [2.8.0-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.8.0-RC.0) (2026-09-15)
+
+
+### Features
+
+* **M20DS-94:** Add MITableList component ([#769](https://github.com/pagopa/mui-italia/issues/769)) ([85dbcc4](https://github.com/pagopa/mui-italia/commit/85dbcc4ea8fb43c95aff299a87394c6ae8d4f352))
+
+
+### Bug Fixes
+
+* **M20DS-94:** update MITableList stories after MITableListItem API changes ([#774](https://github.com/pagopa/mui-italia/issues/774)) ([f33cfaa](https://github.com/pagopa/mui-italia/commit/f33cfaa1294a41cbe15826902e266c65b3ba4434))
 # [2.7.0](https://github.com/pagopa/mui-italia/releases/tag/v2.7.0) (2026-09-14)
 
 
