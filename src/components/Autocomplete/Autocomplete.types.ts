@@ -6,8 +6,8 @@ interface AutocompleteSlots<T> {
   startIcon?: ComponentType<SvgIconProps>;
   /** Custom loading skeleton component shown during loading state */
   loadingSkeleton?: ComponentType;
-   /** Custom empty state component */
-  emptyState?: JSXElementConstructor<{filteredOptions: Array<T>}>;
+  /** Custom empty state component */
+  emptyState?: JSXElementConstructor<{ filteredOptions: Array<T> }>;
 }
 
 interface AutocompleteSlotProps {
@@ -53,7 +53,7 @@ export type InputChangeReason = 'input' | 'clear' | 'selectOption';
 
 // if multiple is true, value is an array of T
 // otherwise we have a single element
-export type AutocompleteValue<T, Multiple> = Multiple extends true ? Array<T> : T;
+export type AutocompleteValue<T, Multiple> = Multiple extends true ? Array<T> : T | null;
 
 export interface AutocompleteProps<T, Multiple extends boolean | undefined>
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
@@ -74,6 +74,11 @@ export interface AutocompleteProps<T, Multiple extends boolean | undefined>
 
   /** Enable multi-select mode with chips for selected options */
   multiple?: Multiple;
+
+  /** When multiple is enabled, controls whether each selected option is shown as a chip.
+   * If true, only the count of selected options is shown instead of individual chips.
+   */
+  showSelectionCountOnly?: boolean;
 
   /** Custom filtering function that overrides the default filtering behavior.
    * This must be an sync function. If you need the async filtering, set this function equal to (opts) => opts,
@@ -99,7 +104,7 @@ export interface AutocompleteProps<T, Multiple extends boolean | undefined>
   /** Show loading state with skeleton */
   loading?: boolean;
 
-   /** Text displayed when no options are available */
+  /** Text displayed when no options are available */
   noResultsText?: string;
 
   /** Custom components to replace default icons and states */
