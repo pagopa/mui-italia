@@ -1,5 +1,6 @@
 import MuiSwitch, { SwitchProps } from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
+import { forwardRef } from 'react';
 
 type MISwitchProps = Omit<
   SwitchProps,
@@ -9,7 +10,7 @@ type MISwitchProps = Omit<
 const StyledSwitch = styled(MuiSwitch)(({ theme }) => ({
   '& .MuiSwitch-switchBase': {
     '& + .MuiSwitch-track': {
-      backgroundColor: theme.colors.neutral.grey[700], // '#555C70',
+      backgroundColor: theme.colors.neutral.grey[700],
     },
     '&.Mui-focusVisible': {
       '& .MuiSwitch-thumb': {
@@ -23,14 +24,16 @@ const StyledSwitch = styled(MuiSwitch)(({ theme }) => ({
         },
       },
       '& + .MuiSwitch-track': {
-        backgroundColor: theme.colors.blue[500], // '#555C70',
+        backgroundColor: theme.colors.blue[500],
       },
     },
   },
 }));
 
-export const MISwitch: React.FC<MISwitchProps> = (props) => {
-  return <StyledSwitch {...props} />;
-};
+export const MISwitch = forwardRef<HTMLButtonElement, MISwitchProps>((props, ref) => (
+  <StyledSwitch ref={ref} {...props} />
+));
+
+MISwitch.displayName = 'MISwitch';
 
 export default MISwitch;
