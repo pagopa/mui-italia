@@ -26,9 +26,17 @@ import * as MISwitchStories from '../stories/MISwitch.stories.tsx';
   title="Primary Checked"
   description="Esempio di MISwitch color='primary' con stato checked='true'"
 >
-  <Story of={MISwitchStories.WithLabel} />
+  <Story of={MISwitchStories.PrimaryChecked} />
+</Section>
+
+<Section title="Primary Disabled" description="Esempio di MISwitch nello stato disabled='true'">
+  <Story of={MISwitchStories.PrimaryDisabled} />
 </Section>
 
 <Section title="With Label" description="Esempio di MISwitch in un form con label">
   <Story of={MISwitchStories.WithLabel} />
+</Section>
+
+<Section title="With Error" description="Esempio di MISwitch in un form con label e un errore">
+  <Story of={MISwitchStories.WithError} />
 </Section>
