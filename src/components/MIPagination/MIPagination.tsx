@@ -38,6 +38,11 @@ const StyledPaginationItem = styled(MuiPaginationItem)(({ theme }) => ({
     textDecoration: 'underline',
     color: theme.colors.blue[500],
   },
+  '&.Mui-focusVisible': {
+    background: 'transparent',
+    outlineOffset: 0,
+    outline: `2px solid ${theme.colors.blue[400]}`,
+  },
   '&.Mui-selected': {
     background: theme.colors.blue[500],
     color: theme.colors.neutral.white,
@@ -50,6 +55,11 @@ const StyledPaginationItem = styled(MuiPaginationItem)(({ theme }) => ({
       color: theme.colors.neutral.white,
       background: theme.colors.neutral.grey[100],
     },
+    '&.Mui-focusVisible': {
+      background: theme.colors.blue[500],
+      outlineOffset: 0,
+      outline: `2px solid ${theme.colors.blue[400]}`,
+    },
   },
   '&.MuiPaginationItem-previousNext': {
     width: '40px',
@@ -58,11 +68,6 @@ const StyledPaginationItem = styled(MuiPaginationItem)(({ theme }) => ({
     '&.Mui-disabled': {
       display: 'none',
     },
-  },
-  '&.Mui-focusVisible': {
-    background: 'transparent',
-    outlineOffset: 0,
-    outline: `2px solid ${theme.colors.blue[400]}`,
   },
   '& .MuiPaginationItem-icon': {
     color: theme.colors.blue[500],
