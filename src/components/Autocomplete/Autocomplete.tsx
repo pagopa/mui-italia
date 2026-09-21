@@ -127,7 +127,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
    */
   const singleSelectedValue: T | null = isCurrentValueAnArray ? null : (currentValue as T | null);
 
-  const hasSelectedValue = multiple ? selectedOptions.length > 0 : singleSelectedValue != null;
+  const hasSelectedValue = multiple ? selectedOptions.length > 0 : singleSelectedValue !== null;
 
   const setInputValue = (v: string, reason: InputChangeReason) => {
     // non controlled input
