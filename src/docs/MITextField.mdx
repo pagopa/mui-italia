@@ -1,0 +1,77 @@
+import { Meta, Title, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
+
+import Overview from './components/Overview';
+import Section from './components/Section';
+import SubSection from './components/SubSection';
+import * as MITextFieldStories from '../stories/MITextField.stories.tsx';
+
+<Meta of={MITextFieldStories} />
+
+<Title />
+
+<Overview>
+  <strong>MITextField</strong> è il componente di input testuale per la raccolta e la validazione di
+  dati nei form. Supporta etichetta, placeholder, helper text, stato di errore/successo, icone
+  decorative e azioni contestuali come copia e pulizia del contenuto.
+</Overview>
+
+<Section
+  title="Playground"
+  description="Usa i controlli per modificare i parametri principali del componente e verificare il risultato live."
+>
+  <Primary />
+  <Controls />
+</Section>
+
+<Section
+  title="Stati"
+  description="MITextField gestisce i principali stati di input tramite feedback visivo su bordo, helper text e icone di validazione."
+>
+  <SubSection title="Success ed Error">
+    <Story of={MITextFieldStories.MITextFieldStates} />
+  </SubSection>
+</Section>
+
+<Section
+  title="Azioni"
+  description="MITextField può esporre azioni contestuali lato input per semplificare le interazioni utente."
+>
+  <SubSection title="Pulisci contenuto (onDelete)">
+    <Story of={MITextFieldStories.MITextFieldCloseIcon} />
+  </SubSection>
+
+  <SubSection title="Copia contenuto (usando CopyToClipboardButton)">
+    <Story of={MITextFieldStories.MITextFieldCopyIcon} />
+  </SubSection>
+</Section>
+
+<Section
+  title="Multiline"
+  description="Per contenuti testuali estesi, MITextField supporta la modalità multiline con gestione del numero minimo di righe."
+>
+  <Story of={MITextFieldStories.Multiline} />
+</Section>
+
+<Section
+  title="Accessibilità"
+  description="MITextField è accessibile by design, ma l’accessibilità finale dipende dalle props e dai testi forniti dal consumer."
+>
+  <SubSection title="Props rilevanti">
+    <ul>
+      <li>
+        <strong>label</strong>: descrive chiaramente il campo e deve essere sempre significativo.
+      </li>
+      <li>
+        <strong>required</strong>: segnala un campo obbligatorio e abilita semantica nativa utile
+        per screen reader.
+      </li>
+      <li>
+        <strong>helperText</strong>: fornisce supporto contestuale o messaggi di errore utili alla
+        compilazione.
+      </li>
+      <li>
+        <strong>placeholder</strong>: è un aiuto visivo e non deve sostituire la label.
+      </li>
+    </ul>
+  </SubSection>
+</Section>
