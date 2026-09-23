@@ -20,7 +20,7 @@ export const StyledTextField = styled(TextField, {
   '& .MuiInputLabel-root.Mui-error': {
     color: theme.colors.error[600],
   },
-  '& .MuiInputLabel-root.Mui-error .MuiFormLabel-asterisk, & .MuiFormLabel-asterisk.Mui-error': {
+  '& .MuiFormLabel-asterisk, & .MuiFormLabel-asterisk.Mui-focused': {
     color: theme.colors.error[600],
   },
   '& .MuiFormHelperText-root': {
