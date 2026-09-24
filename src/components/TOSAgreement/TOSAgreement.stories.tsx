@@ -1,6 +1,5 @@
 import { StoryFn, Meta } from '@storybook/react-vite';
 import { FormControlLabel, Link, Switch, Typography } from '@mui/material';
-import { useState } from 'react';
 
 import { breakpointsChromaticValues } from '@theme';
 import { TOSAgreement } from './TOSAgreement';
