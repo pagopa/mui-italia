@@ -7,7 +7,8 @@ import {
   Close as CloseIcon,
   ReportRounded as ReportRoundedIcon,
 } from '@mui/icons-material';
-import { IconButton, InputAdornment, TextFieldProps } from '@mui/material';
+import { InputAdornment, TextFieldProps } from '@mui/material';
+import { MIIconButton } from '../MIIconButton';
 import { StyledTextField } from './StyledTextField';
 
 const validationIcons = {
@@ -25,6 +26,7 @@ export const MITextField: React.FC<MITextFieldProps> = ({
   error,
   success,
   fullWidth,
+  disabled,
   onDelete,
   ...props
 }) => {
@@ -35,11 +37,35 @@ export const MITextField: React.FC<MITextFieldProps> = ({
       ? validationIcons.success
       : undefined;
 
+  function getDefaultAriaLabels() {
+    if (typeof window !== 'undefined') {
+      const activeLang = window.document.documentElement.lang.trim().toLowerCase().split('-')[0];
+
+      switch (activeLang) {
+        case 'fr':
+          return 'Effacer la saisie';
+        case 'en':
+          return 'Clear input';
+        case 'es':
+          return 'Borrar entrada';
+        case 'de':
+          return 'Eingabe löschen';
+      }
+    }
+
+    return 'Pulisci input';
+  }
+
   const actionIconsAdornment = onDelete ? (
     <InputAdornment position="end">
-      <IconButton aria-label="Pulisci input" onClick={onDelete} edge="end">
+      <MIIconButton
+        aria-label={getDefaultAriaLabels()}
+        onClick={onDelete}
+        edge="end"
+        disabled={disabled}
+      >
         <CloseIcon sx={{ color: (theme) => theme.colors.neutral.black }} />
-      </IconButton>
+      </MIIconButton>
     </InputAdornment>
   ) : undefined;
 
@@ -57,6 +83,7 @@ export const MITextField: React.FC<MITextFieldProps> = ({
       {...props}
       size="medium"
       error={error}
+      disabled={disabled}
       successState={isSuccess}
       fullWidth={effectiveFullWidth}
       InputProps={{
