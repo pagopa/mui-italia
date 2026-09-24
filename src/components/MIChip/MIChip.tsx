@@ -5,7 +5,13 @@ import { ChipProps, Chip as MuiChip, styled, SxProps, useTheme } from '@mui/mate
 import { EventHandler, forwardRef, KeyboardEvent } from 'react';
 
 type AllowedMIChipColors =
-  'default' | 'error' | 'success' | 'warning' | 'highlight' | 'neutral' | 'info';
+  | 'default'
+  | 'error'
+  | 'success'
+  | 'warning'
+  | 'highlight'
+  | 'neutral'
+  | 'info';
 
 type BaseMIChipProps = Omit<ChipProps, 'color' | 'deleteIcon' | 'onClick' | 'onDelete' | 'size'> & {
   sx?: SxProps;
