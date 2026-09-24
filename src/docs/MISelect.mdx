@@ -1,0 +1,119 @@
+import { Meta, Title, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
+
+import Overview from './components/Overview';
+import Section from './components/Section';
+import SubSection from './components/SubSection';
+import * as MISelectStories from '../stories/MISelect.stories.tsx';
+
+<Meta of={MISelectStories} />
+
+<Title />
+
+<Overview>
+  <strong>MISelect</strong> e il wrapper del componente Select di MUI usato nel design system MUI
+  Italia. Mantiene il comportamento funzionale del Select MUI e applica personalizzazioni visive su
+  bordo e icona, con gestione dedicata degli stati focus ed errore.
+  <br />
+  <br />
+  Riferimento Figma:{' '}
+  <a
+    href="https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=602-7181&p=f&m=dev"
+    target="_blank"
+    rel="noreferrer"
+  >
+    MUI Italia Next - Design System / MISelect
+  </a>
+  .
+</Overview>
+
+<Section
+  title="Playground"
+  description="Usa i controlli per modificare i parametri principali del componente e verificare il risultato live."
+>
+  <Primary />
+  <Controls />
+</Section>
+
+<Section
+  title="Stati"
+  description="Panoramica degli stati piu comuni del componente: default, errore, disabilitato e sola lettura."
+>
+  <Story of={MISelectStories.States} />
+</Section>
+
+<Section
+  title="Modalita di selezione"
+  description="MISelect supporta sia selezione singola sia selezione multipla tramite la prop multiple."
+>
+  <Story of={MISelectStories.SingleAndMultiple} />
+</Section>
+
+<Section
+  title="Accessibilita"
+  description="MISelect eredita la semantica combobox/listbox da MUI Select. L accessibilita finale dipende dalla corretta configurazione delle props testuali e del contesto FormControl."
+>
+  <SubSection title="Props rilevanti">
+    <ul>
+      <li>
+        <strong>labelId</strong> e <strong>label</strong>: permettono l associazione con InputLabel
+        e contribuiscono al nome accessibile del campo.
+      </li>
+      <li>
+        <strong>name</strong> e <strong>required</strong>: vengono inoltrate all input nativo
+        interno e supportano integrazione con form e validazione.
+      </li>
+      <li>
+        <strong>error</strong>: abilita lo stato di errore e imposta aria-invalid sull input nativo.
+      </li>
+      <li>
+        <strong>readOnly</strong> e <strong>disabled</strong>: impediscono apertura/interazione del
+        menu secondo il comportamento verificato dai test.
+      </li>
+    </ul>
+  </SubSection>
+
+<SubSection title="Prop non disponibili">
+  <ul>
+    <li>
+      <strong>native</strong>: non e esposta. MISelect resta su implementazione non nativa con menu
+      MUI.
+    </li>
+    <li>
+      <strong>renderValue</strong> e <strong>MenuProps</strong>: non sono esposte nelle props
+      pubbliche del wrapper.
+    </li>
+    <li>
+      <strong>variant</strong> e <strong>size</strong>: non sono configurabili via API pubblica del
+      componente.
+    </li>
+  </ul>
+</SubSection>
+
+<SubSection title="Focus da tastiera">
+  Lo stato di focus e visibile: il bordo e l icona passano a una colorazione dedicata quando il
+  componente riceve focus. Dai test risulta inoltre che il menu puo essere aperto da tastiera con
+  ArrowDown, ArrowUp, Enter e Space.
+</SubSection>
+
+  <SubSection title="Esempio accessibile">
+    ```tsx
+    <FormControl fullWidth required error={hasError}>
+      <InputLabel id="city-select-label">Citta</InputLabel>
+      <MISelect
+        labelId="city-select-label"
+        label="Citta"
+        name="city"
+        value={city}
+        onChange={handleCityChange}
+        aria-describedby="city-select-helper"
+      >
+        <MenuItem value="rome">Roma</MenuItem>
+        <MenuItem value="milan">Milano</MenuItem>
+      </MISelect>
+      <FormHelperText id="city-select-helper">
+        {hasError ? 'Seleziona una citta valida' : 'Campo obbligatorio'}
+      </FormHelperText>
+    </FormControl>
+    ```
+  </SubSection>
+</Section>
