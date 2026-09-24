@@ -42,6 +42,13 @@ import * as MISelectStories from '../stories/MISelect.stories.tsx';
 </Section>
 
 <Section
+  title="Campo obbligatorio"
+  description="Casi di campo obbligatorio: vuoto, valorizzato, in errore e disabilitato. Impostare required sia su MIFormControl (asterisco sulla label) sia su MISelect (validazione dell input nativo)."
+>
+  <Story of={MISelectStories.Required} />
+</Section>
+
+<Section
   title="Modalita di selezione"
   description="MISelect supporta sia selezione singola sia selezione multipla tramite la prop multiple."
 >

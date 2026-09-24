@@ -46,3 +46,4 @@ export * from './TimelineNotification';
 export * from './TOSAgreement';
 export * from './Walkthrough';
 export * from './MISelect';
+export * from './MIForm';

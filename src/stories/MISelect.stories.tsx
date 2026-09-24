@@ -1,5 +1,6 @@
 import { MISelect } from '@components/MISelect';
-import { Box, FormControl, FormHelperText, InputLabel, MenuItem, Stack } from '@mui/material';
+import { MIFormControl, MIFormHelperText } from '@components/MIForm';
+import { Box, InputLabel, MenuItem, Stack } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -207,7 +208,7 @@ const meta: Meta<MISelectStoryArgs> = {
 
     return (
       <Box sx={{ minWidth: 280 }}>
-        <FormControl fullWidth error={error} disabled={disabled}>
+        <MIFormControl fullWidth error={error} disabled={disabled} required={required}>
           <InputLabel id={labelId}>{labelText}</InputLabel>
 
           <MISelect
@@ -238,8 +239,8 @@ const meta: Meta<MISelectStoryArgs> = {
             ))}
           </MISelect>
 
-          {helperText ? <FormHelperText id={helperId}>{helperText}</FormHelperText> : null}
-        </FormControl>
+          {helperText ? <MIFormHelperText id={helperId}>{helperText}</MIFormHelperText> : null}
+        </MIFormControl>
       </Box>
     );
   },
@@ -265,7 +266,7 @@ export const States: Story = {
 
     return (
       <Stack spacing={3} sx={{ minWidth: 320 }}>
-        <FormControl fullWidth>
+        <MIFormControl fullWidth>
           <InputLabel id={`${labelIdBase}-default-label`}>Default</InputLabel>
           <MISelect
             labelId={`${labelIdBase}-default-label`}
@@ -279,9 +280,9 @@ export const States: Story = {
               </MenuItem>
             ))}
           </MISelect>
-        </FormControl>
+        </MIFormControl>
 
-        <FormControl fullWidth error>
+        <MIFormControl fullWidth error>
           <InputLabel id={`${labelIdBase}-error-label`}>Errore</InputLabel>
           <MISelect
             labelId={`${labelIdBase}-error-label`}
@@ -296,10 +297,10 @@ export const States: Story = {
               </MenuItem>
             ))}
           </MISelect>
-          <FormHelperText>Selezione non valida</FormHelperText>
-        </FormControl>
+          <MIFormHelperText>Selezione non valida</MIFormHelperText>
+        </MIFormControl>
 
-        <FormControl fullWidth disabled>
+        <MIFormControl fullWidth disabled>
           <InputLabel id={`${labelIdBase}-disabled-label`}>Disabilitato</InputLabel>
           <MISelect
             labelId={`${labelIdBase}-disabled-label`}
@@ -314,9 +315,9 @@ export const States: Story = {
               </MenuItem>
             ))}
           </MISelect>
-        </FormControl>
+        </MIFormControl>
 
-        <FormControl fullWidth>
+        <MIFormControl fullWidth>
           <InputLabel id={`${labelIdBase}-readonly-label`}>Sola lettura</InputLabel>
           <MISelect
             labelId={`${labelIdBase}-readonly-label`}
@@ -331,7 +332,7 @@ export const States: Story = {
               </MenuItem>
             ))}
           </MISelect>
-        </FormControl>
+        </MIFormControl>
       </Stack>
     );
   },
@@ -348,7 +349,7 @@ export const SingleAndMultiple: Story = {
   },
   render: () => (
     <Stack spacing={3} sx={{ minWidth: 320 }}>
-      <FormControl fullWidth>
+      <MIFormControl fullWidth>
         <InputLabel id="mi-select-single-label">Selezione singola</InputLabel>
         <MISelect
           labelId="mi-select-single-label"
@@ -362,9 +363,9 @@ export const SingleAndMultiple: Story = {
             </MenuItem>
           ))}
         </MISelect>
-      </FormControl>
+      </MIFormControl>
 
-      <FormControl fullWidth>
+      <MIFormControl fullWidth>
         <InputLabel id="mi-select-multiple-label">Selezione multipla</InputLabel>
         <MISelect
           labelId="mi-select-multiple-label"
@@ -379,7 +380,106 @@ export const SingleAndMultiple: Story = {
             </MenuItem>
           ))}
         </MISelect>
-      </FormControl>
+      </MIFormControl>
     </Stack>
   ),
+};
+
+export const Required: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+    docs: {
+      description: {
+        story:
+          'Casi di campo obbligatorio: vuoto, valorizzato e in errore. La prop required su MIFormControl aggiunge l asterisco alla label, mentre su MISelect viene inoltrata all input nativo.',
+      },
+    },
+  },
+  render: () => {
+    const labelIdBase = 'mi-select-required';
+
+    return (
+      <Stack spacing={3} sx={{ minWidth: 320 }}>
+        <MIFormControl fullWidth required>
+          <InputLabel id={`${labelIdBase}-empty-label`}>Obbligatorio</InputLabel>
+          <MISelect
+            labelId={`${labelIdBase}-empty-label`}
+            label="Obbligatorio"
+            name="required-empty"
+            value=""
+            onChange={() => undefined}
+            required
+            aria-describedby={`${labelIdBase}-empty-helper`}
+          >
+            {BASIC_OPTIONS.map((item) => (
+              <MenuItem key={`required-empty-${item.value}`} value={item.value}>
+                {item.label}
+              </MenuItem>
+            ))}
+          </MISelect>
+          <MIFormHelperText id={`${labelIdBase}-empty-helper`}>Campo obbligatorio</MIFormHelperText>
+        </MIFormControl>
+
+        <MIFormControl fullWidth required>
+          <InputLabel id={`${labelIdBase}-filled-label`}>Obbligatorio valorizzato</InputLabel>
+          <MISelect
+            labelId={`${labelIdBase}-filled-label`}
+            label="Obbligatorio valorizzato"
+            name="required-filled"
+            value="2"
+            onChange={() => undefined}
+            required
+          >
+            {BASIC_OPTIONS.map((item) => (
+              <MenuItem key={`required-filled-${item.value}`} value={item.value}>
+                {item.label}
+              </MenuItem>
+            ))}
+          </MISelect>
+        </MIFormControl>
+
+        <MIFormControl fullWidth required error>
+          <InputLabel id={`${labelIdBase}-error-label`}>Obbligatorio in errore</InputLabel>
+          <MISelect
+            labelId={`${labelIdBase}-error-label`}
+            label="Obbligatorio in errore"
+            name="required-error"
+            value=""
+            onChange={() => undefined}
+            required
+            error
+            aria-describedby={`${labelIdBase}-error-helper`}
+          >
+            {BASIC_OPTIONS.map((item) => (
+              <MenuItem key={`required-error-${item.value}`} value={item.value}>
+                {item.label}
+              </MenuItem>
+            ))}
+          </MISelect>
+          <MIFormHelperText id={`${labelIdBase}-error-helper`}>
+            Seleziona un valore per proseguire
+          </MIFormHelperText>
+        </MIFormControl>
+
+        <MIFormControl fullWidth required disabled>
+          <InputLabel id={`${labelIdBase}-disabled-label`}>Obbligatorio disabilitato</InputLabel>
+          <MISelect
+            labelId={`${labelIdBase}-disabled-label`}
+            label="Obbligatorio disabilitato"
+            name="required-disabled"
+            value="1"
+            onChange={() => undefined}
+            required
+            disabled
+          >
+            {BASIC_OPTIONS.map((item) => (
+              <MenuItem key={`required-disabled-${item.value}`} value={item.value}>
+                {item.label}
+              </MenuItem>
+            ))}
+          </MISelect>
+        </MIFormControl>
+      </Stack>
+    );
+  },
 };
