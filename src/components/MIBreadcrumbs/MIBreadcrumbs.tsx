@@ -1,6 +1,6 @@
 'use client';
 
-import { ChevronRight as ChevronRightIcon } from '@mui/icons-material';
+import { ChevronRightRounded as ChevronRightIcon } from '@mui/icons-material';
 import { Theme, useMediaQuery } from '@mui/material';
 import React from 'react';
 import MIBreadcrumbItem from './MIBreadcrumbItem';
