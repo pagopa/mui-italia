@@ -4,7 +4,7 @@ import { forwardRef } from 'react';
 
 type MISwitchProps = Omit<
   SwitchProps,
-  'color' | 'size' | 'classes' | 'className' | 'style' | 'focusVisibleClassName' | 'sx'
+  'color' | 'size' | 'classes' | 'className' | 'style' | 'focusVisibleClassName'
 >;
 
 const StyledSwitch = styled(MuiSwitch)(({ theme }) => ({
