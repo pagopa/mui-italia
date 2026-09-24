@@ -44,7 +44,7 @@ interface MIAlertCtaProps {
 interface BaseAlertProps
   extends
     Pick<MUIAlertProps, 'severity'>,
-    Omit<React.HTMLAttributes<HTMLDivElement>, 'children' | 'title'> {
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'children' | 'title' | 'color'> {
   children: ReactNode;
   ctaWrapSize?: CtaWrapSize;
   sx?: MarginSxProps;
