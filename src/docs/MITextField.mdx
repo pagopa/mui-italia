@@ -10,9 +10,26 @@ import * as MITextFieldStories from '../stories/MITextField.stories.tsx';
 <Title />
 
 <Overview>
-  <strong>MITextField</strong> è il componente di input testuale per la raccolta e la validazione di
-  dati nei form. Supporta etichetta, placeholder, helper text, stato di errore/successo, icone
-  decorative e azioni contestuali come copia e pulizia del contenuto.
+  <strong>MITextField</strong> è un wrapper di <strong>MUI TextField</strong> con stile MUI Italia
+  per la raccolta di input testuali nei form. Mantiene le props di base del componente MUI, aggiunge
+  uno stato <strong>success</strong>, un’azione opzionale di pulizia tramite{' '}
+  <strong>onDelete</strong>, forza internamente la <strong>size</strong> a <strong>medium</strong> e
+  imposta <strong>fullWidth</strong> a true su viewport mobile.
+  <br />
+  <br />
+  Riferimenti:
+  <ul>
+    <li>
+      Figma:{' '}
+      <a
+        href="https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=369-5497&p=f&m=dev"
+        target="_blank"
+        rel="noreferrer"
+      >
+        MUI Italia Next - Design System (node 369:5497)
+      </a>
+    </li>
+  </ul>
 </Overview>
 
 <Section
@@ -25,23 +42,27 @@ import * as MITextFieldStories from '../stories/MITextField.stories.tsx';
 
 <Section
   title="Stati"
-  description="MITextField gestisce i principali stati di input tramite feedback visivo su bordo, helper text e icone di validazione."
+  description="MITextField gestisce stato neutro, success ed error con feedback visivo su label, bordo, helper text e icone di validazione."
 >
-  <SubSection title="Success ed Error">
-    <Story of={MITextFieldStories.MITextFieldStates} />
+  <SubSection title="Validazione">
+    <Story of={MITextFieldStories.ValidationStates} />
+  </SubSection>
+
+  <SubSection title="Disabled">
+    <Story of={MITextFieldStories.Disabled} />
   </SubSection>
 </Section>
 
 <Section
-  title="Azioni"
-  description="MITextField può esporre azioni contestuali lato input per semplificare le interazioni utente."
+  title="Adornments e azioni"
+  description="Il componente supporta startAdornment e azioni finali. La priorità dell’endAdornment è: custom InputProps.endAdornment, poi onDelete, poi icona di validazione."
 >
-  <SubSection title="Pulisci contenuto (onDelete)">
-    <Story of={MITextFieldStories.MITextFieldCloseIcon} />
+  <SubSection title="Con icona iniziale">
+    <Story of={MITextFieldStories.WithStartAdornment} />
   </SubSection>
 
-  <SubSection title="Copia contenuto (usando CopyToClipboardButton)">
-    <Story of={MITextFieldStories.MITextFieldCopyIcon} />
+  <SubSection title="Precedenza endAdornment">
+    <Story of={MITextFieldStories.EndAdornmentPriority} />
   </SubSection>
 </Section>
 
@@ -54,24 +75,67 @@ import * as MITextFieldStories from '../stories/MITextField.stories.tsx';
 
 <Section
   title="Accessibilità"
-  description="MITextField è accessibile by design, ma l’accessibilità finale dipende dalle props e dai testi forniti dal consumer."
+  description="L’accessibilità finale dipende dalla corretta valorizzazione delle props testuali e dalle informazioni fornite al campo."
 >
   <SubSection title="Props rilevanti">
     <ul>
       <li>
-        <strong>label</strong>: descrive chiaramente il campo e deve essere sempre significativo.
+        <strong>label</strong>: etichetta principale del campo, da valorizzare in modo descrittivo.
       </li>
       <li>
-        <strong>required</strong>: segnala un campo obbligatorio e abilita semantica nativa utile
-        per screen reader.
+        <strong>required</strong>: segnala il campo come obbligatorio e abilita semantica nativa.
       </li>
       <li>
-        <strong>helperText</strong>: fornisce supporto contestuale o messaggi di errore utili alla
-        compilazione.
+        <strong>helperText</strong>: supporto contestuale o messaggio di errore sotto al campo.
       </li>
       <li>
-        <strong>placeholder</strong>: è un aiuto visivo e non deve sostituire la label.
+        <strong>id</strong>, <strong>aria-label</strong>, <strong>aria-labelledby</strong> e{' '}
+        <strong>aria-describedby</strong>: disponibili perché ereditati dalle props di MUI
+        TextField.
+      </li>
+      <li>
+        <strong>disabled</strong>: quando attiva, disabilita anche il pulsante di pulizia mostrato
+        tramite <strong>onDelete</strong>, evitando un’azione raggiungibile da tastiera su un campo
+        non modificabile.
       </li>
     </ul>
+  </SubSection>
+
+<SubSection title="Prop non disponibili">
+  <ul>
+    <li>
+      <strong>size</strong>: non è esposta nelle props pubbliche perché il componente imposta sempre
+      size="medium".
+    </li>
+    <li>
+      <strong>aria-label del pulsante clear</strong>: non è configurabile via prop quando si usa
+      <strong> onDelete</strong>. L’etichetta è calcolata internamente in base alla lingua
+      dell’attributo <code>lang</code> dell’elemento <code>html</code> (supporta it, en, fr, es, de,
+      con “Pulisci input” come default).
+    </li>
+  </ul>
+</SubSection>
+
+<SubSection title="Focus da tastiera">
+  In focus, label e bordo usano colori dedicati di tema. In stato di errore, il focus mantiene i
+  colori semantici di errore.
+</SubSection>
+
+<SubSection title="Contrasto">
+  Le icone e i bordi degli stati di validazione usano token semantici di tema. Se il campo è
+  inserito su background non standard è consigliata una verifica visuale del contrasto finale.
+</SubSection>
+
+  <SubSection title="Esempio accessibile">
+    ```tsx
+    <MITextField
+      id="email"
+      label="Indirizzo email"
+      required
+      placeholder="nome.cognome@example.it"
+      helperText="Usa il formato nome.cognome@example.it"
+      aria-describedby="email-help"
+    />
+    ```
   </SubSection>
 </Section>

@@ -3,9 +3,12 @@ import { MITextField } from '@components/index';
 import { EmailOutlined as EmailOutlinedIcon } from '@mui/icons-material';
 import { Box, InputAdornment, Stack } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
 
-type MITextFieldStoryArgs = React.ComponentProps<typeof MITextField>;
+type MITextFieldStoryArgs = React.ComponentProps<typeof MITextField> & {
+  startAdornmentMode: 'none' | 'email';
+  endAdornmentMode: 'none' | 'clear' | 'copy';
+  copyValue: string;
+};
 
 const fieldSx = {
   width: {
@@ -27,73 +30,19 @@ const defaultArgs = {
   fullWidth: true,
   multiline: false,
   minRows: 3,
+  startAdornmentMode: 'none',
+  endAdornmentMode: 'none',
+  copyValue: 'nome.cognome@example.it',
 } satisfies MITextFieldStoryArgs;
-
-const examplesBaseProps = {
-  label: 'Indirizzo email',
-  placeholder: 'Inserisci il codice',
-  fullWidth: true,
-} satisfies Partial<MITextFieldStoryArgs>;
 
 const noControlsParameters = {
   controls: { hideNoControlsWarning: true },
 };
 
-const MITextFieldCloseIconExample = () => {
-  const [value, setValue] = useState('Once upon a time there was a potato in a magical land');
-
-  const onDelete = () => {
-    setValue('');
-  };
-
-  return (
-    <Stack spacing={2} sx={fieldSx}>
-      <MITextField
-        {...examplesBaseProps}
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        onDelete={onDelete}
-        success
-        placeholder="nome.cognome@example.it"
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <EmailOutlinedIcon />
-            </InputAdornment>
-          ),
-        }}
-      />
-    </Stack>
-  );
-};
-
-const MITextFieldCopyIconExample = () => {
-  const [value, setValue] = useState('Once upon a time there was a potato in a magical land');
-
-  return (
-    <Stack spacing={2} sx={fieldSx}>
-      <MITextField
-        {...examplesBaseProps}
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        success
-        placeholder="nome.cognome@example.it"
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <EmailOutlinedIcon />
-            </InputAdornment>
-          ),
-          endAdornment: <CopyToClipboardButton value={value} />,
-        }}
-      />
-    </Stack>
-  );
-};
-
 const meta: Meta<MITextFieldStoryArgs> = {
   title: 'Components/MITextField',
   component: MITextField,
+  tags: ['!dev'],
   parameters: {
     layout: 'centered',
     controls: {
@@ -108,6 +57,9 @@ const meta: Meta<MITextFieldStoryArgs> = {
         'fullWidth',
         'multiline',
         'minRows',
+        'startAdornmentMode',
+        'endAdornmentMode',
+        'copyValue',
       ],
     },
   },
@@ -154,35 +106,116 @@ const meta: Meta<MITextFieldStoryArgs> = {
       description: 'Numero minimo di righe visibili in modalità multilinea.',
       if: { arg: 'multiline', eq: true },
     },
+    startAdornmentMode: {
+      options: ['none', 'email'],
+      control: { type: 'radio' },
+      description: 'Controllo Storybook: imposta InputProps.startAdornment.',
+      table: {
+        category: 'Storybook controls',
+      },
+    },
+    endAdornmentMode: {
+      options: ['none', 'clear', 'copy'],
+      control: { type: 'radio' },
+      description:
+        'Controllo Storybook: none mostra eventuale icona di validazione, clear abilita onDelete, copy usa endAdornment custom.',
+      table: {
+        category: 'Storybook controls',
+      },
+    },
+    copyValue: {
+      control: { type: 'text' },
+      description: 'Controllo Storybook: valore usato dal pulsante di copia.',
+      if: { arg: 'endAdornmentMode', eq: 'copy' },
+      table: {
+        category: 'Storybook controls',
+      },
+    },
+    InputProps: {
+      control: false,
+    },
+    onDelete: {
+      control: false,
+      table: {
+        type: { summary: '() => void' },
+      },
+    },
   },
-  render: ({ fullWidth, ...args }) => (
-    <Box sx={fieldSx}>
-      <MITextField {...args} fullWidth={fullWidth} />
-    </Box>
-  ),
+  render: ({
+    label,
+    placeholder,
+    helperText,
+    error,
+    success,
+    required,
+    disabled,
+    fullWidth,
+    multiline,
+    minRows,
+    startAdornmentMode,
+    endAdornmentMode,
+    copyValue,
+  }) => {
+    const startAdornment =
+      startAdornmentMode === 'email' ? (
+        <InputAdornment position="start">
+          <EmailOutlinedIcon />
+        </InputAdornment>
+      ) : undefined;
+
+    const endAdornment =
+      endAdornmentMode === 'copy' ? <CopyToClipboardButton value={copyValue} /> : undefined;
+
+    const onDelete =
+      endAdornmentMode === 'clear' ? () => alert('Azione di pulizia (demo Storybook)') : undefined;
+
+    return (
+      <Box sx={fieldSx}>
+        <MITextField
+          label={label}
+          placeholder={placeholder}
+          helperText={helperText}
+          error={error}
+          success={success}
+          required={required}
+          disabled={disabled}
+          fullWidth={fullWidth}
+          multiline={multiline}
+          minRows={multiline ? minRows : undefined}
+          defaultValue={endAdornmentMode === 'copy' ? copyValue : undefined}
+          onDelete={onDelete}
+          InputProps={{
+            startAdornment,
+            endAdornment,
+          }}
+        />
+      </Box>
+    );
+  },
 };
 
 export default meta;
 
 type Story = StoryObj<MITextFieldStoryArgs>;
 
-export const Default: Story = {};
+export const Playground: Story = {};
 
-export const StartIconExample: Story = {
+export const WithStartAdornment: Story = {
   parameters: {
     ...noControlsParameters,
     docs: {
       description: {
-        story: "Esempio di campo con icona email all'inizio.",
+        story: "Esempio con startAdornment configurato con l'icona email.",
       },
     },
   },
   render: () => (
     <Box sx={fieldSx}>
       <MITextField
-        {...examplesBaseProps}
+        label="Indirizzo email"
         placeholder="nome.cognome@example.it"
         helperText="Inserisci un indirizzo email valido"
+        fullWidth
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
@@ -195,7 +228,7 @@ export const StartIconExample: Story = {
   ),
 };
 
-export const MITextFieldStates: Story = {
+export const ValidationStates: Story = {
   parameters: {
     ...noControlsParameters,
     docs: {
@@ -207,8 +240,9 @@ export const MITextFieldStates: Story = {
   render: () => (
     <Stack spacing={2} sx={fieldSx}>
       <MITextField
-        {...examplesBaseProps}
+        label="Indirizzo email"
         value="nome.cognome@example.it"
+        fullWidth
         success
         helperText="Indirizzo email valido"
         placeholder="nome.cognome@example.it"
@@ -221,8 +255,9 @@ export const MITextFieldStates: Story = {
         }}
       />
       <MITextField
-        {...examplesBaseProps}
+        label="Indirizzo email"
         error
+        fullWidth
         helperText="Formato email non valido"
         placeholder="nome.cognome@example.it"
         InputProps={{
@@ -237,28 +272,96 @@ export const MITextFieldStates: Story = {
   ),
 };
 
-export const MITextFieldCloseIcon: Story = {
-  render: () => <MITextFieldCloseIconExample />,
+export const Disabled: Story = {
+  parameters: {
+    ...noControlsParameters,
+    docs: {
+      description: {
+        story:
+          'Il campo disabilitato mantiene lo stile disabled anche sull’azione di pulizia, quando presente.',
+      },
+    },
+  },
+  render: () => (
+    <Stack spacing={2} sx={fieldSx}>
+      <MITextField
+        label="Indirizzo email"
+        fullWidth
+        disabled
+        defaultValue="nome.cognome@example.it"
+        helperText="Campo disabilitato"
+      />
+      <MITextField
+        label="Indirizzo email"
+        fullWidth
+        disabled
+        defaultValue="nome.cognome@example.it"
+        helperText="Campo disabilitato con azione di pulizia disabilitata"
+        onDelete={() => alert('Non raggiungibile perché il pulsante è disabilitato')}
+      />
+    </Stack>
+  ),
 };
 
-export const MITextFieldCopyIcon: Story = {
-  render: () => <MITextFieldCopyIconExample />,
+export const EndAdornmentPriority: Story = {
+  parameters: {
+    ...noControlsParameters,
+    docs: {
+      description: {
+        story:
+          'Ordine di precedenza di endAdornment: custom InputProps.endAdornment > onDelete > icona di validazione.',
+      },
+    },
+  },
+  render: () => (
+    <Stack spacing={2} sx={fieldSx}>
+      <MITextField
+        label="Solo validazione"
+        fullWidth
+        success
+        defaultValue="nome.cognome@example.it"
+        helperText="Con success=true è mostrata l’icona di validazione."
+      />
+      <MITextField
+        label="Azione clear"
+        fullWidth
+        success
+        defaultValue="nome.cognome@example.it"
+        helperText="Con onDelete è mostrata l’icona di pulizia."
+        onDelete={() => alert('Azione di pulizia (demo Storybook)')}
+      />
+      <MITextField
+        label="Azione copy custom"
+        fullWidth
+        success
+        defaultValue="nome.cognome@example.it"
+        helperText="Con endAdornment custom vengono sostituiti clear e validazione."
+        onDelete={() => alert('Non visibile: sovrascritto da endAdornment custom')}
+        InputProps={{ endAdornment: <CopyToClipboardButton value="nome.cognome@example.it" /> }}
+      />
+    </Stack>
+  ),
 };
 
 export const Multiline: Story = {
-  args: {
-    label: 'Descrizione',
-    placeholder: 'Inserisci una descrizione',
-    helperText: 'Massimo 500 caratteri',
-    multiline: true,
-    minRows: 4,
-    onDelete: () => {},
-  },
   parameters: {
+    ...noControlsParameters,
     docs: {
       description: {
         story: 'Configurazione multilinea per testi più lunghi.',
       },
     },
   },
+  render: () => (
+    <Box sx={fieldSx}>
+      <MITextField
+        label="Descrizione"
+        placeholder="Inserisci una descrizione"
+        helperText="Massimo 500 caratteri"
+        fullWidth
+        multiline
+        minRows={4}
+      />
+    </Box>
+  ),
 };
