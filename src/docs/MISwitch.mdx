@@ -1,4 +1,4 @@
-import { Meta, Title, Canvas, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
+import { Meta, Title, Canvas, Primary, Controls } from '@storybook/addon-docs/blocks';
 
 import Overview from './components/Overview';
 import Section from './components/Section';
@@ -10,8 +10,16 @@ import * as MISwitchStories from '../stories/MISwitch.stories.tsx';
 <Title />
 
 <Overview>
-  <strong>MISwitch</strong> è un componente utilizzabile all'interno di form pensato per richiedere
-  un input all'utente di tipo booleano.
+  <strong>MISwitch</strong> è un wrapper del componente MUI <code>Switch</code>, pensato per
+  richiedere un input booleano all'interno di form. Applica la palette del design system MUI
+  Italia (grigio/blu) allo stato unchecked/checked e non espone le props di personalizzazione
+  visiva (<code>color</code>, <code>size</code>, <code>sx</code>, <code>className</code>,{' '}
+  <code>style</code>, <code>classes</code>, <code>focusVisibleClassName</code>) per mantenere
+  coerenza con lo stile del design system.
+
+  <br/>
+
+  Riferimento Figma: [MUI Italia Next - Design System](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=295-1358&p=f&m=dev).
 </Overview>
 
 <Section
@@ -23,20 +31,78 @@ import * as MISwitchStories from '../stories/MISwitch.stories.tsx';
 </Section>
 
 <Section
-  title="Primary Checked"
-  description="Esempio di MISwitch color='primary' con stato checked='true'"
+  title="Stati"
+  description="Panoramica degli stati principali dello switch."
 >
-  <Story of={MISwitchStories.PrimaryChecked} />
+  <SubSection title="Checked">
+    <Canvas of={MISwitchStories.PrimaryChecked} />
+  </SubSection>
+
+  <SubSection title="Disabled">
+    <Canvas of={MISwitchStories.PrimaryDisabled} />
+  </SubSection>
 </Section>
 
-<Section title="Primary Disabled" description="Esempio di MISwitch nello stato disabled='true'">
-  <Story of={MISwitchStories.PrimaryDisabled} />
+<Section title="Con label" description="Esempio di MISwitch in un form con label.">
+  <Canvas of={MISwitchStories.WithLabel} />
 </Section>
 
-<Section title="With Label" description="Esempio di MISwitch in un form con label">
-  <Story of={MISwitchStories.WithLabel} />
+<Section
+  title="Con errore"
+  description="Esempio di MISwitch in un form con label e messaggio di errore, correttamente associato tramite aria-describedby."
+>
+  <Canvas of={MISwitchStories.WithError} />
 </Section>
 
-<Section title="With Error" description="Esempio di MISwitch in un form con label e un errore">
-  <Story of={MISwitchStories.WithError} />
+<Section
+  title="Accessibilità"
+  description="L'accessibilità finale dipende dalla corretta valorizzazione delle props e dall'associazione tra switch, label e messaggi di errore."
+>
+  <SubSection title="Props rilevanti">
+    <ul>
+      <li>
+        <strong>inputProps</strong>: unico modo per passare attributi ARIA (
+        <code>aria-label</code>, <code>aria-labelledby</code>, <code>aria-describedby</code>) al{' '}
+        <code>&lt;input type="checkbox"&gt;</code> sottostante, che è l'elemento da cui gli screen
+        reader leggono il nome accessibile e lo stato.
+      </li>
+      <li>
+        <strong>required</strong> e <strong>readOnly</strong>: espongono correttamente lo stato
+        richiesto/di sola lettura tramite gli attributi nativi dell'input.
+      </li>
+    </ul>
+  </SubSection>
+
+  <SubSection title="Prop non disponibili">
+    <ul>
+      <li>
+        <strong>color</strong>, <strong>size</strong>: non sono esposte. Lo switch usa sempre la
+        stessa palette (grigio/blu) e la stessa dimensione, indipendentemente dal contesto (es.
+        non è possibile ottenere una variante "error").
+      </li>
+      <li>
+        <strong>sx</strong>, <strong>className</strong>, <strong>style</strong>: non sono esposte,
+        quindi non è possibile personalizzare layout o spaziatura dell'istanza dall'esterno.
+      </li>
+    </ul>
+  </SubSection>
+
+  <SubSection title="Focus da tastiera">
+    Il componente applica uno stile custom al colore del thumb quando riceve il focus da
+    tastiera (<code>Mui-focusVisible</code>), sia nello stato unchecked (grigio) sia checked
+    (blu). Non rimuovere questo stile: aiuta l'utente a individuare l'elemento attivo durante la
+    navigazione con Tab.
+  </SubSection>
+
+  <SubSection title="Esempio accessibile">
+    ```tsx
+    <FormControlLabel
+      control={<MISwitch inputProps={{ 'aria-describedby': 'switch-error' }} />}
+      label="Notifiche"
+    />
+    <Typography id="switch-error" color="error" variant="caption">
+      Campo obbligatorio
+    </Typography>
+    ```
+  </SubSection>
 </Section>
