@@ -16,7 +16,7 @@ import { themeNext } from '../src/theme/themeNext';
 const backgrounds = {
   default: {
     name: 'default',
-    value: theme.colors.white,
+    value: theme.colors.blue[100],
   },
 } as const;
 
