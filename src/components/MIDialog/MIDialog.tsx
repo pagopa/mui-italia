@@ -20,9 +20,7 @@ const StyledDialog = styled(MuiDialog)(() => ({
   },
 }));
 
-export const MIDialog: React.FC<MIDialogProps> = (props) => {
-  return <StyledDialog {...props} />;
-};
+export const MIDialog: React.FC<MIDialogProps> = (props) => <StyledDialog {...props} />;
 
 interface MIDialogTitleProps extends DialogTitleProps {}
 
@@ -30,9 +28,7 @@ const StyledDialogTitle = styled(MuiDialogTitle)(({ theme }) => ({
   color: theme.colors.neutral.black,
 }));
 
-export const MIDialogTitle: React.FC<MIDialogTitleProps> = (props) => {
-  return <StyledDialogTitle {...props} />;
-};
+export const MIDialogTitle: React.FC<MIDialogTitleProps> = (props) => <StyledDialogTitle {...props} />;
 
 interface MIDialogContentProps extends DialogContentProps {}
 
@@ -40,9 +36,7 @@ const StyledDialogContent = styled(MuiDialogContent)(() => ({
   padding: '0 24px',
 }));
 
-export const MIDialogContent: React.FC<MIDialogContentProps> = (props) => {
-  return <StyledDialogContent {...props} />;
-};
+export const MIDialogContent: React.FC<MIDialogContentProps> = (props) => <StyledDialogContent {...props} />;
 
 interface MIDialogActionsProps extends DialogActionsProps {}
 
@@ -55,16 +49,12 @@ const StyledDialogActions = styled(MuiDialogActions)(() => ({
   },
 }));
 
-export const MIDialogActions: React.FC<MIDialogActionsProps> = (props) => {
-  return <StyledDialogActions {...props} />;
-};
+export const MIDialogActions: React.FC<MIDialogActionsProps> = (props) => <StyledDialogActions {...props} />;
 
 interface MIDialogContentTextProps extends DialogContentTextProps {}
 
 const StyledDialogContentText = styled(MuiDialogContentText)(() => ({}));
 
-export const MIDialogContentText: React.FC<MIDialogContentTextProps> = (props) => {
-  return <StyledDialogContentText {...props} />;
-};
+export const MIDialogContentText: React.FC<MIDialogContentTextProps> = (props) => <StyledDialogContentText {...props} />;
 
 export default MIDialog;

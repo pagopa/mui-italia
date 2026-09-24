@@ -14,24 +14,50 @@ import { Checkbox, FormControlLabel, IconButton, Stack, Typography } from '@mui/
 import { Meta, StoryObj } from '@storybook/react-vite';
 import React from 'react';
 
-type MIDialogStoryArgs = React.ComponentProps<typeof MIDialog>;
+type MIDialogStoryArgs = Pick<
+  React.ComponentProps<typeof MIDialog>,
+  'maxWidth' | 'fullWidth' | 'fullScreen' | 'scroll'
+>;
 
 const meta: Meta<MIDialogStoryArgs> = {
   title: 'Components/MIDialog',
   component: MIDialog,
+  argTypes: {
+    maxWidth: {
+      control: 'select',
+      options: [false, 'xs', 'sm', 'md', 'lg', 'xl'],
+    },
+    fullWidth: { control: 'boolean' },
+    fullScreen: { control: 'boolean' },
+    scroll: {
+      control: 'select',
+      options: ['paper', 'body'],
+    },
+  },
+  args: {
+    maxWidth: 'sm',
+    fullWidth: false,
+    fullScreen: false,
+    scroll: 'paper',
+  },
 };
 
 export default meta;
 
 type Story = StoryObj<MIDialogStoryArgs>;
 
-const ExampleDialog = () => {
+const ExampleDialog = (dialogProps?: MIDialogStoryArgs) => {
   const [open, setOpen] = React.useState(false);
 
   return (
     <>
       <MIButton onClick={() => setOpen(true)}>Open Dialog</MIButton>
-      <MIDialog open={open} onClose={() => setOpen(false)} aria-labelledby="example-dialog">
+      <MIDialog
+        {...dialogProps}
+        open={open}
+        onClose={() => setOpen(false)}
+        aria-labelledby="example-dialog"
+      >
         <MIDialogTitle>Dialog Title</MIDialogTitle>
         <IconButton
           onClick={() => setOpen(false)}
@@ -160,11 +186,11 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Esempio di componente Dialog',
+        story: 'Esempio di componente Dialog con controlli per maxWidth, fullWidth, fullScreen e scroll',
       },
     },
   },
-  render: () => <ExampleDialog />,
+  render: (args) => <ExampleDialog {...args} />,
 };
 
 export const SimpleDialog: Story = {
