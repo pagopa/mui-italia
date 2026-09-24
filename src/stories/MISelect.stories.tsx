@@ -10,13 +10,13 @@ type MISelectStoryArgs = React.ComponentProps<typeof MISelect> & {
   helperText: string;
   optionPreset: OptionPreset;
   selectedValue: string;
-  selectedValues: string[];
+  selectedValues: Array<string>;
 };
 
 const BASIC_OPTIONS = [
-  { value: '1', label: 'option-1' },
-  { value: '2', label: 'option-2' },
-  { value: '3', label: 'option-3' },
+  { value: '1', label: 'Option 1' },
+  { value: '2', label: 'Option 2' },
+  { value: '3', label: 'Option 3' },
 ];
 
 const STATUS_OPTIONS = [
@@ -192,7 +192,7 @@ const meta: Meta<MISelectStoryArgs> = {
     );
 
     const [single, setSingle] = useState(selectedValue);
-    const [multipleValues, setMultipleValues] = useState<string[]>(selectedValues);
+    const [multipleValues, setMultipleValues] = useState<Array<string>>(selectedValues);
 
     useEffect(() => {
       setSingle(selectedValue);
