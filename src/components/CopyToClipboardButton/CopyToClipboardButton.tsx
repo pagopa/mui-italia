@@ -82,6 +82,7 @@ export const CopyToClipboardButton: FC<CopyToClipboardProps> = ({
         {...props}
         sx={props.sx}
         aria-label={!copied ? ariaLabels.copy : ariaLabels.copied}
+        disabled={props.disabled}
       >
         {!copied && <ContentCopyIcon fontSize="small" />}
         {copied && <CheckIcon color="success" fontSize="small" />}

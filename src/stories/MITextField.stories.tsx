@@ -164,7 +164,9 @@ const meta: Meta<MITextFieldStoryArgs> = {
       ) : undefined;
 
     const endAdornment =
-      endAdornmentMode === 'copy' ? <CopyToClipboardButton value={copyValue} /> : undefined;
+      endAdornmentMode === 'copy' ? (
+        <CopyToClipboardButton value={copyValue} disabled={disabled} />
+      ) : undefined;
 
     const onDelete =
       endAdornmentMode === 'clear' ? () => alert('Azione di pulizia (demo Storybook)') : undefined;

@@ -64,7 +64,11 @@ export const MITextField: React.FC<MITextFieldProps> = ({
         edge="end"
         disabled={disabled}
       >
-        <CloseIcon sx={{ color: (theme) => theme.colors.neutral.black }} />
+        <CloseIcon
+          sx={{
+            color: (theme) => (disabled ? theme.palette.text.disabled : theme.colors.neutral.black),
+          }}
+        />
       </MIIconButton>
     </InputAdornment>
   ) : undefined;
