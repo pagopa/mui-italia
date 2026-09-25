@@ -343,14 +343,15 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
             label={selectedOptions.length}
             onDelete={handleClearValue}
             disabled={disabled}
-            role="listitem"
-            aria-setsize={1}
-            aria-posinset={1}
-            aria-label={selectionChipProps['aria-label']?.replace('%s', `${selectedOptions.length}`)}
+            aria-label={selectionChipProps['aria-label']?.replace(
+              '%s',
+              `${selectedOptions.length}`
+            )}
           />
         )}
         {showClearIcon && (
           <IconButton
+            size="small"
             onClick={handleClearValue}
             onMouseDown={(e) => e.preventDefault()}
             aria-label={clearButtonProps['aria-label']}
@@ -360,10 +361,12 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
               color: 'text.secondary',
             }}
           >
-             <Close sx ={{ 
-              width: '1.5rem',
-              height: '1.5rem',
-            }} />
+            <Close
+              sx={{
+                width: '1.5rem',
+                height: '1.5rem',
+              }}
+            />
           </IconButton>
         )}
         {showArrowIcon && (
