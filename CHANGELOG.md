@@ -1,3 +1,22 @@
+# [2.8.0-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v2.8.0-RC.1) (2026-09-25)
+
+
+### Features
+
+* **M20DS-37:** add MITextField component ([#776](https://github.com/pagopa/mui-italia/issues/776)) ([a0510f4](https://github.com/pagopa/mui-italia/commit/a0510f44a8f63dbd1f7d617d24bdbf29e4705d4b))
+* **M20DS-28:** add  switch component  ([#749](https://github.com/pagopa/mui-italia/issues/749)) ([b884175](https://github.com/pagopa/mui-italia/commit/b8841750666123f43b9b62415a9283ba59461fe6))
+
+
+### Bug Fixes
+
+* **M20DS-142:** MIAlert extends standard div HTML attributes ([#778](https://github.com/pagopa/mui-italia/issues/778)) ([400f16a](https://github.com/pagopa/mui-italia/commit/400f16ac166900412e2063c7c1d1284efc7bf46e))
+* **M20DS-138:** add null values to AutocompleteValue type definition ([#759](https://github.com/pagopa/mui-italia/issues/759)) ([38863cb](https://github.com/pagopa/mui-italia/commit/38863cb3804bf91b014de7bf36ca418bd6d6f911))
+
+
+### Chores
+
+* **M20DS-123:** Update Autocomplete component with multiSelect counter ([#771](https://github.com/pagopa/mui-italia/issues/771)) ([41a16fe](https://github.com/pagopa/mui-italia/commit/41a16fe1545bb36905ca9035623447f279f1b885))
+* add copilot instructions for automatic review ([#756](https://github.com/pagopa/mui-italia/issues/756)) ([edd6920](https://github.com/pagopa/mui-italia/commit/edd69206b2d703d34e2116367e7e727a7480dfc0))
 # [2.8.0-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.8.0-RC.0) (2026-09-15)
 
 
