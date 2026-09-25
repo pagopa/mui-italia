@@ -40,6 +40,7 @@ const MIMenuDropdown: FC<MIMenuDropdownProps> = ({
       onClose={handleClose}
       aria-labelledby="menu-dropdown"
       {...props}
+      sx={{ maxHeight: '20rem' }}
     >
       {items.map(({ label, icon, onClick: itemOnClick }, index) => {
         const isSelected = isItemSelected(label);
