@@ -1,0 +1,86 @@
+import { Meta, Title, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
+
+import Overview from './components/Overview';
+import Section from './components/Section';
+import SubSection from './components/SubSection';
+import * as MIMenuDropdownStories from '../stories/MIMenuDropdown.stories.tsx';
+
+<Meta of={MIMenuDropdownStories} />
+
+<Title />
+
+<Overview>
+  <strong>MIMenuDropdown</strong> è un menu a tendina per mostrare un insieme di azioni, con
+  supporto a icone opzionali e una voce attualmente selezionata. Il componente si basa sul Menu di
+  MUI e mantiene il comportamento di chiusura e callback coerenti con il pattern del design system.
+</Overview>
+
+<Section
+  title="Playground"
+  description="Usa i controlli per modificare la lista di voci e la voce selezionata, quindi verifica il comportamento del menu e la chiusura dell’overlay."
+>
+  <Primary />
+  <Controls />
+</Section>
+
+<Section
+  title="Stati"
+  description="Il componente permette di esporre una voce selezionata e di mostrare il menu in condizioni diverse, inclusi casi senza icone o senza elementi disponibili."
+>
+  <SubSection title="Con icone">
+    <Story of={MIMenuDropdownStories.Playground} />
+  </SubSection>
+
+{' '}
+<SubSection title="Senza icone">
+  <Story of={MIMenuDropdownStories.WithoutIcons} />
+</SubSection>
+
+  <SubSection title="Vuoto">
+    <Story of={MIMenuDropdownStories.Empty} />
+  </SubSection>
+</Section>
+
+<Section
+  title="Accessibilità"
+  description="L’accessibilità finale dipende dalla corretta valorizzazione delle props e dal contesto di utilizzo del componente."
+>
+  <SubSection title="Props rilevanti">
+    <ul>
+      <li>
+        <strong>selected</strong>: identifica la voce attualmente selezionata e viene usata per
+        evidenziarla visivamente e semanticamente.
+      </li>
+      <li>
+        <strong>items</strong>: contiene le voci del menu. Ogni voce richiede una <strong>label</strong>
+        e una callback <strong>onClick</strong>, mentre <strong>icon</strong> è opzionale.
+      </li>
+      <li>
+        <strong>handleClose</strong>: chiude il menu e deve essere collegato all’azione di chiusura del
+        contenitore del menu.
+      </li>
+    </ul>
+  </SubSection>
+
+{' '}
+<SubSection title="Comportamento del focus e della tastiera">
+  Il componente eredita il comportamento di Menu e MenuItem di MUI, inclusi la navigazione da
+  tastiera e la gestione del focus. Nel caso di interazioni con la tastiera, l’utente deve poter
+  aprire, navigare e selezionare le voci con le modalità standard del menu.
+</SubSection>
+
+  <SubSection title="Esempio accessibile">
+    ```tsx
+    <MIMenuDropdown
+      open={isOpen}
+      anchorEl={anchorEl}
+      handleClose={handleClose}
+      selected="Impostazioni"
+      items={[
+        { label: 'Profilo', onClick: handleProfile, icon: <AccountCircleRounded /> },
+        { label: 'Impostazioni', onClick: handleSettings, icon: <SettingsRounded /> },
+      ]}
+    />
+    ```
+  </SubSection>
+</Section>
