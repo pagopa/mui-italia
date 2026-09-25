@@ -130,7 +130,7 @@ const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
               value={errorCode}
               InputProps={{
                 readOnly: true,
-                endAdornment: <CopyToClipboardButton value={errorCode} sx={{ m: -0.5 }} />,
+                endAdornment: <CopyToClipboardButton value={errorCode} sx={{ p: 0.5, mr: 0 }} />,
               }}
               sx={{
                 background: theme.palette.background.paper,

@@ -1,16 +1,13 @@
 import { IconButton, IconButtonProps } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { MarginSxProps } from '@lib-types/shared.types';
 import { FC } from 'react';
 import { focusWidth } from 'theme/theme';
 import { pxToRem } from 'theme/utility';
 
-export interface MIIconButtonProps extends Pick<
+export type MIIconButtonProps = Pick<
   IconButtonProps,
-  'onClick' | 'size' | 'edge' | 'aria-label' | 'children' | 'disabled'
-> {
-  sx?: MarginSxProps;
-}
+  'onClick' | 'size' | 'edge' | 'aria-label' | 'children' | 'disabled' | 'sx'
+>;
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
   color: theme.colors.blue[500],
