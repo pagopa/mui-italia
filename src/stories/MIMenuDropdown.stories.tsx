@@ -34,7 +34,6 @@ const meta: Meta<typeof MIMenuDropdown> = {
   },
   args: {
     items,
-    selected: undefined,
   },
   argTypes: {
     items: {
@@ -46,19 +45,12 @@ const meta: Meta<typeof MIMenuDropdown> = {
         },
       },
     },
-    selected: {
-      control: 'select',
-      options: ['Profilo personale', 'Impostazioni', 'Esci'],
-      description: 'Voce attualmente selezionata nel menu.',
-    },
     handleClose: {
       control: false,
     },
   },
   render: function RenderMenuDropdown(args) {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-    const initialSelected = typeof args.selected === 'string' ? args.selected : undefined;
-    const [selected, setSelected] = useState<string | undefined>(initialSelected);
 
     const handleOpen = (event: MouseEvent<HTMLButtonElement>) => {
       setAnchorEl(event.currentTarget);
@@ -88,12 +80,10 @@ const meta: Meta<typeof MIMenuDropdown> = {
           open={Boolean(anchorEl)}
           anchorEl={anchorEl}
           handleClose={handleClose}
-          selected={selected}
           items={storyItems.map((item) => ({
             ...item,
             onClick: () => {
               item.onClick();
-              setSelected(item.label);
             },
           }))}
         />
@@ -111,13 +101,11 @@ export const Playground: Story = {};
 export const WithoutIcons: Story = {
   args: {
     items: items.map(({ label, onClick }) => ({ label, onClick })),
-    selected: 'Profilo personale',
   },
 };
 
 export const Empty: Story = {
   args: {
     items: [],
-    selected: undefined,
   },
 };

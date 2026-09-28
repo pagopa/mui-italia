@@ -32,6 +32,7 @@ import * as MIMenuDropdownStories from '../stories/MIMenuDropdown.stories.tsx';
   </SubSection>
 
 {' '}
+
 <SubSection title="Senza icone">
   <Story of={MIMenuDropdownStories.WithoutIcons} />
 </SubSection>
@@ -48,10 +49,6 @@ import * as MIMenuDropdownStories from '../stories/MIMenuDropdown.stories.tsx';
   <SubSection title="Props rilevanti">
     <ul>
       <li>
-        <strong>selected</strong>: identifica la voce attualmente selezionata e viene usata per
-        evidenziarla visivamente e semanticamente.
-      </li>
-      <li>
         <strong>items</strong>: contiene le voci del menu. Ogni voce richiede una <strong>label</strong>
         e una callback <strong>onClick</strong>, mentre <strong>icon</strong> è opzionale.
       </li>
@@ -63,6 +60,7 @@ import * as MIMenuDropdownStories from '../stories/MIMenuDropdown.stories.tsx';
   </SubSection>
 
 {' '}
+
 <SubSection title="Comportamento del focus e della tastiera">
   Il componente eredita il comportamento di Menu e MenuItem di MUI, inclusi la navigazione da
   tastiera e la gestione del focus. Nel caso di interazioni con la tastiera, l’utente deve poter
@@ -71,16 +69,41 @@ import * as MIMenuDropdownStories from '../stories/MIMenuDropdown.stories.tsx';
 
   <SubSection title="Esempio accessibile">
     ```tsx
-    <MIMenuDropdown
-      open={isOpen}
-      anchorEl={anchorEl}
-      handleClose={handleClose}
-      selected="Impostazioni"
-      items={[
-        { label: 'Profilo', onClick: handleProfile, icon: <AccountCircleRounded /> },
-        { label: 'Impostazioni', onClick: handleSettings, icon: <SettingsRounded /> },
-      ]}
-    />
+    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+
+    const handleOpen = (event: MouseEvent<HTMLButtonElement>) => {
+      setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+
+    return (
+      <>
+        <Button
+          variant="contained"
+          aria-controls={anchorEl ? 'mi-menu-dropdown' : undefined}
+          aria-haspopup="true"
+          aria-expanded={anchorEl ? 'true' : undefined}
+          onClick={handleOpen}
+        >
+          Apri menu
+        </Button>
+
+        <MIMenuDropdown
+          id="mi-menu-dropdown"
+          open={isOpen}
+          anchorEl={anchorEl}
+          handleClose={handleClose}
+          items={[
+            { label: 'Profilo', onClick: handleProfile, icon: <AccountCircleRounded /> },
+            { label: 'Impostazioni', onClick: handleSettings, icon: <SettingsRounded /> },
+          ]}
+        />
+      </>
+    );
     ```
+
   </SubSection>
 </Section>

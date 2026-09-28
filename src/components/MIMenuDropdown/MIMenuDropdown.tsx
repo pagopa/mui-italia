@@ -8,7 +8,6 @@ export type MIMenuDropdownProps = {
     icon?: ReactNode;
   }>;
   handleClose: VoidFunction;
-  selected?: string;
 } & MenuProps;
 
 const MIMenuDropdown: FC<MIMenuDropdownProps> = ({
@@ -16,7 +15,6 @@ const MIMenuDropdown: FC<MIMenuDropdownProps> = ({
   handleClose,
   open,
   anchorEl,
-  selected,
   ...props
 }) => {
   const wrapOnClick = (itemOnClick?: () => void) => (e: SyntheticEvent) => {
@@ -25,8 +23,6 @@ const MIMenuDropdown: FC<MIMenuDropdownProps> = ({
     itemOnClick?.();
     handleClose();
   };
-
-  const isItemSelected = (itemLabel: string): boolean => itemLabel === selected;
 
   return (
     <Menu
@@ -42,41 +38,31 @@ const MIMenuDropdown: FC<MIMenuDropdownProps> = ({
       {...props}
       sx={{ maxHeight: '20rem' }}
     >
-      {items.map(({ label, icon, onClick: itemOnClick }, index) => {
-        const isSelected = isItemSelected(label);
-
-        return (
-          <MenuItem
-            key={`menu-item-${index}-${label}`}
-            onClick={wrapOnClick(itemOnClick)}
-            sx={(theme) => ({
-              display: 'flex',
-              py: 1,
-              px: 2,
-              cursor: 'pointer',
-              color: theme.colors.blue[500],
-              '& .MuiListItemIcon-root': {
-                color: 'inherit',
-              },
-              '& .MuiListItemText-root': {
-                color: 'inherit',
-              },
-              '&.Mui-selected': {
-                backgroundColor: isSelected ? 'rgba(25, 118, 210, 0.08)' : 'transparent',
-                color: theme.colors.blue[500],
-              },
-              '&:hover': {
-                backgroundColor: 'rgba(0, 0, 0, 0.04)',
-              },
-            })}
-            selected={isSelected}
-            aria-selected={isSelected}
-          >
-            {icon && <ListItemIcon>{icon}</ListItemIcon>}
-            <ListItemText primary={label} />
-          </MenuItem>
-        );
-      })}
+      {items.map(({ label, icon, onClick: itemOnClick }, index) => (
+        <MenuItem
+          key={`menu-item-${index}-${label}`}
+          onClick={wrapOnClick(itemOnClick)}
+          sx={(theme) => ({
+            display: 'flex',
+            py: 1,
+            px: 2,
+            cursor: 'pointer',
+            color: theme.colors.blue[500],
+            '& .MuiListItemIcon-root': {
+              color: 'inherit',
+            },
+            '& .MuiListItemText-root': {
+              color: 'inherit',
+            },
+            '&:hover': {
+              backgroundColor: 'rgba(0, 0, 0, 0.04)',
+            },
+          })}
+        >
+          {icon && <ListItemIcon>{icon}</ListItemIcon>}
+          <ListItemText primary={label} />
+        </MenuItem>
+      ))}
     </Menu>
   );
 };
