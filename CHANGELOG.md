@@ -1,3 +1,9 @@
+# [2.8.0-RC.2](https://github.com/pagopa/mui-italia/releases/tag/v2.8.0-RC.2) (2026-09-28)
+
+
+### Bug Fixes
+
+* **M20DS-143:** fix 'SX'  CopyToCliboardButton ([#780](https://github.com/pagopa/mui-italia/issues/780)) ([e85689a](https://github.com/pagopa/mui-italia/commit/e85689a1eb047db2be922a4664262edcb172232b))
 # [2.8.0-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v2.8.0-RC.1) (2026-09-25)
 
 
