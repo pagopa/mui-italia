@@ -4,10 +4,10 @@ import { FC } from 'react';
 import { focusWidth } from 'theme/theme';
 import { pxToRem } from 'theme/utility';
 
-export type MIIconButtonProps = Pick<
+export interface MIIconButtonProps extends Pick<
   IconButtonProps,
   'onClick' | 'size' | 'edge' | 'aria-label' | 'children' | 'disabled' | 'sx'
->;
+> {}
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
   color: theme.colors.blue[500],
