@@ -17,6 +17,11 @@ const items: MIMenuDropdownProps['items'] = [
     onClick: () => console.info('Impostazioni'),
   },
   {
+    label: 'Impostazioni ImpostazioniImpostazioniImpostazioniImpostazioniImpostazioni asd',
+    icon: <SettingsRounded fontSize="small" />,
+    onClick: () => console.info('Impostazioni'),
+  },
+  {
     label: 'Esci',
     icon: <LogoutRounded fontSize="small" />,
     onClick: () => console.info('Esci'),
