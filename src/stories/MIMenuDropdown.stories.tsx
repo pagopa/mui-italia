@@ -17,7 +17,7 @@ const items: MIMenuDropdownProps['items'] = [
     onClick: () => console.info('Impostazioni'),
   },
   {
-    label: 'Impostazioni ImpostazioniImpostazioniImpostazioniImpostazioniImpostazioni asd',
+    label: 'Impostazioni',
     icon: <SettingsRounded fontSize="small" />,
     onClick: () => console.info('Impostazioni'),
   },
@@ -33,9 +33,6 @@ const meta: Meta<typeof MIMenuDropdown> = {
   component: MIMenuDropdown,
   parameters: {
     layout: 'centered',
-    controls: {
-      include: ['selected', 'items'],
-    },
   },
   args: {
     items,
@@ -50,7 +47,7 @@ const meta: Meta<typeof MIMenuDropdown> = {
         },
       },
     },
-    handleClose: {
+    onClose: {
       control: false,
     },
   },
@@ -84,7 +81,7 @@ const meta: Meta<typeof MIMenuDropdown> = {
           id="mi-menu-dropdown"
           open={Boolean(anchorEl)}
           anchorEl={anchorEl}
-          handleClose={handleClose}
+          onClose={handleClose}
           items={storyItems.map((item) => ({
             ...item,
             onClick: () => {

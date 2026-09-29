@@ -11,13 +11,13 @@ import * as MIMenuDropdownStories from '../stories/MIMenuDropdown.stories.tsx';
 
 <Overview>
   <strong>MIMenuDropdown</strong> è un menu a tendina per mostrare un insieme di azioni, con
-  supporto a icone opzionali e una voce attualmente selezionata. Il componente si basa sul Menu di
+  supporto a icone opzionali. Il componente si basa sul Menu di
   MUI e mantiene il comportamento di chiusura e callback coerenti con il pattern del design system.
 </Overview>
 
 <Section
   title="Playground"
-  description="Usa i controlli per modificare la lista di voci e la voce selezionata, quindi verifica il comportamento del menu e la chiusura dell’overlay."
+  description="Usa i controlli per modificare la lista di voci, quindi verifica il comportamento del menu e la chiusura dell’overlay."
 >
   <Primary />
   <Controls />
@@ -25,7 +25,7 @@ import * as MIMenuDropdownStories from '../stories/MIMenuDropdown.stories.tsx';
 
 <Section
   title="Stati"
-  description="Il componente permette di esporre una voce selezionata e di mostrare il menu in condizioni diverse, inclusi casi senza icone o senza elementi disponibili."
+  description="Il componente permette di mostrare il menu in condizioni diverse, inclusi casi senza icone o senza elementi disponibili."
 >
   <SubSection title="Con icone">
     <Story of={MIMenuDropdownStories.Playground} />
@@ -53,7 +53,7 @@ import * as MIMenuDropdownStories from '../stories/MIMenuDropdown.stories.tsx';
         e una callback <strong>onClick</strong>, mentre <strong>icon</strong> è opzionale.
       </li>
       <li>
-        <strong>handleClose</strong>: chiude il menu e deve essere collegato all’azione di chiusura del
+        <strong>onClose</strong>: chiude il menu e deve essere collegato all’azione di chiusura del
         contenitore del menu.
       </li>
     </ul>
@@ -95,7 +95,7 @@ import * as MIMenuDropdownStories from '../stories/MIMenuDropdown.stories.tsx';
           id="mi-menu-dropdown"
           open={isOpen}
           anchorEl={anchorEl}
-          handleClose={handleClose}
+          onClose={handleClose}
           items={[
             { label: 'Profilo', onClick: handleProfile, icon: <AccountCircleRounded /> },
             { label: 'Impostazioni', onClick: handleSettings, icon: <SettingsRounded /> },

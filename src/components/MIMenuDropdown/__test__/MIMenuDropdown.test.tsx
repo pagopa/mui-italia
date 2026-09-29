@@ -4,7 +4,7 @@ import MIMenuDropdown, { MIMenuDropdownProps } from '../MIMenuDropdown';
 const renderMenu = (props: Partial<MIMenuDropdownProps> = {}) => {
   const defaultProps: MIMenuDropdownProps = {
     anchorEl: document.body,
-    handleClose: vi.fn(),
+    onClose: vi.fn(),
     items: [
       {
         label: 'Profile',
@@ -42,7 +42,7 @@ describe('MIMenuDropdown', () => {
     const handleItemClick = vi.fn();
     const handleClose = vi.fn();
     renderMenu({
-      handleClose,
+      onClose: handleClose,
       items: [{ label: 'Settings', onClick: handleItemClick }],
     });
 
@@ -57,7 +57,7 @@ describe('MIMenuDropdown', () => {
 
   it('calls handleClose when the Escape key is pressed', () => {
     const handleClose = vi.fn();
-    renderMenu({ handleClose });
+    renderMenu({ onClose: handleClose });
 
     fireEvent.keyDown(screen.getByRole('menu'), { key: 'Escape' });
 

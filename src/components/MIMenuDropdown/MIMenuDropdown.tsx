@@ -7,12 +7,12 @@ export type MIMenuDropdownProps = {
     onClick: VoidFunction;
     icon?: ReactNode;
   }>;
-  handleClose: VoidFunction;
+  onClose: VoidFunction;
 } & MenuProps;
 
 const MIMenuDropdown: FC<MIMenuDropdownProps> = ({
   items,
-  handleClose,
+  onClose,
   open,
   anchorEl,
   ...props
@@ -21,7 +21,7 @@ const MIMenuDropdown: FC<MIMenuDropdownProps> = ({
     e.preventDefault();
 
     itemOnClick?.();
-    handleClose();
+    onClose();
   };
 
   return (
@@ -29,8 +29,9 @@ const MIMenuDropdown: FC<MIMenuDropdownProps> = ({
       open={open}
       anchorEl={anchorEl}
       anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-      onClose={handleClose}
-      aria-labelledby="menu-dropdown"
+      onClose={onClose}
+      {...props}
+      sx={{ '& .MuiDivider-root': { margin: '0!important' } }}
       MenuListProps={{ sx: { p: 0 }, ...props.MenuListProps }}
       slotProps={{
         paper: {
@@ -41,7 +42,6 @@ const MIMenuDropdown: FC<MIMenuDropdownProps> = ({
         },
         ...props.slotProps,
       }}
-      {...props}
     >
       {items.map(({ label, icon, onClick: itemOnClick }, index) => (
         <Fragment key={`menu-item-${index}-${label}`}>
@@ -65,7 +65,12 @@ const MIMenuDropdown: FC<MIMenuDropdownProps> = ({
             {icon && <ListItemIcon>{icon}</ListItemIcon>}
             <ListItemText sx={{ overflowWrap: 'break-word' }} primary={label} />
           </MenuItem>
-          {index < items.length - 1 && <Divider sx={{borderColor: (theme) => theme.colors.neutral.grey[100] , margin: '0!important'}} component="li" />}
+          {index < items.length - 1 && (
+            <Divider
+              sx={{ margin: 0, borderColor: (theme) => theme.colors.neutral.grey[100] }}
+              component="li"
+            />
+          )}
         </Fragment>
       ))}
     </Menu>
