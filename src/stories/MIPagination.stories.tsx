@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { MIPagination } from '@components/MIPagination';
-import { MenuItem, Select, Stack } from '@mui/material';
+import { MenuItem, Stack } from '@mui/material';
+import { MISelect } from '@components/MISelect';
 
 type MIPaginationStoryArgs = React.ComponentProps<typeof MIPagination>;
 
@@ -16,13 +17,13 @@ type Story = StoryObj<MIPaginationStoryArgs>;
 export const Playground: Story = {
   render: () => (
     <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'} width="100%">
-      <Select value={10}>
+      <MISelect value={10}>
         {[10, 24, 36].map((option) => (
           <MenuItem key={option} value={option}>
             {option}
           </MenuItem>
         ))}
-      </Select>
+      </MISelect>
       <MIPagination count={110} />
     </Stack>
   ),
