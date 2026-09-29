@@ -75,6 +75,11 @@ export interface AutocompleteProps<T, Multiple extends boolean | undefined>
   /** Enable multi-select mode with chips for selected options */
   multiple?: Multiple;
 
+  /** When multiple is enabled, controls whether each selected option is shown as a chip.
+   * If true, only the count of selected options is shown instead of individual chips.
+   */
+  showSelectionCountOnly?: boolean;
+
   /** Custom filtering function that overrides the default filtering behavior.
    * This must be an sync function. If you need the async filtering, set this function equal to (opts) => opts,
    * and use a state to set the options from outside
