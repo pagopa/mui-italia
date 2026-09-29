@@ -3,6 +3,7 @@
 import { Close, KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 import { Box, IconButton, Paper, Popper, TextField } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
+import { MIChip } from '@components/MIChip';
 import {
   ChangeEvent,
   FocusEvent,
@@ -48,6 +49,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
   label,
   placeholder,
   multiple = false,
+  showSelectionCountOnly = false,
   handleFiltering = filterOptionsInternal,
   disabled = false,
   required = false,
@@ -66,8 +68,8 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
   ...other // all the HTML default properties (i.e. data-testid)
 }: AutocompleteProps<T, M>) => {
   const [inputInternalValue, setInputInternalValue] = useState<string>('');
-  const [internalValue, setInternalValue] = useState<Array<T> | T | null>(
-    (multiple ? [] : null) as Array<T> | T | null
+  const [internalValue, setInternalValue] = useState<AutocompleteValue<T, M>>(
+    (multiple ? [] : null) as AutocompleteValue<T, M>
   );
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [activeIndex, setActiveIndex] = useState<number>(-1);
@@ -109,9 +111,23 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
     getOptionLabel,
   });
 
-  const hasSelectedValue = Array.isArray(currentValue)
-    ? currentValue.length > 0
-    : currentValue != null;
+  const isCurrentValueAnArray = Array.isArray(currentValue);
+
+  /**
+   * if currentValue is an array we set this variable with currentValue,
+   * otherwise we set it as [] because it will be not used as the component is not multiple
+   * The set as [] is necessary so the type could be Array<T>
+   */
+  const selectedOptions: Array<T> = isCurrentValueAnArray ? currentValue : [];
+
+  /**
+   * if currentValue is an array we set this variable as null
+   * because it will be not used as the component is multiple,
+   * otherwise we set it as currentValue
+   */
+  const singleSelectedValue: T | null = isCurrentValueAnArray ? null : (currentValue as T | null);
+
+  const hasSelectedValue = multiple ? selectedOptions.length > 0 : singleSelectedValue !== null;
 
   const setInputValue = (v: string, reason: InputChangeReason) => {
     // non controlled input
@@ -125,11 +141,12 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
   };
 
   const setAutocompleteValue = (v: T | Array<T> | null) => {
+    const typedValue = v as AutocompleteValue<T, M>;
     // non controlled autocomplete
     if (value === undefined) {
-      setInternalValue(v);
+      setInternalValue(typedValue);
     }
-    onChange?.(v as AutocompleteValue<T, M>);
+    onChange?.(typedValue);
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -146,18 +163,18 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
       return;
     }
 
-    if (multiple && Array.isArray(currentValue)) {
-      const isAlreadySelected = currentValue.some((selected) =>
+    if (multiple) {
+      const isAlreadySelected = selectedOptions.some((selected) =>
         isOptionEqualToValue(selected, option)
       );
 
       let newSelectedOptions;
       if (isAlreadySelected) {
-        newSelectedOptions = currentValue.filter(
+        newSelectedOptions = selectedOptions.filter(
           (selected) => !isOptionEqualToValue(selected, option)
         );
       } else {
-        newSelectedOptions = [...currentValue, option];
+        newSelectedOptions = [...selectedOptions, option];
       }
       setInputValue('', 'selectOption');
       setAutocompleteValue(newSelectedOptions);
@@ -173,8 +190,8 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
       return;
     }
 
-    if (multiple && Array.isArray(currentValue)) {
-      const newSelectedOptions = currentValue.filter(
+    if (multiple) {
+      const newSelectedOptions = selectedOptions.filter(
         (option) => !isOptionEqualToValue(option, optionToRemove)
       );
       setAutocompleteValue(newSelectedOptions);
@@ -276,7 +293,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
   };
 
   const getStartInputAdornment = () => {
-    if (!StartIcon && (!multiple || (Array.isArray(currentValue) && currentValue.length === 0))) {
+    if (!StartIcon && (!multiple || selectedOptions.length === 0)) {
       return undefined;
     }
 
@@ -289,9 +306,9 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
             }}
           />
         )}
-        {multiple && Array.isArray(currentValue) && currentValue.length > 0 && (
+        {multiple && selectedOptions.length > 0 && !showSelectionCountOnly && (
           <MultiSelectChips
-            selectedOptions={currentValue}
+            selectedOptions={selectedOptions}
             handleChipDelete={handleChipDelete}
             disabled={disabled}
             getOptionLabel={getOptionLabel}
@@ -306,8 +323,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
   };
 
   const getEndInputAdornment = () => {
-    const showClearIcon =
-      currentInputValue || (Array.isArray(currentValue) ? currentValue.length > 0 : currentValue);
+    const showClearIcon = (currentInputValue || hasSelectedValue) && !showSelectionCountOnly;
     const showArrowIcon = !toggleButtonProps.hidden;
 
     if ((!showClearIcon && !showArrowIcon) || disabled) {
@@ -322,6 +338,17 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
           gap: 0.5,
         }}
       >
+        {multiple && selectedOptions.length > 0 && showSelectionCountOnly && (
+          <MIChip
+            label={selectedOptions.length}
+            onDelete={handleClearValue}
+            disabled={disabled}
+            aria-label={selectionChipProps['aria-label']?.replace(
+              '%s',
+              `${selectedOptions.length}`
+            )}
+          />
+        )}
         {showClearIcon && (
           <IconButton
             size="small"
@@ -334,7 +361,12 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
               color: 'text.secondary',
             }}
           >
-            <Close />
+            <Close
+              sx={{
+                width: '1.5rem',
+                height: '1.5rem',
+              }}
+            />
           </IconButton>
         )}
         {showArrowIcon && (
@@ -371,7 +403,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
       );
       optionElement?.scrollIntoView({ block: 'nearest' });
     }
-  }, [activeIndex, isOpen, disabled]);
+  }, [activeIndex, isOpen, disabled, listboxId]);
 
   return (
     <>
@@ -385,9 +417,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
           onClick={() => setInputFocus(true)}
           onKeyDown={handleKeyDown}
           label={label}
-          placeholder={
-            multiple && Array.isArray(currentValue) && currentValue.length > 0 ? '' : placeholder
-          }
+          placeholder={multiple && selectedOptions.length > 0 ? '' : placeholder}
           variant="outlined"
           autoComplete="off"
           disabled={disabled}
@@ -518,11 +548,10 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
        */}
       <Box aria-live="polite" role="status" sx={{ ...visuallyHidden }} aria-atomic="true">
         {loading && announcementBoxProps.loadingText}
-        {Array.isArray(currentValue) &&
-          currentValue.length > 0 &&
+        {selectedOptions.length > 0 &&
           `${announcementBoxProps.selectionText?.replace(
             '%s',
-            currentValue.map((opt) => getOptionLabel(opt)).join(', ')
+            selectedOptions.map((opt) => getOptionLabel(opt)).join(', ')
           )}`}
       </Box>
     </>
