@@ -1,4 +1,4 @@
-import { Meta, Title, Canvas, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
+import { Meta, Title, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
 
 import Overview from './components/Overview';
 import Section from './components/Section';
@@ -20,6 +20,13 @@ import * as MIPaginationStories from '../stories/MIPagination.stories.tsx';
 >
   <Primary />
   <Controls />
+</Section>
+
+<Section
+  title="Default"
+  description="Configurazione base del componente, utile per esplorare rapidamente le prop tramite i Controls."
+>
+  <Story of={MIPaginationStories.Default} />
 </Section>
 
 <Section
