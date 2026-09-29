@@ -98,16 +98,13 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Playground: Story = {};
-
+export const Playground: Story = {
+  tags: ['!dev'],
+};
 export const WithoutIcons: Story = {
+  tags: ['!dev'],
   args: {
     items: items.map(({ label, onClick }) => ({ label, onClick })),
   },
 };
 
-export const Empty: Story = {
-  args: {
-    items: [],
-  },
-};
