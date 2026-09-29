@@ -169,6 +169,21 @@ describe('MISelect', () => {
     expect(onChange.mock.calls[0][0].target.value).toEqual(['1', '2']);
   });
 
+  it('supports a custom renderValue prop', () => {
+    render(
+      <MISelect
+        multiple
+        value={['1', '2']}
+        onChange={vi.fn()}
+        renderValue={(selected) => `${(selected as Array<string>).length} selected`}
+      >
+        {options}
+      </MISelect>
+    );
+
+    expect(screen.getByRole('combobox')).toHaveTextContent('2 selected');
+  });
+
   it('does not open when disabled', () => {
     const onOpen = vi.fn();
     render(

@@ -1,3 +1,5 @@
+'use client';
+
 import { KeyboardArrowDown } from '@mui/icons-material';
 import { Select as MuiSelect, type SelectProps, styled } from '@mui/material';
 import { forwardRef } from 'react';
@@ -14,7 +16,6 @@ export type MISelectProps = Omit<
   | 'inputProps'
   | 'MenuProps'
   | 'native'
-  | 'renderValue'
   | 'SelectDisplayProps'
   | 'sx'
   | 'variant'

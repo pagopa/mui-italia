@@ -1,8 +1,78 @@
+import { MIChip } from '@components/MIChip';
 import { MISelect } from '@components/MISelect';
 import { MIFormControl, MIFormHelperText } from '@components/MIForm';
-import { Box, InputLabel, MenuItem, Stack } from '@mui/material';
+import { AccountBalance as AccountBalanceIcon, ReportRounded as ReportRoundedIcon } from '@mui/icons-material';
+import { Box, InputAdornment, InputLabel, MenuItem, Stack, type SelectChangeEvent } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useEffect, useMemo, useState } from 'react';
+import {
+  Children,
+  isValidElement,
+  useEffect,
+  useMemo,
+  useState,
+  type MouseEvent,
+  type ReactNode,
+} from 'react';
+
+const getOptionLabel = (children: ReactNode, value: unknown): ReactNode => {
+  let label: ReactNode = value as ReactNode;
+
+  Children.forEach(children, (child) => {
+    const childProps = isValidElement(child)
+      ? (child.props as { value?: unknown; children?: ReactNode })
+      : undefined;
+
+    if (childProps && childProps.value === value) {
+      label = childProps.children;
+    }
+  });
+
+  return label;
+};
+
+type ChipsRenderValueOptions = {
+  children: ReactNode;
+  value: Array<unknown>;
+  onChange: (event: SelectChangeEvent<unknown>) => void;
+  name?: string;
+  getChipDeleteAriaLabel?: (label: ReactNode) => string;
+};
+
+// Composes a Select renderValue that shows selected options as removable MIChip.
+const createChipsRenderValue = ({
+  children,
+  value,
+  onChange,
+  name,
+  getChipDeleteAriaLabel,
+}: ChipsRenderValueOptions) =>
+  function ChipsRenderValue(selected: unknown) {
+    const handleDelete = (removedValue: unknown) => (event: MouseEvent) => {
+      event.stopPropagation();
+      onChange({
+        target: { value: value.filter((item) => item !== removedValue), name },
+      } as SelectChangeEvent<unknown>);
+    };
+
+    return (
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+        {(selected as Array<unknown>).map((selectedValue) => {
+          const label = getOptionLabel(children, selectedValue);
+
+          return (
+            <MIChip
+              key={String(selectedValue)}
+              label={label}
+              color="neutral"
+              aria-label={getChipDeleteAriaLabel?.(label)}
+              onMouseDown={(event) => event.stopPropagation()}
+              onDelete={handleDelete(selectedValue)}
+            />
+          );
+        })}
+      </Box>
+    );
+  };
 
 type OptionPreset = 'basic' | 'status';
 
@@ -194,17 +264,30 @@ const meta: Meta<MISelectStoryArgs> = {
 
     const [single, setSingle] = useState(selectedValue);
     const [multipleValues, setMultipleValues] = useState<Array<string>>(selectedValues);
+    const [isOpen, setIsOpen] = useState(open);
 
     useEffect(() => {
       setSingle(selectedValue);
     }, [selectedValue]);
 
     useEffect(() => {
-      setMultipleValues(selectedValues);
+      setMultipleValues(Array.isArray(selectedValues) ? selectedValues : []);
     }, [selectedValues]);
+
+    useEffect(() => {
+      setIsOpen(open);
+    }, [open]);
 
     const labelId = 'mi-select-playground-label';
     const helperId = helperText ? 'mi-select-playground-helper' : undefined;
+    // Guards against a stale/mismatched value shape while the multiple arg is toggling.
+    const value = multiple
+      ? Array.isArray(multipleValues)
+        ? multipleValues
+        : []
+      : Array.isArray(single)
+        ? ''
+        : single;
 
     return (
       <Box sx={{ minWidth: 280 }}>
@@ -220,8 +303,10 @@ const meta: Meta<MISelectStoryArgs> = {
             error={error}
             required={required}
             name={name}
-            open={open}
-            value={multiple ? multipleValues : single}
+            open={isOpen}
+            onOpen={() => setIsOpen(true)}
+            onClose={() => setIsOpen(false)}
+            value={value}
             onChange={(event) => {
               if (multiple) {
                 const next = event.target.value;
@@ -290,6 +375,7 @@ export const States: Story = {
             value=""
             onChange={() => undefined}
             error
+            aria-describedby={`${labelIdBase}-error-helper`}
           >
             {BASIC_OPTIONS.map((item) => (
               <MenuItem key={`error-${item.value}`} value={item.value}>
@@ -297,7 +383,13 @@ export const States: Story = {
               </MenuItem>
             ))}
           </MISelect>
-          <MIFormHelperText>Selezione non valida</MIFormHelperText>
+          <MIFormHelperText
+            id={`${labelIdBase}-error-helper`}
+            sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
+          >
+            <ReportRoundedIcon color="error" fontSize="small" />
+            Selezione non valida
+          </MIFormHelperText>
         </MIFormControl>
 
         <MIFormControl fullWidth disabled>
@@ -383,6 +475,132 @@ export const SingleAndMultiple: Story = {
       </MIFormControl>
     </Stack>
   ),
+};
+
+export const WithDecorativeIcon: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+    docs: {
+      description: {
+        story:
+          'Icona contestuale a sinistra tramite startAdornment, negli stati default ed errore.',
+      },
+    },
+  },
+  render: () => {
+    const labelIdBase = 'mi-select-icon';
+
+    return (
+      <Stack spacing={3} sx={{ minWidth: 320 }}>
+        <MIFormControl fullWidth>
+          <InputLabel id={`${labelIdBase}-default-label`}>Ente</InputLabel>
+          <MISelect
+            labelId={`${labelIdBase}-default-label`}
+            label="Ente"
+            value="1"
+            onChange={() => undefined}
+            startAdornment={
+              <InputAdornment position="start">
+                <AccountBalanceIcon />
+              </InputAdornment>
+            }
+          >
+            {BASIC_OPTIONS.map((item) => (
+              <MenuItem key={`icon-default-${item.value}`} value={item.value}>
+                {item.label}
+              </MenuItem>
+            ))}
+          </MISelect>
+        </MIFormControl>
+
+        <MIFormControl fullWidth error>
+          <InputLabel id={`${labelIdBase}-error-label`}>Ente</InputLabel>
+          <MISelect
+            labelId={`${labelIdBase}-error-label`}
+            label="Ente"
+            value=""
+            onChange={() => undefined}
+            error
+            aria-describedby={`${labelIdBase}-error-helper`}
+            startAdornment={
+              <InputAdornment position="start">
+                <AccountBalanceIcon />
+              </InputAdornment>
+            }
+          >
+            {BASIC_OPTIONS.map((item) => (
+              <MenuItem key={`icon-error-${item.value}`} value={item.value}>
+                {item.label}
+              </MenuItem>
+            ))}
+          </MISelect>
+          <MIFormHelperText
+            id={`${labelIdBase}-error-helper`}
+            sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
+          >
+            <ReportRoundedIcon color="error" fontSize="small" />
+            Some details error
+          </MIFormHelperText>
+        </MIFormControl>
+      </Stack>
+    );
+  },
+};
+
+export const MultipleWithChips: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+    docs: {
+      description: {
+        story:
+          'Selezione multipla con valori mostrati come MIChip rimovibili tramite la prop renderValue, icona contestuale e campo obbligatorio. Ogni chip espone un pulsante di rimozione che aggiorna la selezione senza aprire il menu.',
+      },
+    },
+  },
+  render: function MultipleWithChipsExample() {
+    const labelId = 'mi-select-multiple-chips-label';
+    const [values, setValues] = useState<Array<string>>(['1', '2']);
+
+    const handleChange = (event: SelectChangeEvent<unknown>) => {
+      setValues(event.target.value as Array<string>);
+    };
+
+    const chipOptions = BASIC_OPTIONS.map((item) => (
+      <MenuItem key={`multiple-chips-${item.value}`} value={item.value}>
+        {item.label}
+      </MenuItem>
+    ));
+
+    return (
+      <Box sx={{ minWidth: 320 }}>
+        <MIFormControl fullWidth required>
+          <InputLabel id={labelId}>Label text</InputLabel>
+          <MISelect
+            labelId={labelId}
+            label="Label text"
+            required
+            multiple
+            value={values}
+            onChange={handleChange}
+            renderValue={createChipsRenderValue({
+              children: chipOptions,
+              value: values,
+              onChange: handleChange,
+              name: 'multiple-chips',
+              getChipDeleteAriaLabel: (label) => `Rimuovi ${label}`,
+            })}
+            startAdornment={
+              <InputAdornment position="start">
+                <AccountBalanceIcon />
+              </InputAdornment>
+            }
+          >
+            {chipOptions}
+          </MISelect>
+        </MIFormControl>
+      </Box>
+    );
+  },
 };
 
 export const Required: Story = {

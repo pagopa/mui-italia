@@ -42,6 +42,13 @@ import * as MISelectStories from '../stories/MISelect.stories.tsx';
 </Section>
 
 <Section
+  title="Icona contestuale"
+  description="Icona decorativa a sinistra tramite la prop startAdornment di MUI Select, negli stati default ed errore."
+>
+  <Story of={MISelectStories.WithDecorativeIcon} />
+</Section>
+
+<Section
   title="Campo obbligatorio"
   description="Casi di campo obbligatorio: vuoto, valorizzato, in errore e disabilitato. Impostare required sia su MIFormControl (asterisco sulla label) sia su MISelect (validazione dell input nativo)."
 >
@@ -53,6 +60,13 @@ import * as MISelectStories from '../stories/MISelect.stories.tsx';
   description="MISelect supporta sia selezione singola sia selezione multipla tramite la prop multiple."
 >
   <Story of={MISelectStories.SingleAndMultiple} />
+</Section>
+
+<Section
+  title="Selezione multipla con chip rimovibili"
+  description="Icona contestuale, campo obbligatorio e valori selezionati come MIChip rimovibili, composti nella story tramite la prop renderValue di MISelect. Il click sul pulsante di rimozione aggiorna la selezione senza aprire il menu."
+>
+  <Story of={MISelectStories.MultipleWithChips} />
 </Section>
 
 <Section
@@ -76,6 +90,12 @@ import * as MISelectStories from '../stories/MISelect.stories.tsx';
         <strong>readOnly</strong> e <strong>disabled</strong>: impediscono apertura/interazione del
         menu secondo il comportamento verificato dai test.
       </li>
+      <li>
+        <strong>renderValue</strong>: inoltrata direttamente a MUI Select. MISelect non impone
+        alcuna visualizzazione predefinita per la modalita multipla: per mostrare i valori
+        selezionati come <strong>MIChip</strong> rimovibili, componi tu stesso la funzione da
+        passare a renderValue (vedi la story <em>Selezione multipla con chip rimovibili</em>).
+      </li>
     </ul>
   </SubSection>
 
@@ -86,8 +106,7 @@ import * as MISelectStories from '../stories/MISelect.stories.tsx';
       MUI.
     </li>
     <li>
-      <strong>renderValue</strong> e <strong>MenuProps</strong>: non sono esposte nelle props
-      pubbliche del wrapper.
+      <strong>MenuProps</strong>: non e esposta nelle props pubbliche del wrapper.
     </li>
     <li>
       <strong>variant</strong> e <strong>size</strong>: non sono configurabili via API pubblica del
