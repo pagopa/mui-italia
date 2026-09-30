@@ -1,4 +1,4 @@
-import { Meta, Title, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
+import { Meta, Title, Primary, Controls, Story, Canvas } from '@storybook/addon-docs/blocks';
 
 import Overview from './components/Overview';
 import Section from './components/Section';
@@ -10,14 +10,26 @@ import * as MIMenuDropdownStories from '../stories/MIMenuDropdown.stories.tsx';
 <Title />
 
 <Overview>
-  <strong>MIMenuDropdown</strong> è un menu a tendina per mostrare un insieme di azioni, con
-  supporto a icone opzionali. Il componente si basa sul Menu di
-  MUI e mantiene il comportamento di chiusura e callback coerenti con il pattern del design system.
+  <strong>MIMenuDropdown</strong> è il pattern per mostrare un insieme di azioni in un menu a
+  tendina, ottenuto componendo <strong>MIMenu</strong>, <strong>MIMenuItem</strong> e{' '}
+  <strong>MIMenuDivider</strong>. I tre componenti sono wrapper puramente di stile su Menu,
+  MenuItem e Divider di MUI e non gestiscono logica di apertura/chiusura o di navigazione:
+  restano a carico del consumatore, che li orchestra tramite children.
 </Overview>
 
 <Section
+  title="Riferimenti"
+  description="Risorse utili per confrontare implementazione e specifiche."
+>
+  <ul>
+    <li>🎨 Link Figma: [MenuDropdown](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=3262-40787&m=dev) </li>
+    <li>💻 Codice sorgente: {/* TODO: confermare con lo sviluppatore */}</li>
+  </ul>
+</Section>
+
+<Section
   title="Playground"
-  description="Usa i controlli per modificare la lista di voci, quindi verifica il comportamento del menu e la chiusura dell’overlay."
+  description="Usa i controlli per modificare il comportamento del focus di MIMenu, quindi verifica il comportamento del menu e la chiusura dell’overlay."
 >
   <Primary />
   <Controls />
@@ -25,32 +37,37 @@ import * as MIMenuDropdownStories from '../stories/MIMenuDropdown.stories.tsx';
 
 <Section
   title="Stati"
-  description="Il componente permette di mostrare il menu in condizioni diverse, inclusi casi senza icone o senza elementi disponibili."
+  description="Il pattern permette di comporre il menu con o senza icone, semplicemente omettendo la prop startIcon su MIMenuItem."
 >
   <SubSection title="Con icone">
-    <Story of={MIMenuDropdownStories.Playground} />
+    <Canvas of={MIMenuDropdownStories.Playground} />
   </SubSection>
-
-{' '}
-
 <SubSection title="Senza icone">
-  <Story of={MIMenuDropdownStories.WithoutIcons} />
+  <Canvas of={MIMenuDropdownStories.WithoutIcons} />
 </SubSection>
 </Section>
 
 <Section
   title="Accessibilità"
-  description="L’accessibilità finale dipende dalla corretta valorizzazione delle props e dal contesto di utilizzo del componente."
+  description="L’accessibilità finale dipende dalla corretta valorizzazione delle props e dal contesto di utilizzo dei componenti."
 >
   <SubSection title="Props rilevanti">
     <ul>
       <li>
-        <strong>items</strong>: contiene le voci del menu. Ogni voce richiede una <strong>label</strong>
-        e una callback <strong>onClick</strong>, mentre <strong>icon</strong> è opzionale.
+        <strong>MIMenuItem</strong>: richiede una <strong>label</strong> e un <strong>onClick</strong>,
+        mentre <strong>startIcon</strong> è opzionale.
       </li>
       <li>
-        <strong>onClose</strong>: chiude il menu e deve essere collegato all’azione di chiusura del
-        contenitore del menu.
+        <strong>MIMenuDivider</strong>: separa visivamente gruppi di voci del menu.
+      </li>
+      <li>
+        <strong>MIMenu</strong>: espone le props di Menu di MUI, inclusi <strong>open</strong>,{' '}
+        <strong>anchorEl</strong> e <strong>onClose</strong>, quest’ultimo da collegare all’azione di
+        chiusura del contenitore del menu.
+      </li>
+      <li>
+        <strong>variant</strong> e <strong>autoFocus</strong>/<strong>disableAutoFocusItem</strong>:
+        controllano dove cade il focus quando il menu si apre.
       </li>
     </ul>
   </SubSection>
@@ -58,48 +75,32 @@ import * as MIMenuDropdownStories from '../stories/MIMenuDropdown.stories.tsx';
 {' '}
 
 <SubSection title="Comportamento del focus e della tastiera">
-  Il componente eredita il comportamento di Menu e MenuItem di MUI, inclusi la navigazione da
+  I componenti ereditano il comportamento di Menu e MenuItem di MUI, inclusi la navigazione da
   tastiera e la gestione del focus. Nel caso di interazioni con la tastiera, l’utente deve poter
-  aprire, navigare e selezionare le voci con le modalità standard del menu.
+  aprire, navigare e selezionare le voci con le modalità standard del menu. Poiché MIMenuItem non
+  chiude automaticamente il menu, l’onClick di ogni voce deve invocare esplicitamente onClose.
 </SubSection>
 
-  <SubSection title="Esempio accessibile">
-    ```tsx
-    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+ 
+</Section>
 
-    const handleOpen = (event: MouseEvent<HTMLButtonElement>) => {
-      setAnchorEl(event.currentTarget);
-    };
+<Section
+  title="Note per gli sviluppatori"
+  description="Indicazioni tecniche per integrare correttamente il pattern."
+>
+  MIMenu, MIMenuItem e MIMenuDivider sono componenti puramente di stile: non validano i children,
+  non gestiscono lo stato di apertura/chiusura e non intercettano il click sulle voci. È
+  responsabilità del consumatore gestire `anchorEl`/`open` (tipicamente con `useState`) e chiudere
+  il menu all’interno di ogni `onClick` di `MIMenuItem`. Per il resto, i componenti inoltrano
+  fedelmente le props di `Menu`, `MenuItem` e `Divider` di MUI.
+</Section>
 
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
-
-    return (
-      <>
-        <Button
-          variant="contained"
-          aria-controls={anchorEl ? 'mi-menu-dropdown' : undefined}
-          aria-haspopup="true"
-          aria-expanded={anchorEl ? 'true' : undefined}
-          onClick={handleOpen}
-        >
-          Apri menu
-        </Button>
-
-        <MIMenuDropdown
-          id="mi-menu-dropdown"
-          open={isOpen}
-          anchorEl={anchorEl}
-          onClose={handleClose}
-          items={[
-            { label: 'Profilo', onClick: handleProfile, icon: <AccountCircleRounded /> },
-            { label: 'Impostazioni', onClick: handleSettings, icon: <SettingsRounded /> },
-          ]}
-        />
-      </>
-    );
-    ```
-
-  </SubSection>
+<Section
+  title="Note per i designer"
+  description="Informazioni utili per la revisione visuale e il confronto con Figma."
+>
+  Il Paper del menu ha larghezza fissa a 17rem (272px) e angoli arrotondati coerenti con il design
+  system, per questo gli snapshot Chromatic sono limitati alle risoluzioni più piccole. Il
+  divisore tra le voci non ha margini verticali, mentre ogni voce ha un padding verticale di 8px
+  (theme.spacing(1)).
 </Section>
