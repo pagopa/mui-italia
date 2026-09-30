@@ -1,8 +1,8 @@
-import { MIMenuItem } from '@components/MIMenuItem';
 import { useState } from 'react';
 
 import { fireEvent, render, screen, waitFor } from '../../../test-utils';
 import MIMenu, { MIMenuProps } from '../MIMenu';
+import MIMenuItem from '../MIMenuItem/MIMenuItem';
 
 const renderMenu = (props: Partial<MIMenuProps> = {}) => {
   const defaultProps: MIMenuProps = {

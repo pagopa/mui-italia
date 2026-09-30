@@ -4,14 +4,12 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { breakpointsChromaticValues } from '@theme';
 import { MouseEvent, useState } from 'react';
 
-import { MIMenu } from '@components/MIMenu';
-import { MIMenuDivider } from '@components/MIMenuDivider';
-import { MIMenuItem } from '@components/MIMenuItem';
+import { MIMenu, MIMenuDivider, MIMenuItem } from '@components/MIMenu';
 
 const componentMaxWidth = 400;
 
 const meta: Meta<typeof MIMenu> = {
-  title: 'Components/MIMenuDropdown',
+  title: 'Components/MIMenu',
   component: MIMenu,
   tags: ['!dev'],
   parameters: {
@@ -59,7 +57,7 @@ const meta: Meta<typeof MIMenu> = {
       control: false,
     },
   },
-  render: function RenderMenuDropdown({ variant, autoFocus, disableAutoFocusItem }) {
+  render: function RenderMIMMenu({ variant, autoFocus, disableAutoFocusItem }) {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
     const handleOpen = (event: MouseEvent<HTMLButtonElement>) => {

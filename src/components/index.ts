@@ -24,8 +24,6 @@ export * from './MIButton';
 export * from './MIChip';
 export * from './MIIconButton';
 export * from './MIMenu';
-export * from './MIMenuDivider';
-export * from './MIMenuItem';
 export * from './MIPaper';
 export * from './MISnackbar';
 export * from './MISpidSelectOIDialog';

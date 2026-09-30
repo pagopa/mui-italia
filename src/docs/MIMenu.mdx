@@ -3,14 +3,14 @@ import { Meta, Title, Primary, Controls, Story, Canvas } from '@storybook/addon-
 import Overview from './components/Overview';
 import Section from './components/Section';
 import SubSection from './components/SubSection';
-import * as MIMenuDropdownStories from '../stories/MIMenuDropdown.stories.tsx';
+import * as MIMenuStories from '../stories/MIMenu.stories.tsx';
 
-<Meta of={MIMenuDropdownStories} />
+<Meta of={MIMenuStories} />
 
 <Title />
 
 <Overview>
-  <strong>MIMenuDropdown</strong> è il pattern per mostrare un insieme di azioni in un menu a
+  <strong>MIMenu</strong> è il pattern per mostrare un insieme di azioni in un menu a
   tendina, ottenuto componendo <strong>MIMenu</strong>, <strong>MIMenuItem</strong> e{' '}
   <strong>MIMenuDivider</strong>. I tre componenti sono wrapper puramente di stile su Menu,
   MenuItem e Divider di MUI e non gestiscono logica di apertura/chiusura o di navigazione:
@@ -22,7 +22,7 @@ import * as MIMenuDropdownStories from '../stories/MIMenuDropdown.stories.tsx';
   description="Risorse utili per confrontare implementazione e specifiche."
 >
   <ul>
-    <li>🎨 Link Figma: [MenuDropdown](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=3262-40787&m=dev) </li>
+    <li>🎨 Link Figma: [MIMenu](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=3262-40787&m=dev) </li>
     <li>💻 Codice sorgente: {/* TODO: confermare con lo sviluppatore */}</li>
   </ul>
 </Section>
@@ -40,10 +40,10 @@ import * as MIMenuDropdownStories from '../stories/MIMenuDropdown.stories.tsx';
   description="Il pattern permette di comporre il menu con o senza icone, semplicemente omettendo la prop startIcon su MIMenuItem."
 >
   <SubSection title="Con icone">
-    <Canvas of={MIMenuDropdownStories.Playground} />
+    <Canvas of={MIMenuStories.Playground} />
   </SubSection>
 <SubSection title="Senza icone">
-  <Canvas of={MIMenuDropdownStories.WithoutIcons} />
+  <Canvas of={MIMenuStories.WithoutIcons} />
 </SubSection>
 </Section>
 
