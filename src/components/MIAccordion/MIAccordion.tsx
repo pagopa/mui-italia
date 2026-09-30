@@ -31,9 +31,9 @@ const MIAccordion = forwardRef<HTMLDivElement, MIAccordionProps>((props, ref) =>
     ...other
   } = props;
 
-  // Props outside the public API (style, className, classes…) are dropped even when passed without type checking; data-* attributes are kept for tests and analytics
-  const dataAttributes = Object.fromEntries(
-    Object.entries(other).filter(([key]) => key.startsWith('data-'))
+  // Props outside the public API (style, className, classes…) are dropped even when passed without type checking; aria-* and data-* attributes are forwarded to the root
+  const htmlAttributes = Object.fromEntries(
+    Object.entries(other).filter(([key]) => key.startsWith('aria-') || key.startsWith('data-'))
   );
 
   const buttonId = useId();
@@ -67,7 +67,7 @@ const MIAccordion = forwardRef<HTMLDivElement, MIAccordionProps>((props, ref) =>
       elevation={0}
       square
       sx={sx}
-      {...dataAttributes}
+      {...htmlAttributes}
     >
       <MIAccordionHeading
         level={headingLevel}

@@ -226,7 +226,7 @@ describe('MIAccordion', () => {
     expect(screen.getByTestId('custom-skeleton')).toBeInTheDocument();
   });
 
-  it('forwards id and data attributes but drops props outside the public API', () => {
+  it('forwards id, aria and data attributes but drops props outside the public API', () => {
     // @ts-expect-error style is not part of the public API
     const withStyle: MIAccordionProps = { title: TITLE, children: CONTENT, style: {} };
     // @ts-expect-error className is not part of the public API
@@ -256,7 +256,13 @@ describe('MIAccordion', () => {
     } as unknown as Partial<MIAccordionProps>;
 
     const { container } = render(
-      <MIAccordion title={TITLE} id="accordion-id" data-testid="accordion" {...untypedProps}>
+      <MIAccordion
+        title={TITLE}
+        id="accordion-id"
+        aria-describedby="accordion-help"
+        data-testid="accordion"
+        {...untypedProps}
+      >
         {CONTENT}
       </MIAccordion>
     );
@@ -265,6 +271,7 @@ describe('MIAccordion', () => {
 
     expect(screen.getByTestId('accordion')).toBe(root);
     expect(root).toHaveAttribute('id', 'accordion-id');
+    expect(root).toHaveAttribute('aria-describedby', 'accordion-help');
     expect(root).not.toHaveAttribute('style');
     expect(root).not.toHaveClass('custom-class');
     expect(root).not.toHaveClass('custom-root');

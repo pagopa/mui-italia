@@ -13,6 +13,11 @@ import * as MIAccordionStories from '../stories/MIAccordion.stories.tsx';
 <Overview>
   <strong>MIAccordion</strong> è un item espandibile che mostra un header sempre visibile e un
   contenuto che si apre e si chiude al click. È basato sull'Accordion di MUI.
+
+<br />
+
+Riferimento Figma: [MUI Italia Next - Design System](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=759-6399).
+
 </Overview>
 
 <Section
@@ -64,7 +69,8 @@ import * as MIAccordionStories from '../stories/MIAccordion.stories.tsx';
 >
   Il componente non accetta <code>style</code>, <code>className</code> né <code>classes</code>. Con{' '}
   <code>sx</code> si impostano solo i margini, per posizionarlo nella pagina. Sono ammessi{' '}
-  <code>id</code> e gli attributi <code>data-*</code>, per esempio <code>data-testid</code>.
+  <code>id</code> e gli attributi <code>{'aria-*'}</code> e <code>{'data-*'}</code> (per esempio{' '}
+  <code>data-testid</code>), inoltrati al contenitore.
 </Section>
 
 <Section title="Icona" description="La prop icon accetta qualsiasi nodo React.">

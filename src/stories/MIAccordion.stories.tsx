@@ -16,8 +16,12 @@ const componentMaxWidth = 900;
 
 type IconOption = 'none' | 'icon' | 'status' | 'avatar';
 
+type BadgeProps = NonNullable<ComponentProps<typeof MIAccordion>['badgeProps']>;
+
 type MIAccordionStoryArgs = ComponentProps<typeof MIAccordion> & {
   iconOption?: IconOption;
+  badgeColor?: BadgeProps['color'];
+  badgeVariant?: BadgeProps['variant'];
 };
 
 const icons: Record<IconOption, ComponentProps<typeof MIAccordion>['icon']> = {
@@ -105,6 +109,8 @@ const meta: Meta<MIAccordionStoryArgs> = {
         'description',
         'badge',
         'badgeProps',
+        'badgeColor',
+        'badgeVariant',
         'icon',
         'iconOption',
         'headingLevel',
@@ -131,7 +137,8 @@ const meta: Meta<MIAccordionStoryArgs> = {
     title: 'Configurazione del servizio',
     description: 'Verifica i dati prima di proseguire.',
     badge: 'Attivo',
-    badgeProps: { color: 'neutral', variant: 'filled' },
+    badgeColor: 'neutral',
+    badgeVariant: 'filled',
     iconOption: 'icon',
     headingLevel: 3,
     defaultExpanded: false,
@@ -155,9 +162,9 @@ const meta: Meta<MIAccordionStoryArgs> = {
       table: { category: 'MIAccordion', type: { summary: 'string' } },
     },
     badgeProps: {
-      control: { type: 'object' },
+      control: false,
       description:
-        'Colore e variante del MIChip del badge; le altre props di MIChip non sono ammesse. Da disabilitato il badge è sempre outlined.',
+        'Colore e variante del MIChip del badge; le altre props di MIChip non sono ammesse. Da disabilitato il badge è sempre outlined. Nel Playground si prova con i controlli badgeColor e badgeVariant.',
       table: {
         category: 'MIAccordion',
         type: { summary: "Pick<MIChipProps, 'color' | 'variant'>" },
@@ -230,7 +237,8 @@ const meta: Meta<MIAccordionStoryArgs> = {
     },
     id: {
       control: false,
-      description: 'Id del contenitore. Sono ammessi anche gli attributi data-* (es. data-testid).',
+      description:
+        'Id del contenitore. Sono inoltrati al contenitore anche gli attributi aria-* e data-* (es. data-testid).',
       table: { category: 'MIAccordion', type: { summary: 'string' } },
     },
     iconOption: {
@@ -239,9 +247,42 @@ const meta: Meta<MIAccordionStoryArgs> = {
       description: 'Preset Storybook per la prop icon.',
       table: { category: 'Storybook controls' },
     },
+    badgeColor: {
+      options: ['neutral', 'default', 'info', 'success', 'warning', 'error', 'highlight'],
+      control: { type: 'select' },
+      description: 'Colore del badge (badgeProps.color).',
+      table: { category: 'Storybook controls' },
+    },
+    badgeVariant: {
+      options: ['filled', 'outlined'],
+      control: { type: 'radio' },
+      description: 'Variante del badge (badgeProps.variant).',
+      table: { category: 'Storybook controls' },
+    },
   },
-  render: ({ iconOption = 'none', ...args }) => (
-    <MIAccordion {...args} icon={icons[iconOption]}>
+  render: ({
+    title,
+    description,
+    badge,
+    badgeColor,
+    badgeVariant,
+    iconOption = 'none',
+    headingLevel,
+    defaultExpanded,
+    disabled,
+    loading,
+  }) => (
+    <MIAccordion
+      title={title}
+      description={description}
+      badge={badge}
+      badgeProps={{ color: badgeColor, variant: badgeVariant }}
+      icon={icons[iconOption]}
+      headingLevel={headingLevel}
+      defaultExpanded={defaultExpanded}
+      disabled={disabled}
+      loading={loading}
+    >
       <SampleContent />
     </MIAccordion>
   ),

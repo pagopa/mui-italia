@@ -1,3 +1,5 @@
+'use client';
+
 import type { AccordionSummaryProps } from '@mui/material';
 import type { FC } from 'react';
 
