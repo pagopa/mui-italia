@@ -133,7 +133,7 @@ export const WithoutIcons: Story = {
       disable: true,
     },
   },
-  render: function RenderMenuDropdownWithoutIcons({ variant, autoFocus, disableAutoFocusItem }) {
+  render: function RenderMIMMenuWithoutIcons({ variant, autoFocus, disableAutoFocusItem }) {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
     const handleOpen = (event: MouseEvent<HTMLButtonElement>) => {
