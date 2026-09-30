@@ -1,8 +1,10 @@
 import { MIIconButton } from '@components/MIIconButton';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
-import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
-import EditRoundedIcon from '@mui/icons-material/EditRounded';
+import {
+  CloseRounded as CloseRoundedIcon,
+  DeleteRounded as DeleteRoundedIcon,
+  DownloadRounded as DownloadRoundedIcon,
+  EditRounded as EditRoundedIcon,
+} from '@mui/icons-material';
 import { Stack } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
@@ -23,7 +25,7 @@ const meta: Meta<MIIconButtonStoryArgs> = {
   parameters: {
     layout: 'centered',
     controls: {
-      include: ['aria-label', 'icon', 'size', 'edge'],
+      include: ['aria-label', 'icon', 'size', 'edge', 'disabled'],
     },
   },
   args: {
@@ -31,6 +33,7 @@ const meta: Meta<MIIconButtonStoryArgs> = {
     icon: 'delete',
     size: 'medium',
     edge: false,
+    disabled: false,
   },
   argTypes: {
     'aria-label': {
@@ -70,12 +73,22 @@ const meta: Meta<MIIconButtonStoryArgs> = {
         type: { summary: "'start' | 'end' | false" },
       },
     },
+    disabled: {
+      control: { type: 'boolean' },
+      description: "Disabilita il pulsante e ne impedisce l'interazione.",
+      table: {
+        category: 'MIIconButton',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
   },
-  render: ({ 'aria-label': ariaLabel, icon, size, edge }) => (
+  render: ({ 'aria-label': ariaLabel, icon, size, edge, disabled }) => (
     <MIIconButton
       aria-label={ariaLabel}
       size={size}
       edge={edge === false ? undefined : edge}
+      disabled={disabled}
       onClick={() => undefined}
     >
       {iconMap[icon]}

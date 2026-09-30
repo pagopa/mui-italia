@@ -1,4 +1,5 @@
-import { colors } from '../foundations/colors';
+import { alpha } from '@mui/system';
+import { colors } from '../colors';
 
 /**
  * Semantic palette NEXT definitions and MUI palette extensions.
@@ -8,11 +9,12 @@ export const paletteNext = {
   mode: 'light',
   background: {
     paper: colors.neutral.white,
+    main: colors.neutral.grey[50],
   },
   primary: {
     main: colors.blue[500],
-    light: '#2185E9',
-    dark: '#0062C3',
+    light: colors.blue[400],
+    dark: colors.blue[600],
     contrastText: colors.neutral.white,
   },
   info: {
@@ -29,29 +31,26 @@ export const paletteNext = {
   },
   /* Indicator/Validation */
   error: {
-    main: colors.error[500],
-    dark: '#D85757',
-    light: '#FE7A7A',
+    main: colors.error[600],
+    dark: colors.error[700],
+    light: colors.error[500],
     contrastText: colors.neutral.black,
   },
   shadow: {
     main: '#002B55',
   },
   text: {
-    primary: '#17324D',
-    secondary: '#5C6F82',
-    disabled: '#A2ADB8',
+    primary: colors.neutral.black,
+    secondary: colors.neutral.grey[700],
+    disabled: colors.neutral.grey[450],
   },
   backdrop: {
-    background: '#17324D',
+    background: alpha(colors.neutral.black, 0.35),
   },
 
   menuItem: {
     background: '#17324D',
   },
 
-  primaryContained: {
-    hover: '#0055AA',
-  },
   divider: colors.neutral.grey[100],
 } as const;

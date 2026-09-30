@@ -1,9 +1,11 @@
-import { StoryFn, Meta } from '@storybook/react-vite';
+import { Meta, StoryFn } from '@storybook/react-vite';
 
+import {
+  ArrowBackRounded as ArrowBackRoundedIcon,
+  ArrowForwardRounded as ArrowForwardRoundedIcon,
+  DeleteOutlineRounded as DeleteOutlineRoundedIcon,
+} from '@mui/icons-material';
 import { Button } from '@mui/material';
-import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
-import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
-import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

@@ -9,7 +9,7 @@ type Props = {
 
 const SubSection: FC<Props> = ({ title, description, children }) => (
   <Box sx={{ mt: 2 }}>
-    <Typography variant="h3" gutterBottom fontSize={22} fontWeight={400}>
+    <Typography variant="h3" gutterBottom fontSize={22} fontWeight={500}>
       {title}
     </Typography>
     {description && (

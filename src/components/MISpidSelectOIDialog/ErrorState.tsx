@@ -1,5 +1,5 @@
 import { IllusMIError } from '@illustrations/MIError';
-import { Box, Button, Stack, Typography } from '@mui/material';
+import { Box, Button, Stack, Typography, useTheme } from '@mui/material';
 import React from 'react';
 
 type Props = {
@@ -10,6 +10,8 @@ type Props = {
 };
 
 const ErrorState: React.FC<Props> = ({ title, description, closeButtonLabel, onClose }) => {
+  const theme = useTheme();
+
   return (
     <Stack
       spacing={3}
@@ -21,7 +23,7 @@ const ErrorState: React.FC<Props> = ({ title, description, closeButtonLabel, onC
       <IllusMIError size={56} />
 
       <Box>
-        <Typography fontWeight={700} fontSize="32px" sx={{ color: '#0E0F13' }}>
+        <Typography fontWeight={700} fontSize="32px" sx={{ color: theme.colors.neutral.black }}>
           {title}
         </Typography>
         <Typography variant="body2" color="textSecondary">

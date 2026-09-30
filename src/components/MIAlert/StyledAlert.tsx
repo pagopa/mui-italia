@@ -1,6 +1,5 @@
-import { styled } from '@mui/material';
-import MUIAlert from '@mui/material/Alert';
-import { AllowedAlertSeverity } from '@types';
+import { styled, Alert as MUIAlert } from '@mui/material';
+import { AllowedAlertSeverity } from '@lib-types/alert.types';
 
 type StyledAlertProps = {
   ownerState: {
@@ -22,6 +21,7 @@ export const StyledAlert = styled(MUIAlert, {
     backgroundColor: severityPalette[100],
     justifyContent: isHeaderVariant ? 'center' : undefined,
     alignItems: isDefaultVariant || title ? 'flex-start' : 'center',
+    flex: 1,
 
     ...(isDefaultVariant && {
       border: '1px solid',

@@ -92,3 +92,7 @@ export * from './MILineChart';
 export * from './MIIdCard';
 export * from './MICalendarCheck';
 export * from './MIFirma';
+export * from './MIMouse';
+export * from './MIHourglass';
+export * from './MIQuestion';
+export * from './MIInProgress';

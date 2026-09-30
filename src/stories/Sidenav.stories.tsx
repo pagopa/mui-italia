@@ -1,26 +1,30 @@
+import { Meta, StoryFn } from '@storybook/react-vite';
 import { useState } from 'react';
-import { StoryFn, Meta } from '@storybook/react-vite';
 
 import {
+  Badge,
+  Box,
+  Collapse,
+  Divider,
   List,
   ListItemButton,
-  ListItemText,
   ListItemIcon,
-  Collapse,
-  Box,
-  Badge,
-  Divider,
+  ListItemText,
 } from '@mui/material';
 
 /* Icons */
-import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
-import KeyRoundedIcon from '@mui/icons-material/KeyRounded';
-import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
-import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded';
-import SupervisedUserCircleRoundedIcon from '@mui/icons-material/SupervisedUserCircleRounded';
-import ExpandLessRoundedIcon from '@mui/icons-material/ExpandLessRounded';
-import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
-import ExitToAppRoundedIcon from '@mui/icons-material/ExitToAppRounded';
+import {
+  EmailRounded as EmailRoundedIcon,
+  ExitToAppRounded as ExitToAppRoundedIcon,
+  ExpandLessRounded as ExpandLessRoundedIcon,
+  ExpandMoreRounded as ExpandMoreRoundedIcon,
+  KeyRounded as KeyRoundedIcon,
+  PeopleRounded as PeopleRoundedIcon,
+  SettingsRounded as SettingsRoundedIcon,
+  SupervisedUserCircleRounded as SupervisedUserCircleRoundedIcon,
+} from '@mui/icons-material';
+
+import { ProfileItem } from '@components/ProfileItem';
 
 export default {
   title: 'Composition/Sidenav',
@@ -43,6 +47,14 @@ export const Default: StoryFn<typeof List> = () => {
         backgroundColor: 'background.paper',
       }}
     >
+      <ProfileItem
+        profileInitials="EC"
+        profileName="Ente Creditore"
+        onSwitchProfile={() => {
+          console.log('Clicked/Tapped on switch profile');
+        }}
+        sx={{ borderBottom: 1, borderColor: 'divider' }}
+      />
       <List component="nav" aria-label="main piattaforma-notifiche sender">
         <ListItemButton selected={selectedIndex === 0} onClick={() => handleListItemClick(0)}>
           <ListItemIcon>

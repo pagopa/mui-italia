@@ -24,13 +24,13 @@ const defaultLocaleText: Required<MIStepperLocaleText> = {
   stepOfLabel: (currentStep, totalSteps) => `${currentStep} of ${totalSteps}`,
 };
 
-type Props = {
+export type MIStepperProps = {
   steps: Array<{ label: ReactNode }>;
   activeStep: number;
   localeText?: MIStepperLocaleText;
 };
 
-const MIStepper: React.FC<Props> = ({ steps, activeStep, localeText }) => {
+const MIStepper: React.FC<MIStepperProps> = ({ steps, activeStep, localeText }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
 

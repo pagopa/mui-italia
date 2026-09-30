@@ -1,10 +1,12 @@
 import { alpha, createTheme, Theme } from '@mui/material/styles';
+/* Design Tokens */
+import { italia } from '@tokens';
+
+import { mainTypeface, monospacedTypeface } from './fonts';
 import foundationNext from './foundations-next/foundationNext';
 import muiSwitch from './muiSwitch';
 import { pxToRem } from './utility';
-import { mainTypeface, monospacedTypeface } from './fonts';
-/* Design Tokens */
-import { italia } from '@tokens';
+import { colors } from './colors';
 
 /* Basic Configuration */
 
@@ -160,6 +162,7 @@ export const themeNext: Theme = createTheme(foundationNext, {
     /* End: To be revised */
   },
   components: {
+    // //////////////////////////////////// TO BE REMOVED //////////////////////////////////////
     MuiButton: {
       defaultProps: {
         disableElevation: true,
@@ -179,12 +182,12 @@ export const themeNext: Theme = createTheme(foundationNext, {
           '&.MuiButton-text': {
             '&:hover': {
               backgroundColor: 'transparent',
-              color: '#0055AA',
+              color: foundationNext.palette.primary.dark,
             },
           },
           '&.MuiButton-contained': {
             '&:hover': {
-              backgroundColor: '#0055AA',
+              backgroundColor: foundationNext.palette.primary.dark,
             },
           },
         },
@@ -261,7 +264,7 @@ export const themeNext: Theme = createTheme(foundationNext, {
           style: {
             color: foundationNext.palette.primary.main,
             '&:hover': {
-              color: foundationNext.palette.primaryContained.hover,
+              color: foundationNext.palette.primary.dark,
             },
             '&.Mui-focusVisible': {
               borderRadius: `${focusBorderRadius}`,
@@ -276,7 +279,7 @@ export const themeNext: Theme = createTheme(foundationNext, {
           style: {
             color: foundationNext.palette.error.main,
             '&:hover': {
-              color: foundationNext.palette.error.light,
+              color: foundationNext.palette.error.dark,
             },
             '&.Mui-focusVisible': {
               borderRadius: `${focusBorderRadius}`,
@@ -517,9 +520,11 @@ export const themeNext: Theme = createTheme(foundationNext, {
       styleOverrides: {
         root: {
           fontWeight: foundationNext.typography.fontWeightMedium,
-          '& .MuiOutlinedInput-notchedOutline': {},
+          '& .MuiOutlinedInput-notchedOutline': {
+            borderColor: colors.neutral.grey[650], // to do: remove when input are updated to next
+          },
           '&.Mui-error .MuiOutlinedInput-notchedOutline': {
-            borderColor: foundationNext.palette.error.dark,
+            borderColor: foundationNext.palette.error.main,
           },
         },
       },
@@ -530,7 +535,7 @@ export const themeNext: Theme = createTheme(foundationNext, {
           color: foundationNext.palette.text.secondary,
           fontWeight: foundationNext.typography.fontWeightMedium,
           '&.Mui-error': {
-            color: foundationNext.palette.error.dark,
+            color: foundationNext.palette.error.main,
           },
         },
       },
@@ -539,7 +544,7 @@ export const themeNext: Theme = createTheme(foundationNext, {
       styleOverrides: {
         root: {
           '& .MuiSvgIcon-colorError': {
-            color: `${foundationNext.palette.error.dark}`,
+            color: `${foundationNext.palette.error.main}`,
           },
         },
       },
@@ -553,7 +558,7 @@ export const themeNext: Theme = createTheme(foundationNext, {
           fontWeight: foundationNext.typography.fontWeightMedium,
           letterSpacing: 0.5,
           '&.Mui-error': {
-            color: foundationNext.palette.error.dark,
+            color: foundationNext.palette.error.main,
           },
         },
       },
@@ -562,17 +567,10 @@ export const themeNext: Theme = createTheme(foundationNext, {
     MuiBackdrop: {
       styleOverrides: {
         root: {
-          backgroundColor: alpha(foundationNext.palette.backdrop.background, 0.7),
+          backgroundColor: foundationNext.palette.backdrop.background,
         },
         invisible: {
           backgroundColor: 'transparent',
-        },
-      },
-    },
-    MuiTimelineDot: {
-      styleOverrides: {
-        root: {
-          boxShadow: 'none',
         },
       },
     },
@@ -751,6 +749,15 @@ export const themeNext: Theme = createTheme(foundationNext, {
         labelContainer: {
           padding: pxToRem(14),
           paddingLeft: 0,
+        },
+      },
+    },
+    // /////////////////////////////////////////////////////////////////////////////////////////
+    MuiSkeleton: {
+      styleOverrides: {
+        root: {
+          backgroundColor: foundationNext.colors.neutral.grey[50],
+          borderRadius: foundationNext.shape.radius[4],
         },
       },
     },

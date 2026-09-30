@@ -1,5 +1,5 @@
 import type { ElementType } from 'react';
-import CloseIcon from '@mui/icons-material/Close';
+import { Close as CloseIcon } from '@mui/icons-material';
 import { Box, Button, Chip, IconButton, Typography, styled } from '@mui/material';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { ButtonNaked } from '@components/ButtonNaked';

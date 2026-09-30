@@ -1,9 +1,8 @@
-import React, { FC } from 'react';
-import MuiChip, { ChipProps } from '@mui/material/Chip';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import { styled } from '@mui/material/styles';
-import { useTheme } from '@mui/material';
-import { MarginSxProps } from '@types';
+'use client';
+
+import { CloseRounded as CloseRoundedIcon } from '@mui/icons-material';
+import { ChipProps, Chip as MuiChip, styled, SxProps, useTheme } from '@mui/material';
+import { EventHandler, forwardRef, KeyboardEvent } from 'react';
 
 type AllowedMIChipColors =
   | 'default'
@@ -14,12 +13,8 @@ type AllowedMIChipColors =
   | 'neutral'
   | 'info';
 
-type BaseMIChipProps = Omit<
-  ChipProps,
-  'color' | 'deleteIcon' | 'label' | 'onClick' | 'onDelete' | 'size'
-> & {
-  label: string;
-  sx?: MarginSxProps;
+type BaseMIChipProps = Omit<ChipProps, 'color' | 'deleteIcon' | 'onClick' | 'onDelete' | 'size'> & {
+  sx?: SxProps;
 };
 
 // Props for the standard mode
@@ -32,10 +27,10 @@ type StandardMIChipProps = BaseMIChipProps & {
 type DeletableMIChipProps = BaseMIChipProps & {
   color?: 'neutral';
   variant?: 'filled';
-  onDelete?: React.EventHandler<any>;
+  onDelete?: EventHandler<any>;
 };
 
-type CustomMIChipProps = StandardMIChipProps | DeletableMIChipProps;
+export type MIChipProps = StandardMIChipProps | DeletableMIChipProps;
 
 const StyledChip = styled(MuiChip, {
   shouldForwardProp: (prop) => prop !== 'customColor',
@@ -55,7 +50,7 @@ const StyledChip = styled(MuiChip, {
     opacity: 1,
   },
   '&&': {
-    //outlined variant
+    // outlined variant
     ...(variant === 'outlined' && {
       ...(customColor === 'default' && {
         color: theme.colors.blue[600],
@@ -122,7 +117,7 @@ const StyledChip = styled(MuiChip, {
   },
 }));
 
-const MIChip: FC<CustomMIChipProps> = (props) => {
+const MIChip = forwardRef<HTMLDivElement, MIChipProps>((props, ref) => {
   const { color: colorProp, sx, label, onDelete, 'aria-label': ariaLabel, ...other } = props;
 
   const isDeletable = Boolean(onDelete);
@@ -135,11 +130,11 @@ const MIChip: FC<CustomMIChipProps> = (props) => {
   const deleteIconProps = {
     tabIndex: 0,
     role: 'button',
-    'aria-label': (ariaLabel ?? `Delete %s`).replace('%s', label),
+    'aria-label': ariaLabel ?? 'Delete',
     style: { cursor: 'pointer' },
     'aria-hidden': false,
     focusable: true,
-    onKeyDown: (e: React.KeyboardEvent<SVGSVGElement>) => {
+    onKeyDown: (e: KeyboardEvent<SVGSVGElement>) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         e.stopPropagation();
@@ -161,10 +156,13 @@ const MIChip: FC<CustomMIChipProps> = (props) => {
       deleteIcon={<CloseRoundedIcon {...deleteIconProps} />}
       sx={sx}
       aria-label={ariaLabel}
+      ref={ref}
       {...other}
       {...accessibilityProps}
     />
   );
-};
+});
+
+MIChip.displayName = 'MIChip';
 
 export default MIChip;

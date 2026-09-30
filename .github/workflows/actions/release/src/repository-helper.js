@@ -1,7 +1,7 @@
-import { info, debug } from '@actions/core';
+import { debug, info } from '@actions/core';
 import github from '@actions/github';
 
-import { toSentenceCase, isTagOrBranch } from './utility-helper.js';
+import { isTagOrBranch, toSentenceCase } from './utility-helper.js';
 
 export async function getRef(octokit, ref) {
   const type = isTagOrBranch(ref);

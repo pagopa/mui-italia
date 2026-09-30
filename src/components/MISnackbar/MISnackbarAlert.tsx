@@ -1,5 +1,10 @@
 'use client';
 
+import { CopyToClipboardButton } from '@components/CopyToClipboardButton';
+import { StyledAlert } from '@components/MIAlert/StyledAlert';
+import { getColor, getIcon } from '@components/MIAlert/utils';
+import { AllowedAlertSeverity } from '@lib-types/alert.types';
+import { CloseRounded as CloseRoundedIcon } from '@mui/icons-material';
 import {
   AlertTitle as MUIAlertTitle,
   Stack,
@@ -7,13 +12,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import { getColor, getIcon } from '@components/MIAlert/utils';
-import { StyledAlert } from '@components/MIAlert/StyledAlert';
-import { CopyToClipboardButton } from '@components/CopyToClipboardButton';
 import { forwardRef } from 'react';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import { colors } from 'theme/foundations/colors';
-import { AllowedAlertSeverity } from '@types';
 
 // props that apply to all severities
 type BaseAlertProps = {
@@ -41,7 +40,7 @@ type OtherSeverityProps = BaseAlertProps & {
 
 export type MISnackbarAlertProps = ErrorSeverityProps | OtherSeverityProps;
 
-export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
+const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
   (
     { severity = 'success', title, description, errorCode, errorCodeAriaLabel, onClose, ...rest },
     ref
@@ -49,16 +48,16 @@ export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-    //combine title, description and error code aria label into a single string for screen readers
+    // combine title, description and error code aria label into a single string for screen readers
     const screenReaderText = [title, description, errorCodeAriaLabel ? errorCodeAriaLabel : '']
       .filter(Boolean)
       .join('. ');
 
     return (
-      <StyledAlert 
+      <StyledAlert
         ownerState={{
           severity,
-          title
+          title,
         }}
         ref={ref}
         severity={severity}
@@ -86,7 +85,7 @@ export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
             },
           }),
           '& .MuiAlert-action .MuiIconButton-root': {
-            color: colors.neutral.black,
+            color: theme.colors.neutral.black,
             opacity: 1,
             pt: 0,
           },
@@ -142,14 +141,14 @@ export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
                   px: 1.5,
 
                   '& fieldset': {
-                    borderColor: colors.neutral.grey[650],
+                    borderColor: theme.colors.neutral.grey[650],
                     borderRadius: 2,
                   },
                   '&:hover fieldset': {
-                    borderColor: colors.neutral.grey[650],
+                    borderColor: theme.colors.neutral.grey[650],
                   },
                   '&.Mui-focused fieldset': {
-                    borderColor: colors.neutral.grey[650],
+                    borderColor: theme.colors.neutral.grey[650],
                   },
                 },
                 '& .MuiInputBase-input': {
@@ -166,3 +165,7 @@ export const MISnackbarAlert = forwardRef<HTMLDivElement, MISnackbarAlertProps>(
     );
   }
 );
+
+MISnackbarAlert.displayName = 'MISnackbarAlert';
+
+export default MISnackbarAlert;

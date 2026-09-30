@@ -1,5 +1,5 @@
-import { join } from 'path';
 import { readFileSync } from 'fs';
+import { join } from 'path';
 
 function resolveAliases() {
   const aliases = {};
@@ -30,13 +30,13 @@ export default function getBabelConfig(api) {
       'src/**/*.spec.tsx',
       // exclude tests foldders and files
       'src/**/__tests__/**/*',
-      'src/test-utils.ts',
+      'src/test-utils.tsx',
       // exclude typing files
       'src/**/*.d.ts',
       'src/**/*.d.tsx',
       // exclude vite files
       'vite.config.mts',
-      'vite.setup.ts',
+      'vitest.setup.ts',
     ],
     presets: ['@babel/preset-typescript'],
     plugins: [],
@@ -58,21 +58,13 @@ export default function getBabelConfig(api) {
       // exclude Storybook MDX docs
       'src/docs/**/*'
     );
-    config.plugins.push(
-      [
-        'babel-plugin-module-resolver',
-        {
-          root: ['./'],
-          alias: resolveAliases(),
-        },
-      ],
-      [
-        'babel-plugin-transform-rewrite-imports',
-        {
-          replaceExtensions: { '^@mui/icons-material(.+?)': `@mui/icons-material/esm$1` },
-        },
-      ]
-    );
+    config.plugins.push([
+      'babel-plugin-module-resolver',
+      {
+        root: ['./'],
+        alias: resolveAliases(),
+      },
+    ]);
     config.presets.push(
       ['@babel/preset-env', { modules: false }], // modules false preserve es modules
       [

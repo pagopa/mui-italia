@@ -6,7 +6,7 @@ import { Chip, Box, Typography } from '@mui/material';
 import { breakpointsChromaticValues } from '@theme';
 
 /* Icons */
-import AttachFileRoundedIcon from '@mui/icons-material/AttachFileRounded';
+import { AttachFileRounded as AttachFileRoundedIcon } from '@mui/icons-material';
 
 import { ButtonNaked } from '@components/ButtonNaked';
 import {
@@ -31,15 +31,16 @@ export default {
 } as Meta<typeof Timeline>;
 
 // Mock Data
-const notificationStatusHistory: Array<{
+type NotificationStatusHistory = {
   minor?: boolean;
   statusLabel: string;
-  state?: string;
+  state?: 'success' | 'warning' | 'error';
   activeFrom: string;
   title?: string;
   description?: string;
   fiscalCode?: string;
-}> = [
+};
+const notificationStatusHistory: Array<NotificationStatusHistory> = [
   {
     statusLabel: 'Pagata',
     state: 'success',
@@ -101,7 +102,7 @@ export const Default: StoryFn<typeof Timeline> = () => (
     }}
   >
     <TimelineNotification>
-      {notificationStatusHistory.map((item: any, i: number) => (
+      {notificationStatusHistory.map((item: NotificationStatusHistory, i: number) => (
         <TimelineNotificationItem key={item.activeFrom}>
           <TimelineNotificationOppositeContent>
             <Typography variant="sidenav" component="div">

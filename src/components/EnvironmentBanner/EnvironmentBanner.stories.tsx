@@ -1,4 +1,4 @@
-import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
+import { LightbulbOutlined as LightbulbOutlinedIcon } from '@mui/icons-material';
 import { Meta, StoryFn } from '@storybook/react-vite';
 import { breakpointsChromaticValues } from '@theme';
 import { EnvironmentBanner } from './EnvironmentBanner';

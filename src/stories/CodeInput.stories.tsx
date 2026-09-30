@@ -149,7 +149,7 @@ export const ReadOnly: Story = {
 };
 
 export const Uncontrolled: Story = {
-  render: () => {
+  render: function RenderWithState() {
     const [value, setValue] = useState('');
 
     return (
@@ -167,7 +167,7 @@ export const Uncontrolled: Story = {
 
 // Stories added for debug purposes
 export const ResetWhileFocused: Story = {
-  render: (args) => {
+  render: function RenderWithState(args) {
     const [value, setValue] = useState('1234');
 
     return (
@@ -195,7 +195,7 @@ export const ResetWhileFocused: Story = {
 };
 
 export const ProgrammaticUpdateWhileFocused: Story = {
-  render: (args) => {
+  render: function RenderWithState(args) {
     const [value, setValue] = useState('1234');
 
     useEffect(() => {

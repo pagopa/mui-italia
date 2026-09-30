@@ -1,0 +1,17 @@
+{
+  "name": "build-size",
+  "version": "1.0.0",
+  "description": "Action to check the build size",
+  "private": true,
+  "main": "src/index.js",
+  "author": "Andrea Cimini",
+  "scripts": {
+    "build": "rimraf dist && ncc build src/index.js -o dist"
+  },
+  "dependencies": {
+    "@actions/core": "^1.11.1"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.38.4"
+  }
+}

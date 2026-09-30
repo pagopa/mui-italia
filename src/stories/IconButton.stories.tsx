@@ -1,7 +1,7 @@
 import { StoryObj, Meta } from '@storybook/react-vite';
 
 import { IconButton } from '@mui/material';
-import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
+import { DownloadRounded as DownloadRoundedIcon } from '@mui/icons-material';
 
 export default {
   title: 'MUI Components/Inputs/Icon Button',

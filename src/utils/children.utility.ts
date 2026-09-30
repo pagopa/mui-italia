@@ -9,13 +9,12 @@ type AllowedTypes = {
 type CmpCount = { [key: string]: { maxCount?: number; currentCount: number; required?: boolean } };
 
 function getForbiddenMsg(parentCmp: string, cmpCount: CmpCount): string {
-  // eslint-disable-next-line functional/no-let
   let forbiddenTypeMessage = `${parentCmp} can have only`;
 
   Object.entries(cmpCount).forEach((el, index, arr) => {
     const seprator = index === arr.length - 1 ? ' and' : ',';
     forbiddenTypeMessage += `${index === 0 ? '' : seprator}${
-      el[1].maxCount ? ' ' + el[1].maxCount : ''
+      el[1].maxCount ? ' ' + el[1].maxCount.toString() : ''
     } ${el[1].maxCount === 1 ? 'child' : 'children'} of type ${el[0]}`;
   });
 
@@ -50,7 +49,6 @@ export function checkChildren(
 ) {
   const allowedCmp = allowedTypes.map((type) => type.cmp);
   const cmpCount = allowedTypes.reduce((obj, type) => {
-    // eslint-disable-next-line functional/immutable-data
     obj[type.cmp.name] = {
       maxCount: type.maxCount,
       currentCount: 0,
@@ -72,7 +70,6 @@ export function checkChildren(
     }
 
     if (typeof element.type !== 'string') {
-      // eslint-disable-next-line functional/immutable-data
       cmpCount[element.type.name].currentCount += 1;
     }
   });
@@ -107,3 +104,13 @@ export function isExplicitChild(child: React.ReactNode, displayName: string): bo
   }
   return false;
 }
+
+/**
+ * Determines whether a React node is a primitive value (string, number or
+ * boolean), as opposed to a React element or other non-primitive node.
+ *
+ * @param {ReactNode} node - The React node to inspect
+ * @returns {boolean} True if the node is a string, number or boolean.
+ */
+export const isPrimitiveNode = (node: React.ReactNode): node is string | number | boolean =>
+  typeof node === 'string' || typeof node === 'number' || typeof node === 'boolean';

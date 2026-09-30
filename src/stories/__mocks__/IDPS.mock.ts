@@ -1,4 +1,4 @@
-import { IDP } from 'types/spid';
+import { IDP } from '@components/MISpidSelectOIDialog/MISpidSelectOIDialog.types';
 
 export const MOCK_IDP_UNAVAILABLE: IDP = {
   entityID: 'https://broken.idp.it',

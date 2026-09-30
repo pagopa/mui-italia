@@ -1,6 +1,6 @@
-import { alpha, createTheme, Theme } from '@mui/material/styles';
+import { alpha, createTheme, Shadows, Theme } from '@mui/material/styles';
 
-import { colors } from '../foundations/colors';
+import { colors } from '../colors';
 import { mainTypeface } from '../fonts';
 import { paletteNext } from './paletteNext';
 
@@ -19,7 +19,7 @@ const shadowValues = {
         0px 6px 30px 5px ${alpha(paletteNext.shadow.main, 0.1)}`,
 };
 
-const shadowsArray = Array(25).fill('none') as any;
+const shadowsArray = Array(25).fill('none') as Shadows;
 
 const foundationNext: Theme = createTheme({
   colors,
@@ -53,6 +53,7 @@ const foundationNext: Theme = createTheme({
   shape: {
     borderRadius: 8,
     radius: {
+      4: '4px',
       8: '8px',
       16: '16px',
       24: '24px',

@@ -3,8 +3,8 @@ import { SyntheticEvent } from 'react';
 
 export class EnumType<A> extends t.Type<A> {
   public readonly _tag = 'EnumType' as const;
-  public enumObject!: object;
-  public constructor(e: object, name?: string) {
+  public enumObject!: Record<string, string | number>;
+  public constructor(e: Record<string, string | number>, name?: string) {
     super(
       name || 'enum',
       (u): u is A => {
@@ -12,7 +12,7 @@ export class EnumType<A> extends t.Type<A> {
           return false;
         }
         // enum reverse mapping check
-        if (typeof (this.enumObject as any)[u as string] === 'number') {
+        if (typeof this.enumObject[u as string] === 'number') {
           return false;
         }
         return true;
@@ -24,7 +24,7 @@ export class EnumType<A> extends t.Type<A> {
   }
 }
 
-export function createEnumType<T>(e: object, name?: string) {
+export function createEnumType<T>(e: Record<string, string | number>, name?: string) {
   return new EnumType<T>(e, name);
 }
 

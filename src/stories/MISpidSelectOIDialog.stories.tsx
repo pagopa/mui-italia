@@ -3,8 +3,8 @@ import { Meta, StoryObj } from '@storybook/react-vite';
 import { breakpointsChromaticValues } from '@theme';
 import { useEffect, useState } from 'react';
 
-import { IDPS_MOCK, MOCK_IDP_UNAVAILABLE } from './__mocks__/IDPS.mock';
 import { MISpidSelectOIDialog } from '@components/MISpidSelectOIDialog';
+import { IDPS_MOCK, MOCK_IDP_UNAVAILABLE } from './__mocks__/IDPS.mock';
 
 const meta: Meta<typeof MISpidSelectOIDialog> = {
   title: 'Components/MISpidSelectOIDialog',
@@ -103,10 +103,12 @@ export const Authorizing: Story = {
       },
     },
   },
-  render: (args) => {
+  render: function RenderWithState(args) {
     useEffect(() => {
       const btn = document.getElementById(`spid-select-${IDPS_MOCK[0].entityID}`);
-      if (btn) btn.click();
+      if (btn) {
+        btn.click();
+      }
     }, []);
     return <MISpidSelectOIDialog {...args} />;
   },
@@ -142,7 +144,7 @@ export const Interactive: Story = {
       },
     },
   },
-  render: (args) => {
+  render: function RenderWithState(args) {
     const [open, setOpen] = useState(false);
 
     return (
