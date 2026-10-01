@@ -25,6 +25,7 @@ export type MIPaginationProps = Omit<
   | 'showFirstButton'
   | 'showLastButton'
   | 'rowPerPageOptions'
+  |'disabled'
 > & {
   rowPerPageOptions?: {
     options?: Array<number>;

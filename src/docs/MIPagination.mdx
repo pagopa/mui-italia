@@ -4,95 +4,140 @@ import Overview from './components/Overview';
 import Section from './components/Section';
 import SubSection from './components/SubSection';
 
-import * as MIPaginationStories from '../stories/MIPagination.stories.tsx';
+import * as MIPaginationStories from '../stories/MIPagination.stories';
 
 <Meta of={MIPaginationStories} />
 
 <Title />
 
 <Overview>
-  <strong>MIPagination</strong> e un wrapper di stile del componente Pagination di MUI pensato per
-  gestire la navigazione tra pagine di una lista.
-  <br />
-  <br />
-  Tramite la prop opzionale <strong>rowPerPageOptions</strong> espone anche un selettore del numero
-  di elementi per pagina (basato su <strong>MISelect</strong>), visibile solo quando questa prop
-  viene fornita.
+  <strong>MIPagination</strong> estende il componente Pagination di MUI con stile del Design
+  System e comportamento responsive: su mobile mantiene visibili solo la pagina selezionata e i
+  pulsanti di navigazione. Opzionalmente integra un selettore per il numero di righe per pagina.
 </Overview>
 
-**Link utili**
-
-- 🎨 [Figma](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=127-1510&m=dev)
-
+<Section
+  title="Riferimenti"
+  description="Risorse utili per allineare implementazione e specifiche."
+>
+  <ul>
+    <li>
+      🎨 [Figma](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=127-1510&m=dev)
+    </li>
+    <li>
+      💻 Link sorgente GitHub: {/* TODO: confermare con lo sviluppatore */}
+    </li>
+  </ul>
+</Section>
 
 <Section
   title="Playground"
-  description="Usa i controlli per modificare i parametri principali del componente e verificare il risultato live."
+  description="Usa i controlli per verificare configurazioni principali, navigazione e selettore righe per pagina."
 >
   <Primary />
   <Controls />
 </Section>
 
 <Section
-  title="First page"
-  description="Mostra il comportamento del componente quando e selezionata la prima pagina."
+  title="Varianti e stati"
+  description="Stories statiche utili per review visuale e regressioni."
 >
-  <Story of={MIPaginationStories.FirstPage} />
+  <SubSection title="Default">
+    Configurazione base con navigazione pagine.
+
+    <Story of={MIPaginationStories.Default} />
+  </SubSection>
+
+  <SubSection title="WithRowsPerPage">
+    Mostra il selettore righe per pagina con opzioni di default del componente.
+
+    <Story of={MIPaginationStories.WithRowsPerPage} />
+  </SubSection>
+
+  <SubSection title="CompactRowsPerPage">
+    Esempio con set di opzioni personalizzato per il selettore righe per pagina.
+
+    <Story of={MIPaginationStories.CompactRowsPerPage} />
+  </SubSection>
+
+  <SubSection title="MobileBehavior">
+    Su mobile il componente visualizza pagina corrente e pulsanti precedente/successiva.
+
+    <Story of={MIPaginationStories.MobileBehavior} />
+  </SubSection>
 </Section>
 
 <Section
-  title="Last page"
-  description="Mostra il comportamento del componente quando e selezionata l ultima pagina."
+  title="Note per gli sviluppatori"
+  description="Indicazioni tecniche per integrazione e configurazione."
 >
-  <Story of={MIPaginationStories.LastPage} />
+  <ul>
+    <li>
+      La prop <code>rowPerPageOptions</code> e opzionale e abilita il selettore righe per pagina.
+    </li>
+    <li>
+      Se <code>rowPerPageOptions.limit</code> non e presente nelle opzioni, il componente richiama
+      <code>onLimitChange</code> con la prima opzione disponibile.
+    </li>
+    <li>
+      Il componente puo essere usato in modalita controllata tramite <code>page</code> e
+      <code>onChange</code>.
+    </li>
+    <li>
+      La resa mobile dipende dal breakpoint <code>sm</code> del tema attivo.
+    </li>
+  </ul>
 </Section>
 
 <Section
-  title="Elementi per pagina"
-  description="Selettore opzionale del numero di elementi per pagina, visibile passando la prop rowPerPageOptions."
+  title="Note per i designer"
+  description="Informazioni utili per la revisione visiva."
+>
+  <ul>
+    <li>
+      Gli item pagina usano stati hover, selected e focusVisible con token del tema.
+    </li>
+    <li>
+      Su mobile i numeri pagina non selezionati non vengono mostrati per ridurre ingombro.
+    </li>
+    <li>
+      Il set viewport Chromatic proposto usa <code>componentMaxWidth = 1280</code> (euristica
+      full-width) per coprire anche il comportamento responsive.
+    </li>
+  </ul>
+</Section>
+
+<Section
+  title="Accessibilità"
+  description="Elementi verificabili dal codice e dai test del componente."
 >
   <SubSection title="Props rilevanti">
     <ul>
       <li>
-        <strong>rowPerPageOptions</strong>: se omessa, il selettore non viene renderizzato e
-        MIPagination mostra solo la paginazione. Quando valorizzata, richiede un oggetto con:
-        <ul>
-          <li>
-            <strong>limit</strong>: valore corrente selezionato, gestito dal consumatore
-            (componente controllato).
-          </li>
-          <li>
-            <strong>onLimitChange</strong>: callback invocata con il nuovo valore selezionato
-            dall utente.
-          </li>
-          <li>
-            <strong>options</strong>: elenco dei valori numerici proposti nel selettore. Se omessa,
-            vengono usate le opzioni di default <code>[10, 24, 36]</code>.
-          </li>
-        </ul>
+        <strong>rowPerPageOptions.inputProps</strong>: consente di configurare attributi
+        accessibili del selettore, incluso <code>aria-label</code>.
       </li>
       <li>
-        Se <strong>limit</strong> non e presente tra le <strong>options</strong> disponibili (ad
-        esempio dopo una modifica delle opzioni lato consumatore), MIPagination invoca
-        automaticamente <strong>onLimitChange</strong> con il primo valore valido della lista.
+        La pagina corrente e marcata con <code>aria-current="true"</code> (comportamento
+        verificato dai test).
       </li>
     </ul>
   </SubSection>
 
-  <SubSection title="Esempio">
+  <SubSection title="Esempio accessibile">
     ```tsx
-    const [limit, setLimit] = useState(10);
-
     <MIPagination
-      page={page}
-      count={pageCount}
-      onChange={(_, value) => setPage(value)}
+      count={20}
+      page={2}
+      onChange={handlePageChange}
       rowPerPageOptions={{
-        options: [10, 24, 36],
-        limit,
+        limit: 10,
         onLimitChange: setLimit,
+        inputProps: {
+          'aria-label': 'Seleziona numero di righe per pagina',
+        },
       }}
-    />;
+    />
     ```
   </SubSection>
 </Section>
