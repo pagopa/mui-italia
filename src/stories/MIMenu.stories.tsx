@@ -2,9 +2,11 @@ import { AccountCircleRounded, LogoutRounded, SettingsRounded } from '@mui/icons
 import { Button } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { breakpointsChromaticValues } from '@theme';
-import { MouseEvent, useState } from 'react';
+import { useState } from 'react';
+import type { MouseEvent } from 'react';
 
-import { MIMenu, MIMenuDivider, MIMenuItem } from '@components/MIMenu';
+import { MIMenu } from '@components/MIMenu';
+import type { MIMenuItemProps } from '@components/MIMenu';
 
 const componentMaxWidth = 400;
 
@@ -48,9 +50,9 @@ const meta: Meta<typeof MIMenu> = {
       description:
         'Disabilita il focus automatico sulla voce attiva, mantenendolo sull’elemento che ha aperto il menu.',
     },
-    children: {
+    items: {
       description:
-        'Composizione libera di MIMenuItem e MIMenuDivider che definisce le voci del menu.',
+        'Lista di voci del menu: MIMenu renderizza un MIMenuItem per ciascuna voce, intervallando un MIMenuDivider tranne che dopo l’ultimo elemento.',
       control: false,
     },
     onClose: {
@@ -67,6 +69,33 @@ const meta: Meta<typeof MIMenu> = {
     const handleClose = () => {
       setAnchorEl(null);
     };
+
+    const items: Array<MIMenuItemProps> = [
+      {
+        label: 'Profilo personale',
+        startIcon: <AccountCircleRounded fontSize="small" />,
+        onClick: () => {
+          console.info('Profilo personale');
+          handleClose();
+        },
+      },
+      {
+        label: 'Impostazioni',
+        startIcon: <SettingsRounded fontSize="small" />,
+        onClick: () => {
+          console.info('Impostazioni');
+          handleClose();
+        },
+      },
+      {
+        label: 'Esci',
+        startIcon: <LogoutRounded fontSize="small" />,
+        onClick: () => {
+          console.info('Esci');
+          handleClose();
+        },
+      },
+    ];
 
     return (
       <>
@@ -87,35 +116,8 @@ const meta: Meta<typeof MIMenu> = {
           variant={variant}
           autoFocus={autoFocus}
           disableAutoFocusItem={disableAutoFocusItem}
-        >
-          <MIMenuDivider />
-          <MIMenuItem
-            label="Profilo personale"
-            startIcon={<AccountCircleRounded fontSize="small" />}
-            onClick={() => {
-              console.info('Profilo personale');
-              handleClose();
-            }}
-          />
-          <MIMenuDivider />
-          <MIMenuItem
-            label="Impostazioni"
-            startIcon={<SettingsRounded fontSize="small" />}
-            onClick={() => {
-              console.info('Impostazioni');
-              handleClose();
-            }}
-          />
-          <MIMenuDivider />
-          <MIMenuItem
-            label="Esci"
-            startIcon={<LogoutRounded fontSize="small" />}
-            onClick={() => {
-              console.info('Esci');
-              handleClose();
-            }}
-          />
-        </MIMenu>
+          items={items}
+        />
       </>
     );
   },
@@ -144,6 +146,30 @@ export const WithoutIcons: Story = {
       setAnchorEl(null);
     };
 
+    const items: Array<MIMenuItemProps> = [
+      {
+        label: 'Profilo personale',
+        onClick: () => {
+          console.info('Profilo personale');
+          handleClose();
+        },
+      },
+      {
+        label: 'Impostazioni',
+        onClick: () => {
+          console.info('Impostazioni');
+          handleClose();
+        },
+      },
+      {
+        label: 'Esci',
+        onClick: () => {
+          console.info('Esci');
+          handleClose();
+        },
+      },
+    ];
+
     return (
       <>
         <Button
@@ -164,33 +190,10 @@ export const WithoutIcons: Story = {
           variant={variant}
           autoFocus={autoFocus}
           disableAutoFocusItem={disableAutoFocusItem}
-        >
-          <MIMenuItem
-            label="Profilo personale"
-            onClick={() => {
-              console.info('Profilo personale');
-              handleClose();
-            }}
-          />
-          <MIMenuDivider />
-
-          <MIMenuItem
-            label="Impostazioni"
-            onClick={() => {
-              console.info('Impostazioni');
-              handleClose();
-            }}
-          />
-          <MIMenuDivider />
-          <MIMenuItem
-            label="Esci"
-            onClick={() => {
-              console.info('Esci');
-              handleClose();
-            }}
-          />
-        </MIMenu>
+          items={items}
+        />
       </>
     );
   },
 };
+

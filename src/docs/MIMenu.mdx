@@ -1,4 +1,4 @@
-import { Meta, Title, Primary, Controls, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { Meta, Title, Primary, Controls, Story,Canvas } from '@storybook/addon-docs/blocks';
 
 import Overview from './components/Overview';
 import Section from './components/Section';
@@ -10,21 +10,18 @@ import * as MIMenuStories from '../stories/MIMenu.stories.tsx';
 <Title />
 
 <Overview>
-  <strong>MIMenu</strong> è il pattern per mostrare un insieme di azioni in un menu a
-  tendina, ottenuto componendo <strong>MIMenu</strong>, <strong>MIMenuItem</strong> e{' '}
-  <strong>MIMenuDivider</strong>. I tre componenti sono wrapper puramente di stile su Menu,
-  MenuItem e Divider di MUI e non gestiscono logica di apertura/chiusura o di navigazione:
-  restano a carico del consumatore, che li orchestra tramite children.
+  <strong>MIMenu</strong> e il wrapper di stile del componente <strong>Menu</strong> di MUI.
+  Riceve la lista delle voci tramite la properties <strong>items</strong>.
+  <br />
 </Overview>
 
 <Section
   title="Riferimenti"
   description="Risorse utili per confrontare implementazione e specifiche."
 >
-  <ul>
-    <li>🎨 Link Figma: [MIMenu](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=3262-40787&m=dev) </li>
-    <li>💻 Codice sorgente: {/* TODO: confermare con lo sviluppatore */}</li>
-  </ul>
+
+ 🎨 [Figma](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=3262-40787&m=dev)
+
 </Section>
 
 <Section
@@ -42,57 +39,50 @@ import * as MIMenuStories from '../stories/MIMenu.stories.tsx';
   <SubSection title="Con icone">
     <Canvas of={MIMenuStories.Playground} />
   </SubSection>
-<SubSection title="Senza icone">
-  <Canvas of={MIMenuStories.WithoutIcons} />
-</SubSection>
+  <SubSection title="Senza icone">
+    <Canvas of={MIMenuStories.WithoutIcons} />
+  </SubSection>
 </Section>
 
 <Section
   title="Accessibilità"
-  description="L’accessibilità finale dipende dalla corretta valorizzazione delle props e dal contesto di utilizzo dei componenti."
+  description="L'accessibilità finale dipende dalla corretta valorizzazione delle props e dal contesto di utilizzo del menu."
 >
   <SubSection title="Props rilevanti">
     <ul>
       <li>
-        <strong>MIMenuItem</strong>: richiede una <strong>label</strong> e un <strong>onClick</strong>,
-        mentre <strong>startIcon</strong> è opzionale.
+        <strong>items</strong>: lista di voci del menu. Ogni voce richiede una{' '}
+        <strong>label</strong> e un <strong>onClick</strong>; <strong>startIcon</strong> e
+        opzionale. MIMenu inserisce un divisore tra una voce e la successiva.
       </li>
       <li>
-        <strong>MIMenuDivider</strong>: separa visivamente gruppi di voci del menu.
+        <strong>open</strong>, <strong>anchorEl</strong> e <strong>onClose</strong>: props
+        ereditate da Menu di MUI, necessarie per controllare visibilita e chiusura dell overlay.
       </li>
       <li>
-        <strong>MIMenu</strong>: espone le props di Menu di MUI, inclusi <strong>open</strong>,{' '}
-        <strong>anchorEl</strong> e <strong>onClose</strong>, quest’ultimo da collegare all’azione di
-        chiusura del contenitore del menu.
-      </li>
-      <li>
-        <strong>variant</strong> e <strong>autoFocus</strong>/<strong>disableAutoFocusItem</strong>:
-        controllano dove cade il focus quando il menu si apre.
+        <strong>variant</strong>, <strong>autoFocus</strong> e <strong>disableAutoFocusItem</strong>:
+        controllano il comportamento iniziale del focus quando il menu si apre.
       </li>
     </ul>
   </SubSection>
-
-{' '}
 
 <SubSection title="Comportamento del focus e della tastiera">
   I componenti ereditano il comportamento di Menu e MenuItem di MUI, inclusi la navigazione da
   tastiera e la gestione del focus. Nel caso di interazioni con la tastiera, l’utente deve poter
   aprire, navigare e selezionare le voci con le modalità standard del menu. Poiché MIMenuItem non
-  chiude automaticamente il menu, l’onClick di ogni voce deve invocare esplicitamente onClose.
+  chiude automaticamente il menu, l onClick di ogni voce deve invocare esplicitamente onClose.
 </SubSection>
-
- 
 </Section>
 
 <Section
   title="Note per gli sviluppatori"
   description="Indicazioni tecniche per integrare correttamente il pattern."
 >
-  MIMenu, MIMenuItem e MIMenuDivider sono componenti puramente di stile: non validano i children,
-  non gestiscono lo stato di apertura/chiusura e non intercettano il click sulle voci. È
-  responsabilità del consumatore gestire `anchorEl`/`open` (tipicamente con `useState`) e chiudere
-  il menu all’interno di ogni `onClick` di `MIMenuItem`. Per il resto, i componenti inoltrano
-  fedelmente le props di `Menu`, `MenuItem` e `Divider` di MUI.
+  MIMenu e un componente puramente di stile: non gestisce lo stato di apertura/chiusura e non
+  intercetta il click sulle singole voci. E responsabilita del consumatore gestire
+  <strong>anchorEl</strong>/<strong>open</strong> (tipicamente con <strong>useState</strong>) e
+  chiudere il menu dentro ogni <strong>onClick</strong> delle voci. Per il resto, il componente
+  inoltra le props di <strong>Menu</strong> di MUI.
 </Section>
 
 <Section

@@ -2,21 +2,21 @@ import { useState } from 'react';
 
 import { fireEvent, render, screen, waitFor } from '../../../test-utils';
 import MIMenu, { MIMenuProps } from '../MIMenu';
-import MIMenuItem from '../MIMenuItem/MIMenuItem';
+
+const defaultItems: MIMenuProps['items'] = [
+  { label: 'Profile', onClick: vi.fn() },
+  { label: 'Logout', onClick: vi.fn() },
+];
 
 const renderMenu = (props: Partial<MIMenuProps> = {}) => {
   const defaultProps: MIMenuProps = {
     anchorEl: document.body,
     onClose: vi.fn(),
     open: true,
+    items: defaultItems,
   };
 
-  return render(
-    <MIMenu {...defaultProps} {...props}>
-      <li>Profile</li>
-      <li>Logout</li>
-    </MIMenu>
-  );
+  return render(<MIMenu {...defaultProps} {...props} />);
 };
 
 const ControlledMenu = () => {
@@ -25,21 +25,36 @@ const ControlledMenu = () => {
   return (
     <>
       <button onClick={(event) => setAnchorEl(event.currentTarget)}>Open menu</button>
-      <MIMenu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)}>
-        <MIMenuItem label="Profile" onClick={vi.fn()} />
-        <MIMenuItem label="Logout" onClick={vi.fn()} />
-      </MIMenu>
+      <MIMenu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={() => setAnchorEl(null)}
+        items={defaultItems}
+      />
     </>
   );
 };
 
 describe('MIMenu', () => {
-  it('renders the children when open', () => {
+  it('renders a MIMenuItem for each item when open', () => {
     renderMenu();
 
     expect(screen.getByRole('menu')).toBeInTheDocument();
-    expect(screen.getByText('Profile')).toBeInTheDocument();
-    expect(screen.getByText('Logout')).toBeInTheDocument();
+    expect(screen.getByRole('menuitem', { name: 'Profile' })).toBeInTheDocument();
+    expect(screen.getByRole('menuitem', { name: 'Logout' })).toBeInTheDocument();
+  });
+
+  it('renders a divider between items but not after the last one', () => {
+    renderMenu({
+      items: [
+        { label: 'Profile', onClick: vi.fn() },
+        { label: 'Settings', onClick: vi.fn() },
+        { label: 'Logout', onClick: vi.fn() },
+      ],
+    });
+
+    // Menu portals outside the render container, so query the whole document
+    expect(document.querySelectorAll('li.MuiDivider-root')).toHaveLength(2);
   });
 
   it('does not render the menu when closed', () => {
@@ -61,6 +76,15 @@ describe('MIMenu', () => {
     renderMenu({ className: 'custom-menu', id: 'account-menu' });
 
     expect(document.getElementById('account-menu')).toHaveClass('custom-menu');
+  });
+
+  it('calls the top-level onClick when the menu is clicked', () => {
+    const handleClick = vi.fn();
+    renderMenu({ onClick: handleClick });
+
+    fireEvent.click(screen.getByRole('menu'));
+
+    expect(handleClick).toHaveBeenCalledOnce();
   });
 
   describe('accessibility', () => {
@@ -95,4 +119,5 @@ describe('MIMenu', () => {
     });
   });
 });
+
 
