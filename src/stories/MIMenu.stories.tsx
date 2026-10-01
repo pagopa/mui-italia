@@ -1,68 +1,210 @@
-import { AccountCircleRounded, LogoutRounded, SettingsRounded } from '@mui/icons-material';
+import {
+  AddCircleRounded as AddCircleRoundedIcon,
+  LogoutRounded as LogoutRoundedIcon,
+} from '@mui/icons-material';
 import { Button } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { breakpointsChromaticValues } from '@theme';
 import { useState } from 'react';
-import type { MouseEvent } from 'react';
 
-import { MIMenu } from '@components/MIMenu';
-import type { MIMenuItemProps } from '@components/MIMenu';
+import { MIMenu, type MIMenuItemProps, type MIMenuProps } from '@components/MIMenu';
 
 const componentMaxWidth = 400;
 
-const meta: Meta<typeof MIMenu> = {
+type MenuScenario = 'basic' | 'withIcons' | 'withDisabledItem' | 'withLongLabels';
+
+type MIMenuStoryArgs = MIMenuProps & {
+  triggerLabel: string;
+  scenario: MenuScenario;
+};
+
+const buildItems = (scenario: MenuScenario, closeMenu: () => void): Array<MIMenuItemProps> => {
+  if (scenario === 'withIcons') {
+    return [
+      {
+        label: 'Nuova azione',
+        startIcon: <AddCircleRoundedIcon fontSize="small" />,
+        onClick: closeMenu,
+      },
+      {
+        label: 'Esci',
+        startIcon: <LogoutRoundedIcon fontSize="small" />,
+        onClick: closeMenu,
+      },
+    ];
+  }
+
+  if (scenario === 'withDisabledItem') {
+    return [
+      {
+        label: 'Profilo',
+        onClick: closeMenu,
+      },
+      {
+        label: 'Area amministrazione',
+        disabled: true,
+        onClick: closeMenu,
+      },
+      {
+        label: 'Esci',
+        onClick: closeMenu,
+      },
+    ];
+  }
+
+  if (scenario === 'withLongLabels') {
+    return [
+      {
+        label: 'Gestione preferenze di notifica e comunicazioni di servizio',
+        onClick: closeMenu,
+      },
+      {
+        label: 'Scarica report attivita e cronologia operazioni effettuate',
+        onClick: closeMenu,
+      },
+      {
+        label: 'Esci',
+        onClick: closeMenu,
+      },
+    ];
+  }
+
+  return [
+    {
+      label: 'Profilo',
+      onClick: closeMenu,
+    },
+    {
+      label: 'Impostazioni',
+      onClick: closeMenu,
+    },
+    {
+      label: 'Esci',
+      onClick: closeMenu,
+    },
+  ];
+};
+
+const meta: Meta<MIMenuStoryArgs> = {
   title: 'Components/MIMenu',
   component: MIMenu,
   tags: ['!dev'],
   parameters: {
-    layout: 'centered',
     controls: {
-      include: ['variant', 'autoFocus', 'disableAutoFocusItem'],
+      include: [
+        'triggerLabel',
+        'scenario',
+        'keepMounted',
+        'disablePortal',
+        'disableAutoFocusItem',
+      ],
     },
     chromatic: {
       viewports: breakpointsChromaticValues.filter((resolution) => resolution <= componentMaxWidth),
     },
-    docs: {
-      story: {
-        inline: false,
-        iframeHeight: 420,
-      },
-    },
   },
   args: {
-    variant: 'selectedMenu',
-    autoFocus: true,
+    triggerLabel: 'Apri menu account',
+    scenario: 'basic',
+    anchorEl: null,
+    open: false,
+    onClose: () => {},
+    items: [],
+    keepMounted: false,
+    disablePortal: false,
     disableAutoFocusItem: false,
+    id: 'mi-menu-account',
   },
   argTypes: {
-    variant: {
-      options: ['menu', 'selectedMenu'],
-      control: { type: 'radio' },
-      description:
-        "Determina se il focus iniziale cade sulla prima voce ('menu') o su quella selezionata ('selectedMenu').",
+    triggerLabel: {
+      control: { type: 'text' },
+      description: 'Testo visualizzato nel pulsante che apre il menu.',
+      table: {
+        category: 'Storybook controls',
+        type: { summary: 'string' },
+      },
     },
-    autoFocus: {
+    scenario: {
+      options: ['basic', 'withIcons', 'withDisabledItem', 'withLongLabels'],
+      control: { type: 'radio' },
+      description: 'Controllo Storybook: seleziona una configurazione di items predefinita.',
+      table: {
+        category: 'Storybook controls',
+        type: {
+          summary: "'basic' | 'withIcons' | 'withDisabledItem' | 'withLongLabels'",
+        },
+      },
+    },
+    keepMounted: {
       control: 'boolean',
-      description: 'Sposta il focus sulla lista delle voci quando il menu si apre.',
+      description: 'Mantiene il menu montato nel DOM anche quando e chiuso.',
+      table: {
+        category: 'MIMenu',
+        type: { summary: 'boolean' },
+      },
+    },
+    disablePortal: {
+      control: 'boolean',
+      description: 'Disattiva il portal del menu.',
+      table: {
+        category: 'MIMenu',
+        type: { summary: 'boolean' },
+      },
     },
     disableAutoFocusItem: {
       control: 'boolean',
-      description:
-        'Disabilita il focus automatico sulla voce attiva, mantenendolo sull’elemento che ha aperto il menu.',
+      description: 'Disattiva il focus automatico sul primo elemento all’apertura.',
+      table: {
+        category: 'Accessibilita',
+        type: { summary: 'boolean' },
+      },
     },
     items: {
-      description:
-        'Lista di voci del menu: MIMenu renderizza un MIMenuItem per ciascuna voce, intervallando un MIMenuDivider tranne che dopo l’ultimo elemento.',
       control: false,
+      table: {
+        disable: true,
+      },
+    },
+    anchorEl: {
+      control: false,
+      table: {
+        disable: true,
+      },
+    },
+    open: {
+      control: false,
+      table: {
+        disable: true,
+      },
     },
     onClose: {
       control: false,
+      table: {
+        disable: true,
+      },
+    },
+    onClick: {
+      control: false,
+      table: {
+        disable: true,
+      },
     },
   },
-  render: function RenderMIMMenu({ variant, autoFocus, disableAutoFocusItem }) {
+  render: function RenderMIMenu({
+    triggerLabel,
+    scenario,
+    keepMounted,
+    disablePortal,
+    disableAutoFocusItem,
+    id,
+    className,
+  }) {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
-    const handleOpen = (event: MouseEvent<HTMLButtonElement>) => {
+    const isOpen = Boolean(anchorEl);
+    const triggerId = `${id ?? 'mi-menu'}-trigger`;
+
+    const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
       setAnchorEl(event.currentTarget);
     };
 
@@ -70,53 +212,34 @@ const meta: Meta<typeof MIMenu> = {
       setAnchorEl(null);
     };
 
-    const items: Array<MIMenuItemProps> = [
-      {
-        label: 'Profilo personale',
-        startIcon: <AccountCircleRounded fontSize="small" />,
-        onClick: () => {
-          console.info('Profilo personale');
-          handleClose();
-        },
-      },
-      {
-        label: 'Impostazioni',
-        startIcon: <SettingsRounded fontSize="small" />,
-        onClick: () => {
-          console.info('Impostazioni');
-          handleClose();
-        },
-      },
-      {
-        label: 'Esci',
-        startIcon: <LogoutRounded fontSize="small" />,
-        onClick: () => {
-          console.info('Esci');
-          handleClose();
-        },
-      },
-    ];
+    const items = buildItems(scenario, handleClose);
 
     return (
       <>
         <Button
+          id={triggerId}
           variant="contained"
-          aria-controls={anchorEl ? 'mi-menu-dropdown' : undefined}
+          aria-controls={isOpen ? id : undefined}
           aria-haspopup="true"
-          aria-expanded={anchorEl ? 'true' : undefined}
+          aria-expanded={isOpen ? 'true' : undefined}
           onClick={handleOpen}
         >
-          Apri menu
+          {triggerLabel}
         </Button>
         <MIMenu
-          id="mi-menu-dropdown"
-          open={Boolean(anchorEl)}
+          id={id}
+          className={className}
+          open={isOpen}
           anchorEl={anchorEl}
           onClose={handleClose}
-          variant={variant}
-          autoFocus={autoFocus}
+          onClick={() => {}}
           disableAutoFocusItem={disableAutoFocusItem}
           items={items}
+          keepMounted={keepMounted}
+          disablePortal={disablePortal}
+          MenuListProps={{
+            'aria-labelledby': triggerId,
+          }}
         />
       </>
     );
@@ -125,75 +248,75 @@ const meta: Meta<typeof MIMenu> = {
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<MIMenuStoryArgs>;
 
 export const Playground: Story = {};
 
-export const WithoutIcons: Story = {
+export const Default: Story = {
+  args: {
+    triggerLabel: 'Azioni profilo',
+    scenario: 'basic',
+  },
   parameters: {
     controls: {
       disable: true,
     },
+    docs: {
+      description: {
+        story: 'Configurazione base del menu con tre azioni testuali.',
+      },
+    },
   },
-  render: function RenderMIMMenuWithoutIcons({ variant, autoFocus, disableAutoFocusItem }) {
-    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+};
 
-    const handleOpen = (event: MouseEvent<HTMLButtonElement>) => {
-      setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
-
-    const items: Array<MIMenuItemProps> = [
-      {
-        label: 'Profilo personale',
-        onClick: () => {
-          console.info('Profilo personale');
-          handleClose();
-        },
+export const WithIcons: Story = {
+  args: {
+    triggerLabel: 'Azioni rapide',
+    scenario: 'withIcons',
+  },
+  parameters: {
+    controls: {
+      disable: true,
+    },
+    docs: {
+      description: {
+        story: 'Esempio con icone iniziali sugli elementi del menu.',
       },
-      {
-        label: 'Impostazioni',
-        onClick: () => {
-          console.info('Impostazioni');
-          handleClose();
-        },
-      },
-      {
-        label: 'Esci',
-        onClick: () => {
-          console.info('Esci');
-          handleClose();
-        },
-      },
-    ];
+    },
+  },
+};
 
-    return (
-      <>
-        <Button
-          variant="contained"
-          aria-controls={anchorEl ? 'mi-menu-dropdown-without-icons' : undefined}
-          aria-haspopup="true"
-          aria-expanded={anchorEl ? 'true' : undefined}
-          onClick={handleOpen}
-        >
-          Apri menu
-        </Button>
+export const WithDisabledItem: Story = {
+  args: {
+    triggerLabel: 'Gestione account',
+    scenario: 'withDisabledItem',
+  },
+  parameters: {
+    controls: {
+      disable: true,
+    },
+    docs: {
+      description: {
+        story: 'Stato con una voce disabilitata all’interno del menu.',
+      },
+    },
+  },
+};
 
-        <MIMenu
-          id="mi-menu-dropdown-without-icons"
-          open={Boolean(anchorEl)}
-          anchorEl={anchorEl}
-          onClose={handleClose}
-          variant={variant}
-          autoFocus={autoFocus}
-          disableAutoFocusItem={disableAutoFocusItem}
-          items={items}
-        />
-      </>
-    );
+export const WithLongLabels: Story = {
+  args: {
+    triggerLabel: 'Menu completo',
+    scenario: 'withLongLabels',
+  },
+  parameters: {
+    controls: {
+      disable: true,
+    },
+    docs: {
+      description: {
+        story: 'Caso limite con etichette lunghe per verificare la resa del contenuto.',
+      },
+    },
   },
 };
 

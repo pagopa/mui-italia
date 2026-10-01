@@ -1,8 +1,9 @@
-import { Meta, Title, Primary, Controls, Story,Canvas } from '@storybook/addon-docs/blocks';
+import { Meta, Title, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
 
 import Overview from './components/Overview';
 import Section from './components/Section';
 import SubSection from './components/SubSection';
+
 import * as MIMenuStories from '../stories/MIMenu.stories.tsx';
 
 <Meta of={MIMenuStories} />
@@ -10,87 +11,132 @@ import * as MIMenuStories from '../stories/MIMenu.stories.tsx';
 <Title />
 
 <Overview>
-  <strong>MIMenu</strong> e il wrapper di stile del componente <strong>Menu</strong> di MUI.
-  Riceve la lista delle voci tramite la properties <strong>items</strong>.
-  <br />
+  <strong>MIMenu</strong> e un wrapper del componente Menu di Material UI che riceve una lista di
+  elementi tramite la prop <code>items</code> e inserisce automaticamente i divisori tra un elemento e il
+  successivo.
 </Overview>
 
 <Section
   title="Riferimenti"
-  description="Risorse utili per confrontare implementazione e specifiche."
+  description="Risorse utili per confronto tra specifiche e implementazione."
 >
-
- 🎨 [Figma](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=3262-40787&m=dev)
-
+   🎨 [Figma](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=3262-40787&m=dev)
 </Section>
 
 <Section
   title="Playground"
-  description="Usa i controlli per modificare il comportamento del focus di MIMenu, quindi verifica il comportamento del menu e la chiusura dell’overlay."
+  description="Usa i controlli per verificare le principali configurazioni del menu."
 >
   <Primary />
   <Controls />
 </Section>
 
 <Section
-  title="Stati"
-  description="Il pattern permette di comporre il menu con o senza icone, semplicemente omettendo la prop startIcon su MIMenuItem."
+  title="Varianti e stati"
+  description="Configurazioni statiche utili per la review visuale."
 >
-  <SubSection title="Con icone">
-    <Canvas of={MIMenuStories.Playground} />
-  </SubSection>
-  <SubSection title="Senza icone">
-    <Canvas of={MIMenuStories.WithoutIcons} />
-  </SubSection>
-</Section>
+  <SubSection title="Default">
+    Menu con voci testuali standard.
 
-<Section
-  title="Accessibilità"
-  description="L'accessibilità finale dipende dalla corretta valorizzazione delle props e dal contesto di utilizzo del menu."
->
-  <SubSection title="Props rilevanti">
-    <ul>
-      <li>
-        <strong>items</strong>: lista di voci del menu. Ogni voce richiede una{' '}
-        <strong>label</strong> e un <strong>onClick</strong>; <strong>startIcon</strong> e
-        opzionale. MIMenu inserisce un divisore tra una voce e la successiva.
-      </li>
-      <li>
-        <strong>open</strong>, <strong>anchorEl</strong> e <strong>onClose</strong>: props
-        ereditate da Menu di MUI, necessarie per controllare visibilita e chiusura dell overlay.
-      </li>
-      <li>
-        <strong>variant</strong>, <strong>autoFocus</strong> e <strong>disableAutoFocusItem</strong>:
-        controllano il comportamento iniziale del focus quando il menu si apre.
-      </li>
-    </ul>
+    <Story of={MIMenuStories.Default} />
   </SubSection>
 
-<SubSection title="Comportamento del focus e della tastiera">
-  I componenti ereditano il comportamento di Menu e MenuItem di MUI, inclusi la navigazione da
-  tastiera e la gestione del focus. Nel caso di interazioni con la tastiera, l’utente deve poter
-  aprire, navigare e selezionare le voci con le modalità standard del menu. Poiché MIMenuItem non
-  chiude automaticamente il menu, l onClick di ogni voce deve invocare esplicitamente onClose.
-</SubSection>
+  <SubSection title="WithIcons">
+    Variante con icone all’inizio della voce, utile per azioni contestuali.
+
+    <Story of={MIMenuStories.WithIcons} />
+  </SubSection>
+
+  <SubSection title="WithDisabledItem">
+    Esempio con una voce non selezionabile.
+
+    <Story of={MIMenuStories.WithDisabledItem} />
+  </SubSection>
+
+  <SubSection title="WithLongLabels">
+    Caso limite con testi lunghi per verificare leggibilita e spaziatura.
+
+    <Story of={MIMenuStories.WithLongLabels} />
+  </SubSection>
 </Section>
 
 <Section
   title="Note per gli sviluppatori"
-  description="Indicazioni tecniche per integrare correttamente il pattern."
+  description="Indicazioni tecniche per integrare il componente in modo corretto."
 >
-  MIMenu e un componente puramente di stile: non gestisce lo stato di apertura/chiusura e non
-  intercetta il click sulle singole voci. E responsabilita del consumatore gestire
-  <strong>anchorEl</strong>/<strong>open</strong> (tipicamente con <strong>useState</strong>) e
-  chiudere il menu dentro ogni <strong>onClick</strong> delle voci. Per il resto, il componente
-  inoltra le props di <strong>Menu</strong> di MUI.
+  <ul>
+    <li>
+      Il componente e controllato: apertura e chiusura dipendono da <code>anchorEl</code>, <code>open</code> e <code>onClose</code> .
+    </li>
+    <li>
+      <code>items</code> accetta un array di <code>MIMenuItemProps</code> e ogni elemento viene renderizzato come MIMenuItem.
+    </li>
+    <li>
+      I divisori sono inseriti automaticamente tra gli elementi, escluso l’ultimo.
+    </li>
+    <li>
+      Le props native di Menu (esempio: keepMounted, disablePortal, MenuListProps) sono supportate
+      perche MIMenu estende MenuProps.
+    </li>
+  </ul>
 </Section>
 
 <Section
   title="Note per i designer"
-  description="Informazioni utili per la revisione visuale e il confronto con Figma."
+  description="Aspetti visuali utili per il confronto con le specifiche."
 >
-  Il Paper del menu ha larghezza fissa a 17rem (272px) e angoli arrotondati coerenti con il design
-  system, per questo gli snapshot Chromatic sono limitati alle risoluzioni più piccole. Il
-  divisore tra le voci non ha margini verticali, mentre ogni voce ha un padding verticale di 8px
-  (theme.spacing(1)).
+  <ul>
+    <li>Il pannello del menu usa larghezza fissa di 17rem e bordo arrotondato da tema.</li>
+    <li>I divisori interni non hanno margini verticali aggiuntivi.</li>
+    <li>
+      Gli snapshot Chromatic proposti usano componentMaxWidth pari a 400 (euristica per componente
+      atomico di navigazione).
+    </li>
+    <li>
+      Se Figma prevede varianti non presenti nelle props attuali, e necessario un aggiornamento del
+      codice prima di documentarle.
+    </li>
+  </ul>
+</Section>
+
+<Section
+  title="Accessibilita"
+  description="Comportamenti verificabili dal codice e dai test esistenti."
+>
+  <SubSection title="Comportamenti verificati">
+    <ul>
+      <li>All’apertura, il focus passa al primo menuitem (comportamento verificato nei test).</li>
+      <li>La navigazione con frecce tra le voci e supportata.</li>
+      <li>Alla chiusura, il focus ritorna all’elemento ancora usato come ancora.</li>
+    </ul>
+  </SubSection>
+
+  <SubSection title="Props rilevanti">
+    <ul>
+      <li><code>disableAutoFocusItem</code> per controllare il focus iniziale.</li>
+      <li><code>menuListProps</code> per configurare attributi accessibili, ad esempio aria-labelledby.</li>
+      <li>id e aria-controls sul trigger per collegare trigger e menu.</li>
+    </ul>
+  </SubSection>
+
+  <SubSection title="Esempio accessibile">
+    ```tsx
+    <Button
+      id="account-menu-trigger"
+      aria-controls={open ? 'account-menu' : undefined}
+      aria-haspopup="true"
+      aria-expanded={open ? 'true' : undefined}
+    >
+      Apri menu account
+    </Button>
+    <MIMenu
+      id="account-menu"
+      anchorEl={anchorEl}
+      open={open}
+      onClose={handleClose}
+      items={items}
+      MenuListProps={{ 'aria-labelledby': 'account-menu-trigger' }}
+    />
+    ```
+  </SubSection>
 </Section>
