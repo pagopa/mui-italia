@@ -112,6 +112,10 @@ export const MIPagination: React.FC<MIPaginationProps> = ({ rowPerPageOptions, .
           labelId="rows-per-page-select"
           id="rows-per-page-select"
           data-testid="rows-per-page-select"
+          inputProps={{
+            'aria-label': 'Select number of rows per page',
+            ...rowPerPageOptions.inputProps,
+          }}
           value={limit}
           onChange={(event) => rowPerPageOptions.onLimitChange(event.target.value as number)}
         >
