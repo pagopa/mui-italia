@@ -1,8 +1,10 @@
-import { Meta, StoryObj } from '@storybook/react-vite';
+import type { ComponentProps } from 'react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useArgs } from 'storybook/preview-api';
+
 import { MIPagination } from '@components/MIPagination';
 
-type MIPaginationStoryArgs = React.ComponentProps<typeof MIPagination> & {
+type MIPaginationStoryArgs = ComponentProps<typeof MIPagination> & {
   rowsPerPage: number;
 };
 
@@ -10,9 +12,11 @@ const TOTAL_ITEMS = 110;
 const ROWS_PER_PAGE_OPTIONS = [10, 24, 36];
 
 const meta: Meta<MIPaginationStoryArgs> = {
-  title: 'MUI Components/Navigation/MIPagination',
+  title: 'Components/MIPagination',
   component: MIPagination,
+  tags: ['!dev'],
   parameters: {
+    layout: 'centered',
     controls: {
       include: ['page', 'disabled', 'rowsPerPage'],
     },
@@ -34,6 +38,15 @@ const meta: Meta<MIPaginationStoryArgs> = {
       table: { category: 'MIPagination' },
     },
     count: {
+      control: false,
+      table: { disable: true },
+    },
+    rowPerPageOptions: {
+      control: false,
+      table: { disable: true },
+    },
+    onChange: {
+      control: false,
       table: { disable: true },
     },
     rowsPerPage: {
@@ -44,15 +57,14 @@ const meta: Meta<MIPaginationStoryArgs> = {
       table: { category: 'Storybook controls' },
     },
   },
-  // eslint-disable-next-line react-hooks/rules-of-hooks -- Storybook's render is treated as a story function, not a component
-  render: ({ rowsPerPage, ...args }) => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks -- Storybook's render is treated as a story function, not a component
+  render: function RenderPlayground({ page = 1, disabled = false, rowsPerPage }) {
     const [, updateArgs] = useArgs<MIPaginationStoryArgs>();
     const pageCount = Math.ceil(TOTAL_ITEMS / rowsPerPage);
 
     return (
       <MIPagination
-        {...args}
+        page={page}
+        disabled={disabled}
         count={pageCount}
         onChange={(_, value) => updateArgs({ page: value })}
         rowPerPageOptions={{
@@ -69,27 +81,30 @@ export default meta;
 
 type Story = StoryObj<MIPaginationStoryArgs>;
 
-export const Playground: Story = {};
-
-export const Default: Story = {
-  args: {
-    count: 110,
-    page: 1,
+export const Playground: Story = {
+  parameters: {
+    layout: 'padded',
   },
 };
 
 export const FirstPage: Story = {
-  tags:['!dev'],
+  parameters: {
+    controls: { disable: true },
+  },
   args: {
-    count: 110,
     page: 1,
+    disabled: false,
+    rowsPerPage: 10,
   },
 };
 
 export const LastPage: Story = {
-  tags:['!dev'],
+  parameters: {
+    controls: { disable: true },
+  },
   args: {
-    count: 110,
-    page: 110,
+    page: 11,
+    disabled: false,
+    rowsPerPage: 10,
   },
 };

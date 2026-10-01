@@ -11,14 +11,19 @@ import * as MIPaginationStories from '../stories/MIPagination.stories.tsx';
 <Title />
 
 <Overview>
-  <strong>MIPagination</strong> è un componente pensato per gestire la paginazione all'interno di
-  sezioni contententi liste di elementi.
+  <strong>MIPagination</strong> e un wrapper di stile del componente Pagination di MUI pensato per
+  gestire la navigazione tra pagine di una lista.
   <br />
   <br />
   Tramite la prop opzionale <strong>rowPerPageOptions</strong> espone anche un selettore del numero
-  di elementi per pagina (basato su <strong>MISelect</strong>), reso visibile solo quando tale prop
-  viene passata.
+  di elementi per pagina (basato su <strong>MISelect</strong>), visibile solo quando questa prop
+  viene fornita.
 </Overview>
+
+**Link utili**
+
+- 🎨 [Figma](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=127-1510&m=dev)
+
 
 <Section
   title="Playground"
@@ -29,22 +34,15 @@ import * as MIPaginationStories from '../stories/MIPagination.stories.tsx';
 </Section>
 
 <Section
-  title="Default"
-  description="Configurazione base del componente, utile per esplorare rapidamente le prop tramite i Controls."
->
-  <Story of={MIPaginationStories.Default} />
-</Section>
-
-<Section
   title="First page"
-  description="Mostra il comportamento del componente quando viene selezionata la prima pagina"
+  description="Mostra il comportamento del componente quando e selezionata la prima pagina."
 >
   <Story of={MIPaginationStories.FirstPage} />
 </Section>
 
 <Section
   title="Last page"
-  description="Mostra il comportamento del componente quando viene selezionata l'ultima pagina"
+  description="Mostra il comportamento del componente quando e selezionata l ultima pagina."
 >
   <Story of={MIPaginationStories.LastPage} />
 </Section>
@@ -58,23 +56,23 @@ import * as MIPaginationStories from '../stories/MIPagination.stories.tsx';
       <li>
         <strong>rowPerPageOptions</strong>: se omessa, il selettore non viene renderizzato e
         MIPagination mostra solo la paginazione. Quando valorizzata, richiede un oggetto con:
+        <ul>
+          <li>
+            <strong>limit</strong>: valore corrente selezionato, gestito dal consumatore
+            (componente controllato).
+          </li>
+          <li>
+            <strong>onLimitChange</strong>: callback invocata con il nuovo valore selezionato
+            dall utente.
+          </li>
+          <li>
+            <strong>options</strong>: elenco dei valori numerici proposti nel selettore. Se omessa,
+            vengono usate le opzioni di default <code>[10, 24, 36]</code>.
+          </li>
+        </ul>
       </li>
-      <ul>
-        <li>
-          <strong>limit</strong>: valore corrente selezionato, gestito dal consumatore (componente
-          controllato).
-        </li>
-        <li>
-          <strong>onLimitChange</strong>: callback invocata con il nuovo valore selezionato
-          dall'utente.
-        </li>
-        <li>
-          <strong>options</strong>: elenco dei valori numerici proposti nel selettore. Se omessa,
-          vengono usate le opzioni di default <code>[10, 24, 36]</code>.
-        </li>
-      </ul>
       <li>
-        Se <strong>limit</strong> non è presente tra le <strong>options</strong> disponibili (ad
+        Se <strong>limit</strong> non e presente tra le <strong>options</strong> disponibili (ad
         esempio dopo una modifica delle opzioni lato consumatore), MIPagination invoca
         automaticamente <strong>onLimitChange</strong> con il primo valore valido della lista.
       </li>
