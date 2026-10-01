@@ -5,6 +5,9 @@ import MuiPagination, { PaginationProps } from '@mui/material/Pagination';
 import { styled } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/system';
+import { InputBaseComponentProps, MenuItem, Stack } from '@mui/material';
+import { MISelect } from '@components/MISelect';
+import { useEffect } from 'react';
 
 export type MIPaginationProps = Omit<
   PaginationProps,
@@ -21,7 +24,15 @@ export type MIPaginationProps = Omit<
   | 'hidePrevButton'
   | 'showFirstButton'
   | 'showLastButton'
->;
+  | 'rowPerPageOptions'
+> & {
+  rowPerPageOptions?: {
+    options?: Array<number>;
+    onLimitChange: (limit: number) => void;
+    limit: number;
+    inputProps?: InputBaseComponentProps;
+  };
+};
 
 const StyledPaginationItem = styled(MuiPaginationItem)(({ theme }) => ({
   background: 'transparent',
@@ -76,24 +87,55 @@ const StyledPaginationItem = styled(MuiPaginationItem)(({ theme }) => ({
 
 const StyledPagination = styled(MuiPagination)({});
 
-export const MIPagination: React.FC<MIPaginationProps> = (props) => {
+const DEFAULT_OPTIONS = [10, 24, 36];
+
+export const MIPagination: React.FC<MIPaginationProps> = ({ rowPerPageOptions, ...rest }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
+  const pageOptionsValues = rowPerPageOptions?.options || DEFAULT_OPTIONS;
+  const limit = rowPerPageOptions?.limit || pageOptionsValues[0];
+
+  useEffect(() => {
+    if (rowPerPageOptions) {
+      if (!pageOptionsValues.includes(limit)) {
+        // If Limit is wrong and not included within pageOptsionValues, will be selected first element of select
+        rowPerPageOptions.onLimitChange(pageOptionsValues[0]);
+      }
+    }
+  }, [rowPerPageOptions, pageOptionsValues, limit]);
+
   return (
-    <StyledPagination
-      siblingCount={0}
-      renderItem={(item) => {
-        if (isMobile) {
-          const isNavButton = item.type === 'previous' || item.type === 'next';
-          if (!isNavButton && !item.selected) {
-            return null;
+    <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'} width="100%">
+      {rowPerPageOptions && (
+        <MISelect
+          labelId="rows-per-page-select"
+          id="rows-per-page-select"
+          data-testid="rows-per-page-select"
+          value={limit}
+          onChange={(event) => rowPerPageOptions.onLimitChange(event.target.value as number)}
+        >
+          {pageOptionsValues.map((option) => (
+            <MenuItem key={option} value={option}>
+              {option}
+            </MenuItem>
+          ))}
+        </MISelect>
+      )}
+      <StyledPagination
+        siblingCount={0}
+        renderItem={(item) => {
+          if (isMobile) {
+            const isNavButton = item.type === 'previous' || item.type === 'next';
+            if (!isNavButton && !item.selected) {
+              return null;
+            }
           }
-        }
-        return <StyledPaginationItem {...item} />;
-      }}
-      {...props}
-    />
+          return <StyledPaginationItem {...item} />;
+        }}
+        {...rest}
+      />
+    </Stack>
   );
 };
 

@@ -98,4 +98,88 @@ describe('MIPagination', () => {
       expect(getByText(page)).toBeInTheDocument();
     });
   });
+
+  describe('rowPerPageOptions', () => {
+    const openSelect = (getByTestId: ReturnType<typeof render>['getByTestId']) =>
+      fireEvent.mouseDown(getByTestId('rows-per-page-select').querySelector('[role="combobox"]')!);
+
+    it('does not render the rows-per-page select when rowPerPageOptions is not provided', () => {
+      const { queryByTestId } = render(<MIPagination page={1} count={110} />);
+      expect(queryByTestId('rows-per-page-select')).not.toBeInTheDocument();
+    });
+
+    it('renders the default options when rowPerPageOptions.options is not provided', () => {
+      const { getByTestId, getByRole } = render(
+        <MIPagination
+          page={1}
+          count={110}
+          rowPerPageOptions={{ limit: 10, onLimitChange: vi.fn() }}
+        />
+      );
+
+      openSelect(getByTestId);
+
+      ['10', '24', '36'].forEach((option) => {
+        expect(getByRole('option', { name: option })).toBeInTheDocument();
+      });
+    });
+
+    it('renders the custom options passed in rowPerPageOptions.options', () => {
+      const { getByTestId, getByRole, queryByRole } = render(
+        <MIPagination
+          page={1}
+          count={110}
+          rowPerPageOptions={{ options: [5, 15], limit: 5, onLimitChange: vi.fn() }}
+        />
+      );
+
+      openSelect(getByTestId);
+
+      expect(getByRole('option', { name: '5' })).toBeInTheDocument();
+      expect(getByRole('option', { name: '15' })).toBeInTheDocument();
+      expect(queryByRole('option', { name: '10' })).not.toBeInTheDocument();
+    });
+
+    it('shows the current limit as the selected value', () => {
+      const { getByTestId } = render(
+        <MIPagination
+          page={1}
+          count={110}
+          rowPerPageOptions={{ options: [10, 24, 36], limit: 24, onLimitChange: vi.fn() }}
+        />
+      );
+
+      expect(getByTestId('rows-per-page-select')).toHaveTextContent('24');
+    });
+
+    it('calls onLimitChange with the selected option', () => {
+      const handleLimitChange = vi.fn();
+      const { getByTestId, getByRole } = render(
+        <MIPagination
+          page={1}
+          count={110}
+          rowPerPageOptions={{ options: [10, 24, 36], limit: 10, onLimitChange: handleLimitChange }}
+        />
+      );
+
+      openSelect(getByTestId);
+      fireEvent.click(getByRole('option', { name: '24' }));
+
+      expect(handleLimitChange).toHaveBeenCalledTimes(1);
+      expect(handleLimitChange).toHaveBeenCalledWith(24);
+    });
+
+    it('corrects the limit to the first option when the provided limit is not included in the options', () => {
+      const handleLimitChange = vi.fn();
+      render(
+        <MIPagination
+          page={1}
+          count={110}
+          rowPerPageOptions={{ options: [10, 24, 36], limit: 999, onLimitChange: handleLimitChange }}
+        />
+      );
+
+      expect(handleLimitChange).toHaveBeenCalledWith(10);
+    });
+  });
 });

@@ -2,6 +2,7 @@ import { Meta, Title, Primary, Controls, Story } from '@storybook/addon-docs/blo
 
 import Overview from './components/Overview';
 import Section from './components/Section';
+import SubSection from './components/SubSection';
 
 import * as MIPaginationStories from '../stories/MIPagination.stories.tsx';
 
@@ -12,6 +13,11 @@ import * as MIPaginationStories from '../stories/MIPagination.stories.tsx';
 <Overview>
   <strong>MIPagination</strong> è un componente pensato per gestire la paginazione all'interno di
   sezioni contententi liste di elementi.
+  <br />
+  <br />
+  Tramite la prop opzionale <strong>rowPerPageOptions</strong> espone anche un selettore del numero
+  di elementi per pagina (basato su <strong>MISelect</strong>), reso visibile solo quando tale prop
+  viene passata.
 </Overview>
 
 <Section
@@ -41,4 +47,54 @@ import * as MIPaginationStories from '../stories/MIPagination.stories.tsx';
   description="Mostra il comportamento del componente quando viene selezionata l'ultima pagina"
 >
   <Story of={MIPaginationStories.LastPage} />
+</Section>
+
+<Section
+  title="Elementi per pagina"
+  description="Selettore opzionale del numero di elementi per pagina, visibile passando la prop rowPerPageOptions."
+>
+  <SubSection title="Props rilevanti">
+    <ul>
+      <li>
+        <strong>rowPerPageOptions</strong>: se omessa, il selettore non viene renderizzato e
+        MIPagination mostra solo la paginazione. Quando valorizzata, richiede un oggetto con:
+      </li>
+      <ul>
+        <li>
+          <strong>limit</strong>: valore corrente selezionato, gestito dal consumatore (componente
+          controllato).
+        </li>
+        <li>
+          <strong>onLimitChange</strong>: callback invocata con il nuovo valore selezionato
+          dall'utente.
+        </li>
+        <li>
+          <strong>options</strong>: elenco dei valori numerici proposti nel selettore. Se omessa,
+          vengono usate le opzioni di default <code>[10, 24, 36]</code>.
+        </li>
+      </ul>
+      <li>
+        Se <strong>limit</strong> non è presente tra le <strong>options</strong> disponibili (ad
+        esempio dopo una modifica delle opzioni lato consumatore), MIPagination invoca
+        automaticamente <strong>onLimitChange</strong> con il primo valore valido della lista.
+      </li>
+    </ul>
+  </SubSection>
+
+  <SubSection title="Esempio">
+    ```tsx
+    const [limit, setLimit] = useState(10);
+
+    <MIPagination
+      page={page}
+      count={pageCount}
+      onChange={(_, value) => setPage(value)}
+      rowPerPageOptions={{
+        options: [10, 24, 36],
+        limit,
+        onLimitChange: setLimit,
+      }}
+    />;
+    ```
+  </SubSection>
 </Section>
