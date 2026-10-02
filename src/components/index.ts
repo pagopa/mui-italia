@@ -23,6 +23,7 @@ export * from './MIBreadcrumbs';
 export * from './MIButton';
 export * from './MIChip';
 export * from './MIIconButton';
+export * from './MIMenu';
 export * from './MIPaper';
 export * from './MISnackbar';
 export * from './MISpidSelectOIDialog';
