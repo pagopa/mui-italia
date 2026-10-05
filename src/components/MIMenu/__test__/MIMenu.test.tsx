@@ -4,8 +4,8 @@ import { fireEvent, render, screen, waitFor } from '../../../test-utils';
 import MIMenu, { MIMenuProps } from '../MIMenu';
 
 const defaultItems: MIMenuProps['items'] = [
-  { label: 'Profile', onClick: vi.fn() },
-  { label: 'Logout', onClick: vi.fn() },
+  { id: 'profile', label: 'Profile', onClick: vi.fn() },
+  { id: 'logout', label: 'Logout', onClick: vi.fn() },
 ];
 
 const renderMenu = (props: Partial<MIMenuProps> = {}) => {
@@ -47,9 +47,9 @@ describe('MIMenu', () => {
   it('renders a divider between items but not after the last one', () => {
     renderMenu({
       items: [
-        { label: 'Profile', onClick: vi.fn() },
-        { label: 'Settings', onClick: vi.fn() },
-        { label: 'Logout', onClick: vi.fn() },
+        { id: 'profile', label: 'Profile', onClick: vi.fn() },
+        { id: 'settings', label: 'Settings', onClick: vi.fn() },
+        { id: 'logout', label: 'Logout', onClick: vi.fn() },
       ],
     });
 

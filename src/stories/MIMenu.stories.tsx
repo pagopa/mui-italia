@@ -22,11 +22,13 @@ const buildItems = (scenario: MenuScenario, closeMenu: () => void): Array<MIMenu
   if (scenario === 'withIcons') {
     return [
       {
+        id: 'new-action',
         label: 'Nuova azione',
         startIcon: <AddCircleRoundedIcon fontSize="small" />,
         onClick: closeMenu,
       },
       {
+        id: 'logout',
         label: 'Esci',
         startIcon: <LogoutRoundedIcon fontSize="small" />,
         onClick: closeMenu,
@@ -37,15 +39,18 @@ const buildItems = (scenario: MenuScenario, closeMenu: () => void): Array<MIMenu
   if (scenario === 'withDisabledItem') {
     return [
       {
+        id: 'profile',
         label: 'Profilo',
         onClick: closeMenu,
       },
       {
+        id: 'admin-area',
         label: 'Area amministrazione',
         disabled: true,
         onClick: closeMenu,
       },
       {
+        id: 'logout',
         label: 'Esci',
         onClick: closeMenu,
       },
@@ -55,14 +60,17 @@ const buildItems = (scenario: MenuScenario, closeMenu: () => void): Array<MIMenu
   if (scenario === 'withLongLabels') {
     return [
       {
+        id: 'notifications-preferences',
         label: 'Gestione preferenze di notifica e comunicazioni di servizio',
         onClick: closeMenu,
       },
       {
+        id: 'activity-report',
         label: 'Scarica report attivita e cronologia operazioni effettuate',
         onClick: closeMenu,
       },
       {
+        id: 'logout',
         label: 'Esci',
         onClick: closeMenu,
       },
@@ -71,14 +79,17 @@ const buildItems = (scenario: MenuScenario, closeMenu: () => void): Array<MIMenu
 
   return [
     {
+      id: 'profile',
       label: 'Profilo',
       onClick: closeMenu,
     },
     {
+      id: 'settings',
       label: 'Impostazioni',
       onClick: closeMenu,
     },
     {
+      id: 'logout',
       label: 'Esci',
       onClick: closeMenu,
     },

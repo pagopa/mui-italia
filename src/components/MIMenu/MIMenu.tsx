@@ -4,16 +4,18 @@ import { StyledMenu } from './StyledMenu';
 import MIMenuDivider from './MIMenuDivider/MIMenuDivider';
 import MIMenuItem, { MIMenuItemProps } from './MIMenuItem/MIMenuItem';
 
+type MIMenuListItem = MIMenuItemProps & { id: string };
+
 export type MIMenuProps = Omit<MenuProps, 'children'> & {
-  items: Array<MIMenuItemProps>;
+  items: Array<MIMenuListItem>;
   onClick?: MouseEventHandler<HTMLElement>;
 };
 
 const MIMenu: FC<MIMenuProps> = ({ items, ...props }) => (
-  <StyledMenu anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} {...props}>
+  <StyledMenu {...props}>
     {items.flatMap((item, index) => [
-      <MIMenuItem key={`item-${index}`} {...item} />,
-      ...(index < items.length - 1 ? [<MIMenuDivider key={`divider-${index}`} />] : []),
+      <MIMenuItem key={item.id} {...item} />,
+      ...(index < items.length - 1 ? [<MIMenuDivider key={`divider-${item.id}`} />] : []),
     ])}
   </StyledMenu>
 );

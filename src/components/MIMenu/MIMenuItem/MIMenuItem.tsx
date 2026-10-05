@@ -5,6 +5,7 @@ import { StyledMenuItem } from './StyledMenuItem';
 export type MIMenuItemProps = Omit<MenuItemProps, 'children'> & {
   label: ReactNode;
   startIcon?: ReactNode;
+  id: string;
 };
 
 const MIMenuItem: FC<MIMenuItemProps> = ({ label, startIcon, ...props }) => (

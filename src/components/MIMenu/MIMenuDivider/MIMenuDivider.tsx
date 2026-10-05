@@ -5,7 +5,7 @@ import { StyledMenuDivider } from './StyledMenuDivider';
 export type MIMenuDividerProps = DividerProps;
 
 const MIMenuDivider: FC<MIMenuDividerProps> = (props) => (
-  <StyledMenuDivider component="li" {...props} />
+    <StyledMenuDivider component="li" {...props} />
 );
 
 export default MIMenuDivider;

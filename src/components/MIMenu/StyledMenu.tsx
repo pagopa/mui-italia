@@ -9,6 +9,8 @@ export const StyledMenu = styled(MUIMenu)(({ theme }) => ({
   },
   '& .MuiPaper-root': {
     width: '17rem',
+    maxWidth: `calc(100vw - ${theme.spacing(2)})`,
+    boxSizing: 'border-box',
     borderRadius: theme.spacing(1),
   },
 }));
