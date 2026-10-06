@@ -1,0 +1,279 @@
+import { Meta, Title, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
+import { Typography } from '@mui/material';
+
+import Overview from './components/Overview';
+import Section from './components/Section';
+import SubSection from './components/SubSection';
+import * as MIAccordionStories from '../stories/MIAccordion.stories.tsx';
+
+<Meta of={MIAccordionStories} />
+
+<Title />
+
+<Overview>
+  <strong>MIAccordion</strong> è un item espandibile che mostra un header sempre visibile e un
+  contenuto che si apre e si chiude al click. È basato sull'Accordion di MUI.
+
+<br />
+
+Riferimento Figma: [MUI Italia Next - Design System](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=759-6399).
+
+</Overview>
+
+<Section
+  title="Playground"
+  description="Usa i controlli per modificare i parametri principali del componente e verificare il risultato live."
+>
+  <Primary />
+  <Controls />
+</Section>
+
+<Section
+  title="Uso consigliato"
+  description="L'uso standard garantisce l'aderenza al Figma e l'accessibilità dell'header."
+>
+  Passa il titolo come <strong>testo</strong> (<code>title</code> di tipo <code>string</code>) e,
+  se serve indicare uno stato, usa le props <code>badge</code> e <code>badgeProps</code>: il
+  componente rende il badge come <code>MIChip</code> sotto il titolo e lo mostra outlined quando
+  l'item è disabilitato, come previsto dal Figma.
+
+```tsx
+<MIAccordion
+  title="Configurazione del servizio"
+  badge="Attivo"
+  badgeProps={{ color: 'success' }}
+  description="Verifica i dati prima di proseguire."
+>
+  ...
+</MIAccordion>
+```
+
+  <SubSection title="Titolo personalizzato">
+    <code>title</code> accetta anche un contenuto personalizzato (<code>ReactNode</code>), per i
+    casi che il design standard non copre. In questo caso aderenza al Figma e accessibilità
+    dipendono da chi usa il componente. Il titolo sta dentro il pulsante dell'header, quindi:
+
+    <ul>
+      <li>non inserire link, bottoni, campi o altri elementi interattivi;</li>
+      <li>
+        assicurati che il testo letto dagli screen reader resti un nome chiaro: icone informative
+        con testo alternativo, nessun contenuto vuoto o troppo lungo;
+      </li>
+      <li>
+        se componi tu un badge, usa <code>MIChip</code> e rendilo outlined quando l'item è
+        disabilitato, così lo stato non si distingue solo per il colore;
+      </li>
+      <li>
+        con i componenti di traduzione puoi passare la stringa già tradotta, per esempio{' '}
+        <code>t('...')</code>.
+      </li>
+    </ul>
+
+  </SubSection>
+</Section>
+
+<Section
+  title="Anatomia"
+  description="Titolo, chevron e contenuto sono sempre presenti. Icona, badge e descrizione sono opzionali e indipendenti."
+>
+  <ul>
+    <li>
+      <strong>title</strong>: il titolo dell'item. L'uso standard è una stringa (vedi "Uso
+      consigliato"); è ammesso anche un contenuto personalizzato, con i limiti descritti sotto.
+    </li>
+    <li>
+      <strong>icon</strong>: icona semplice, icona di stato colorata o avatar. Il componente non ne
+      modifica colore né dimensione; per le icone semplici la dimensione consigliata è 24px.
+      L'icona è decorativa e nascosta agli screen reader: se comunica uno stato, riportalo anche
+      nel titolo o nel badge.
+    </li>
+    <li>
+      <strong>badge</strong>: testo reso come <code>MIChip</code> sotto il titolo, di default{' '}
+      <code>neutral</code>. Con <code>badgeProps</code> si scelgono solo colore e variante: il badge
+      è testo semplice dentro l'header, quindi niente stili, icone o azioni.
+    </li>
+    <li>
+      <strong>description</strong>: testo secondario (<code>string</code>), visibile solo quando
+      l'item è aperto. Per un testo con link o formattazione usa l'inizio di{' '}
+      <code>children</code>.
+    </li>
+    <li>
+      <strong>children</strong>: contenuto dell'item, obbligatorio. Un elemento con solo il titolo
+      non è un accordion: in quel caso usa <code>MIBoxedModule</code>.
+    </li>
+  </ul>
+
+  <Story of={MIAccordionStories.SlotCombinations} />
+</Section>
+
+<Section
+  title="Personalizzazione"
+  description="L'aspetto di MIAccordion segue il design system."
+>
+  Il componente non accetta <code>style</code>, <code>className</code> né <code>classes</code>. La
+  prop <code>sx</code> è disponibile e si applica al contenitore: usala per posizionare il
+  componente nella pagina (es. margini), non per cambiarne l'aspetto rispetto al design system.
+
+<ul>
+  <li>
+    <code>id</code>, gli attributi <code>{'data-*'}</code> (es. <code>data-testid</code>) e le altre
+    props HTML vanno al contenitore.
+  </li>
+  <li>
+    gli attributi <code>{'aria-*'}</code> vanno al pulsante dell'header, l'elemento che riceve il
+    focus: per esempio <code>aria-describedby</code> collega all'header un testo di istruzioni
+    presente nella pagina.
+  </li>
+</ul>
+</Section>
+
+<Section title="Icona" description="La prop icon accetta qualsiasi nodo React.">
+  <Story of={MIAccordionStories.IconVariants} />
+</Section>
+
+<Section title="Stati">
+  <SubSection title="Disabled">
+    Un item disabilitato non si apre né si chiude ed esce dall'ordine di tabulazione. Il componente
+    non mostra il motivo del blocco: quando serve, spiegalo nella pagina, per esempio con un testo
+    sopra il primo accordion.
+
+    <Story of={MIAccordionStories.Disabled} />
+
+  </SubSection>
+
+  <SubSection title="Loading">
+    Con <code>loading</code> il contenuto e la descrizione sono sostituiti da uno skeleton, mentre
+    l'header resta interattivo. Lo skeleton si personalizza con <code>slots.skeleton</code> e{' '}
+    <code>slotProps.skeleton</code>. Il componente non annuncia il caricamento agli screen reader:
+    se ne occupa la pagina, con la sua live region (vedi "Accessibilità").
+
+    <Story of={MIAccordionStories.Loading} />
+
+  </SubSection>
+</Section>
+
+<Section
+  title="Composizione"
+  description="MIAccordion è un item singolo: il gruppo e la sua logica li gestisce la pagina."
+>
+  Impila gli item con 16px di spazio. Per aprire un item alla volta usa la modalità controllata
+  con <code>expanded</code> e <code>onChange</code>.
+
+```tsx
+const [expanded, setExpanded] = useState<string | false>(false);
+
+<Stack spacing={2}>
+  <MIAccordion
+    title="Informazioni generali"
+    expanded={expanded === 'dati'}
+    onChange={(_, isExpanded) => setExpanded(isExpanded ? 'dati' : false)}
+  >
+    ...
+  </MIAccordion>
+</Stack>;
+```
+
+  <Story of={MIAccordionStories.Group} />
+</Section>
+
+<Section
+  title="Accessibilità"
+  description="MIAccordion segue il pattern Accordion di WAI-ARIA APG."
+>
+  <SubSection title="Props rilevanti">
+    <ul>
+      <li>
+        <strong>headingLevel</strong>: l'header è contenuto in un heading (default{' '}
+        <code>h3</code>). Scegli il livello in base alla gerarchia della pagina.
+      </li>
+    </ul>
+  </SubSection>
+
+<SubSection title="Comportamento">
+  <ul>
+    <li>
+      Solo l'header è raggiungibile con Tab; si apre e si chiude con Invio o Spazio. Link e campi
+      nel contenuto restano raggiungibili normalmente.
+    </li>
+    <li>
+      Il pannello ha <code>role="region"</code> ed è etichettato dal titolo.
+    </li>
+    <li>La navigazione tra header con le frecce, opzionale nel pattern, non è implementata.</li>
+    <li>Con la riduzione del movimento attiva nel sistema, l'apertura non è animata.</li>
+    <li>
+      Un item disabilitato non si apre né si chiude in nessun modo: mouse, tastiera o screen reader.
+    </li>
+  </ul>
+</SubSection>
+
+<SubSection
+  title="Best practices"
+  description="MIAccordion gestisce da solo heading, tastiera, stati ARIA e disabled. Restano a carico dello sviluppatore che lo usa gli annunci di caricamento e la struttura del contenuto del pannello."
+>
+  <Typography component="h4" fontSize={18} fontWeight={600} sx={{ mt: 2, mb: 1 }}>
+    Live region
+  </Typography>
+
+MIAccordion non ha una live region propria: più live region che si attivano nello stesso momento
+hanno un comportamento imprevedibile con gli screen reader. Durante il caricamento il contenuto è
+marcato con <code>aria-busy</code>, ma l'annuncio va fatto dalla pagina:
+
+<ul>
+  <li>
+    prevedi <strong>una sola live region per pagina</strong>, condivisa da tutti gli aggiornamenti
+    dinamici (non una per componente);
+  </li>
+  <li>
+    aggiornala all'inizio del caricamento ("Caricamento in corso") e alla fine ("Documenti
+    caricati");
+  </li>
+  <li>non aggiungere live region dentro l'accordion o nel suo contenuto.</li>
+</ul>
+
+```tsx
+// Una sola volta nella pagina (visivamente nascosta)
+<Typography role="status" aria-atomic="true" sx={visuallyHidden}>
+  {announcement}
+</Typography>;
+
+// Dove parte e finisce il caricamento
+setAnnouncement('Caricamento dei documenti in corso');
+setAnnouncement('Documenti caricati');
+```
+
+<Typography component="h4" fontSize={18} fontWeight={600} sx={{ mt: 3, mb: 1 }}>
+  Contenuto del pannello
+</Typography>
+
+Il contenuto (<code>children</code>) lo scrive lo sviluppatore: queste indicazioni valgono per i
+casi più comuni.
+
+<ul>
+  <li>
+    <strong>Coppie etichetta/valore</strong> (es. "Denominazione – Comune di Milano"): usa una lista{' '}
+    <code>&lt;dl&gt;</code> con <code>&lt;dt&gt;</code> e <code>&lt;dd&gt;</code>, così la relazione
+    tra etichetta e valore è esposta agli screen reader.
+  </li>
+  <li>
+    <strong>Titoli dei gruppi</strong> (es. "Dati dell'ente"): con un solo gruppo nel pannello può
+    restare un paragrafo; con più gruppi usa un heading del livello successivo a{' '}
+    <code>headingLevel</code> (con il default <code>h3</code>, un <code>h4</code>).
+  </li>
+  <li>
+    <strong>Separatori decorativi</strong>: preferisci un bordo CSS; se usi un{' '}
+    <code>&lt;hr&gt;</code> o un <code>Divider</code>, nascondilo agli screen reader con{' '}
+    <code>role="presentation"</code>.
+  </li>
+</ul>
+
+</SubSection>
+</Section>
+
+<Section title="Note">
+  Il design usa il font Titillio, non ancora disponibile nel tema: il titolo usa Titillium Web con
+  peso 600 al posto del 500. La resa sarà allineata quando Titillio entrerà nel tema.
+</Section>
+
+<Section title="Stress test">
+  <Story of={MIAccordionStories.StressTest} />
+</Section>

@@ -19,7 +19,7 @@ type BaseMIChipProps = Omit<ChipProps, 'color' | 'deleteIcon' | 'onClick' | 'onD
 
 // Props for the standard mode
 type StandardMIChipProps = BaseMIChipProps & {
-  color?: Exclude<AllowedMIChipColors, 'neutral'>;
+  color?: AllowedMIChipColors;
   onDelete?: never;
 };
 
@@ -103,6 +103,7 @@ const StyledChip = styled(MuiChip, {
         color: theme.colors.warning[850],
       }),
       ...(customColor === 'neutral' && {
+        backgroundColor: theme.colors.neutral.grey[100],
         color: theme.colors.neutral.black,
       }),
       ...(customColor === 'highlight' && {

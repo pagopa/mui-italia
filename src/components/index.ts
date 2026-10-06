@@ -17,6 +17,7 @@ export * from './HorizontalNav';
 export * from './Illustration';
 export * from './Infoblock';
 export * from './LangSwitch';
+export * from './MIAccordion';
 export * from './MIAlert';
 export * from './MIBoxedModule';
 export * from './MIBreadcrumbs';
