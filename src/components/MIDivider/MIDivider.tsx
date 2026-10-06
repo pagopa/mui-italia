@@ -1,18 +1,19 @@
 'use client';
 
 import { DividerProps } from '@mui/material';
-import { Children, FC } from 'react';
+import { FC } from 'react';
 import { StyledMIDivider } from './StyledMIDivider';
 
-export type MIDividerProps = Omit<DividerProps & {
+type MIDividerOwnProps = {
   text?: string;
-}, 'textAlign' |'orientation'>;
+};
 
-const MIDivider: FC<MIDividerProps> = ({ component, children, text, ...props }) => {
-  const hasChildren = Children.count(children) > 0;
+export type MIDividerProps = Omit<DividerProps, 'children' | 'textAlign' | 'orientation'> &
+  MIDividerOwnProps;
+
+const MIDivider: FC<MIDividerProps> = ({ component, text, ...props }) => {
   const hasText = Boolean(text);
-  const hasContent = hasChildren || hasText;
-  const resolvedComponent = hasContent
+  const resolvedComponent = hasText
     ? component === 'hr'
       ? 'div'
       : (component ?? 'div')
@@ -20,7 +21,7 @@ const MIDivider: FC<MIDividerProps> = ({ component, children, text, ...props }) 
 
   return (
     <StyledMIDivider {...props} textAlign="center" orientation="horizontal" component={resolvedComponent} >
-      {text ?? children}
+      {text}
     </StyledMIDivider>
   );
 };

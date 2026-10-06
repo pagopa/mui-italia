@@ -77,7 +77,7 @@ const meta: Meta<MIDividerStoryArgs> = {
 
     return (
       <Box sx={{ width: 360, maxWidth: '100%' }}>
-        <MIDivider component={resolvedElement}>{hasLabel ? label : undefined}</MIDivider>
+        <MIDivider component={resolvedElement} text={hasLabel ? label : undefined} />
       </Box>
     );
   },
@@ -116,7 +116,7 @@ export const WithContent: Story = {
   },
   render: () => (
     <Box sx={{ width: 360, maxWidth: '100%' }}>
-      <MIDivider>Dettagli aggiuntivi</MIDivider>
+      <MIDivider text="Dettagli aggiuntivi" />
     </Box>
   ),
 };

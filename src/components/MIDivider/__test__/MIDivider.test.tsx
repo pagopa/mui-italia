@@ -15,22 +15,13 @@ describe('MIDivider', () => {
     expect(container.querySelector('li.custom-divider')).toBeInTheDocument();
   });
 
-  it('renders children and uses a non-void element when children are provided', () => {
-    const { container } = render(<MIDivider>Dettagli</MIDivider>);
+  it('uses a non-void element when text prop is provided', () => {
+    const { container } = render(<MIDivider text="Dettagli" />);
 
     const divider = container.querySelector('div.MuiDivider-root');
 
     expect(divider).toBeInTheDocument();
     expect(divider).toHaveTextContent('Dettagli');
-  });
-
-  it('uses a non-void element when text prop is provided', () => {
-    const { container } = render(<MIDivider text="Informazioni" />);
-
-    const divider = container.querySelector('div.MuiDivider-root');
-
-    expect(divider).toBeInTheDocument();
-    expect(divider).toHaveTextContent('Informazioni');
   });
 
   it('uses a non-void element when component is hr and text is provided', () => {
