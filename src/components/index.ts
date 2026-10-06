@@ -45,5 +45,8 @@ export * from './TagGroup';
 export * from './TimelineNotification';
 export * from './TOSAgreement';
 export * from './Walkthrough';
+export * from './MIPagination';
+export * from './MISelect';
+export * from './MIForm';
 export * from './MITextField';
 export * from './MISwitch';
