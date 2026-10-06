@@ -50,3 +50,4 @@ export * from './MISelect';
 export * from './MIForm';
 export * from './MITextField';
 export * from './MISwitch';
+export * from './MIDivider';

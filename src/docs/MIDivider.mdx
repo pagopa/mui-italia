@@ -1,0 +1,145 @@
+import { Meta, Title, Primary, Controls, Canvas } from '@storybook/addon-docs/blocks';
+
+import Overview from './components/Overview';
+import Section from './components/Section';
+import SubSection from './components/SubSection';
+import * as MIDividerStories from '../stories/MIDivider.stories.tsx';
+
+<Meta of={MIDividerStories} />
+
+<Title />
+
+<Overview>
+  <strong>MIDivider</strong> è un separatore visivo basato su <strong>MUI Divider</strong>, utile
+  per organizzare contenuti in liste, sezioni e layout orizzontali.
+  <br />
+  <br />
+  Il componente imposta di default <strong>component</strong> a <strong>hr</strong>, mantenendo la
+  possibilità di sovrascriverlo quando serve un contesto semantico diverso, ad esempio
+  <strong> <code>li</code></strong> nelle liste. Quando il divider contiene testo, usa automaticamente
+  <strong> <code>div</code></strong> se non viene passato un componente esplicito.
+</Overview>
+
+<Section
+  title="Riferimenti"
+  description="Risorse utili per confrontare implementazione e specifiche del componente."
+>
+
+**Link utili**
+
+ 🎨 [Figma](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=61-2786&m=dev)
+</Section>
+
+<Section
+  title="Playground"
+  description="Usa i controlli per verificare le configurazioni principali del divider."
+>
+  <Primary />
+  <Controls />
+</Section>
+
+<Section
+  title="Varianti e stati"
+  description="Configurazioni statiche utili per confrontare rapidamente i casi d’uso principali."
+>
+  <SubSection title="Default">
+    Configurazione base con separatore orizzontale.
+
+    <Canvas of={MIDividerStories.Default} />
+  </SubSection>
+
+  <SubSection title="Con contenuto">
+    Divider con testo interno per separare blocchi tematici.
+
+    <Canvas of={MIDividerStories.WithContent} />
+  </SubSection>
+
+  <SubSection title="Padding 4px">
+    Divider con padding verticale di 4px.
+
+    <Canvas of={MIDividerStories.Padding4} />
+  </SubSection>
+
+  <SubSection title="Padding 8px">
+    Divider con padding verticale di 8px.
+
+    <Canvas of={MIDividerStories.Padding8} />
+  </SubSection>
+
+  <SubSection title="Padding 16px">
+    Divider con padding verticale di 16px.
+
+    <Canvas of={MIDividerStories.Padding16} />
+  </SubSection>
+
+  <SubSection title="Padding 32px">
+    Divider con padding verticale di 32px.
+
+    <Canvas of={MIDividerStories.Padding32} />
+  </SubSection>
+</Section>
+
+<Section
+  title="Note per gli sviluppatori"
+  description="Indicazioni tecniche per integrare MIDivider in modo coerente."
+>
+  <ul>
+    <li>
+      Le props pubbliche derivano da MUI Divider tramite <strong>DividerProps</strong>.
+    </li>
+    <li>
+      Il valore di default di <strong>component</strong> è <code>hr</code>.
+    </li>
+    <li>
+      Quando viene passato contenuto testuale come children, il componente usa automaticamente
+      <strong> <code>div</code></strong> se <strong>component</strong> non è valorizzato.
+    </li>
+    <li>
+      Per contesti semantici diversi è possibile passare un altro elemento con la prop
+      <strong> component</strong>, ad esempio <code>li</code> nelle liste.
+    </li>
+  </ul>
+</Section>
+
+<Section
+  title="Note per i designer"
+  description="Punti utili per la design review e il confronto con la libreria."
+>
+  <ul>
+    <li>
+      Verificare la coerenza dei separatori con la palette neutra e con i bordi previsti dal tema.
+    </li>
+    <li>
+      Nelle liste, preferire la semantica corretta impostando <code>component</code> a
+      <code>li</code>.
+    </li>
+  </ul>
+</Section>
+
+<Section
+  title="Accessibilità"
+  description="L’accessibilità dipende dal contesto in cui il separatore viene usato."
+>
+  <SubSection title="Props rilevanti">
+    <ul>
+      <li>
+        <code>component</code> permette di mantenere la semantica corretta nel contenitore,
+        ad esempio in una lista.
+      </li>
+      <li>
+        Le props accessibili ereditate da MUI Divider, come gli attributi aria, sono disponibili
+        quando necessarie nel contesto di integrazione.
+      </li>
+    </ul>
+  </SubSection>
+
+  <SubSection title="Esempio accessibile">
+    ```tsx
+    <List>
+      <ListItem>Profilo</ListItem>
+      <MIDivider component="li" />
+      <ListItem>Notifiche</ListItem>
+    </List>
+    ```
+  </SubSection>
+</Section>
