@@ -23,18 +23,22 @@ const MIAccordion = forwardRef<HTMLDivElement, MIAccordionProps>((props, ref) =>
     defaultExpanded,
     onChange,
     disabled = false,
-    id,
     loading = false,
     slots,
     slotProps,
-    sx,
     ...other
   } = props;
 
-  // Props outside the public API (style, className, classes…) are dropped even when passed without type checking; aria-* and data-* attributes are forwarded to the root
-  const htmlAttributes = Object.fromEntries(
-    Object.entries(other).filter(([key]) => key.startsWith('aria-') || key.startsWith('data-'))
+  // aria-* attributes describe the header button (the focusable element), the rest goes to the root
+  const ariaProps = Object.fromEntries(
+    Object.entries(other).filter(([key]) => key.startsWith('aria-'))
   );
+  const rootProps = Object.fromEntries(
+    Object.entries(other).filter(([key]) => !key.startsWith('aria-'))
+  );
+
+  // Keyboard focus ring on the whole card, without :has() (unsupported by the browsers targeted in .babelrc.mjs)
+  const [focusVisible, setFocusVisible] = useState(false);
 
   const buttonId = useId();
   const regionId = useId();
@@ -58,22 +62,24 @@ const MIAccordion = forwardRef<HTMLDivElement, MIAccordionProps>((props, ref) =>
 
   return (
     <StyledAccordion
+      {...rootProps}
       ref={ref}
-      id={id}
+      className={focusVisible ? 'MIAccordion-focusVisible' : undefined}
       expanded={isExpanded}
       onChange={handleChange}
       disabled={disabled}
       disableGutters
       elevation={0}
       square
-      sx={sx}
-      {...htmlAttributes}
     >
       <MIAccordionHeading
+        {...ariaProps}
         level={headingLevel}
         id={buttonId}
         aria-controls={regionId}
         expandIcon={<KeyboardArrowDownIcon />}
+        onFocusVisible={() => setFocusVisible(true)}
+        onBlur={() => setFocusVisible(false)}
       >
         {/* Decorative: kept out of the button accessible name (e.g. avatar initials) */}
         {icon && (

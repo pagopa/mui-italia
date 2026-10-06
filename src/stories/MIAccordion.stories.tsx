@@ -148,8 +148,9 @@ const meta: Meta<MIAccordionStoryArgs> = {
   argTypes: {
     title: {
       control: { type: 'text' },
-      description: "Titolo dell'item, sempre visibile nell'header. Solo testo.",
-      table: { category: 'MIAccordion', type: { summary: 'string' } },
+      description:
+        "Titolo dell'item, sempre visibile nell'header. Uso standard (aderente al Figma e accessibile): una stringa, con badge e badgeProps per lo stato. Contenuti personalizzati sono ammessi, ma senza elementi interattivi.",
+      table: { category: 'MIAccordion', type: { summary: 'ReactNode' } },
     },
     description: {
       control: { type: 'text' },
@@ -232,13 +233,13 @@ const meta: Meta<MIAccordionStoryArgs> = {
     sx: {
       control: false,
       description:
-        'Solo margini (m, mt, mb, mx…): il componente si posiziona ma non si restilizza.',
-      table: { category: 'MIAccordion', type: { summary: 'MarginSxProps' } },
+        "Stili di sistema MUI applicati al contenitore. Da usare per posizionare il componente, non per cambiarne l'aspetto rispetto al design system.",
+      table: { category: 'MIAccordion', type: { summary: 'SxProps<Theme>' } },
     },
     id: {
       control: false,
       description:
-        'Id del contenitore. Sono inoltrati al contenitore anche gli attributi aria-* e data-* (es. data-testid).',
+        "Id del contenitore, che riceve anche gli attributi data-* (es. data-testid). Gli attributi aria-* (es. aria-describedby) vanno invece al pulsante dell'header.",
       table: { category: 'MIAccordion', type: { summary: 'string' } },
     },
     iconOption: {

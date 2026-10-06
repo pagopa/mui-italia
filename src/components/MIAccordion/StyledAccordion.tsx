@@ -34,7 +34,8 @@ export const StyledAccordion = styled(MuiAccordion)(({ theme }) => ({
     },
   },
 
-  '&:has(.MuiAccordionSummary-root.Mui-focusVisible)': {
+  // Set by MIAccordion while the header button has keyboard focus
+  '&.MIAccordion-focusVisible': {
     outline: `solid ${FOCUS_WIDTH} ${theme.palette.primary.main}`,
     outlineOffset: FOCUS_OFFSET,
   },

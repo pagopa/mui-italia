@@ -29,14 +29,57 @@ Riferimento Figma: [MUI Italia Next - Design System](https://www.figma.com/desig
 </Section>
 
 <Section
+  title="Uso consigliato"
+  description="L'uso standard garantisce l'aderenza al Figma e l'accessibilità dell'header."
+>
+  Passa il titolo come <strong>testo</strong> (<code>title</code> di tipo <code>string</code>) e,
+  se serve indicare uno stato, usa le props <code>badge</code> e <code>badgeProps</code>: il
+  componente rende il badge come <code>MIChip</code> sotto il titolo e lo mostra outlined quando
+  l'item è disabilitato, come previsto dal Figma.
+
+```tsx
+<MIAccordion
+  title="Configurazione del servizio"
+  badge="Attivo"
+  badgeProps={{ color: 'success' }}
+  description="Verifica i dati prima di proseguire."
+>
+  ...
+</MIAccordion>
+```
+
+  <SubSection title="Titolo personalizzato">
+    <code>title</code> accetta anche un contenuto personalizzato (<code>ReactNode</code>), per i
+    casi che il design standard non copre. In questo caso aderenza al Figma e accessibilità
+    dipendono da chi usa il componente. Il titolo sta dentro il pulsante dell'header, quindi:
+
+    <ul>
+      <li>non inserire link, bottoni, campi o altri elementi interattivi;</li>
+      <li>
+        assicurati che il testo letto dagli screen reader resti un nome chiaro: icone informative
+        con testo alternativo, nessun contenuto vuoto o troppo lungo;
+      </li>
+      <li>
+        se componi tu un badge, usa <code>MIChip</code> e rendilo outlined quando l'item è
+        disabilitato, così lo stato non si distingue solo per il colore;
+      </li>
+      <li>
+        con i componenti di traduzione puoi passare la stringa già tradotta, per esempio{' '}
+        <code>t('...')</code>.
+      </li>
+    </ul>
+
+  </SubSection>
+</Section>
+
+<Section
   title="Anatomia"
   description="Titolo, chevron e contenuto sono sempre presenti. Icona, badge e descrizione sono opzionali e indipendenti."
 >
   <ul>
     <li>
-      <strong>title</strong>: solo testo (<code>string</code>). L'intero header è già un
-      pulsante, quindi non può contenere link o altri elementi interattivi. Con i componenti di
-      traduzione passa la stringa già tradotta, per esempio <code>t('...')</code>.
+      <strong>title</strong>: il titolo dell'item. L'uso standard è una stringa (vedi "Uso
+      consigliato"); è ammesso anche un contenuto personalizzato, con i limiti descritti sotto.
     </li>
     <li>
       <strong>icon</strong>: icona semplice, icona di stato colorata o avatar. Il componente non ne
@@ -65,12 +108,23 @@ Riferimento Figma: [MUI Italia Next - Design System](https://www.figma.com/desig
 
 <Section
   title="Personalizzazione"
-  description="L'aspetto di MIAccordion segue il design system e non si può sovrascrivere."
+  description="L'aspetto di MIAccordion segue il design system."
 >
-  Il componente non accetta <code>style</code>, <code>className</code> né <code>classes</code>. Con{' '}
-  <code>sx</code> si impostano solo i margini, per posizionarlo nella pagina. Sono ammessi{' '}
-  <code>id</code> e gli attributi <code>{'aria-*'}</code> e <code>{'data-*'}</code> (per esempio{' '}
-  <code>data-testid</code>), inoltrati al contenitore.
+  Il componente non accetta <code>style</code>, <code>className</code> né <code>classes</code>. La
+  prop <code>sx</code> è disponibile e si applica al contenitore: usala per posizionare il
+  componente nella pagina (es. margini), non per cambiarne l'aspetto rispetto al design system.
+
+<ul>
+  <li>
+    <code>id</code>, gli attributi <code>{'data-*'}</code> (es. <code>data-testid</code>) e le altre
+    props HTML vanno al contenitore.
+  </li>
+  <li>
+    gli attributi <code>{'aria-*'}</code> vanno al pulsante dell'header, l'elemento che riceve il
+    focus: per esempio <code>aria-describedby</code> collega all'header un testo di istruzioni
+    presente nella pagina.
+  </li>
+</ul>
 </Section>
 
 <Section title="Icona" description="La prop icon accetta qualsiasi nodo React.">

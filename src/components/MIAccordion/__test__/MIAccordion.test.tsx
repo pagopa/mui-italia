@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '../../../test-utils';
+import { act, fireEvent, render, screen } from '../../../test-utils';
 
 import MIAccordion from '../MIAccordion';
 import type { MIAccordionProps } from '../types';
@@ -74,6 +74,25 @@ describe('MIAccordion', () => {
     expect(container.querySelector('.MIAccordion-icon')).not.toBeInTheDocument();
     expect(container.querySelector('.MuiChip-root')).not.toBeInTheDocument();
     expect(container.querySelector('.MIAccordion-description')).not.toBeInTheDocument();
+  });
+
+  it('renders a custom title node inside the header button', () => {
+    render(
+      <MIAccordion
+        title={
+          <>
+            Configurazione <strong>del servizio</strong>
+          </>
+        }
+      >
+        {CONTENT}
+      </MIAccordion>
+    );
+
+    expect(screen.getByRole('button', { name: 'Configurazione del servizio' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
+      'Configurazione del servizio'
+    );
   });
 
   it('renders icon and badge inside the header', () => {
@@ -226,7 +245,7 @@ describe('MIAccordion', () => {
     expect(screen.getByTestId('custom-skeleton')).toBeInTheDocument();
   });
 
-  it('forwards id, aria and data attributes but drops props outside the public API', () => {
+  it('accepts only the public API props', () => {
     // @ts-expect-error style is not part of the public API
     const withStyle: MIAccordionProps = { title: TITLE, children: CONTENT, style: {} };
     // @ts-expect-error className is not part of the public API
@@ -236,9 +255,6 @@ describe('MIAccordion', () => {
     expect([withStyle, withClassName, withClasses]).toHaveLength(3);
 
     const titleNode = <a href="#x">Link</a>;
-    // @ts-expect-error title accepts plain text only
-    const withNodeTitle: MIAccordionProps = { title: titleNode, children: CONTENT };
-    expect(withNodeTitle).toBeDefined();
 
     const withNodeDescription: MIAccordionProps = {
       title: TITLE,
@@ -247,22 +263,11 @@ describe('MIAccordion', () => {
       children: CONTENT,
     };
     expect(withNodeDescription).toBeDefined();
+  });
 
-    // Same props passed without type checking, as a JavaScript consumer could do
-    const untypedProps = {
-      style: { padding: 0 },
-      className: 'custom-class',
-      classes: { root: 'custom-root' },
-    } as unknown as Partial<MIAccordionProps>;
-
+  it('forwards id, data attributes and sx to the root', () => {
     const { container } = render(
-      <MIAccordion
-        title={TITLE}
-        id="accordion-id"
-        aria-describedby="accordion-help"
-        data-testid="accordion"
-        {...untypedProps}
-      >
+      <MIAccordion title={TITLE} id="accordion-id" data-testid="accordion" sx={{ mt: 2 }}>
         {CONTENT}
       </MIAccordion>
     );
@@ -271,10 +276,42 @@ describe('MIAccordion', () => {
 
     expect(screen.getByTestId('accordion')).toBe(root);
     expect(root).toHaveAttribute('id', 'accordion-id');
-    expect(root).toHaveAttribute('aria-describedby', 'accordion-help');
-    expect(root).not.toHaveAttribute('style');
-    expect(root).not.toHaveClass('custom-class');
-    expect(root).not.toHaveClass('custom-root');
+    expect(root).toHaveStyle({ marginTop: '16px' });
+  });
+
+  it('applies aria attributes to the header button, keeping its internal wiring', () => {
+    render(
+      <>
+        <p id="accordion-help">Compila prima le informazioni generali</p>
+        <MIAccordion title={TITLE} aria-describedby="accordion-help">
+          {CONTENT}
+        </MIAccordion>
+      </>
+    );
+
+    const button = screen.getByRole('button', { name: TITLE });
+    fireEvent.click(button);
+    const region = screen.getByRole('region', { name: TITLE });
+
+    expect(button).toHaveAccessibleDescription('Compila prima le informazioni generali');
+    expect(button).toHaveAttribute('aria-expanded', 'true');
+    expect(button).toHaveAttribute('aria-controls', region.id);
+    expect(region.closest('.MuiAccordion-root')).not.toHaveAttribute('aria-describedby');
+  });
+
+  it('shows the focus ring on the card while the header has keyboard focus', () => {
+    const { container } = render(<MIAccordion title={TITLE}>{CONTENT}</MIAccordion>);
+    const root = container.querySelector('.MuiAccordion-root');
+    const button = screen.getByRole('button', { name: TITLE });
+
+    // Keyboard navigation: MUI marks the following focus as focus-visible
+    fireEvent.keyDown(document.body, { key: 'Tab' });
+    act(() => button.focus());
+    expect(root).toHaveClass('MIAccordion-focusVisible');
+
+    act(() => button.blur());
+    expect(root).not.toHaveClass('MIAccordion-focusVisible');
+    // Mouse focus (no ring) is verified in the browser: jsdom matches :focus-visible on any focus
   });
 
   it('disables the collapse animation when the user prefers reduced motion', () => {
