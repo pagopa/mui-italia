@@ -1,3 +1,11 @@
+# [2.8.0-RC.3](https://github.com/pagopa/mui-italia/releases/tag/v2.8.0-RC.3) (2026-10-06)
+
+
+### Features
+
+* **M20DS-1:** Update MIButton borderRadius to 8px ([#783](https://github.com/pagopa/mui-italia/issues/783)) ([3fd4936](https://github.com/pagopa/mui-italia/commit/3fd4936bf8bb5983bde39ecc09e5601f670ca127))
+* **M20DS-9:** add  pagination component  ([#747](https://github.com/pagopa/mui-italia/issues/747)) ([3d44248](https://github.com/pagopa/mui-italia/commit/3d442486a0a3937755a64c7004e3dff9bedf1f01))
+* **M20DS-38:** add MISelect component ([#777](https://github.com/pagopa/mui-italia/issues/777)) ([d9cc557](https://github.com/pagopa/mui-italia/commit/d9cc557a8fde9fd682fb6ef7bf9319bd8322d788))
 # [2.8.0-RC.2](https://github.com/pagopa/mui-italia/releases/tag/v2.8.0-RC.2) (2026-09-28)
 
 
