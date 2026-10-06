@@ -1,3 +1,9 @@
+# [2.8.0-RC.4](https://github.com/pagopa/mui-italia/releases/tag/v2.8.0-RC.4) (2026-10-06)
+
+
+### Features
+
+* **M20DS-141:** implemented MIMenuDropdown component ([#779](https://github.com/pagopa/mui-italia/issues/779)) ([08f9f35](https://github.com/pagopa/mui-italia/commit/08f9f352c62bf37c2d8cf543578aaf6311544854))
 # [2.8.0-RC.3](https://github.com/pagopa/mui-italia/releases/tag/v2.8.0-RC.3) (2026-10-06)
 
 
