@@ -71,11 +71,16 @@ const meta: Meta<MIDividerStoryArgs> = {
       },
     },
   },
-  render: ({ htmlElement, showLabel, label }) => (
-    <Box sx={{ width: 360, maxWidth: '100%' }}>
-      <MIDivider component={htmlElement}>{showLabel ? label : undefined}</MIDivider>
-    </Box>
-  ),
+  render: ({ htmlElement, showLabel, label }) => {
+    const hasLabel = showLabel && Boolean(label);
+    const resolvedElement = hasLabel && htmlElement === 'hr' ? 'div' : htmlElement;
+
+    return (
+      <Box sx={{ width: 360, maxWidth: '100%' }}>
+        <MIDivider component={resolvedElement}>{hasLabel ? label : undefined}</MIDivider>
+      </Box>
+    );
+  },
 };
 
 export default meta;

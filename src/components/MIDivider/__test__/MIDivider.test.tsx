@@ -32,4 +32,13 @@ describe('MIDivider', () => {
     expect(divider).toBeInTheDocument();
     expect(divider).toHaveTextContent('Informazioni');
   });
+
+  it('uses a non-void element when component is hr and text is provided', () => {
+    const { container } = render(<MIDivider component="hr" text="Informazioni" />);
+
+    const divider = container.querySelector('div.MuiDivider-root');
+
+    expect(divider).toBeInTheDocument();
+    expect(divider).toHaveTextContent('Informazioni');
+  });
 });
