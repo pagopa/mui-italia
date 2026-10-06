@@ -15,7 +15,7 @@ const MIMenu: FC<MIMenuProps> = ({ items, ...props }) => (
   <StyledMenu {...props}>
     {items.flatMap((item, index) => [
       <MIMenuItem key={item.id} {...item} />,
-      ...(index < items.length - 1 ? [<MIDivider key={`divider-${item.id}`} />] : []),
+      ...(index < items.length - 1 ? [<MIDivider component="li" key={`divider-${item.id}`} />] : []),
     ])}
   </StyledMenu>
 );
