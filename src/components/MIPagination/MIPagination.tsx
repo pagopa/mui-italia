@@ -29,7 +29,8 @@ export type MIPaginationProps = Omit<
 > & {
   rowPerPageOptions?: {
     options?: Array<number>;
-    onLimitChange: (limit: number) => void;
+    itemsPerRow?: number;
+    onRowsChange: (rows: number) => void;
     limit: number;
     inputProps?: InputBaseComponentProps;
   };
@@ -95,16 +96,18 @@ export const MIPagination: React.FC<MIPaginationProps> = ({ rowPerPageOptions, .
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const pageOptionsValues = rowPerPageOptions?.options || DEFAULT_OPTIONS;
-  const limit = rowPerPageOptions?.limit || pageOptionsValues[0];
+  const itemsPerRow = rowPerPageOptions?.itemsPerRow || 1;
+  const limit = rowPerPageOptions?.limit || pageOptionsValues[0] * itemsPerRow;
+  const rowsNumber = Math.ceil(limit / itemsPerRow);
 
   useEffect(() => {
     if (rowPerPageOptions) {
-      if (!pageOptionsValues.includes(limit)) {
-        // If Limit is wrong and not included within pageOptsionValues, will be selected first element of select
-        rowPerPageOptions.onLimitChange(pageOptionsValues[0]);
+      if (!pageOptionsValues.includes(rowsNumber)) {
+        // If rowsNumber is wrong and not included within pageOptsionValues, will be selected first element of select
+        rowPerPageOptions.onRowsChange(pageOptionsValues[0]);
       }
     }
-  }, [rowPerPageOptions, pageOptionsValues, limit]);
+  }, [rowPerPageOptions, pageOptionsValues, rowsNumber]);
 
   return (
     <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'} width="100%">
@@ -117,8 +120,8 @@ export const MIPagination: React.FC<MIPaginationProps> = ({ rowPerPageOptions, .
             'aria-label': 'Select number of rows per page',
             ...rowPerPageOptions.inputProps,
           }}
-          value={limit}
-          onChange={(event) => rowPerPageOptions.onLimitChange(event.target.value as number)}
+          value={rowsNumber}
+          onChange={(event) => rowPerPageOptions.onRowsChange(event.target.value as number)}
         >
           {pageOptionsValues.map((option) => (
             <MenuItem key={option} value={option}>
