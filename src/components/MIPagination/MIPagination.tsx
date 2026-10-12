@@ -110,6 +110,7 @@ export const MIPagination: React.FC<MIPaginationProps> = ({ rowPerPageOptions, .
     <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'} width="100%">
       {rowPerPageOptions && (
         <MISelect
+          label="Rows per page"
           labelId="rows-per-page-select"
           id="rows-per-page-select"
           data-testid="rows-per-page-select"

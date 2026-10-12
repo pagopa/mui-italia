@@ -292,7 +292,7 @@ export const States: Story = {
 
     return (
       <Stack spacing={3} sx={{ minWidth: 320 }}>
-        <MISelect fullWidth  label="Default" value="2" onChange={() => undefined}>
+        <MISelect fullWidth  label="Default" value="2" onChange={() => console.log('Default select changed')}>
           {BASIC_OPTIONS.map((item) => (
             <MenuItem key={`default-${item.value}`} value={item.value}>
               {item.label}

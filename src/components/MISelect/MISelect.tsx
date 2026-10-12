@@ -31,6 +31,7 @@ export type MISelectProps = Omit<
   | 'displayEmpty'
   | 'IconComponent'
   | 'input'
+  | 'label'
   | 'MenuProps'
   | 'native'
   | 'SelectDisplayProps'
@@ -54,6 +55,7 @@ export type MISelectProps = Omit<
   | 'type'
   | 'disableUnderline'
 > & {
+  label: ReactNode;
   fullWidth?: boolean;
   getChipDeleteAriaLabel?: (label: ReactNode) => string;
 };
@@ -120,13 +122,16 @@ const MISelect = forwardRef<HTMLDivElement, MISelectProps>((props, ref) => {
   const {
     fullWidth,
     label,
-    labelId = label != null ? generatedLabelId : undefined,
+    labelId = generatedLabelId,
     renderValue,
     getChipDeleteAriaLabel,
     ...selectProps
   } = props;
   const isValueControlled = props.value !== undefined;
+
+  // State for uncontrolled multiple select value, this will hold the selected values when the component is not controlled externally.
   const [uncontrolledMultipleValue, setUncontrolledMultipleValue] = useState<Array<unknown>>([]);
+
   const selectValue =
     props.multiple && !isValueControlled ? uncontrolledMultipleValue : props.value;
 
@@ -134,8 +139,11 @@ const MISelect = forwardRef<HTMLDivElement, MISelectProps>((props, ref) => {
     if (props.multiple && !isValueControlled && Array.isArray(event.target.value)) {
       setUncontrolledMultipleValue(event.target.value);
     }
+
     props.onChange?.(event, child);
   };
+
+
   const handleChipDelete = (removedValue: unknown) => (event: MouseEvent) => {
     event.stopPropagation();
     if (props.disabled || props.readOnly) {
@@ -176,7 +184,7 @@ const MISelect = forwardRef<HTMLDivElement, MISelectProps>((props, ref) => {
       fullWidth={fullWidth}
       required={props.required}
     >
-      {label != null && <InputLabel id={labelId}>{label}</InputLabel>}
+      <InputLabel id={labelId}>{label}</InputLabel>
       <StyledSelect
         ref={ref}
         {...selectProps}

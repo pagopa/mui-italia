@@ -22,7 +22,7 @@ const openSelect = () => fireEvent.mouseDown(screen.getByRole('combobox'));
 describe('MISelect', () => {
   it('renders the selected value', () => {
     render(
-      <MISelect value="2" onChange={vi.fn()}>
+      <MISelect label="Select" value="2" onChange={vi.fn()}>
         {options}
       </MISelect>
     );
@@ -43,7 +43,7 @@ describe('MISelect', () => {
 
   it('renders the KeyboardArrowDown icon', () => {
     render(
-      <MISelect value="" onChange={vi.fn()}>
+      <MISelect label="Select" value="" onChange={vi.fn()}>
         {options}
       </MISelect>
     );
@@ -53,7 +53,7 @@ describe('MISelect', () => {
 
   it('opens the menu and shows the options', () => {
     render(
-      <MISelect value="" onChange={vi.fn()}>
+      <MISelect label="Select" value="" onChange={vi.fn()}>
         {options}
       </MISelect>
     );
@@ -69,7 +69,7 @@ describe('MISelect', () => {
 
   it('updates aria-expanded when the menu opens', () => {
     render(
-      <MISelect value="" onChange={vi.fn()}>
+      <MISelect label="Select" value="" onChange={vi.fn()}>
         {options}
       </MISelect>
     );
@@ -85,7 +85,7 @@ describe('MISelect', () => {
   it.each(['ArrowDown', 'ArrowUp', 'Enter', ' '])('opens the menu with the "%s" key', (key) => {
     const onOpen = vi.fn();
     render(
-      <MISelect value="" onChange={vi.fn()} onOpen={onOpen}>
+      <MISelect label="Select" value="" onChange={vi.fn()} onOpen={onOpen}>
         {options}
       </MISelect>
     );
@@ -98,7 +98,7 @@ describe('MISelect', () => {
 
   it('renders the menu open when controlled with the open prop', () => {
     render(
-      <MISelect open value="" onChange={vi.fn()}>
+      <MISelect label="Select" open value="" onChange={vi.fn()}>
         {options}
       </MISelect>
     );
@@ -109,7 +109,7 @@ describe('MISelect', () => {
   it('does not open when readOnly', () => {
     const onOpen = vi.fn();
     render(
-      <MISelect readOnly value="1" onChange={vi.fn()} onOpen={onOpen}>
+      <MISelect label="Select" readOnly value="1" onChange={vi.fn()} onOpen={onOpen}>
         {options}
       </MISelect>
     );
@@ -124,7 +124,7 @@ describe('MISelect', () => {
   it('calls onChange with the selected value', () => {
     const onChange = vi.fn();
     render(
-      <MISelect value="" onChange={onChange}>
+      <MISelect label="Select" value="" onChange={onChange}>
         {options}
       </MISelect>
     );
@@ -140,7 +140,7 @@ describe('MISelect', () => {
     const onOpen = vi.fn();
     const onClose = vi.fn();
     render(
-      <MISelect value="" onChange={vi.fn()} onOpen={onOpen} onClose={onClose}>
+      <MISelect label="Select" value="" onChange={vi.fn()} onOpen={onOpen} onClose={onClose}>
         {options}
       </MISelect>
     );
@@ -155,7 +155,7 @@ describe('MISelect', () => {
   it('supports multiple selection', () => {
     const onChange = vi.fn();
     render(
-      <MISelect multiple value={['1', '2']} onChange={onChange}>
+      <MISelect label="Select" multiple value={['1', '2']} onChange={onChange}>
         {options}
       </MISelect>
     );
@@ -180,6 +180,7 @@ describe('MISelect', () => {
     const onChange = vi.fn();
     render(
       <MISelect
+        label="Select"
         multiple
         name="multi-select"
         onChange={onChange}
@@ -213,6 +214,7 @@ describe('MISelect', () => {
   it('supports a custom renderValue prop', () => {
     render(
       <MISelect
+        label="Select"
         multiple
         value={['1', '2']}
         onChange={vi.fn()}
@@ -228,7 +230,7 @@ describe('MISelect', () => {
   it('does not open when disabled', () => {
     const onOpen = vi.fn();
     render(
-      <MISelect disabled value="" onChange={vi.fn()} onOpen={onOpen}>
+      <MISelect label="Select" disabled value="" onChange={vi.fn()} onOpen={onOpen}>
         {options}
       </MISelect>
     );
@@ -244,7 +246,7 @@ describe('MISelect', () => {
 
   it('applies the error state', () => {
     const { container } = render(
-      <MISelect error value="" onChange={vi.fn()}>
+      <MISelect label="Select" error value="" onChange={vi.fn()}>
         {options}
       </MISelect>
     );
@@ -270,7 +272,7 @@ describe('MISelect', () => {
   it('forwards the ref to the root element', () => {
     const ref = createRef<HTMLDivElement>();
     render(
-      <MISelect ref={ref} value="" onChange={vi.fn()}>
+      <MISelect label="Select" ref={ref} value="" onChange={vi.fn()}>
         {options}
       </MISelect>
     );
