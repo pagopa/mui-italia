@@ -20,8 +20,7 @@ const rowsPerPageOptionsByPreset: Record<RowsPerPagePreset, Array<number>> = {
 };
 
 const normalizeLimit = (value: number) => Number(value);
-const getTotalPages = (totalItems: number, limit: number) =>
-  Math.max(1, Math.ceil(totalItems / limit));
+const getTotalPages = (totalItems: number, limit: number) => Math.max(1, Math.ceil(totalItems / limit));
 
 const meta: Meta<MIPaginationStoryArgs> = {
   title: 'Components/MIPagination',
@@ -29,7 +28,13 @@ const meta: Meta<MIPaginationStoryArgs> = {
   tags: ['!dev'],
   parameters: {
     controls: {
-      include: ['count', 'page', 'showRowsPerPage', 'rowsPerPagePreset', 'rowsPerPageLimit'],
+      include: [
+        'count',
+        'page',
+        'showRowsPerPage',
+        'rowsPerPagePreset',
+        'rowsPerPageLimit',
+      ],
     },
     chromatic: {
       viewports: breakpointsChromaticValues.filter((resolution) => resolution <= componentMaxWidth),
@@ -104,7 +109,6 @@ const meta: Meta<MIPaginationStoryArgs> = {
 
     const [currentPage, setCurrentPage] = useState(page);
     const [limit, setLimit] = useState(rowsPerPageLimit);
-    const itemsPerRow = 1;
 
     useEffect(() => {
       setCurrentPage(page);
@@ -122,7 +126,7 @@ const meta: Meta<MIPaginationStoryArgs> = {
 
     const handlePageChange: NonNullable<React.ComponentProps<typeof MIPagination>['onChange']> = (
       event,
-      nextPage
+      nextPage,
     ) => {
       setCurrentPage(nextPage);
       onChange?.(event, nextPage);
@@ -139,9 +143,7 @@ const meta: Meta<MIPaginationStoryArgs> = {
               ? {
                   options,
                   limit,
-                  itemsPerRow: 1,
-                  onRowsChange: (nextRowNumber) =>
-                    setLimit(normalizeLimit(nextRowNumber * itemsPerRow)),
+                  onLimitChange: (nextLimit) => setLimit(normalizeLimit(nextLimit)),
                   inputProps: {
                     'aria-label': 'Seleziona numero di righe per pagina',
                   },
@@ -184,7 +186,6 @@ export const WithRowsPerPage: Story = {
     const [page, setPage] = useState(2);
     const [limit, setLimit] = useState(24);
     const totalPages = getTotalPages(totalItems, limit);
-    const itemsPerRow = 13;
 
     useEffect(() => {
       if (page > totalPages) {
@@ -199,8 +200,7 @@ export const WithRowsPerPage: Story = {
         onChange={(_, nextPage) => setPage(nextPage)}
         rowPerPageOptions={{
           limit,
-          itemsPerRow,
-          onRowsChange: (nextRow) => setLimit(normalizeLimit(nextRow * itemsPerRow)),
+          onLimitChange: (nextLimit) => setLimit(normalizeLimit(nextLimit)),
         }}
       />
     );
@@ -218,7 +218,6 @@ export const CompactRowsPerPage: Story = {
     const [page, setPage] = useState(4);
     const [limit, setLimit] = useState(10);
     const totalPages = getTotalPages(totalItems, limit);
-    const itemsPerRow = 1;
 
     useEffect(() => {
       if (page > totalPages) {
@@ -234,7 +233,7 @@ export const CompactRowsPerPage: Story = {
         rowPerPageOptions={{
           options: [5, 10, 20],
           limit,
-          onRowsChange: (nextRowNumber) => setLimit(normalizeLimit(nextRowNumber * itemsPerRow)),
+          onLimitChange: (nextLimit) => setLimit(normalizeLimit(nextLimit)),
           inputProps: {
             'aria-label': 'Seleziona numero di righe per pagina',
           },

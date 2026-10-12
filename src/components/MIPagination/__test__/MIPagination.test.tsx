@@ -113,7 +113,7 @@ describe('MIPagination', () => {
         <MIPagination
           page={1}
           count={110}
-          rowPerPageOptions={{ limit: 10, onRowsChange: vi.fn() }}
+          rowPerPageOptions={{ limit: 10, onLimitChange: vi.fn() }}
         />
       );
 
@@ -129,7 +129,7 @@ describe('MIPagination', () => {
         <MIPagination
           page={1}
           count={110}
-          rowPerPageOptions={{ options: [5, 15], limit: 5, onRowsChange: vi.fn() }}
+          rowPerPageOptions={{ options: [5, 15], limit: 5, onLimitChange: vi.fn() }}
         />
       );
 
@@ -141,62 +141,45 @@ describe('MIPagination', () => {
     });
 
     it('shows the current limit as the selected value', () => {
-      const handleRowsChange = vi.fn();
       const { getByTestId } = render(
         <MIPagination
           page={1}
           count={110}
-          rowPerPageOptions={{
-            options: [10, 24, 36],
-            itemsPerRow: 3,
-            limit: 72,
-            onRowsChange: handleRowsChange,
-          }}
+          rowPerPageOptions={{ options: [10, 24, 36], limit: 24, onLimitChange: vi.fn() }}
         />
       );
 
       expect(getByTestId('rows-per-page-select')).toHaveTextContent('24');
-      expect(handleRowsChange).not.toHaveBeenCalled();
     });
 
-    it('calls onRowsChange with the selected number of rows', () => {
-      const handleRowsChange = vi.fn();
+    it('calls onLimitChange with the selected option', () => {
+      const handleLimitChange = vi.fn();
       const { getByTestId, getByRole } = render(
         <MIPagination
           page={1}
           count={110}
-          rowPerPageOptions={{
-            options: [10, 24, 36],
-            itemsPerRow: 3,
-            limit: 30,
-            onRowsChange: handleRowsChange,
-          }}
+          rowPerPageOptions={{ options: [10, 24, 36], limit: 10, onLimitChange: handleLimitChange }}
         />
       );
 
       openSelect(getByTestId);
       fireEvent.click(getByRole('option', { name: '24' }));
 
-      expect(handleRowsChange).toHaveBeenCalledTimes(1);
-      expect(handleRowsChange).toHaveBeenCalledWith(24);
+      expect(handleLimitChange).toHaveBeenCalledTimes(1);
+      expect(handleLimitChange).toHaveBeenCalledWith(24);
     });
 
-    it('corrects the number of rows to the first option when it is not included in the options', () => {
-      const handleRowsChange = vi.fn();
+    it('corrects the limit to the first option when the provided limit is not included in the options', () => {
+      const handleLimitChange = vi.fn();
       render(
         <MIPagination
           page={1}
           count={110}
-          rowPerPageOptions={{
-            options: [10, 24, 36],
-            itemsPerRow: 3,
-            limit: 75,
-            onRowsChange: handleRowsChange,
-          }}
+          rowPerPageOptions={{ options: [10, 24, 36], limit: 999, onLimitChange: handleLimitChange }}
         />
       );
 
-      expect(handleRowsChange).toHaveBeenCalledWith(10);
+      expect(handleLimitChange).toHaveBeenCalledWith(10);
     });
   });
 });
