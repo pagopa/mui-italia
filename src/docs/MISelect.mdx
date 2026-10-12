@@ -77,8 +77,9 @@ import * as MISelectStories from '../stories/MISelect.stories.tsx';
   <SubSection title="Props rilevanti">
     <ul>
       <li>
-        <strong>label</strong>: viene mostrata come InputLabel e associata automaticamente al campo.
-        Puoi usare <strong>labelId</strong> per fornire un ID personalizzato alla label.
+        <strong>label</strong> (obbligatoria): viene mostrata come InputLabel e associata
+        automaticamente al campo. Puoi usare <strong>labelId</strong> per fornire un ID
+        personalizzato alla label.
       </li>
       <li>
         <strong>name</strong> e <strong>required</strong>: vengono inoltrate all input nativo
@@ -138,8 +139,8 @@ import * as MISelectStories from '../stories/MISelect.stories.tsx';
         onChange={handleCityChange}
         aria-describedby="city-select-helper"
       >
-        <MenuItem value="rome">Roma</MenuItem>
-        <MenuItem value="milan">Milano</MenuItem>
+        <MISelectItem value="rome">Roma</MISelectItem>
+        <MISelectItem value="milan">Milano</MISelectItem>
       </MISelect>
       <MIFormHelperText id="city-select-helper" error={hasError}>
         {hasError ? 'Seleziona una citta valida' : 'Campo obbligatorio'}
@@ -147,4 +148,23 @@ import * as MISelectStories from '../stories/MISelect.stories.tsx';
     </>
     ```
   </SubSection>
+
+<SubSection title="Opzioni con icona">
+  Le opzioni si compongono con <strong>MISelectItem</strong>. La prop opzionale
+  <strong>startIcon</strong> consente di associare un icona a un singolo elemento o di ripeterla su
+  piu elementi.
+  ```tsx
+  <MISelect label="Indirizzo" value={value} onChange={handleChange}>
+    {addresses.map((address) => (
+      <MISelectItem
+        key={address.id}
+        value={address.id}
+        startIcon={<LocationOnIcon />}
+      >
+        {address.label}
+      </MISelectItem>
+    ))}
+  </MISelect>
+  ```
+</SubSection>
 </Section>

@@ -1,20 +1,20 @@
-import { MenuItem } from '@mui/material';
 import { createRef } from 'react';
 
 import { fireEvent, render, screen, within } from '../../../test-utils';
 
 import MISelect from '../MISelect';
+import MISelectItem from '../MISelectItem';
 
 const options = [
-  <MenuItem key="1" value="1">
+  <MISelectItem key="1" value="1" startIcon={<span data-testid="option-icon" />}>
     option-1
-  </MenuItem>,
-  <MenuItem key="2" value="2">
+  </MISelectItem>,
+  <MISelectItem key="2" value="2">
     option-2
-  </MenuItem>,
-  <MenuItem key="3" value="3">
+  </MISelectItem>,
+  <MISelectItem key="3" value="3">
     option-3
-  </MenuItem>,
+  </MISelectItem>,
 ];
 
 const openSelect = () => fireEvent.mouseDown(screen.getByRole('combobox'));
@@ -65,6 +65,21 @@ describe('MISelect', () => {
     const listbox = screen.getByRole('listbox');
     expect(within(listbox).getAllByRole('option')).toHaveLength(3);
     expect(within(listbox).getByRole('option', { name: 'option-1' })).toBeInTheDocument();
+  });
+
+  it('supports an optional start icon on select items', () => {
+    render(
+      <MISelect label="Select" open value="1" onChange={vi.fn()}>
+        {options}
+      </MISelect>
+    );
+
+    const listbox = screen.getByRole('listbox');
+    const firstOption = within(listbox).getByRole('option', { name: 'option-1' });
+    const secondOption = within(listbox).getByRole('option', { name: 'option-2' });
+
+    expect(within(firstOption).getByTestId('option-icon')).toBeInTheDocument();
+    expect(within(secondOption).queryByTestId('option-icon')).not.toBeInTheDocument();
   });
 
   it('updates aria-expanded when the menu opens', () => {
