@@ -1,7 +1,11 @@
-import { MISelect } from '@components/MISelect';
+import { MISelect, MISelectItem } from '@components/MISelect';
 import { MIFormHelperText } from '@components/MIForm';
-import { AccountBalance as AccountBalanceIcon, ReportRounded as ReportRoundedIcon } from '@mui/icons-material';
-import { Box, InputAdornment, MenuItem, Stack, type SelectChangeEvent } from '@mui/material';
+import {
+  AccountBalance as AccountBalanceIcon,
+  LocationOn as LocationOnIcon,
+  ReportRounded as ReportRoundedIcon,
+} from '@mui/icons-material';
+import { Box, InputAdornment, Stack, type SelectChangeEvent } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import {
   useEffect,
@@ -256,9 +260,9 @@ const meta: Meta<MISelectStoryArgs> = {
           aria-describedby={helperId}
         >
           {options.map((item) => (
-            <MenuItem key={item.value} value={item.value}>
+            <MISelectItem key={item.value} value={item.value}>
               {item.label}
-            </MenuItem>
+            </MISelectItem>
           ))}
         </MISelect>
 
@@ -294,9 +298,9 @@ export const States: Story = {
       <Stack spacing={3} sx={{ minWidth: 320 }}>
         <MISelect fullWidth  label="Default" value="2" onChange={() => console.log('Default select changed')}>
           {BASIC_OPTIONS.map((item) => (
-            <MenuItem key={`default-${item.value}`} value={item.value}>
+            <MISelectItem key={`default-${item.value}`} value={item.value}>
               {item.label}
-            </MenuItem>
+            </MISelectItem>
           ))}
         </MISelect>
 
@@ -310,9 +314,9 @@ export const States: Story = {
             aria-describedby={`${labelIdBase}-error-helper`}
           >
             {BASIC_OPTIONS.map((item) => (
-              <MenuItem key={`error-${item.value}`} value={item.value}>
+              <MISelectItem key={`error-${item.value}`} value={item.value}>
                 {item.label}
-              </MenuItem>
+              </MISelectItem>
             ))}
           </MISelect>
           <MIFormHelperText
@@ -333,17 +337,17 @@ export const States: Story = {
           disabled
         >
           {BASIC_OPTIONS.map((item) => (
-            <MenuItem key={`disabled-${item.value}`} value={item.value}>
+            <MISelectItem key={`disabled-${item.value}`} value={item.value}>
               {item.label}
-            </MenuItem>
+            </MISelectItem>
           ))}
         </MISelect>
 
         <MISelect fullWidth label="Sola lettura" value="3" onChange={() => undefined} readOnly>
           {BASIC_OPTIONS.map((item) => (
-            <MenuItem key={`readonly-${item.value}`} value={item.value}>
+            <MISelectItem startIcon={<LocationOnIcon />} key={`readonly-${item.value}`} value={item.value}>
               {item.label}
-            </MenuItem>
+            </MISelectItem>
           ))}
         </MISelect>
       </Stack>
@@ -370,9 +374,9 @@ export const SingleAndMultiple: Story = {
         onChange={() => undefined}
       >
         {STATUS_OPTIONS.map((item) => (
-          <MenuItem key={`single-${item.value}`} value={item.value}>
+          <MISelectItem key={`single-${item.value}`} value={item.value}>
             {item.label}
-          </MenuItem>
+          </MISelectItem>
         ))}
       </MISelect>
 
@@ -384,12 +388,36 @@ export const SingleAndMultiple: Story = {
         onChange={() => undefined}
       >
         {STATUS_OPTIONS.map((item) => (
-          <MenuItem key={`multiple-${item.value}`} value={item.value}>
+          <MISelectItem key={`multiple-${item.value}`} value={item.value}>
             {item.label}
-          </MenuItem>
+          </MISelectItem>
         ))}
       </MISelect>
     </Stack>
+  ),
+};
+
+export const WithItemStartIcons: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+    docs: {
+      description: {
+        story: 'Le opzioni possono avere una startIcon facoltativa, anche ripetuta su piu elementi.',
+      },
+    },
+  },
+  render: () => (
+    <MISelect fullWidth label="Indirizzo" open value="2" onChange={() => undefined}>
+      {BASIC_OPTIONS.map((item) => (
+        <MISelectItem
+          key={`start-icon-${item.value}`}
+          value={item.value}
+          startIcon={<LocationOnIcon />}
+        >
+          {item.label}
+        </MISelectItem>
+      ))}
+    </MISelect>
   ),
 };
 
@@ -420,9 +448,9 @@ export const WithDecorativeIcon: Story = {
           }
         >
           {BASIC_OPTIONS.map((item) => (
-            <MenuItem key={`icon-default-${item.value}`} value={item.value}>
+            <MISelectItem key={`icon-default-${item.value}`} value={item.value}>
               {item.label}
-            </MenuItem>
+            </MISelectItem>
           ))}
         </MISelect>
 
@@ -441,9 +469,9 @@ export const WithDecorativeIcon: Story = {
             }
           >
             {BASIC_OPTIONS.map((item) => (
-              <MenuItem key={`icon-error-${item.value}`} value={item.value}>
+              <MISelectItem key={`icon-error-${item.value}`} value={item.value}>
                 {item.label}
-              </MenuItem>
+              </MISelectItem>
             ))}
           </MISelect>
           <MIFormHelperText
@@ -478,9 +506,9 @@ export const MultipleWithChips: Story = {
     };
 
     const chipOptions = BASIC_OPTIONS.map((item) => (
-      <MenuItem key={`multiple-chips-${item.value}`} value={item.value}>
+      <MISelectItem key={`multiple-chips-${item.value}`} value={item.value}>
         {item.label}
-      </MenuItem>
+      </MISelectItem>
     ));
 
     return (
@@ -533,9 +561,9 @@ export const Required: Story = {
             aria-describedby={`${labelIdBase}-empty-helper`}
           >
             {BASIC_OPTIONS.map((item) => (
-              <MenuItem key={`required-empty-${item.value}`} value={item.value}>
+              <MISelectItem key={`required-empty-${item.value}`} value={item.value}>
                 {item.label}
-              </MenuItem>
+              </MISelectItem>
             ))}
           </MISelect>
           <MIFormHelperText id={`${labelIdBase}-empty-helper`}>
@@ -552,9 +580,9 @@ export const Required: Story = {
           required
         >
           {BASIC_OPTIONS.map((item) => (
-            <MenuItem key={`required-filled-${item.value}`} value={item.value}>
+            <MISelectItem key={`required-filled-${item.value}`} value={item.value}>
               {item.label}
-            </MenuItem>
+            </MISelectItem>
           ))}
         </MISelect>
 
@@ -570,9 +598,9 @@ export const Required: Story = {
             aria-describedby={`${labelIdBase}-error-helper`}
           >
             {BASIC_OPTIONS.map((item) => (
-              <MenuItem key={`required-error-${item.value}`} value={item.value}>
+              <MISelectItem key={`required-error-${item.value}`} value={item.value}>
                 {item.label}
-              </MenuItem>
+              </MISelectItem>
             ))}
           </MISelect>
           <MIFormHelperText id={`${labelIdBase}-error-helper`} error>
@@ -590,9 +618,9 @@ export const Required: Story = {
           disabled
         >
           {BASIC_OPTIONS.map((item) => (
-            <MenuItem key={`required-disabled-${item.value}`} value={item.value}>
+            <MISelectItem key={`required-disabled-${item.value}`} value={item.value}>
               {item.label}
-            </MenuItem>
+            </MISelectItem>
           ))}
         </MISelect>
       </Stack>

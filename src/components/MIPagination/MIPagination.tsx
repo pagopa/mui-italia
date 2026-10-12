@@ -5,8 +5,8 @@ import MuiPagination, { PaginationProps } from '@mui/material/Pagination';
 import { styled } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/system';
-import { InputBaseComponentProps, MenuItem, Stack } from '@mui/material';
-import { MISelect } from '@components/MISelect';
+import { InputBaseComponentProps, Stack } from '@mui/material';
+import { MISelect, MISelectItem } from '@components/MISelect';
 import { useEffect } from 'react';
 
 export type MIPaginationProps = Omit<
@@ -110,7 +110,7 @@ export const MIPagination: React.FC<MIPaginationProps> = ({ rowPerPageOptions, .
     <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'} width="100%">
       {rowPerPageOptions && (
         <MISelect
-          label="Rows per page"
+          label=""
           labelId="rows-per-page-select"
           id="rows-per-page-select"
           data-testid="rows-per-page-select"
@@ -122,9 +122,9 @@ export const MIPagination: React.FC<MIPaginationProps> = ({ rowPerPageOptions, .
           onChange={(event) => rowPerPageOptions.onLimitChange(event.target.value as number)}
         >
           {pageOptionsValues.map((option) => (
-            <MenuItem key={option} value={option}>
+            <MISelectItem key={option} value={option}>
               {option}
-            </MenuItem>
+            </MISelectItem>
           ))}
         </MISelect>
       )}
