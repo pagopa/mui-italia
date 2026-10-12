@@ -6,15 +6,15 @@ import { useEffect, useState } from 'react';
 
 const componentMaxWidth = 1280;
 
-type RowsPerPagePreset = 'default' | 'compact';
+type ItemsPerPagePreset = 'default' | 'compact';
 
 type MIPaginationStoryArgs = React.ComponentProps<typeof MIPagination> & {
-  showRowsPerPage: boolean;
-  rowsPerPagePreset: RowsPerPagePreset;
-  rowsPerPageLimit: number;
+  showItemsPerPage: boolean;
+  itemsPerPagePreset: ItemsPerPagePreset;
+  itemsPerPageLimit: number;
 };
 
-const rowsPerPageOptionsByPreset: Record<RowsPerPagePreset, Array<number>> = {
+const itemsPerPageOptionsByPreset: Record<ItemsPerPagePreset, Array<number>> = {
   default: [10, 24, 36],
   compact: [5, 10, 20],
 };
@@ -29,7 +29,7 @@ const meta: Meta<MIPaginationStoryArgs> = {
   tags: ['!dev'],
   parameters: {
     controls: {
-      include: ['count', 'page', 'showRowsPerPage', 'rowsPerPagePreset', 'rowsPerPageLimit'],
+      include: ['count', 'page', 'showItemsPerPage', 'itemsPerPagePreset', 'itemsPerPageLimit'],
     },
     chromatic: {
       viewports: breakpointsChromaticValues.filter((resolution) => resolution <= componentMaxWidth),
@@ -38,9 +38,9 @@ const meta: Meta<MIPaginationStoryArgs> = {
   args: {
     count: 110,
     page: 1,
-    showRowsPerPage: false,
-    rowsPerPagePreset: 'default',
-    rowsPerPageLimit: 10,
+    showItemsPerPage: false,
+    itemsPerPagePreset: 'default',
+    itemsPerPageLimit: 10,
   },
   argTypes: {
     count: {
@@ -57,14 +57,14 @@ const meta: Meta<MIPaginationStoryArgs> = {
         category: 'MIPagination',
       },
     },
-    showRowsPerPage: {
+    showItemsPerPage: {
       control: { type: 'boolean' },
       description: 'Controllo Storybook: mostra o nasconde il selettore righe per pagina.',
       table: {
         category: 'Storybook controls',
       },
     },
-    rowsPerPagePreset: {
+    itemsPerPagePreset: {
       options: ['default', 'compact'],
       control: { type: 'radio' },
       description: 'Controllo Storybook: preset opzioni per il selettore righe per pagina.',
@@ -72,7 +72,7 @@ const meta: Meta<MIPaginationStoryArgs> = {
         category: 'Storybook controls',
       },
     },
-    rowsPerPageLimit: {
+    itemsPerPageLimit: {
       control: { type: 'number', min: 1 },
       description: 'Controllo Storybook: valore selezionato nel selettore righe per pagina.',
       table: {
@@ -96,22 +96,22 @@ const meta: Meta<MIPaginationStoryArgs> = {
     count,
     page = 1,
     onChange,
-    showRowsPerPage,
-    rowsPerPagePreset,
-    rowsPerPageLimit,
+    showItemsPerPage,
+    itemsPerPagePreset,
+    itemsPerPageLimit,
   }) {
-    const options = rowsPerPageOptionsByPreset[rowsPerPagePreset];
+    const options = itemsPerPageOptionsByPreset[itemsPerPagePreset];
 
     const [currentPage, setCurrentPage] = useState(page);
-    const [limit, setLimit] = useState(rowsPerPageLimit);
+    const [limit, setLimit] = useState(itemsPerPageLimit);
 
     useEffect(() => {
       setCurrentPage(page);
     }, [page]);
 
     useEffect(() => {
-      setLimit(rowsPerPageLimit);
-    }, [rowsPerPageLimit]);
+      setLimit(itemsPerPageLimit);
+    }, [itemsPerPageLimit]);
 
     useEffect(() => {
       if (!options.includes(limit)) {
@@ -134,7 +134,7 @@ const meta: Meta<MIPaginationStoryArgs> = {
           page={currentPage}
           onChange={handlePageChange}
           itemsPerPageOptions={
-            showRowsPerPage
+            showItemsPerPage
               ? {
                   options,
                   limit,
@@ -170,13 +170,13 @@ export const Default: Story = {
   },
 };
 
-export const WithRowsPerPage: Story = {
+export const WithItemsPerPage: Story = {
   parameters: {
     controls: {
       disable: true,
     },
   },
-  render: function RenderWithRowsPerPage() {
+  render: function RenderWithItemsPerPage() {
     const totalItems = 240;
     const [page, setPage] = useState(2);
     const [limit, setLimit] = useState(24);
@@ -202,13 +202,13 @@ export const WithRowsPerPage: Story = {
   },
 };
 
-export const CompactRowsPerPage: Story = {
+export const CompactItemsPerPage: Story = {
   parameters: {
     controls: {
       disable: true,
     },
   },
-  render: function RenderCompactRowsPerPage() {
+  render: function RenderCompactItemsPerPage() {
     const totalItems = 95;
     const [page, setPage] = useState(4);
     const [limit, setLimit] = useState(10);

@@ -11,9 +11,9 @@ import * as MIPaginationStories from '../stories/MIPagination.stories';
 <Title />
 
 <Overview>
-  <strong>MIPagination</strong> estende il componente Pagination di MUI con stile del Design
-  System e comportamento responsive: su mobile mantiene visibili solo la pagina selezionata e i
-  pulsanti di navigazione. Opzionalmente integra un selettore per il numero di righe per pagina.
+  <strong>MIPagination</strong> estende il componente Pagination di MUI con stile del Design System
+  e comportamento responsive: su mobile mantiene visibili solo la pagina selezionata e i pulsanti di
+  navigazione. Opzionalmente integra un selettore per il numero di righe per pagina.
 </Overview>
 
 <Section
@@ -22,11 +22,10 @@ import * as MIPaginationStories from '../stories/MIPagination.stories';
 >
   <ul>
     <li>
-      🎨 [Figma](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=127-1510&m=dev)
+      🎨
+      [Figma](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=127-1510&m=dev)
     </li>
-    <li>
-      💻 Link sorgente GitHub: {/* TODO: confermare con lo sviluppatore */}
-    </li>
+    <li>💻 Link sorgente GitHub: {/* TODO: confermare con lo sviluppatore */}</li>
   </ul>
 </Section>
 
@@ -46,24 +45,28 @@ import * as MIPaginationStories from '../stories/MIPagination.stories';
     Configurazione base con navigazione pagine.
 
     <Story of={MIPaginationStories.Default} />
+
   </SubSection>
 
-  <SubSection title="WithRowsPerPage">
+  <SubSection title="WithItemsPerPage">
     Mostra il selettore righe per pagina con opzioni di default del componente.
 
-    <Story of={MIPaginationStories.WithRowsPerPage} />
+    <Story of={MIPaginationStories.WithItemsPerPage} />
+
   </SubSection>
 
-  <SubSection title="CompactRowsPerPage">
+  <SubSection title="CompactItemsPerPage">
     Esempio con set di opzioni personalizzato per il selettore righe per pagina.
 
-    <Story of={MIPaginationStories.CompactRowsPerPage} />
+    <Story of={MIPaginationStories.CompactItemsPerPage} />
+
   </SubSection>
 
   <SubSection title="MobileBehavior">
     Su mobile il componente visualizza pagina corrente e pulsanti precedente/successiva.
 
     <Story of={MIPaginationStories.MobileBehavior} />
+
   </SubSection>
 </Section>
 
@@ -73,10 +76,10 @@ import * as MIPaginationStories from '../stories/MIPagination.stories';
 >
   <ul>
     <li>
-      La prop <code>rowPerPageOptions</code> e opzionale e abilita il selettore righe per pagina.
+      La prop <code>itemPerPageOptions</code> e opzionale e abilita il selettore righe per pagina.
     </li>
     <li>
-      Se <code>rowPerPageOptions.limit</code> non e presente nelle opzioni, il componente richiama
+      Se <code>itemPerPageOptions.limit</code> non e presente nelle opzioni, il componente richiama
       <code>onLimitChange</code> con la prima opzione disponibile.
     </li>
     <li>
@@ -89,17 +92,10 @@ import * as MIPaginationStories from '../stories/MIPagination.stories';
   </ul>
 </Section>
 
-<Section
-  title="Note per i designer"
-  description="Informazioni utili per la revisione visiva."
->
+<Section title="Note per i designer" description="Informazioni utili per la revisione visiva.">
   <ul>
-    <li>
-      Gli item pagina usano stati hover, selected e focusVisible con token del tema.
-    </li>
-    <li>
-      Su mobile i numeri pagina non selezionati non vengono mostrati per ridurre ingombro.
-    </li>
+    <li>Gli item pagina usano stati hover, selected e focusVisible con token del tema.</li>
+    <li>Su mobile i numeri pagina non selezionati non vengono mostrati per ridurre ingombro.</li>
     <li>
       Il set viewport Chromatic proposto usa <code>componentMaxWidth = 1280</code> (euristica
       full-width) per coprire anche il comportamento responsive.
@@ -114,7 +110,7 @@ import * as MIPaginationStories from '../stories/MIPagination.stories';
   <SubSection title="Props rilevanti">
     <ul>
       <li>
-        <strong>rowPerPageOptions.inputProps</strong>: consente di configurare attributi
+        <strong>itemPerPageOptions.inputProps</strong>: consente di configurare attributi
         accessibili del selettore, incluso <code>aria-label</code>.
       </li>
       <li>
@@ -130,7 +126,7 @@ import * as MIPaginationStories from '../stories/MIPagination.stories';
       count={20}
       page={2}
       onChange={handlePageChange}
-      rowPerPageOptions={{
+      itemPerPageOptions={{
         limit: 10,
         onLimitChange: setLimit,
         inputProps: {
