@@ -1,3 +1,14 @@
+# [2.8.0-RC.5](https://github.com/pagopa/mui-italia/releases/tag/v2.8.0-RC.5) (2026-10-12)
+
+
+### Bug Fixes
+
+* **M20DS-147:** renamed prop in MIPagination and fix spacing ([#786](https://github.com/pagopa/mui-italia/issues/786)) ([e7f84ee](https://github.com/pagopa/mui-italia/commit/e7f84ee70c77d35a4c5ae14169633e1529bc91be))
+
+
+### Code Refactoring
+
+* **M20DS-146:** update MiSwitch with label and description props ([#785](https://github.com/pagopa/mui-italia/issues/785)) ([500581a](https://github.com/pagopa/mui-italia/commit/500581afea1288a83386485bac23130cccdc30ec))
 # [2.8.0-RC.4](https://github.com/pagopa/mui-italia/releases/tag/v2.8.0-RC.4) (2026-10-06)
 
 
