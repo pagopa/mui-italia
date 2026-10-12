@@ -1,78 +1,13 @@
-import { MIChip } from '@components/MIChip';
 import { MISelect } from '@components/MISelect';
-import { MIFormControl, MIFormHelperText } from '@components/MIForm';
+import { MIFormHelperText } from '@components/MIForm';
 import { AccountBalance as AccountBalanceIcon, ReportRounded as ReportRoundedIcon } from '@mui/icons-material';
-import { Box, InputAdornment, InputLabel, MenuItem, Stack, type SelectChangeEvent } from '@mui/material';
+import { Box, InputAdornment, MenuItem, Stack, type SelectChangeEvent } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import {
-  Children,
-  isValidElement,
   useEffect,
   useMemo,
   useState,
-  type MouseEvent,
-  type ReactNode,
 } from 'react';
-
-const getOptionLabel = (children: ReactNode, value: unknown): ReactNode => {
-  let label: ReactNode = value as ReactNode;
-
-  Children.forEach(children, (child) => {
-    const childProps = isValidElement(child)
-      ? (child.props as { value?: unknown; children?: ReactNode })
-      : undefined;
-
-    if (childProps && childProps.value === value) {
-      label = childProps.children;
-    }
-  });
-
-  return label;
-};
-
-type ChipsRenderValueOptions = {
-  children: ReactNode;
-  value: Array<unknown>;
-  onChange: (event: SelectChangeEvent<unknown>) => void;
-  name?: string;
-  getChipDeleteAriaLabel?: (label: ReactNode) => string;
-};
-
-// Composes a Select renderValue that shows selected options as removable MIChip.
-const createChipsRenderValue = ({
-  children,
-  value,
-  onChange,
-  name,
-  getChipDeleteAriaLabel,
-}: ChipsRenderValueOptions) =>
-  function ChipsRenderValue(selected: unknown) {
-    const handleDelete = (removedValue: unknown) => (event: MouseEvent) => {
-      event.stopPropagation();
-      onChange({
-        target: { value: value.filter((item) => item !== removedValue), name },
-      } as SelectChangeEvent<unknown>);
-    };
-
-    return (
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-        {(selected as Array<unknown>).map((selectedValue) => {
-          const label = getOptionLabel(children, selectedValue);
-
-          return (
-            <MIChip
-              key={String(selectedValue)}
-              label={label}
-              color="neutral"
-              aria-label={getChipDeleteAriaLabel?.(label)}
-              onMouseDown={(event) => event.stopPropagation()}
-              onDelete={handleDelete(selectedValue)}
-            />
-          );
-        })}
-      </Box>
-    );
-  };
 
 type OptionPreset = 'basic' | 'status';
 
@@ -228,6 +163,13 @@ const meta: Meta<MISelectStoryArgs> = {
         type: { summary: 'SelectProps["onChange"]' },
       },
     },
+    getChipDeleteAriaLabel: {
+      control: false,
+      description: 'Personalizza il nome accessibile del pulsante di rimozione di ciascun chip.',
+      table: {
+        category: 'MISelect',
+      },
+    },
     children: {
       control: false,
       table: {
@@ -278,7 +220,6 @@ const meta: Meta<MISelectStoryArgs> = {
       setIsOpen(open);
     }, [open]);
 
-    const labelId = 'mi-select-playground-label';
     const helperId = helperText ? 'mi-select-playground-helper' : undefined;
     // Guards against a stale/mismatched value shape while the multiple arg is toggling.
     const value = multiple
@@ -291,41 +232,41 @@ const meta: Meta<MISelectStoryArgs> = {
 
     return (
       <Box sx={{ minWidth: 280 }}>
-        <MIFormControl fullWidth error={error} disabled={disabled} required={required}>
-          <InputLabel id={labelId}>{labelText}</InputLabel>
+        <MISelect
+          fullWidth
+          label={labelText}
+          multiple={multiple}
+          disabled={disabled}
+          readOnly={readOnly}
+          error={error}
+          required={required}
+          name={name}
+          open={isOpen}
+          onOpen={() => setIsOpen(true)}
+          onClose={() => setIsOpen(false)}
+          value={value}
+          onChange={(event) => {
+            if (multiple) {
+              const next = event.target.value;
+              setMultipleValues(Array.isArray(next) ? next : [next]);
+              return;
+            }
+            setSingle(event.target.value as string);
+          }}
+          aria-describedby={helperId}
+        >
+          {options.map((item) => (
+            <MenuItem key={item.value} value={item.value}>
+              {item.label}
+            </MenuItem>
+          ))}
+        </MISelect>
 
-          <MISelect
-            labelId={labelId}
-            label={labelText}
-            multiple={multiple}
-            disabled={disabled}
-            readOnly={readOnly}
-            error={error}
-            required={required}
-            name={name}
-            open={isOpen}
-            onOpen={() => setIsOpen(true)}
-            onClose={() => setIsOpen(false)}
-            value={value}
-            onChange={(event) => {
-              if (multiple) {
-                const next = event.target.value;
-                setMultipleValues(Array.isArray(next) ? next : [next]);
-                return;
-              }
-              setSingle(event.target.value as string);
-            }}
-            aria-describedby={helperId}
-          >
-            {options.map((item) => (
-              <MenuItem key={item.value} value={item.value}>
-                {item.label}
-              </MenuItem>
-            ))}
-          </MISelect>
-
-          {helperText ? <MIFormHelperText id={helperId}>{helperText}</MIFormHelperText> : null}
-        </MIFormControl>
+        {helperText ? (
+          <MIFormHelperText id={helperId} error={error}>
+            {helperText}
+          </MIFormHelperText>
+        ) : null}
       </Box>
     );
   },
@@ -351,26 +292,17 @@ export const States: Story = {
 
     return (
       <Stack spacing={3} sx={{ minWidth: 320 }}>
-        <MIFormControl fullWidth>
-          <InputLabel id={`${labelIdBase}-default-label`}>Default</InputLabel>
-          <MISelect
-            labelId={`${labelIdBase}-default-label`}
-            label="Default"
-            value="2"
-            onChange={() => undefined}
-          >
-            {BASIC_OPTIONS.map((item) => (
-              <MenuItem key={`default-${item.value}`} value={item.value}>
-                {item.label}
-              </MenuItem>
-            ))}
-          </MISelect>
-        </MIFormControl>
+        <MISelect fullWidth  label="Default" value="2" onChange={() => undefined}>
+          {BASIC_OPTIONS.map((item) => (
+            <MenuItem key={`default-${item.value}`} value={item.value}>
+              {item.label}
+            </MenuItem>
+          ))}
+        </MISelect>
 
-        <MIFormControl fullWidth error>
-          <InputLabel id={`${labelIdBase}-error-label`}>Errore</InputLabel>
+        <Box>
           <MISelect
-            labelId={`${labelIdBase}-error-label`}
+            fullWidth
             label="Errore"
             value=""
             onChange={() => undefined}
@@ -384,47 +316,36 @@ export const States: Story = {
             ))}
           </MISelect>
           <MIFormHelperText
+            error
             id={`${labelIdBase}-error-helper`}
             sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
           >
             <ReportRoundedIcon color="error" fontSize="small" />
             Selezione non valida
           </MIFormHelperText>
-        </MIFormControl>
+        </Box>
 
-        <MIFormControl fullWidth disabled>
-          <InputLabel id={`${labelIdBase}-disabled-label`}>Disabilitato</InputLabel>
-          <MISelect
-            labelId={`${labelIdBase}-disabled-label`}
-            label="Disabilitato"
-            value="1"
-            onChange={() => undefined}
-            disabled
-          >
-            {BASIC_OPTIONS.map((item) => (
-              <MenuItem key={`disabled-${item.value}`} value={item.value}>
-                {item.label}
-              </MenuItem>
-            ))}
-          </MISelect>
-        </MIFormControl>
+        <MISelect
+          fullWidth
+          label="Disabilitato"
+          value="1"
+          onChange={() => undefined}
+          disabled
+        >
+          {BASIC_OPTIONS.map((item) => (
+            <MenuItem key={`disabled-${item.value}`} value={item.value}>
+              {item.label}
+            </MenuItem>
+          ))}
+        </MISelect>
 
-        <MIFormControl fullWidth>
-          <InputLabel id={`${labelIdBase}-readonly-label`}>Sola lettura</InputLabel>
-          <MISelect
-            labelId={`${labelIdBase}-readonly-label`}
-            label="Sola lettura"
-            value="3"
-            onChange={() => undefined}
-            readOnly
-          >
-            {BASIC_OPTIONS.map((item) => (
-              <MenuItem key={`readonly-${item.value}`} value={item.value}>
-                {item.label}
-              </MenuItem>
-            ))}
-          </MISelect>
-        </MIFormControl>
+        <MISelect fullWidth label="Sola lettura" value="3" onChange={() => undefined} readOnly>
+          {BASIC_OPTIONS.map((item) => (
+            <MenuItem key={`readonly-${item.value}`} value={item.value}>
+              {item.label}
+            </MenuItem>
+          ))}
+        </MISelect>
       </Stack>
     );
   },
@@ -435,44 +356,39 @@ export const SingleAndMultiple: Story = {
     controls: { hideNoControlsWarning: true },
     docs: {
       description: {
-        story: 'Confronto tra configurazione a selezione singola e multipla.',
+        story:
+          'Confronto tra selezione singola e multipla. In modalita multipla, i valori selezionati vengono mostrati come MIChip.',
       },
     },
   },
   render: () => (
     <Stack spacing={3} sx={{ minWidth: 320 }}>
-      <MIFormControl fullWidth>
-        <InputLabel id="mi-select-single-label">Selezione singola</InputLabel>
-        <MISelect
-          labelId="mi-select-single-label"
-          label="Selezione singola"
-          value="delivered"
-          onChange={() => undefined}
-        >
-          {STATUS_OPTIONS.map((item) => (
-            <MenuItem key={`single-${item.value}`} value={item.value}>
-              {item.label}
-            </MenuItem>
-          ))}
-        </MISelect>
-      </MIFormControl>
+      <MISelect
+        fullWidth
+        label="Selezione singola"
+        value="delivered"
+        onChange={() => undefined}
+      >
+        {STATUS_OPTIONS.map((item) => (
+          <MenuItem key={`single-${item.value}`} value={item.value}>
+            {item.label}
+          </MenuItem>
+        ))}
+      </MISelect>
 
-      <MIFormControl fullWidth>
-        <InputLabel id="mi-select-multiple-label">Selezione multipla</InputLabel>
-        <MISelect
-          labelId="mi-select-multiple-label"
-          label="Selezione multipla"
-          multiple
-          value={['delivered', 'deposited']}
-          onChange={() => undefined}
-        >
-          {STATUS_OPTIONS.map((item) => (
-            <MenuItem key={`multiple-${item.value}`} value={item.value}>
-              {item.label}
-            </MenuItem>
-          ))}
-        </MISelect>
-      </MIFormControl>
+      <MISelect
+        fullWidth
+        label="Selezione multipla"
+        multiple
+        value={['delivered', 'deposited']}
+        onChange={() => undefined}
+      >
+        {STATUS_OPTIONS.map((item) => (
+          <MenuItem key={`multiple-${item.value}`} value={item.value}>
+            {item.label}
+          </MenuItem>
+        ))}
+      </MISelect>
     </Stack>
   ),
 };
@@ -492,31 +408,27 @@ export const WithDecorativeIcon: Story = {
 
     return (
       <Stack spacing={3} sx={{ minWidth: 320 }}>
-        <MIFormControl fullWidth>
-          <InputLabel id={`${labelIdBase}-default-label`}>Ente</InputLabel>
-          <MISelect
-            labelId={`${labelIdBase}-default-label`}
-            label="Ente"
-            value="1"
-            onChange={() => undefined}
-            startAdornment={
-              <InputAdornment position="start">
-                <AccountBalanceIcon />
-              </InputAdornment>
-            }
-          >
-            {BASIC_OPTIONS.map((item) => (
-              <MenuItem key={`icon-default-${item.value}`} value={item.value}>
-                {item.label}
-              </MenuItem>
-            ))}
-          </MISelect>
-        </MIFormControl>
+        <MISelect
+          fullWidth
+          label="Ente"
+          value="1"
+          onChange={() => undefined}
+          startAdornment={
+            <InputAdornment position="start">
+              <AccountBalanceIcon />
+            </InputAdornment>
+          }
+        >
+          {BASIC_OPTIONS.map((item) => (
+            <MenuItem key={`icon-default-${item.value}`} value={item.value}>
+              {item.label}
+            </MenuItem>
+          ))}
+        </MISelect>
 
-        <MIFormControl fullWidth error>
-          <InputLabel id={`${labelIdBase}-error-label`}>Ente</InputLabel>
+        <Box>
           <MISelect
-            labelId={`${labelIdBase}-error-label`}
+            fullWidth
             label="Ente"
             value=""
             onChange={() => undefined}
@@ -535,13 +447,14 @@ export const WithDecorativeIcon: Story = {
             ))}
           </MISelect>
           <MIFormHelperText
+            error
             id={`${labelIdBase}-error-helper`}
             sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
           >
             <ReportRoundedIcon color="error" fontSize="small" />
             Some details error
           </MIFormHelperText>
-        </MIFormControl>
+        </Box>
       </Stack>
     );
   },
@@ -553,12 +466,11 @@ export const MultipleWithChips: Story = {
     docs: {
       description: {
         story:
-          'Selezione multipla con valori mostrati come MIChip rimovibili tramite la prop renderValue, icona contestuale e campo obbligatorio. Ogni chip espone un pulsante di rimozione che aggiorna la selezione senza aprire il menu.',
+          'Selezione multipla con MIChip rimovibili, icona contestuale e campo obbligatorio. La rimozione aggiorna la selezione tramite onChange.',
       },
     },
   },
   render: function MultipleWithChipsExample() {
-    const labelId = 'mi-select-multiple-chips-label';
     const [values, setValues] = useState<Array<string>>(['1', '2']);
 
     const handleChange = (event: SelectChangeEvent<unknown>) => {
@@ -573,31 +485,23 @@ export const MultipleWithChips: Story = {
 
     return (
       <Box sx={{ minWidth: 320 }}>
-        <MIFormControl fullWidth required>
-          <InputLabel id={labelId}>Label text</InputLabel>
-          <MISelect
-            labelId={labelId}
-            label="Label text"
-            required
-            multiple
-            value={values}
-            onChange={handleChange}
-            renderValue={createChipsRenderValue({
-              children: chipOptions,
-              value: values,
-              onChange: handleChange,
-              name: 'multiple-chips',
-              getChipDeleteAriaLabel: (label) => `Rimuovi ${label}`,
-            })}
-            startAdornment={
-              <InputAdornment position="start">
-                <AccountBalanceIcon />
-              </InputAdornment>
-            }
-          >
-            {chipOptions}
-          </MISelect>
-        </MIFormControl>
+        <MISelect
+          fullWidth
+          label="Label text"
+          required
+          multiple
+          value={values}
+          name="multiple-chips"
+          onChange={handleChange}
+          getChipDeleteAriaLabel={(chipLabel) => `Rimuovi ${chipLabel}`}
+          startAdornment={
+            <InputAdornment position="start">
+              <AccountBalanceIcon />
+            </InputAdornment>
+          }
+        >
+          {chipOptions}
+        </MISelect>
       </Box>
     );
   },
@@ -609,7 +513,7 @@ export const Required: Story = {
     docs: {
       description: {
         story:
-          'Casi di campo obbligatorio: vuoto, valorizzato e in errore. La prop required su MIFormControl aggiunge l asterisco alla label, mentre su MISelect viene inoltrata all input nativo.',
+          'Casi di campo obbligatorio: vuoto, valorizzato e in errore. MISelect gestisce la label e inoltra required all input nativo.',
       },
     },
   },
@@ -618,10 +522,9 @@ export const Required: Story = {
 
     return (
       <Stack spacing={3} sx={{ minWidth: 320 }}>
-        <MIFormControl fullWidth required>
-          <InputLabel id={`${labelIdBase}-empty-label`}>Obbligatorio</InputLabel>
+        <Box>
           <MISelect
-            labelId={`${labelIdBase}-empty-label`}
+            fullWidth
             label="Obbligatorio"
             name="required-empty"
             value=""
@@ -635,31 +538,29 @@ export const Required: Story = {
               </MenuItem>
             ))}
           </MISelect>
-          <MIFormHelperText id={`${labelIdBase}-empty-helper`}>Campo obbligatorio</MIFormHelperText>
-        </MIFormControl>
+          <MIFormHelperText id={`${labelIdBase}-empty-helper`}>
+            Campo obbligatorio
+          </MIFormHelperText>
+        </Box>
 
-        <MIFormControl fullWidth required>
-          <InputLabel id={`${labelIdBase}-filled-label`}>Obbligatorio valorizzato</InputLabel>
-          <MISelect
-            labelId={`${labelIdBase}-filled-label`}
-            label="Obbligatorio valorizzato"
-            name="required-filled"
-            value="2"
-            onChange={() => undefined}
-            required
-          >
-            {BASIC_OPTIONS.map((item) => (
-              <MenuItem key={`required-filled-${item.value}`} value={item.value}>
-                {item.label}
-              </MenuItem>
-            ))}
-          </MISelect>
-        </MIFormControl>
+        <MISelect
+          fullWidth
+          label="Obbligatorio valorizzato"
+          name="required-filled"
+          value="2"
+          onChange={() => undefined}
+          required
+        >
+          {BASIC_OPTIONS.map((item) => (
+            <MenuItem key={`required-filled-${item.value}`} value={item.value}>
+              {item.label}
+            </MenuItem>
+          ))}
+        </MISelect>
 
-        <MIFormControl fullWidth required error>
-          <InputLabel id={`${labelIdBase}-error-label`}>Obbligatorio in errore</InputLabel>
+        <Box>
           <MISelect
-            labelId={`${labelIdBase}-error-label`}
+            fullWidth
             label="Obbligatorio in errore"
             name="required-error"
             value=""
@@ -674,29 +575,26 @@ export const Required: Story = {
               </MenuItem>
             ))}
           </MISelect>
-          <MIFormHelperText id={`${labelIdBase}-error-helper`}>
+          <MIFormHelperText id={`${labelIdBase}-error-helper`} error>
             Seleziona un valore per proseguire
           </MIFormHelperText>
-        </MIFormControl>
+        </Box>
 
-        <MIFormControl fullWidth required disabled>
-          <InputLabel id={`${labelIdBase}-disabled-label`}>Obbligatorio disabilitato</InputLabel>
-          <MISelect
-            labelId={`${labelIdBase}-disabled-label`}
-            label="Obbligatorio disabilitato"
-            name="required-disabled"
-            value="1"
-            onChange={() => undefined}
-            required
-            disabled
-          >
-            {BASIC_OPTIONS.map((item) => (
-              <MenuItem key={`required-disabled-${item.value}`} value={item.value}>
-                {item.label}
-              </MenuItem>
-            ))}
-          </MISelect>
-        </MIFormControl>
+        <MISelect
+          fullWidth
+          label="Obbligatorio disabilitato"
+          name="required-disabled"
+          value="1"
+          onChange={() => undefined}
+          required
+          disabled
+        >
+          {BASIC_OPTIONS.map((item) => (
+            <MenuItem key={`required-disabled-${item.value}`} value={item.value}>
+              {item.label}
+            </MenuItem>
+          ))}
+        </MISelect>
       </Stack>
     );
   },
