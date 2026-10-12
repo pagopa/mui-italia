@@ -99,16 +99,16 @@ describe('MIPagination', () => {
     });
   });
 
-  describe('rowPerPageOptions', () => {
+  describe('itemsPerPageOptions', () => {
     const openSelect = (getByTestId: ReturnType<typeof render>['getByTestId']) =>
-      fireEvent.mouseDown(getByTestId('rows-per-page-select').querySelector('[role="combobox"]')!);
+      fireEvent.mouseDown(getByTestId('items-per-page-select').querySelector('[role="combobox"]')!);
 
-    it('does not render the rows-per-page select when rowPerPageOptions is not provided', () => {
+    it('does not render the items-per-page select when itemsPerPageOptions is not provided', () => {
       const { queryByTestId } = render(<MIPagination page={1} count={110} />);
-      expect(queryByTestId('rows-per-page-select')).not.toBeInTheDocument();
+      expect(queryByTestId('items-per-page-select')).not.toBeInTheDocument();
     });
 
-    it('renders the default options when rowPerPageOptions.options is not provided', () => {
+    it('renders the default options when itemsPerPageOptions.options is not provided', () => {
       const { getByTestId, getByRole } = render(
         <MIPagination
           page={1}
@@ -124,7 +124,7 @@ describe('MIPagination', () => {
       });
     });
 
-    it('renders the custom options passed in rowPerPageOptions.options', () => {
+    it('renders the custom options passed in itemsPerPageOptions.options', () => {
       const { getByTestId, getByRole, queryByRole } = render(
         <MIPagination
           page={1}
@@ -149,7 +149,7 @@ describe('MIPagination', () => {
         />
       );
 
-      expect(getByTestId('rows-per-page-select')).toHaveTextContent('24');
+      expect(getByTestId('items-per-page-select')).toHaveTextContent('24');
     });
 
     it('calls onLimitChange with the selected option', () => {
