@@ -113,7 +113,7 @@ describe('MIPagination', () => {
         <MIPagination
           page={1}
           count={110}
-          rowPerPageOptions={{ limit: 10, onLimitChange: vi.fn() }}
+          itemsPerPageOptions={{ limit: 10, onLimitChange: vi.fn() }}
         />
       );
 
@@ -129,7 +129,7 @@ describe('MIPagination', () => {
         <MIPagination
           page={1}
           count={110}
-          rowPerPageOptions={{ options: [5, 15], limit: 5, onLimitChange: vi.fn() }}
+          itemsPerPageOptions={{ options: [5, 15], limit: 5, onLimitChange: vi.fn() }}
         />
       );
 
@@ -145,7 +145,7 @@ describe('MIPagination', () => {
         <MIPagination
           page={1}
           count={110}
-          rowPerPageOptions={{ options: [10, 24, 36], limit: 24, onLimitChange: vi.fn() }}
+          itemsPerPageOptions={{ options: [10, 24, 36], limit: 24, onLimitChange: vi.fn() }}
         />
       );
 
@@ -158,7 +158,11 @@ describe('MIPagination', () => {
         <MIPagination
           page={1}
           count={110}
-          rowPerPageOptions={{ options: [10, 24, 36], limit: 10, onLimitChange: handleLimitChange }}
+          itemsPerPageOptions={{
+            options: [10, 24, 36],
+            limit: 10,
+            onLimitChange: handleLimitChange,
+          }}
         />
       );
 
@@ -175,7 +179,11 @@ describe('MIPagination', () => {
         <MIPagination
           page={1}
           count={110}
-          rowPerPageOptions={{ options: [10, 24, 36], limit: 999, onLimitChange: handleLimitChange }}
+          itemsPerPageOptions={{
+            options: [10, 24, 36],
+            limit: 999,
+            onLimitChange: handleLimitChange,
+          }}
         />
       );
 

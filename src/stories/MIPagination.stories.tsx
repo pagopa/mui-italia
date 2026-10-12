@@ -20,7 +20,8 @@ const rowsPerPageOptionsByPreset: Record<RowsPerPagePreset, Array<number>> = {
 };
 
 const normalizeLimit = (value: number) => Number(value);
-const getTotalPages = (totalItems: number, limit: number) => Math.max(1, Math.ceil(totalItems / limit));
+const getTotalPages = (totalItems: number, limit: number) =>
+  Math.max(1, Math.ceil(totalItems / limit));
 
 const meta: Meta<MIPaginationStoryArgs> = {
   title: 'Components/MIPagination',
@@ -28,13 +29,7 @@ const meta: Meta<MIPaginationStoryArgs> = {
   tags: ['!dev'],
   parameters: {
     controls: {
-      include: [
-        'count',
-        'page',
-        'showRowsPerPage',
-        'rowsPerPagePreset',
-        'rowsPerPageLimit',
-      ],
+      include: ['count', 'page', 'showRowsPerPage', 'rowsPerPagePreset', 'rowsPerPageLimit'],
     },
     chromatic: {
       viewports: breakpointsChromaticValues.filter((resolution) => resolution <= componentMaxWidth),
@@ -90,7 +85,7 @@ const meta: Meta<MIPaginationStoryArgs> = {
         disable: true,
       },
     },
-    rowPerPageOptions: {
+    itemsPerPageOptions: {
       control: false,
       table: {
         disable: true,
@@ -126,7 +121,7 @@ const meta: Meta<MIPaginationStoryArgs> = {
 
     const handlePageChange: NonNullable<React.ComponentProps<typeof MIPagination>['onChange']> = (
       event,
-      nextPage,
+      nextPage
     ) => {
       setCurrentPage(nextPage);
       onChange?.(event, nextPage);
@@ -138,7 +133,7 @@ const meta: Meta<MIPaginationStoryArgs> = {
           count={count}
           page={currentPage}
           onChange={handlePageChange}
-          rowPerPageOptions={
+          itemsPerPageOptions={
             showRowsPerPage
               ? {
                   options,
@@ -198,7 +193,7 @@ export const WithRowsPerPage: Story = {
         count={totalPages}
         page={page}
         onChange={(_, nextPage) => setPage(nextPage)}
-        rowPerPageOptions={{
+        itemsPerPageOptions={{
           limit,
           onLimitChange: (nextLimit) => setLimit(normalizeLimit(nextLimit)),
         }}
@@ -230,7 +225,7 @@ export const CompactRowsPerPage: Story = {
         count={totalPages}
         page={page}
         onChange={(_, nextPage) => setPage(nextPage)}
-        rowPerPageOptions={{
+        itemsPerPageOptions={{
           options: [5, 10, 20],
           limit,
           onLimitChange: (nextLimit) => setLimit(normalizeLimit(nextLimit)),
