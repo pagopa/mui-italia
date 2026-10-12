@@ -1,6 +1,5 @@
 // src/stories/MISwitch.stories.tsx
-import { FormControlLabel, FormGroup, Stack, Typography } from '@mui/material';
-import { Report } from '@mui/icons-material';
+import { Stack } from '@mui/material';
 import { Meta, StoryObj } from '@storybook/react-vite';
 
 import { MISwitch } from '@components/MISwitch';
@@ -21,6 +20,9 @@ const meta: Meta<typeof MISwitch> = {
         'readOnly',
         'required',
         'name',
+        'label',
+        'description',
+        'error',
       ],
     },
   },
@@ -52,6 +54,18 @@ const meta: Meta<typeof MISwitch> = {
     name: {
       description: 'Nome dell’input, utile per la gestione del form.',
     },
+    label: {
+      control: 'text',
+      description: 'Testo principale associato allo switch.',
+    },
+    description: {
+      control: 'text',
+      description: 'Testo descrittivo facoltativo associato allo switch.',
+    },
+    error: {
+      control: 'text',
+      description: 'Messaggio di errore facoltativo associato allo switch.',
+    },
   },
 };
 
@@ -62,6 +76,8 @@ type Story = StoryObj<typeof MISwitch>;
 export const Playground: Story = {
   args: {
     defaultChecked: false,
+    label: 'Notifiche',
+    description: 'Ricevi aggiornamenti sulle attività del tuo account.',
   },
 };
 
@@ -76,50 +92,25 @@ export const PrimaryDisabled: Story = {
   parameters: { controls: { include: [] } },
   render: () => (
     <Stack direction="row" alignItems="center" gap={4}>
-      <MISwitch checked disabled />
-      <MISwitch disabled />
+      <MISwitch label="Notifiche attive" checked disabled />
+      <MISwitch label="Notifiche disattive" disabled />
     </Stack>
   ),
 };
 
 export const WithLabel: Story = {
   parameters: { controls: { include: [] } },
-  render: () => (
-    <FormGroup>
-      <FormControlLabel
-        control={<MISwitch />}
-        label={
-          <Stack sx={{ ml: 1 }}>
-            <Typography variant="caption-semibold">Label</Typography>
-            <Typography variant="body2">Label</Typography>
-          </Stack>
-        }
-      />
-    </FormGroup>
-  ),
+  args: {
+    label: 'Notifiche',
+    description: 'Ricevi aggiornamenti sulle attività del tuo account.',
+  },
 };
 
 export const WithError: Story = {
   parameters: { controls: { include: [] } },
-  render: () => (
-    <FormGroup>
-      <FormControlLabel
-        control={
-          <MISwitch inputProps={{ 'aria-describedby': 'mi-switch-error-helper-text' }} />
-        }
-        label={
-          <Stack sx={{ ml: 1 }}>
-            <Typography variant="caption-semibold">Label</Typography>
-            <Typography variant="body2">Label</Typography>
-            <Stack direction="row" alignItems="center" gap={0.5}>
-              <Report color="error" fontSize="small" />
-              <Typography id="mi-switch-error-helper-text" color="error" variant="caption">
-                Helper text
-              </Typography>
-            </Stack>
-          </Stack>
-        }
-      />
-    </FormGroup>
-  ),
+  args: {
+    label: 'Notifiche',
+    description: 'Ricevi aggiornamenti sulle attività del tuo account.',
+    error: 'Seleziona se desideri ricevere notifiche.',
+  },
 };
