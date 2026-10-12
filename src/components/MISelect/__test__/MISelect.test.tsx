@@ -1,4 +1,4 @@
-import { FormControl, InputLabel, MenuItem } from '@mui/material';
+import { MenuItem } from '@mui/material';
 import { createRef } from 'react';
 
 import { fireEvent, render, screen, within } from '../../../test-utils';
@@ -30,17 +30,15 @@ describe('MISelect', () => {
     expect(screen.getByRole('combobox')).toHaveTextContent('option-2');
   });
 
-  it('renders the label when used inside a FormControl', () => {
+  it('renders and associates the label when provided as a prop', () => {
     render(
-      <FormControl>
-        <InputLabel id="select-label">label</InputLabel>
-        <MISelect labelId="select-label" label="label" value="" onChange={vi.fn()}>
-          {options}
-        </MISelect>
-      </FormControl>
+      <MISelect label="label" value="" onChange={vi.fn()}>
+        {options}
+      </MISelect>
     );
 
     expect(screen.getByRole('combobox', { name: 'label' })).toBeInTheDocument();
+    expect(screen.getByLabelText('label')).toBeInTheDocument();
   });
 
   it('renders the KeyboardArrowDown icon', () => {
@@ -157,16 +155,59 @@ describe('MISelect', () => {
   it('supports multiple selection', () => {
     const onChange = vi.fn();
     render(
-      <MISelect multiple value={['1']} onChange={onChange}>
+      <MISelect multiple value={['1', '2']} onChange={onChange}>
         {options}
       </MISelect>
     );
 
+    const combobox = screen.getByRole('combobox');
+    const getDisplayedChip = (label: string) =>
+      within(combobox).queryByText(label)?.closest('.MuiChip-root') ?? null;
+
+    expect(getDisplayedChip('option-1')).toBeInTheDocument();
+    expect(getDisplayedChip('option-2')).toBeInTheDocument();
+
     openSelect();
-    fireEvent.click(screen.getByRole('option', { name: 'option-2' }));
+    fireEvent.click(screen.getByRole('option', { name: 'option-3' }));
 
     expect(screen.getByRole('listbox')).toHaveAttribute('aria-multiselectable', 'true');
-    expect(onChange.mock.calls[0][0].target.value).toEqual(['1', '2']);
+    expect(onChange.mock.calls[0][0].target.value).toEqual(['1', '2', '3']);
+    expect(getDisplayedChip('option-1')).toBeInTheDocument();
+    expect(getDisplayedChip('option-2')).toBeInTheDocument();
+  });
+
+  it('removes a selected chip and emits the updated value', () => {
+    const onChange = vi.fn();
+    render(
+      <MISelect
+        multiple
+        name="multi-select"
+        onChange={onChange}
+        getChipDeleteAriaLabel={(label) => `Remove ${label}`}
+      >
+        {options}
+      </MISelect>
+    );
+
+    const combobox = screen.getByRole('combobox');
+    const getDisplayedChip = (label: string) =>
+      within(combobox).queryByText(label)?.closest('.MuiChip-root') ?? null;
+
+    openSelect();
+    fireEvent.click(screen.getByRole('option', { name: 'option-1' }));
+    fireEvent.click(screen.getByRole('option', { name: 'option-2' }));
+
+    expect(getDisplayedChip('option-1')).toBeInTheDocument();
+    expect(getDisplayedChip('option-2')).toBeInTheDocument();
+
+    const deleteIcon = within(combobox).getAllByTestId('CloseRoundedIcon')[0];
+    expect(deleteIcon).toHaveAttribute('aria-label', 'Remove option-1');
+    fireEvent.click(deleteIcon);
+
+    expect(onChange.mock.calls[2][0].target.value).toEqual(['2']);
+    expect(onChange.mock.calls[2][0].target.name).toBe('multi-select');
+    expect(getDisplayedChip('option-1')).not.toBeInTheDocument();
+    expect(getDisplayedChip('option-2')).toBeInTheDocument();
   });
 
   it('supports a custom renderValue prop', () => {
@@ -214,7 +255,7 @@ describe('MISelect', () => {
 
   it('forwards the name and required props to the native input', () => {
     const { container } = render(
-      <MISelect name="my-select" required value="1" onChange={vi.fn()}>
+      <MISelect label="Required field" name="my-select" required value="1" onChange={vi.fn()}>
         {options}
       </MISelect>
     );
@@ -223,6 +264,7 @@ describe('MISelect', () => {
     expect(input).toHaveAttribute('name', 'my-select');
     expect(input).toHaveValue('1');
     expect(input).toBeRequired();
+    expect(screen.getByText('Required field').closest('label')).toHaveClass('Mui-required');
   });
 
   it('forwards the ref to the root element', () => {

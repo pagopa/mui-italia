@@ -1,8 +1,26 @@
 'use client';
 
 import { KeyboardArrowDown } from '@mui/icons-material';
-import { Select as MuiSelect, type SelectProps, styled } from '@mui/material';
-import { forwardRef } from 'react';
+import {
+  Box,
+  InputLabel,
+  Select as MuiSelect,
+  type SelectChangeEvent,
+  type SelectProps,
+  styled,
+} from '@mui/material';
+import {
+  Children,
+  forwardRef,
+  isValidElement,
+  useId,
+  useState,
+  type MouseEvent,
+  type ReactNode,
+} from 'react';
+
+import { MIChip } from '../MIChip';
+import { MIFormControl } from '../MIForm';
 
 export type MISelectProps = Omit<
   SelectProps,
@@ -21,7 +39,6 @@ export type MISelectProps = Omit<
   | 'components'
   | 'componentsProps'
   | 'color'
-  | 'fullWidth'
   | 'renderSuffix'
   | 'rows'
   | 'minRows'
@@ -36,7 +53,10 @@ export type MISelectProps = Omit<
   | 'slotProps'
   | 'type'
   | 'disableUnderline'
->;
+> & {
+  fullWidth?: boolean;
+  getChipDeleteAriaLabel?: (label: ReactNode) => string;
+};
 
 const StyledSelect = styled(MuiSelect)(({ theme }) => ({
   borderRadius: theme.shape.radius[8],
@@ -61,9 +81,115 @@ const StyledSelect = styled(MuiSelect)(({ theme }) => ({
   },
 }));
 
-const MISelect = forwardRef<HTMLDivElement, MISelectProps>((props, ref) => (
-  <StyledSelect ref={ref} {...props} IconComponent={KeyboardArrowDown} />
-));
+const renderSelectedChips = (
+  selectedValues: unknown,
+  children: ReactNode,
+  onDelete: (value: unknown) => (event: MouseEvent) => void,
+  getChipDeleteAriaLabel?: (label: ReactNode) => string,
+  disabled = false
+): ReactNode => {
+  if (!Array.isArray(selectedValues)) {
+    return null;
+  }
+
+  const optionLabels = new Map<unknown, ReactNode>();
+  Children.forEach(children, (child) => {
+    if (isValidElement<{ value?: unknown; children?: ReactNode }>(child)) {
+      optionLabels.set(child.props.value, child.props.children);
+    }
+  });
+
+  return (
+    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+      {selectedValues.map((value, index) => (
+        <MIChip
+          key={`${String(value)}-${index}`}
+          label={optionLabels.get(value) ?? String(value)}
+          disabled={disabled}
+          aria-label={getChipDeleteAriaLabel?.(optionLabels.get(value) ?? String(value))}
+          onMouseDown={(event) => event.stopPropagation()}
+          onDelete={disabled ? undefined : onDelete(value)}
+        />
+      ))}
+    </Box>
+  );
+};
+
+const MISelect = forwardRef<HTMLDivElement, MISelectProps>((props, ref) => {
+  const generatedLabelId = useId();
+  const {
+    fullWidth,
+    label,
+    labelId = label != null ? generatedLabelId : undefined,
+    renderValue,
+    getChipDeleteAriaLabel,
+    ...selectProps
+  } = props;
+  const isValueControlled = props.value !== undefined;
+  const [uncontrolledMultipleValue, setUncontrolledMultipleValue] = useState<Array<unknown>>([]);
+  const selectValue =
+    props.multiple && !isValueControlled ? uncontrolledMultipleValue : props.value;
+
+  const handleChange: NonNullable<SelectProps['onChange']> = (event, child) => {
+    if (props.multiple && !isValueControlled && Array.isArray(event.target.value)) {
+      setUncontrolledMultipleValue(event.target.value);
+    }
+    props.onChange?.(event, child);
+  };
+  const handleChipDelete = (removedValue: unknown) => (event: MouseEvent) => {
+    event.stopPropagation();
+    if (props.disabled || props.readOnly) {
+      return;
+    }
+
+    const selectedValues = Array.isArray(selectValue) ? selectValue : [];
+    const nextSelectedValues = selectedValues.filter((value) => value !== removedValue);
+
+    if (!isValueControlled) {
+      setUncontrolledMultipleValue(nextSelectedValues);
+    }
+
+    props.onChange?.(
+      {
+        target: { name: props.name, value: nextSelectedValues },
+      } as SelectChangeEvent<unknown>,
+      null
+    );
+  };
+  const resolvedRenderValue =
+    renderValue ??
+    (props.multiple
+      ? (selectedValues: unknown) =>
+          renderSelectedChips(
+            selectedValues,
+            props.children,
+            handleChipDelete,
+            getChipDeleteAriaLabel,
+            Boolean(props.disabled || props.readOnly)
+          )
+      : undefined);
+
+  return (
+    <MIFormControl
+      disabled={props.disabled}
+      error={props.error}
+      fullWidth={fullWidth}
+      required={props.required}
+    >
+      {label != null && <InputLabel id={labelId}>{label}</InputLabel>}
+      <StyledSelect
+        ref={ref}
+        {...selectProps}
+        value={selectValue}
+        label={label}
+        labelId={labelId}
+        onChange={handleChange}
+        renderValue={resolvedRenderValue}
+        IconComponent={KeyboardArrowDown}
+      />
+    </MIFormControl>
+  );
+});
 
 MISelect.displayName = 'MISelect';
 
