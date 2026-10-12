@@ -25,9 +25,9 @@ export type MIPaginationProps = Omit<
   | 'showFirstButton'
   | 'showLastButton'
   | 'rowPerPageOptions'
-  |'disabled'
+  | 'disabled'
 > & {
-  rowPerPageOptions?: {
+  itemsPerPageOptions?: {
     options?: Array<number>;
     onLimitChange: (limit: number) => void;
     limit: number;
@@ -90,35 +90,40 @@ const StyledPagination = styled(MuiPagination)({});
 
 const DEFAULT_OPTIONS = [10, 24, 36];
 
-export const MIPagination: React.FC<MIPaginationProps> = ({ rowPerPageOptions, ...rest }) => {
+export const MIPagination: React.FC<MIPaginationProps> = ({ itemsPerPageOptions, ...rest }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const pageOptionsValues = rowPerPageOptions?.options || DEFAULT_OPTIONS;
-  const limit = rowPerPageOptions?.limit || pageOptionsValues[0];
+  const pageOptionsValues = itemsPerPageOptions?.options || DEFAULT_OPTIONS;
+  const limit = itemsPerPageOptions?.limit || pageOptionsValues[0];
 
   useEffect(() => {
-    if (rowPerPageOptions) {
+    if (itemsPerPageOptions) {
       if (!pageOptionsValues.includes(limit)) {
         // If Limit is wrong and not included within pageOptsionValues, will be selected first element of select
-        rowPerPageOptions.onLimitChange(pageOptionsValues[0]);
+        itemsPerPageOptions.onLimitChange(pageOptionsValues[0]);
       }
     }
-  }, [rowPerPageOptions, pageOptionsValues, limit]);
+  }, [itemsPerPageOptions, pageOptionsValues, limit]);
 
   return (
-    <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'} width="100%">
-      {rowPerPageOptions && (
+    <Stack
+      direction={'row'}
+      justifyContent={itemsPerPageOptions ? 'space-between' : 'flex-end'}
+      alignItems={'center'}
+      width="100%"
+    >
+      {itemsPerPageOptions && (
         <MISelect
-          labelId="rows-per-page-select"
-          id="rows-per-page-select"
-          data-testid="rows-per-page-select"
+          labelId="items-per-page-select"
+          id="items-per-page-select"
+          data-testid="items-per-page-select"
           inputProps={{
-            'aria-label': 'Select number of rows per page',
-            ...rowPerPageOptions.inputProps,
+            'aria-label': 'Select number of items per page',
+            ...itemsPerPageOptions.inputProps,
           }}
           value={limit}
-          onChange={(event) => rowPerPageOptions.onLimitChange(event.target.value as number)}
+          onChange={(event) => itemsPerPageOptions.onLimitChange(event.target.value as number)}
         >
           {pageOptionsValues.map((option) => (
             <MenuItem key={option} value={option}>
