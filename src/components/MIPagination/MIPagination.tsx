@@ -29,8 +29,7 @@ export type MIPaginationProps = Omit<
 > & {
   rowPerPageOptions?: {
     options?: Array<number>;
-    itemsPerRow?: number;
-    onRowsChange: (rows: number) => void;
+    onLimitChange: (limit: number) => void;
     limit: number;
     inputProps?: InputBaseComponentProps;
   };
@@ -96,18 +95,16 @@ export const MIPagination: React.FC<MIPaginationProps> = ({ rowPerPageOptions, .
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const pageOptionsValues = rowPerPageOptions?.options || DEFAULT_OPTIONS;
-  const itemsPerRow = rowPerPageOptions?.itemsPerRow || 1;
-  const limit = rowPerPageOptions?.limit || pageOptionsValues[0] * itemsPerRow;
-  const rowsNumber = Math.ceil(limit / itemsPerRow);
+  const limit = rowPerPageOptions?.limit || pageOptionsValues[0];
 
   useEffect(() => {
     if (rowPerPageOptions) {
-      if (!pageOptionsValues.includes(rowsNumber)) {
-        // If rowsNumber is wrong and not included within pageOptsionValues, will be selected first element of select
-        rowPerPageOptions.onRowsChange(pageOptionsValues[0]);
+      if (!pageOptionsValues.includes(limit)) {
+        // If Limit is wrong and not included within pageOptsionValues, will be selected first element of select
+        rowPerPageOptions.onLimitChange(pageOptionsValues[0]);
       }
     }
-  }, [rowPerPageOptions, pageOptionsValues, rowsNumber]);
+  }, [rowPerPageOptions, pageOptionsValues, limit]);
 
   return (
     <Stack
@@ -125,8 +122,8 @@ export const MIPagination: React.FC<MIPaginationProps> = ({ rowPerPageOptions, .
             'aria-label': 'Select number of rows per page',
             ...rowPerPageOptions.inputProps,
           }}
-          value={rowsNumber}
-          onChange={(event) => rowPerPageOptions.onRowsChange(event.target.value as number)}
+          value={limit}
+          onChange={(event) => rowPerPageOptions.onLimitChange(event.target.value as number)}
         >
           {pageOptionsValues.map((option) => (
             <MenuItem key={option} value={option}>
