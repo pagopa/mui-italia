@@ -455,25 +455,26 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
             startAdornment: getStartInputAdornment(),
             endAdornment: getEndInputAdornment(),
           }}
-          sx={{
+          sx={(theme) => ({
             '& .MuiInputBase-root': {
               padding: 0.625,
+              paddingLeft: '0.75rem',
               display: 'flex',
               flexWrap: 'wrap',
               alignItems: 'center',
               gap: 1,
               borderRadius: '0.5rem',
               borderWidth: '0.125rem',
-              backgroundColor: disabled ? '#F4F5F8' : 'transparent',
+              backgroundColor: disabled ? theme.colors.neutral.grey[50] : 'transparent',
             },
             '& .MuiInputBase-input': {
               flex: '1 1 3.75rem',
               minWidth: '3.75rem',
-              padding: 2,
+              padding: 0,
               boxSizing: 'border-box',
             },
            
-          }}
+          })}
           {...textFieldProps}
         />
 

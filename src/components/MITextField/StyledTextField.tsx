@@ -10,6 +10,8 @@ export const StyledTextField = styled(TextField, {
 })<StyledTextFieldProps>(({ theme }) => ({
   '& .MuiInputLabel-root': {
     fontSize: theme.typography.fontSize,
+  },
+  '& .MuiInputLabel-outlined': {
     transform: 'translate(0.875rem, 0.663rem) scale(1)',
     '&.MuiInputLabel-shrink': {
       transform: 'translate(0.875rem, -0.663rem) scale(0.75)',
