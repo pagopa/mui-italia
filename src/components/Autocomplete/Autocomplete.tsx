@@ -336,7 +336,6 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
         sx={{
           display: 'flex',
           alignItems: 'center',
-          // backgroundColor: 'orange',
           marginRight: 0.5,
         }}
       >
