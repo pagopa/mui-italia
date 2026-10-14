@@ -1,7 +1,7 @@
 'use client';
 
 import { Close, KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
-import { Box, IconButton, Paper, Popper, TextField } from '@mui/material';
+import { Box, IconButton, Paper, Popper } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
 import { MIChip } from '@components/MIChip';
 import {
@@ -16,6 +16,7 @@ import {
 } from 'react';
 import { filterOptionsInternal } from 'utils/autocomplete';
 import { isMobileDevice } from 'utils/device';
+import { MITextField } from '@components/MITextField';
 import { AutocompleteProps, AutocompleteValue, InputChangeReason } from './Autocomplete.types';
 import AutocompleteContent from './AutocompleteContent';
 import DefaultEmptyState from './DefaultEmptyState';
@@ -335,7 +336,8 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
         sx={{
           display: 'flex',
           alignItems: 'center',
-          gap: 0.5,
+          // backgroundColor: 'orange',
+          marginRight: 0.5,
         }}
       >
         {multiple && selectedOptions.length > 0 && showSelectionCountOnly && (
@@ -358,14 +360,14 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
             disabled={disabled}
             sx={{
               padding: 0,
-              color: 'text.secondary',
             }}
           >
             <Close
-              sx={{
-                width: '1.5rem',
-                height: '1.5rem',
-              }}
+              sx={(theme) => ({
+                width: '1.1rem',
+                height: '1.1rem',
+                color: theme.colors.neutral.black,
+              })}
             />
           </IconButton>
         )}
@@ -378,12 +380,27 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
             }
             disabled={disabled}
             sx={{
-              padding: 0,
-              color: 'text.secondary',
+              paddingRight: 0.5,
               cursor: 'pointer',
             }}
           >
-            {isOpen ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+            {isOpen ? (
+              <KeyboardArrowUp
+                sx={(theme) => ({
+                  width: '1.5rem',
+                  height: '1.5rem',
+                  color: theme.colors.neutral.black,
+                })}
+              />
+            ) : (
+              <KeyboardArrowDown
+                sx={(theme) => ({
+                  width: '1.5rem',
+                  height: '1.5rem',
+                  color: theme.colors.neutral.black,
+                })}
+              />
+            )}
           </IconButton>
         )}
       </Box>
@@ -408,7 +425,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
   return (
     <>
       <Box position="relative" ref={containerRef} onBlur={handleBlur} sx={sx} {...other}>
-        <TextField
+        <MITextField
           id={inputId}
           fullWidth
           inputRef={inputRef}
@@ -441,29 +458,22 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
           }}
           sx={{
             '& .MuiInputBase-root': {
+              padding: 0.625,
               display: 'flex',
               flexWrap: 'wrap',
               alignItems: 'center',
               gap: 1,
-              padding: '0.625rem 0.75rem',
               borderRadius: '0.5rem',
               borderWidth: '0.125rem',
               backgroundColor: disabled ? '#F4F5F8' : 'transparent',
-              minHeight: '3rem',
             },
             '& .MuiInputBase-input': {
               flex: '1 1 3.75rem',
               minWidth: '3.75rem',
-              padding: '0',
+              padding: 2,
               boxSizing: 'border-box',
             },
-            '& .MuiInputLabel-root': {
-              transform: 'translate(0.875rem, 0.663rem) scale(1)',
-
-              '&.MuiInputLabel-shrink': {
-                transform: 'translate(0.875rem, -0.663rem) scale(0.75)',
-              },
-            },
+           
           }}
           {...textFieldProps}
         />
