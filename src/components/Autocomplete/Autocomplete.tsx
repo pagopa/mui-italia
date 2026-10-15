@@ -2,6 +2,7 @@
 
 import { Close, KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 import { Box, IconButton, Paper, Popper } from '@mui/material';
+import type { Theme } from '@mui/material/styles';
 import { visuallyHidden } from '@mui/utils';
 import { MIChip } from '@components/MIChip';
 import {
@@ -326,6 +327,11 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
   const getEndInputAdornment = () => {
     const showClearIcon = (currentInputValue || hasSelectedValue) && !showSelectionCountOnly;
     const showArrowIcon = !toggleButtonProps.hidden;
+    const keyboardArrowSx = (theme: Theme) => ({
+      width: '1.5rem',
+      height: '1.5rem',
+      color: theme.colors.neutral.black,
+    });
 
     if ((!showClearIcon && !showArrowIcon) || disabled) {
       return null;
@@ -337,6 +343,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
           display: 'flex',
           alignItems: 'center',
           marginRight: 0.5,
+          gap: 0.5,
         }}
       >
         {multiple && selectedOptions.length > 0 && showSelectionCountOnly && (
@@ -384,21 +391,9 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
             }}
           >
             {isOpen ? (
-              <KeyboardArrowUp
-                sx={(theme) => ({
-                  width: '1.5rem',
-                  height: '1.5rem',
-                  color: theme.colors.neutral.black,
-                })}
-              />
+              <KeyboardArrowUp sx={keyboardArrowSx} />
             ) : (
-              <KeyboardArrowDown
-                sx={(theme) => ({
-                  width: '1.5rem',
-                  height: '1.5rem',
-                  color: theme.colors.neutral.black,
-                })}
-              />
+              <KeyboardArrowDown sx={keyboardArrowSx} />
             )}
           </IconButton>
         )}
