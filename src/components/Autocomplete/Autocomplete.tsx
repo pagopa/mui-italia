@@ -22,6 +22,7 @@ import { AutocompleteProps, AutocompleteValue, InputChangeReason } from './Autoc
 import AutocompleteContent from './AutocompleteContent';
 import DefaultEmptyState from './DefaultEmptyState';
 import MultiSelectChips from './MultiSelectChips';
+import { theme } from '@theme';
 
 const defaultGetOptionLabel = <T,>(option: T) => {
   if (typeof option === 'string') {
@@ -342,8 +343,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
         sx={{
           display: 'flex',
           alignItems: 'center',
-          marginRight: 0.5,
-          gap: 0.5,
+          marginRight: theme.spacing(1.5),
         }}
       >
         {multiple && selectedOptions.length > 0 && showSelectionCountOnly && (
@@ -366,6 +366,8 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
             disabled={disabled}
             sx={{
               padding: 0,
+              height: theme.spacing(3),
+              width: theme.spacing(3),
             }}
           >
             <Close
@@ -388,6 +390,8 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
             sx={{
               paddingRight: 0.5,
               cursor: 'pointer',
+              height: theme.spacing(3),
+              width: theme.spacing(3),
             }}
           >
             {isOpen ? (
@@ -468,7 +472,6 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
               padding: 0,
               boxSizing: 'border-box',
             },
-           
           })}
           {...textFieldProps}
         />
