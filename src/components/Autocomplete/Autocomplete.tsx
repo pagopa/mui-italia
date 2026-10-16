@@ -18,11 +18,11 @@ import {
 import { filterOptionsInternal } from 'utils/autocomplete';
 import { isMobileDevice } from 'utils/device';
 import { MITextField } from '@components/MITextField';
+import { theme } from '@theme';
 import { AutocompleteProps, AutocompleteValue, InputChangeReason } from './Autocomplete.types';
 import AutocompleteContent from './AutocompleteContent';
 import DefaultEmptyState from './DefaultEmptyState';
 import MultiSelectChips from './MultiSelectChips';
-import { theme } from '@theme';
 
 const defaultGetOptionLabel = <T,>(option: T) => {
   if (typeof option === 'string') {
