@@ -37,7 +37,7 @@ export const StyledTextField = styled(TextField, {
     color: theme.colors.error[600],
   },
   '& .MuiOutlinedInput-root': {
-    minHeight: '3rem',
+    minHeight: theme.spacing(6),
     borderRadius: theme.shape.radius[8],
     padding: '0.60rem',
     '&.MuiInputBase-adornedEnd': {

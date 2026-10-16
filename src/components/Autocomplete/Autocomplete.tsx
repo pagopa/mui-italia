@@ -328,8 +328,8 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
     const showClearIcon = (currentInputValue || hasSelectedValue) && !showSelectionCountOnly;
     const showArrowIcon = !toggleButtonProps.hidden;
     const keyboardArrowSx = (theme: Theme) => ({
-      width: '1.5rem',
-      height: '1.5rem',
+      width: theme.spacing(3),
+      height: theme.spacing(3),
       color: theme.colors.neutral.black,
     });
 
@@ -455,8 +455,9 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
           }}
           sx={(theme) => ({
             '& .MuiInputBase-root': {
-              padding: 0.625,
-              paddingLeft: '0.75rem',
+              padding: theme.spacing(0.625),
+              
+              paddingLeft: theme.spacing(1.5),
               display: 'flex',
               flexWrap: 'wrap',
               alignItems: 'center',
