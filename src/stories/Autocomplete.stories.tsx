@@ -1,6 +1,5 @@
 import { LocationOn, Place, Warning } from '@mui/icons-material';
 import { Box, Button, Skeleton, Stack, Typography } from '@mui/material';
-import { MITextField } from '@components/MITextField';
 import { theme } from '@theme';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import Autocomplete from '../components/Autocomplete/Autocomplete';
@@ -66,31 +65,6 @@ export const Default: Story<City, false> = {
     label: 'Seleziona una città',
     placeholder: 'Cerca città...',
   },
-};
-
-export const WithMITextField: Story<City, false> = {
-  parameters: {
-    docs: {
-      description: {
-        story: 'Autocomplete e MITextField affiancati nella stessa riga.',
-      },
-    },
-  },
-  render: () => (
-    <Stack direction="row" spacing={2} sx={{ width: '100%', alignItems: 'flex-start' }}>
-      <Autocomplete
-        options={cities}
-        label="Città"
-        placeholder="Cerca città..."
-        sx={{ flex: 1, minWidth: 0 }}
-      />
-      <MITextField
-        label="Cap"
-        placeholder="Es. 20100"
-        sx={{ flex: 1, minWidth: 0 }}
-      />
-    </Stack>
-  ),
 };
 
 export const WithStartIcon: Story<City, false> = {

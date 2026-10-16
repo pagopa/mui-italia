@@ -18,7 +18,6 @@ import {
 import { filterOptionsInternal } from 'utils/autocomplete';
 import { isMobileDevice } from 'utils/device';
 import { MITextField } from '@components/MITextField';
-import { theme } from '@theme';
 import { AutocompleteProps, AutocompleteValue, InputChangeReason } from './Autocomplete.types';
 import AutocompleteContent from './AutocompleteContent';
 import DefaultEmptyState from './DefaultEmptyState';
@@ -340,11 +339,11 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
 
     return (
       <Box
-        sx={{
+        sx={(theme) => ({
           display: 'flex',
           alignItems: 'center',
           marginRight: theme.spacing(1.5),
-        }}
+        })}
       >
         {multiple && selectedOptions.length > 0 && showSelectionCountOnly && (
           <MIChip
@@ -364,11 +363,11 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
             onMouseDown={(e) => e.preventDefault()}
             aria-label={clearButtonProps['aria-label']}
             disabled={disabled}
-            sx={{
+            sx={(theme) => ({
               padding: 0,
               height: theme.spacing(3),
               width: theme.spacing(3),
-            }}
+            })}
           >
             <Close
               sx={(theme) => ({
@@ -387,12 +386,12 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
               isOpen ? toggleButtonProps['close-aria-label'] : toggleButtonProps['open-aria-label']
             }
             disabled={disabled}
-            sx={{
+            sx={(theme) => ({
               paddingRight: 0.5,
               cursor: 'pointer',
               height: theme.spacing(3),
               width: theme.spacing(3),
-            }}
+            })}
           >
             {isOpen ? (
               <KeyboardArrowUp sx={keyboardArrowSx} />
