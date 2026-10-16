@@ -52,8 +52,8 @@ export const MISwitch = forwardRef<HTMLButtonElement, MISwitchProps>(
         {label && (
           <Typography
             id={labelId}
-            variant="caption-semibold"
-            sx={{ color: (theme) => theme.colors.neutral.black }}
+            variant="body2"
+            sx={{ color: (theme) => theme.colors.neutral.black, fontWeight: (theme) => theme.typography.fontWeightMedium }}
           >
             {label}
           </Typography>
