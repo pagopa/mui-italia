@@ -2,7 +2,15 @@ import { MIChip } from '@components/MIChip';
 import { Stack } from '@mui/material';
 import { Meta, StoryObj } from '@storybook/react-vite';
 
-const ALL_COLORS = ['default', 'warning', 'error', 'success', 'highlight', 'info'] as const;
+const ALL_COLORS = [
+  'default',
+  'warning',
+  'error',
+  'success',
+  'highlight',
+  'neutral',
+  'info',
+] as const;
 
 const handleDelete = () => {
   console.info('You clicked the delete icon.');
@@ -44,7 +52,7 @@ const meta: Meta<MIChipStoryArgs> = {
         defaultValue: { summary: 'default' },
       },
       description:
-        'Colore semantico del chip. Il valore neutral è pensato soprattutto per la variante deletable.',
+        'Colore semantico del chip. Il valore neutral è l’unico disponibile per la variante deletable.',
     },
     variant: {
       options: ['filled', 'outlined'],
@@ -74,14 +82,13 @@ const meta: Meta<MIChipStoryArgs> = {
   },
   render: (args) => {
     const { deletable, color, variant, label, 'aria-label': ariaLabel } = args;
-    const handleOnDelete = deletable ? () => alert('Cliccato!') : undefined;
-    if (color === 'neutral') {
+    if (color === 'neutral' && deletable) {
       return (
         <MIChip
           label={label}
           color="neutral"
           variant="filled"
-          onDelete={handleOnDelete}
+          onDelete={() => alert('Cliccato!')}
           aria-label={ariaLabel}
         />
       );
