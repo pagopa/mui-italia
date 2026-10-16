@@ -1,3 +1,9 @@
+# [2.8.0-RC.6](https://github.com/pagopa/mui-italia/releases/tag/v2.8.0-RC.6) (2026-10-16)
+
+
+### Bug Fixes
+
+* **M20DS-148:** update MiTextField style (Minor on switch) ([#787](https://github.com/pagopa/mui-italia/issues/787)) ([59c4ba5](https://github.com/pagopa/mui-italia/commit/59c4ba5ca0c7831f761b3475c8a624f9933b5b2f))
 # [2.8.0-RC.5](https://github.com/pagopa/mui-italia/releases/tag/v2.8.0-RC.5) (2026-10-12)
 
 
