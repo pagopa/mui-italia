@@ -96,13 +96,10 @@ import * as MISwitchStories from '../stories/MISwitch.stories.tsx';
 
   <SubSection title="Esempio accessibile">
     ```tsx
-    <FormControlLabel
-      control={<MISwitch inputProps={{ 'aria-describedby': 'switch-error' }} />}
+    <MISwitch
       label="Notifiche"
+      error="Campo obbligatorio"
     />
-    <Typography id="switch-error" color="error" variant="caption">
-      Campo obbligatorio
-    </Typography>
     ```
   </SubSection>
 </Section>
