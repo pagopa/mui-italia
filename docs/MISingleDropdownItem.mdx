@@ -1,0 +1,30 @@
+import { Canvas, Controls, Meta, Title } from '@storybook/addon-docs/blocks';
+import * as MISingleDropdownItemStories from '../src/components/MISingleDropdownItem/MISingleDropdownItem.stories';
+
+<Meta of={MISingleDropdownItemStories} />
+
+<Title />
+
+Riga informativa per un'opzione di menu a discesa, con contenuti configurabili e stato controllato dal componente chiamante.
+
+## Link utili
+
+- [Design Figma](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=610-33733&m=dev)
+
+## Playground
+
+<Canvas of={MISingleDropdownItemStories.Playground} />
+
+<Controls of={MISingleDropdownItemStories.Playground} />
+
+## Stati
+
+La prop `selected` applica lo stato selezionato. `checked` e' mantenuta come alias per la stessa resa visuale. Entrambe sono controllate dal componente chiamante.
+
+## Contenuti
+
+`label` e' obbligatoria. `description`, `avatar` e `chip` sono slot opzionali e accettano contenuti React personalizzabili.
+
+## Accessibilita
+
+Il componente espone il ruolo `option` e usa `aria-selected` per indicare lo stato selezionato. La gestione della tastiera e del focus resta responsabilita' del contenitore listbox.

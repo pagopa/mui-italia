@@ -10,22 +10,31 @@ import {
   styled,
 } from '@mui/material';
 import {
-  Children,
+  cloneElement,
   forwardRef,
-  isValidElement,
   useId,
   useState,
   type MouseEvent,
+  type ReactElement,
   type ReactNode,
 } from 'react';
 
 import { MIChip } from '../MIChip';
-import { MIFormControl } from '../MIForm';
+import { MIFormControl, MIFormHelperText } from '../MIForm';
+import MISelectItem from './MISelectItem';
+
+export type MISelectOption = {
+  value: string | number;
+  label: ReactNode;
+  disabled?: boolean;
+  startIcon?: ReactNode;
+};
 
 export type MISelectProps = Omit<
   SelectProps,
   | 'autoWidth'
   | 'classes'
+  | 'children'
   | 'defaultOpen'
   | 'defaultValue'
   | 'displayEmpty'
@@ -56,6 +65,9 @@ export type MISelectProps = Omit<
   | 'disableUnderline'
 > & {
   label: ReactNode;
+  helperText?: ReactNode;
+  options: ReadonlyArray<MISelectOption>;
+  renderOptions?: (option: MISelectOption) => ReactElement;
   fullWidth?: boolean;
   getChipDeleteAriaLabel?: (label: ReactNode) => string;
 };
@@ -85,7 +97,7 @@ const StyledSelect = styled(MuiSelect)(({ theme }) => ({
 
 const renderSelectedChips = (
   selectedValues: unknown,
-  children: ReactNode,
+  options: ReadonlyArray<MISelectOption>,
   onDelete: (value: unknown) => (event: MouseEvent) => void,
   getChipDeleteAriaLabel?: (label: ReactNode) => string,
   disabled = false
@@ -94,12 +106,9 @@ const renderSelectedChips = (
     return null;
   }
 
-  const optionLabels = new Map<unknown, ReactNode>();
-  Children.forEach(children, (child) => {
-    if (isValidElement<{ value?: unknown; children?: ReactNode }>(child)) {
-      optionLabels.set(child.props.value, child.props.children);
-    }
-  });
+  const optionLabels = new Map<unknown, ReactNode>(
+    options.map((option) => [option.value, option.label])
+  );
 
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
@@ -123,10 +132,20 @@ const MISelect = forwardRef<HTMLDivElement, MISelectProps>((props, ref) => {
     fullWidth,
     label,
     labelId = generatedLabelId,
+    helperText,
+    'aria-describedby': ariaDescribedBy,
+    inputProps,
+    options,
+    renderOptions,
     renderValue,
     getChipDeleteAriaLabel,
     ...selectProps
   } = props;
+  const hasHelperText = helperText != null && helperText !== false && helperText !== '';
+  const helperTextId = hasHelperText ? `${generatedLabelId}-helper-text` : undefined;
+  const describedBy =
+    [ariaDescribedBy, inputProps?.['aria-describedby'], helperTextId].filter(Boolean).join(' ') ||
+    undefined;
   const isValueControlled = props.value !== undefined;
 
   // State for uncontrolled multiple select value, this will hold the selected values when the component is not controlled externally.
@@ -142,7 +161,6 @@ const MISelect = forwardRef<HTMLDivElement, MISelectProps>((props, ref) => {
 
     props.onChange?.(event, child);
   };
-
 
   const handleChipDelete = (removedValue: unknown) => (event: MouseEvent) => {
     event.stopPropagation();
@@ -170,12 +188,13 @@ const MISelect = forwardRef<HTMLDivElement, MISelectProps>((props, ref) => {
       ? (selectedValues: unknown) =>
           renderSelectedChips(
             selectedValues,
-            props.children,
+            options,
             handleChipDelete,
             getChipDeleteAriaLabel,
             Boolean(props.disabled || props.readOnly)
           )
-      : undefined);
+      : (selectedValue: unknown) =>
+          options.find((option) => String(option.value) === String(selectedValue))?.label);
 
   return (
     <MIFormControl
@@ -188,13 +207,31 @@ const MISelect = forwardRef<HTMLDivElement, MISelectProps>((props, ref) => {
       <StyledSelect
         ref={ref}
         {...selectProps}
+        aria-describedby={describedBy}
+        inputProps={{ ...inputProps, 'aria-describedby': describedBy }}
         value={selectValue}
         label={label}
         labelId={labelId}
         onChange={handleChange}
         renderValue={resolvedRenderValue}
         IconComponent={KeyboardArrowDown}
-      />
+      >
+        {options.map((option) =>
+          renderOptions ? (
+            cloneElement(renderOptions(option), { key: option.value })
+          ) : (
+            <MISelectItem
+              key={option.value}
+              value={option.value}
+              disabled={option.disabled}
+              startIcon={option.startIcon}
+            >
+              {option.label}
+            </MISelectItem>
+          )
+        )}
+      </StyledSelect>
+      {hasHelperText && <MIFormHelperText id={helperTextId}>{helperText}</MIFormHelperText>}
     </MIFormControl>
   );
 });

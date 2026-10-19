@@ -1,23 +1,17 @@
-import { MISelect, MISelectItem } from '@components/MISelect';
-import { MIFormHelperText } from '@components/MIForm';
+import { MISelect } from '@components/MISelect';
 import {
   AccountBalance as AccountBalanceIcon,
   LocationOn as LocationOnIcon,
   ReportRounded as ReportRoundedIcon,
 } from '@mui/icons-material';
-import { Box, InputAdornment, Stack, type SelectChangeEvent } from '@mui/material';
+import { Box, InputAdornment, MenuItem, Stack, type SelectChangeEvent } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import {
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 type OptionPreset = 'basic' | 'status';
 
 type MISelectStoryArgs = React.ComponentProps<typeof MISelect> & {
   labelText: string;
-  helperText: string;
   optionPreset: OptionPreset;
   selectedValue: string;
   selectedValues: Array<string>;
@@ -83,15 +77,15 @@ const meta: Meta<MISelectStoryArgs> = {
     },
     helperText: {
       control: { type: 'text' },
-      description: 'Controllo Storybook: testo visualizzato sotto al campo.',
+      description: 'Testo di supporto gestito e associato al campo da MISelect.',
       table: {
-        category: 'Storybook controls',
+        category: 'MISelect',
       },
     },
     optionPreset: {
       options: ['basic', 'status'],
       control: { type: 'radio' },
-      description: 'Controllo Storybook: set di opzioni usato come children del Select.',
+      description: 'Controllo Storybook: set di dati passato alla prop options del Select.',
       table: {
         category: 'Storybook controls',
       },
@@ -174,11 +168,15 @@ const meta: Meta<MISelectStoryArgs> = {
         category: 'MISelect',
       },
     },
-    children: {
+    options: {
       control: false,
       table: {
-        type: { summary: 'ReactNode' },
+        type: { summary: 'ReadonlyArray<MISelectOption>' },
       },
+    },
+    renderOptions: {
+      control: false,
+      description: 'Personalizza il componente di ogni opzione; il default e MISelectItem.',
     },
     label: {
       control: false,
@@ -224,7 +222,6 @@ const meta: Meta<MISelectStoryArgs> = {
       setIsOpen(open);
     }, [open]);
 
-    const helperId = helperText ? 'mi-select-playground-helper' : undefined;
     // Guards against a stale/mismatched value shape while the multiple arg is toggling.
     const value = multiple
       ? Array.isArray(multipleValues)
@@ -238,6 +235,7 @@ const meta: Meta<MISelectStoryArgs> = {
       <Box sx={{ minWidth: 280 }}>
         <MISelect
           fullWidth
+          options={options}
           label={labelText}
           multiple={multiple}
           disabled={disabled}
@@ -257,20 +255,8 @@ const meta: Meta<MISelectStoryArgs> = {
             }
             setSingle(event.target.value as string);
           }}
-          aria-describedby={helperId}
-        >
-          {options.map((item) => (
-            <MISelectItem key={item.value} value={item.value}>
-              {item.label}
-            </MISelectItem>
-          ))}
-        </MISelect>
-
-        {helperText ? (
-          <MIFormHelperText id={helperId} error={error}>
-            {helperText}
-          </MIFormHelperText>
-        ) : null}
+          helperText={helperText}
+        />
       </Box>
     );
   },
@@ -291,68 +277,52 @@ export const States: Story = {
       },
     },
   },
-  render: () => {
-    const labelIdBase = 'mi-select-states';
+  render: () => (
+    <Stack spacing={3} sx={{ minWidth: 320 }}>
+      <MISelect
+        fullWidth
+        options={BASIC_OPTIONS}
+        label="Default"
+        value="2"
+        onChange={() => console.log('Default select changed')}
+      />
 
-    return (
-      <Stack spacing={3} sx={{ minWidth: 320 }}>
-        <MISelect fullWidth  label="Default" value="2" onChange={() => console.log('Default select changed')}>
-          {BASIC_OPTIONS.map((item) => (
-            <MISelectItem key={`default-${item.value}`} value={item.value}>
-              {item.label}
-            </MISelectItem>
-          ))}
-        </MISelect>
-
-        <Box>
-          <MISelect
-            fullWidth
-            label="Errore"
-            value=""
-            onChange={() => undefined}
-            error
-            aria-describedby={`${labelIdBase}-error-helper`}
-          >
-            {BASIC_OPTIONS.map((item) => (
-              <MISelectItem key={`error-${item.value}`} value={item.value}>
-                {item.label}
-              </MISelectItem>
-            ))}
-          </MISelect>
-          <MIFormHelperText
-            error
-            id={`${labelIdBase}-error-helper`}
-            sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
-          >
-            <ReportRoundedIcon color="error" fontSize="small" />
-            Selezione non valida
-          </MIFormHelperText>
-        </Box>
-
+      <Box>
         <MISelect
           fullWidth
-          label="Disabilitato"
-          value="1"
+          options={BASIC_OPTIONS}
+          label="Errore"
+          value=""
           onChange={() => undefined}
-          disabled
-        >
-          {BASIC_OPTIONS.map((item) => (
-            <MISelectItem key={`disabled-${item.value}`} value={item.value}>
-              {item.label}
-            </MISelectItem>
-          ))}
-        </MISelect>
+          error
+          helperText={
+            <Box component="span" sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+              <ReportRoundedIcon color="error" fontSize="small" />
+              Selezione non valida
+            </Box>
+          }
+        />
+      </Box>
 
-        <MISelect fullWidth label="Sola lettura" value="3" onChange={() => undefined} readOnly>
-          {BASIC_OPTIONS.map((item) => (
-            <MISelectItem startIcon={<LocationOnIcon />} key={`readonly-${item.value}`} value={item.value}>
-              {item.label}
-            </MISelectItem>
-          ))}
-        </MISelect>
-      </Stack>
-    );
-  },
+      <MISelect
+        fullWidth
+        options={BASIC_OPTIONS}
+        label="Disabilitato"
+        value="1"
+        onChange={() => undefined}
+        disabled
+      />
+
+      <MISelect
+        fullWidth
+        label="Sola lettura"
+        options={BASIC_OPTIONS.map((item) => ({ ...item, startIcon: <LocationOnIcon /> }))}
+        value="3"
+        onChange={() => undefined}
+        readOnly
+      />
+    </Stack>
+  ),
 };
 
 export const SingleAndMultiple: Story = {
@@ -370,29 +340,19 @@ export const SingleAndMultiple: Story = {
       <MISelect
         fullWidth
         label="Selezione singola"
+        options={STATUS_OPTIONS}
         value="delivered"
         onChange={() => undefined}
-      >
-        {STATUS_OPTIONS.map((item) => (
-          <MISelectItem key={`single-${item.value}`} value={item.value}>
-            {item.label}
-          </MISelectItem>
-        ))}
-      </MISelect>
+      />
 
       <MISelect
         fullWidth
         label="Selezione multipla"
+        options={STATUS_OPTIONS}
         multiple
         value={['delivered', 'deposited']}
         onChange={() => undefined}
-      >
-        {STATUS_OPTIONS.map((item) => (
-          <MISelectItem key={`multiple-${item.value}`} value={item.value}>
-            {item.label}
-          </MISelectItem>
-        ))}
-      </MISelect>
+      />
     </Stack>
   ),
 };
@@ -402,23 +362,51 @@ export const WithItemStartIcons: Story = {
     controls: { hideNoControlsWarning: true },
     docs: {
       description: {
-        story: 'Le opzioni possono avere una startIcon facoltativa, anche ripetuta su piu elementi.',
+        story:
+          'Le opzioni possono avere una startIcon facoltativa, anche ripetuta su piu elementi.',
       },
     },
   },
   render: () => (
-    <MISelect fullWidth label="Indirizzo" open value="2" onChange={() => undefined}>
-      {BASIC_OPTIONS.map((item) => (
-        <MISelectItem
-          key={`start-icon-${item.value}`}
-          value={item.value}
-          startIcon={<LocationOnIcon />}
-        >
-          {item.label}
-        </MISelectItem>
-      ))}
-    </MISelect>
+    <MISelect
+      fullWidth
+      label="Indirizzo"
+      options={BASIC_OPTIONS.map((item) => ({ ...item, startIcon: <LocationOnIcon /> }))}
+      open
+      value="2"
+      onChange={() => undefined}
+    />
   ),
+};
+
+export const CustomOptions: Story = {
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story:
+          'renderOptions sostituisce MISelectItem con un componente personalizzato. Il componente deve inoltrare ref e props MUI e ricevere value, disabled e il contenuto dell opzione.',
+      },
+    },
+  },
+  render: function RenderCustomOptions() {
+    const [value, setValue] = useState<unknown>('delivered');
+
+    return (
+      <MISelect
+        fullWidth
+        label="Stato della notifica"
+        options={STATUS_OPTIONS}
+        value={value}
+        onChange={(event) => setValue(event.target.value)}
+        renderOptions={(option) => (
+          <MenuItem value={option.value} disabled={option.disabled}>
+            {option.label}
+          </MenuItem>
+        )}
+      />
+    );
+  },
 };
 
 export const WithDecorativeIcon: Story = {
@@ -431,61 +419,44 @@ export const WithDecorativeIcon: Story = {
       },
     },
   },
-  render: () => {
-    const labelIdBase = 'mi-select-icon';
+  render: () => (
+    <Stack spacing={3} sx={{ minWidth: 320 }}>
+      <MISelect
+        fullWidth
+        label="Ente"
+        options={BASIC_OPTIONS}
+        value="1"
+        onChange={() => undefined}
+        startAdornment={
+          <InputAdornment position="start">
+            <AccountBalanceIcon />
+          </InputAdornment>
+        }
+      />
 
-    return (
-      <Stack spacing={3} sx={{ minWidth: 320 }}>
+      <Box>
         <MISelect
           fullWidth
           label="Ente"
-          value="1"
+          options={BASIC_OPTIONS}
+          value=""
           onChange={() => undefined}
+          error
+          helperText={
+            <Box component="span" sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+              <ReportRoundedIcon color="error" fontSize="small" />
+              Some details error
+            </Box>
+          }
           startAdornment={
             <InputAdornment position="start">
               <AccountBalanceIcon />
             </InputAdornment>
           }
-        >
-          {BASIC_OPTIONS.map((item) => (
-            <MISelectItem key={`icon-default-${item.value}`} value={item.value}>
-              {item.label}
-            </MISelectItem>
-          ))}
-        </MISelect>
-
-        <Box>
-          <MISelect
-            fullWidth
-            label="Ente"
-            value=""
-            onChange={() => undefined}
-            error
-            aria-describedby={`${labelIdBase}-error-helper`}
-            startAdornment={
-              <InputAdornment position="start">
-                <AccountBalanceIcon />
-              </InputAdornment>
-            }
-          >
-            {BASIC_OPTIONS.map((item) => (
-              <MISelectItem key={`icon-error-${item.value}`} value={item.value}>
-                {item.label}
-              </MISelectItem>
-            ))}
-          </MISelect>
-          <MIFormHelperText
-            error
-            id={`${labelIdBase}-error-helper`}
-            sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
-          >
-            <ReportRoundedIcon color="error" fontSize="small" />
-            Some details error
-          </MIFormHelperText>
-        </Box>
-      </Stack>
-    );
-  },
+        />
+      </Box>
+    </Stack>
+  ),
 };
 
 export const MultipleWithChips: Story = {
@@ -505,17 +476,12 @@ export const MultipleWithChips: Story = {
       setValues(event.target.value as Array<string>);
     };
 
-    const chipOptions = BASIC_OPTIONS.map((item) => (
-      <MISelectItem key={`multiple-chips-${item.value}`} value={item.value}>
-        {item.label}
-      </MISelectItem>
-    ));
-
     return (
       <Box sx={{ minWidth: 320 }}>
         <MISelect
           fullWidth
           label="Label text"
+          options={BASIC_OPTIONS}
           required
           multiple
           value={values}
@@ -527,9 +493,7 @@ export const MultipleWithChips: Story = {
               <AccountBalanceIcon />
             </InputAdornment>
           }
-        >
-          {chipOptions}
-        </MISelect>
+        />
       </Box>
     );
   },
@@ -545,85 +509,55 @@ export const Required: Story = {
       },
     },
   },
-  render: () => {
-    const labelIdBase = 'mi-select-required';
-
-    return (
-      <Stack spacing={3} sx={{ minWidth: 320 }}>
-        <Box>
-          <MISelect
-            fullWidth
-            label="Obbligatorio"
-            name="required-empty"
-            value=""
-            onChange={() => undefined}
-            required
-            aria-describedby={`${labelIdBase}-empty-helper`}
-          >
-            {BASIC_OPTIONS.map((item) => (
-              <MISelectItem key={`required-empty-${item.value}`} value={item.value}>
-                {item.label}
-              </MISelectItem>
-            ))}
-          </MISelect>
-          <MIFormHelperText id={`${labelIdBase}-empty-helper`}>
-            Campo obbligatorio
-          </MIFormHelperText>
-        </Box>
-
+  render: () => (
+    <Stack spacing={3} sx={{ minWidth: 320 }}>
+      <Box>
         <MISelect
           fullWidth
-          label="Obbligatorio valorizzato"
-          name="required-filled"
-          value="2"
+          label="Obbligatorio"
+          options={BASIC_OPTIONS}
+          name="required-empty"
+          value=""
           onChange={() => undefined}
           required
-        >
-          {BASIC_OPTIONS.map((item) => (
-            <MISelectItem key={`required-filled-${item.value}`} value={item.value}>
-              {item.label}
-            </MISelectItem>
-          ))}
-        </MISelect>
+          helperText="Campo obbligatorio"
+        />
+      </Box>
 
-        <Box>
-          <MISelect
-            fullWidth
-            label="Obbligatorio in errore"
-            name="required-error"
-            value=""
-            onChange={() => undefined}
-            required
-            error
-            aria-describedby={`${labelIdBase}-error-helper`}
-          >
-            {BASIC_OPTIONS.map((item) => (
-              <MISelectItem key={`required-error-${item.value}`} value={item.value}>
-                {item.label}
-              </MISelectItem>
-            ))}
-          </MISelect>
-          <MIFormHelperText id={`${labelIdBase}-error-helper`} error>
-            Seleziona un valore per proseguire
-          </MIFormHelperText>
-        </Box>
+      <MISelect
+        fullWidth
+        label="Obbligatorio valorizzato"
+        options={BASIC_OPTIONS}
+        name="required-filled"
+        value="2"
+        onChange={() => undefined}
+        required
+      />
 
+      <Box>
         <MISelect
           fullWidth
-          label="Obbligatorio disabilitato"
-          name="required-disabled"
-          value="1"
+          label="Obbligatorio in errore"
+          options={BASIC_OPTIONS}
+          name="required-error"
+          value=""
           onChange={() => undefined}
           required
-          disabled
-        >
-          {BASIC_OPTIONS.map((item) => (
-            <MISelectItem key={`required-disabled-${item.value}`} value={item.value}>
-              {item.label}
-            </MISelectItem>
-          ))}
-        </MISelect>
-      </Stack>
-    );
-  },
+          error
+          helperText="Seleziona un valore per proseguire"
+        />
+      </Box>
+
+      <MISelect
+        fullWidth
+        label="Obbligatorio disabilitato"
+        options={BASIC_OPTIONS}
+        name="required-disabled"
+        value="1"
+        onChange={() => undefined}
+        required
+        disabled
+      />
+    </Stack>
+  ),
 };
