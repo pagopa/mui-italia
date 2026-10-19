@@ -71,6 +71,13 @@ import * as MISelectStories from '../stories/MISelect.stories.tsx';
 </Section>
 
 <Section
+  title="Opzioni personalizzate"
+  description="La prop options fornisce i dati delle opzioni. Senza renderOptions, ogni opzione viene renderizzata con MISelectItem."
+>
+  <Story of={MISelectStories.CustomOptions} />
+</Section>
+
+<Section
   title="Accessibilita"
   description="MISelect associa automaticamente la label al campo e mantiene la semantica combobox/listbox di MUI Select."
 >
@@ -87,6 +94,12 @@ import * as MISelectStories from '../stories/MISelect.stories.tsx';
       </li>
       <li>
         <strong>error</strong>: abilita lo stato di errore e imposta aria-invalid sull input nativo.
+      </li>
+      <li>
+        <strong>helperText</strong>: testo o contenuto React di supporto, renderizzato da
+        MISelect tramite MIFormHelperText dentro MIFormControl. E associato automaticamente
+        al campo tramite aria-describedby e ne eredita gli stati error e disabled.
+        Gli eventuali riferimenti aria-describedby esterni vengono mantenuti.
       </li>
       <li>
         <strong>readOnly</strong> e <strong>disabled</strong>: impediscono apertura/interazione del
@@ -126,45 +139,108 @@ import * as MISelectStories from '../stories/MISelect.stories.tsx';
   ArrowDown, ArrowUp, Enter e Space.
 </SubSection>
 
-  <SubSection title="Esempio accessibile">
-    ```tsx
-    <>
-      <MISelect
-        fullWidth
-        label="Citta"
-        name="city"
-        value={city}
-        required
-        error={hasError}
-        onChange={handleCityChange}
-        aria-describedby="city-select-helper"
-      >
-        <MISelectItem value="rome">Roma</MISelectItem>
-        <MISelectItem value="milan">Milano</MISelectItem>
-      </MISelect>
-      <MIFormHelperText id="city-select-helper" error={hasError}>
-        {hasError ? 'Seleziona una citta valida' : 'Campo obbligatorio'}
-      </MIFormHelperText>
-    </>
-    ```
-  </SubSection>
+<SubSection title="Esempio accessibile">
+  ```tsx
+  <MISelect
+    fullWidth
+    label="Citta"
+    name="city"
+    value={city}
+    required
+    error={hasError}
+    onChange={handleCityChange}
+    helperText={hasError ? 'Seleziona una citta valida' : 'Campo obbligatorio'}
+    options={[
+      { value: 'rome', label: 'Roma' },
+      { value: 'milan', label: 'Milano' },
+    ]}
+  />
+  ```
+</SubSection>
 
 <SubSection title="Opzioni con icona">
-  Le opzioni si compongono con <strong>MISelectItem</strong>. La prop opzionale
+  Le opzioni sono dati passati a <strong>options</strong>. La proprieta opzionale
   <strong>startIcon</strong> consente di associare un icona a un singolo elemento o di ripeterla su
   piu elementi.
   ```tsx
-  <MISelect label="Indirizzo" value={value} onChange={handleChange}>
-    {addresses.map((address) => (
-      <MISelectItem
-        key={address.id}
-        value={address.id}
-        startIcon={<LocationOnIcon />}
-      >
-        {address.label}
-      </MISelectItem>
-    ))}
-  </MISelect>
+  <MISelect
+    label="Indirizzo"
+    value={value}
+    onChange={handleChange}
+    options={addresses.map((address) => ({
+      value: address.id,
+      label: address.label,
+      startIcon: <LocationOnIcon />,
+    }))}
+  />
   ```
 </SubSection>
+</Section>
+
+<Section
+  title="Note per gli sviluppatori"
+  description="L API usa dati invece di children JSX per definire le opzioni."
+>
+  <ul>
+    <li>
+      Usa <strong>helperText</strong> per fornire messaggi di supporto o di errore localizzati,
+      anche con icone o altro contenuto React. Non serve comporre MIFormHelperText esternamente
+      o assegnare manualmente un ID al messaggio. In assenza di contenuto, non viene aggiunto
+      un elemento di supporto.
+    </li>
+    <li>
+      <strong>options</strong> e obbligatoria e accetta un array readonly di
+      <strong>MISelectOption</strong>: value (string o number univoco), label (ReactNode),
+      disabled e startIcon opzionali. Le label possono essere tradotte dal consumatore.
+    </li>
+    <li>
+      <strong>renderOptions(option)</strong> e facoltativa e restituisce un elemento React per
+      ciascuna opzione. La chiave viene assegnata da MISelect usando option.value.
+      Passa value e disabled all elemento restituito e usa option.label come contenuto.
+      Se usi un componente
+      personalizzato, deve inoltrare ref, props ARIA ed event handler di MUI al MenuItem
+      sottostante. Non restituire fragment o wrapper intorno alle opzioni.
+    </li>
+    <li>
+      Il valore selezionato e i chip usano option.label, mentre getChipDeleteAriaLabel riceve
+      la stessa label in selezione multipla,
+      indipendentemente dal markup restituito da renderOptions. renderValue mantiene la
+      precedenza per personalizzare i valori selezionati.
+    </li>
+    <li>
+      <strong>Migrazione:</strong> children non e piu supportata. Sostituisci i figli MISelectItem
+      con oggetti in options e usa renderOptions solo quando serve un componente diverso.
+    </li>
+  </ul>
+
+```tsx
+import { MenuItem } from '@mui/material';
+import { MISelect, type MISelectOption } from '@pagopa/mui-italia';
+
+const options: Array<MISelectOption> = [
+  { value: 'available', label: 'Disponibile' },
+  { value: 'unavailable', label: 'Non disponibile', disabled: true },
+];
+
+<MISelect
+  label="Disponibilita"
+  options={options}
+  value={value}
+  onChange={handleChange}
+  renderOptions={(option) => (
+    <MenuItem value={option.value} disabled={option.disabled}>
+      {option.label}
+    </MenuItem>
+  )}
+/>;
+```
+
+</Section>
+
+<Section
+  title="Note per i designer"
+  description="Gli esempi esistenti mantengono MISelectItem come opzione predefinita; la story Opzioni personalizzate mostra la sostituzione con MenuItem MUI."
+>
+  Le icone restano configurabili nei dati tramite startIcon. renderOptions controlla l aspetto delle
+  opzioni nel menu, mentre renderValue controlla il contenuto del campo selezionato.
 </Section>

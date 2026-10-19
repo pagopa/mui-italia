@@ -6,7 +6,7 @@ import { styled } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/system';
 import { InputBaseComponentProps, Stack } from '@mui/material';
-import { MISelect, MISelectItem } from '@components/MISelect';
+import { MISelect } from '@components/MISelect';
 import { useEffect } from 'react';
 
 export type MIPaginationProps = Omit<
@@ -133,13 +133,7 @@ export const MIPagination: React.FC<MIPaginationProps> = ({
           }}
           value={limit}
           onChange={(event) => itemsPerPageOptions.onLimitChange(event.target.value as number)}
-        >
-          {pageOptionsValues.map((option) => (
-            <MISelectItem key={option} value={option}>
-              {option}
-            </MISelectItem>
-          ))}
-        </MISelect>
+        />
       )}
       <StyledPagination
         siblingCount={0}
