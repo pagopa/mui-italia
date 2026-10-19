@@ -1,10 +1,19 @@
 import { MISelect } from '@components/MISelect';
+import { MISingleDropdownItem } from '@components/MISingleDropdownItem';
 import {
   AccountBalance as AccountBalanceIcon,
   LocationOn as LocationOnIcon,
   ReportRounded as ReportRoundedIcon,
 } from '@mui/icons-material';
-import { Box, InputAdornment, MenuItem, Stack, type SelectChangeEvent } from '@mui/material';
+import {
+  Avatar,
+  Box,
+  Chip,
+  InputAdornment,
+  MenuItem,
+  Stack,
+  type SelectChangeEvent,
+} from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -405,6 +414,68 @@ export const CustomOptions: Story = {
           </MenuItem>
         )}
       />
+    );
+  },
+};
+
+export const WithSingleDropdownItems: Story = {
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story:
+          'renderOptions usa MISingleDropdownItem per mostrare enti con avatar, descrizione e chip. La selezione aggiorna il campo, che mostra solo la label dell ente.',
+      },
+    },
+  },
+  render: function RenderWithSingleDropdownItems() {
+    const [value, setValue] = useState<unknown>('roma');
+    const organizations = [
+      {
+        value: 'roma',
+        label: 'Comune di Roma',
+        description: 'Amministrazione comunale',
+        initials: 'RM',
+      },
+      {
+        value: 'milano',
+        label: 'Comune di Milano',
+        description: 'Amministrazione comunale',
+        initials: 'MI',
+      },
+      {
+        value: 'lazio',
+        label: 'Regione Lazio',
+        description: 'Amministrazione regionale',
+        initials: 'LA',
+      },
+    ];
+
+    return (
+      <Box sx={{ width: 360, maxWidth: '100%' }}>
+        <MISelect
+          fullWidth
+          label="Ente"
+          options={organizations}
+          value={value}
+          onChange={(event) => setValue(event.target.value)}
+          helperText="Seleziona l ente per cui vuoi operare"
+          renderOptions={(option) => {
+            const organization = organizations.find((item) => item.value === option.value);
+
+            return (
+              <MISingleDropdownItem
+                value={option.value}
+                label={option.label}
+                disabled={option.disabled}
+                description={organization?.description}
+                avatar={<Avatar>{organization?.initials}</Avatar>}
+                chip={<Chip label="Attivo" size="small" />}
+              />
+            );
+          }}
+        />
+      </Box>
     );
   },
 };

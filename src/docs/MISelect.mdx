@@ -75,6 +75,15 @@ import * as MISelectStories from '../stories/MISelect.stories.tsx';
   description="La prop options fornisce i dati delle opzioni. Senza renderOptions, ogni opzione viene renderizzata con MISelectItem."
 >
   <Story of={MISelectStories.CustomOptions} />
+
+  <SubSection title="Opzioni con MISingleDropdownItem">
+    Usa renderOptions per comporre ogni opzione con MISingleDropdownItem e aggiungere avatar,
+    descrizione e chip. Passa value, label e disabled al componente; MISelect gestisce lo stato
+    selezionato. Il campo chiuso mostra option.label, senza la descrizione o il chip del menu.
+
+    <Story of={MISelectStories.WithSingleDropdownItems} />
+
+  </SubSection>
 </Section>
 
 <Section
