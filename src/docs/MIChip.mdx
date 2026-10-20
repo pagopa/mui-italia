@@ -53,8 +53,19 @@ import * as MIChipStories from '../stories/MIChip.stories.tsx';
         <strong>label</strong>: identifica il contenuto del chip. Deve essere sempre significativo.
       </li>
       <li>
-        <strong>aria-label</strong>: in modalità deletable, descrive l’azione associata all’icona di
-        rimozione quando il solo label non è sufficiente.
+        <strong>aria-label</strong>: in modalità deletable, se <strong>deleteIconAriaLabel</strong>{' '}
+        non è valorizzata, descrive l’azione associata all’icona di rimozione quando il solo label
+        non è sufficiente. In questo caso non viene applicata alla root del chip, che resta
+        identificata dal suo label.
+      </li>
+      <li>
+        <strong>deleteIconAriaLabel</strong>: in modalità deletable, descrive l’azione associata
+        all’icona di rimozione (default: "Delete"). Se valorizzata, ha la precedenza su{' '}
+        <strong>aria-label</strong>, che torna ad essere applicata alla root del chip.
+      </li>
+      <li>
+        <strong>role</strong>: in modalità deletable la root del chip non ha il ruolo button
+        impostato da MUI, ma un ruolo passato esplicitamente (es. listitem) viene mantenuto.
       </li>
     </ul>
   </SubSection>
