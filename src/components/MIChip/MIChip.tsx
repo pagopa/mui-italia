@@ -47,9 +47,9 @@ const StyledChip = styled(MuiChip, {
     lineHeight: 1.5,
     letterSpacing: 0.5,
     padding: `3px ${theme.spacing(1)}`,
-    // Overrides MUI's single-line truncation of the label.
+    whiteSpace: wrapLabel ? 'normal' : 'nowrap',
+    textOverflow: wrapLabel ? 'clip' : 'ellipsis',
     ...(wrapLabel && {
-      whiteSpace: 'normal',
       overflowWrap: 'anywhere',
       wordBreak: 'break-word',
     }),
