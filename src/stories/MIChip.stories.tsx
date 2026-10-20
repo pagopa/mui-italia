@@ -18,13 +18,14 @@ const meta: Meta<MIChipStoryArgs> = {
   parameters: {
     layout: 'centered',
     controls: {
-      include: ['label', 'color', 'variant', 'aria-label', 'deletable'],
+      include: ['label', 'color', 'variant', 'wrapLabel', 'aria-label', 'deletable'],
     },
   },
   args: {
     label: 'Consegnata',
     color: 'default',
     variant: 'filled',
+    wrapLabel: false,
     'aria-label': 'Clicca per cancellare',
     deletable: false,
   },
@@ -55,6 +56,15 @@ const meta: Meta<MIChipStoryArgs> = {
       },
       description: 'Variante visiva del chip.',
     },
+    wrapLabel: {
+      control: { type: 'boolean' },
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+      description:
+        'Se attivo, le etichette lunghe vanno a capo su più righe. Altrimenti restano su una riga e vengono troncate con i puntini di sospensione.',
+    },
     'aria-label': {
       control: { type: 'text' },
       table: {
@@ -73,7 +83,7 @@ const meta: Meta<MIChipStoryArgs> = {
     },
   },
   render: (args) => {
-    const { deletable, color, variant, label, 'aria-label': ariaLabel } = args;
+    const { deletable, color, variant, label, wrapLabel, 'aria-label': ariaLabel } = args;
     const handleOnDelete = deletable ? () => alert('Cliccato!') : undefined;
     if (color === 'neutral') {
       return (
@@ -81,12 +91,13 @@ const meta: Meta<MIChipStoryArgs> = {
           label={label}
           color="neutral"
           variant="filled"
+          wrapLabel={wrapLabel}
           onDelete={handleOnDelete}
           aria-label={ariaLabel}
         />
       );
     }
-    return <MIChip label={label} color={color} variant={variant} />;
+    return <MIChip label={label} color={color} variant={variant} wrapLabel={wrapLabel} />;
   },
 };
 
@@ -153,6 +164,41 @@ export const Deletable: Story = {
       },
     },
   },
+};
+
+const LONG_LABEL = 'Pratica in attesa di verifica da parte dell’ente competente';
+const UNBROKEN_LABEL = 'Codiceidentificativopraticamoltolungosenzaspazi';
+
+const LongLabelGroup = ({ wrapLabel }: { wrapLabel: boolean }) => (
+  <Stack spacing={1} alignItems="flex-start" sx={{ width: 240 }}>
+    <MIChip label={LONG_LABEL} color="highlight" wrapLabel={wrapLabel} />
+    <MIChip label={UNBROKEN_LABEL} color="info" wrapLabel={wrapLabel} />
+    <MIChip
+      label="Filtro attivo con un’etichetta molto lunga"
+      color="neutral"
+      wrapLabel={wrapLabel}
+      onDelete={handleDelete}
+      aria-label="Rimuovi filtro"
+    />
+  </Stack>
+);
+
+export const LongLabel: Story = {
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+    docs: {
+      description: {
+        story:
+          'Di default le etichette lunghe restano su una riga e vengono troncate. Con wrapLabel vanno a capo all’interno del contenitore.',
+      },
+    },
+  },
+  render: () => (
+    <Stack direction="row" spacing={4} alignItems="flex-start">
+      <LongLabelGroup wrapLabel={false} />
+      <LongLabelGroup wrapLabel />
+    </Stack>
+  ),
 };
 
 export const Accessibility: Story = {
