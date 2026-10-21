@@ -9,9 +9,15 @@ describe('MIPagination', () => {
   });
 
   it('does not render when count is 0', () => {
-    const { queryByText, queryByTestId } = render(<MIPagination page={1} count={0} />);
+    const { queryByRole, queryByTestId } = render(
+      <MIPagination
+        page={1}
+        count={0}
+        itemsPerPageOptions={{ limit: 9, onLimitChange: vi.fn(), options: [9, 12] }}
+      />
+    );
 
-    expect(queryByText('4')).not.toBeInTheDocument();
+    expect(queryByRole('navigation')).not.toBeInTheDocument();
     expect(queryByTestId('items-per-page-select')).not.toBeInTheDocument();
   });
 
