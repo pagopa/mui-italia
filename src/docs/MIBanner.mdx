@@ -1,0 +1,194 @@
+import { Meta, Title, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
+
+import Overview from './components/Overview';
+import Section from './components/Section';
+import SubSection from './components/SubSection';
+
+import * as MIBannerStories from '../stories/MIBanner.stories';
+
+<Meta of={MIBannerStories} />
+
+<Title />
+
+<Overview>
+  <strong>MIBanner</strong> mostra un messaggio in evidenza composto da un titolo, un testo
+  descrittivo opzionale e una call to action opzionale, che può essere un’azione (onClick) o un link
+  (href). Il banner può essere reso chiudibile tramite onClose. Sono disponibili tre varianti
+  (primary, secondary, tertiary) e due colori di sfondo (white, info); su schermi piccoli le
+  varianti primary e secondary passano a un layout verticale.
+</Overview>
+
+<Section
+  title="Riferimenti"
+  description="Risorse utili per allineare implementazione e specifiche."
+>
+  <ul>
+    <li>🎨 Figma: {/* TODO: inserire il link al nodo Figma di MIBanner */}</li>
+    <li>💻 Link sorgente GitHub: {/* TODO: confermare con lo sviluppatore */}</li>
+  </ul>
+</Section>
+
+<Section
+  title="Playground"
+  description="Usa i controlli per modificare variante, colore, testi, pulsante di chiusura e call to action, e verificare il risultato live."
+>
+  <Primary />
+  <Controls />
+</Section>
+
+<Section
+  title="Varianti"
+  description="Le varianti differiscono per layout, dimensioni del testo e contenuti accessori. Alcune props hanno effetto solo su una specifica variante."
+>
+  <Story of={MIBannerStories.Variants} />
+  <ul>
+    <li>
+      <strong>primary</strong> (default): barra verticale blu sul lato sinistro, badge opzionale
+      (prop badge) e illustrazione sul lato destro. Se la prop illustration non è valorizzata viene
+      mostrata un’illustrazione predefinita. La CTA è un pulsante testuale.
+    </li>
+    <li>
+      <strong>secondary</strong>: non mostra badge, illustrazione o icona. La CTA con onClick è un
+      pulsante contained, allineato in basso a destra su desktop.
+    </li>
+    <li>
+      <strong>tertiary</strong>: versione compatta con un’icona accanto al titolo (predefinita o
+      personalizzata tramite icon), titolo e messaggio più piccoli e CTA testuale.
+    </li>
+  </ul>
+</Section>
+
+<Section
+  title="Colori"
+  description="La prop color definisce sfondo e bordo del banner: white usa lo sfondo paper del tema, info uno sfondo blu chiaro."
+>
+  <Story of={MIBannerStories.Colors} />
+</Section>
+
+<Section
+  title="Call to action"
+  description="La prop cta accetta due configurazioni alternative: con onClick viene renderizzato un pulsante, con href un link. Nella variante secondary solo la CTA con onClick è un pulsante contained; il link resta testuale in tutte le varianti."
+>
+  <Story of={MIBannerStories.CtaTypes} />
+  <ul>
+    <li>
+      <strong>target</strong>: per i link il valore predefinito è _self.
+    </li>
+    <li>
+      <strong>rel</strong>: con target _blank, se non specificato, viene impostato a “noopener
+      noreferrer”. Un valore passato esplicitamente viene sempre rispettato.
+    </li>
+  </ul>
+</Section>
+
+<Section
+  title="Contenuti personalizzati"
+  description="L’illustrazione (prop illustration) è usata solo dalla variante primary, l’icona (prop icon) solo dalla variante tertiary. Nelle altre varianti queste props vengono ignorate."
+>
+  <Story of={MIBannerStories.CustomContent} />
+</Section>
+
+<Section
+  title="Layout responsive"
+  description="Il layout dipende dalla larghezza della finestra (breakpoint sm del tema), non da quella del contenitore. Per verificarlo usa i viewport di Storybook."
+>
+  <ul>
+    <li>
+      <strong>primary</strong>: sotto il breakpoint sm il titolo passa da 24px a 18px e
+      l’illustrazione da 80px a 56px.
+    </li>
+    <li>
+      <strong>secondary</strong>: sotto il breakpoint sm il titolo passa a 18px e la CTA si sposta
+      sotto il messaggio, allineata a sinistra.
+    </li>
+    <li>
+      <strong>tertiary</strong>: mantiene il layout orizzontale a tutte le larghezze.
+    </li>
+  </ul>
+</Section>
+
+<Section
+  title="Testi lunghi"
+  description="Titolo, messaggio e badge vanno a capo anche con stringhe senza spazi, così il contenuto non esce dal banner con testi tradotti o con zoom."
+>
+  <Story of={MIBannerStories.LongContent} />
+</Section>
+
+<Section
+  title="Accessibilità"
+  description="Il banner integra già la struttura semantica e le relazioni tra etichette; l’accessibilità finale dipende dalla qualità dei testi passati dal consumer."
+>
+  <SubSection title="Props rilevanti">
+    <ul>
+      <li>
+        <strong>title</strong>: è il nome accessibile del banner. Se nella pagina sono presenti più
+        banner, usa titoli distinti per renderli riconoscibili.
+      </li>
+      <li>
+        <strong>closeAriaLabel</strong>: unica etichetta del pulsante di chiusura, che non ha testo
+        visibile. Il valore predefinito è “Close”, in inglese: valorizzalo sempre nella lingua
+        dell’interfaccia.
+      </li>
+      <li>
+        <strong>cta.label</strong>: il nome accessibile della CTA è composto dal titolo del banner
+        seguito dalla label (ad esempio “Titolo del banner Vai all’iniziativa”), così anche una
+        label breve resta comprensibile fuori contesto.
+      </li>
+      <li>
+        <strong>illustration</strong> e <strong>icon</strong>: l’illustrazione e l’icona predefinite
+        sono decorative e nascoste alle tecnologie assistive. Se passi contenuti personalizzati
+        decorativi, nascondili a tua volta (ad esempio alt="" per un’immagine).
+      </li>
+    </ul>
+  </SubSection>
+
+<SubSection title="Comportamenti integrati">
+  <ul>
+    <li>
+      Il banner è renderizzato come elemento section con aria-labelledby collegato al titolo, quindi
+      viene esposto come regione con nome.
+    </li>
+    <li>Il titolo è renderizzato come intestazione di livello 6 (h6).</li>
+    <li>Gli attributi aria-* e data-* passati al componente vengono applicati alla section.</li>
+  </ul>
+</SubSection>
+
+<SubSection title="Prop non disponibili">
+  <ul>
+    <li>
+      <strong>Livello del titolo</strong>: il titolo è sempre un h6 e non è configurabile.
+    </li>
+    <li>
+      <strong>aria-labelledby</strong> sul banner: viene sempre sovrascritto con l’id del titolo.
+    </li>
+    <li>
+      <strong>Etichetta accessibile della CTA</strong>: non è possibile passare un aria-label
+      dedicato; il nome è sempre composto da titolo e label.
+    </li>
+  </ul>
+</SubSection>
+
+<SubSection title="Focus da tastiera">
+  Il pulsante di chiusura mostra un outline blu di 2px quando riceve il focus da tastiera.
+</SubSection>
+
+<SubSection title="Area cliccabile">
+  Il pulsante di chiusura mantiene un’area cliccabile minima di 24×24px.
+</SubSection>
+
+  <SubSection title="Esempio accessibile">
+    ```tsx
+    <MIBanner
+      title="Nuovo servizio disponibile"
+      message="Da oggi puoi pagare gli avvisi direttamente dall’app."
+      closeAriaLabel="Chiudi il banner"
+      onClose={handleClose}
+      cta={{
+        label: 'Scopri di più',
+        href: 'https://www.pagopa.it',
+        target: '_blank',
+      }}
+    />
+    ```
+  </SubSection>
+</Section>
