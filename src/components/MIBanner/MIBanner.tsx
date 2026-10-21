@@ -79,7 +79,19 @@ function renderBannerLayout(args: {
 }
 
 export const MIBanner = (props: BannerProps) => {
-  const { title, message, onClose, closeAriaLabel, cta, ...rest } = props;
+  const {
+    title,
+    message,
+    onClose,
+    closeAriaLabel,
+    cta,
+    variant: variantProp,
+    color,
+    badge,
+    icon,
+    illustration,
+    ...rest
+  } = props;
 
   const titleId = useId();
   const ctaId = useId();
@@ -89,8 +101,19 @@ export const MIBanner = (props: BannerProps) => {
   /**
    * Normalize optional props (variant defaults) once,
    * so downstream helpers and layouts can assume they are always defined.
+   * Only component props are passed, so `rest` keeps just the attributes forwarded to the root.
    */
-  const normalizedProps = normalizeProps(props);
+  const normalizedProps = normalizeProps({
+    title,
+    message,
+    onClose,
+    cta,
+    variant: variantProp,
+    color,
+    badge,
+    icon,
+    illustration,
+  });
   const variant = normalizedProps.variant;
 
   const theme = useTheme();

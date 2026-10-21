@@ -13,8 +13,10 @@ const VARIANTS = ['primary', 'secondary', 'tertiary'] as const;
 const DESKTOP_WIDTH = 1200;
 const MOBILE_WIDTH = 400;
 
-const isBefore = (a: Element, b: Element) =>
-  Boolean(a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING);
+const isBefore = (a: Element, b: Element) => {
+  const elements = Array.from(document.body.querySelectorAll('*'));
+  return elements.indexOf(a) < elements.indexOf(b);
+};
 
 describe('MIBanner', () => {
   afterEach(() => {
@@ -22,11 +24,16 @@ describe('MIBanner', () => {
   });
 
   describe('base rendering', () => {
-    it('renders a section landmark labelled by the title heading', () => {
+    it('renders a section landmark labelled by the title paragraph', () => {
       render(<MIBanner title={TITLE} />);
 
-      expect(screen.getByRole('region', { name: TITLE }).tagName).toBe('SECTION');
-      expect(screen.getByRole('heading', { level: 6, name: TITLE })).toBeInTheDocument();
+      const region = screen.getByRole('region', { name: TITLE });
+      const title = screen.getByText(TITLE);
+
+      expect(region.tagName).toBe('SECTION');
+      expect(title.tagName).toBe('P');
+      expect(region).toHaveAttribute('aria-labelledby', title.id);
+      expect(screen.queryByRole('heading')).not.toBeInTheDocument();
     });
 
     it('renders the message only when provided', () => {
@@ -268,14 +275,14 @@ describe('MIBanner', () => {
       window.matchMedia = createMatchMedia(MOBILE_WIDTH);
       render(<MIBanner title={TITLE} />);
 
-      expect(screen.getByRole('heading', { name: TITLE })).toHaveStyle({ fontSize: '18px' });
+      expect(screen.getByText(TITLE)).toHaveStyle({ fontSize: '18px' });
     });
 
     it('keeps the tertiary variant horizontal on mobile', () => {
       window.matchMedia = createMatchMedia(MOBILE_WIDTH);
       render(<MIBanner title={TITLE} variant="tertiary" />);
 
-      expect(screen.getByRole('heading', { name: TITLE })).toHaveStyle({ textAlign: 'left' });
+      expect(screen.getByText(TITLE)).toHaveStyle({ textAlign: 'left' });
     });
   });
 });

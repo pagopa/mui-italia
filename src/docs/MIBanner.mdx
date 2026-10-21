@@ -148,7 +148,10 @@ import * as MIBannerStories from '../stories/MIBanner.stories';
       Il banner è renderizzato come elemento section con aria-labelledby collegato al titolo, quindi
       viene esposto come regione con nome.
     </li>
-    <li>Il titolo è renderizzato come intestazione di livello 6 (h6).</li>
+    <li>
+      Il titolo è renderizzato come paragrafo (p), non come intestazione: non compare nella
+      navigazione per titoli delle tecnologie assistive.
+    </li>
     <li>Gli attributi aria-* e data-* passati al componente vengono applicati alla section.</li>
   </ul>
 </SubSection>
@@ -156,7 +159,8 @@ import * as MIBannerStories from '../stories/MIBanner.stories';
 <SubSection title="Prop non disponibili">
   <ul>
     <li>
-      <strong>Livello del titolo</strong>: il titolo è sempre un h6 e non è configurabile.
+      <strong>Elemento del titolo</strong>: il titolo è sempre un paragrafo e non può essere reso
+      un’intestazione.
     </li>
     <li>
       <strong>aria-labelledby</strong> sul banner: viene sempre sovrascritto con l’id del titolo.
