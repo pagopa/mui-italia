@@ -151,7 +151,7 @@ export function Title({
   return (
     <Typography
       id={id}
-      component="h6"
+      component="p"
       color={(theme) => theme.colors.neutral.black}
       sx={{
         fontWeight: 700,
