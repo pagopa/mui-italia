@@ -10,6 +10,7 @@ Riga informativa per un'opzione di menu a discesa, con contenuti configurabili e
 ## Link utili
 
 - [Design Figma](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=610-33733&m=dev)
+- [Design Figma — selezione multipla](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=617-19040&m=dev)
 
 ## Playground
 
@@ -19,11 +20,17 @@ Riga informativa per un'opzione di menu a discesa, con contenuti configurabili e
 
 ## Stati
 
-La prop `selected` applica lo stato selezionato. `checked` e' mantenuta come alias per la stessa resa visuale. Entrambe sono controllate dal componente chiamante.
+La prop `selected` applica lo stato selezionato. `checked` e' mantenuta come alias per la stessa resa visuale. Entrambe sono controllate dal componente chiamante. In modalita' multipla, passa `multiple` per mostrare il checkbox a destra; il suo stato segue `selected` (o `checked` se `selected` non e' fornito).
 
 ## Contenuti
 
-`label` e' obbligatoria. `description`, `avatar` e `chip` sono slot opzionali e accettano contenuti React personalizzabili.
+`value` (stringa o numero) e `label` sono obbligatori. `description`, `avatar` e `chip` sono slot opzionali e accettano contenuti React personalizzabili.
+
+## Selezione multipla
+
+La prop `multiple` abilita l'indicatore checkbox. Il checkbox e' decorativo e non crea un controllo interattivo annidato: il contenitore listbox gestisce focus, selezione e tastiera, mentre lo stato visuale segue `selected`. Nel menu, `MISelect` fornisce tale stato agli elementi opzione.
+
+<Canvas of={MISingleDropdownItemStories.MultipleSelection} />
 
 ## Accessibilita
 

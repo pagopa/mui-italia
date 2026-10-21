@@ -84,6 +84,14 @@ import * as MISelectStories from '../stories/MISelect.stories.tsx';
     <Story of={MISelectStories.WithSingleDropdownItems} />
 
   </SubSection>
+  <SubSection title="Selezione multipla con MISingleDropdownItem">
+    Imposta <strong>multiple</strong> sul componente e passa <strong>multiple</strong> a
+    MISingleDropdownItem dentro renderOptions. MISelect gestisce la selezione e comunica lo stato
+    selezionato all'opzione, che mostra il checkbox Figma corrispondente.
+
+    <Story of={MISelectStories.MultipleWithSingleDropdownItems} />
+
+  </SubSection>
 </Section>
 
 <Section

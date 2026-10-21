@@ -1,5 +1,6 @@
 import { MISelect } from '@components/MISelect';
 import { MISingleDropdownItem } from '@components/MISingleDropdownItem';
+import { MIChip } from '@components/MIChip';
 import {
   AccountBalance as AccountBalanceIcon,
   LocationOn as LocationOnIcon,
@@ -471,6 +472,95 @@ export const WithSingleDropdownItems: Story = {
                 description={organization?.description}
                 avatar={<Avatar>{organization?.initials}</Avatar>}
                 chip={<Chip label="Attivo" size="small" />}
+              />
+            );
+          }}
+        />
+      </Box>
+    );
+  },
+};
+
+export const MultipleWithSingleDropdownItems: Story = {
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story:
+          'Selezione multipla di enti. MISingleDropdownItem mostra il checkbox allineato allo stato selezionato gestito da MISelect.',
+      },
+    },
+  },
+  render: function RenderMultipleWithSingleDropdownItems() {
+    const [values, setValues] = useState<Array<string>>(['roma']);
+    const [isOpen, setIsOpen] = useState(false);
+    const organizations = [
+      {
+        value: 'roma',
+        label: 'Comune di Roma',
+        description: 'Amministrazione comunale',
+        initials: 'RM',
+      },
+      {
+        value: 'milano',
+        label: 'Comune di Milano',
+        description: 'Amministrazione comunale',
+        initials: 'MI',
+      },
+      {
+        value: 'lazio',
+        label: 'Regione Lazio',
+        description: 'Amministrazione regionale',
+        initials: 'LA',
+      },
+    ];
+
+    return (
+      <Box sx={{ width: 360, maxWidth: '100%' }}>
+        <MISelect
+          fullWidth
+          label="Enti"
+          multiple
+          open={isOpen}
+          onOpen={() => setIsOpen(true)}
+          onClose={() => setIsOpen(false)}
+          options={organizations}
+          value={values}
+          onChange={(event) => {
+            const nextValue = event.target.value;
+            setValues(Array.isArray(nextValue) ? nextValue.map(String) : [String(nextValue)]);
+          }}
+          helperText="Puoi selezionare piu enti"
+          renderOptions={(option) => {
+            const organization = organizations.find((item) => item.value === option.value);
+
+            return (
+              <MISingleDropdownItem
+                value={option.value}
+                label={option.label}
+                description={organization?.description}
+                disabled={option.disabled}
+                multiple
+                avatar={
+                  <Box
+                    component="span"
+                    sx={(theme) => ({
+                      alignItems: 'center',
+                      backgroundColor: theme.colors.neutral.grey[50],
+                      borderRadius: 1,
+                      color: theme.colors.neutral.grey[300],
+                      display: 'inline-flex',
+                      height: 32,
+                      justifyContent: 'center',
+                      width: 32,
+                    })}
+                  >
+                    <AccountBalanceIcon fontSize="small" />
+                  </Box>
+                }
+                chip={
+                  option.value === 'roma' ? <MIChip label="Warning" color="warning" /> : undefined
+                }
               />
             );
           }}

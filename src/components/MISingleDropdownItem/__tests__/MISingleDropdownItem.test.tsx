@@ -51,6 +51,80 @@ describe('MISingleDropdownItem', () => {
     }
   );
 
+  it('shows the Figma checkbox only in multiple mode and reflects the selected state', () => {
+    const { rerender } = render(
+      <MISingleDropdownItem
+        value="pagopa"
+        label="PagoPA"
+        multiple
+        selected
+        data-testid="dropdown-item"
+      />
+    );
+
+    const item = screen.getByTestId('dropdown-item');
+    const checkedInput = item.querySelector<HTMLInputElement>('input[type="checkbox"]');
+    expect(checkedInput).toBeChecked();
+    expect(checkedInput).toHaveAttribute('aria-hidden', 'true');
+    expect(screen.queryByRole('checkbox')).not.toBeInTheDocument();
+
+    rerender(
+      <MISingleDropdownItem
+        value="pagopa"
+        label="PagoPA"
+        multiple
+        selected={false}
+        data-testid="dropdown-item"
+      />
+    );
+
+    expect(
+      screen.getByTestId('dropdown-item').querySelector<HTMLInputElement>('input[type="checkbox"]')
+    ).not.toBeChecked();
+    expect(screen.getByTestId('dropdown-item')).toHaveStyle({ alignItems: 'flex-start' });
+
+    rerender(
+      <MISingleDropdownItem value="pagopa" label="PagoPA" selected data-testid="dropdown-item" />
+    );
+
+    expect(
+      screen.getByTestId('dropdown-item').querySelector('input[type="checkbox"]')
+    ).not.toBeInTheDocument();
+    expect(screen.getByTestId('dropdown-item')).toHaveStyle({ alignItems: 'center' });
+  });
+
+  it('uses selection state injected by MISelect for multiple option checkboxes', () => {
+    const onChange = vi.fn();
+    render(
+      <MISelect
+        label="Organizations"
+        open
+        multiple
+        value={['pagopa']}
+        onChange={onChange}
+        options={[
+          { value: 'pagopa', label: 'PagoPA' },
+          { value: 'agency', label: 'Agenzia delle Entrate' },
+        ]}
+        renderOptions={(option) => (
+          <MISingleDropdownItem value={option.value} label={option.label} multiple />
+        )}
+      />
+    );
+
+    const selectedOption = screen.getByRole('option', { name: 'PagoPA' });
+    const unselectedOption = screen.getByRole('option', { name: 'Agenzia delle Entrate' });
+    expect(selectedOption).toHaveAttribute('aria-selected', 'true');
+    expect(selectedOption.querySelector<HTMLInputElement>('input[type="checkbox"]')).toBeChecked();
+    expect(unselectedOption).toHaveAttribute('aria-selected', 'false');
+    expect(
+      unselectedOption.querySelector<HTMLInputElement>('input[type="checkbox"]')
+    ).not.toBeChecked();
+
+    fireEvent.click(unselectedOption);
+    expect(onChange.mock.calls[0][0].target.value).toEqual(['pagopa', 'agency']);
+  });
+
   it('omits optional content when it is not provided and forwards DOM attributes', () => {
     render(<MISingleDropdownItem value="pagopa" label="PagoPA" data-testid="dropdown-item" />);
 
