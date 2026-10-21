@@ -44,6 +44,13 @@ import * as MIChipStories from '../stories/MIChip.stories.tsx';
 </Section>
 
 <Section
+  title="Etichette lunghe"
+  description="Di default l’etichetta resta su una riga e, se più lunga del contenitore, viene troncata con i puntini di sospensione. Con la prop wrapLabel le etichette lunghe o composte da stringhe senza spazi vanno a capo, così il contenuto resta interamente leggibile anche con testi tradotti o con zoom."
+>
+  <Story of={MIChipStories.LongLabel} />
+</Section>
+
+<Section
   title="Accessibilità"
   description="MIChip è accessibile by design, ma l’accessibilità finale dipende dalla qualità delle props testuali passate dal consumer."
 >

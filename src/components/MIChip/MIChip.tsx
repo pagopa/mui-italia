@@ -15,6 +15,7 @@ type AllowedMIChipColors =
 
 type BaseMIChipProps = Omit<ChipProps, 'color' | 'deleteIcon' | 'onClick' | 'onDelete' | 'size'> & {
   sx?: SxProps;
+  wrapLabel?: boolean;
 };
 
 // Props for the standard mode
@@ -32,9 +33,11 @@ type DeletableMIChipProps = BaseMIChipProps & {
 
 export type MIChipProps = StandardMIChipProps | DeletableMIChipProps;
 
+type StyledChipProps = { customColor: AllowedMIChipColors; wrapLabel: boolean };
+
 const StyledChip = styled(MuiChip, {
-  shouldForwardProp: (prop) => prop !== 'customColor',
-})<{ customColor: AllowedMIChipColors }>(({ theme, customColor, variant = 'filled' }) => ({
+  shouldForwardProp: (prop) => prop !== 'customColor' && prop !== 'wrapLabel',
+})<StyledChipProps>(({ theme, customColor, wrapLabel, variant = 'filled' }) => ({
   height: 'auto',
   borderRadius: theme.spacing(5),
   wordWrap: 'break-word',
@@ -44,6 +47,12 @@ const StyledChip = styled(MuiChip, {
     lineHeight: 1.5,
     letterSpacing: 0.5,
     padding: `3px ${theme.spacing(1)}`,
+    whiteSpace: wrapLabel ? 'normal' : 'nowrap',
+    textOverflow: wrapLabel ? 'clip' : 'ellipsis',
+    ...(wrapLabel && {
+      overflowWrap: 'anywhere',
+      wordBreak: 'break-word',
+    }),
   },
   '& .MuiChip-deleteIcon': {
     color: theme.colors.blue[500],
@@ -118,7 +127,15 @@ const StyledChip = styled(MuiChip, {
 }));
 
 const MIChip = forwardRef<HTMLDivElement, MIChipProps>((props, ref) => {
-  const { color: colorProp, sx, label, onDelete, 'aria-label': ariaLabel, ...other } = props;
+  const {
+    color: colorProp,
+    sx,
+    label,
+    onDelete,
+    wrapLabel = false,
+    'aria-label': ariaLabel,
+    ...other
+  } = props;
 
   const isDeletable = Boolean(onDelete);
 
@@ -151,6 +168,7 @@ const MIChip = forwardRef<HTMLDivElement, MIChipProps>((props, ref) => {
   return (
     <StyledChip
       customColor={color}
+      wrapLabel={wrapLabel}
       label={label}
       onDelete={onDelete}
       deleteIcon={<CloseRoundedIcon {...deleteIconProps} />}

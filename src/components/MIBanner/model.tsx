@@ -19,10 +19,13 @@ export type BannerCTA =
   | {
       label: string;
       onClick: () => void;
+      href?: never;
     }
+  /** Rendered as a text link in every variant, including `secondary`. */
   | {
       label: string;
       href: string;
+      onClick?: never;
       target?: '_self' | '_blank';
       rel?: string;
     };

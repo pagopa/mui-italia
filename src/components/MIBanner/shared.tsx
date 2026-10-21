@@ -1,9 +1,11 @@
 import type { ElementType } from 'react';
 import { Close as CloseIcon } from '@mui/icons-material';
-import { Box, Button, Chip, IconButton, Typography, styled } from '@mui/material';
+import { Box, Typography, styled } from '@mui/material';
 import type { SxProps, Theme } from '@mui/material/styles';
-import { ButtonNaked } from '@components/ButtonNaked';
 import type { BannerColorStyle, BannerCTA, BannerVariant, CtaKind, ThemeColor } from './model';
+import { MIIconButton } from '@components/MIIconButton';
+import { MIChip } from '@components/MIChip';
+import { MIButton } from '@components/MIButton';
 
 const resolveColor = (theme: Theme, value: ThemeColor) =>
   typeof value === 'function' ? value(theme) : value;
@@ -33,35 +35,24 @@ export function CloseButton({
   ariaLabel,
 }: Readonly<{ onClose: () => void; ariaLabel: string }>) {
   return (
-    <IconButton
+    <MIIconButton
       onClick={onClose}
-      size="small"
       sx={{ color: (theme) => theme.colors.neutral.black }}
       aria-label={ariaLabel}
     >
       <CloseIcon fontSize="small" />
-    </IconButton>
+    </MIIconButton>
   );
 }
 
 export function BadgeChip({ text }: Readonly<{ text: string }>) {
   return (
-    <Chip
+    <MIChip
+      color="highlight"
       label={text}
-      size="small"
+      wrapLabel
       sx={{
-        fontWeight: 600,
         alignSelf: 'flex-start',
-        '&.MuiChip-root': {
-          backgroundColor: (theme) => theme.colors.turquoise[50],
-          color: (theme) => theme.colors.turquoise[850],
-        },
-        '& .MuiChip-label': {
-          fontSize: '12px',
-          whiteSpace: 'normal',
-          overflowWrap: 'anywhere',
-          wordBreak: 'break-word',
-        },
       }}
     />
   );
@@ -84,7 +75,7 @@ export function Cta({
   ariaLabelledBy?: string;
   sx?: SxProps<Theme>;
 }>) {
-  const isLink = 'href' in cta;
+  const isLink = cta.href !== undefined;
 
   let target: '_self' | '_blank' | undefined;
   let rel: string | undefined;
@@ -102,51 +93,42 @@ export function Cta({
   const commonProps = {
     id,
     'aria-labelledby': ariaLabelledBy,
-    onClick: 'onClick' in cta ? cta.onClick : undefined,
+    onClick: isLink ? undefined : cta.onClick,
     component: (isLink ? 'a' : 'button') as ElementType,
     href: isLink ? cta.href : undefined,
     target: isLink ? target : undefined,
     rel: isLink ? rel : undefined,
   };
 
-  if (kind === 'contained') {
+  if (kind === 'contained' && !isLink) {
     return (
-      <Button
-        {...commonProps}
+      <MIButton
+        id={id}
+        aria-labelledby={ariaLabelledBy}
+        onClick={cta.onClick}
         variant="contained"
         sx={{
-          borderRadius: '8px',
-          textTransform: 'none',
-          fontWeight: 600,
-          backgroundColor: (theme) => theme.colors.blue[500],
-          fontSize: '14px',
-          px: 2,
-          whiteSpace: 'nowrap',
           alignSelf,
           ...sx,
         }}
       >
         {cta.label}
-      </Button>
+      </MIButton>
     );
   }
 
   return (
-    <ButtonNaked
+    <MIButton
+      variant="text"
       {...commonProps}
       sx={{
-        p: 0,
-        minWidth: 'auto',
-        fontWeight: 600,
         fontSize: variant === 'tertiary' ? '16px' : '14px',
-        color: (theme) => theme.colors.blue[500],
-        textDecoration: 'none',
         alignSelf,
         ...sx,
       }}
     >
       {cta.label}
-    </ButtonNaked>
+    </MIButton>
   );
 }
 
@@ -169,7 +151,7 @@ export function Title({
   return (
     <Typography
       id={id}
-      component="h6"
+      component="p"
       color={(theme) => theme.colors.neutral.black}
       sx={{
         fontWeight: 700,
