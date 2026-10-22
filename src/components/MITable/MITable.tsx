@@ -1,0 +1,297 @@
+'use client';
+
+import { ArrowDownward as ArrowDownwardIcon } from '@mui/icons-material';
+import {
+  Box,
+  Divider,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TableSortLabel,
+  Typography,
+  useMediaQuery,
+} from '@mui/material';
+import { styled, useTheme } from '@mui/material/styles';
+import { Children, isValidElement } from 'react';
+import type { ReactElement, ReactNode } from 'react';
+
+import { MIPagination } from '@components/MIPagination';
+
+import type { MITableProps, MITableRowProps } from './types';
+
+type StyledCellWithMinWidthProps = {
+  ownerState: {
+    minWidth?: number | string;
+  };
+};
+
+type StyledBodyCellProps = {
+  ownerState: {
+    minWidth?: number | string;
+    isLastRow: boolean;
+    isActionCell?: boolean;
+  };
+};
+
+type StyledMobileCellContentProps = {
+  ownerState: {
+    alignItems: 'flex-start' | 'flex-end';
+  };
+};
+
+const StyledRoot = styled(Box)(({ theme }) => ({
+  backgroundColor: theme.colors.neutral.grey[100],
+  borderRadius: theme.shape.radius[8],
+  padding: theme.spacing(1),
+  width: '100%',
+}));
+
+const StyledMobileRows = styled(Stack)(({ theme }) => ({
+  backgroundColor: theme.palette.common.white,
+}));
+
+const StyledMobileRow = styled(Stack)(({ theme }) => ({
+  paddingTop: theme.spacing(1),
+  paddingBottom: theme.spacing(1),
+}));
+
+const StyledMobileCell = styled(Stack)(({ theme }) => ({
+  padding: theme.spacing(1.5, 2),
+}));
+
+const StyledMobileCellContent = styled(Stack, {
+  shouldForwardProp: (prop) => prop !== 'ownerState',
+})<StyledMobileCellContentProps>(({ ownerState }) => ({
+  width: '100%',
+  alignItems: ownerState.alignItems,
+}));
+
+const StyledMobileActions = styled(Stack)(({ theme }) => ({
+  padding: theme.spacing(1.5, 2),
+}));
+
+const StyledTableHead = styled(TableHead)(({ theme }) => ({
+  backgroundColor: theme.colors.neutral.grey[100],
+}));
+
+const StyledHeaderCell = styled(TableCell, {
+  shouldForwardProp: (prop) => prop !== 'ownerState',
+})<StyledCellWithMinWidthProps>(({ theme, ownerState }) => ({
+  padding: theme.spacing(1.5, 2),
+  borderBottom: 'none',
+  minWidth: ownerState.minWidth,
+}));
+
+const StyledSortLabel = styled(TableSortLabel)({
+  '& .MuiTableSortLabel-icon': {
+    opacity: 1,
+  },
+});
+
+const StyledBody = styled(TableBody)(({ theme }) => ({
+  backgroundColor: theme.palette.common.white,
+}));
+
+const StyledBodyCell = styled(TableCell, {
+  shouldForwardProp: (prop) => prop !== 'ownerState',
+})<StyledBodyCellProps>(({ theme, ownerState }) => ({
+  padding: theme.spacing(1.5, 2),
+  minWidth: ownerState.minWidth,
+  borderBottom: ownerState.isLastRow ? 'none' : `1px solid ${theme.colors.neutral.grey[100]}`,
+  ...(ownerState.isActionCell && {
+    textAlign: 'right',
+    whiteSpace: 'nowrap',
+  }),
+}));
+
+const StyledActionStack = styled(Stack)({
+  justifyContent: 'flex-end',
+  alignItems: 'center',
+});
+
+const StyledPaginationWrapper = styled(Box)(({ theme }) => ({
+  paddingTop: theme.spacing(1),
+  '& [data-testid="items-per-page-select"]': {
+    backgroundColor: theme.palette.common.white,
+  },
+}));
+
+export const MITableRow = <RowData,>(props: MITableRowProps<RowData>) => {
+  void props;
+  return null;
+};
+
+MITableRow.displayName = 'MITableRow';
+
+const isMITableRowElement = <RowData,>(
+  child: ReactNode
+): child is ReactElement<MITableRowProps<RowData>> =>
+  isValidElement<MITableRowProps<RowData>>(child) && child.type === MITableRow;
+
+const MITable = <RowData,>({
+  columns,
+  children,
+  getRowId,
+  pagination,
+  sx,
+}: MITableProps<RowData>) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const contentColumns = columns.filter((column) => !column.isAction);
+  const actionColumns = columns.filter((column) => column.isAction);
+  const hasActionColumns = actionColumns.length > 0;
+
+  const paginationItemsPerPageOptions = pagination?.itemsPerPageOptions
+    ? {
+        ...pagination.itemsPerPageOptions,
+        inputProps: {
+          ...pagination.itemsPerPageOptions.inputProps,
+        },
+      }
+    : undefined;
+
+  const rows = Children.toArray(children).flatMap((child, index) => {
+    if (!isMITableRowElement<RowData>(child)) {
+      return [];
+    }
+
+    const row = child.props.row;
+    const rowId = child.props.rowId ?? getRowId?.(row, index) ?? index;
+
+    return [{ row, rowId }];
+  });
+
+  return (
+    <StyledRoot sx={sx}>
+      <Box>
+        {isMobile ? (
+          <StyledMobileRows divider={<Divider />}>
+            {rows.map(({ row, rowId }) => (
+              <StyledMobileRow key={rowId} spacing={1}>
+                {contentColumns.map((column) => {
+                  const alignItems = column.align === 'right' ? 'flex-end' : 'flex-start';
+
+                  return (
+                    <StyledMobileCell
+                      key={column.id}
+                      direction="row"
+                      spacing={1}
+                      alignItems="center"
+                    >
+                      <StyledMobileCellContent spacing={0.25} ownerState={{ alignItems }}>
+                        <Typography variant="body2">{column.renderCell(row)}</Typography>
+                      </StyledMobileCellContent>
+                    </StyledMobileCell>
+                  );
+                })}
+
+                {hasActionColumns && (
+                  <StyledMobileActions
+                    direction="row"
+                    justifyContent="flex-end"
+                    alignItems="center"
+                    spacing={1}
+                  >
+                    {actionColumns.map((column) => (
+                      <Box key={column.id}>{column.renderCell(row)}</Box>
+                    ))}
+                  </StyledMobileActions>
+                )}
+              </StyledMobileRow>
+            ))}
+          </StyledMobileRows>
+        ) : (
+          <TableContainer>
+            <Table size="small">
+              <StyledTableHead>
+                <TableRow>
+                  {contentColumns.map((column) => (
+                    <StyledHeaderCell
+                      key={column.id}
+                      align={column.align}
+                      ownerState={{ minWidth: column.minWidth }}
+                    >
+                      {column.sortable ? (
+                        <StyledSortLabel
+                          active={Boolean(column.sortDirection)}
+                          direction={column.sortDirection ?? 'asc'}
+                          onClick={column.onSort}
+                          IconComponent={ArrowDownwardIcon}
+                        >
+                          <Typography variant="body2" fontWeight={600}>
+                            {column.header}
+                          </Typography>
+                        </StyledSortLabel>
+                      ) : (
+                        <Typography variant="body2" fontWeight={600}>
+                          {column.header}
+                        </Typography>
+                      )}
+                    </StyledHeaderCell>
+                  ))}
+
+                  {hasActionColumns && <StyledHeaderCell ownerState={{ minWidth: undefined }} />}
+                </TableRow>
+              </StyledTableHead>
+
+              <StyledBody>
+                {rows.map(({ row, rowId }, index) => {
+                  const isLastRow = index === rows.length - 1;
+
+                  return (
+                    <TableRow key={rowId}>
+                      {contentColumns.map((column) => (
+                        <StyledBodyCell
+                          key={column.id}
+                          align={column.align}
+                          ownerState={{ minWidth: column.minWidth, isLastRow }}
+                        >
+                          <Typography variant="body2">{column.renderCell(row)}</Typography>
+                        </StyledBodyCell>
+                      ))}
+
+                      {hasActionColumns && (
+                        <StyledBodyCell
+                          ownerState={{
+                            minWidth: undefined,
+                            isLastRow,
+                            isActionCell: true,
+                          }}
+                        >
+                          <StyledActionStack direction="row" spacing={1}>
+                            {actionColumns.map((column) => (
+                              <Box key={column.id}>{column.renderCell(row)}</Box>
+                            ))}
+                          </StyledActionStack>
+                        </StyledBodyCell>
+                      )}
+                    </TableRow>
+                  );
+                })}
+              </StyledBody>
+            </Table>
+          </TableContainer>
+        )}
+
+        {pagination && (
+          <StyledPaginationWrapper>
+            <MIPagination
+              count={pagination.count}
+              page={pagination.page}
+              onChange={pagination.onChange}
+              itemsPerPageOptions={paginationItemsPerPageOptions}
+            />
+          </StyledPaginationWrapper>
+        )}
+      </Box>
+    </StyledRoot>
+  );
+};
+
+MITable.displayName = 'MITable';
+
+export default MITable;
