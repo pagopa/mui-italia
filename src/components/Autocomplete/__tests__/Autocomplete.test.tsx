@@ -69,5 +69,60 @@ describe('Autocomplete', () => {
       expect(onChange).toHaveBeenLastCalledWith([]);
       expect(screen.queryByText('2')).not.toBeInTheDocument();
     });
+
+    it('replaces %s with the label of each chip in the default delete aria-label', () => {
+      renderMultipleAutocomplete();
+
+      openAndSelect('Milano', 'Roma');
+
+      expect(screen.getByRole('button', { name: 'Delete Milano' })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'Delete Roma' })).toBeInTheDocument();
+      expect(screen.queryByRole('button', { name: /%s/ })).not.toBeInTheDocument();
+    });
+
+    it('replaces %s with the label of each chip in a custom delete aria-label', () => {
+      renderMultipleAutocomplete({
+        slotProps: { selectionChip: { 'aria-label': 'Elimina %s' } },
+      });
+
+      openAndSelect('Milano', 'Roma');
+
+      expect(screen.getByRole('button', { name: 'Elimina Milano' })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'Elimina Roma' })).toBeInTheDocument();
+      expect(screen.queryByRole('button', { name: /%s/ })).not.toBeInTheDocument();
+    });
+
+    it('removes only the related option when clicking the delete icon of a chip', () => {
+      const onChange = vi.fn();
+      renderMultipleAutocomplete({ onChange });
+
+      openAndSelect('Milano', 'Roma');
+
+      fireEvent.click(screen.getByRole('button', { name: 'Delete Milano' }));
+
+      expect(onChange).toHaveBeenLastCalledWith([{ id: 2, label: 'Roma' }]);
+      const selectedOptionsList = screen.getByRole('list', { name: 'Selected options' });
+      expect(within(selectedOptionsList).queryByText('Milano')).not.toBeInTheDocument();
+      expect(within(selectedOptionsList).getByText('Roma')).toBeInTheDocument();
+      expect(screen.queryByRole('button', { name: 'Delete Milano' })).not.toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'Delete Roma' })).toBeInTheDocument();
+    });
+
+    it('renders the chips as listitems of the selected options list', () => {
+      renderMultipleAutocomplete({
+        slotProps: { selectionChip: { 'aria-label': 'Elimina %s' } },
+      });
+
+      openAndSelect('Milano', 'Roma');
+
+      const selectedOptionsList = screen.getByRole('list', { name: 'Selected options' });
+      const chips = within(selectedOptionsList).getAllByRole('listitem');
+      expect(chips).toHaveLength(2);
+      expect(chips[0]).toHaveTextContent('Milano');
+      expect(chips[1]).toHaveTextContent('Roma');
+      chips.forEach((chip) => {
+        expect(chip).not.toHaveAttribute('aria-label');
+      });
+    });
   });
 });

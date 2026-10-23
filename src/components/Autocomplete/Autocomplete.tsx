@@ -201,7 +201,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
     }
   };
 
-  const setInputFocus = (open: boolean = true) => {
+  const setInputFocus = (open: boolean) => {
     if (disabled) {
       return;
     }
