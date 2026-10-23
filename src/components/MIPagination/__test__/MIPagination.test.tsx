@@ -8,6 +8,19 @@ describe('MIPagination', () => {
     Reflect.deleteProperty(window, 'matchMedia');
   });
 
+  it('does not render when count is 0', () => {
+    const { queryByRole, queryByTestId } = render(
+      <MIPagination
+        page={1}
+        count={0}
+        itemsPerPageOptions={{ limit: 9, onLimitChange: vi.fn(), options: [9, 12] }}
+      />
+    );
+
+    expect(queryByRole('navigation')).not.toBeInTheDocument();
+    expect(queryByTestId('items-per-page-select')).not.toBeInTheDocument();
+  });
+
   it('renders MIPagination with 110 pages and the first one selected', () => {
     const { getByText, queryByText } = render(<MIPagination page={1} count={110} />);
     expect(getByText('1')).toBeInTheDocument();
