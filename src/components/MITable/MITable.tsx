@@ -144,6 +144,9 @@ const MITable = <RowData,>({
   getRowId,
   pagination,
   sx,
+  containerProps,
+  desktopTableProps,
+  mobileTableProps,
 }: MITableProps<RowData>) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -159,6 +162,10 @@ const MITable = <RowData,>({
         },
       }
     : undefined;
+  const hasMobileAccessibleName =
+    mobileTableProps?.['aria-label'] !== undefined ||
+    mobileTableProps?.['aria-labelledby'] !== undefined;
+  const mobileRowsRole = mobileTableProps?.role ?? (hasMobileAccessibleName ? 'group' : undefined);
 
   const rows = Children.toArray(children).flatMap((child, index) => {
     if (!isMITableRowElement<RowData>(child)) {
@@ -172,10 +179,10 @@ const MITable = <RowData,>({
   });
 
   return (
-    <StyledRoot sx={sx}>
+    <StyledRoot sx={sx} {...containerProps}>
       <Box>
         {isMobile ? (
-          <StyledMobileRows divider={<Divider />}>
+          <StyledMobileRows divider={<Divider />} {...mobileTableProps} role={mobileRowsRole}>
             {rows.map(({ row, rowId }) => (
               <Box key={rowId} component="dl" sx={{ margin: 0 }}>
                 <StyledMobileRow spacing={1}>
@@ -229,7 +236,7 @@ const MITable = <RowData,>({
           </StyledMobileRows>
         ) : (
           <TableContainer>
-            <Table size="small">
+            <Table size="small" {...desktopTableProps}>
               <StyledTableHead>
                 <TableRow>
                   {contentColumns.map((column) => {

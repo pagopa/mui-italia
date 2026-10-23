@@ -1,5 +1,10 @@
 import type { BoxProps, TableCellProps } from '@mui/material';
-import type { ReactElement, ReactNode } from 'react';
+import type {
+  HTMLAttributes,
+  ReactElement,
+  ReactNode,
+  TableHTMLAttributes,
+} from 'react';
 
 import type { MIPaginationProps } from '@components/MIPagination';
 
@@ -25,4 +30,7 @@ export type MITableProps<RowData> = Pick<BoxProps, 'sx'> & {
   children?: ReactElement<MITableRowProps<RowData>> | Array<ReactElement<MITableRowProps<RowData>>>;
   getRowId?: (row: RowData, index: number) => string | number;
   pagination?: MIPaginationProps;
+  containerProps?: Omit<HTMLAttributes<HTMLDivElement>, 'children'>;
+  desktopTableProps?: Omit<TableHTMLAttributes<HTMLTableElement>, 'children'>;
+  mobileTableProps?: Omit<HTMLAttributes<HTMLDivElement>, 'children'>;
 };

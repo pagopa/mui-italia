@@ -114,4 +114,63 @@ describe('MITable', () => {
     expect(screen.getByTestId('items-per-page-select')).toBeInTheDocument();
     expect(screen.getByLabelText('Go to next page')).toBeInTheDocument();
   });
+
+  it('forwards container attributes separately from desktop table labeling attributes', () => {
+    const { container } = render(
+      <>
+        <span id="desktop-table-label">Transactions desktop table</span>
+        <MITable
+          columns={columns}
+          containerProps={{
+            id: 'table-container',
+            className: 'table-wrapper',
+            'aria-labelledby': 'container-label',
+          }}
+          desktopTableProps={{
+            id: 'desktop-table',
+            className: 'transactions-table',
+            'aria-labelledby': 'desktop-table-label',
+          }}
+        >
+          {renderRows(rows)}
+        </MITable>
+      </>
+    );
+
+    const rootContainer = container.querySelector('#table-container');
+    expect(rootContainer).toHaveClass('table-wrapper');
+    expect(rootContainer).toHaveAttribute('aria-labelledby', 'container-label');
+
+    const desktopTable = screen.getByRole('table', { name: 'Transactions desktop table' });
+    expect(desktopTable).toHaveAttribute('id', 'desktop-table');
+    expect(desktopTable).toHaveClass('transactions-table');
+  });
+
+  it('supports labeling the mobile table equivalent independently from the outer container', () => {
+    window.matchMedia = createMatchMedia(400);
+
+    const { container } = render(
+      <>
+        <span id="mobile-table-label">Transactions mobile table</span>
+        <MITable
+          columns={columns}
+          containerProps={{ id: 'mobile-table-container' }}
+          mobileTableProps={{
+            id: 'mobile-table',
+            className: 'mobile-table-layout',
+            'aria-labelledby': 'mobile-table-label',
+          }}
+        >
+          {renderRows(rows)}
+        </MITable>
+      </>
+    );
+
+    const rootContainer = container.querySelector('#mobile-table-container');
+    expect(rootContainer).toBeInTheDocument();
+
+    const mobileEquivalent = screen.getByRole('group', { name: 'Transactions mobile table' });
+    expect(mobileEquivalent).toHaveAttribute('id', 'mobile-table');
+    expect(mobileEquivalent).toHaveClass('mobile-table-layout');
+  });
 });

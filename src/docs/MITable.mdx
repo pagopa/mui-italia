@@ -103,6 +103,16 @@ import * as MITableStories from '../stories/MITable.stories';
   <SubSection title="Props rilevanti">
     <ul>
       <li>
+        <strong>containerProps</strong>: permette di passare attributi HTML/ARIA al contenitore
+        esterno del componente (ad esempio <code>id</code>, <code>className</code>,
+        <code>aria-labelledby</code>).
+      </li>
+      <li>
+        <strong>desktopTableProps</strong> e <strong>mobileTableProps</strong>: permettono di
+        assegnare attributi distinti all’elemento <code>table</code> desktop e all’equivalente
+        mobile, inclusi i riferimenti per il nome accessibile.
+      </li>
+      <li>
         <strong>isAction</strong> sulle colonne: i contenuti interattivi delle colonne azione devono
         avere un nome accessibile appropriato, specialmente nei casi icon-only.
       </li>
