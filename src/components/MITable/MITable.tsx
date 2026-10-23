@@ -16,6 +16,7 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import { styled, useTheme } from '@mui/material/styles';
+import { visuallyHidden } from '@mui/utils';
 import { Children, isValidElement } from 'react';
 import type { ReactElement, ReactNode } from 'react';
 
@@ -57,6 +58,7 @@ const StyledMobileRows = styled(Stack)(({ theme }) => ({
 const StyledMobileRow = styled(Stack)(({ theme }) => ({
   paddingTop: theme.spacing(1),
   paddingBottom: theme.spacing(1),
+  margin: 0,
 }));
 
 const StyledMobileCell = styled(Stack)(({ theme }) => ({
@@ -68,6 +70,7 @@ const StyledMobileCellContent = styled(Stack, {
 })<StyledMobileCellContentProps>(({ ownerState }) => ({
   width: '100%',
   alignItems: ownerState.alignItems,
+  margin: 0,
 }));
 
 const StyledMobileActions = styled(Stack)(({ theme }) => ({
@@ -89,6 +92,9 @@ const StyledHeaderCell = styled(TableCell, {
 const StyledSortLabel = styled(TableSortLabel)({
   '& .MuiTableSortLabel-icon': {
     opacity: 1,
+  },
+  '&.Mui-active .MuiTableSortLabel-icon': {
+    color: 'inherit',
   },
 });
 
@@ -171,37 +177,54 @@ const MITable = <RowData,>({
         {isMobile ? (
           <StyledMobileRows divider={<Divider />}>
             {rows.map(({ row, rowId }) => (
-              <StyledMobileRow key={rowId} spacing={1}>
-                {contentColumns.map((column) => {
-                  const alignItems = column.align === 'right' ? 'flex-end' : 'flex-start';
+              <Box key={rowId} component="dl" sx={{ margin: 0 }}>
+                <StyledMobileRow spacing={1}>
+                  {contentColumns.map((column) => {
+                    const alignItems = column.align === 'right' ? 'flex-end' : 'flex-start';
+                    const mobileTermId = `mi-table-${String(rowId)}-${column.id}-term`;
 
-                  return (
-                    <StyledMobileCell
-                      key={column.id}
+                    return (
+                      <StyledMobileCell
+                        key={column.id}
+                        direction="row"
+                        spacing={1}
+                        alignItems="center"
+                      >
+                        <Box component="dt" id={mobileTermId} sx={visuallyHidden}>
+                          {column.header}
+                        </Box>
+                        <Box
+                          component="dd"
+                          aria-labelledby={mobileTermId}
+                          sx={{
+                            margin: 0,
+                            width: '100%',
+                          }}
+                        >
+                          <StyledMobileCellContent spacing={0.25} ownerState={{ alignItems }}>
+                            <Typography variant="body2" component="div">
+                              {column.renderCell(row)}
+                            </Typography>
+                          </StyledMobileCellContent>
+                        </Box>
+                      </StyledMobileCell>
+                    );
+                  })}
+
+                  {hasActionColumns && (
+                    <StyledMobileActions
                       direction="row"
-                      spacing={1}
+                      justifyContent="flex-end"
                       alignItems="center"
+                      spacing={1}
                     >
-                      <StyledMobileCellContent spacing={0.25} ownerState={{ alignItems }}>
-                        <Typography variant="body2">{column.renderCell(row)}</Typography>
-                      </StyledMobileCellContent>
-                    </StyledMobileCell>
-                  );
-                })}
-
-                {hasActionColumns && (
-                  <StyledMobileActions
-                    direction="row"
-                    justifyContent="flex-end"
-                    alignItems="center"
-                    spacing={1}
-                  >
-                    {actionColumns.map((column) => (
-                      <Box key={column.id}>{column.renderCell(row)}</Box>
-                    ))}
-                  </StyledMobileActions>
-                )}
-              </StyledMobileRow>
+                      {actionColumns.map((column) => (
+                        <Box key={column.id}>{column.renderCell(row)}</Box>
+                      ))}
+                    </StyledMobileActions>
+                  )}
+                </StyledMobileRow>
+              </Box>
             ))}
           </StyledMobileRows>
         ) : (
@@ -209,30 +232,36 @@ const MITable = <RowData,>({
             <Table size="small">
               <StyledTableHead>
                 <TableRow>
-                  {contentColumns.map((column) => (
-                    <StyledHeaderCell
-                      key={column.id}
-                      align={column.align}
-                      ownerState={{ minWidth: column.minWidth }}
-                    >
-                      {column.sortable ? (
-                        <StyledSortLabel
-                          active={Boolean(column.sortDirection)}
-                          direction={column.sortDirection ?? 'asc'}
-                          onClick={column.onSort}
-                          IconComponent={ArrowDownwardIcon}
-                        >
+                  {contentColumns.map((column) => {
+                    const isSortable = Boolean(column.sortable);
+                    const direction = column.sortDirection ?? 'asc';
+
+                    return (
+                      <StyledHeaderCell
+                        key={column.id}
+                        align={column.align}
+                        ownerState={{ minWidth: column.minWidth }}
+                        sortDirection={isSortable ? (column.sortDirection ?? false) : false}
+                      >
+                        {isSortable ? (
+                          <StyledSortLabel
+                            active
+                            direction={direction}
+                            onClick={column.onSort}
+                            IconComponent={ArrowDownwardIcon}
+                          >
+                            <Typography variant="body2" fontWeight={600}>
+                              {column.header}
+                            </Typography>
+                          </StyledSortLabel>
+                        ) : (
                           <Typography variant="body2" fontWeight={600}>
                             {column.header}
                           </Typography>
-                        </StyledSortLabel>
-                      ) : (
-                        <Typography variant="body2" fontWeight={600}>
-                          {column.header}
-                        </Typography>
-                      )}
-                    </StyledHeaderCell>
-                  ))}
+                        )}
+                      </StyledHeaderCell>
+                    );
+                  })}
 
                   {hasActionColumns && <StyledHeaderCell ownerState={{ minWidth: undefined }} />}
                 </TableRow>
@@ -279,12 +308,7 @@ const MITable = <RowData,>({
 
         {pagination && (
           <StyledPaginationWrapper>
-            <MIPagination
-              count={pagination.count}
-              page={pagination.page}
-              onChange={pagination.onChange}
-              itemsPerPageOptions={paginationItemsPerPageOptions}
-            />
+            <MIPagination {...pagination} itemsPerPageOptions={paginationItemsPerPageOptions} />
           </StyledPaginationWrapper>
         )}
       </Box>

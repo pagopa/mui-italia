@@ -1,4 +1,4 @@
-import { render, screen } from '../../../test-utils';
+import { render, screen, within } from '../../../test-utils';
 import { createMatchMedia } from '../../../test-utils';
 
 import MITable, { MITableRow } from '../MITable';
@@ -53,11 +53,31 @@ describe('MITable', () => {
     expect(screen.getByText('01/01/2029')).toBeInTheDocument();
   });
 
-  it('renders mobile stacked layout below sm breakpoint', () => {
-    window.matchMedia = createMatchMedia(400);
+  it('keeps sortable icon active and announces direction only when explicit sortDirection is provided', () => {
     render(<MITable columns={columns}>{renderRows(rows)}</MITable>);
 
+    const idHeader = screen.getByRole('columnheader', { name: 'ID' });
+    const idSortButton = within(idHeader).getByRole('button', { name: 'ID' });
+
+    expect(idSortButton).toHaveClass('Mui-active');
+    expect(idHeader).not.toHaveAttribute('aria-sort');
+  });
+
+  it('renders mobile stacked layout below sm breakpoint', () => {
+    window.matchMedia = createMatchMedia(400);
+    const { container } = render(<MITable columns={columns}>{renderRows(rows)}</MITable>);
+
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
+    const mobileRows = container.querySelectorAll('dl');
+    expect(mobileRows).toHaveLength(rows.length);
+
+    const firstRow = mobileRows[0];
+    expect(firstRow.querySelectorAll('dt')).toHaveLength(columns.length);
+    expect(firstRow.querySelectorAll('dd')).toHaveLength(columns.length);
+    expect(within(firstRow).getByText('ID')).toBeInTheDocument();
+    expect(within(firstRow).getByText('Category')).toBeInTheDocument();
+    expect(within(firstRow).getByText('Date')).toBeInTheDocument();
+
     expect(screen.getAllByText('Label')).toHaveLength(rows.length);
     expect(screen.getByText('0123456')).toBeInTheDocument();
   });
@@ -79,7 +99,7 @@ describe('MITable', () => {
         pagination={{
           count: 10,
           page: 1,
-          onPageChange,
+          onChange: onPageChange,
           itemsPerPageOptions: {
             options: [2080, 500],
             limit: 2080,

@@ -36,6 +36,7 @@ const columns: Array<MITableColumn<TableRow>> = [
     id: 'id',
     header: 'ID',
     sortable: true,
+    sortDirection: 'asc',
     renderCell: (row) => (
       <Typography variant="monospaced" component="span">
         {row.id}
