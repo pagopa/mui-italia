@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { Box } from "@mui/material";
-import { alpha } from "@mui/material/styles";
+import { Box } from '@mui/material';
+import { alpha } from '@mui/material/styles';
 
-import { theme } from "@theme";
+import { theme } from '@theme';
 
 export interface ProductAvatarProps {
   /** The id attribute added to the element */
   id?: string;
   /** Component dimension set in pixels */
-  size?: "small" | "default" | "large";
+  size?: 'small' | 'default' | 'large';
   /** The url logo */
   logoUrl: string;
   /** The logo background color */
@@ -34,7 +34,7 @@ const sizesMap = {
 };
 
 export const ProductAvatar = ({
-  size = "default",
+  size = 'default',
   id,
   logoUrl,
   logoBgColor,
@@ -43,22 +43,20 @@ export const ProductAvatar = ({
   <Box
     id={id}
     sx={{
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      position: "relative",
-      width: sizesMap[size]?.dimension,
-      height: sizesMap[size]?.dimension,
-      backgroundColor: logoBgColor
-        ? logoBgColor
-        : theme.palette.background.paper,
-      boxSizing: "border-box",
-      padding: theme.spacing(sizesMap[size]?.padding),
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'relative',
+      width: sizesMap[size].dimension,
+      height: sizesMap[size].dimension,
+      backgroundColor: logoBgColor ? logoBgColor : theme.palette.background.paper,
+      boxSizing: 'border-box',
+      padding: theme.spacing(sizesMap[size].padding),
       borderRadius: theme.spacing(1) /* 8px */,
       /* Inner shadow */
-      "&:after": {
+      '&:after': {
         content: "''",
-        position: "absolute",
+        position: 'absolute',
         left: 0,
         right: 0,
         top: 0,
@@ -68,7 +66,7 @@ export const ProductAvatar = ({
         boxShadow: logoBgColor
           ? `inset 0 0 0 1px ${alpha(theme.palette.common.black, 0.1)}`
           : `inset 0 0 0 1px ${theme.palette.divider}`,
-        borderRadius: "inherit",
+        borderRadius: 'inherit',
       },
     }}
   >
@@ -76,10 +74,10 @@ export const ProductAvatar = ({
       src={logoUrl}
       alt={logoAltText}
       style={{
-        width: "100%",
-        height: "100%",
-        objectFit: "contain",
-        objectPosition: "center",
+        width: '100%',
+        height: '100%',
+        objectFit: 'contain',
+        objectPosition: 'center',
       }}
     />
   </Box>

@@ -9,10 +9,14 @@
     "src/**/stories/**/*",
     "src/**/*.stories.ts",
     "src/**/*.stories.tsx",
+    "src/docs/**/*",
     "src/**/*.test.ts",
     "src/**/*.test.tsx",
     "src/**/*.spec.ts",
     "src/**/*.spec.tsx",
-    "src/**/__tests__/**/*"
+    "src/**/__tests__/**/*",
+    "src/test-utils.tsx",
+    "vite.config.mts",
+    "vitest.setup.ts"
   ]
 }

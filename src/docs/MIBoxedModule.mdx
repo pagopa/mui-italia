@@ -1,0 +1,112 @@
+import { Meta, Title, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
+
+import Overview from './components/Overview';
+import Section from './components/Section';
+import SubSection from './components/SubSection';
+import * as MIBoxedModuleStories from '../stories/MIBoxedModule.stories.tsx';
+
+<Meta of={MIBoxedModuleStories} />
+
+<Title />
+
+<Overview>
+  <strong>MIBoxedModule</strong> è un contenitore visivo per organizzare contenuto testuale,
+  un’icona opzionale e un’azione opzionale all’interno di un box con bordo, padding e background
+  definiti dal tema. Il layout interno si adatta alla viewport: se non viene forzata una direzione,
+  usa una disposizione orizzontale su desktop e verticale su mobile. Supporta inoltre uno stato di
+  caricamento basato su skeleton.
+</Overview>
+
+<Section
+  title="Playground"
+  description="Usa i controlli per modificare i parametri principali del componente e verificare il risultato live."
+>
+  <Primary />
+  <Controls />
+</Section>
+
+<Section
+  title="Layout"
+  description="MIBoxedModule può mostrare contenuto, icona e azione. La direzione del contenuto può essere controllata tramite la prop direction oppure lasciata al comportamento responsive interno."
+>
+  <SubSection title="Senza titolo">
+    <Story of={MIBoxedModuleStories.NoTitle} />
+  </SubSection>
+
+  <SubSection title="Direzione forzata">
+    <Story of={MIBoxedModuleStories.ForceDirection} />
+  </SubSection>
+</Section>
+
+<Section
+  title="Stato di caricamento"
+  description="Quando loading è attivo, il componente mostra lo skeleton al posto del contenuto e imposta aria-busy sul contenitore."
+>
+  <SubSection title="Skeleton default">
+    <Story of={MIBoxedModuleStories.Loading} />
+  </SubSection>
+
+  <SubSection title="Skeleton custom">
+    <Story of={MIBoxedModuleStories.CustomSkeleton} />
+  </SubSection>
+</Section>
+
+<Section
+  title="Contenuto complesso"
+  description="Il contenuto principale viene passato tramite children e può includere altri componenti o strutture più articolate."
+>
+  <Story of={MIBoxedModuleStories.ComplexContent} />
+</Section>
+
+<Section
+  title="Accessibilità"
+  description="MIBoxedModule è un contenitore visivo: l’accessibilità finale dipende dalla struttura del contenuto passato come children, dall’eventuale azione e dalla corretta configurazione dello stato di caricamento."
+>
+    <SubSection title="Props rilevanti">
+        <ul>
+            <li>
+            <strong>children</strong>: deve contenere contenuto testuale e semantico coerente, ad esempio
+            titoli, testi descrittivi o componenti accessibili.
+            </li>
+            <li>
+            <strong>action</strong>: può contenere un elemento interattivo. In quel caso, il componente
+            passato deve avere una label accessibile coerente con l’azione.
+            </li>
+            <li>
+            <strong>localeText.loadingLabel</strong>: personalizza il testo accessibile mostrato durante
+            lo stato di caricamento.
+            </li>
+            <li>
+            <strong>loading</strong>: quando è attivo, il componente mostra lo skeleton e imposta{' '}
+            <code>aria-busy="true"</code> sul contenitore.
+            </li>
+        </ul>
+    </SubSection>
+
+    <SubSection title="Stato di caricamento">
+    Durante il caricamento, il componente sostituisce il contenuto con lo skeleton e aggiunge un testo
+    visivamente nascosto tramite <code>localeText.loadingLabel</code>. Usare una label specifica
+    quando il contesto lo richiede, ad esempio per distinguere il caricamento di un modulo pagamento
+    dal caricamento di un riepilogo.
+    </SubSection>
+
+    <SubSection title="Prop non disponibili">
+        <ul>
+            <li>
+            <strong>component</strong>: non è esposta dalle props pubbliche del componente. Il contenitore
+            usa internamente <code>Stack</code>.
+            </li>
+        </ul>
+    </SubSection>
+
+  <SubSection title="Esempio accessibile">
+    ```tsx
+    <MIBoxedModule
+      loading
+      localeText={{
+        loadingLabel: 'Caricamento modulo pagamento in corso',
+      }}
+    />
+    ```
+  </SubSection>
+</Section>

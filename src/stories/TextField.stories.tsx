@@ -1,18 +1,20 @@
+import { Meta, StoryFn } from '@storybook/react-vite';
 import { ChangeEvent, useState } from 'react';
-import { StoryFn, Meta } from '@storybook/react-vite';
 
 import {
-  TextField,
-  InputAdornment,
-  MenuItem,
+  AccountBalance as AccountBalanceIcon,
+  DoneRounded as DoneRoundedIcon,
+  ErrorOutlineRounded as ErrorOutlineRoundedIcon,
+  PersonOutlineRounded as PersonOutlineRoundedIcon,
+} from '@mui/icons-material';
+import {
   Box,
+  InputAdornment,
   ListItemIcon,
   ListItemText,
+  MenuItem,
+  TextField,
 } from '@mui/material';
-import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded';
-import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded';
-import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 
 export default {
   title: 'MUI Components/Inputs/Text Field',

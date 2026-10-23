@@ -1,6 +1,14 @@
-import { Box, Stack, Typography, useTheme, styled, keyframes, alpha } from '@mui/material';
-import { ChangeEvent, useId, useLayoutEffect, useRef, useState } from 'react';
-import { blue, error as errorColor, neutral as neutralColor } from './../../theme/colors';
+import {
+  Box,
+  Stack,
+  Typography,
+  useTheme,
+  styled,
+  keyframes,
+  alpha,
+  FormLabel,
+} from '@mui/material';
+import { ChangeEvent, ReactNode, useId, useLayoutEffect, useRef, useState } from 'react';
 
 /**
  * Layout constants used to size the code input component.
@@ -42,6 +50,7 @@ export interface CodeInputProps {
   length: number;
   onChange: (value: string) => void;
   inputMode?: 'text' | 'numeric';
+  label?: ReactNode;
   value?: string;
   readOnly?: boolean;
   id?: string;
@@ -65,14 +74,14 @@ const blink = keyframes`
   100% { opacity: 0; }
 `;
 
-const Caret = styled('div')<{ position: CaretPosition['position'] }>(({ position }) => ({
+const Caret = styled('div')<{ position: CaretPosition['position'] }>(({ position, theme }) => ({
   position: 'absolute',
   top: '50%',
   transform: 'translateY(-50%)',
   width: '2px',
   borderRadius: '2px',
   height: '1em',
-  backgroundColor: blue[500],
+  backgroundColor: theme.colors.blue[500],
   animation: `${blink} 1s step-start infinite`,
   transformOrigin: 'center',
   left: position === 'center' ? '50%' : position === 'end' ? 'calc(100% + 1px)' : '-1px',
@@ -124,7 +133,7 @@ const CodeBox = styled(Box, {
     codeBoxPaddingBottom
   )}`,
   border: `${theme.spacing(error ? codeBoxErrorBorder : 0.125)} solid ${
-    error ? errorColor[600] : neutralColor[100]
+    error ? theme.colors.error[600] : theme.colors.neutral.grey[650]
   }`,
   borderRadius: theme.spacing(codeBoxBorderRadius),
   // Shared layout variables for OverlayInput and CharBox.
@@ -141,7 +150,7 @@ const CharBox = styled(Box)(({ theme }) => ({
   lineHeight: '1.5em',
   paddingBottom: theme.spacing(0.25),
   marginBottom: theme.spacing(0.5),
-  borderBottom: `1px solid ${neutralColor[700]}`,
+  borderBottom: `1px solid ${theme.colors.neutral.grey[700]}`,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -161,7 +170,7 @@ const HelperText = styled(Typography, {
   boxSizing: 'content-box',
   paddingLeft: theme.spacing(3),
   paddingRight: theme.spacing(3),
-  color: error ? errorColor[600] : theme.palette.text.primary,
+  color: error ? theme.colors.error[600] : theme.palette.text.primary,
 }));
 
 /**
@@ -188,6 +197,7 @@ const CodeInput = ({
   length,
   onChange,
   inputMode = 'text',
+  label,
   value,
   readOnly = false,
   id: idProp,
@@ -229,7 +239,7 @@ const CodeInput = ({
     // we need to immediatly update the caret to avoid a flickering in the caret update
     // so we can't do the update in the onSelect callback
     syncCaretFromInput(filtered.length);
-    onChange?.(filtered);
+    onChange(filtered);
   };
 
   const updateCaretPosition = (pos: number, valueLen: number = sanitizedValue.length) => {
@@ -342,6 +352,14 @@ const CodeInput = ({
 
   return (
     <Box sx={{ display: 'inline-block', width: containerWidth }}>
+      {label && (
+        <FormLabel
+          htmlFor={id}
+          sx={{ display: 'block', fontSize: 16, fontWeight: 600, mb: theme.spacing(2) }}
+        >
+          {label}
+        </FormLabel>
+      )}
       <CodeBox error={error} sx={{ cursor: readOnly ? 'default' : 'text' }}>
         <OverlayInput
           id={id}

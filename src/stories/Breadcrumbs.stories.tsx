@@ -1,7 +1,7 @@
 import { StoryFn, Meta } from '@storybook/react-vite';
 
 import { Breadcrumbs, Link, Typography } from '@mui/material';
-import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
+import { EmailRounded as EmailRoundedIcon } from '@mui/icons-material';
 
 export default {
   title: 'MUI Components/Navigation/Breadcrumbs',

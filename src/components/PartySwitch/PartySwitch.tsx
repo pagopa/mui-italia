@@ -4,12 +4,12 @@ import { useButton } from '@mui/base/useButton';
 import {
   Box,
   Button,
+  ButtonProps,
   Drawer,
   IconButton,
   InputAdornment,
   TextField,
   Typography,
-  ButtonProps,
 } from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
 import { ringWidth, theme } from '@theme';
@@ -17,21 +17,22 @@ import clsx from 'clsx';
 import {
   ChangeEvent,
   ForwardedRef,
-  Fragment,
+  KeyboardEvent,
   forwardRef,
   useEffect,
   useMemo,
   useState,
-  KeyboardEvent,
 } from 'react';
 
 import { PartyAccountItem } from '@components/PartyAccountItem';
 import { PartyAccountItemButton } from '@components/PartyAccountItemButton';
-import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
-import ArrowDropUpRoundedIcon from '@mui/icons-material/ArrowDropUpRounded';
-import CloseIcon from '@mui/icons-material/Close';
-import SearchIcon from '@mui/icons-material/Search';
-import SentimentDissatisfied from '@mui/icons-material/SentimentDissatisfied';
+import {
+  ArrowDropDownRounded as ArrowDropDownRoundedIcon,
+  ArrowDropUpRounded as ArrowDropUpRoundedIcon,
+  Close as CloseIcon,
+  Search as SearchIcon,
+  SentimentDissatisfied,
+} from '@mui/icons-material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 export type PartySwitchItem = {
@@ -94,6 +95,10 @@ export const PartySwitch = ({
     return parties.filter((e) => e.name.toLowerCase().indexOf(filter.toLowerCase()) > -1);
   }, [filter, parties]);
 
+  // this code can leads to an undefined selectedParty,
+  // because the find method is called on a filtered list that cannot contain the current selected party indentified by the selectedId
+  // eslint throws an error if we use the selectParty properties and do not first check that selectedParty is defined
+  // for now we will force the cast to hide the error and not change the code
   const selectedParty = useMemo(
     () => filteredParties.find((e) => e.id === selectedId),
     [selectedId]
@@ -129,8 +134,8 @@ export const PartySwitch = ({
     }
   };
 
-  const handleFilterChange = (e: ChangeEvent) => {
-    setFilter((e.target as any).value);
+  const handleFilterChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFilter(e.target.value);
   };
 
   const loadMoreParties = () => {
@@ -140,7 +145,7 @@ export const PartySwitch = ({
   const visibleParties = filteredParties.slice(0, offset);
 
   return (
-    <Fragment>
+    <>
       <PartySwitchButton
         aria-describedby="party-selection"
         aria-controls={open ? 'party-selection' : undefined}
@@ -154,7 +159,7 @@ export const PartySwitch = ({
           image={selectedParty.logoUrl}
           infoContainerSx={mobileHideStyle}
           maxCharactersNumberMultiLine={maxCharactersNumberMultiLineItem}
-          parentPartyName={selectedParty?.parentName}
+          parentPartyName={selectedParty.parentName}
         />
         {open ? (
           <ArrowDropUpRoundedIcon sx={mobileHideStyle} />
@@ -168,7 +173,10 @@ export const PartySwitch = ({
         onKeyDownCapture={(e: KeyboardEvent) => {
           if (e.key === 'Enter') {
             const partySelected = e.target;
-            const selectedParty = filteredParties.find((p: PartySwitchItem) => {
+            // this code will never work because textContent doesn't exists in e.target
+            // to avoid changes that can broke the products that are using this component, for now we disabled the eslint rule that returns error
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            const selectedParty = filteredParties.find((p) => {
               if ('textContent' in partySelected && typeof partySelected.textContent === 'string') {
                 partySelected.textContent.includes(p.name);
               }
@@ -228,7 +236,7 @@ export const PartySwitch = ({
             />
           ))}
         {filteredParties.length === 0 && (
-          <Fragment>
+          <>
             <Box
               component="div"
               display="flex"
@@ -246,10 +254,10 @@ export const PartySwitch = ({
             <Button variant="contained" sx={{ margin: '0 20px' }}>
               Registra un nuovo ente
             </Button>
-          </Fragment>
+          </>
         )}
       </CustomDrawer>
-    </Fragment>
+    </>
   );
 };
 
@@ -276,7 +284,7 @@ const StyledSwitcherButton = styled('div')(({ theme }) => ({
 
 const PartySwitchButton = forwardRef(function PartySwitchButton(
   props: ButtonProps,
-  ref: ForwardedRef<any>
+  ref: ForwardedRef<HTMLButtonElement>
 ) {
   const { children, disabled } = props;
   const { focusVisible, getRootProps } = useButton({

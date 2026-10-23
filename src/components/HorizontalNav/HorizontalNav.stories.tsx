@@ -1,7 +1,7 @@
 import { HorizontalNav } from '@components/HorizontalNav/HorizontalNav';
-import { Meta, StoryFn } from '@storybook/react-vite';
 import { CieIcon } from '@icons/CieIcon';
 import { SpidIcon } from '@icons/SpidIcon';
+import { Meta, StoryFn } from '@storybook/react-vite';
 
 import { breakpointsChromaticValues } from '@theme';
 

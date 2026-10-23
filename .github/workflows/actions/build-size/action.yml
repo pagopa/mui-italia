@@ -1,0 +1,16 @@
+name: 'Bundle Size Check'
+description: 'Checks the size of a target folder and fails the check if limits are exceeded'
+inputs:
+  path:
+    description: 'The path of the folder to measure'
+    required: true
+    default: 'dist'
+  max_raw_kb:
+    description: 'Maximum allowed size in KB (Raw)'
+    required: true
+  max_gzip_kb:
+    description: 'Maximum allowed size in KB (Gzip)'
+    required: true
+runs:
+  using: 'node24'
+  main: 'dist/index.js'

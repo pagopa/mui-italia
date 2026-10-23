@@ -5,7 +5,7 @@ import { theme } from '@theme';
 import { Badge } from '@mui/material';
 
 /* Icons */
-import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
+import { EmailRounded as EmailRoundedIcon } from '@mui/icons-material';
 
 export default {
   title: 'MUI Components/Data Display/Badge',

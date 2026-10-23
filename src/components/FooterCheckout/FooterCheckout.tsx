@@ -49,16 +49,14 @@ export const FooterCheckout = ({
         <LangSwitch {...langProps} />
       </Stack>
 
-      {companyLink && (
-        <Link
-          aria-label={companyLink?.ariaLabel}
-          href={companyLink?.href ?? hrefNoOp}
-          onClick={wrapHandleExitAction(companyLink.href ?? hrefNoOp, companyLink.onClick, onExit)}
-          sx={{ display: 'inline-flex' }}
-        >
-          <LogoPagoPACompany size={70} />
-        </Link>
-      )}
+      <Link
+        aria-label={companyLink.ariaLabel}
+        href={companyLink.href ?? hrefNoOp}
+        onClick={wrapHandleExitAction(companyLink.href ?? hrefNoOp, companyLink.onClick, onExit)}
+        sx={{ display: 'inline-flex' }}
+      >
+        <LogoPagoPACompany size={70} />
+      </Link>
     </Stack>
   </Box>
 );

@@ -1,33 +1,57 @@
 'use client';
 
 import { Close, KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
-import { Box, IconButton, Paper, Popper, TextField } from '@mui/material';
+import { Box, IconButton, Paper, Popper } from '@mui/material';
+import type { Theme } from '@mui/material/styles';
 import { visuallyHidden } from '@mui/utils';
+import { MIChip } from '@components/MIChip';
 import {
   ChangeEvent,
-  useEffect,
-  useRef,
-  useState,
+  FocusEvent,
   KeyboardEvent,
   MouseEvent,
-  FocusEvent,
+  useEffect,
   useId,
+  useRef,
+  useState,
 } from 'react';
-import { AutocompleteProps, AutocompleteValue, InputChangeReason } from 'types/autocomplete';
-import { isMobileDevice } from 'utils/device';
 import { filterOptionsInternal } from 'utils/autocomplete';
+import { isMobileDevice } from 'utils/device';
+import { MITextField } from '@components/MITextField';
+import { AutocompleteProps, AutocompleteValue, InputChangeReason } from './Autocomplete.types';
 import AutocompleteContent from './AutocompleteContent';
-import MultiSelectChips from './MultiSelectChips';
 import DefaultEmptyState from './DefaultEmptyState';
+import MultiSelectChips from './MultiSelectChips';
+
+const defaultGetOptionLabel = <T,>(option: T) => {
+  if (typeof option === 'string') {
+    return option;
+  }
+  if (typeof option === 'number' || typeof option === 'boolean') {
+    return option.toString();
+  }
+  if (typeof option === 'object' && option !== null && 'label' in option) {
+    if (typeof option.label === 'string') {
+      return option.label;
+    }
+    if (typeof option.label === 'number' || typeof option.label === 'boolean') {
+      return option.label.toString();
+    }
+  }
+  throw new Error(
+    'Unable to get the label of the option. Try to define your own getOptionLabel method'
+  );
+};
 
 const Autocomplete = <T, M extends boolean | undefined = false>({
   id,
   options,
-  getOptionLabel = (option: any) => option.label ?? option,
+  getOptionLabel = defaultGetOptionLabel,
   isOptionEqualToValue = (option, value) => option === value,
   label,
   placeholder,
   multiple = false,
+  showSelectionCountOnly = false,
   handleFiltering = filterOptionsInternal,
   disabled = false,
   required = false,
@@ -46,8 +70,8 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
   ...other // all the HTML default properties (i.e. data-testid)
 }: AutocompleteProps<T, M>) => {
   const [inputInternalValue, setInputInternalValue] = useState<string>('');
-  const [internalValue, setInternalValue] = useState<Array<T> | T | null>(
-    (multiple ? [] : null) as Array<T> | T | null
+  const [internalValue, setInternalValue] = useState<AutocompleteValue<T, M>>(
+    (multiple ? [] : null) as AutocompleteValue<T, M>
   );
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [activeIndex, setActiveIndex] = useState<number>(-1);
@@ -89,6 +113,24 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
     getOptionLabel,
   });
 
+  const isCurrentValueAnArray = Array.isArray(currentValue);
+
+  /**
+   * if currentValue is an array we set this variable with currentValue,
+   * otherwise we set it as [] because it will be not used as the component is not multiple
+   * The set as [] is necessary so the type could be Array<T>
+   */
+  const selectedOptions: Array<T> = isCurrentValueAnArray ? currentValue : [];
+
+  /**
+   * if currentValue is an array we set this variable as null
+   * because it will be not used as the component is multiple,
+   * otherwise we set it as currentValue
+   */
+  const singleSelectedValue: T | null = isCurrentValueAnArray ? null : (currentValue as T | null);
+
+  const hasSelectedValue = multiple ? selectedOptions.length > 0 : singleSelectedValue !== null;
+
   const setInputValue = (v: string, reason: InputChangeReason) => {
     // non controlled input
     if (inputValue === undefined) {
@@ -101,11 +143,12 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
   };
 
   const setAutocompleteValue = (v: T | Array<T> | null) => {
+    const typedValue = v as AutocompleteValue<T, M>;
     // non controlled autocomplete
     if (value === undefined) {
-      setInternalValue(v);
+      setInternalValue(typedValue);
     }
-    onChange?.(v as AutocompleteValue<T, M>);
+    onChange?.(typedValue);
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -122,18 +165,18 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
       return;
     }
 
-    if (multiple && Array.isArray(currentValue)) {
-      const isAlreadySelected = currentValue.some((selected) =>
+    if (multiple) {
+      const isAlreadySelected = selectedOptions.some((selected) =>
         isOptionEqualToValue(selected, option)
       );
 
       let newSelectedOptions;
       if (isAlreadySelected) {
-        newSelectedOptions = currentValue.filter(
+        newSelectedOptions = selectedOptions.filter(
           (selected) => !isOptionEqualToValue(selected, option)
         );
       } else {
-        newSelectedOptions = [...currentValue, option];
+        newSelectedOptions = [...selectedOptions, option];
       }
       setInputValue('', 'selectOption');
       setAutocompleteValue(newSelectedOptions);
@@ -149,8 +192,8 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
       return;
     }
 
-    if (multiple && Array.isArray(currentValue)) {
-      const newSelectedOptions = currentValue.filter(
+    if (multiple) {
+      const newSelectedOptions = selectedOptions.filter(
         (option) => !isOptionEqualToValue(option, optionToRemove)
       );
       setAutocompleteValue(newSelectedOptions);
@@ -158,7 +201,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
     }
   };
 
-  const setInputFocus = (open: boolean = true) => {
+  const setInputFocus = (open: boolean) => {
     if (disabled) {
       return;
     }
@@ -252,7 +295,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
   };
 
   const getStartInputAdornment = () => {
-    if (!StartIcon && (!multiple || (Array.isArray(currentValue) && currentValue.length === 0))) {
+    if (!StartIcon && (!multiple || selectedOptions.length === 0)) {
       return undefined;
     }
 
@@ -265,9 +308,9 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
             }}
           />
         )}
-        {multiple && Array.isArray(currentValue) && currentValue.length > 0 && (
+        {multiple && selectedOptions.length > 0 && !showSelectionCountOnly && (
           <MultiSelectChips
-            selectedOptions={currentValue}
+            selectedOptions={selectedOptions}
             handleChipDelete={handleChipDelete}
             disabled={disabled}
             getOptionLabel={getOptionLabel}
@@ -282,9 +325,13 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
   };
 
   const getEndInputAdornment = () => {
-    const showClearIcon =
-      currentInputValue || (Array.isArray(currentValue) ? currentValue.length > 0 : currentValue);
+    const showClearIcon = (currentInputValue || hasSelectedValue) && !showSelectionCountOnly;
     const showArrowIcon = !toggleButtonProps.hidden;
+    const keyboardArrowSx = (theme: Theme) => ({
+      width: theme.spacing(3),
+      height: theme.spacing(3),
+      color: theme.colors.neutral.black,
+    });
 
     if ((!showClearIcon && !showArrowIcon) || disabled) {
       return null;
@@ -292,12 +339,23 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
 
     return (
       <Box
-        sx={{
+        sx={(theme) => ({
           display: 'flex',
           alignItems: 'center',
-          gap: 0.5,
-        }}
+          marginRight: theme.spacing(1.5),
+        })}
       >
+        {multiple && selectedOptions.length > 0 && showSelectionCountOnly && (
+          <MIChip
+            label={selectedOptions.length}
+            onDelete={handleClearValue}
+            disabled={disabled}
+            aria-label={selectionChipProps['aria-label']?.replace(
+              '%s',
+              `${selectedOptions.length}`
+            )}
+          />
+        )}
         {showClearIcon && (
           <IconButton
             size="small"
@@ -305,12 +363,19 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
             onMouseDown={(e) => e.preventDefault()}
             aria-label={clearButtonProps['aria-label']}
             disabled={disabled}
-            sx={{
+            sx={(theme) => ({
               padding: 0,
-              color: 'text.secondary',
-            }}
+              height: theme.spacing(3),
+              width: theme.spacing(3),
+            })}
           >
-            <Close />
+            <Close
+              sx={(theme) => ({
+                width: '1.1rem',
+                height: '1.1rem',
+                color: theme.colors.neutral.black,
+              })}
+            />
           </IconButton>
         )}
         {showArrowIcon && (
@@ -321,13 +386,18 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
               isOpen ? toggleButtonProps['close-aria-label'] : toggleButtonProps['open-aria-label']
             }
             disabled={disabled}
-            sx={{
-              padding: 0,
-              color: disabled ? 'text.disabled' : 'text.secondary',
-              cursor: disabled ? 'default' : 'pointer',
-            }}
+            sx={(theme) => ({
+              paddingRight: 0.5,
+              cursor: 'pointer',
+              height: theme.spacing(3),
+              width: theme.spacing(3),
+            })}
           >
-            {isOpen ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+            {isOpen ? (
+              <KeyboardArrowUp sx={keyboardArrowSx} />
+            ) : (
+              <KeyboardArrowDown sx={keyboardArrowSx} />
+            )}
           </IconButton>
         )}
       </Box>
@@ -347,12 +417,12 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
       );
       optionElement?.scrollIntoView({ block: 'nearest' });
     }
-  }, [activeIndex, isOpen, disabled]);
+  }, [activeIndex, isOpen, disabled, listboxId]);
 
   return (
     <>
       <Box position="relative" ref={containerRef} onBlur={handleBlur} sx={sx} {...other}>
-        <TextField
+        <MITextField
           id={inputId}
           fullWidth
           inputRef={inputRef}
@@ -361,9 +431,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
           onClick={() => setInputFocus(true)}
           onKeyDown={handleKeyDown}
           label={label}
-          placeholder={
-            multiple && Array.isArray(currentValue) && currentValue.length > 0 ? '' : placeholder
-          }
+          placeholder={multiple && selectedOptions.length > 0 ? '' : placeholder}
           variant="outlined"
           autoComplete="off"
           disabled={disabled}
@@ -371,6 +439,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
           error={error}
           helperText={helperText}
           inputProps={{
+            required: required && !hasSelectedValue,
             role: 'combobox',
             'aria-expanded': isOpen,
             'aria-controls': listboxId,
@@ -384,32 +453,26 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
             startAdornment: getStartInputAdornment(),
             endAdornment: getEndInputAdornment(),
           }}
-          sx={{
+          sx={(theme) => ({
             '& .MuiInputBase-root': {
+              padding: theme.spacing(0.625),
+              
+              paddingLeft: theme.spacing(1.5),
               display: 'flex',
               flexWrap: 'wrap',
               alignItems: 'center',
               gap: 1,
-              padding: '0.625rem 0.75rem',
               borderRadius: '0.5rem',
               borderWidth: '0.125rem',
-              backgroundColor: disabled ? '#F4F5F8' : 'transparent',
-              minHeight: '3rem',
+              backgroundColor: disabled ? theme.colors.neutral.grey[50] : 'transparent',
             },
             '& .MuiInputBase-input': {
               flex: '1 1 3.75rem',
               minWidth: '3.75rem',
-              padding: '0',
+              padding: 0,
               boxSizing: 'border-box',
             },
-            '& .MuiInputLabel-root': {
-              transform: 'translate(0.875rem, 0.663rem) scale(1)',
-
-              '&.MuiInputLabel-shrink': {
-                transform: 'translate(0.875rem, -0.663rem) scale(0.75)',
-              },
-            },
-          }}
+          })}
           {...textFieldProps}
         />
 
@@ -493,11 +556,10 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
        */}
       <Box aria-live="polite" role="status" sx={{ ...visuallyHidden }} aria-atomic="true">
         {loading && announcementBoxProps.loadingText}
-        {Array.isArray(currentValue) &&
-          currentValue.length > 0 &&
+        {selectedOptions.length > 0 &&
           `${announcementBoxProps.selectionText?.replace(
             '%s',
-            currentValue.map((opt) => getOptionLabel(opt)).join(', ')
+            selectedOptions.map((opt) => getOptionLabel(opt)).join(', ')
           )}`}
       </Box>
     </>

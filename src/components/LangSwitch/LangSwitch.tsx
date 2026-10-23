@@ -1,12 +1,14 @@
 'use client';
 
-import { Fragment, SyntheticEvent, useState } from 'react';
-import { Menu, MenuItem, Typography, Box } from '@mui/material';
 import { ButtonNaked } from '@components/ButtonNaked';
+import { Box, Menu, MenuItem, Typography } from '@mui/material';
+import { SyntheticEvent, useState } from 'react';
 
 /* Icons */
-import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
-import KeyboardArrowUpRoundedIcon from '@mui/icons-material/KeyboardArrowUpRounded';
+import {
+  KeyboardArrowDownRounded as KeyboardArrowDownRoundedIcon,
+  KeyboardArrowUpRounded as KeyboardArrowUpRoundedIcon,
+} from '@mui/icons-material';
 
 export type LangCode = 'it' | 'en' | 'de' | 'fr' | 'sl';
 
@@ -14,9 +16,11 @@ export type LangCode = 'it' | 'en' | 'de' | 'fr' | 'sl';
 // while the it key-value pair is mandatory
 export type LangLabels = Partial<Record<LangCode, string>> & { it: string };
 
-// Partial is used here to define that every key in LangLabels is optional,
-// while the it key-value pair is mandatory
-export type Languages = Partial<Record<LangCode, LangLabels>> & { it: LangLabels };
+export type Languages = (Partial<Record<LangCode, LangLabels>> & { it: LangLabels }) | LangLabels;
+
+function isFlatLanguages(languages: Languages): languages is LangLabels {
+  return typeof languages.it === 'string';
+}
 
 export type LangSwitchProps = {
   currentLangCode?: LangCode;
@@ -31,11 +35,15 @@ export function LangSwitch({
 }: LangSwitchProps) {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const open = Boolean(anchorEl);
+  const flat = isFlatLanguages(languages);
 
-  // checks if currentLangCode is included in languages,
-  // if not uses the italian labels, this allows non italian lang labels and
-  // languages to be optional while being backward compatible
-  const currentLangLabels: LangLabels = languages[currentLangCode] ?? languages.it;
+  const getLabel = (langCode: LangCode): string => {
+    if (flat) {
+      return languages[langCode] || languages.it;
+    }
+    const currentLangLabels = languages[currentLangCode] ?? languages.it;
+    return currentLangLabels[langCode] || languages.it.it;
+  };
 
   const handleClick = (e: SyntheticEvent) => {
     const currentTarget = e.currentTarget as HTMLButtonElement;
@@ -47,63 +55,65 @@ export function LangSwitch({
   };
 
   const wrapUpdateActiveLang = (newLang: LangCode) => (e: SyntheticEvent) => {
-    if (e) {
-      e.preventDefault();
-    }
+    e.preventDefault();
 
     onLanguageChanged(newLang);
     handleClose();
   };
 
   return (
-    <Fragment>
-      <Box>
-        <ButtonNaked
-          sx={{
-            color: 'text.primary',
-            justifyContent: 'space-between',
-            p: 0,
-            height: 'auto',
-            display: 'flex',
-          }}
-          aria-label="lingua"
-          aria-haspopup="true"
-          aria-expanded={open ? 'true' : undefined}
-          onClick={handleClick}
-        >
-          {currentLangCode && (
-            <Box component="span" sx={{ textAlign: 'left' }}>
-              <Typography color="inherit" component="span" variant="subtitle2">
-                {currentLangLabels[currentLangCode]}
-              </Typography>
-            </Box>
-          )}
+    <Box>
+      <ButtonNaked
+        id="lang-menu-button"
+        sx={{
+          color: 'text.primary',
+          justifyContent: 'space-between',
+          p: 0,
+          height: 'auto',
+          display: 'flex',
+        }}
+        aria-label={`Seleziona lingua: ${getLabel(currentLangCode)}`}
+        aria-haspopup="true"
+        aria-expanded={open}
+        aria-controls={open ? 'lang-menu' : undefined}
+        onClick={handleClick}
+      >
+        <Box component="span" sx={{ textAlign: 'left' }}>
+          <Typography color="inherit" component="span" variant="subtitle2">
+            {getLabel(currentLangCode)}
+          </Typography>
+        </Box>
 
-          {open ? (
-            <KeyboardArrowUpRoundedIcon fontSize="small" />
-          ) : (
-            <KeyboardArrowDownRoundedIcon fontSize="small" />
-          )}
-        </ButtonNaked>
-        {Boolean(Object.keys(languages).length > 0) && (
-          <Menu
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{ 'aria-labelledby': 'lang-menu-button' }}
-          >
-            {Object.keys(languages).map((langCode, i) => (
-              <MenuItem
-                aria-label={currentLangLabels[langCode as LangCode]}
-                key={i}
-                onClick={wrapUpdateActiveLang(langCode as LangCode)}
-              >
-                {currentLangLabels[langCode as LangCode]}
-              </MenuItem>
-            ))}
-          </Menu>
+        {open ? (
+          <KeyboardArrowUpRoundedIcon fontSize="small" />
+        ) : (
+          <KeyboardArrowDownRoundedIcon fontSize="small" />
         )}
-      </Box>
-    </Fragment>
+      </ButtonNaked>
+      {Boolean(Object.keys(languages).length > 0) && (
+        <Menu
+          id="lang-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{ 'aria-labelledby': 'lang-menu-button' }}
+        >
+          {Object.keys(languages).map((langCode) => {
+            const code = langCode as LangCode;
+            const label = getLabel(code);
+            return (
+              <MenuItem
+                aria-label={label}
+                key={code}
+                onClick={wrapUpdateActiveLang(code)}
+                lang={flat ? code : undefined}
+              >
+                {label}
+              </MenuItem>
+            );
+          })}
+        </Menu>
+      )}
+    </Box>
   );
 }

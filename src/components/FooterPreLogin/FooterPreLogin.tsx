@@ -1,18 +1,22 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { Grid, Stack, Box, Typography, Container, Link } from '@mui/material';
-import { CompanyLinkType, PreLoginFooterLinksType } from '@components/Footer';
+import { CompanyLinkType, FooterSocialIcon, PreLoginFooterLinksType } from '@components/Footer';
 import { LangSwitch, LangSwitchProps } from '@components/LangSwitch';
+import { Box, Container, Grid, Link, Stack, Typography } from '@mui/material';
 import { isRight, toError } from 'fp-ts/lib/Either';
+import { useEffect, useState } from 'react';
 
 /* Icons */
-import LinkedIcon from '@mui/icons-material/LinkedIn';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import { LogoPagoPACompany } from '@assets/LogoPagoPACompany';
 import { FundedByNextGenerationEU } from '@assets/FundedByNextGenerationEU';
+import { LogoPagoPACompany } from '@assets/LogoPagoPACompany';
+import { MediumIcon } from '@icons/MediumIcon';
 import { ThreadsIcon } from '@icons/ThreadsIcon';
 import { YoutubeIcon } from '@icons/YoutubeIcon';
+import {
+  Instagram as InstagramIcon,
+  LinkedIn as LinkedIcon,
+  Twitter as TwitterIcon,
+} from '@mui/icons-material';
 
 /* Enum */
 import { hrefNoOp, wrapHandleExitAction } from '../../utils/ts-utils';
@@ -25,6 +29,9 @@ type FooterPreLoginProps = LangSwitchProps & {
   onExit?: (exitAction: () => void) => void;
   /** This URL contains a json with the list of products to list inside the Footer. By default it's set with https://selfcare.pagopa.it/assets/products.json */
   productsJsonUrl?: string;
+  productsTitle?: string;
+  // error passed through the catch block can be of different types
+  // so we must cast it to any
   onProductsJsonFetchError?: (reason: any) => void;
   /** If true, it will not render the products column. As default, the column will be visible */
   hideProductsColumn?: boolean;
@@ -35,6 +42,7 @@ export const FooterPreLogin = ({
   links,
   onExit,
   productsJsonUrl = 'https://selfcare.pagopa.it/assets/products.json',
+  productsTitle = 'Prodotti e Servizi',
   onProductsJsonFetchError,
   hideProductsColumn,
   ...langProps
@@ -59,15 +67,13 @@ export const FooterPreLogin = ({
     }
   }, []);
 
-  interface iconMapObject {
-    [key: string]: JSX.Element;
-  }
-
-  const iconMap: iconMapObject = {
+  const iconMap: Record<FooterSocialIcon, JSX.Element> = {
     linkedin: <LinkedIcon />,
     instagram: <InstagramIcon />,
     threads: <ThreadsIcon />,
     youtube: <YoutubeIcon />,
+    twitter: <TwitterIcon />,
+    medium: <MediumIcon />,
   };
 
   return (
@@ -82,27 +88,25 @@ export const FooterPreLogin = ({
         <Grid container spacing={{ xs: 6, sm: 3 }}>
           <Grid item xs={12} sm={3}>
             <Stack spacing={2} alignItems={{ xs: 'center', sm: 'start' }}>
-              {companyLink && (
-                <Link
-                  aria-label={companyLink.ariaLabel}
-                  href={companyLink.href ?? hrefNoOp}
-                  onClick={wrapHandleExitAction(
-                    companyLink.href ?? hrefNoOp,
-                    companyLink.onClick,
-                    onExit
-                  )}
-                  sx={{ display: 'inline-flex' }}
-                >
-                  <LogoPagoPACompany />
-                </Link>
-              )}
+              <Link
+                aria-label={companyLink.ariaLabel}
+                href={companyLink.href ?? hrefNoOp}
+                onClick={wrapHandleExitAction(
+                  companyLink.href ?? hrefNoOp,
+                  companyLink.onClick,
+                  onExit
+                )}
+                sx={{ display: 'inline-flex' }}
+              >
+                <LogoPagoPACompany />
+              </Link>
 
               <Stack
                 component="ul"
                 alignItems={{ xs: 'center', sm: 'start' }}
                 sx={{ padding: 0, listStyle: 'none' }}
               >
-                {aboutUs?.links.map(({ href = hrefNoOp, label, ariaLabel, onClick }, i) => (
+                {aboutUs.links.map(({ href = hrefNoOp, label, ariaLabel, onClick }, i) => (
                   <li key={i}>
                     <Link
                       aria-label={ariaLabel}
@@ -124,30 +128,30 @@ export const FooterPreLogin = ({
           {!hideProductsColumn && (
             <Grid item xs={12} sm={3}>
               <Stack spacing={2} alignItems={{ xs: 'center', sm: 'start' }}>
-                {jsonProducts && <Typography variant="overline">Prodotti e Servizi</Typography>}
+                <Typography variant="overline">{productsTitle}</Typography>
 
                 <Stack
                   component="ul"
                   alignItems={{ xs: 'center', sm: 'start' }}
                   sx={{ padding: 0, listStyle: 'none' }}
                 >
-                  {jsonProducts &&
-                    jsonProducts?.map(({ href = hrefNoOp, label, ariaLabel, onClick }, i) => (
-                      <li key={i}>
-                        <Link
-                          aria-label={ariaLabel}
-                          component="a"
-                          href={href}
-                          onClick={wrapHandleExitAction(href, onClick, onExit)}
-                          underline="none"
-                          color="text.primary"
-                          sx={{ display: 'inline-block', py: 0.5 }}
-                          variant="subtitle2"
-                        >
-                          {label}
-                        </Link>
-                      </li>
-                    ))}
+                  {jsonProducts.map(({ href = hrefNoOp, label, ariaLabel, onClick }, i) => (
+                    <li key={i}>
+                      <Link
+                        aria-label={ariaLabel}
+                        component="a"
+                        href={href}
+                        onClick={wrapHandleExitAction(href, onClick, onExit)}
+                        underline="none"
+                        color="text.primary"
+                        sx={{ display: 'inline-block', py: 0.5 }}
+                        variant="subtitle2"
+                        lang="it" // json products are in Italian, so we can set lang attribute to it for a11y
+                      >
+                        {label}
+                      </Link>
+                    </li>
+                  ))}
                 </Stack>
               </Stack>
             </Grid>
@@ -155,14 +159,14 @@ export const FooterPreLogin = ({
 
           <Grid item xs={12} sm={3}>
             <Stack spacing={2} alignItems={{ xs: 'center', sm: 'start' }}>
-              {resources?.title && <Typography variant="overline">{resources.title}</Typography>}
+              {resources.title && <Typography variant="overline">{resources.title}</Typography>}
 
               <Stack
                 component="ul"
                 alignItems={{ xs: 'center', sm: 'start' }}
                 sx={{ padding: 0, listStyle: 'none' }}
               >
-                {resources?.links.map(({ href = hrefNoOp, label, ariaLabel, onClick }, i) => (
+                {resources.links.map(({ href = hrefNoOp, label, ariaLabel, onClick }, i) => (
                   <li key={i}>
                     <Link
                       aria-label={ariaLabel}
@@ -190,7 +194,7 @@ export const FooterPreLogin = ({
               alignItems={{ xs: 'center', sm: 'start' }}
             >
               <Stack spacing={2} alignItems={{ xs: 'center', sm: 'start' }}>
-                {followUs?.title && <Typography variant="overline">{followUs.title}</Typography>}
+                {followUs.title && <Typography variant="overline">{followUs.title}</Typography>}
 
                 <Stack alignItems={{ xs: 'center', sm: 'start' }}>
                   <Stack
@@ -200,8 +204,9 @@ export const FooterPreLogin = ({
                     alignItems={{ xs: 'center', sm: 'start' }}
                     sx={{ padding: 0, mt: 0.5, listStyle: 'none' }}
                   >
-                    {followUs?.socialLinks.map(
-                      ({ icon, href = hrefNoOp, ariaLabel, onClick }, i) => (
+                    {followUs.socialLinks
+                      .filter(({ icon }) => icon in iconMap)
+                      .map(({ icon, href = hrefNoOp, ariaLabel, onClick }, i) => (
                         <li key={i}>
                           <Link
                             aria-label={ariaLabel}
@@ -212,11 +217,10 @@ export const FooterPreLogin = ({
                             sx={{ display: 'inline-flex' }}
                             variant="caption"
                           >
-                            {icon && iconMap[icon]}
+                            {iconMap[icon]}
                           </Link>
                         </li>
-                      )
-                    )}
+                      ))}
                   </Stack>
 
                   <Stack
@@ -224,7 +228,7 @@ export const FooterPreLogin = ({
                     alignItems={{ xs: 'center', sm: 'start' }}
                     sx={{ padding: 0, margin: 0, listStyle: 'none' }}
                   >
-                    {followUs?.links.map(({ href = hrefNoOp, label, ariaLabel, onClick }, i) => (
+                    {followUs.links.map(({ href = hrefNoOp, label, ariaLabel, onClick }, i) => (
                       <li key={i}>
                         <Link
                           aria-label={ariaLabel}

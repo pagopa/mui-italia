@@ -1,4 +1,4 @@
-import { Chip } from '@components/Chip';
+import { MIChip } from '@components/MIChip';
 import { Box } from '@mui/material';
 
 interface Props<T> {
@@ -29,19 +29,21 @@ const MultiSelectChips = <T,>({
 
   return (
     <Box display="contents" role="list" {...slotProps.list}>
-      {selectedOptions.map((option, index) => (
-        <Chip
-          key={getOptionKey(option, index)}
-          label={getOptionLabel(option)}
-          onDelete={() => handleChipDelete(option)}
-          disabled={disabled}
-          aria-setsize={selectedOptions.length}
-          aria-posinset={index + 1}
-          role="listitem"
-          size="small"
-          {...slotProps.chip}
-        />
-      ))}
+      {selectedOptions.map((option, index) => {
+        const label = getOptionLabel(option);
+        return (
+          <MIChip
+            key={getOptionKey(option, index)}
+            label={label}
+            onDelete={() => handleChipDelete(option)}
+            disabled={disabled}
+            aria-setsize={selectedOptions.length}
+            aria-posinset={index + 1}
+            role="listitem"
+            deleteIconAriaLabel={slotProps.chip?.['aria-label']?.replace('%s', label)}
+          />
+        );
+      })}
     </Box>
   );
 };

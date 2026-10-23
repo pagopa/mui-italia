@@ -1,7 +1,6 @@
 import { AriaAttributes, ReactNode } from 'react';
-import EmojiObjectsOutlinedIcon from '@mui/icons-material/EmojiObjectsOutlined';
+import { EmojiObjectsOutlined as EmojiObjectsOutlinedIcon } from '@mui/icons-material';
 import type { Theme } from '@mui/material/styles';
-import { blue, neutral } from 'theme/colors';
 import { IllusPush } from '../../illustrations/Push';
 
 export type ThemeColor = string | ((theme: Theme) => string);
@@ -16,10 +15,19 @@ export type BannerColorStyle = {
   border: ThemeColor;
 };
 
-export interface BannerCTA {
-  label: string;
-  onClick: () => void;
-}
+export type BannerCTA =
+  | {
+      label: string;
+      onClick: () => void;
+    }
+  | {
+      label: string;
+      href: string;
+      target?: '_self' | '_blank';
+      rel?: string;
+    };
+
+export type BannerCTAWithId = BannerCTA & { id: string };
 
 type DataAttributes = {
   [key: `data-${string}`]: string | number | boolean | undefined;
@@ -41,11 +49,11 @@ export interface BannerProps extends DataAttributes, AriaAttributes {
 const COLOR_STYLE_MAP: Record<BannerColor, BannerColorStyle> = {
   white: {
     background: (theme) => theme.palette.background.paper,
-    border: neutral[100],
+    border: (theme) => theme.colors.neutral.grey[100],
   },
   info: {
-    background: blue[50],
-    border: blue[100],
+    background: (theme) => theme.colors.blue[50],
+    border: (theme) => theme.colors.blue[100],
   },
 };
 

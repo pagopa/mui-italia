@@ -1,0 +1,176 @@
+import { Meta, Title, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
+
+import Overview from './components/Overview';
+import Section from './components/Section';
+import SubSection from './components/SubSection';
+import * as MIAlertStories from '../stories/MIAlert.stories';
+
+<Meta of={MIAlertStories} />
+
+<Title />
+
+<Overview>
+
+  <strong>MIAlert</strong> è un componente basato su <strong>Alert</strong> di MUI e serve a
+  mostrare messaggi di stato o segnalazioni contestuali. Supporta severità semantiche, icone
+  dedicate, una variante compatta <code>header</code>, un titolo opzionale e una CTA opzionale nella
+  variante <code>default</code>.
+</Overview>
+
+<Section
+  title="Playground"
+  description="Usa i controlli per modificare le principali configurazioni del componente e verificarne il comportamento live."
+>
+  <Primary />
+  <Controls />
+</Section>
+
+<Section
+  title="Severità"
+  description="La prop severity determina colore e icona dell’alert. Se non viene indicata, il componente usa la severità success."
+>
+  <Story of={MIAlertStories.Severities} />
+</Section>
+
+<Section
+  title="Varianti"
+  description="MIAlert espone due varianti: default e header. La variante default supporta titolo e CTA; la variante header non accetta né titolo né azione."
+>
+  <SubSection title="Default e header">
+    <Story of={MIAlertStories.Variants} />
+  </SubSection>
+</Section>
+
+<Section
+  title="Call to action"
+  description="Nella variante default è possibile aggiungere una CTA tramite la prop action. La CTA viene trattata come link quando riceve href, oppure come bottone quando riceve onClick."
+>
+  <Story of={MIAlertStories.CtaExamples} />
+</Section>
+
+<Section
+  title="Layout responsive"
+  description="MIAlert può adattare la posizione della CTA alla larghezza disponibile. La prop ctaWrapSize controlla la soglia con cui contenuto e CTA vanno a capo."
+>
+  <SubSection title="Soglie CTA">
+    
+    La prop <code>ctaWrapSize</code> accetta tre valori:
+
+    <ul>
+      <li>
+        <strong>tight</strong>: usa una soglia più piccola e mantiene più facilmente la CTA sulla
+        stessa riga del contenuto.
+      </li>
+      <li>
+        <strong>normal</strong>: valore di default.
+      </li>
+      <li>
+        <strong>wide</strong>: usa una soglia più ampia e porta più facilmente la CTA sotto il
+        contenuto.
+      </li>
+    </ul>
+
+    <Story of={MIAlertStories.CtaWrapSizes} />
+
+  </SubSection>
+</Section>
+
+<Section
+  title="Contenuto personalizzato"
+  description="Il contenuto principale viene passato tramite children e può essere una stringa o un ReactNode."
+>
+  <SubSection title="ReactNode come children">
+    <Story of={MIAlertStories.CustomNodeDescription} />
+  </SubSection>
+
+  <SubSection title="Esempio">
+    ```tsx
+    <MIAlert severity="error" title="Titolo dell'Alert">
+      <span>
+        Controlla i seguenti elementi:
+        <ul>
+          <li>Verifica i dati anagrafici inseriti</li>
+          <li>Controlla l'indirizzo email</li>
+          <li>
+            Consulta la <a href="https://test.com">guida online</a> per maggiori dettagli
+          </li>
+        </ul>
+      </span>
+    </MIAlert>
+    ```
+  </SubSection>
+</Section>
+
+<Section
+  title="Accessibilità"
+  description="MIAlert eredita il comportamento accessibile del componente Alert di MUI. L’accessibilità finale dipende anche dai contenuti passati al componente e dalla configurazione della CTA."
+>
+  <SubSection title="Props rilevanti">
+    <ul>
+      <li>
+        <strong>children</strong>: contiene il messaggio dell’alert. Deve descrivere in modo chiaro
+        lo stato o la segnalazione comunicata.
+      </li>
+      <li>
+        <strong>title</strong>: può aggiungere un’intestazione testuale nella variante{' '}
+        <code>default</code>.
+      </li>
+      <li>
+        <strong>action.label</strong>: è l’etichetta visibile della CTA. Deve descrivere l’azione
+        associata al link o al bottone.
+      </li>
+      <li>
+        <strong>action.href</strong>: quando presente, la CTA viene renderizzata come link.
+      </li>
+      <li>
+        <strong>action.onClick</strong>: quando presente senza <code>href</code>, la CTA viene
+        renderizzata come bottone.
+      </li>
+    </ul>
+  </SubSection>
+
+{' '}
+
+<SubSection title="Link in nuova scheda">
+  Quando la CTA è un link con <code>target="_blank"</code>, il componente imposta{' '}
+  <code>rel="noopener noreferrer"</code> se non viene fornito un valore diverso tramite la prop{' '}
+  <code>rel</code>.
+</SubSection>
+
+{' '}
+
+<SubSection title="Varianti e props non disponibili">
+  <ul>
+    <li>
+      Nella variante <code>header</code> le props <code>title</code> e <code>action</code> non sono
+      disponibili.
+    </li>
+    <li>
+      Il componente espone solo <code>severity</code> e <code>id</code> tra le props di MUI Alert
+      tipizzate direttamente nelle props pubbliche.
+    </li>
+  </ul>
+</SubSection>
+
+  <SubSection title="Esempio accessibile">
+    ```tsx
+    <MIAlert
+      severity="warning"
+      title="Dati non completi"
+      action={{
+        label: 'Completa i dati',
+        href: '/profilo/dati',
+      }}
+    >
+      Alcune informazioni obbligatorie non sono ancora state inserite.
+    </MIAlert>
+    ```
+  </SubSection>
+</Section>
+
+<Section
+  title="Stress test"
+  description="Esempio utile per verificare il comportamento del layout con testi molto lunghi o parole non spezzabili."
+>
+  <Story of={MIAlertStories.StressUnbroken} />
+</Section>

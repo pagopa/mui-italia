@@ -4,7 +4,7 @@ import { execSync } from 'child_process';
 import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
-import muiPreset from '../mui-preset/index.js';
+import muiPreset from '../mui-preset/preset.js';
 
 export function updatePackageVersion(nextTag) {
   info('Updating package.json version');
