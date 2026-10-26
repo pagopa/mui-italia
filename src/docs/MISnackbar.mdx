@@ -1,90 +1,144 @@
-import { Meta, Title, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import { Meta, Title, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
+import Overview from './components/Overview';
+import Section from './components/Section';
+import SubSection from './components/SubSection';
 import * as MISnackbarStories from '../stories/MISnackbar.stories';
 
 <Meta of={MISnackbarStories} />
 
 <Title />
 
-Il componente **MISnackbar** mostra notifiche temporanee e non bloccanti per
-comunicare l'esito di un'azione o uno stato del sistema. Combina il contenitore
-`Snackbar` di MUI con il contenuto semantico di `MISnackbarAlert`, mantenendo una
-resa coerente con il Design System per severita, tipografia e spaziature.
+<Overview>
+  <strong>MISnackbar</strong> mostra notifiche tramite il contenitore Snackbar di MUI. Supporta
+  quattro severità, un titolo opzionale, una descrizione obbligatoria e, per gli errori, un codice
+  tecnico copiabile.
+</Overview>
 
-Usalo per fornire un feedback rapido, contestuale e accessibile, senza interrompere
-il flusso dell'utente.
+<Section title="Riferimenti">
+  <ul>
+    <li>
+      <a href="https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=357-4968&m=dev">
+      🎨  Figma
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/pagopa/mui-italia/blob/develop/src/components/MISnackbar/MISnackbar.tsx">
+        Codice sorgente
+      </a>
+    </li>
+  </ul>
+</Section>
 
-**Link utili**
+<Section
+  title="Playground"
+  description="Modifica contenuto, severità e posizione tramite i Controls. Il pulsante riapre la notifica dopo la chiusura."
+>
+  <Primary />
+  <Controls />
+</Section>
 
-- 🎨 [Figma](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=357-4968&m=dev)
-- 💻 [GitHub](https://github.com/pagopa/mui-italia/blob/develop/src/components/MISnackbar/MISnackbar.tsx)
+<Section
+  title="Severità"
+  description="Le severità modificano colore e icona. Gli esempi sono isolati per evitare la sovrapposizione di più notifiche a posizione fissa."
+>
+  <SubSection title="Default">
+    Notifica di successo con titolo e descrizione.
+    <Story of={MISnackbarStories.Default} />
+  </SubSection>
+  <SubSection title="Info">
+    Notifica informativa.
+    <Story of={MISnackbarStories.Info} />
+  </SubSection>
+  <SubSection title="Warning">
+    Notifica di avviso.
+    <Story of={MISnackbarStories.Warning} />
+  </SubSection>
+  <SubSection title="Error">
+    Notifica di errore senza codice tecnico.
+    <Story of={MISnackbarStories.Error} />
+  </SubSection>
+</Section>
 
-## Playground
+<Section title="Contenuto">
+  <SubSection title="Senza titolo">
+    Omettendo title rimane la sola descrizione.
+    <Story of={MISnackbarStories.SnackbarWithoutTitle} />
+  </SubSection>
+  <SubSection title="Codice errore">
+    Con severity="error", errorCode aggiunge un campo read-only e un pulsante di copia.
+    <Story of={MISnackbarStories.SnackbarWithErrorCode} />
+  </SubSection>
+  <SubSection title="Testo lungo">
+    Il messaggio va a capo entro la larghezza disponibile, senza un limite fisso di altezza.
+    <Story of={MISnackbarStories.LongContent} />
+  </SubSection>
+</Section>
 
-<Canvas of={MISnackbarStories.Default} />
+<Section title="Note per gli sviluppatori">
+  <ul>
+    <li>
+      <code>open</code>, <code>severity</code>, <code>description</code> e <code>onClose</code> sono obbligatorie; <code>title</code> e <code>anchorOrigin</code> sono opzionali.
+    </li>
+    <li>Il componente è controllato: <code>onClose</code> deve aggiornare open nel parent.</li>
+    <li>
+      **La durata di auto-hide è 5000 ms**. Con <code>severity="error"</code> e un <code>errorCode</code> non vuoto, l'auto-hide è
+      disabilitato. I timer seguono anche il comportamento di pausa e ripresa di MUI.
+    </li>
+    <li><code>errorCode</code> e <code>errorCodeAriaLabel</code> sono ammesse dai tipi solo con severity="error".</li>
+    <li>
+      <code>anchorOrigin</code> configura posizione verticale e orizzontale. Nel Playground è rappresentata dai
+      controlli Storybook <code>vertical</code> e <code>horizontal</code>, che non sono props utilizzabili.
+    </li>
+    <li>L'API pubblica non espone <code>children</code>, <code>sx</code>, <code>autoHideDuration</code> o le altre props di Snackbar.</li>
+    <li>
+      Nelle stories statiche open rimane true e onClose non modifica lo stato, per mantenere
+      visibili gli snapshot. Nel Playground open è gestito dagli args Storybook ma non è esposto
+      come Control: usa il pulsante Mostra notifica per aprire o riaprire la snackbar.
+    </li>
+    <li>
+      Gli esempi usano iframe separati e un portal locale per uscire dal wrapper globale marcato
+      data-chromatic="ignore", conservando il tema globale.
+    </li>
+  </ul>
+</Section>
 
-<Controls of={MISnackbarStories.Default} />
+<Section title="Note per i designer">
+  <ul>
+    <li>
+      La larghezza massima verificata dal codice è 560 px, incluso il box dell'alert. Il minimo di
+      280 px si riduce quando la viewport non consente di mantenere anche gli spazi laterali. Così come da design
+    </li>
+    <li>
+      Su desktop <code>anchorOrigin</code> determina l'ancoraggio. Su mobile gli offset laterali sono comuni alle
+      tre posizioni orizzontali.
+    </li>
+  </ul>
+</Section>
 
-## Severity
-
-La prop `severity` definisce il significato del messaggio e ne determina stile e
-icona, secondo i livelli semantici del Design System:
-
-- **`success`** - operazione completata correttamente.
-- **`info`** - informazione neutra o contestuale.
-- **`warning`** - avviso che richiede attenzione.
-- **`error`** - errore o problema che richiede azione.
-
-## Varianti di contenuto
-
-`MISnackbar` supporta titolo opzionale e descrizione obbligatoria. Quando il titolo
-non e presente, il layout resta compatto e privilegia il testo principale.
-
-### Default
-
-<Canvas of={MISnackbarStories.Default} />
-
-### Senza titolo
-
-<Canvas of={MISnackbarStories.SnackbarWithoutTitle} />
-
-## Error code
-
-Nei casi di errore puoi mostrare un codice tecnico tramite `errorCode`. Il codice
-viene presentato in un campo read-only con azione di copia, utile per assistenza e
-troubleshooting.
-
-### Con error code
-
-<Canvas of={MISnackbarStories.SnackbarWithErrorCode} />
-
-```tsx
-<MISnackbar
-  open={open}
-  severity="error"
-  title="Operazione non completata"
-  description="Si e verificato un errore. Contatta l'assistenza e condividi il codice."
-  errorCode="ERROR-404"
-  errorCodeAriaLabel="Codice errore ERROR-404"
-  onClose={handleClose}
-/>
-```
-
-## Comportamento
-
-- **Componente controllato.** La visibilita e gestita dal parent tramite `open`.
-- **Chiusura.** `onClose` deve aggiornare lo stato del parent per chiudere la snackbar.
-- **Auto-hide.** Se `severity="error"` e `errorCode` e valorizzato, l'auto-hide e disabilitato.
-- **Posizionamento.** `anchorOrigin` permette di cambiare posizione (es. bottom-right).
-
-## Accessibilità
-
-`MISnackbar` implementa una gestione del focus pensata per tecnologie assistive:
-
-- all'apertura sposta il focus sulla snackbar per favorire l'annuncio del contenuto;
-- alla chiusura ripristina il focus all'elemento precedentemente attivo.
-
-Per un'esperienza accessibile:
-
-- usa testi chiari in `description` e, quando presente, in `title`;
-- fornisci `errorCodeAriaLabel` descrittivo per i codici errore;
-- evita messaggi generici: indica sempre cosa e successo e cosa puo fare l'utente.
+<Section title="Accessibilità">
+  <SubSection title="Nome accessibile e focus">
+    L'alert ha tabIndex=0 e un nome accessibile composto da <code>title</code>, <code>description</code> ed <code>errorCodeAriaLabel</code>
+    quando fornita. Dopo l'apertura il componente tenta di spostare il focus sull'alert con un
+    ritardo di 100 ms; quando open diventa false ripristina il focus sull'elemento precedentemente
+    attivo.
+  </SubSection>
+  <SubSection title="Contenuti configurabili e limiti">
+    <code>errorCodeAriaLabel</code> configura il nome accessibile del campo codice errore e partecipa al nome
+    dell'alert. Senza questa prop, il campo usa il testo inglese "Error code:" seguito dal codice.
+    L'API non espone una prop per tradurre direttamente il nome del pulsante di chiusura o le
+    stringhe interne del pulsante di copia.
+  </SubSection>
+  <SubSection title="Esempio">
+    ```tsx
+    <MISnackbar
+      open={open}
+      severity="error"
+      title="Operazione non completata"
+      description="Contatta l'assistenza e comunica il codice errore."
+      errorCode="ERR-PROFILE-403"
+      errorCodeAriaLabel="Codice errore: ERR-PROFILE-403"
+      onClose={() => setOpen(false)}
+    />
+    ```
+  </SubSection>
+</Section>
