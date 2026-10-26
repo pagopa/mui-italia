@@ -5,11 +5,41 @@ import { Box, Button } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { breakpointsChromaticValues } from '@theme';
 import { createPortal } from 'react-dom';
+import { useState } from 'react';
 import { useArgs } from 'storybook/preview-api';
 
 type MISnackbarStoryArgs = MISnackbarProps & {
   horizontal: 'left' | 'center' | 'right';
   vertical: 'top' | 'bottom';
+};
+
+type WithoutSnackbarState<Props> = Props extends unknown ? Omit<Props, 'open' | 'onClose'> : never;
+
+type MISnackbarExampleProps = WithoutSnackbarState<MISnackbarProps> & {
+  viewMode: 'docs' | 'story';
+};
+
+const MISnackbarStoryExample = (props: MISnackbarExampleProps) => {
+  const [hasOpened, setHasOpened] = useState(props.viewMode === 'story');
+  const [open, setOpen] = useState(props.viewMode === 'story');
+  const { viewMode, ...snackbarProps } = props;
+
+  return (
+    <>
+      {viewMode === 'docs' && !open && (
+        <Button
+          variant="contained"
+          onClick={() => {
+            setHasOpened(true);
+            setOpen(true);
+          }}
+        >
+          Mostra notifica
+        </Button>
+      )}
+      {hasOpened && <MISnackbar {...snackbarProps} open={open} onClose={() => setOpen(false)} />}
+    </>
+  );
 };
 
 const meta: Meta<MISnackbarStoryArgs> = {
@@ -145,94 +175,87 @@ export const Playground: Story = {
 };
 
 export const Default: Story = {
-  parameters: { controls: { disable: true } },
-  render: () => (
-    <MISnackbar
-      open
+  parameters: { controls: { disable: true }, docs: { story: { inline: true } } },
+  render: (_args: MISnackbarStoryArgs, context: { viewMode: 'docs' | 'story' }) => (
+    <MISnackbarStoryExample
+      viewMode={context.viewMode}
       severity="success"
       title="Modifiche salvate"
       description="Le informazioni del profilo sono state aggiornate."
-      onClose={() => {}}
     />
   ),
 };
 
 export const Info: Story = {
-  parameters: { controls: { disable: true } },
-  render: () => (
-    <MISnackbar
-      open
+  parameters: { controls: { disable: true }, docs: { story: { inline: true } } },
+  render: (_args: MISnackbarStoryArgs, context: { viewMode: 'docs' | 'story' }) => (
+    <MISnackbarStoryExample
+      viewMode={context.viewMode}
       severity="info"
       title="Richiesta ricevuta"
       description="Riceverai una comunicazione al termine della verifica."
-      onClose={() => {}}
     />
   ),
 };
 
 export const Warning: Story = {
-  parameters: { controls: { disable: true } },
-  render: () => (
-    <MISnackbar
-      open
+  parameters: { controls: { disable: true }, docs: { story: { inline: true } } },
+  render: (_args: MISnackbarStoryArgs, context: { viewMode: 'docs' | 'story' }) => (
+    <MISnackbarStoryExample
+      viewMode={context.viewMode}
       severity="warning"
       title="Sessione in scadenza"
       description="Salva le modifiche prima di continuare."
-      onClose={() => {}}
     />
   ),
 };
 
 export const Error: Story = {
-  parameters: { controls: { disable: true } },
-  render: () => (
-    <MISnackbar
-      open
+  parameters: { controls: { disable: true }, docs: { story: { inline: true } } },
+  render: (_args: MISnackbarStoryArgs, context: { viewMode: 'docs' | 'story' }) => (
+    <MISnackbarStoryExample
+      viewMode={context.viewMode}
       severity="error"
       title="Salvataggio non riuscito"
       description="Le modifiche non sono state salvate. Riprova."
-      onClose={() => {}}
     />
   ),
 };
 
 export const SnackbarWithoutTitle: Story = {
-  parameters: { controls: { disable: true } },
-  render: () => (
-    <MISnackbar
-      open
+  parameters: { controls: { disable: true }, docs: { story: { inline: true } } },
+  render: (_args: MISnackbarStoryArgs, context: { viewMode: 'docs' | 'story' }) => (
+    <MISnackbarStoryExample
+      viewMode={context.viewMode}
       severity="success"
       description="Il documento è stato caricato."
-      onClose={() => {}}
     />
   ),
 };
 
 export const SnackbarWithErrorCode: Story = {
-  parameters: { controls: { disable: true } },
-  render: () => (
-    <MISnackbar
-      open
+  parameters: { controls: { disable: true }, docs: { story: { inline: true } } },
+  render: (_args: MISnackbarStoryArgs, context: { viewMode: 'docs' | 'story' }) => (
+    <MISnackbarStoryExample
+      viewMode={context.viewMode}
       severity="error"
       title="Operazione non completata"
       description="Contatta l'assistenza e comunica il codice errore."
       errorCode="ERR-PROFILE-403"
       errorCodeAriaLabel="Codice errore: ERR-PROFILE-403"
       anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-      onClose={() => {}}
     />
   ),
 };
 
 export const LongContent: Story = {
-  parameters: { controls: { disable: true } },
-  render: () => (
-    <MISnackbar
-      open
+  parameters: { controls: { disable: true }, docs: { story: { inline: true } } },
+  render: (_args: MISnackbarStoryArgs, context: { viewMode: 'docs' | 'story' }) => (
+    <MISnackbarStoryExample
+      viewMode={context.viewMode}
       severity="warning"
       title="Non tutte le modifiche sono state salvate"
       description="La connessione è stata interrotta durante il salvataggio delle informazioni del profilo. Verifica la connessione e riprova prima di chiudere questa pagina, per non perdere i dati inseriti."
-      onClose={() => {}}
     />
   ),
 };

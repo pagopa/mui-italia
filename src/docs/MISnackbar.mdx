@@ -18,7 +18,7 @@ import * as MISnackbarStories from '../stories/MISnackbar.stories';
   <ul>
     <li>
       <a href="https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=357-4968&m=dev">
-      🎨  Figma
+        🎨 Figma
       </a>
     </li>
     <li>
@@ -43,61 +43,73 @@ import * as MISnackbarStories from '../stories/MISnackbar.stories';
 >
   <SubSection title="Default">
     Notifica di successo con titolo e descrizione.
-    <Story of={MISnackbarStories.Default} />
+    <Story of={MISnackbarStories.Default} inline />
   </SubSection>
   <SubSection title="Info">
     Notifica informativa.
-    <Story of={MISnackbarStories.Info} />
+    <Story of={MISnackbarStories.Info} inline />
   </SubSection>
   <SubSection title="Warning">
     Notifica di avviso.
-    <Story of={MISnackbarStories.Warning} />
+    <Story of={MISnackbarStories.Warning} inline />
   </SubSection>
   <SubSection title="Error">
     Notifica di errore senza codice tecnico.
-    <Story of={MISnackbarStories.Error} />
+    <Story of={MISnackbarStories.Error} inline />
   </SubSection>
 </Section>
 
 <Section title="Contenuto">
   <SubSection title="Senza titolo">
     Omettendo title rimane la sola descrizione.
-    <Story of={MISnackbarStories.SnackbarWithoutTitle} />
+    <Story of={MISnackbarStories.SnackbarWithoutTitle} inline />
   </SubSection>
   <SubSection title="Codice errore">
     Con severity="error", errorCode aggiunge un campo read-only e un pulsante di copia.
-    <Story of={MISnackbarStories.SnackbarWithErrorCode} />
+    <Story of={MISnackbarStories.SnackbarWithErrorCode} inline />
   </SubSection>
   <SubSection title="Testo lungo">
     Il messaggio va a capo entro la larghezza disponibile, senza un limite fisso di altezza.
-    <Story of={MISnackbarStories.LongContent} />
+    <Story of={MISnackbarStories.LongContent} inline />
   </SubSection>
 </Section>
 
 <Section title="Note per gli sviluppatori">
   <ul>
     <li>
-      <code>open</code>, <code>severity</code>, <code>description</code> e <code>onClose</code> sono obbligatorie; <code>title</code> e <code>anchorOrigin</code> sono opzionali.
-    </li>
-    <li>Il componente è controllato: <code>onClose</code> deve aggiornare open nel parent.</li>
-    <li>
-      **La durata di auto-hide è 5000 ms**. Con <code>severity="error"</code> e un <code>errorCode</code> non vuoto, l'auto-hide è
-      disabilitato. I timer seguono anche il comportamento di pausa e ripresa di MUI.
-    </li>
-    <li><code>errorCode</code> e <code>errorCodeAriaLabel</code> sono ammesse dai tipi solo con severity="error".</li>
-    <li>
-      <code>anchorOrigin</code> configura posizione verticale e orizzontale. Nel Playground è rappresentata dai
-      controlli Storybook <code>vertical</code> e <code>horizontal</code>, che non sono props utilizzabili.
-    </li>
-    <li>L'API pubblica non espone <code>children</code>, <code>sx</code>, <code>autoHideDuration</code> o le altre props di Snackbar.</li>
-    <li>
-      Nelle stories statiche open rimane true e onClose non modifica lo stato, per mantenere
-      visibili gli snapshot. Nel Playground open è gestito dagli args Storybook ma non è esposto
-      come Control: usa il pulsante Mostra notifica per aprire o riaprire la snackbar.
+      <code>open</code>, <code>severity</code>, <code>description</code> e <code>onClose</code> sono
+      obbligatorie; <code>title</code> e <code>anchorOrigin</code> sono opzionali.
     </li>
     <li>
-      Gli esempi usano iframe separati e un portal locale per uscire dal wrapper globale marcato
-      data-chromatic="ignore", conservando il tema globale.
+      Il componente è controllato: <code>onClose</code> deve aggiornare open nel parent.
+    </li>
+    <li>
+      **La durata di auto-hide è 5000 ms**. Con <code>severity="error"</code> e un{' '}
+      <code>errorCode</code> non vuoto, l'auto-hide è disabilitato. I timer seguono anche il
+      comportamento di pausa e ripresa di MUI.
+    </li>
+    <li>
+      <code>errorCode</code> e <code>errorCodeAriaLabel</code> sono ammesse dai tipi solo con
+      severity="error".
+    </li>
+    <li>
+      <code>anchorOrigin</code> configura posizione verticale e orizzontale. Nel Playground è
+      rappresentata dai controlli Storybook <code>vertical</code> e <code>horizontal</code>, che non
+      sono props utilizzabili.
+    </li>
+    <li>
+      L'API pubblica non espone <code>children</code>, <code>sx</code>,{' '}
+      <code>autoHideDuration</code> o le altre props di Snackbar.
+    </li>
+    <li>
+      Le stories statiche restano aperte in Canvas per gli snapshot. In Docs sono inline e montano
+      la snackbar solo dopo il clic su Mostra notifica; dopo la chiusura, il pulsante consente di
+      riaprirla. Nel Playground open è gestito dagli args Storybook ma non è esposto come Control.
+    </li>
+    <li>
+      In Canvas gli esempi usano un portal locale per uscire dal wrapper globale marcato
+      data-chromatic="ignore", conservando il tema globale. In Docs il rendering inline mantiene
+      il pulsante di apertura nel flusso della pagina.
     </li>
   </ul>
 </Section>
@@ -106,27 +118,29 @@ import * as MISnackbarStories from '../stories/MISnackbar.stories';
   <ul>
     <li>
       La larghezza massima verificata dal codice è 560 px, incluso il box dell'alert. Il minimo di
-      280 px si riduce quando la viewport non consente di mantenere anche gli spazi laterali. Così come da design
+      280 px si riduce quando la viewport non consente di mantenere anche gli spazi laterali. Così
+      come da design.
     </li>
     <li>
-      Su desktop <code>anchorOrigin</code> determina l'ancoraggio. Su mobile gli offset laterali sono comuni alle
-      tre posizioni orizzontali.
+      Su desktop <code>anchorOrigin</code> determina l'ancoraggio. Su mobile gli offset laterali
+      sono comuni alle tre posizioni orizzontali.
     </li>
   </ul>
 </Section>
 
 <Section title="Accessibilità">
   <SubSection title="Nome accessibile e focus">
-    L'alert ha tabIndex=0 e un nome accessibile composto da <code>title</code>, <code>description</code> ed <code>errorCodeAriaLabel</code>
+    L'alert ha tabIndex=0 e un nome accessibile composto da <code>title</code>,{' '}
+    <code>description</code> ed <code>errorCodeAriaLabel</code>
     quando fornita. Dopo l'apertura il componente tenta di spostare il focus sull'alert con un
     ritardo di 100 ms; quando open diventa false ripristina il focus sull'elemento precedentemente
     attivo.
   </SubSection>
   <SubSection title="Contenuti configurabili e limiti">
-    <code>errorCodeAriaLabel</code> configura il nome accessibile del campo codice errore e partecipa al nome
-    dell'alert. Senza questa prop, il campo usa il testo inglese "Error code:" seguito dal codice.
-    L'API non espone una prop per tradurre direttamente il nome del pulsante di chiusura o le
-    stringhe interne del pulsante di copia.
+    <code>errorCodeAriaLabel</code> configura il nome accessibile del campo codice errore e
+    partecipa al nome dell'alert. Senza questa prop, il campo usa il testo inglese "Error code:"
+    seguito dal codice. L'API non espone una prop per tradurre direttamente il nome del pulsante di
+    chiusura o le stringhe interne del pulsante di copia.
   </SubSection>
   <SubSection title="Esempio">
     ```tsx
