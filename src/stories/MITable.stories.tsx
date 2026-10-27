@@ -6,7 +6,7 @@ import { useState } from 'react';
 import type { ChangeEvent, ComponentType } from 'react';
 
 import { MIButton } from '@components/MIButton';
-import { MITable, MITableRow, type MITableColumn } from '@components/MITable';
+import { MITable, type MITableColumn } from '@components/MITable';
 
 import { MIChip } from '@components/MIChip';
 
@@ -27,9 +27,6 @@ const rows: Array<TableRow> = Array.from({ length: 10 }, (_, index) => ({
   value: 'Cell',
   status: 'Default',
 }));
-
-const renderRows = (tableRows: Array<TableRow>) =>
-  tableRows.map((row) => <MITableRow key={row.id} row={row} />);
 
 const columns: Array<MITableColumn<TableRow>> = [
   {
@@ -152,9 +149,12 @@ export const Playground: Story = {
       : undefined;
 
     return (
-      <MITable columns={tableColumns} getRowId={(row) => row.id} pagination={pagination}>
-        {renderRows(rows)}
-      </MITable>
+      <MITable
+        columns={tableColumns}
+        rows={rows}
+        getRowId={(row) => row.id}
+        pagination={pagination}
+      />
     );
   },
 };
@@ -165,11 +165,7 @@ export const WithoutActions: Story = {
       disable: true,
     },
   },
-  render: () => (
-    <MITable columns={columns} getRowId={(row) => row.id}>
-      {renderRows(rows)}
-    </MITable>
-  ),
+  render: () => <MITable columns={columns} rows={rows} getRowId={(row) => row.id} />,
 };
 
 export const WithoutPagination: Story = {
@@ -179,8 +175,6 @@ export const WithoutPagination: Story = {
     },
   },
   render: () => (
-    <MITable columns={[...columns, ...actionColumns]} getRowId={(row) => row.id}>
-      {renderRows(rows)}
-    </MITable>
+    <MITable columns={[...columns, ...actionColumns]} rows={rows} getRowId={(row) => row.id} />
   ),
 };

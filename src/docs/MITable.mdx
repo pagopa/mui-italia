@@ -103,6 +103,16 @@ import * as MITableStories from '../stories/MITable.stories';
   <SubSection title="Props rilevanti">
     <ul>
       <li>
+        <strong>rows</strong>: array dei dati da mostrare. Ogni elemento viene passato a{' '}
+        <code>renderCell</code> delle colonne. Con un array vuoto vengono mostrate solo le
+        intestazioni.
+      </li>
+      <li>
+        <strong>getRowId</strong>: restituisce un identificativo stabile e univoco per riga, usato
+        come <code>key</code> React e per gli id delle label mobile. Se omessa si usa l’indice, che
+        è sconsigliato quando le righe possono essere riordinate o paginate.
+      </li>
+      <li>
         <strong>containerProps</strong>: permette di passare attributi HTML/ARIA al contenitore
         esterno del componente (ad esempio <code>id</code>, <code>className</code>,
         <code>aria-labelledby</code>).
@@ -152,6 +162,7 @@ import * as MITableStories from '../stories/MITable.stories';
         },
       ]}
       getRowId={(row) => row.id}
+      rows={rows}
       pagination={{
         count: 10,
         page: 1,
@@ -162,11 +173,7 @@ import * as MITableStories from '../stories/MITable.stories';
           onLimitChange: () => {},
         },
       }}
-    >
-      {rows.map((row) => (
-        <MITableRow key={row.id} row={row} />
-      ))}
-    </MITable>
+    />
     ```
 
   </SubSection>

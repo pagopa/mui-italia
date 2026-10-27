@@ -3,7 +3,6 @@
 import { ArrowDownward as ArrowDownwardIcon } from '@mui/icons-material';
 import {
   Box,
-  Divider,
   Stack,
   Table,
   TableBody,
@@ -17,12 +16,10 @@ import {
 } from '@mui/material';
 import { styled, useTheme } from '@mui/material/styles';
 import { visuallyHidden } from '@mui/utils';
-import { Children, isValidElement } from 'react';
-import type { ReactElement, ReactNode } from 'react';
-
+import { MIDivider } from '@components/MIDivider';
 import { MIPagination } from '@components/MIPagination';
 
-import type { MITableProps, MITableRowProps } from './types';
+import type { MITableProps } from './types';
 
 type StyledCellWithMinWidthProps = {
   ownerState: {
@@ -126,21 +123,9 @@ const StyledPaginationWrapper = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const MITableRow = <RowData,>(props: MITableRowProps<RowData>) => {
-  void props;
-  return null;
-};
-
-MITableRow.displayName = 'MITableRow';
-
-const isMITableRowElement = <RowData,>(
-  child: ReactNode
-): child is ReactElement<MITableRowProps<RowData>> =>
-  isValidElement<MITableRowProps<RowData>>(child) && child.type === MITableRow;
-
 const MITable = <RowData,>({
   columns,
-  children,
+  rows,
   getRowId,
   pagination,
   sx,
@@ -167,23 +152,14 @@ const MITable = <RowData,>({
     mobileTableProps?.['aria-labelledby'] !== undefined;
   const mobileRowsRole = mobileTableProps?.role ?? (hasMobileAccessibleName ? 'group' : undefined);
 
-  const rows = Children.toArray(children).flatMap((child, index) => {
-    if (!isMITableRowElement<RowData>(child)) {
-      return [];
-    }
-
-    const row = child.props.row;
-    const rowId = child.props.rowId ?? getRowId?.(row, index) ?? index;
-
-    return [{ row, rowId }];
-  });
+  const tableRows = rows.map((row, index) => ({ row, rowId: getRowId?.(row, index) ?? index }));
 
   return (
     <StyledRoot sx={sx} {...containerProps}>
       <Box>
         {isMobile ? (
-          <StyledMobileRows divider={<Divider />} {...mobileTableProps} role={mobileRowsRole}>
-            {rows.map(({ row, rowId }) => (
+          <StyledMobileRows divider={<MIDivider />} {...mobileTableProps} role={mobileRowsRole}>
+            {tableRows.map(({ row, rowId }) => (
               <Box key={rowId} component="dl" sx={{ margin: 0 }}>
                 <StyledMobileRow spacing={1}>
                   {contentColumns.map((column) => {
@@ -275,8 +251,8 @@ const MITable = <RowData,>({
               </StyledTableHead>
 
               <StyledBody>
-                {rows.map(({ row, rowId }, index) => {
-                  const isLastRow = index === rows.length - 1;
+                {tableRows.map(({ row, rowId }, index) => {
+                  const isLastRow = index === tableRows.length - 1;
 
                   return (
                     <TableRow key={rowId}>
