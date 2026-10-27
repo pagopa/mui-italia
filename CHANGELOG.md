@@ -1,3 +1,25 @@
+# [2.8.0-RC.7](https://github.com/pagopa/mui-italia/releases/tag/v2.8.0-RC.7) (2026-10-27)
+
+
+### Bug Fixes
+
+* **A2-6109:** replace %s in Autocomplete chip delete aria-label ([#789](https://github.com/pagopa/mui-italia/issues/789)) ([43dacca](https://github.com/pagopa/mui-italia/commit/43dacca58f5e9d87e51c280080bbcfd867add035))
+
+
+### Chores
+
+* updated dependencies for security issues ([#792](https://github.com/pagopa/mui-italia/issues/792)) ([1b1a87c](https://github.com/pagopa/mui-italia/commit/1b1a87cb33151a6ed632aaea2b7f8577b6c36a95))
+* **M20DS-151:** add GitHub Actions workflow for publishing Storybook ([#791](https://github.com/pagopa/mui-italia/issues/791)) ([654791e](https://github.com/pagopa/mui-italia/commit/654791e42ca681cbb921cae8cf28140b119e942a))
+
+
+### Build System
+
+* **deps-dev:** bump eslint-plugin-import from 2.27.5 to 2.32.0 ([#623](https://github.com/pagopa/mui-italia/issues/623)) ([4a8f138](https://github.com/pagopa/mui-italia/commit/4a8f1385d4cfe6c89728891a77028c65c113c88a))
+
+
+### Documentation
+
+* **MUI-249:** enhanced skill for automated documentation ([#781](https://github.com/pagopa/mui-italia/issues/781)) ([c1da2b7](https://github.com/pagopa/mui-italia/commit/c1da2b75f228b343fc5edb4445cbab530c3f3b19))
 # [2.8.0-RC.6](https://github.com/pagopa/mui-italia/releases/tag/v2.8.0-RC.6) (2026-10-16)
 
 
