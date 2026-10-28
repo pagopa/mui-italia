@@ -1,164 +1,261 @@
-import MISnackbar from '@components/MISnackbar/MISnackbar';
-import { Box, Button, Stack, TextField, Typography } from '@mui/material';
-import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+'use client';
 
-const meta: Meta<typeof MISnackbar> = {
-  title: 'Components/MISnackbar',
+import { MISnackbar, type MISnackbarProps } from '@components/MISnackbar';
+import { Box, Button } from '@mui/material';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { breakpointsChromaticValues } from '@theme';
+import { createPortal } from 'react-dom';
+import { useState } from 'react';
+import { useArgs } from 'storybook/preview-api';
+
+type MISnackbarStoryArgs = MISnackbarProps & {
+  horizontal: 'left' | 'center' | 'right';
+  vertical: 'top' | 'bottom';
+};
+
+type WithoutSnackbarState<Props> = Props extends unknown ? Omit<Props, 'open' | 'onClose'> : never;
+
+type MISnackbarExampleProps = WithoutSnackbarState<MISnackbarProps> & {
+  viewMode: 'docs' | 'story';
+};
+
+const MISnackbarStoryExample = (props: MISnackbarExampleProps) => {
+  const [hasOpened, setHasOpened] = useState(props.viewMode === 'story');
+  const [open, setOpen] = useState(props.viewMode === 'story');
+  const { viewMode, ...snackbarProps } = props;
+
+  return (
+    <>
+      {viewMode === 'docs' && !open && (
+        <Button
+          variant="contained"
+          onClick={() => {
+            setHasOpened(true);
+            setOpen(true);
+          }}
+        >
+          Mostra notifica
+        </Button>
+      )}
+      {hasOpened && <MISnackbar {...snackbarProps} open={open} onClose={() => setOpen(false)} />}
+    </>
+  );
+};
+
+const meta: Meta<MISnackbarStoryArgs> = {
   component: MISnackbar,
-  tags: ['autodocs'],
+  title: 'Components/MISnackbar',
+  tags: ['!dev'],
+  parameters: {
+    layout: 'fullscreen',
+    controls: {
+      include: [
+        'severity',
+        'title',
+        'description',
+        'errorCode',
+        'errorCodeAriaLabel',
+        'horizontal',
+        'vertical',
+      ],
+    },
+    docs: { story: { inline: false, height: '360px' } },
+    chromatic: { viewports: breakpointsChromaticValues },
+  },
+  decorators: [
+    (Story, context) =>
+      typeof document === 'undefined' ? (
+        <></>
+      ) : context.viewMode === 'docs' ? (
+        <Box sx={{ minHeight: '20rem', p: 3 }}>
+          <Story />
+        </Box>
+      ) : (
+        createPortal(
+          <Box sx={{ minHeight: '20rem', p: 3 }}>
+            <Story />
+          </Box>,
+          document.body
+        )
+      ),
+  ],
+  args: {
+    open: false,
+    severity: 'success',
+    title: 'Modifiche salvate',
+    description: 'Le informazioni del profilo sono state aggiornate.',
+    horizontal: 'left',
+    vertical: 'bottom',
+  },
   argTypes: {
+    open: { control: false, table: { disable: true } },
     severity: {
       control: 'radio',
       options: ['success', 'info', 'warning', 'error'],
-      defaultValue: 'success',
+      description: 'Severità del messaggio: determina colore e icona.',
     },
-    title: {
-      control: 'text',
-      description: 'Optional title for the alert',
-    },
-    description: {
-      control: 'text',
-      description: 'Main content of the alert',
-    },
+    title: { control: 'text', description: 'Titolo opzionale del messaggio.' },
+    description: { control: 'text', description: 'Descrizione obbligatoria del messaggio.' },
     errorCode: {
       control: 'text',
-      description: 'Optional error code to display with a copy button',
+      if: { arg: 'severity', eq: 'error' },
+      description: 'Codice copiabile, disponibile solo con severity="error".',
     },
-    open: {
-      control: 'boolean',
-      description: 'Controls the visibility of the snackbar',
+    errorCodeAriaLabel: {
+      control: 'text',
+      if: { arg: 'severity', eq: 'error' },
+      description: 'Nome accessibile del campo codice errore. Disponibile solo per gli errori.',
     },
+    horizontal: {
+      control: 'inline-radio',
+      options: ['left', 'center', 'right'],
+      description: 'Controllo Storybook: posizione orizzontale di anchorOrigin.',
+      table: { category: 'Controlli Storybook' },
+    },
+    vertical: {
+      control: 'inline-radio',
+      options: ['top', 'bottom'],
+      description: 'Controllo Storybook: posizione verticale di anchorOrigin.',
+      table: { category: 'Controlli Storybook' },
+    },
+    anchorOrigin: { control: false, table: { disable: true } },
+    onClose: { control: false, table: { disable: true } },
+  },
+  render: function RenderPlayground({
+    open,
+    severity,
+    title,
+    description,
+    errorCode,
+    errorCodeAriaLabel,
+    horizontal,
+    vertical,
+  }) {
+    const [, updateArgs] = useArgs<MISnackbarStoryArgs>();
+    const handleClose = () => updateArgs({ open: false });
+
+    return (
+      <>
+        <Button variant="contained" onClick={() => updateArgs({ open: true })}>
+          Mostra notifica
+        </Button>
+        {severity === 'error' ? (
+          <MISnackbar
+            open={open}
+            severity="error"
+            title={title}
+            description={description}
+            errorCode={errorCode}
+            errorCodeAriaLabel={errorCodeAriaLabel}
+            anchorOrigin={{ horizontal, vertical }}
+            onClose={handleClose}
+          />
+        ) : (
+          <MISnackbar
+            open={open}
+            severity={severity}
+            title={title}
+            description={description}
+            anchorOrigin={{ horizontal, vertical }}
+            onClose={handleClose}
+          />
+        )}
+      </>
+    );
   },
 };
 
 export default meta;
-type Story = StoryObj<typeof MISnackbar>;
+type Story = StoryObj<MISnackbarStoryArgs>;
+
+export const Playground: Story = {
+  parameters: {
+    docs: { story: { inline: true } },
+  },
+};
 
 export const Default: Story = {
-  args: {
-    severity: 'success',
-    title: 'Titolo della snackbar',
-    description: 'Ut enim ad minim veniam, quis ullamco laboris nisi ut aliquid',
-    open: false,
-  },
-  render: function RenderWithState(args) {
-    const [isOpen, setIsOpen] = useState(false);
+  parameters: { controls: { disable: true }, docs: { story: { inline: true } } },
+  render: (_args: MISnackbarStoryArgs, context: { viewMode: 'docs' | 'story' }) => (
+    <MISnackbarStoryExample
+      viewMode={context.viewMode}
+      severity="success"
+      title="Modifiche salvate"
+      description="Le informazioni del profilo sono state aggiornate."
+    />
+  ),
+};
 
-    const handleOpen = () => setIsOpen(true);
-    const handleClose = () => setIsOpen(false);
+export const Info: Story = {
+  parameters: { controls: { disable: true }, docs: { story: { inline: true } } },
+  render: (_args: MISnackbarStoryArgs, context: { viewMode: 'docs' | 'story' }) => (
+    <MISnackbarStoryExample
+      viewMode={context.viewMode}
+      severity="info"
+      title="Richiesta ricevuta"
+      description="Riceverai una comunicazione al termine della verifica."
+    />
+  ),
+};
 
-    return (
-      <Box sx={{ p: 4, display: 'flex', justifyContent: 'center', bgcolor: 'grey.50' }}>
-        <Stack
-          spacing={3}
-          sx={{
-            width: '100%',
-            maxWidth: 720,
-            p: 4,
-            borderRadius: 3,
-            bgcolor: 'background.paper',
-            boxShadow: 2,
-          }}
-        >
-          <Typography variant="h5">Test Snackbar in una pagina con più elementi</Typography>
+export const Warning: Story = {
+  parameters: { controls: { disable: true }, docs: { story: { inline: true } } },
+  render: (_args: MISnackbarStoryArgs, context: { viewMode: 'docs' | 'story' }) => (
+    <MISnackbarStoryExample
+      viewMode={context.viewMode}
+      severity="warning"
+      title="Sessione in scadenza"
+      description="Salva le modifiche prima di continuare."
+    />
+  ),
+};
 
-          <Typography component="p" variant="body1">
-            Questa storia simula una pagina con piu contenuti e azioni concorrenti, in modo da
-            verificare come la snackbar si comporta quando il focus non parte da un contesto
-            minimale.
-          </Typography>
-
-          <Typography component="p" variant="body1">
-            Il primo pulsante rappresenta l&apos;azione principale della pagina e apre la snackbar.
-            Il secondo resta indipendente, il TextField serve a simulare un ulteriore elemento
-            interattivo. Senza force focus sulla snackbar, quando questa si apre il focus rimarrebbe
-            sul pulsante e non verrebbe annunciata correttamente dagli screen reader.
-          </Typography>
-
-          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-            <Button variant="contained" onClick={handleOpen}>
-              Trigger Snackbar
-            </Button>
-            <Button variant="outlined">Button</Button>
-            <TextField label="TextField" />
-          </Stack>
-
-          <MISnackbar
-            {...args}
-            open={isOpen || args.open}
-            onClose={() => {
-              handleClose();
-              args.onClose();
-            }}
-          />
-        </Stack>
-      </Box>
-    );
-  },
+export const Error: Story = {
+  parameters: { controls: { disable: true }, docs: { story: { inline: true } } },
+  render: (_args: MISnackbarStoryArgs, context: { viewMode: 'docs' | 'story' }) => (
+    <MISnackbarStoryExample
+      viewMode={context.viewMode}
+      severity="error"
+      title="Salvataggio non riuscito"
+      description="Le modifiche non sono state salvate. Riprova."
+    />
+  ),
 };
 
 export const SnackbarWithoutTitle: Story = {
-  args: {
-    severity: 'success',
-    description: 'Ut enim ad minim veniam, quis ullamco laboris nisi ut aliquid',
-    open: false,
-  },
-  render: function RenderWithState(args) {
-    const [isOpen, setIsOpen] = useState(false);
-
-    const handleOpen = () => setIsOpen(true);
-    const handleClose = () => setIsOpen(false);
-
-    return (
-      <div style={{ padding: '2rem', display: 'flex', justifyContent: 'center' }}>
-        <Button variant="contained" onClick={handleOpen}>
-          Trigger Snackbar
-        </Button>
-
-        <MISnackbar
-          {...args}
-          open={isOpen || args.open}
-          onClose={() => {
-            handleClose();
-            args.onClose();
-          }}
-        />
-      </div>
-    );
-  },
+  parameters: { controls: { disable: true }, docs: { story: { inline: true } } },
+  render: (_args: MISnackbarStoryArgs, context: { viewMode: 'docs' | 'story' }) => (
+    <MISnackbarStoryExample
+      viewMode={context.viewMode}
+      severity="success"
+      description="Il documento è stato caricato."
+    />
+  ),
 };
 
 export const SnackbarWithErrorCode: Story = {
-  args: {
-    title: 'Titolo della snackbar',
-    severity: 'error',
-    description: 'Ut enim ad minim veniam, quis ullamco laboris nisi ut aliquid',
-    errorCode: 'ERROR-404',
-    open: false,
-  },
-  render: function RenderWithState(args) {
-    const [isOpen, setIsOpen] = useState(false);
+  parameters: { controls: { disable: true }, docs: { story: { inline: true } } },
+  render: (_args: MISnackbarStoryArgs, context: { viewMode: 'docs' | 'story' }) => (
+    <MISnackbarStoryExample
+      viewMode={context.viewMode}
+      severity="error"
+      title="Operazione non completata"
+      description="Contatta l'assistenza e comunica il codice errore."
+      errorCode="ERR-PROFILE-403"
+      errorCodeAriaLabel="Codice errore: ERR-PROFILE-403"
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+    />
+  ),
+};
 
-    const handleOpen = () => setIsOpen(true);
-    const handleClose = () => setIsOpen(false);
-
-    return (
-      <div style={{ padding: '2rem', display: 'flex', justifyContent: 'center' }}>
-        <Button variant="contained" onClick={handleOpen}>
-          Trigger Snackbar
-        </Button>
-
-        <MISnackbar
-          {...args}
-          open={isOpen || args.open}
-          onClose={() => {
-            handleClose();
-            args.onClose();
-          }}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        />
-      </div>
-    );
-  },
+export const LongContent: Story = {
+  parameters: { controls: { disable: true }, docs: { story: { inline: true } } },
+  render: (_args: MISnackbarStoryArgs, context: { viewMode: 'docs' | 'story' }) => (
+    <MISnackbarStoryExample
+      viewMode={context.viewMode}
+      severity="warning"
+      title="Non tutte le modifiche sono state salvate"
+      description="La connessione è stata interrotta durante il salvataggio delle informazioni del profilo. Verifica la connessione e riprova prima di chiudere questa pagina, per non perdere i dati inseriti."
+    />
+  ),
 };
