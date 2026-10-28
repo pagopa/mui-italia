@@ -1,6 +1,8 @@
-import { Snackbar, SnackbarProps } from '@mui/material';
+'use client';
+
+import { Snackbar, type SnackbarProps } from '@mui/material';
 import { useEffect, useRef } from 'react';
-import MISnackbarAlert, { MISnackbarAlertProps } from './MISnackbarAlert';
+import MISnackbarAlert, { type MISnackbarAlertProps } from './MISnackbarAlert';
 
 export type MISnackbarProps = MISnackbarAlertProps & {
   open: boolean;
@@ -44,6 +46,15 @@ const MISnackbar = (props: MISnackbarProps) => {
       autoHideDuration={hideDuration}
       onClose={props.onClose}
       anchorOrigin={anchorOrigin}
+      sx={(theme) => ({
+        width: '100%',
+        minWidth: `min(280px, calc(100% - ${theme.spacing(6)}))`,
+        maxWidth: `min(560px, calc(100% - ${theme.spacing(6)}))`,
+        [theme.breakpoints.down('sm')]: {
+          left: theme.spacing(3),
+          right: theme.spacing(3),
+        },
+      })}
     >
       <MISnackbarAlert {...alertProps} ref={alertRef} />
     </Snackbar>
