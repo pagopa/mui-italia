@@ -1,3 +1,9 @@
+# [2.8.0-RC.8](https://github.com/pagopa/mui-italia/releases/tag/v2.8.0-RC.8) (2026-10-28)
+
+
+### Bug Fixes
+
+* **M20DS-152:** MiSnackbar updated min and maxWitdh and update storybooks  ([#793](https://github.com/pagopa/mui-italia/issues/793)) ([e7bd277](https://github.com/pagopa/mui-italia/commit/e7bd27737f232c0732269d0208c25da937512ffc))
 # [2.8.0-RC.7](https://github.com/pagopa/mui-italia/releases/tag/v2.8.0-RC.7) (2026-10-27)
 
 
