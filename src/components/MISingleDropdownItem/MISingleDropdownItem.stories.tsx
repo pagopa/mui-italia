@@ -1,84 +1,272 @@
-import { AccountBalance as AccountBalanceIcon } from '@mui/icons-material';
-import { Box } from '@mui/material';
+import {
+  AccountBalance as AccountBalanceIcon,
+  LocationOn as LocationOnIcon,
+  MyLocation as MyLocationIcon,
+} from '@mui/icons-material';
+import { Box, Typography } from '@mui/material';
 import { MIChip } from '@components/MIChip';
-import { MISingleDropdownItem } from '@components/MISingleDropdownItem';
+import {
+  MISingleDropdownItem,
+  type MISingleDropdownItemProps,
+} from '@components/MISingleDropdownItem';
+import { breakpointsChromaticValues } from '@theme';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { ReactNode } from 'react';
+import { Stack } from '@mui/system';
 
-const meta = {
+const componentMaxWidth = 400;
+
+type LeftContent = 'location' | 'institution' | 'none';
+
+type MISingleDropdownItemStoryArgs = Omit<
+  MISingleDropdownItemProps,
+  'centralSlot' | 'leftSlot' | 'rightSlot' | 'sx'
+> & {
+  label: string;
+  description: string;
+  leftContent: LeftContent;
+  showDescription: boolean;
+  showChip: boolean;
+};
+
+const createCentralContent = (
+  label: string,
+  description: string,
+  showDescription: boolean
+): ReactNode => (
+  <>
+    {label}
+    {showDescription && description.length > 0 && (
+      <Typography
+        component="span"
+        sx={(theme) => ({
+          color: theme.palette.text.secondary,
+          fontSize: theme.typography.pxToRem(14),
+          fontWeight: theme.typography.fontWeightRegular,
+          lineHeight: theme.typography.pxToRem(20),
+          overflowWrap: 'anywhere',
+        })}
+      >
+        {description}
+      </Typography>
+    )}
+  </>
+);
+
+const createLeftContent = (leftContent: LeftContent): ReactNode => {
+  if (leftContent === 'location') {
+    return (
+      <LocationOnIcon
+        sx={(theme) => ({
+          color: theme.colors.neutral.grey[300],
+          fontSize: 16,
+        })}
+      />
+    );
+  }
+
+  if (leftContent === 'institution') {
+    return (
+      <Box
+        component="span"
+        sx={(theme) => ({
+          alignItems: 'center',
+          backgroundColor: theme.colors.neutral.grey[50],
+          borderRadius: 1,
+          color: theme.colors.neutral.grey[300],
+          display: 'inline-flex',
+          height: 32,
+          justifyContent: 'center',
+          width: 32,
+        })}
+      >
+        <AccountBalanceIcon fontSize="small" />
+      </Box>
+    );
+  }
+
+  return undefined;
+};
+
+const meta: Meta<MISingleDropdownItemStoryArgs> = {
   title: 'Components/MISingleDropdownItem',
   component: MISingleDropdownItem,
+  tags: ['!dev'],
   args: {
-    value: 'pagopa',
-    label: 'PagoPA',
-    description: 'Organization description',
+    label: 'Comune di Roma',
+    description: 'Amministrazione comunale',
+    leftContent: 'location',
+    showDescription: true,
+    showChip: true,
     selected: false,
-    checked: false,
-    multiple: false,
+    disabled: false,
   },
   argTypes: {
     label: {
       control: 'text',
+      description: 'Testo principale mostrato nello slot centrale.',
     },
     description: {
       control: 'text',
+      description: 'Descrizione secondaria mostrata nello slot centrale.',
+    },
+    leftContent: {
+      options: ['location', 'institution', 'none'],
+      control: 'radio',
+      description: 'Contenuto visuale mostrato a sinistra.',
+    },
+    showDescription: {
+      control: 'boolean',
+      description: 'Controllo Storybook: mostra o nasconde la descrizione.',
+    },
+    showChip: {
+      control: 'boolean',
+      description: 'Controllo Storybook: mostra o nasconde il chip di stato.',
     },
     selected: {
       control: 'boolean',
+      description: 'Applica lo stato selezionato supportato dal componente.',
     },
-    checked: {
+    disabled: {
       control: 'boolean',
+      description: 'Disabilita l’opzione.',
     },
-    multiple: {
-      control: 'boolean',
-      description: 'Mostra il checkbox decorativo per le opzioni a selezione multipla.',
+    centralSlot: {
+      control: false,
+      table: { disable: true },
     },
-    avatar: { control: false },
-    chip: { control: false },
-    sx: { control: false },
+    leftSlot: {
+      control: false,
+      table: { disable: true },
+    },
+    rightSlot: {
+      control: false,
+      table: { disable: true },
+    },
+    sx: {
+      control: false,
+      table: { disable: true },
+    },
   },
   parameters: {
     controls: {
-      include: ['label', 'description', 'selected', 'checked', 'multiple'],
+      include: [
+        'label',
+        'description',
+        'leftContent',
+        'showDescription',
+        'showChip',
+        'selected',
+        'disabled',
+      ],
+    },
+    chromatic: {
+      viewports: breakpointsChromaticValues.filter((resolution) => resolution <= componentMaxWidth),
     },
   },
-  render: (args) => (
-    <Box sx={{ width: 320 }}>
+  render: ({ label, description, leftContent, showDescription, showChip, selected, disabled }) => (
+    <Box sx={{ width: 272 }}>
       <MISingleDropdownItem
-        {...args}
-        avatar={
-          <Box
-            component="span"
-            sx={(theme) => ({
-              alignItems: 'center',
-              backgroundColor: theme.colors.neutral.grey[50],
-              borderRadius: 1,
-              color: theme.colors.neutral.grey[300],
-              display: 'inline-flex',
-              height: 32,
-              justifyContent: 'center',
-              width: 32,
-            })}
-          >
-            <AccountBalanceIcon fontSize="small" />
-          </Box>
-        }
-        chip={<MIChip label="Warning" color="warning" />}
+        centralSlot={createCentralContent(label, description, showDescription)}
+        leftSlot={createLeftContent(leftContent)}
+        rightSlot={showChip ? <MIChip label="Warning" color="warning" /> : undefined}
+        selected={selected}
+        disabled={disabled}
       />
     </Box>
   ),
-} satisfies Meta<typeof MISingleDropdownItem>;
+};
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<MISingleDropdownItemStoryArgs>;
 
 export const Playground: Story = {};
 
-export const Selected: Story = {
-  args: { value: 'pagopa', selected: true },
+export const Default: Story = {
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => (
+    <Box sx={{ width: '17rem' }}>
+      <MISingleDropdownItem
+        centralSlot={
+          <Stack flexDirection="column">
+            <Typography component="span" variant='subtitle1'>Comune di Roma</Typography>
+            <Typography
+              component="span"
+              sx={(theme) => ({
+                color: theme.palette.text.secondary,
+                fontSize: theme.typography.pxToRem(14),
+                lineHeight: theme.typography.pxToRem(20),
+              })}
+            >
+              Amministrazione comunale
+            </Typography>
+          </Stack>
+        }
+        leftSlot={<LocationOnIcon
+        sx={(theme) => ({
+          alignSelf: 'flex-start',
+          color: theme.colors.neutral.grey[300],
+          fontSize: 16,
+        })}
+      />}
+        rightSlot={<MIChip label="Warning" color="warning" />}
+      />
+    </Box>
+  ),
 };
 
-export const MultipleSelection: Story = {
+export const Product: Story = {
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => (
+    <Box sx={{ width: 272 }}>
+      <MISingleDropdownItem
+        centralSlot={createCentralContent('PagoPA', 'Servizi di pagamento', true)}
+        leftSlot={createLeftContent('institution')}
+        rightSlot={<MIChip label="Warning" color="warning" />}
+      />
+    </Box>
+  ),
+};
+
+export const CallToActionAppearance: Story = {
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => (
+    <Box sx={{ width: 272 }}>
+      <MISingleDropdownItem
+        centralSlot={
+          <Typography
+            component="span"
+            sx={(theme) => ({
+              color: theme.colors.blue[500],
+              fontSize: theme.typography.pxToRem(16),
+              fontWeight: theme.typography.fontWeightMedium,
+              lineHeight: theme.typography.pxToRem(22),
+            })}
+          >
+            Vai alla posizione
+          </Typography>
+        }
+        rightSlot={
+          <MyLocationIcon
+            sx={(theme) => ({
+              color: theme.colors.blue[500],
+              fontSize: 24,
+            })}
+          />
+        }
+      />
+    </Box>
+  ),
+};
+
+export const Selected: Story = {
   parameters: {
     controls: { disable: true },
   },
@@ -86,29 +274,97 @@ export const MultipleSelection: Story = {
     <Box
       component="ul"
       role="listbox"
-      aria-label="Organizzazioni"
+      aria-label="Enti disponibili"
       aria-multiselectable="true"
-      sx={{ listStyle: 'none', m: 0, p: 0, width: 360 }}
+      sx={{ listStyle: 'none', m: 0, p: 0, width: 272 }}
     >
       <MISingleDropdownItem
         role="option"
         aria-selected="true"
-        value="pagopa"
-        label="PagoPA"
-        description="Gestisci i servizi PagoPA"
-        multiple
+        centralSlot={
+          <Stack>
+            Comune di Roma
+            <Typography
+              component="span"
+              sx={(theme) => ({
+                color: theme.palette.text.secondary,
+                fontSize: theme.typography.pxToRem(14),
+                lineHeight: theme.typography.pxToRem(20),
+              })}
+            >
+              Amministrazione comunale
+            </Typography>
+            <MIChip label="Warning" color="warning" />
+          </Stack>
+        }
+        leftSlot={createLeftContent('location')}
         selected
-        avatar={<AccountBalanceIcon fontSize="small" />}
-        chip={<MIChip label="Warning" color="warning" />}
+        sx={{ alignItems: 'flex-start' }}
       />
+    </Box>
+  ),
+};
+
+export const SecondLevel: Story = {
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => (
+    <Box
+      component="ul"
+      role="listbox"
+      aria-label="Enti disponibili"
+      aria-multiselectable="true"
+      sx={{ listStyle: 'none', m: 0, p: 0, width: 272 }}
+    >
       <MISingleDropdownItem
         role="option"
-        aria-selected="false"
-        value="agency"
-        label="Agenzia delle Entrate"
-        description="Servizi fiscali e tributari"
-        multiple
-        avatar={<AccountBalanceIcon fontSize="small" />}
+        aria-selected="true"
+        centralSlot={
+          <>
+            Servizi digitali
+            <Typography
+              component="span"
+              sx={(theme) => ({
+                color: theme.palette.text.secondary,
+                fontSize: theme.typography.pxToRem(14),
+                lineHeight: theme.typography.pxToRem(20),
+              })}
+            >
+              Servizi per il cittadino
+            </Typography>
+            <MIChip label="Warning" color="warning" />
+          </>
+        }
+        selected
+        sx={{ alignItems: 'flex-start', paddingLeft: 6 }}
+      />
+    </Box>
+  ),
+};
+
+export const Minimal: Story = {
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => (
+    <Box sx={{ width: 272 }}>
+      <MISingleDropdownItem centralSlot="Comune di Roma" />
+    </Box>
+  ),
+};
+
+export const Disabled: Story = {
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => (
+    <Box sx={{ width: 272 }}>
+      <MISingleDropdownItem
+        centralSlot={createCentralContent('Comune di Roma', 'Amministrazione comunale', true)}
+        leftSlot={createLeftContent('location')}
+        rightSlot={<MIChip label="Warning" color="warning" />}
+        disabled
       />
     </Box>
   ),

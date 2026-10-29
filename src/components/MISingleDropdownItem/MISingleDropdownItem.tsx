@@ -1,39 +1,35 @@
 'use client';
 
-import { Checkbox, MenuItem as MuiMenuItem, Typography } from '@mui/material';
+import { Checkbox, MenuItem as MuiMenuItem } from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { forwardRef, type HTMLAttributes, type ReactNode } from 'react';
 
 export type MISingleDropdownItemProps = Omit<HTMLAttributes<HTMLLIElement>, 'children'> & {
-  value: string | number;
-  label: ReactNode;
-  description?: ReactNode;
-  avatar?: ReactNode;
-  chip?: ReactNode;
+  centralSlot: ReactNode;
+  leftSlot?: ReactNode;
+  rightSlot?: ReactNode;
   disabled?: boolean;
-  multiple?: boolean;
   selected?: boolean;
-  checked?: boolean;
   sx?: SxProps<Theme>;
 };
 
 const Root = styled(MuiMenuItem, {
-  shouldForwardProp: (prop) => prop !== 'multiple',
-})<{ multiple: boolean }>(({ theme, multiple }) => {
+  shouldForwardProp: () => true,
+})(({ theme }) => {
   const selectedBackground = alpha(theme.colors.blue[500], 0.08);
 
   return {
-    alignItems: multiple ? 'flex-start' : 'center',
-    backgroundColor: theme.palette.background.paper,
+    alignItems: 'center',
+    backgroundColor: theme.colors.neutral.white,
     minHeight: 'auto',
     color: theme.colors.neutral.black,
     columnGap: theme.spacing(1),
     display: 'flex',
-    minWidth: 0,
+    width: theme.spacing(34),
     whiteSpace: 'normal',
     padding: theme.spacing(1.5, 2),
-    width: '100%',
+    gap :theme.spacing(1),
     '& + &': {
       borderTop: `1px solid ${theme.colors.neutral.grey[100]}`,
     },
@@ -53,38 +49,31 @@ const Root = styled(MuiMenuItem, {
   };
 });
 
-const AvatarSlot = styled('span')({
+const LeftSlot = styled('span')({
   alignItems: 'center',
   display: 'inline-flex',
   flex: '0 0 auto',
   justifyContent: 'center',
 });
 
-const TextContent = styled('span')(({ theme }) => ({
+const CentralSlot = styled('span')(({ theme }) => ({
+  color: theme.colors.neutral.black,
   display: 'flex',
   flex: '1 1 auto',
+  marginLeft: theme.spacing(1),
   flexDirection: 'column',
+  fontSize: theme.typography.pxToRem(16),
+  fontWeight: theme.typography.fontWeightMedium,
   gap: theme.spacing(0.25),
+  lineHeight: 1.375,
   minWidth: 0,
+  overflowWrap: 'anywhere',
 }));
 
-const ChipSlot = styled('span')({
+const RightSlot = styled('span')({
   display: 'inline-flex',
   flex: '0 0 auto',
 });
-
-const MultipleContent = styled('span')(({ theme }) => ({
-  alignItems: 'flex-start',
-  display: 'flex',
-  flex: '1 1 auto',
-  flexDirection: 'column',
-  gap: theme.spacing(0.5),
-  minWidth: 0,
-  '& > span:first-of-type': {
-    flex: 'none',
-    width: '100%',
-  },
-}));
 
 const SelectionIndicator = styled('span')({
   display: 'inline-flex',
@@ -103,81 +92,40 @@ const SelectionCheckbox = styled(Checkbox)(({ theme }) => ({
 const MISingleDropdownItem = forwardRef<HTMLLIElement, MISingleDropdownItemProps>(
   (
     {
-      avatar,
-      checked = false,
-      chip,
+      centralSlot,
       className,
       disabled,
-      description,
-      label,
-      multiple = false,
+      leftSlot,
+      rightSlot,
       selected,
       style,
       sx,
-      value,
+
       ...rootProps
     },
     ref
   ) => {
-    const isSelected = selected ?? checked;
-    const textContent = (
-      <TextContent>
-        <Typography
-          component="span"
-          sx={(theme) => ({
-            color: theme.colors.neutral.black,
-            fontSize: theme.typography.pxToRem(16),
-            fontWeight: theme.typography.fontWeightMedium,
-            lineHeight: 1.375,
-            overflowWrap: 'anywhere',
-          })}
-        >
-          {label}
-        </Typography>
-        {description != null && (
-          <Typography
-            component="span"
-            sx={(theme) => ({
-              color: theme.palette.text.secondary,
-              fontSize: theme.typography.pxToRem(14),
-              lineHeight: 1.43,
-              overflowWrap: 'anywhere',
-            })}
-          >
-            {description}
-          </Typography>
-        )}
-      </TextContent>
-    );
+    const rightContent = rightSlot != null && <RightSlot>{rightSlot}</RightSlot>;
 
     return (
       <Root
         {...rootProps}
         ref={ref}
-        value={value}
-        multiple={multiple}
         disabled={disabled}
-        selected={isSelected}
+        selected={selected}
         className={className}
         style={style}
         sx={sx}
       >
-        {avatar != null && <AvatarSlot aria-hidden="true">{avatar}</AvatarSlot>}
-        {multiple ? (
-          <MultipleContent>
-            {textContent}
-            {chip != null && <ChipSlot>{chip}</ChipSlot>}
-          </MultipleContent>
-        ) : (
-          <>
-            {textContent}
-            {chip != null && <ChipSlot>{chip}</ChipSlot>}
-          </>
-        )}
-        {multiple && (
+        {leftSlot != null && <LeftSlot aria-hidden="true">{leftSlot}</LeftSlot>}
+        <>
+          <CentralSlot>{centralSlot}</CentralSlot>
+          {rightContent}
+        </>
+        {selected && (
           <SelectionIndicator aria-hidden="true">
             <SelectionCheckbox
-              checked={isSelected}
+              checked={selected}
               disableRipple
               inputProps={{ 'aria-hidden': true }}
               size="medium"
