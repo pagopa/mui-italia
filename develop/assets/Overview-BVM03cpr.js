@@ -1,1 +1,0 @@
-import{j as o,B as t}from"./iframe-5Wy2T5h3.js";const r=({children:e})=>o.jsx(t,{sx:{mt:3,typography:"body1","& p":{margin:0}},children:e});try{r.displayName="Overview",r.__docgenInfo={description:"",displayName:"Overview",filePath:"/home/runner/work/mui-italia/mui-italia/src/docs/components/Overview.tsx",methods:[],props:{},tags:{}}}catch{}export{r as O};
