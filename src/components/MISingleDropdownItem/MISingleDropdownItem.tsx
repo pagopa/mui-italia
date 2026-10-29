@@ -6,6 +6,7 @@ import type { SxProps, Theme } from '@mui/material/styles';
 import { forwardRef, type HTMLAttributes, type ReactNode } from 'react';
 
 export type MISingleDropdownItemProps = Omit<HTMLAttributes<HTMLLIElement>, 'children'> & {
+  value: string | number;
   centralSlot: ReactNode;
   leftSlot?: ReactNode;
   rightSlot?: ReactNode;
@@ -26,10 +27,9 @@ const Root = styled(MuiMenuItem, {
     color: theme.colors.neutral.black,
     columnGap: theme.spacing(1),
     display: 'flex',
-    width: theme.spacing(34),
     whiteSpace: 'normal',
     padding: theme.spacing(1.5, 2),
-    gap :theme.spacing(1),
+    gap: theme.spacing(1),
     '& + &': {
       borderTop: `1px solid ${theme.colors.neutral.grey[100]}`,
     },
@@ -100,6 +100,7 @@ const MISingleDropdownItem = forwardRef<HTMLLIElement, MISingleDropdownItemProps
       selected,
       style,
       sx,
+      value,
 
       ...rootProps
     },
@@ -111,6 +112,7 @@ const MISingleDropdownItem = forwardRef<HTMLLIElement, MISingleDropdownItemProps
       <Root
         {...rootProps}
         ref={ref}
+        value={value}
         disabled={disabled}
         selected={selected}
         className={className}

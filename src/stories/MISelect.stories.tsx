@@ -1,4 +1,6 @@
 import { MISelect } from '@components/MISelect';
+import { MIChip } from '@components/MIChip';
+import { MISingleDropdownItem } from '@components/MISingleDropdownItem';
 import {
   AccountBalance as AccountBalanceIcon,
   LocationOn as LocationOnIcon,
@@ -9,6 +11,7 @@ import {
   InputAdornment,
   MenuItem,
   Stack,
+  Typography,
   type SelectChangeEvent,
 } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
@@ -411,6 +414,79 @@ export const CustomOptions: Story = {
           </MenuItem>
         )}
       />
+    );
+  },
+};
+
+export const WithSingleDropdownItems: Story = {
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story:
+          'renderOptions compone ogni opzione con MISingleDropdownItem. Il value dell’opzione viene passato al componente per consentire a MISelect di gestire la selezione.',
+      },
+    },
+  },
+  render: function RenderWithSingleDropdownItems() {
+    const [value, setValue] = useState<unknown>('roma');
+    const organizations = [
+      {
+        value: 'roma',
+        label: 'Comune di Roma',
+        description: 'Amministrazione comunale',
+      },
+      {
+        value: 'milano',
+        label: 'Comune di Milano',
+        description: 'Amministrazione comunale',
+      },
+      {
+        value: 'lazio',
+        label: 'Regione Lazio',
+        description: 'Amministrazione regionale',
+        disabled: true,
+      },
+    ];
+
+    return (
+      <Box sx={{ width: 360, maxWidth: '100%' }}>
+        <MISelect
+          fullWidth
+          label="Ente"
+          options={organizations}
+          value={value}
+          onChange={(event) => setValue(event.target.value)}
+          helperText="Seleziona l’ente per cui vuoi operare"
+          renderOptions={(option) => {
+            const organization = organizations.find((item) => item.value === option.value);
+
+            return (
+              <MISingleDropdownItem
+                value={option.value}
+                centralSlot={
+                  <>
+                    {option.label}
+                    <Typography
+                      component="span"
+                      sx={(theme) => ({
+                        color: theme.palette.text.secondary,
+                        fontSize: theme.typography.pxToRem(14),
+                        lineHeight: theme.typography.pxToRem(20),
+                      })}
+                    >
+                      {organization?.description}
+                    </Typography>
+                  </>
+                }
+                disabled={option.disabled}
+                leftSlot={<AccountBalanceIcon fontSize="small" />}
+                rightSlot={<MIChip label="Attivo" color="warning" />}
+              />
+            );
+          }}
+        />
+      </Box>
     );
   },
 };

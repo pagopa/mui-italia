@@ -46,23 +46,17 @@ describe('MISingleDropdownItem', () => {
     expect(onChange.mock.calls[0][0].target.value).toBe('agency');
   });
 
-  it.each(['selected', 'checked'] as const)(
-    'applies the selected state when %s is true outside a controlled MISelect',
-    (stateProp) => {
-      render(
-        <MISingleDropdownItem value="pagopa" centralSlot="PagoPA" {...{ [stateProp]: true }} />
-      );
+  it('applies the selected state outside a controlled MISelect', () => {
+    render(<MISingleDropdownItem value="pagopa" centralSlot="PagoPA" selected />);
 
-      expect(screen.getByRole('menuitem', { name: 'PagoPA' })).toHaveClass('Mui-selected');
-    }
-  );
+    expect(screen.getByRole('menuitem', { name: 'PagoPA' })).toHaveClass('Mui-selected');
+  });
 
-  it('shows the Figma checkbox only in multiple mode and reflects the selected state', () => {
+  it('shows the decorative checkbox only for a selected option', () => {
     const { rerender } = render(
       <MISingleDropdownItem
         value="pagopa"
         centralSlot="PagoPA"
-        multiple
         selected
         data-testid="dropdown-item"
       />
@@ -75,27 +69,7 @@ describe('MISingleDropdownItem', () => {
     expect(screen.queryByRole('checkbox')).not.toBeInTheDocument();
 
     rerender(
-      <MISingleDropdownItem
-        value="pagopa"
-        centralSlot="PagoPA"
-        multiple
-        selected={false}
-        data-testid="dropdown-item"
-      />
-    );
-
-    expect(
-      screen.getByTestId('dropdown-item').querySelector<HTMLInputElement>('input[type="checkbox"]')
-    ).not.toBeChecked();
-    expect(screen.getByTestId('dropdown-item')).toHaveStyle({ alignItems: 'flex-start' });
-
-    rerender(
-      <MISingleDropdownItem
-        value="pagopa"
-        centralSlot="PagoPA"
-        selected
-        data-testid="dropdown-item"
-      />
+      <MISingleDropdownItem value="pagopa" centralSlot="PagoPA" data-testid="dropdown-item" />
     );
 
     expect(
@@ -118,7 +92,7 @@ describe('MISingleDropdownItem', () => {
           { value: 'agency', label: 'Agenzia delle Entrate' },
         ]}
         renderOptions={(option) => (
-          <MISingleDropdownItem value={option.value} centralSlot={option.label} multiple />
+          <MISingleDropdownItem value={option.value} centralSlot={option.label} />
         )}
       />
     );
@@ -130,7 +104,7 @@ describe('MISingleDropdownItem', () => {
     expect(unselectedOption).toHaveAttribute('aria-selected', 'false');
     expect(
       unselectedOption.querySelector<HTMLInputElement>('input[type="checkbox"]')
-    ).not.toBeChecked();
+    ).not.toBeInTheDocument();
 
     fireEvent.click(unselectedOption);
     expect(onChange.mock.calls[0][0].target.value).toEqual(['pagopa', 'agency']);
