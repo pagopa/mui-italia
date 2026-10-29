@@ -1,3 +1,9 @@
+# [2.8.2](https://github.com/pagopa/mui-italia/releases/tag/v2.8.2) (2026-10-29)
+
+
+### Chores
+
+* Bump version to v2.8.2
 # [2.8.1](https://github.com/pagopa/mui-italia/releases/tag/v2.8.1) (2026-10-29)
 
 
