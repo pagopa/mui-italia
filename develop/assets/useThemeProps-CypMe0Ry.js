@@ -1,0 +1,1 @@
+import{d as m}from"./styled-BbRqDVtB.js";import{T as o}from"./iframe-rw-T87Ps.js";import{u as s}from"./useThemeProps-uclZDVSV.js";function a({props:e,name:r}){return s({props:e,name:r,defaultTheme:m,themeId:o})}export{a as u};
