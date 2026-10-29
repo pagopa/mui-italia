@@ -92,6 +92,7 @@ const componentMaxWidth = 1280;
 
 type MITableStoryArgs = {
   showPagination: boolean;
+  isLoading: boolean;
 };
 
 const meta: Meta<MITableStoryArgs> = {
@@ -102,7 +103,7 @@ const meta: Meta<MITableStoryArgs> = {
     layout: 'padded',
     theme: 'next',
     controls: {
-      include: ['showPagination'],
+      include: ['showPagination', 'isLoading'],
     },
     chromatic: {
       viewports: breakpointsChromaticValues.filter((resolution) => resolution <= componentMaxWidth),
@@ -110,8 +111,17 @@ const meta: Meta<MITableStoryArgs> = {
   },
   args: {
     showPagination: true,
+    isLoading: false,
   },
   argTypes: {
+    isLoading: {
+      control: { type: 'boolean' },
+      description: 'Sostituisce i dati e le azioni con 10 righe skeleton.',
+      table: {
+        category: 'Component props',
+        defaultValue: { summary: 'false' },
+      },
+    },
     showPagination: {
       control: { type: 'boolean' },
       description: 'Abilita la paginazione.',
@@ -127,7 +137,7 @@ export default meta;
 type Story = StoryObj<MITableStoryArgs>;
 
 export const Playground: Story = {
-  render: function RenderPlayground({ showPagination }) {
+  render: function RenderPlayground({ showPagination, isLoading }) {
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(10);
 
@@ -152,11 +162,29 @@ export const Playground: Story = {
       <MITable
         columns={tableColumns}
         rows={rows}
+        isLoading={isLoading}
         getRowId={(row) => row.id}
         pagination={pagination}
       />
     );
   },
+};
+
+export const Loading: Story = {
+  parameters: {
+    controls: {
+      disable: true,
+    },
+  },
+  render: () => (
+    <MITable
+      columns={[...columns, ...actionColumns]}
+      rows={[]}
+      isLoading
+      desktopTableProps={{ 'aria-label': 'Transactions' }}
+      mobileTableProps={{ 'aria-label': 'Transactions' }}
+    />
+  ),
 };
 
 export const WithoutActions: Story = {

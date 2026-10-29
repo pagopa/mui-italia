@@ -18,6 +18,7 @@ export type MITableColumn<RowData> = {
 export type MITableProps<RowData> = Pick<BoxProps, 'sx'> & {
   columns: Array<MITableColumn<RowData>>;
   rows: Array<RowData>;
+  isLoading?: boolean;
   getRowId?: (row: RowData, index: number) => string | number;
   pagination?: MIPaginationProps;
   containerProps?: Omit<HTMLAttributes<HTMLDivElement>, 'children'>;

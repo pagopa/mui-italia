@@ -50,6 +50,74 @@ describe('MITable', () => {
     expect(screen.getByText('01/01/2029')).toBeInTheDocument();
   });
 
+  it.each([
+    { width: 400, withActions: false },
+    { width: 400, withActions: true },
+    { width: 1280, withActions: false },
+    { width: 1280, withActions: true },
+  ])('renders 10 skeleton rows at $width with actions=$withActions', ({ width, withActions }) => {
+    window.matchMedia = createMatchMedia(width);
+    const renderCell = vi.fn((row: Row) => row.id);
+    const renderAction = vi.fn((row: Row) => <button>Open {row.id}</button>);
+    const getRowId = vi.fn((row: Row) => row.id);
+    const loadingColumns: Array<MITableColumn<Row>> = [
+      { id: 'id', header: 'Identifier', renderCell },
+      ...(withActions
+        ? [
+            { id: 'action', header: '', isAction: true, renderCell: renderAction },
+            { id: 'other-action', header: '', isAction: true, renderCell: renderAction },
+          ]
+        : []),
+    ];
+    const props = {
+      columns: loadingColumns,
+      rows,
+      getRowId,
+      desktopTableProps: { 'aria-label': 'Transactions', 'aria-busy': false as const },
+      mobileTableProps: { 'aria-label': 'Transactions', 'aria-busy': false as const },
+      pagination: { count: 5, page: 1, onChange: vi.fn() },
+    };
+    const { container, rerender } = render(<MITable {...props} isLoading />);
+    const role = width < 600 ? 'group' : 'table';
+    const loadingTable = screen.getByRole(role, { name: 'Transactions' });
+    const loadingRows = loadingTable.querySelectorAll(width < 600 ? 'dl' : 'tbody tr');
+
+    expect(loadingTable).toHaveAttribute('aria-busy', 'true');
+    expect(loadingRows).toHaveLength(10);
+    loadingRows.forEach((row) => {
+      expect(row).toHaveAttribute('aria-hidden', 'true');
+      expect(row.querySelectorAll('.MuiSkeleton-root')).toHaveLength(loadingColumns.length);
+    });
+    if (width < 600) {
+      expect(loadingTable.querySelectorAll('hr')).toHaveLength(9);
+    } else {
+      expect(screen.getByRole('columnheader', { name: 'Identifier' })).toBeInTheDocument();
+      expect(loadingRows[0].querySelectorAll('td')).toHaveLength(withActions ? 2 : 1);
+    }
+    expect(screen.queryByText(rows[0].id)).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /^Open/ })).not.toBeInTheDocument();
+    expect(renderCell).not.toHaveBeenCalled();
+    expect(renderAction).not.toHaveBeenCalled();
+    expect(getRowId).not.toHaveBeenCalled();
+    expect(screen.getByLabelText('Go to next page')).toBeInTheDocument();
+
+    rerender(<MITable {...props} rows={[]} isLoading />);
+    expect(container.querySelectorAll('.MuiSkeleton-root')).toHaveLength(
+      10 * loadingColumns.length
+    );
+
+    rerender(<MITable {...props} isLoading={false} />);
+    expect(screen.getByRole(role, { name: 'Transactions' })).toHaveAttribute('aria-busy', 'false');
+    expect(container.querySelectorAll('.MuiSkeleton-root')).toHaveLength(0);
+    expect(screen.getByText(rows[0].id)).toBeInTheDocument();
+    expect(renderCell).toHaveBeenCalledWith(rows[0]);
+    expect(getRowId).toHaveBeenCalledWith(rows[0], 0);
+    if (withActions) {
+      expect(screen.getAllByRole('button', { name: `Open ${rows[0].id}` })).toHaveLength(2);
+      expect(renderAction).toHaveBeenCalledWith(rows[0]);
+    }
+  });
+
   it('keeps sortable icon active and announces direction only when explicit sortDirection is provided', () => {
     render(<MITable columns={columns} rows={rows} />);
 

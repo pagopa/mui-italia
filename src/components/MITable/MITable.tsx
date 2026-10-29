@@ -7,6 +7,7 @@ import { MIDivider } from '@components/MIDivider';
 import { MIPagination } from '@components/MIPagination';
 
 import type { MITableProps } from './types';
+import MITableSkeleton from './MITableSkeleton';
 import {
   StyledRoot,
   StyledTableHead,
@@ -30,6 +31,7 @@ import {
 const MITable = <RowData,>({
   columns,
   rows,
+  isLoading = false,
   getRowId,
   pagination,
   sx,
@@ -56,13 +58,21 @@ const MITable = <RowData,>({
     mobileTableProps?.['aria-labelledby'] !== undefined;
   const mobileRowsRole = mobileTableProps?.role ?? (hasMobileAccessibleName ? 'group' : undefined);
 
-  const tableRows = rows.map((row, index) => ({ row, rowId: getRowId?.(row, index) ?? index }));
+  const tableRows = isLoading
+    ? []
+    : rows.map((row, index) => ({ row, rowId: getRowId?.(row, index) ?? index }));
 
   return (
     <StyledRoot sx={sx} {...containerProps}>
       <Box>
         {isMobile ? (
-          <StyledMobileRows divider={<MIDivider />} {...mobileTableProps} role={mobileRowsRole}>
+          <StyledMobileRows
+            divider={<MIDivider />}
+            {...mobileTableProps}
+            role={mobileRowsRole}
+            aria-busy={isLoading || mobileTableProps?.['aria-busy']}
+          >
+            {isLoading && <MITableSkeleton columns={columns} isMobile />}
             {tableRows.map(({ row, rowId }) => (
               <Box key={rowId} component="dl" sx={{ margin: 0 }}>
                 <StyledMobileRow spacing={1}>
@@ -118,7 +128,11 @@ const MITable = <RowData,>({
           </StyledMobileRows>
         ) : (
           <TableContainer>
-            <Table size="small" {...desktopTableProps}>
+            <Table
+              size="small"
+              {...desktopTableProps}
+              aria-busy={isLoading || desktopTableProps?.['aria-busy']}
+            >
               <StyledTableHead>
                 <TableRow>
                   {contentColumns.map((column) => {
@@ -157,6 +171,7 @@ const MITable = <RowData,>({
               </StyledTableHead>
 
               <StyledBody>
+                {isLoading && <MITableSkeleton columns={columns} isMobile={false} />}
                 {tableRows.map(({ row, rowId }, index) => {
                   const isLastRow = index === tableRows.length - 1;
 
@@ -195,7 +210,7 @@ const MITable = <RowData,>({
           </TableContainer>
         )}
 
-        {pagination && (
+        {pagination && !isLoading && (
           <StyledPaginationWrapper>
             <MIPagination {...pagination} itemsPerPageOptions={paginationItemsPerPageOptions} />
           </StyledPaginationWrapper>

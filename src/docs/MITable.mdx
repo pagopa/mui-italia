@@ -37,7 +37,7 @@ import * as MITableStories from '../stories/MITable.stories';
 
 <Section
   title="Playground"
-  description="Usa i controlli per configurare il numero di righe, azioni, ordinamento e paginazione."
+  description="Usa i controlli per attivare il caricamento e mostrare o nascondere la paginazione."
 >
   <Primary />
   <Controls />
@@ -81,6 +81,34 @@ import * as MITableStories from '../stories/MITable.stories';
 </Section>
 
 <Section
+  title="Caricamento"
+  description="Usa isLoading durante il caricamento iniziale o l'aggiornamento dei dati."
+>
+  La prop <code>isLoading</code> (predefinita a <code>false</code>) mostra 10 righe skeleton,
+  indipendentemente da <code>rows</code> e dalla paginazione, tramite il componente interno
+  <code>MITableSkeleton</code>. Il layout si adatta a desktop e mobile; intestazioni e
+  paginazione restano visibili. Durante il caricamento non vengono chiamati
+  <code>renderCell</code> e <code>getRowId</code>.
+
+La tabella desktop e il contenitore mobile espongono <code>aria-busy="true"</code>,
+mentre i placeholder sono nascosti alle tecnologie assistive.
+Il nome accessibile resta configurabile tramite <code>desktopTableProps</code> e <code>mobileTableProps</code>, come nella story seguente.
+
+<Canvas of={MITableStories.Loading} />
+
+```tsx
+<MITable
+  columns={columns}
+  rows={rows}
+  isLoading={isLoading}
+  desktopTableProps={{ 'aria-label': 'Transazioni' }}
+  mobileTableProps={{ 'aria-label': 'Transazioni' }}
+/>
+```
+
+</Section>
+
+<Section
   title="Paginazione"
   description="La paginazione è opzionale e integra il componente MIPagination."
 >
@@ -106,7 +134,11 @@ import * as MITableStories from '../stories/MITable.stories';
       <li>
         <strong>rows</strong>: array dei dati da mostrare. Ogni elemento viene passato a{' '}
         <code>renderCell</code> delle colonne. Con un array vuoto vengono mostrate solo le
-        intestazioni.
+        intestazioni, salvo quando <code>isLoading</code> è attivo.
+      </li>
+      <li>
+        <strong>isLoading</strong>: mostra 10 righe skeleton ed espone lo stato
+        <code>aria-busy</code> sul layout attivo. I placeholder non vengono annunciati.
       </li>
       <li>
         <strong>getRowId</strong>: restituisce un identificativo stabile e univoco per riga, usato
