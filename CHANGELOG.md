@@ -1,3 +1,9 @@
+# [2.8.1](https://github.com/pagopa/mui-italia/releases/tag/v2.8.1) (2026-10-29)
+
+
+### Build System
+
+* replaced NodeJS type to fix build ([#797](https://github.com/pagopa/mui-italia/issues/797)) ([d8e35bb](https://github.com/pagopa/mui-italia/commit/d8e35bb4ad65aef705dd85fb45e0e416605a93ce))
 # [2.8.0](https://github.com/pagopa/mui-italia/releases/tag/v2.8.0) (2026-10-29)
 
 
