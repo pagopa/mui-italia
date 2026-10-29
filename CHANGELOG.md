@@ -1,3 +1,14 @@
+# [2.8.0](https://github.com/pagopa/mui-italia/releases/tag/v2.8.0) (2026-10-29)
+
+
+### Features
+
+* **M20DS-151:** Storybook build for Githubpages ([#794](https://github.com/pagopa/mui-italia/issues/794)) ([a1589a0](https://github.com/pagopa/mui-italia/commit/a1589a0658f4aeda38e9016302c8b58ffb6e8f9b))
+
+
+### Chores
+
+* updated dependencies for security issues ([#795](https://github.com/pagopa/mui-italia/issues/795)) ([494f5f6](https://github.com/pagopa/mui-italia/commit/494f5f63ad81f755d27b16e8531dc9c6f124b559))
 # [2.8.0-RC.8](https://github.com/pagopa/mui-italia/releases/tag/v2.8.0-RC.8) (2026-10-28)
 
 
