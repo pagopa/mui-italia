@@ -1,134 +1,31 @@
 'use client';
 
 import { ArrowDownward as ArrowDownwardIcon } from '@mui/icons-material';
-import {
-  Box,
-  Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TableSortLabel,
-  Typography,
-  useMediaQuery,
-} from '@mui/material';
-import { styled, useTheme } from '@mui/material/styles';
+import { Box, Table, TableContainer, TableRow, Typography, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { MIDivider } from '@components/MIDivider';
 import { MIPagination } from '@components/MIPagination';
 
 import type { MITableProps } from './types';
-
-type StyledCellWithMinWidthProps = {
-  ownerState: {
-    minWidth?: number | string;
-  };
-};
-
-type StyledBodyCellProps = {
-  ownerState: {
-    minWidth?: number | string;
-    isLastRow: boolean;
-    isActionCell?: boolean;
-  };
-};
-
-type StyledMobileCellContentProps = {
-  ownerState: {
-    alignItems: 'flex-start' | 'flex-end';
-  };
-};
-
-const StyledRoot = styled(Box)(({ theme }) => ({
-  backgroundColor: theme.colors.neutral.grey[100],
-  borderRadius: theme.shape.radius[8],
-  padding: theme.spacing(1),
-  width: '100%',
-}));
-
-const StyledMobileRows = styled(Stack)(({ theme }) => ({
-  backgroundColor: theme.palette.common.white,
-}));
-
-const StyledMobileRow = styled(Stack)(({ theme }) => ({
-  paddingTop: theme.spacing(1),
-  paddingBottom: theme.spacing(1),
-  margin: 0,
-}));
-
-const StyledMobileCell = styled(Stack)(({ theme }) => ({
-  padding: theme.spacing(1.5, 2),
-}));
-
-const StyledMobileCellContent = styled(Stack, {
-  shouldForwardProp: (prop) => prop !== 'ownerState',
-})<StyledMobileCellContentProps>(({ ownerState }) => ({
-  width: '100%',
-  alignItems: ownerState.alignItems,
-  margin: 0,
-}));
-
-const StyledMobileActions = styled(Stack)(({ theme }) => ({
-  padding: theme.spacing(1.5, 2),
-}));
-
-const StyledMobileHeaderText = styled(Typography)(({ theme }) => ({
-  fontWeight: theme.typography.fontWeightRegular,
-}));
-
-const StyledMobileCellText = styled(Typography)(({ theme }) => ({
-  fontWeight: theme.typography.fontWeightMedium,
-}));
-
-const StyledTableHead = styled(TableHead)(({ theme }) => ({
-  backgroundColor: theme.colors.neutral.grey[100],
-}));
-
-const StyledHeaderCell = styled(TableCell, {
-  shouldForwardProp: (prop) => prop !== 'ownerState',
-})<StyledCellWithMinWidthProps>(({ theme, ownerState }) => ({
-  padding: theme.spacing(1.5, 2),
-  borderBottom: 'none',
-  minWidth: ownerState.minWidth,
-}));
-
-const StyledSortLabel = styled(TableSortLabel)({
-  '& .MuiTableSortLabel-icon': {
-    opacity: 1,
-  },
-  '&.Mui-active .MuiTableSortLabel-icon': {
-    color: 'inherit',
-  },
-});
-
-const StyledBody = styled(TableBody)(({ theme }) => ({
-  backgroundColor: theme.palette.common.white,
-}));
-
-const StyledBodyCell = styled(TableCell, {
-  shouldForwardProp: (prop) => prop !== 'ownerState',
-})<StyledBodyCellProps>(({ theme, ownerState }) => ({
-  padding: theme.spacing(1.5, 2),
-  minWidth: ownerState.minWidth,
-  borderBottom: ownerState.isLastRow ? 'none' : `1px solid ${theme.colors.neutral.grey[100]}`,
-  ...(ownerState.isActionCell && {
-    textAlign: 'right',
-    whiteSpace: 'nowrap',
-  }),
-}));
-
-const StyledActionStack = styled(Stack)({
-  justifyContent: 'flex-end',
-  alignItems: 'center',
-});
-
-const StyledPaginationWrapper = styled(Box)(({ theme }) => ({
-  paddingTop: theme.spacing(1),
-  '& .mipagination-items-per-page-select': {
-    backgroundColor: theme.palette.common.white,
-  },
-}));
+import {
+  StyledRoot,
+  StyledTableHead,
+  StyledHeaderCell,
+  StyledSortLabel,
+  StyledBody,
+  StyledBodyCell,
+  StyledActionStack,
+  StyledPaginationWrapper,
+} from './style/commonStyle';
+import {
+  StyledMobileRows,
+  StyledMobileRow,
+  StyledMobileCell,
+  StyledMobileHeaderText,
+  StyledMobileCellContent,
+  StyledMobileCellText,
+  StyledMobileActions,
+} from './style/mobileStyle';
 
 const MITable = <RowData,>({
   columns,
