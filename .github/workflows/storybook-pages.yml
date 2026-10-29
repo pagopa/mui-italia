@@ -1,7 +1,14 @@
-name: Publish Latest Release Storybook
+# Builds Storybook and publishes it to https://pagopa.github.io/mui-italia/<branch>/
+# Runs on push to main/develop, or manually for any branch ("Use workflow from").
+# Requires Settings → Pages → Source: "GitHub Actions"; gh-pages only stores the per-branch folders.
+# The github-pages environment must allow deployments from every published branch.
+# Other branches' folders are preserved; folders of deleted branches must be removed manually.
+name: Publish Branch Storybook
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main, develop]
 
 permissions:
   contents: read
@@ -11,51 +18,82 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
+  deploy:
+    if: github.ref_type == 'branch'
     runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}${{ steps.publish.outputs.dir }}/
     steps:
-      - name: Resolve latest release
-        id: release
-        env:
-          GH_TOKEN: ${{ github.token }}
-          GH_REPO: ${{ github.repository }}
-        run: gh api "repos/${GH_REPO}/releases/latest" --jq '"tag=\(.tag_name)"' >> "$GITHUB_OUTPUT"
-
-      - name: Checkout released code
+      - name: Checkout
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
-          ref: refs/tags/${{ steps.release.outputs.tag }}
           persist-credentials: false
 
       - name: Setup Node.js
         uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
         with:
           node-version-file: .node-version
-
-      - name: Enable Corepack
-        run: corepack enable
-
-      - name: Install dependencies
-        run: yarn install --immutable
+          cache: yarn
 
       - name: Build Storybook
-        run: yarn build-storybook
+        run: |
+          corepack enable
+          yarn install --immutable
+          yarn build-storybook
 
-      - name: Upload Storybook
+      - name: Publish to gh-pages
+        id: publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # 1. Normalize branch name for target subfolder
+          DIR="$(printf '%s' "${GITHUB_REF_NAME}" | tr -c 'A-Za-z0-9._-' '-')"
+          echo "dir=$DIR" >> "$GITHUB_OUTPUT"
+          REMOTE="https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+
+          # 2. Clone gh-pages branch (or initialize if it doesn't exist)
+          if git ls-remote --exit-code --heads "$REMOTE" gh-pages > /dev/null; then
+            git clone --depth 1 --branch gh-pages "$REMOTE" site
+          else
+            git init -b gh-pages site
+            git -C site remote add origin "$REMOTE"
+          fi
+
+          # 3. Update target directory and fallback root index.html
+          rm -rf "site/$DIR"
+          cp -R storybook-static "site/$DIR"
+          touch site/.nojekyll
+
+          if [ ! -f site/index.html ]; then
+            cat <<'EOF' > site/index.html
+          <!doctype html><html lang="en"><head><meta charset="utf-8">
+          <meta http-equiv="refresh" content="0; url=main/"><link rel="canonical" href="main/">
+          <title>MUI Italia Storybook</title></head>
+          <body>Redirecting to <a href="main/">main</a>…</body></html>
+          EOF
+          fi
+
+          # 4. Commit and push changes
+          cd site
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "docs(storybook): publish ${GITHUB_REF_NAME} (${GITHUB_SHA})"
+            git push origin gh-pages
+          fi
+
+      # GITHUB_TOKEN pushes don't trigger a Pages build, so deploy the assembled site explicitly
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:
-          path: storybook-static
+          path: site
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-24.04
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
       - name: Deploy Pages
         id: deployment
         uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4

@@ -74,7 +74,7 @@ Here's an explanation of the commands you can find in the `package.json`:
 * `chromatic`: It checks all the possible differences between snapshots using the Chromatic service. It also publishes an updated version of the Storybook-Chromatic library (see address below). This command is just available to the CI/CD environment because you have to specify the project token to run the command successfully. To get the token value in Chromatic: `Manage → Configure → Setup Chromatic`
 
 ## Storybook
-If you need to view all the styled and custom components available in this package, check out the (ongoing) [MUI Italia Storybook](https://main--633c31eff9fe385398ada426.chromatic.com/) (managed with Chromatic).
+If you need to view all the styled and custom components available in this package, check out the (ongoing) [MUI Italia Storybook](https://pagopa.github.io/mui-italia/).
 
 
 ## How to contribute

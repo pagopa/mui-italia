@@ -117,13 +117,26 @@ describe('MITableListItem', () => {
   });
 
   it('throws when columns length does not match the fields count', () => {
+    // avoid annoing error log in console
+    const expectedMessage = 'MITableListItem: columns length (1) must match fields count (2).';
     const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const handleError = (event: ErrorEvent) => {
+      if (event.message === expectedMessage) {
+        event.preventDefault();
+      }
+    };
 
-    expect(() => render(<MITableListItem columns={[1]}>{fields}</MITableListItem>)).toThrow(
-      'MITableListItem: columns length (1) must match fields count (2).'
-    );
+    window.addEventListener('error', handleError);
 
-    consoleSpy.mockRestore();
+    try {
+      expect(() => render(<MITableListItem columns={[1]}>{fields}</MITableListItem>)).toThrow(
+        expectedMessage
+      );
+    } finally {
+      // restore original behaviour
+      window.removeEventListener('error', handleError);
+      consoleSpy.mockRestore();
+    }
   });
 
   it('does not count the action as a field', () => {
@@ -137,17 +150,30 @@ describe('MITableListItem', () => {
   });
 
   it('receives the columns coming from the list', () => {
+    // avoid annoing error log in console
+    const expectedMessage = 'MITableListItem: columns length (3) must match fields count (2).';
     const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const handleError = (event: ErrorEvent) => {
+      if (event.message === expectedMessage) {
+        event.preventDefault();
+      }
+    };
 
-    expect(() =>
-      render(
-        <MITableList columns={[1, 1, 1]}>
-          <MITableListItem>{fields}</MITableListItem>
-        </MITableList>
-      )
-    ).toThrow('MITableListItem: columns length (3) must match fields count (2).');
+    window.addEventListener('error', handleError);
 
-    consoleSpy.mockRestore();
+    try {
+      expect(() =>
+        render(
+          <MITableList columns={[1, 1, 1]}>
+            <MITableListItem>{fields}</MITableListItem>
+          </MITableList>
+        )
+      ).toThrow(expectedMessage);
+    } finally {
+      // restore original behaviour
+      window.removeEventListener('error', handleError);
+      consoleSpy.mockRestore();
+    }
   });
 
   it('lets the item columns win over the list ones', () => {
@@ -161,16 +187,29 @@ describe('MITableListItem', () => {
   });
 
   it('throws when a forbidden child is passed', () => {
+    // avoid annoing error log in console
+    const expectedMessage = 'MITableListItem can have only children of type MITableListItemField';
     const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const handleError = (event: ErrorEvent) => {
+      if (event.message === expectedMessage) {
+        event.preventDefault();
+      }
+    };
 
-    expect(() =>
-      render(
-        <MITableListItem>
-          <p>Forbidden</p>
-        </MITableListItem>
-      )
-    ).toThrow('MITableListItem can have only children of type MITableListItemField');
+    window.addEventListener('error', handleError);
 
-    consoleSpy.mockRestore();
+    try {
+      expect(() =>
+        render(
+          <MITableListItem>
+            <p>Forbidden</p>
+          </MITableListItem>
+        )
+      ).toThrow(expectedMessage);
+    } finally {
+      // restore original behaviour
+      window.removeEventListener('error', handleError);
+      consoleSpy.mockRestore();
+    }
   });
 });
