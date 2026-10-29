@@ -93,6 +93,7 @@ const meta: Meta<MISingleDropdownItemStoryArgs> = {
   component: MISingleDropdownItem,
   tags: ['!dev'],
   args: {
+    value: 'roma',
     label: 'Comune di Roma',
     description: 'Amministrazione comunale',
     leftContent: 'location',
@@ -102,6 +103,10 @@ const meta: Meta<MISingleDropdownItemStoryArgs> = {
     disabled: false,
   },
   argTypes: {
+    value: {
+      control: 'text',
+      description: 'Valore associato all’opzione di MISelect.',
+    },
     label: {
       control: 'text',
       description: 'Testo principale mostrato nello slot centrale.',
@@ -152,6 +157,7 @@ const meta: Meta<MISingleDropdownItemStoryArgs> = {
     controls: {
       include: [
         'label',
+        'value',
         'description',
         'leftContent',
         'showDescription',
@@ -164,9 +170,19 @@ const meta: Meta<MISingleDropdownItemStoryArgs> = {
       viewports: breakpointsChromaticValues.filter((resolution) => resolution <= componentMaxWidth),
     },
   },
-  render: ({ label, description, leftContent, showDescription, showChip, selected, disabled }) => (
+  render: ({
+    value,
+    label,
+    description,
+    leftContent,
+    showDescription,
+    showChip,
+    selected,
+    disabled,
+  }) => (
     <Box sx={{ width: 272 }}>
       <MISingleDropdownItem
+        value={value}
         centralSlot={createCentralContent(label, description, showDescription)}
         leftSlot={createLeftContent(leftContent)}
         rightSlot={showChip ? <MIChip label="Warning" color="warning" /> : undefined}
@@ -190,9 +206,12 @@ export const Default: Story = {
   render: () => (
     <Box sx={{ width: '17rem' }}>
       <MISingleDropdownItem
+        value="roma"
         centralSlot={
           <Stack flexDirection="column">
-            <Typography component="span" variant='subtitle1'>Comune di Roma</Typography>
+            <Typography component="span" variant="subtitle1">
+              Comune di Roma
+            </Typography>
             <Typography
               component="span"
               sx={(theme) => ({
@@ -205,13 +224,15 @@ export const Default: Story = {
             </Typography>
           </Stack>
         }
-        leftSlot={<LocationOnIcon
-        sx={(theme) => ({
-          alignSelf: 'flex-start',
-          color: theme.colors.neutral.grey[300],
-          fontSize: 16,
-        })}
-      />}
+        leftSlot={
+          <LocationOnIcon
+            sx={(theme) => ({
+              alignSelf: 'flex-start',
+              color: theme.colors.neutral.grey[300],
+              fontSize: 16,
+            })}
+          />
+        }
         rightSlot={<MIChip label="Warning" color="warning" />}
       />
     </Box>
@@ -225,6 +246,7 @@ export const Product: Story = {
   render: () => (
     <Box sx={{ width: 272 }}>
       <MISingleDropdownItem
+        value="pagopa"
         centralSlot={createCentralContent('PagoPA', 'Servizi di pagamento', true)}
         leftSlot={createLeftContent('institution')}
         rightSlot={<MIChip label="Warning" color="warning" />}
@@ -240,6 +262,7 @@ export const CallToActionAppearance: Story = {
   render: () => (
     <Box sx={{ width: 272 }}>
       <MISingleDropdownItem
+        value="location"
         centralSlot={
           <Typography
             component="span"
@@ -279,6 +302,7 @@ export const Selected: Story = {
       sx={{ listStyle: 'none', m: 0, p: 0, width: 272 }}
     >
       <MISingleDropdownItem
+        value="roma"
         role="option"
         aria-selected="true"
         centralSlot={
@@ -318,6 +342,7 @@ export const SecondLevel: Story = {
       sx={{ listStyle: 'none', m: 0, p: 0, width: 272 }}
     >
       <MISingleDropdownItem
+        value="services"
         role="option"
         aria-selected="true"
         centralSlot={
@@ -349,7 +374,7 @@ export const Minimal: Story = {
   },
   render: () => (
     <Box sx={{ width: 272 }}>
-      <MISingleDropdownItem centralSlot="Comune di Roma" />
+      <MISingleDropdownItem value="roma" centralSlot="Comune di Roma" />
     </Box>
   ),
 };
@@ -361,6 +386,7 @@ export const Disabled: Story = {
   render: () => (
     <Box sx={{ width: 272 }}>
       <MISingleDropdownItem
+        value="roma"
         centralSlot={createCentralContent('Comune di Roma', 'Amministrazione comunale', true)}
         leftSlot={createLeftContent('location')}
         rightSlot={<MIChip label="Warning" color="warning" />}
