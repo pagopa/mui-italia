@@ -1,0 +1,61 @@
+import { Meta, Title, Canvas, Primary, Controls } from '@storybook/addon-docs/blocks';
+
+import Overview from './components/Overview';
+import Section from './components/Section';
+import SubSection from './components/SubSection';
+import * as MICheckboxStories from '../stories/MICheckbox.stories.tsx';
+
+<Meta of={MICheckboxStories} />
+
+<Title />
+
+<Overview>
+  <strong>MICheckbox</strong> è un wrapper del componente MUI <code>Checkbox</code>. Applica le
+  icone e gli stati definiti dal design system MUI Italia e supporta label e messaggio di errore
+  configurabili.
+
+  <br/>
+
+  Riferimento Figma: [Checkbox con label](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=194-3661&m=dev).
+</Overview>
+
+<Section
+  title="Playground"
+  description="Usa i controlli per modificare lo stato e i contenuti della checkbox."
+>
+  <Primary />
+  <Controls />
+</Section>
+
+<Section title="Stati" description="Stati selezionato, disabilitato e con feedback di errore.">
+  <SubSection title="Selezionato">
+    <Canvas of={MICheckboxStories.Selected} />
+  </SubSection>
+
+  <SubSection title="Disabilitato">
+    <Canvas of={MICheckboxStories.Disabled} />
+  </SubSection>
+
+  <SubSection title="Con errore">
+    <Canvas of={MICheckboxStories.WithError} />
+  </SubSection>
+</Section>
+
+<Section
+  title="Accessibilità"
+  description="Il testo fornito tramite label nomina l’input; il messaggio di errore viene associato con aria-describedby."
+>
+  <SubSection title="Contenuti configurabili">
+    Passa label ed error dal consumer per visualizzare contenuti nella lingua desiderata. Se la
+    checkbox non ha una label visibile, fornisci un nome accessibile tramite inputProps.
+  </SubSection>
+
+  <SubSection title="Esempio">
+    ```tsx
+    <MICheckbox
+      label="Ricevi aggiornamenti"
+      error="Seleziona una preferenza."
+    />
+    ```
+  </SubSection>
+</Section>
