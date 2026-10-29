@@ -1,4 +1,4 @@
-import { Meta, Title, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
+import { Meta, Title, Primary, Controls, Canvas } from '@storybook/addon-docs/blocks';
 
 import Overview from './components/Overview';
 import Section from './components/Section';
@@ -11,9 +11,10 @@ import * as MITableStories from '../stories/MITable.stories';
 <Title />
 
 <Overview>
-  <strong>MITable</strong> è il componente tabellare responsive del design system. Su viewport
-  desktop usa la semantica nativa tabellare, mentre su viewport mobile trasforma ogni riga in una
-  lista di coppie label/valore. Supporta azioni per riga, intestazioni ordinabili e paginazione
+  <strong>MITable</strong> visualizza dati strutturati in righe e colonne, adattando il layout al
+  breakpoint: su desktop usa una tabella, mentre su mobile presenta ogni riga come coppie
+  intestazione/valore. Le colonne possono includere intestazioni ordinabili, con la logica di
+  ordinamento gestita dal consumatore; sono inoltre disponibili azioni per riga e paginazione
   opzionale.
 </Overview>
 
@@ -49,7 +50,7 @@ import * as MITableStories from '../stories/MITable.stories';
   <SubSection title="Desktop">
     Su desktop il contenuto viene renderizzato in una tabella con header e celle.
 
-    <Story of={MITableStories.Playground} />
+    <Canvas of={MITableStories.Playground} />
 
   </SubSection>
 
@@ -74,7 +75,7 @@ import * as MITableStories from '../stories/MITable.stories';
   <SubSection title="Righe senza azioni">
     Le action di riga sono opzionali.
 
-    <Story of={MITableStories.WithoutActions} />
+    <Canvas of={MITableStories.WithoutActions} />
 
   </SubSection>
 </Section>
@@ -84,14 +85,14 @@ import * as MITableStories from '../stories/MITable.stories';
   description="La paginazione è opzionale e integra il componente MIPagination."
 >
   <SubSection title="Con paginazione">
-    Quando è presente la prop pagination, MITable mostra il pager in coda. Il selettore righe per
-    pagina è opzionale e può essere configurato tramite itemsPerPageOptions.
+    Quando è presente la prop <code>pagination</code>, MITable mostra il pager in coda. Il selettore righe per
+    pagina è opzionale e può essere configurato tramite <code>itemsPerPageOptions</code>.
   </SubSection>
 
   <SubSection title="Senza paginazione">
-    Se la prop pagination non viene passata, la tabella mostra solo intestazioni e righe dati.
+    Se la prop <code>pagination</code> non viene passata, la tabella mostra solo intestazioni e righe dati.
 
-    <Story of={MITableStories.WithoutPagination} />
+    <Canvas of={MITableStories.WithoutPagination} />
 
   </SubSection>
 </Section>

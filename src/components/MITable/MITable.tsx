@@ -15,7 +15,6 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import { styled, useTheme } from '@mui/material/styles';
-import { visuallyHidden } from '@mui/utils';
 import { MIDivider } from '@components/MIDivider';
 import { MIPagination } from '@components/MIPagination';
 
@@ -74,6 +73,14 @@ const StyledMobileActions = styled(Stack)(({ theme }) => ({
   padding: theme.spacing(1.5, 2),
 }));
 
+const StyledMobileHeaderText = styled(Typography)(({ theme }) => ({
+  fontWeight: theme.typography.fontWeightRegular,
+}));
+
+const StyledMobileCellText = styled(Typography)(({ theme }) => ({
+  fontWeight: theme.typography.fontWeightMedium,
+}));
+
 const StyledTableHead = styled(TableHead)(({ theme }) => ({
   backgroundColor: theme.colors.neutral.grey[100],
 }));
@@ -118,7 +125,7 @@ const StyledActionStack = styled(Stack)({
 
 const StyledPaginationWrapper = styled(Box)(({ theme }) => ({
   paddingTop: theme.spacing(1),
-  '& [data-testid="items-per-page-select"]': {
+  '& .mipagination-items-per-page-select': {
     backgroundColor: theme.palette.common.white,
   },
 }));
@@ -169,12 +176,14 @@ const MITable = <RowData,>({
                     return (
                       <StyledMobileCell
                         key={column.id}
-                        direction="row"
+                        direction="column"
                         spacing={1}
-                        alignItems="center"
+                        alignItems={alignItems}
                       >
-                        <Box component="dt" id={mobileTermId} sx={visuallyHidden}>
-                          {column.header}
+                        <Box component="dt" id={mobileTermId}>
+                          <StyledMobileHeaderText variant="body2">
+                            {column.header}
+                          </StyledMobileHeaderText>
                         </Box>
                         <Box
                           component="dd"
@@ -185,9 +194,9 @@ const MITable = <RowData,>({
                           }}
                         >
                           <StyledMobileCellContent spacing={0.25} ownerState={{ alignItems }}>
-                            <Typography variant="body2" component="div">
+                            <StyledMobileCellText variant="body2">
                               {column.renderCell(row)}
-                            </Typography>
+                            </StyledMobileCellText>
                           </StyledMobileCellContent>
                         </Box>
                       </StyledMobileCell>
