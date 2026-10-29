@@ -19,10 +19,14 @@ describe('MISingleDropdownItem', () => {
         renderOptions={(option) => (
           <MISingleDropdownItem
             value={option.value}
-            label={option.label}
-            description={option.value === 'pagopa' ? 'Organization description' : undefined}
-            avatar={option.value === 'pagopa' ? <span>Avatar</span> : undefined}
-            chip={option.value === 'pagopa' ? <span>Active</span> : undefined}
+            centralSlot={
+              <>
+                <span>{option.label}</span>
+                {option.value === 'pagopa' && <span>Organization description</span>}
+              </>
+            }
+            leftSlot={option.value === 'pagopa' ? <span>Left slot</span> : undefined}
+            rightSlot={option.value === 'pagopa' ? <span>Active</span> : undefined}
           />
         )}
       />
@@ -34,7 +38,7 @@ describe('MISingleDropdownItem', () => {
 
     expect(option).toHaveAttribute('aria-selected', 'true');
     expect(screen.getByRole('combobox', { hidden: true })).toHaveTextContent('PagoPA');
-    expect(screen.getByText('Avatar')).toBeInTheDocument();
+    expect(screen.getByText('Left slot')).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole('option', { name: 'Agenzia delle Entrate' }));
 
@@ -45,7 +49,9 @@ describe('MISingleDropdownItem', () => {
   it.each(['selected', 'checked'] as const)(
     'applies the selected state when %s is true outside a controlled MISelect',
     (stateProp) => {
-      render(<MISingleDropdownItem value="pagopa" label="PagoPA" {...{ [stateProp]: true }} />);
+      render(
+        <MISingleDropdownItem value="pagopa" centralSlot="PagoPA" {...{ [stateProp]: true }} />
+      );
 
       expect(screen.getByRole('menuitem', { name: 'PagoPA' })).toHaveClass('Mui-selected');
     }
@@ -55,7 +61,7 @@ describe('MISingleDropdownItem', () => {
     const { rerender } = render(
       <MISingleDropdownItem
         value="pagopa"
-        label="PagoPA"
+        centralSlot="PagoPA"
         multiple
         selected
         data-testid="dropdown-item"
@@ -71,7 +77,7 @@ describe('MISingleDropdownItem', () => {
     rerender(
       <MISingleDropdownItem
         value="pagopa"
-        label="PagoPA"
+        centralSlot="PagoPA"
         multiple
         selected={false}
         data-testid="dropdown-item"
@@ -84,7 +90,12 @@ describe('MISingleDropdownItem', () => {
     expect(screen.getByTestId('dropdown-item')).toHaveStyle({ alignItems: 'flex-start' });
 
     rerender(
-      <MISingleDropdownItem value="pagopa" label="PagoPA" selected data-testid="dropdown-item" />
+      <MISingleDropdownItem
+        value="pagopa"
+        centralSlot="PagoPA"
+        selected
+        data-testid="dropdown-item"
+      />
     );
 
     expect(
@@ -107,7 +118,7 @@ describe('MISingleDropdownItem', () => {
           { value: 'agency', label: 'Agenzia delle Entrate' },
         ]}
         renderOptions={(option) => (
-          <MISingleDropdownItem value={option.value} label={option.label} multiple />
+          <MISingleDropdownItem value={option.value} centralSlot={option.label} multiple />
         )}
       />
     );
@@ -125,12 +136,31 @@ describe('MISingleDropdownItem', () => {
     expect(onChange.mock.calls[0][0].target.value).toEqual(['pagopa', 'agency']);
   });
 
-  it('omits optional content when it is not provided and forwards DOM attributes', () => {
-    render(<MISingleDropdownItem value="pagopa" label="PagoPA" data-testid="dropdown-item" />);
+  it('omits side slots when they are not provided and forwards DOM attributes', () => {
+    render(
+      <MISingleDropdownItem value="pagopa" centralSlot="PagoPA" data-testid="dropdown-item" />
+    );
 
     const option = screen.getByRole('menuitem', { name: 'PagoPA' });
 
     expect(option).toHaveAttribute('data-testid', 'dropdown-item');
-    expect(screen.queryByText('Organization description')).not.toBeInTheDocument();
+    expect(option.querySelectorAll('span[aria-hidden="true"]')).toHaveLength(0);
+    expect(option.children).toHaveLength(1);
+  });
+
+  it('renders left, central and right slots in order with custom translated content', () => {
+    render(
+      <MISingleDropdownItem
+        value="pagopa"
+        leftSlot={<span>Sinistra</span>}
+        centralSlot={<span>Centro</span>}
+        rightSlot={<span>Destra</span>}
+      />
+    );
+
+    const option = screen.getByRole('menuitem', { name: 'Centro Destra' });
+
+    expect(option).toHaveTextContent('SinistraCentroDestra');
+    expect(screen.getByText('Sinistra').closest('[aria-hidden="true"]')).toBeInTheDocument();
   });
 });

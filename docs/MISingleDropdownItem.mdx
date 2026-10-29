@@ -9,8 +9,7 @@ Riga informativa per un'opzione di menu a discesa, con contenuti configurabili e
 
 ## Link utili
 
-- [Design Figma](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=610-33733&m=dev)
-- [Design Figma — selezione multipla](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=617-19040&m=dev)
+- [Design Figma](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=610-33732&m=dev)
 
 ## Playground
 
@@ -20,18 +19,34 @@ Riga informativa per un'opzione di menu a discesa, con contenuti configurabili e
 
 ## Stati
 
-La prop `selected` applica lo stato selezionato. `checked` e' mantenuta come alias per la stessa resa visuale. Entrambe sono controllate dal componente chiamante. In modalita' multipla, passa `multiple` per mostrare il checkbox a destra; il suo stato segue `selected` (o `checked` se `selected` non e' fornito).
+La prop `selected` applica lo stato selezionato e resta controllata dal componente chiamante. Il checkbox decorativo a destra segue questo stato.
 
 ## Contenuti
 
-`value` (stringa o numero) e `label` sono obbligatori. `description`, `avatar` e `chip` sono slot opzionali e accettano contenuti React personalizzabili.
+`centralSlot` e' obbligatorio e contiene il contenuto principale dell'opzione (ad esempio etichetta e descrizione): una stringa eredita lo stile dell'etichetta, mentre testi secondari possono essere composti con `Typography`. `leftSlot` e `rightSlot` sono slot opzionali mostrati rispettivamente prima e dopo il contenuto centrale; tutti gli slot accettano contenuti React personalizzabili, quindi anche i testi possono essere tradotti dal consumatore. `leftSlot` e' nascosto alle tecnologie assistive, quindi non deve contenere informazioni essenziali.
 
-## Selezione multipla
+## Composizioni
 
-La prop `multiple` abilita l'indicatore checkbox. Il checkbox e' decorativo e non crea un controllo interattivo annidato: il contenitore listbox gestisce focus, selezione e tastiera, mentre lo stato visuale segue `selected`. Nel menu, `MISelect` fornisce tale stato agli elementi opzione.
+Le stories mostrano composizioni visuali ottenute usando gli slot esistenti. La resa CTA non aggiunge una nuova interazione al componente.
 
-<Canvas of={MISingleDropdownItemStories.MultipleSelection} />
+<Canvas of={MISingleDropdownItemStories.Default} />
+
+<Canvas of={MISingleDropdownItemStories.Product} />
+
+<Canvas of={MISingleDropdownItemStories.CallToActionAppearance} />
+
+<Canvas of={MISingleDropdownItemStories.Minimal} />
+
+## Stati
+
+`selected` applica la resa selezionata e mostra il checkbox decorativo. Il componente non espone separatamente gli stati Figma `checked` e `multiselcet`; non è quindi possibile mostrare il checkbox non selezionato del frame.
+
+<Canvas of={MISingleDropdownItemStories.Selected} />
+
+<Canvas of={MISingleDropdownItemStories.SecondLevel} />
+
+<Canvas of={MISingleDropdownItemStories.Disabled} />
 
 ## Accessibilita
 
-Il componente espone il ruolo `option` e usa `aria-selected` per indicare lo stato selezionato. La gestione della tastiera e del focus resta responsabilita' del contenitore listbox.
+Il componente rende un `MenuItem`. Quando viene usato come opzione di una listbox, il chiamante deve assegnare `role="option"` e mantenere `aria-selected` coerente con lo stato effettivo. Il checkbox e `leftSlot` sono nascosti alle tecnologie assistive; non inserire informazioni essenziali soltanto nello slot sinistro.

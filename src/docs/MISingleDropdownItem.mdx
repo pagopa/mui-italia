@@ -1,0 +1,153 @@
+import { Meta, Title, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
+
+import Overview from './components/Overview';
+import Section from './components/Section';
+import SubSection from './components/SubSection';
+import * as MISingleDropdownItemStories from '../components/MISingleDropdownItem/MISingleDropdownItem.stories';
+
+<Meta of={MISingleDropdownItemStories} />
+
+<Title />
+
+<Overview>
+  <strong>MISingleDropdownItem</strong> compone una riga con contenuto opzionale a sinistra,
+  contenuto centrale e contenuto opzionale a destra. La selezione e gli slot sono gestiti dal
+  componente chiamante.
+</Overview>
+
+<Section
+  title="Riferimenti"
+  description="Il frame Figma di riferimento mostra configurazioni e stati del componente."
+>
+  <ul>
+    <li>
+      🎨{' '}
+      <a href="https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=610-33732&m=dev">
+        Design Figma
+      </a>
+    </li>
+    <li>💻 Codice sorgente: TODO — aggiungere il link GitHub al file sorgente.</li>
+  </ul>
+</Section>
+
+<Section
+  title="Playground"
+  description="Modifica i contenuti e gli stati supportati dal componente."
+>
+  <Primary />
+  <Controls />
+</Section>
+
+<Section
+  title="Composizioni"
+  description="Le stories mostrano composizioni ottenute usando gli slot pubblici, senza aggiungere varianti al componente."
+>
+  <SubSection title="Default">
+    Icona contestuale, contenuto centrale con descrizione e chip di stato.
+
+    <Story of={MISingleDropdownItemStories.Default} />
+
+  </SubSection>
+
+  <SubSection title="Product">
+    Avatar rappresentato da un riquadro con icona, contenuto descrittivo e chip.
+
+    <Story of={MISingleDropdownItemStories.Product} />
+
+  </SubSection>
+
+  <SubSection title="Call to action">
+    Mostra testo enfatizzato e icona nello slot destro. È una composizione visuale: non aggiunge
+    un comportamento CTA al componente.
+
+    <Story of={MISingleDropdownItemStories.CallToActionAppearance} />
+
+  </SubSection>
+
+  <SubSection title="Contenuto minimale">
+    Mostra il contenuto centrale senza slot laterali o descrizione.
+
+    <Story of={MISingleDropdownItemStories.Minimal} />
+
+  </SubSection>
+</Section>
+
+<Section
+  title="Stati"
+  description="Queste configurazioni sono supportate dall'API corrente."
+>
+  <SubSection title="Selezionato">
+    La prop <code>selected</code> applica lo stato selezionato e mostra il checkbox decorativo.
+    Nel frame Figma il checkbox è disponibile anche nello stato non selezionato, ma il componente
+    corrente non lo espone in tale configurazione.
+
+    <Story of={MISingleDropdownItemStories.Selected} />
+
+  </SubSection>
+
+  <SubSection title="Secondo livello">
+    L’indentazione è ottenuta tramite <code>sx</code>; il componente non espone una prop
+    <code>level</code>.
+
+    <Story of={MISingleDropdownItemStories.SecondLevel} />
+
+  </SubSection>
+
+  <SubSection title="Disabilitato">
+    Stato supportato dalla prop <code>disabled</code>, non mostrato nel frame Figma fornito.
+
+    <Story of={MISingleDropdownItemStories.Disabled} />
+
+  </SubSection>
+</Section>
+
+<Section
+  title="Note per gli sviluppatori"
+  description="Le props pubbliche definiscono gli slot e gli stati disponibili."
+>
+  <ul>
+    <li>
+      <code>centralSlot</code> è obbligatorio.
+    </li>
+    <li>
+      <code>leftSlot</code> e <code>rightSlot</code> sono opzionali.
+    </li>
+    <li>
+      <code>selected</code> controlla la resa selezionata e il checkbox decorativo.
+    </li>
+    <li>
+      <code>disabled</code> disabilita l’elemento.
+    </li>
+    <li>
+      Le label e le descrizioni sono contenuti forniti dal consumatore tramite gli slot, quindi
+      possono essere localizzati dall’applicazione.
+    </li>
+  </ul>
+</Section>
+
+<Section
+  title="Note per i designer"
+  description="Il frame Figma contiene varianti che non corrispondono tutte a props esposte dal componente."
+>
+  Le composizioni Default, Product e CTA sono rappresentate tramite contenuti degli slot. Il
+  componente non espone le varianti Figma <code>type</code>, <code>multiselcet</code>,
+  <code>checked</code> e <code>level</code>. La story di secondo livello mostra solo l’indentazione
+  ottenibile tramite <code>sx</code>.
+</Section>
+
+<Section
+  title="Accessibilità"
+  description="Il ruolo e gli attributi di selezione dipendono dal contenitore in cui viene usato il componente."
+>
+  <SubSection title="Contenuti decorativi">
+    <code>leftSlot</code> e il checkbox sono nascosti alle tecnologie assistive dal componente.
+    Non inserire nello slot sinistro informazioni essenziali che non siano disponibili anche nel
+    contenuto centrale.
+  </SubSection>
+
+  <SubSection title="Uso in una listbox">
+    Il componente rende un <code>MenuItem</code>. In un contenitore listbox, il chiamante deve
+    assegnare il ruolo <code>option</code> e mantenere coerente l’attributo
+    <code>aria-selected</code> con lo stato effettivo.
+  </SubSection>
+</Section>
