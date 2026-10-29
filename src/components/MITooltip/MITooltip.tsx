@@ -44,8 +44,8 @@ const MITooltip = ({
 }: MITooltipProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const enterTimer = useRef<NodeJS.Timeout | null>(null);
-  const leaveTimer = useRef<NodeJS.Timeout | null>(null);
+  const enterTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const leaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isOpening = useRef(false);
 
   const clearTimers = () => {
