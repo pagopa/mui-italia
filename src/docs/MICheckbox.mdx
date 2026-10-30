@@ -1,0 +1,111 @@
+import {
+  Meta,
+  Title,
+  Primary,
+  Controls,
+  Canvas,
+} from '@storybook/addon-docs/blocks';
+
+import Overview from './components/Overview';
+import Section from './components/Section';
+import SubSection from './components/SubSection';
+import * as MICheckboxStories from '../stories/MICheckbox.stories.tsx';
+
+<Meta of={MICheckboxStories} />
+
+<Title />
+
+<Overview>
+  <strong>MICheckbox</strong> è un wrapper del componente MUI <code>Checkbox</code>.
+  Supporta uno stato controllato o non controllato, una label visibile e un messaggio
+  di errore configurabile.
+  <br />
+</Overview>
+
+<Section title="Riferimenti" description="Risorse per confrontare implementazione e specifiche.">
+  <ul>
+    <li>
+      🎨 <a href="https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=194-3661&m=dev">Figma: Checkbox con label</a>
+    </li>
+    <li>💻 Codice sorgente: TODO: link GitHub non fornito.</li>
+  </ul>
+</Section>
+
+<Section
+  title="Playground"
+  description="Modifica lo stato controllato, l’etichetta e il messaggio di errore."
+>
+  <Primary />
+  <Controls />
+</Section>
+
+<Section
+  title="Stati"
+  description="Le stories mostrano gli stati selezionato, disabilitato e con errore."
+>
+  <SubSection title="Selezionata">
+    <Canvas of={MICheckboxStories.Selected} />
+  </SubSection>
+
+  <SubSection title="Disabilitata">
+    <Canvas of={MICheckboxStories.Disabled} />
+  </SubSection>
+
+  <SubSection title="Con errore">
+    <Canvas of={MICheckboxStories.WithError} />
+  </SubSection>
+
+  <SubSection title="Label lunga">
+    La label va a capo in base alla larghezza disponibile.
+    <Canvas of={MICheckboxStories.LongLabel} />
+  </SubSection>
+
+  <SubSection title="Senza label visibile">
+    La story mostra come fornire un nome accessibile tramite <code>inputProps</code>.
+    <Canvas of={MICheckboxStories.AccessibleName} />
+  </SubSection>
+</Section>
+
+<Section
+  title="Note per gli sviluppatori"
+  description="Indicazioni per configurare le props esposte da MICheckbox."
+>
+  <ul>
+    <li>
+      <code>checked</code> consente di controllarne lo stato ed è opportuno usarla insieme a <code>onChange</code>.
+    </li>
+    <li>
+      La props <code>error</code> è disponibile quando viene fornita una <code>label</code>;
+      il componente associa il messaggio all’input.
+    </li>
+    <li>
+      Le altre props sono ereditate da MUI <code>CheckboxProps</code>.
+    </li>
+  </ul>
+</Section>
+
+<Section
+  title="Note per i designer"
+  description="Stati visivi e riferimenti verificabili nel codice."
+>
+  <ul>
+    <li>Lo stato selezionato usa il token <code>blue[500]</code>.</li>
+    <li>Il bordo unchecked in errore usa <code>error[600]</code>.</li>
+    <li>Il componente occupa la larghezza disponibile e adatta a capo della label al contenitore.</li>
+  </ul>
+</Section>
+
+<Section
+  title="Accessibilità"
+  description="La checkbox associa label e messaggio di errore all’input."
+>
+  <SubSection title="Nome accessibile">
+    Quando non è presente una label visibile, fornire un nome tramite <code>inputProps</code>:
+
+    ```tsx
+    <MICheckbox
+      inputProps={{ 'aria-label': 'Attiva gli aggiornamenti sul servizio' }}
+    />
+    ```
+  </SubSection>
+</Section>
