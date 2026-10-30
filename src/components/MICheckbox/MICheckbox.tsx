@@ -1,50 +1,17 @@
 'use client';
 
-import { FormControlLabel, Stack, Typography } from '@mui/material';
-import MuiCheckbox, { type CheckboxProps } from '@mui/material/Checkbox';
-import { styled } from '@mui/material/styles';
+import { Stack, Typography } from '@mui/material';
+import { type CheckboxProps } from '@mui/material/Checkbox';
 import { forwardRef, useId } from 'react';
 
 import { Report } from '@mui/icons-material';
+import { StyledCheckbox, StyledFormControlLabel } from './styles';
 
 type MICheckboxContentProps =
-  | { label: string; description?: string; error?: string }
-  | { label?: undefined; description?: never; error?: never };
+  | { label: string; error?: string }
+  | { label?: undefined; error?: never };
 
 export type MICheckboxProps = CheckboxProps & MICheckboxContentProps;
-
-const StyledCheckbox = styled(MuiCheckbox, {
-  shouldForwardProp: (prop) => prop !== 'hasError',
-})<{ hasError: boolean }>(({ theme, hasError }) => ({
-  width: theme.spacing(3),
-  height: theme.spacing(3),
-  padding: 0,
-  color: theme.colors.neutral.black,
-  '&:not(.Mui-checked)': hasError
-    ? {
-        color: theme.colors.error[600],
-      }
-    : {},
-  '&.Mui-checked': {
-    color: theme.colors.blue[500],
-  },
-  '&.Mui-focusVisible': {
-    outline: `2px solid ${theme.colors.blue[500]}`,
-    outlineOffset: 2,
-  },
-}));
-
-const StyledFormControlLabel = styled(FormControlLabel, {
-  shouldForwardProp: (prop) => prop !== 'hasLabel',
-})<{ hasLabel: boolean }>(({ theme, hasLabel }) => ({
-  alignItems: 'flex-start',
-  gap: theme.spacing(1),
-  margin: 0,
-  padding: hasLabel ? theme.spacing(2, 0) : 0,
-  '&.Mui-disabled': {
-    opacity: 0.5,
-  },
-}));
 
 export const MICheckbox = forwardRef<HTMLButtonElement, MICheckboxProps>(
   ({ error, inputProps, label, ...props }, ref) => {
@@ -54,6 +21,7 @@ export const MICheckbox = forwardRef<HTMLButtonElement, MICheckboxProps>(
     const describedBy = [inputProps?.['aria-describedby'], errorId].filter(Boolean).join(' ');
     const labelledBy = [inputProps?.['aria-labelledby'], labelId].filter(Boolean).join(' ');
 
+    
     const checkbox = (
       <StyledCheckbox
         ref={ref}

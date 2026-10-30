@@ -69,22 +69,19 @@ describe('MICheckbox', () => {
     expect(getByRole('checkbox', { name: 'Checkbox label' })).toHaveAttribute('value', 'enabled');
   });
 
-  it('associates configurable descriptions and errors with the checkbox', () => {
+  it('associates configurable errors with the checkbox', () => {
     const { getByRole, getByText } = render(
       <MICheckbox
         label="Checkbox label"
-        description="A translated description."
         error="A translated error."
         inputProps={{ 'aria-describedby': 'additional-help' }}
       />
     );
     const checkbox = getByRole('checkbox', { name: 'Checkbox label' });
-    const description = getByText('A translated description.');
     const error = getByText('A translated error.');
     const describedBy = checkbox.getAttribute('aria-describedby')?.split(' ') ?? [];
 
     expect(describedBy).toContain('additional-help');
-    expect(describedBy).toContain(description.id);
     expect(describedBy).toContain(error.parentElement?.id);
     expect(checkbox).toHaveAttribute('aria-invalid', 'true');
   });
