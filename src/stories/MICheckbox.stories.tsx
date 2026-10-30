@@ -1,36 +1,74 @@
-import { Meta, StoryObj } from '@storybook/react-vite';
+import { Stack } from '@mui/material';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useArgs } from 'storybook/preview-api';
 
-import { MICheckbox } from '@components/MICheckbox';
+import { breakpointsChromaticValues } from '@theme';
+import { MICheckbox, type MICheckboxProps } from '@components/MICheckbox';
 
 const meta: Meta<typeof MICheckbox> = {
   title: 'Components/MICheckbox',
   component: MICheckbox,
+  tags: ['!dev'],
   parameters: {
     controls: {
-      include: ['checked', 'defaultChecked', 'disabled', 'label', 'error'],
+      include: ['checked', 'disabled', 'label', 'error'],
+    },
+    chromatic: {
+      viewports: breakpointsChromaticValues,
     },
   },
   args: {
-    label: 'Checkbox label',
+    checked: false,
+    label: 'Ricevi aggiornamenti sul servizio',
   },
   argTypes: {
     checked: {
-      description: 'Stato controllato della checkbox. Richiede onChange.',
+      control: 'boolean',
+      description: 'Stato controllato della checkbox.',
     },
     defaultChecked: {
-      description: 'Stato iniziale della checkbox non controllata.',
+      control: false,
+      description: 'Stato iniziale quando la checkbox non è controllata.',
     },
     disabled: {
-      description: 'Disabilita la checkbox e ne attenua l’aspetto.',
+      control: 'boolean',
+      description: 'Disabilita la checkbox.',
     },
     label: {
       control: 'text',
-      description: 'Testo visibile e accessibile associato alla checkbox.',
+      description: 'Testo visibile associato alla checkbox.',
     },
     error: {
       control: 'text',
-      description: 'Messaggio di errore facoltativo associato alla checkbox.',
+      description: 'Messaggio di errore associato alla checkbox.',
     },
+    inputProps: {
+      control: false,
+      table: { disable: true },
+      description:
+        'Props dell’input nativo, utili anche per configurare il nome o le descrizioni accessibili.',
+    },
+    onChange: {
+      control: false,
+      table: { disable: true },
+    },
+  },
+  render: function RenderPlayground({
+    disabled,
+    label = 'Ricevi aggiornamenti sul servizio',
+    error,
+  }) {
+    const [{ checked = false }, updateArgs] = useArgs<MICheckboxProps>();
+
+    return (
+      <MICheckbox
+        checked={checked}
+        onChange={(event) => updateArgs({ checked: event.target.checked })}
+        disabled={disabled}
+        label={label}
+        error={error}
+      />
+    );
   },
 };
 
@@ -38,31 +76,51 @@ export default meta;
 
 type Story = StoryObj<typeof MICheckbox>;
 
-export const Playground: Story = {
-  args: {
-    defaultChecked: false,
-    label: 'Checkbox label',
-  },
-};
+export const Playground: Story = {};
 
 export const Selected: Story = {
-  args: {
-    checked: true,
-    label: 'Checkbox label',
+  parameters: {
+    controls: { disable: true },
   },
+  render: () => (
+    <MICheckbox label="Ricevi aggiornamenti sul servizio" checked onChange={() => {}} />
+  ),
 };
 
 export const Disabled: Story = {
-  args: {
-    checked: true,
-    disabled: true,
-    label: 'Checkbox label',
+  parameters: {
+    controls: { disable: true },
   },
+  render: () => <MICheckbox label="Ricevi aggiornamenti sul servizio" defaultChecked disabled />,
 };
 
 export const WithError: Story = {
-  args: {
-    label: 'Checkbox label',
-    error: 'Helper text',
+  parameters: {
+    controls: { disable: true },
   },
+  render: () => (
+    <MICheckbox label="Ricevi aggiornamenti sul servizio" error="La selezione non è valida." />
+  ),
+};
+
+export const LongLabel: Story = {
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => (
+    <MICheckbox
+      label="Desidero ricevere aggiornamenti via email sulle novità, le funzionalità e gli eventi del servizio."
+    />
+  ),
+};
+
+export const AccessibleName: Story = {
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => (
+    <Stack spacing={2}>
+      <MICheckbox />
+    </Stack>
+  ),
 };
