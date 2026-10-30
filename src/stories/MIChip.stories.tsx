@@ -18,7 +18,7 @@ const meta: Meta<MIChipStoryArgs> = {
   parameters: {
     layout: 'centered',
     controls: {
-      include: ['label', 'color', 'variant', 'aria-label', 'deletable'],
+      include: ['label', 'color', 'variant', 'aria-label', 'deleteIconAriaLabel', 'deletable'],
     },
   },
   args: {
@@ -73,7 +73,7 @@ const meta: Meta<MIChipStoryArgs> = {
     },
   },
   render: (args) => {
-    const { deletable, color, variant, label, 'aria-label': ariaLabel } = args;
+    const { deletable, color, variant, label, 'aria-label': ariaLabel, deleteIconAriaLabel } = args;
     const handleOnDelete = deletable ? () => alert('Cliccato!') : undefined;
     if (color === 'neutral') {
       return (
@@ -83,6 +83,7 @@ const meta: Meta<MIChipStoryArgs> = {
           variant="filled"
           onDelete={handleOnDelete}
           aria-label={ariaLabel}
+          deleteIconAriaLabel={deleteIconAriaLabel}
         />
       );
     }

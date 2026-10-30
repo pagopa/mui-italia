@@ -41,7 +41,10 @@ interface MIAlertCtaProps {
 }
 
 // Props shared by all variants
-interface BaseAlertProps extends Pick<MUIAlertProps, 'severity' | 'id'> {
+interface BaseAlertProps
+  extends
+    Pick<MUIAlertProps, 'severity'>,
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'children' | 'title' | 'color'> {
   children: ReactNode;
   ctaWrapSize?: CtaWrapSize;
   sx?: MarginSxProps;
@@ -119,7 +122,7 @@ const MIAlertCta = ({ cta, severity = 'success', isMobile }: Readonly<MIAlertCta
 
   if (isLink) {
     target = cta.target ?? '_self';
-    rel = target === '_blank' ? cta.rel ?? 'noopener noreferrer' : cta.rel;
+    rel = target === '_blank' ? (cta.rel ?? 'noopener noreferrer') : cta.rel;
   }
 
   const commonProps = {
