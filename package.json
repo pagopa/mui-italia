@@ -58,7 +58,7 @@
     "chromatic": "^6.17.2",
     "css-mediaquery": "^0.1.2",
     "date-fns": "^2.29.3",
-    "eslint": "^8.57.0",
+    "eslint": "^10.13.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsdoc": "^48.11.0",
