@@ -1,17 +1,18 @@
 'use client';
 
-import { useState, useRef, useEffect, FC } from 'react';
-import { Tooltip } from '@mui/material';
-import type { IconButtonProps } from '@mui/material';
-import { ContentCopy as ContentCopyIcon, Check as CheckIcon } from '@mui/icons-material';
 import { MIIconButton } from '@components/MIIconButton';
+import { Check as CheckIcon, ContentCopy as ContentCopyIcon } from '@mui/icons-material';
+import type { IconButtonProps } from '@mui/material';
+import { Tooltip } from '@mui/material';
+import { FC, useEffect, useRef, useState } from 'react';
 // import { MarginSxProps } from '@lib-types/shared.types';
 
 export interface CopyToClipboardProps extends Omit<IconButtonProps, 'onClick' | 'value'> {
   /** Value or a function that returns what should be copied to clipboard */
   value: (() => string) | string;
   /** If given renders a tooltip with the given message on copy to clipboard button press */
-  tooltipTitle?: string;}
+  tooltipTitle?: string;
+}
 
 /** @returns copy to clipboard button's localized default aria label values */
 function getDefaultAriaLabels() {
@@ -38,7 +39,7 @@ export const CopyToClipboardButton: FC<CopyToClipboardProps> = ({
   ...props
 }) => {
   const [copied, setCopied] = useState(false);
-  const copiedTimeoutRef = useRef<NodeJS.Timeout>();
+  const copiedTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   /** Clears the timeout on component unmount */
   useEffect(
