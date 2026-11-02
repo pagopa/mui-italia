@@ -10,13 +10,13 @@
     "build": "rimraf dist && ncc build src/index.js -o dist"
   },
   "dependencies": {
-    "@actions/core": "^1.11.1",
+    "@actions/core": "^2.0.3",
     "@actions/exec": "^1.1.1",
     "@actions/github": "^8.0.0",
     "conventional-changelog": "^7.2.0",
     "conventional-recommended-bump": "^11.2.0"
   },
-   "devDependencies": {
+  "devDependencies": {
     "@vercel/ncc": "^0.38.4"
   }
 }
