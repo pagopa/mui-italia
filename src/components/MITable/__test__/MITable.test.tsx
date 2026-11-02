@@ -99,7 +99,7 @@ describe('MITable', () => {
     expect(renderCell).not.toHaveBeenCalled();
     expect(renderAction).not.toHaveBeenCalled();
     expect(getRowId).not.toHaveBeenCalled();
-    expect(screen.getByLabelText('Go to next page')).toBeInTheDocument();
+    expect(screen.queryByLabelText('Go to next page')).not.toBeInTheDocument();
 
     rerender(<MITable {...props} rows={[]} isLoading />);
     expect(container.querySelectorAll('.MuiSkeleton-root')).toHaveLength(
@@ -108,6 +108,7 @@ describe('MITable', () => {
 
     rerender(<MITable {...props} isLoading={false} />);
     expect(screen.getByRole(role, { name: 'Transactions' })).toHaveAttribute('aria-busy', 'false');
+    expect(screen.getByLabelText('Go to next page')).toBeInTheDocument();
     expect(container.querySelectorAll('.MuiSkeleton-root')).toHaveLength(0);
     expect(screen.getByText(rows[0].id)).toBeInTheDocument();
     expect(renderCell).toHaveBeenCalledWith(rows[0]);
