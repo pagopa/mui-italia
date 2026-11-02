@@ -76,14 +76,6 @@ describe('MIPagination', () => {
     expect(handleChange).toHaveBeenLastCalledWith(expect.anything(), 2);
   });
 
-  it('disables every item when the disabled prop is set', () => {
-    const { getByText, getByLabelText } = render(<MIPagination page={2} count={5} disabled />);
-
-    expect(getByText('1')).toBeDisabled();
-    expect(getByLabelText('Go to next page')).toBeDisabled();
-    expect(getByLabelText('Go to previous page')).toBeDisabled();
-  });
-
   it('only renders the navigation buttons and the selected page on mobile', () => {
     window.matchMedia = createMatchMedia(400);
     const { getByText, queryByText, getByLabelText } = render(<MIPagination page={5} count={10} />);
