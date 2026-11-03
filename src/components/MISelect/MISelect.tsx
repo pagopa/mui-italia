@@ -13,7 +13,6 @@ export type MISelectProps = Omit<
   | 'displayEmpty'
   | 'IconComponent'
   | 'input'
-  | 'inputProps'
   | 'MenuProps'
   | 'native'
   | 'SelectDisplayProps'

@@ -11,6 +11,12 @@ export const StyledTextField = styled(TextField, {
   '& .MuiInputLabel-root': {
     fontSize: theme.typography.fontSize,
   },
+  '& .MuiInputLabel-outlined': {
+    transform: 'translate(0.8rem, 0.8rem) scale(1)',
+    '&.MuiInputLabel-shrink': {
+      transform: 'translate(0.875rem, -0.663rem) scale(0.75)',
+    },
+  },
   '& .MuiInputLabel-root.Mui-focused': {
     color: theme.colors.blue[500],
   },
@@ -31,8 +37,9 @@ export const StyledTextField = styled(TextField, {
     color: theme.colors.error[600],
   },
   '& .MuiOutlinedInput-root': {
+    minHeight: theme.spacing(6),
     borderRadius: theme.shape.radius[8],
-    padding: theme.spacing(1.5),
+    padding: '0.60rem',
     '&.MuiInputBase-adornedEnd': {
       paddingRight: theme.spacing(0),
     },

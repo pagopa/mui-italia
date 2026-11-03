@@ -7,8 +7,6 @@ import {
   StackProps,
   styled,
   Typography,
-  useMediaQuery,
-  useTheme,
 } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
 import { ComponentType, FC, HTMLAttributes, ReactNode } from 'react';
@@ -60,9 +58,6 @@ const MIBoxedModule: FC<MIBoxedModuleProps> = ({
   localeText,
   ...rest
 }) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
   const Skeleton = slots?.skeleton ?? MIBoxedModuleSkeleton;
 
   if (loading) {
@@ -79,8 +74,8 @@ const MIBoxedModule: FC<MIBoxedModuleProps> = ({
     <StyledStack
       {...rest}
       direction="row"
-      alignItems={isMobile ? 'flex-start' : 'center'}
-      spacing={2}
+      alignItems="center"
+      spacing={1.5}
     >
       {icon}
       {action && (

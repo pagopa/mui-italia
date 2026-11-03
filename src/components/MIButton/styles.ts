@@ -9,6 +9,7 @@ const containedStyles: (theme: Theme) => Record<MIButtonColor, ButtonSx> = (them
   primary: {
     backgroundColor: theme.colors.blue[500],
     color: theme.colors.neutral.white,
+    borderRadius: theme.shape.radius[8],
     border: `2px solid ${theme.colors.blue[500]}`,
     '&:hover': {
       backgroundColor: theme.colors.blue[600],
@@ -19,6 +20,7 @@ const containedStyles: (theme: Theme) => Record<MIButtonColor, ButtonSx> = (them
   error: {
     backgroundColor: theme.colors.error[600],
     color: theme.colors.neutral.white,
+    borderRadius: theme.shape.radius[8],
     border: `2px solid ${theme.colors.error[600]}`,
     '&:hover': {
       backgroundColor: theme.colors.error[700],
@@ -29,6 +31,7 @@ const containedStyles: (theme: Theme) => Record<MIButtonColor, ButtonSx> = (them
   contrasted: {
     backgroundColor: theme.colors.neutral.white,
     color: theme.colors.blue[500],
+    borderRadius: theme.shape.radius[8],
     border: `2px solid ${theme.colors.neutral.white}`,
     '&:hover': {
       backgroundColor: theme.colors.blue[50],
@@ -42,6 +45,7 @@ const outlinedStyles: (theme: Theme) => Record<MIButtonColor, ButtonSx> = (theme
   primary: {
     backgroundColor: 'transparent',
     color: theme.colors.blue[500],
+    borderRadius: theme.shape.radius[8],
     borderColor: theme.colors.blue[500],
     '&:hover': {
       backgroundColor: theme.colors.blue[50],
@@ -52,6 +56,7 @@ const outlinedStyles: (theme: Theme) => Record<MIButtonColor, ButtonSx> = (theme
   error: {
     backgroundColor: 'transparent',
     color: theme.colors.error[600],
+    borderRadius: theme.shape.radius[8],
     borderColor: theme.colors.error[600],
     '&:hover': {
       backgroundColor: theme.colors.error[100],
@@ -62,6 +67,7 @@ const outlinedStyles: (theme: Theme) => Record<MIButtonColor, ButtonSx> = (theme
   contrasted: {
     backgroundColor: 'transparent',
     color: theme.colors.neutral.white,
+    borderRadius: theme.shape.radius[8],
     borderColor: theme.colors.neutral.white,
     '&:hover': {
       backgroundColor: theme.colors.blue[600],
