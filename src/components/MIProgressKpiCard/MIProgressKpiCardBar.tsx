@@ -3,7 +3,7 @@ import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgr
 import { Box, Stack, styled } from '@mui/system';
 import { FC } from 'react';
 import { Typography } from '@mui/material';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { CheckCircle } from '@mui/icons-material';
 import { theme, pxToRem } from '../../theme';
 import type { MIProgressKpiCardBarProps, BorderLinearProgressProps } from './utils';
 import { ratioFormatter } from './utils';
@@ -45,7 +45,7 @@ const MIProgressKpiCardBar: React.FC<MIProgressKpiCardBarProps> = ({ numerator, 
       <MIProgressKpiCardBorderLinearProgress $sizeVariant={variant} $isFull={isFull} variant="determinate" value={(numerator / denominator) * 100} />
       <Stack direction="row" alignItems="center" justifyContent="space-between" mt={1}>
         <Box><MIProgressKpiCardNumerator numerator={numerator} /> / <MIProgressKpiCardDenominator denominator={denominator} /></Box>
-        {isFull && <CheckCircleIcon sx={{ color: theme.colors.success[700], width: pxToRem(16), height: pxToRem(16) }} />}
+        {isFull && <CheckCircle sx={{ color: theme.colors.success[700], width: pxToRem(16), height: pxToRem(16) }} />}
       </Stack>
     </>
   );

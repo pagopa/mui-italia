@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { Stack, Typography } from '@mui/material';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import { InfoOutlined } from '@mui/icons-material';
 import Tooltip from '@mui/material/Tooltip';
 import { theme, pxToRem } from '../../theme';
 import type { MIProgressKpiCardProps } from './utils';
@@ -15,7 +15,7 @@ const MIProgressKpiCardHeader: FC<Pick<MIProgressKpiCardProps, 'title' | 'icon' 
       </Stack>
       { tooltipText && (
         <Tooltip title={tooltipText} arrow placement="top">
-          <InfoOutlinedIcon sx={{ color: theme.colors.blue[500], width: pxToRem(24), height: pxToRem(24) }} />
+          <InfoOutlined sx={{ color: theme.colors.blue[500], width: pxToRem(24), height: pxToRem(24) }} />
         </Tooltip>
       ) }
     </Stack>

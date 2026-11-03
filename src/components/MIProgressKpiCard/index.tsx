@@ -10,7 +10,7 @@ const MIProgressKpiCard: FC<MIProgressKpiCardProps> = ({ title, icon, tooltipTex
   const totalNumerator = bars.reduce((acc, bar) => acc + bar.numerator, 0);
 
   if (totalNumerator > denominator) {
-    console.warn('Total numerator exceeds the denominator');
+    console.error('Total numerator exceeds the denominator');
   }
 
   const totalPercentage = bars.reduce((acc, bar) => acc + (bar.numerator / denominator * 100), 0);
