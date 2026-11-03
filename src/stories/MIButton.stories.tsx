@@ -11,7 +11,6 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 type MIButtonStoryArgs = React.ComponentProps<typeof MIButton> & {
   label: string;
   iconPosition?: 'none' | 'start' | 'end';
-  enableHref?: boolean;
   linkHref?: string;
 };
 
@@ -44,7 +43,6 @@ const meta: Meta<MIButtonStoryArgs> = {
         'loaderType',
         'loadingAriaLabel',
         'iconPosition',
-        'enableHref',
         'linkHref',
       ],
     },
@@ -59,7 +57,6 @@ const meta: Meta<MIButtonStoryArgs> = {
     loaderType: MIButtonLoaderType.SPINNER,
     loadingAriaLabel: 'Caricamento in corso',
     iconPosition: 'none',
-    enableHref: false,
   },
   argTypes: {
     label: {
@@ -151,18 +148,9 @@ const meta: Meta<MIButtonStoryArgs> = {
         category: 'Storybook controls',
       },
     },
-    enableHref: {
-      control: { type: 'boolean' },
-      description: 'Controllo Storybook: abilita href. Valido solo con variant="text".',
-      if: { arg: 'variant', eq: 'text' },
-      table: {
-        category: 'Storybook controls',
-      },
-    },
     linkHref: {
       control: { type: 'text' },
-      description: 'URL usato quando enableHref è attivo e variant="text".',
-      if: { arg: 'enableHref', eq: true },
+      description: 'URL usato per la navigazione come link.',
       table: {
         category: 'Storybook controls',
       },
@@ -178,12 +166,11 @@ const meta: Meta<MIButtonStoryArgs> = {
     loaderType,
     loadingAriaLabel,
     iconPosition,
-    enableHref,
     linkHref,
   }) => {
     const iconProps = getIcon(iconPosition);
 
-    if (variant === 'text' && enableHref) {
+    if (linkHref) {
       return (
         <MIButton
           variant="text"
@@ -303,14 +290,22 @@ export const Link: Story = {
     controls: { hideNoControlsWarning: true },
     docs: {
       description: {
-        story: 'La prop href è ammessa solo sulla variante text.',
+        story: 'La prop href è ammessa su qualsiasi variante',
       },
     },
   },
   render: () => (
-    <MIButton variant="text" href="https://example.com">
-      Vai al sito
-    </MIButton>
+    <Stack direction="row" spacing={2} alignItems="center">
+      <MIButton variant="contained" href="https://example.com">
+        Vai al sito
+      </MIButton>
+      <MIButton variant="outlined" href="https://example.com">
+        Vai al sito
+      </MIButton>
+      <MIButton variant="text" href="https://example.com">
+        Vai al sito
+      </MIButton>
+    </Stack>
   ),
 };
 
