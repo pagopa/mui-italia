@@ -7,6 +7,7 @@ import {
 } from '@mui/icons-material';
 import { Avatar, Box, Stack, Typography } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useArgs } from 'storybook/preview-api';
 
 import { breakpointsChromaticValues, pxToRem } from '@theme';
 
@@ -98,6 +99,7 @@ const SampleContent = ({
 const meta: Meta<MIAccordionStoryArgs> = {
   title: 'Components/MIAccordion',
   component: MIAccordion,
+  tags: ['!dev'],
   parameters: {
     layout: 'padded',
     chromatic: {
@@ -108,21 +110,13 @@ const meta: Meta<MIAccordionStoryArgs> = {
         'title',
         'description',
         'badge',
-        'badgeProps',
         'badgeColor',
         'badgeVariant',
-        'icon',
         'iconOption',
         'headingLevel',
-        'defaultExpanded',
+        'expanded',
         'disabled',
         'loading',
-        'expanded',
-        'onChange',
-        'slots',
-        'slotProps',
-        'sx',
-        'id',
       ],
     },
   },
@@ -141,7 +135,7 @@ const meta: Meta<MIAccordionStoryArgs> = {
     badgeVariant: 'filled',
     iconOption: 'icon',
     headingLevel: 3,
-    defaultExpanded: false,
+    expanded: false,
     disabled: false,
     loading: false,
   },
@@ -162,32 +156,11 @@ const meta: Meta<MIAccordionStoryArgs> = {
       description: 'Testo del badge, reso come MIChip sotto il titolo.',
       table: { category: 'MIAccordion', type: { summary: 'string' } },
     },
-    badgeProps: {
-      control: false,
-      description:
-        'Colore e variante del MIChip del badge; le altre props di MIChip non sono ammesse. Da disabilitato il badge è sempre outlined. Nel Playground si prova con i controlli badgeColor e badgeVariant.',
-      table: {
-        category: 'MIAccordion',
-        type: { summary: "Pick<MIChipProps, 'color' | 'variant'>" },
-        defaultValue: { summary: "{ color: 'neutral', variant: 'filled' }" },
-      },
-    },
-    icon: {
-      control: false,
-      description:
-        'Icona decorativa a sinistra del titolo (icona, icona di stato o avatar), nascosta agli screen reader. Nel Playground si prova con il controllo iconOption.',
-      table: { category: 'MIAccordion', type: { summary: 'ReactNode' } },
-    },
     headingLevel: {
       options: [2, 3, 4, 5, 6],
       control: { type: 'select' },
       description: "Livello dell'heading che contiene l'header.",
       table: { category: 'MIAccordion', defaultValue: { summary: '3' } },
-    },
-    defaultExpanded: {
-      control: { type: 'boolean' },
-      description: "Stato iniziale dell'item (modalità non controllata).",
-      table: { category: 'MIAccordion', defaultValue: { summary: 'false' } },
     },
     disabled: {
       control: { type: 'boolean' },
@@ -201,46 +174,10 @@ const meta: Meta<MIAccordionStoryArgs> = {
       table: { category: 'MIAccordion', defaultValue: { summary: 'false' } },
     },
     expanded: {
-      control: false,
-      description: 'Stato aperto/chiuso in modalità controllata, da usare insieme a onChange.',
+      control: { type: 'boolean' },
+      description:
+        "Stato aperto/chiuso in modalità controllata, da usare insieme a onChange. Nel Playground si aggiorna anche cliccando sull'header.",
       table: { category: 'MIAccordion', type: { summary: 'boolean' } },
-    },
-    onChange: {
-      control: false,
-      description: "Chiamata quando l'utente apre o chiude l'item.",
-      table: {
-        category: 'MIAccordion',
-        type: { summary: '(event: SyntheticEvent, expanded: boolean) => void' },
-      },
-    },
-    slots: {
-      control: false,
-      description: 'Componente che sostituisce lo skeleton di default durante il caricamento.',
-      table: {
-        category: 'MIAccordion',
-        type: { summary: '{ skeleton?: ComponentType<MIAccordionSkeletonProps> }' },
-      },
-    },
-    slotProps: {
-      control: false,
-      description: 'Props passate allo skeleton (es. numero di righe).',
-      table: {
-        category: 'MIAccordion',
-        type: { summary: '{ skeleton?: { rows?: number } }' },
-        defaultValue: { summary: '{ skeleton: { rows: 6 } }' },
-      },
-    },
-    sx: {
-      control: false,
-      description:
-        "Stili di sistema MUI applicati al contenitore. Da usare per posizionare il componente, non per cambiarne l'aspetto rispetto al design system.",
-      table: { category: 'MIAccordion', type: { summary: 'SxProps<Theme>' } },
-    },
-    id: {
-      control: false,
-      description:
-        "Id del contenitore, che riceve anche gli attributi data-* (es. data-testid). Gli attributi aria-* (es. aria-describedby) vanno invece al pulsante dell'header.",
-      table: { category: 'MIAccordion', type: { summary: 'string' } },
     },
     iconOption: {
       options: ['none', 'icon', 'status', 'avatar'],
@@ -261,7 +198,8 @@ const meta: Meta<MIAccordionStoryArgs> = {
       table: { category: 'Storybook controls' },
     },
   },
-  render: ({
+  // Controlled through the args: the expanded control opens and closes the mounted item, and a click on the header updates the control
+  render: function RenderPlayground({
     title,
     description,
     badge,
@@ -269,24 +207,29 @@ const meta: Meta<MIAccordionStoryArgs> = {
     badgeVariant,
     iconOption = 'none',
     headingLevel,
-    defaultExpanded,
+    expanded = false,
     disabled,
     loading,
-  }) => (
-    <MIAccordion
-      title={title}
-      description={description}
-      badge={badge}
-      badgeProps={{ color: badgeColor, variant: badgeVariant }}
-      icon={icons[iconOption]}
-      headingLevel={headingLevel}
-      defaultExpanded={defaultExpanded}
-      disabled={disabled}
-      loading={loading}
-    >
-      <SampleContent />
-    </MIAccordion>
-  ),
+  }) {
+    const [, updateArgs] = useArgs<MIAccordionStoryArgs>();
+
+    return (
+      <MIAccordion
+        title={title}
+        description={description}
+        badge={badge}
+        badgeProps={{ color: badgeColor, variant: badgeVariant }}
+        icon={icons[iconOption]}
+        headingLevel={headingLevel}
+        expanded={expanded}
+        onChange={(_, nextExpanded) => updateArgs({ expanded: nextExpanded })}
+        disabled={disabled}
+        loading={loading}
+      >
+        <SampleContent />
+      </MIAccordion>
+    );
+  },
 };
 
 export default meta;
@@ -421,31 +364,11 @@ export const Loading: Story = {
   ),
 };
 
-const ControlledGroup = () => {
-  const [expanded, setExpanded] = useState<string | false>('dati');
-
-  const items = [
-    { id: 'dati', title: 'Informazioni generali' },
-    { id: 'config', title: 'Configurazione del servizio' },
-    { id: 'inoltro', title: 'Regole di inoltro' },
-  ];
-
-  return (
-    <Stack spacing={2}>
-      {items.map(({ id, title }) => (
-        <MIAccordion
-          key={id}
-          title={title}
-          icon={icons.icon}
-          expanded={expanded === id}
-          onChange={(_, isExpanded) => setExpanded(isExpanded ? id : false)}
-        >
-          <SampleContent />
-        </MIAccordion>
-      ))}
-    </Stack>
-  );
-};
+const groupItems = [
+  { id: 'dati', title: 'Informazioni generali' },
+  { id: 'config', title: 'Configurazione del servizio' },
+  { id: 'inoltro', title: 'Regole di inoltro' },
+];
 
 export const Group: Story = {
   parameters: {
@@ -457,7 +380,25 @@ export const Group: Story = {
       },
     },
   },
-  render: () => <ControlledGroup />,
+  render: function RenderGroup() {
+    const [expanded, setExpanded] = useState<string | false>('dati');
+
+    return (
+      <Stack spacing={2}>
+        {groupItems.map(({ id, title }) => (
+          <MIAccordion
+            key={id}
+            title={title}
+            icon={icons.icon}
+            expanded={expanded === id}
+            onChange={(_, isExpanded) => setExpanded(isExpanded ? id : false)}
+          >
+            <SampleContent />
+          </MIAccordion>
+        ))}
+      </Stack>
+    );
+  },
 };
 
 export const StressTest: Story = {
