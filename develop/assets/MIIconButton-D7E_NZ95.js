@@ -1,0 +1,25 @@
+import{j as e}from"./iframe--Veu_H0i.js";import{u as r,M as a,T as c,P as d,b as p,S as s}from"./blocks-BxM2Zhts.js";import{O as m}from"./Overview-BFXH5XLz.js";import{S as t,a as o}from"./SubSection-B1-m50sR.js";import{M as u,S as x,I as h,E as j}from"./MIIconButton.stories-DxqStRXz.js";import"./preload-helper-PPVm8Dsz.js";import"./index-KVX4_Kyo.js";import"./index-D22e8-md.js";import"./Box-DntunhcH.js";import"./Typography-DTg26sul.js";import"./DefaultPropsProvider-CvO-XTiv.js";import"./styled-CSprtNKk.js";import"./MIIconButton-DPF_di20.js";import"./IconButton-DHezPh_2.js";import"./ButtonBase-B0hIrA6B.js";import"./TransitionGroupContext-DGEyIdyq.js";import"./useForkRef-BylnVgws.js";import"./Stack-2Zj6C8pl.js";import"./createStack-CtTbzIgR.js";import"./useThemeProps-Yc7VDqz2.js";import"./CloseRounded-DPVBVUy4.js";import"./createSvgIcon-CpLUNxU5.js";import"./SvgIcon-BVB0onhD.js";import"./DownloadRounded-Cd5FOjrI.js";function l(n){const i={code:"code",p:"p",pre:"pre",...r(),...n.components};return e.jsxs(e.Fragment,{children:[e.jsx(a,{of:u}),`
+`,e.jsx(c,{}),`
+`,e.jsx(m,{children:e.jsxs(i.p,{children:[e.jsx("strong",{children:"MIIconButton"}),` è il pulsante con sola icona del Design System, basato sul
+componente IconButton di MUI. Applica il colore blu del Design System, uno stato hover/active
+dedicato e uno stato focus visibile.`]})}),`
+`,e.jsxs(t,{title:"Playground",description:"Usa i controlli per modificare i parametri principali del componente e verificare il risultato live.",children:[e.jsx(d,{}),e.jsx(p,{})]}),`
+`,e.jsx(t,{title:"Dimensioni",description:"MIIconButton supporta le dimensioni small, medium e large tramite la prop size.",children:e.jsx(s,{of:x})}),`
+`,e.jsx(t,{title:"Icone",description:"Il contenuto del componente è un’icona React passata come children. La story mostra alcuni esempi di icone usate per rappresentare azioni diverse.",children:e.jsx(s,{of:h})}),`
+`,e.jsx(t,{title:"Spaziatura ai bordi",description:"La prop edge consente di compensare la spaziatura quando il pulsante è il primo o l’ultimo elemento di un contenitore.",children:e.jsx(s,{of:j})}),`
+`,e.jsxs(t,{title:"Accessibilità",description:"MIIconButton mostra solo un’icona: l’accessibilità finale dipende dalla corretta valorizzazione delle props testuali e dal modo in cui il pulsante viene usato nel contesto dell’interfaccia.",children:[e.jsx(o,{title:"Props rilevanti",children:e.jsxs("ul",{children:[e.jsx("li",{children:e.jsxs(i.p,{children:[e.jsx("strong",{children:"aria-label"}),`: descrive l’azione del pulsante quando non è presente testo
+visibile. Deve essere sempre significativo, ad esempio `,e.jsx("code",{children:'aria-label="Elimina elemento"'}),"."]})}),e.jsx("li",{children:e.jsxs(i.p,{children:[e.jsx("strong",{children:"aria-labelledby"}),": può essere usata in alternativa ad ",e.jsx("code",{children:"aria-label"}),` quando
+l’etichetta accessibile è fornita da un elemento testuale esterno.`]})})]})})," ",e.jsx(o,{title:"Prop non disponibili",children:e.jsxs("ul",{children:[e.jsx("li",{children:e.jsxs(i.p,{children:[e.jsx("strong",{children:"disabled"}),": non è esposta dalle props pubbliche di ",e.jsx("code",{children:"MIIconButton"}),`.
+Se un’azione non è disponibile, gestire la condizione al click e comunicare all’utente il
+motivo.`]})}),e.jsx("li",{children:e.jsxs(i.p,{children:[e.jsx("strong",{children:"color"}),`: non è esposta come prop pubblica del componente. Il colore è definito
+internamente dallo stile di `,e.jsx("code",{children:"MIIconButton"}),"."]})})]})})," ",e.jsx(o,{title:"Focus da tastiera",children:e.jsx("p",{children:e.jsxs(i.p,{children:["Quando il pulsante viene raggiunto tramite tastiera, lo stato ",e.jsx("code",{children:"Mui-focusVisible"})," ",`
+mostra un outline blu con offset dedicato. Non rimuovere questo stile: rende evidente quale
+elemento è attivo durante la navigazione con Tab.`]})})})," ",e.jsx(o,{title:"Area cliccabile",children:e.jsx("p",{children:e.jsxs(i.p,{children:["Il componente imposta una dimensione minima di ",e.jsx("code",{children:"24×24px"})," tramite"," ",`
+`,e.jsx("code",{children:"minHeight"})," e ",e.jsx("code",{children:"minWidth"}),`. Questa scelta mantiene un target minimo anche
+con icone piccole e facilita l’interazione su dispositivi touch o per utenti con difficoltà
+motorie.`]})})})," ",e.jsx(o,{title:"Contrasto",children:e.jsx("p",{children:e.jsx(i.p,{children:`L’icona usa il blu del Design System. Su sfondi chiari il componente mantiene il comportamento
+previsto; su sfondi scuri o colorati è necessario verificare che l’icona resti sufficientemente
+leggibile nel contesto in cui viene usata.`})})}),e.jsx(o,{title:"Esempio accessibile",children:e.jsx(i.pre,{children:e.jsx(i.code,{className:"language-tsx",children:`<MIIconButton aria-label="Elimina elemento" onClick={handleDelete}>
+  <DeleteRoundedIcon />
+</MIIconButton>
+`})})})]})]})}function O(n={}){const{wrapper:i}={...r(),...n.components};return i?e.jsx(i,{...n,children:e.jsx(l,{...n})}):l(n)}export{O as default};
