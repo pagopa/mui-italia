@@ -1,5 +1,6 @@
 import {
   AccountBalance as AccountBalanceIcon,
+  Cached as CachedIcon,
   EmojiObjectsOutlined as EmojiObjectsOutlinedIcon,
   HowToReg as HowToRegIcon,
   SaveAlt as SaveAltIcon,
@@ -12,11 +13,14 @@ import {
   Skeleton,
   Stack,
   Typography,
+  alpha,
   useMediaQuery,
   useTheme,
 } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { ComponentProps, FC } from 'react';
+
+import { breakpointsChromaticValues, pxToRem } from '@theme';
 
 import { MIBoxedModule, MIBoxedModuleTitle } from '@components/MIBoxedModule';
 import { MIButton } from '@components/MIButton';
@@ -48,6 +52,27 @@ const BoxedIcon: FC = () => {
 };
 
 const BoxedAction: FC = () => <MIButton variant="text">Bottone</MIButton>;
+
+// Figma "AvatarSmall": entity logo placeholder, 44px
+const EntityAvatar: FC = () => {
+  const theme = useTheme();
+
+  return (
+    <Avatar
+      variant="rounded"
+      sx={{
+        width: 44,
+        height: 44,
+        boxSizing: 'border-box',
+        border: '1px solid',
+        borderColor: alpha(theme.colors.neutral.black, 0.06),
+        bgcolor: theme.colors.neutral.grey[50],
+      }}
+    >
+      <AccountBalanceIcon sx={{ fontSize: pxToRem(22), color: theme.colors.neutral.grey[300] }} />
+    </Avatar>
+  );
+};
 
 const meta: Meta<MIBoxedModuleStoryArgs> = {
   title: 'Components/MIBoxedModule',
@@ -240,6 +265,35 @@ export const NoTitle: Story = {
           </Typography>
           <MIChip label="Pagato" color="success" />
         </Stack>
+      </MIBoxedModule>
+    );
+  },
+};
+
+export const Action: Story = {
+  parameters: {
+    controls: { disable: true },
+    chromatic: { viewports: breakpointsChromaticValues },
+  },
+  render: function RenderWithState() {
+    const theme = useTheme();
+
+    return (
+      <MIBoxedModule
+        icon={<EntityAvatar />}
+        action={
+          <MIButton variant="text" endIcon={<CachedIcon />}>
+            Aggiorna documenti
+          </MIButton>
+        }
+      >
+        <Stack direction="row" alignItems="center" spacing={1}>
+          <MIBoxedModuleTitle>Product title</MIBoxedModuleTitle>
+          <MIChip label="Default" />
+        </Stack>
+        <Typography component="p" variant="caption" mt="2px" color={theme.colors.neutral.grey[700]}>
+          Description
+        </Typography>
       </MIBoxedModule>
     );
   },
