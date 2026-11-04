@@ -9,7 +9,7 @@
     "build": "rimraf dist && ncc build src/index.js -o dist"
   },
   "dependencies": {
-    "@actions/core": "^1.11.1"
+    "@actions/core": "^2.0.3"
   },
   "devDependencies": {
     "@vercel/ncc": "^0.38.4"

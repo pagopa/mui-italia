@@ -1,5 +1,6 @@
 import { LocationOn, Place, Warning } from '@mui/icons-material';
 import { Box, Button, Skeleton, Stack, Typography } from '@mui/material';
+import { theme } from '@theme';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import Autocomplete from '../components/Autocomplete/Autocomplete';
 
@@ -97,6 +98,17 @@ export const MultiSelectWithIcon: Story<City, true> = {
     slots: {
       startIcon: LocationOn,
     },
+  },
+};
+
+export const MultiSelectCountChip: Story<City, true> = {
+  args: {
+    options: cities,
+    label: 'Seleziona le città',
+    placeholder: 'Seleziona più città...',
+    multiple: true,
+    showSelectionCountOnly: true,
+    isOptionEqualToValue: (option, value) => option.id === value.id,
   },
 };
 
@@ -212,11 +224,11 @@ export const CustomEmptyState: Story<City, false> = {
           alignItems="center"
           textAlign="center"
           sx={{
-            backgroundColor: '#F4F5F8',
+            backgroundColor: theme.palette.background.default,
             py: 3,
           }}
         >
-          <Warning sx={{ color: '#D9D9D9' }} />
+          <Warning sx={{ color: theme.palette.decorativeIcon }} />
           <Typography fontWeight={600} fontSize="1.125rem" color="textSecondary">
             Il caricamento delle città è fallito
           </Typography>

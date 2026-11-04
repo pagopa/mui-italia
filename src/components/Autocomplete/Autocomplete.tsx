@@ -1,8 +1,10 @@
 'use client';
 
 import { Close, KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
-import { Box, IconButton, Paper, Popper, TextField } from '@mui/material';
+import { Box, IconButton, Paper, Popper } from '@mui/material';
+import type { Theme } from '@mui/material/styles';
 import { visuallyHidden } from '@mui/utils';
+import { MIChip } from '@components/MIChip';
 import {
   ChangeEvent,
   FocusEvent,
@@ -15,6 +17,7 @@ import {
 } from 'react';
 import { filterOptionsInternal } from 'utils/autocomplete';
 import { isMobileDevice } from 'utils/device';
+import { MITextField } from '@components/MITextField';
 import { AutocompleteProps, AutocompleteValue, InputChangeReason } from './Autocomplete.types';
 import AutocompleteContent from './AutocompleteContent';
 import DefaultEmptyState from './DefaultEmptyState';
@@ -48,6 +51,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
   label,
   placeholder,
   multiple = false,
+  showSelectionCountOnly = false,
   handleFiltering = filterOptionsInternal,
   disabled = false,
   required = false,
@@ -197,7 +201,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
     }
   };
 
-  const setInputFocus = (open: boolean = true) => {
+  const setInputFocus = (open: boolean) => {
     if (disabled) {
       return;
     }
@@ -304,7 +308,7 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
             }}
           />
         )}
-        {multiple && selectedOptions.length > 0 && (
+        {multiple && selectedOptions.length > 0 && !showSelectionCountOnly && (
           <MultiSelectChips
             selectedOptions={selectedOptions}
             handleChipDelete={handleChipDelete}
@@ -321,8 +325,13 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
   };
 
   const getEndInputAdornment = () => {
-    const showClearIcon = currentInputValue || hasSelectedValue;
+    const showClearIcon = (currentInputValue || hasSelectedValue) && !showSelectionCountOnly;
     const showArrowIcon = !toggleButtonProps.hidden;
+    const keyboardArrowSx = (theme: Theme) => ({
+      width: theme.spacing(3),
+      height: theme.spacing(3),
+      color: theme.colors.neutral.black,
+    });
 
     if ((!showClearIcon && !showArrowIcon) || disabled) {
       return null;
@@ -330,12 +339,23 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
 
     return (
       <Box
-        sx={{
+        sx={(theme) => ({
           display: 'flex',
           alignItems: 'center',
-          gap: 0.5,
-        }}
+          marginRight: theme.spacing(1.5),
+        })}
       >
+        {multiple && selectedOptions.length > 0 && showSelectionCountOnly && (
+          <MIChip
+            label={selectedOptions.length}
+            onDelete={handleClearValue}
+            disabled={disabled}
+            aria-label={selectionChipProps['aria-label']?.replace(
+              '%s',
+              `${selectedOptions.length}`
+            )}
+          />
+        )}
         {showClearIcon && (
           <IconButton
             size="small"
@@ -343,12 +363,19 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
             onMouseDown={(e) => e.preventDefault()}
             aria-label={clearButtonProps['aria-label']}
             disabled={disabled}
-            sx={{
+            sx={(theme) => ({
               padding: 0,
-              color: 'text.secondary',
-            }}
+              height: theme.spacing(3),
+              width: theme.spacing(3),
+            })}
           >
-            <Close />
+            <Close
+              sx={(theme) => ({
+                width: '1.1rem',
+                height: '1.1rem',
+                color: theme.colors.neutral.black,
+              })}
+            />
           </IconButton>
         )}
         {showArrowIcon && (
@@ -359,13 +386,18 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
               isOpen ? toggleButtonProps['close-aria-label'] : toggleButtonProps['open-aria-label']
             }
             disabled={disabled}
-            sx={{
-              padding: 0,
-              color: 'text.secondary',
+            sx={(theme) => ({
+              paddingRight: 0.5,
               cursor: 'pointer',
-            }}
+              height: theme.spacing(3),
+              width: theme.spacing(3),
+            })}
           >
-            {isOpen ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+            {isOpen ? (
+              <KeyboardArrowUp sx={keyboardArrowSx} />
+            ) : (
+              <KeyboardArrowDown sx={keyboardArrowSx} />
+            )}
           </IconButton>
         )}
       </Box>
@@ -385,12 +417,12 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
       );
       optionElement?.scrollIntoView({ block: 'nearest' });
     }
-  }, [activeIndex, isOpen, disabled]);
+  }, [activeIndex, isOpen, disabled, listboxId]);
 
   return (
     <>
       <Box position="relative" ref={containerRef} onBlur={handleBlur} sx={sx} {...other}>
-        <TextField
+        <MITextField
           id={inputId}
           fullWidth
           inputRef={inputRef}
@@ -421,32 +453,26 @@ const Autocomplete = <T, M extends boolean | undefined = false>({
             startAdornment: getStartInputAdornment(),
             endAdornment: getEndInputAdornment(),
           }}
-          sx={{
+          sx={(theme) => ({
             '& .MuiInputBase-root': {
+              padding: theme.spacing(0.625),
+              
+              paddingLeft: theme.spacing(1.5),
               display: 'flex',
               flexWrap: 'wrap',
               alignItems: 'center',
               gap: 1,
-              padding: '0.625rem 0.75rem',
               borderRadius: '0.5rem',
               borderWidth: '0.125rem',
-              backgroundColor: disabled ? '#F4F5F8' : 'transparent',
-              minHeight: '3rem',
+              backgroundColor: disabled ? theme.colors.neutral.grey[50] : 'transparent',
             },
             '& .MuiInputBase-input': {
               flex: '1 1 3.75rem',
               minWidth: '3.75rem',
-              padding: '0',
+              padding: 0,
               boxSizing: 'border-box',
             },
-            '& .MuiInputLabel-root': {
-              transform: 'translate(0.875rem, 0.663rem) scale(1)',
-
-              '&.MuiInputLabel-shrink': {
-                transform: 'translate(0.875rem, -0.663rem) scale(0.75)',
-              },
-            },
-          }}
+          })}
           {...textFieldProps}
         />
 

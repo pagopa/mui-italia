@@ -1,9 +1,11 @@
 'use client';
 
-import { useState, useRef, useEffect, FC } from 'react';
-import { IconButton, Tooltip } from '@mui/material';
+import { MIIconButton } from '@components/MIIconButton';
+import { Check as CheckIcon, ContentCopy as ContentCopyIcon } from '@mui/icons-material';
 import type { IconButtonProps } from '@mui/material';
-import { ContentCopy as ContentCopyIcon, Check as CheckIcon } from '@mui/icons-material';
+import { Tooltip } from '@mui/material';
+import { FC, useEffect, useRef, useState } from 'react';
+// import { MarginSxProps } from '@lib-types/shared.types';
 
 export interface CopyToClipboardProps extends Omit<IconButtonProps, 'onClick' | 'value'> {
   /** Value or a function that returns what should be copied to clipboard */
@@ -37,7 +39,7 @@ export const CopyToClipboardButton: FC<CopyToClipboardProps> = ({
   ...props
 }) => {
   const [copied, setCopied] = useState(false);
-  const copiedTimeoutRef = useRef<NodeJS.Timeout>();
+  const copiedTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   /** Clears the timeout on component unmount */
   useEffect(
@@ -73,16 +75,17 @@ export const CopyToClipboardButton: FC<CopyToClipboardProps> = ({
       title={tooltipTitle}
       placement="top"
     >
-      <IconButton
+      <MIIconButton
         role="button"
         onClick={handleCopyToClipboard}
         {...props}
-        sx={{ mx: 1, ...props.sx }}
+        sx={props.sx}
         aria-label={!copied ? ariaLabels.copy : ariaLabels.copied}
+        disabled={props.disabled}
       >
         {!copied && <ContentCopyIcon fontSize="small" />}
         {copied && <CheckIcon color="success" fontSize="small" />}
-      </IconButton>
+      </MIIconButton>
     </Tooltip>
   );
 };
