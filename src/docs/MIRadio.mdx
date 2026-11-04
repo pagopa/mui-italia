@@ -1,0 +1,110 @@
+import {
+  Meta,
+  Title,
+  Primary,
+  Controls,
+  Canvas,
+} from '@storybook/addon-docs/blocks';
+
+import Overview from './components/Overview';
+import Section from './components/Section';
+import SubSection from './components/SubSection';
+import * as MIRadioStories from '../stories/MIRadio.stories.tsx';
+
+<Meta of={MIRadioStories} />
+
+<Title />
+
+<Overview>
+  <strong>MIRadio</strong> è un wrapper del componente MUI <code>Radio</code>.
+  Supporta lo stato controllato o la selezione tramite <code>RadioGroup</code>, una
+  label visibile e un messaggio di errore configurabile.
+  <br />
+</Overview>
+
+<Section title="Riferimenti" description="Risorse per confrontare implementazione e specifiche.">
+  <ul>
+    <li>
+      🎨 <a href="https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=194-3841&m=dev">Figma: Radio con label</a>
+    </li>
+    <li>💻 Codice sorgente: TODO: link GitHub non fornito.</li>
+  </ul>
+</Section>
+
+<Section
+  title="Playground"
+  description="Modifica il valore selezionato, l’etichetta e il messaggio di errore."
+>
+  <Primary />
+  <Controls />
+</Section>
+
+<Section
+  title="Stati"
+  description="Le stories mostrano gli stati selezionato, disabilitato e con errore."
+>
+  <SubSection title="Selezionato">
+    <Canvas of={MIRadioStories.Selected} />
+  </SubSection>
+
+  <SubSection title="Disabilitato">
+    <Canvas of={MIRadioStories.Disabled} />
+  </SubSection>
+
+  <SubSection title="Con errore">
+    <Canvas of={MIRadioStories.WithError} />
+  </SubSection>
+
+  <SubSection title="Label lunga">
+    La label va a capo in base alla larghezza disponibile.
+    <Canvas of={MIRadioStories.LongLabel} />
+  </SubSection>
+
+  <SubSection title="Senza label visibile">
+    La story mostra come fornire un nome accessibile tramite <code>inputProps</code>.
+    <Canvas of={MIRadioStories.AccessibleName} />
+  </SubSection>
+</Section>
+
+<Section
+  title="Note per gli sviluppatori"
+  description="Indicazioni per configurare le props esposte da MIRadio."
+>
+  <ul>
+    <li>
+      Usa <code>RadioGroup</code> per associare i radio e consentire la selezione esclusiva.
+      La prop <code>value</code> consente di controllare l’opzione selezionata.
+    </li>
+    <li>
+      La prop <code>error</code> è disponibile quando viene fornita una <code>label</code>;
+      il componente associa il messaggio all’input.
+    </li>
+    <li>
+      Le altre props sono ereditate da MUI <code>RadioProps</code>.
+    </li>
+  </ul>
+</Section>
+
+<Section
+  title="Note per i designer"
+  description="Stati visivi e riferimenti verificabili nel codice."
+>
+  <ul>
+    <li>Lo stato selezionato usa il token <code>blue[500]</code>.</li>
+    <li>Il bordo non selezionato in errore usa <code>error[600]</code>.</li>
+    <li>Il componente occupa la larghezza disponibile e adatta a capo la label.</li>
+  </ul>
+</Section>
+
+<Section
+  title="Accessibilità"
+  description="Il radio associa label e messaggio di errore all’input."
+>
+  <SubSection title="Nome accessibile">
+    Quando non è presente una label visibile, fornire un nome tramite <code>inputProps</code>:
+
+    ```tsx
+    <MIRadio inputProps={{ 'aria-label': 'Ricevi aggiornamenti via email' }} />
+    ```
+  </SubSection>
+</Section>
