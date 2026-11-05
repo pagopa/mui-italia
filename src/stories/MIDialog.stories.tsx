@@ -1,6 +1,5 @@
 import {
   Checkbox,
-  DialogContent,
   DialogContentText,
   FormControlLabel,
   Stack,
@@ -16,6 +15,7 @@ import { MIDialog } from '@components/MIDialog';
 const componentMaxWidth = 800;
 
 type MIDialogActionColor = NonNullable<ComponentProps<typeof MIButton>['color']>;
+type MIDialogStoryContent = 'text' | 'checkbox' | 'error' | 'accessible-name';
 
 type MIDialogStoryArgs = Pick<
   ComponentProps<typeof MIDialog>,
@@ -30,6 +30,7 @@ type MIDialogStoryArgs = Pick<
   | 'scroll'
   | 'closeButtonAriaLabel'
 > & {
+  contentMode: MIDialogStoryContent;
   footerMode: 'actions' | 'custom' | 'hidden';
   primaryActionColor: MIDialogActionColor;
   secondaryActionColor: MIDialogActionColor;
@@ -42,6 +43,7 @@ type DialogExampleProps = Omit<
   | 'onClose'
   | 'onCloseButtonClick'
   | 'footerMode'
+  | 'contentMode'
   | 'primaryActionColor'
   | 'secondaryActionColor'
   | 'showTitle'
@@ -49,7 +51,7 @@ type DialogExampleProps = Omit<
   closeButtonAriaLabel?: string;
   onOpen: () => void;
   onRequestClose: () => void;
-  content?: 'text' | 'checkbox' | 'error';
+  content?: MIDialogStoryContent;
   footerMode?: MIDialogStoryArgs['footerMode'];
   primaryActionColor?: MIDialogActionColor;
   secondaryActionColor?: MIDialogActionColor;
@@ -98,6 +100,21 @@ function DialogExample({
       null
     ) : undefined;
 
+  const showActions = footerMode !== 'hidden';
+  const children =
+    content === 'checkbox' ? (
+      <FormControlLabel
+        control={<Checkbox />}
+        label="Ricevi aggiornamenti sulla richiesta"
+      />
+    ) : content === 'error' ? (
+      <DialogContentText variant="body2">
+        Codice di riferimento: <strong>REF-2048</strong>
+      </DialogContentText>
+    ) : content === 'accessible-name' ? (
+      <span id="dialog-content-label">Dettagli della richiesta</span>
+    ) : undefined;
+
   return (
     <>
       <MIButton onClick={onOpen}>Apri finestra</MIButton>
@@ -114,7 +131,7 @@ function DialogExample({
         description={description}
         closeButtonAriaLabel={closeButtonAriaLabel}
         secondaryAction={
-          showSecondaryAction
+          showActions && showSecondaryAction
             ? {
                 label: 'Annulla',
                 onClick: onRequestClose,
@@ -122,35 +139,18 @@ function DialogExample({
               }
             : undefined
         }
-        primaryAction={{
-          label: 'Conferma',
-          onClick: onRequestClose,
-          color: primaryActionColor,
-        }}
+        primaryAction={
+          showActions
+            ? {
+                label: 'Conferma',
+                onClick: onRequestClose,
+                color: primaryActionColor,
+              }
+            : undefined
+        }
         renderFooter={renderFooter}
       >
-        {!showTitle && (
-          <DialogContent sx={{ px: 3, py: 0 }}>
-            <DialogContentText id="dialog-content-label">
-              Dettagli della richiesta
-            </DialogContentText>
-          </DialogContent>
-        )}
-        {(content === 'checkbox' || content === 'error') && (
-          <DialogContent sx={{ px: 3, py: 0 }}>
-            {content === 'checkbox' && (
-              <FormControlLabel
-                control={<Checkbox />}
-                label="Ricevi aggiornamenti sulla richiesta"
-              />
-            )}
-            {content === 'error' && (
-              <DialogContentText variant="body2">
-                Codice di riferimento: <strong>REF-2048</strong>
-              </DialogContentText>
-            )}
-          </DialogContent>
-        )}
+        {children}
       </MIDialog>
     </>
   );
@@ -188,6 +188,7 @@ const meta: Meta<MIDialogStoryArgs> = {
       include: [
         'title',
         'description',
+        'contentMode',
         'maxWidth',
         'fullWidth',
         'fullScreen',
@@ -221,6 +222,7 @@ const meta: Meta<MIDialogStoryArgs> = {
     open: false,
     title: 'Conferma la richiesta',
     description: 'Vuoi procedere con l’invio della richiesta?',
+    contentMode: 'checkbox',
     showTitle: true,
     footerMode: 'actions',
     primaryActionColor: 'primary',
@@ -261,6 +263,16 @@ const meta: Meta<MIDialogStoryArgs> = {
         category: 'Controlli Storybook',
         defaultValue: {
           summary: 'Vuoi procedere con l’invio della richiesta?',
+        },
+      },
+      contentMode: {
+        control: 'select',
+        options: ['text', 'checkbox', 'error', 'accessible-name'],
+        description:
+          'Controllo Storybook: seleziona il contenuto aggiuntivo mostrato nel dialog.',
+        table: {
+          category: 'Controlli Storybook',
+          defaultValue: { summary: 'checkbox' },
         },
       },
     },
@@ -357,6 +369,7 @@ export const Playground: Story = {
   render: function RenderPlayground({
     title,
     description,
+    contentMode,
     open,
     closeButtonAriaLabel,
     maxWidth,
@@ -379,6 +392,7 @@ export const Playground: Story = {
         closeButtonAriaLabel={closeButtonAriaLabel}
         title={title}
         description={description}
+        content={contentMode}
         maxWidth={maxWidth}
         fullWidth={fullWidth}
         fullScreen={fullScreen}
@@ -402,6 +416,7 @@ export const Default: Story = {
     <StatefulDialogExample
       title="Conferma la richiesta"
       description="Vuoi procedere con l’invio della richiesta?"
+      content="checkbox"
       maxWidth="sm"
       fullWidth
       fullScreen={false}
@@ -500,6 +515,7 @@ export const DialogWithoutTitle: Story = {
       fullScreen={false}
       scroll="paper"
       showTitle={false}
+      content="accessible-name"
     />
   ),
 };

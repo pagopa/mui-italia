@@ -20,7 +20,7 @@ import * as MIDialogStories from '../stories/MIDialog.stories';
   Accetta le props opzionali <code>title</code> e <code>description</code> per
   mostrare titolo e descrizione senza comporre manualmente i relativi componenti.
   Supporta azioni primaria e secondaria configurabili, un footer ReactNode
-  personalizzato e contenuti aggiuntivi.
+  personalizzato e contenuti aggiuntivi tramite <code>children</code>.
 </Overview>
 
 <Section
@@ -29,7 +29,7 @@ import * as MIDialogStories from '../stories/MIDialog.stories';
 >
   <ul>
     <li>
-      🎨 <a href="https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=1042-14217">Figma</a>
+      🎨 <a href="https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=1042-14217&p=f&m=dev">Figma</a>
     </li>
   </ul>
 </Section>
@@ -47,7 +47,8 @@ import * as MIDialogStories from '../stories/MIDialog.stories';
   description="Le stories mostrano configurazioni del dialog, i footer disponibili e contenuti diversi."
 >
   <SubSection title="Dialog semplice">
-    Dialog con titolo, descrizione e azioni.
+    Dialog con titolo, descrizione e azioni, come
+    configurazione desktop e mobile mostrata nel riferimento Figma.
 
     <Canvas of={MIDialogStories.Default} />
   </SubSection>
@@ -79,7 +80,8 @@ import * as MIDialogStories from '../stories/MIDialog.stories';
   </SubSection>
 
   <SubSection title="Azioni nascoste">
-    Passando un footer vuoto, le azioni standard non vengono renderizzate.
+    La story omette le azioni standard. Il footer personalizzato non viene
+    fornito.
 
     <Canvas of={MIDialogStories.HiddenActions} />
   </SubSection>
@@ -131,7 +133,9 @@ import * as MIDialogStories from '../stories/MIDialog.stories';
       definita, sostituisce il footer standard.
     </li>
     <li>
-      Il contenuto aggiuntivo può essere passato tramite <code>children</code>.
+      Il contenuto aggiuntivo può essere passato tramite <code>children</code>;
+      viene renderizzato nell’area di contenuto quando è presente
+      <code>description</code>.
       Le props di <code>MIDialog</code> derivano da MUI <code>DialogProps</code>,
       ma l’API del wrapper esclude <code>sx</code>, <code>classes</code> e
       <code>className</code>.
@@ -149,25 +153,6 @@ import * as MIDialogStories from '../stories/MIDialog.stories';
     </li>
   </ul>
 </Section>
-
-<Section
-  title="Note per i designer"
-  description="Dettagli visuali verificabili dall’implementazione."
->
-  <ul>
-    <li>Il raggio del paper è impostato a <code>theme.spacing(2)</code>.</li>
-    <li>
-      Le azioni standard si dispongono in colonna su viewport più strette e in
-      riga da <code>md</code>; il footer personalizzato definisce invece il
-      proprio layout.
-    </li>
-    <li>
-      Gli snapshot Chromatic della story sono configurati fino a 800px, valore
-      inferito dall’euristica per i dialog.
-    </li>
-  </ul>
-</Section>
-
 <Section
   title="Accessibilità"
   description="Il dialog eredita le props e il comportamento accessibile del Dialog di MUI."

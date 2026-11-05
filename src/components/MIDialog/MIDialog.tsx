@@ -4,7 +4,6 @@ import {
   type DialogContentProps,
   type DialogActionsProps,
   type DialogContentTextProps,
-  Stack,
 } from '@mui/material';
 import { type ReactNode, useId } from 'react';
 import { MIButton, type MIButtonProps } from '@components/MIButton';
@@ -60,64 +59,62 @@ export const MIDialog: React.FC<MIDialogProps> = ({
       aria-labelledby={ariaLabelledBy ?? (title != null ? titleId : undefined)}
       aria-describedby={ariaDescribedBy ?? (description != null ? descriptionId : undefined)}
     >
-      <Stack
+      <MIDialogTitle id={titleId}>
+        {title}
+      </MIDialogTitle>
+     <MIIconButton
+        aria-label={closeButtonAriaLabel}
+        onClick={onCloseButtonClick}
         sx={(theme) => ({
-          padding: theme.spacing(3, 3, 1),
-          flexDirection: 'row',
-          justifyContent: title != null ? 'space-between' : 'flex-end',
-          alignItems: 'center',
+          position: 'absolute',
+          right: theme.spacing(2),
+          top: theme.spacing(2.2),
+          color: theme.colors.neutral.black,
         })}
       >
-        {title != null && <MIDialogTitle id={titleId}>{title}</MIDialogTitle>}
-        <MIIconButton
-          aria-label={closeButtonAriaLabel}
-          onClick={onCloseButtonClick}
-          sx={(theme) => ({ alignSelf: 'end', color: theme.colors.neutral.black })}
-        >
-          <CloseRounded />
-        </MIIconButton>
-      </Stack>
+        <CloseRounded />
+      </MIIconButton>
       {description != null && (
         <MIDialogContent>
           <MIDialogContentText id={descriptionId}>{description}</MIDialogContentText>
+           {children}
         </MIDialogContent>
       )}
-      {children}
-      {renderFooter !== undefined
-        ? renderFooter
-        : (primaryAction || secondaryAction) && (
-            <MIDialogActions>
-              {secondaryAction && (
-                <MIButton
-                  variant="text"
-                  onClick={secondaryAction.onClick}
-                  disabled={secondaryAction.disabled}
-                  color={secondaryAction.color}
-                  sx={(theme) => ({
-                    [theme.breakpoints.down('md')]: {
-                      width: '100%',
-                    },
-                  })}
-                >
-                  {secondaryAction.label}
-                </MIButton>
-              )}
-              {primaryAction && (
-                <MIButton
-                  onClick={primaryAction.onClick}
-                  disabled={primaryAction.disabled}
-                  color={primaryAction.color}
-                  sx={(theme) => ({
-                    [theme.breakpoints.down('md')]: {
-                      width: '100%',
-                    },
-                  })}
-                >
-                  {primaryAction.label}
-                </MIButton>
-              )}
-            </MIDialogActions>
-          )}
+
+
+      {renderFooter ? renderFooter :  <MIDialogActions>
+        {secondaryAction && (
+          <MIButton
+            variant="text"
+            onClick={secondaryAction.onClick}
+            disabled={secondaryAction.disabled}
+            color={secondaryAction.color}
+            sx={(theme) => ({
+              [theme.breakpoints.down('md')]: {
+                width: '100%',
+              },
+            })}
+          >
+            {secondaryAction.label}
+          </MIButton>
+        )}
+        {primaryAction && (
+          <MIButton
+            autoFocus
+            onClick={primaryAction.onClick}
+            disabled={primaryAction.disabled}
+            color={primaryAction.color}
+            sx={(theme) => ({
+              [theme.breakpoints.down('md')]: {
+                width: '100%',
+              },
+            })}
+          >
+            {primaryAction.label}
+          </MIButton>
+        )}
+      </MIDialogActions>  }
+     
     </StyledDialog>
   );
 };

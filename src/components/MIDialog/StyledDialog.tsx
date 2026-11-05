@@ -15,7 +15,7 @@ export const StyledDialog = styled(MuiDialog)(({ theme }) => ({
 
 export const StyledDialogTitle = styled(MuiDialogTitle)(({ theme }) => ({
   color: theme.colors.neutral.black,
-  padding: 0,
+  padding: theme.spacing(3, 3, 1),
 }));
 
 export const StyledDialogContent = styled(MuiDialogContent)(({ theme }) => ({
