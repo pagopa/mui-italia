@@ -1,44 +1,344 @@
-import { CopyToClipboardButton } from '@components/CopyToClipboardButton';
-import { MIBoxedModule } from '@components/MIBoxedModule';
-import MIBoxedModuleContent from '@components/MIBoxedModule/MIBoxedModuleContent';
-import { MIButton } from '@components/MIButton';
 import {
-  MIDialog,
-  MIDialogTitle,
-  MIDialogContent,
-  MIDialogContentText,
-  MIDialogActions,
-} from '@components/MIDialog';
-import { Close } from '@mui/icons-material';
-import { Checkbox, FormControlLabel, IconButton, Stack, Typography } from '@mui/material';
-import { Meta, StoryObj } from '@storybook/react-vite';
-import React from 'react';
+  Checkbox,
+  DialogContent,
+  DialogContentText,
+  FormControlLabel,
+  Stack,
+} from '@mui/material';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { breakpointsChromaticValues } from '@theme';
+import { useState, type ComponentProps } from 'react';
+import { useArgs } from 'storybook/preview-api';
+
+import { MIButton } from '@components/MIButton';
+import { MIDialog } from '@components/MIDialog';
+
+const componentMaxWidth = 800;
+
+type MIDialogActionColor = NonNullable<ComponentProps<typeof MIButton>['color']>;
 
 type MIDialogStoryArgs = Pick<
-  React.ComponentProps<typeof MIDialog>,
-  'maxWidth' | 'fullWidth' | 'fullScreen' | 'scroll'
->;
+  ComponentProps<typeof MIDialog>,
+  | 'onClose'
+  | 'onCloseButtonClick'
+  | 'open'
+  | 'title'
+  | 'description'
+  | 'maxWidth'
+  | 'fullWidth'
+  | 'fullScreen'
+  | 'scroll'
+  | 'closeButtonAriaLabel'
+> & {
+  footerMode: 'actions' | 'custom' | 'hidden';
+  primaryActionColor: MIDialogActionColor;
+  secondaryActionColor: MIDialogActionColor;
+  showTitle: boolean;
+};
+
+type DialogExampleProps = Omit<
+  MIDialogStoryArgs,
+  | 'closeButtonAriaLabel'
+  | 'onClose'
+  | 'onCloseButtonClick'
+  | 'footerMode'
+  | 'primaryActionColor'
+  | 'secondaryActionColor'
+  | 'showTitle'
+> & {
+  closeButtonAriaLabel?: string;
+  onOpen: () => void;
+  onRequestClose: () => void;
+  content?: 'text' | 'checkbox' | 'error';
+  footerMode?: MIDialogStoryArgs['footerMode'];
+  primaryActionColor?: MIDialogActionColor;
+  secondaryActionColor?: MIDialogActionColor;
+  showSecondaryAction?: boolean;
+  showTitle?: boolean;
+};
+
+function DialogExample({
+  closeButtonAriaLabel = 'Chiudi finestra',
+  open,
+  onOpen,
+  onRequestClose,
+  maxWidth,
+  fullWidth,
+  fullScreen,
+  scroll,
+  title,
+  description,
+  content = 'text',
+  footerMode = 'actions',
+  primaryActionColor = 'primary',
+  secondaryActionColor = 'primary',
+  showSecondaryAction = true,
+  showTitle = true,
+}: DialogExampleProps) {
+  const renderFooter =
+    footerMode === 'custom' ? (
+      <Stack
+        direction={{ xs: 'column', md: 'row' }}
+        spacing={2.5}
+        sx={(theme) => ({
+          padding: theme.spacing(2, 3),
+          '& > *': {
+            [theme.breakpoints.down('md')]: {
+              width: '100%',
+            },
+          },
+        })}
+      >
+        <MIButton variant="text" onClick={onRequestClose}>
+          Torna alla richiesta
+        </MIButton>
+        <MIButton onClick={onRequestClose}>Conferma e invia</MIButton>
+      </Stack>
+    ) : footerMode === 'hidden' ? (
+      null
+    ) : undefined;
+
+  return (
+    <>
+      <MIButton onClick={onOpen}>Apri finestra</MIButton>
+      <MIDialog
+        open={open}
+        onClose={() => onRequestClose()}
+        onCloseButtonClick={() => onRequestClose()}
+        maxWidth={maxWidth}
+        fullWidth={fullWidth}
+        fullScreen={fullScreen}
+        scroll={scroll}
+        title={showTitle ? title : undefined}
+        aria-labelledby={showTitle ? undefined : 'dialog-content-label'}
+        description={description}
+        closeButtonAriaLabel={closeButtonAriaLabel}
+        secondaryAction={
+          showSecondaryAction
+            ? {
+                label: 'Annulla',
+                onClick: onRequestClose,
+                color: secondaryActionColor,
+              }
+            : undefined
+        }
+        primaryAction={{
+          label: 'Conferma',
+          onClick: onRequestClose,
+          color: primaryActionColor,
+        }}
+        renderFooter={renderFooter}
+      >
+        {!showTitle && (
+          <DialogContent sx={{ px: 3, py: 0 }}>
+            <DialogContentText id="dialog-content-label">
+              Dettagli della richiesta
+            </DialogContentText>
+          </DialogContent>
+        )}
+        {(content === 'checkbox' || content === 'error') && (
+          <DialogContent sx={{ px: 3, py: 0 }}>
+            {content === 'checkbox' && (
+              <FormControlLabel
+                control={<Checkbox />}
+                label="Ricevi aggiornamenti sulla richiesta"
+              />
+            )}
+            {content === 'error' && (
+              <DialogContentText variant="body2">
+                Codice di riferimento: <strong>REF-2048</strong>
+              </DialogContentText>
+            )}
+          </DialogContent>
+        )}
+      </MIDialog>
+    </>
+  );
+}
+
+type StatefulDialogExampleProps = Omit<
+  DialogExampleProps,
+  'open' | 'onOpen' | 'onRequestClose'
+> & {
+  initialOpen?: boolean;
+};
+
+function StatefulDialogExample({
+  initialOpen = false,
+  ...props
+}: StatefulDialogExampleProps) {
+  const [open, setOpen] = useState(initialOpen);
+
+  return (
+    <DialogExample
+      {...props}
+      open={open}
+      onOpen={() => setOpen(true)}
+      onRequestClose={() => setOpen(false)}
+    />
+  );
+}
 
 const meta: Meta<MIDialogStoryArgs> = {
   title: 'Components/MIDialog',
   component: MIDialog,
-  argTypes: {
-    maxWidth: {
-      control: 'select',
-      options: [false, 'xs', 'sm', 'md', 'lg', 'xl'],
+  tags: ['!dev'],
+  parameters: {
+    controls: {
+      include: [
+        'title',
+        'description',
+        'maxWidth',
+        'fullWidth',
+        'fullScreen',
+        'scroll',
+        'closeButtonAriaLabel',
+        'showTitle',
+        'footerMode',
+        'primaryActionColor',
+        'secondaryActionColor',
+      ],
     },
-    fullWidth: { control: 'boolean' },
-    fullScreen: { control: 'boolean' },
-    scroll: {
-      control: 'select',
-      options: ['paper', 'body'],
+    chromatic: {
+      viewports: breakpointsChromaticValues.filter(
+        (resolution) => resolution <= componentMaxWidth,
+      ),
+    },
+    docs: {
+      description: {
+        component:
+          'Dialog basato su MUI, con props per titolo, descrizione e azioni principali, oltre a componenti dedicati per i contenuti personalizzati.',
+      },
+      story: {
+        inline: false,
+        iframeHeight: 600,
+      },
     },
   },
   args: {
+    onClose: () => {},
+    onCloseButtonClick: () => {},
+    open: false,
+    title: 'Conferma la richiesta',
+    description: 'Vuoi procedere con l’invio della richiesta?',
+    showTitle: true,
+    footerMode: 'actions',
+    primaryActionColor: 'primary',
+    secondaryActionColor: 'primary',
     maxWidth: 'sm',
-    fullWidth: false,
+    fullWidth: true,
     fullScreen: false,
     scroll: 'paper',
+    closeButtonAriaLabel: 'Chiudi finestra',
+  },
+  argTypes: {
+    onCloseButtonClick: {
+      control: false,
+      table: {
+        disable: true,
+      },
+    },
+    onClose: {
+      control: false,
+      table: {
+        disable: true,
+      },
+    },
+    title: {
+      control: 'text',
+      description:
+        'Testo del titolo; può essere omesso con “Mostra titolo” disattivato.',
+      table: {
+        category: 'Controlli Storybook',
+        defaultValue: { summary: 'Conferma la richiesta' },
+      },
+    },
+    description: {
+      control: 'text',
+      description:
+        'Controllo Storybook: testo descrittivo mostrato nel contenuto.',
+      table: {
+        category: 'Controlli Storybook',
+        defaultValue: {
+          summary: 'Vuoi procedere con l’invio della richiesta?',
+        },
+      },
+    },
+    showTitle: {
+      control: 'boolean',
+      description:
+        'Controllo Storybook: mostra o omette il titolo, mantenendo un nome accessibile quando è omesso.',
+      table: {
+        category: 'Controlli Storybook',
+        defaultValue: { summary: 'true' },
+      },
+    },
+    footerMode: {
+      control: 'radio',
+      options: ['actions', 'custom', 'hidden'],
+      description:
+        'Controllo Storybook: mostra le azioni configurate, un footer personalizzato o nessun footer.',
+      table: {
+        category: 'Controlli Storybook',
+        defaultValue: { summary: 'actions' },
+      },
+    },
+    primaryActionColor: {
+      control: 'radio',
+      options: ['primary', 'error', 'contrasted'],
+      description: 'Colore del pulsante dell’azione primaria.',
+      table: {
+        category: 'Controlli Storybook',
+        defaultValue: { summary: 'primary' },
+      },
+    },
+    secondaryActionColor: {
+      control: 'radio',
+      options: ['primary', 'error', 'contrasted'],
+      description: 'Colore del pulsante dell’azione secondaria.',
+      table: {
+        category: 'Controlli Storybook',
+        defaultValue: { summary: 'primary' },
+      },
+    },
+    maxWidth: {
+      control: 'select',
+      options: [false, 'xs', 'sm', 'md', 'lg', 'xl'],
+      description: 'Larghezza massima del dialog.',
+      table: {
+        defaultValue: { summary: "'sm'" },
+      },
+    },
+    fullWidth: {
+      control: 'boolean',
+      description: 'Estende il dialog fino alla larghezza massima disponibile.',
+      table: {
+        defaultValue: { summary: 'true' },
+      },
+    },
+    fullScreen: {
+      control: 'boolean',
+      description: 'Mostra il dialog a schermo intero.',
+      table: {
+        defaultValue: { summary: 'false' },
+      },
+    },
+    scroll: {
+      control: 'radio',
+      options: ['paper', 'body'],
+      description: 'Definisce l’area in cui scorre il contenuto.',
+      table: {
+        defaultValue: { summary: "'paper'" },
+      },
+    },
+    closeButtonAriaLabel: {
+      control: 'text',
+      description:
+        'Testo accessibile del pulsante di chiusura, configurabile per la localizzazione.',
+      table: {
+        defaultValue: { summary: 'Chiudi finestra' },
+      },
+    },
   },
 };
 
@@ -46,182 +346,216 @@ export default meta;
 
 type Story = StoryObj<MIDialogStoryArgs>;
 
-const ExampleDialog = (dialogProps?: MIDialogStoryArgs) => {
-  const [open, setOpen] = React.useState(false);
-
-  return (
-    <>
-      <MIButton onClick={() => setOpen(true)}>Open Dialog</MIButton>
-      <MIDialog
-        {...dialogProps}
-        open={open}
-        onClose={() => setOpen(false)}
-        aria-labelledby="example-dialog"
-      >
-        <MIDialogTitle>Dialog Title</MIDialogTitle>
-        <IconButton
-          onClick={() => setOpen(false)}
-          aria-label="close"
-          sx={(theme) => ({
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: theme.colors.neutral.black,
-          })}
-        >
-          <Close fontSize="small" />
-        </IconButton>
-        <MIDialogContent>
-          <MIDialogContentText variant="body2">
-            Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut
-            labore et dolore magna aliqua. Ut enim ad minim veniam, quis ullamco laboris nisi ut
-            aliquid ex ea commodi consequat.
-          </MIDialogContentText>
-        </MIDialogContent>
-        <MIDialogActions>
-          <MIButton variant="text">Secondary</MIButton>
-          <MIButton>Primary</MIButton>
-        </MIDialogActions>
-      </MIDialog>
-    </>
-  );
-};
-
-const ExampleDialogWithCheckbox = () => {
-  const [open, setOpen] = React.useState(false);
-
-  return (
-    <>
-      <MIButton onClick={() => setOpen(true)}>Open Dialog with Checkbox</MIButton>
-      <MIDialog open={open} onClose={() => setOpen(false)} aria-labelledby="example-dialog">
-        <MIDialogTitle>Dialog Title</MIDialogTitle>
-        <IconButton
-          onClick={() => setOpen(false)}
-          aria-label="close"
-          sx={(theme) => ({
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: theme.colors.neutral.black,
-          })}
-        >
-          <Close fontSize="small" />
-        </IconButton>
-        <MIDialogContent>
-          <MIDialogContentText variant="body2">
-            Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut
-            labore et dolore magna aliqua. Ut enim ad minim veniam, quis ullamco laboris nisi ut
-            aliquid ex ea commodi consequat.
-          </MIDialogContentText>
-          <FormControlLabel
-            sx={{
-              marginTop: '16px',
-            }}
-            control={<Checkbox />}
-            label="Checkbox"
-          />
-        </MIDialogContent>
-        <MIDialogActions>
-          <MIButton variant="text">Secondary</MIButton>
-          <MIButton>Primary</MIButton>
-        </MIDialogActions>
-      </MIDialog>
-    </>
-  );
-};
-
-const ExampleDialogWithError = () => {
-  const [open, setOpen] = React.useState(false);
-
-  return (
-    <>
-      <MIButton onClick={() => setOpen(true)}>Open Dialog with Error</MIButton>
-      <MIDialog open={open} onClose={() => setOpen(false)} aria-labelledby="example-dialog">
-        <MIDialogTitle>Dialog Title</MIDialogTitle>
-        <IconButton
-          onClick={() => setOpen(false)}
-          aria-label="close"
-          sx={(theme) => ({
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: theme.colors.neutral.black,
-          })}
-        >
-          <Close fontSize="small" />
-        </IconButton>
-        <MIDialogContent>
-          <MIDialogContentText variant="body2">
-            Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut
-            labore et dolore magna aliqua. Ut enim ad minim veniam, quis ullamco laboris nisi ut
-            aliquid ex ea commodi consequat.
-          </MIDialogContentText>
-          <Stack
-            gap={2}
-            sx={{
-              marginTop: '24px',
-            }}
-          >
-            <Typography variant="caption-semibold">Codice di errore per l'assistenza</Typography>
-            <MIBoxedModule>
-              <MIBoxedModuleContent>
-                <Stack direction="row" justifyContent="space-between" alignContent="center">
-                  <Typography alignContent="center">[Codice errore]</Typography>
-                  <CopyToClipboardButton value={() => ''} />
-                </Stack>
-              </MIBoxedModuleContent>
-            </MIBoxedModule>
-          </Stack>
-        </MIDialogContent>
-        <MIDialogActions>
-          <MIButton variant="text">Secondary</MIButton>
-          <MIButton>Primary</MIButton>
-        </MIDialogActions>
-      </MIDialog>
-    </>
-  );
-};
-
 export const Playground: Story = {
   parameters: {
     docs: {
-      description: {
-        story: 'Esempio di componente Dialog con controlli per maxWidth, fullWidth, fullScreen e scroll',
+      story: {
+        inline: true,
       },
     },
   },
-  render: (args) => <ExampleDialog {...args} />,
+  render: function RenderPlayground({
+    title,
+    description,
+    open,
+    closeButtonAriaLabel,
+    maxWidth,
+    fullWidth,
+    fullScreen,
+    scroll,
+    showTitle,
+    footerMode,
+    primaryActionColor,
+    secondaryActionColor,
+  }) {
+    const [, updateArgs] = useArgs<MIDialogStoryArgs>();
+    const handleClose = () => updateArgs({ open: false });
+
+    return (
+      <DialogExample
+        open={open}
+        onOpen={() => updateArgs({ open: true })}
+        onRequestClose={handleClose}
+        closeButtonAriaLabel={closeButtonAriaLabel}
+        title={title}
+        description={description}
+        maxWidth={maxWidth}
+        fullWidth={fullWidth}
+        fullScreen={fullScreen}
+        scroll={scroll}
+        showTitle={showTitle}
+        footerMode={footerMode}
+        primaryActionColor={primaryActionColor}
+        secondaryActionColor={secondaryActionColor}
+      />
+    );
+  },
 };
 
-export const SimpleDialog: Story = {
+export const Default: Story = {
   parameters: {
-    docs: {
-      description: {
-        story: 'Esempio di componente Dialog semplice con testo e azioni',
-      },
+    controls: {
+      disable: true,
     },
   },
-  render: () => <ExampleDialog />,
+  render: () => (
+    <StatefulDialogExample
+      title="Conferma la richiesta"
+      description="Vuoi procedere con l’invio della richiesta?"
+      maxWidth="sm"
+      fullWidth
+      fullScreen={false}
+      scroll="paper"
+    />
+  ),
+};
+
+export const PrimaryActionOnly: Story = {
+  parameters: {
+    controls: {
+      disable: true,
+    },
+  },
+  render: () => (
+    <StatefulDialogExample
+      title="Salvare le modifiche"
+      description="Vuoi salvare le modifiche apportate?"
+      maxWidth="sm"
+      fullWidth
+      fullScreen={false}
+      scroll="paper"
+      showSecondaryAction={false}
+    />
+  ),
+};
+
+export const ColoredActions: Story = {
+  parameters: {
+    controls: {
+      disable: true,
+    },
+  },
+  render: () => (
+    <StatefulDialogExample
+      title="Annullare l’operazione"
+      description="L’operazione non può essere ripristinata."
+      maxWidth="sm"
+      fullWidth
+      fullScreen={false}
+      scroll="paper"
+      primaryActionColor="error"
+    />
+  ),
+};
+
+export const CustomFooter: Story = {
+  parameters: {
+    controls: {
+      disable: true,
+    },
+  },
+  render: () => (
+    <StatefulDialogExample
+      title="Conferma la richiesta"
+      description="Vuoi procedere con l’invio della richiesta?"
+      maxWidth="sm"
+      fullWidth
+      fullScreen={false}
+      scroll="paper"
+      footerMode="custom"
+    />
+  ),
+};
+
+export const HiddenActions: Story = {
+  parameters: {
+    controls: {
+      disable: true,
+    },
+  },
+  render: () => (
+    <StatefulDialogExample
+      title="Dettagli della richiesta"
+      description="Consulta le informazioni prima di proseguire."
+      maxWidth="sm"
+      fullWidth
+      fullScreen={false}
+      scroll="paper"
+      footerMode="hidden"
+    />
+  ),
+};
+
+export const DialogWithoutTitle: Story = {
+  parameters: {
+    controls: {
+      disable: true,
+    },
+  },
+  render: () => (
+    <StatefulDialogExample
+      description="Consulta i dettagli della richiesta."
+      maxWidth="sm"
+      fullWidth
+      fullScreen={false}
+      scroll="paper"
+      showTitle={false}
+    />
+  ),
 };
 
 export const DialogWithCheckbox: Story = {
   parameters: {
-    docs: {
-      description: {
-        story: 'Esempio di componente Dialog con checkbox',
-      },
+    controls: {
+      disable: true,
     },
   },
-  render: () => <ExampleDialogWithCheckbox />,
+  render: () => (
+    <StatefulDialogExample
+      title="Preferenze di notifica"
+      description="Scegli se ricevere aggiornamenti su questa richiesta."
+      maxWidth="sm"
+      fullWidth
+      fullScreen={false}
+      scroll="paper"
+      content="checkbox"
+    />
+  ),
 };
 
 export const DialogWithError: Story = {
   parameters: {
-    docs: {
-      description: {
-        story: 'Esempio di componente Dialog per la richiesta assistenza per un errore',
-      },
+    controls: {
+      disable: true,
     },
   },
-  render: () => <ExampleDialogWithError />,
+  render: () => (
+    <StatefulDialogExample
+      title="Operazione non riuscita"
+      description="Non è stato possibile completare l’operazione."
+      maxWidth="sm"
+      fullWidth
+      fullScreen={false}
+      scroll="paper"
+      content="error"
+    />
+  ),
+};
+
+export const FullScreenDialog: Story = {
+  parameters: {
+    controls: {
+      disable: true,
+    },
+  },
+  render: () => (
+    <StatefulDialogExample
+      title="Dettagli della richiesta"
+      description="Consulta i dettagli prima di confermare. Puoi chiudere questa finestra o tornare alla schermata precedente."
+      maxWidth={false}
+      fullWidth
+      fullScreen
+      scroll="paper"
+    />
+  ),
 };
