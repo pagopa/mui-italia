@@ -59,10 +59,8 @@ export const MIDialog: React.FC<MIDialogProps> = ({
       aria-labelledby={ariaLabelledBy ?? (title != null ? titleId : undefined)}
       aria-describedby={ariaDescribedBy ?? (description != null ? descriptionId : undefined)}
     >
-      <MIDialogTitle id={titleId}>
-        {title}
-      </MIDialogTitle>
-     <MIIconButton
+      {title != null && <MIDialogTitle id={titleId}>{title}</MIDialogTitle>}
+      <MIIconButton
         aria-label={closeButtonAriaLabel}
         onClick={onCloseButtonClick}
         sx={(theme) => ({
@@ -74,47 +72,51 @@ export const MIDialog: React.FC<MIDialogProps> = ({
       >
         <CloseRounded />
       </MIIconButton>
-      {description != null && (
+      {(description != null || children != null) && (
         <MIDialogContent>
-          <MIDialogContentText id={descriptionId}>{description}</MIDialogContentText>
-           {children}
+          {description != null && (
+            <MIDialogContentText id={descriptionId}>{description}</MIDialogContentText>
+          )}
+          {children}
         </MIDialogContent>
       )}
 
-
-      {renderFooter ? renderFooter :  <MIDialogActions>
-        {secondaryAction && (
-          <MIButton
-            variant="text"
-            onClick={secondaryAction.onClick}
-            disabled={secondaryAction.disabled}
-            color={secondaryAction.color}
-            sx={(theme) => ({
-              [theme.breakpoints.down('md')]: {
-                width: '100%',
-              },
-            })}
-          >
-            {secondaryAction.label}
-          </MIButton>
-        )}
-        {primaryAction && (
-          <MIButton
-            autoFocus
-            onClick={primaryAction.onClick}
-            disabled={primaryAction.disabled}
-            color={primaryAction.color}
-            sx={(theme) => ({
-              [theme.breakpoints.down('md')]: {
-                width: '100%',
-              },
-            })}
-          >
-            {primaryAction.label}
-          </MIButton>
-        )}
-      </MIDialogActions>  }
-     
+      {renderFooter !== undefined
+        ? renderFooter
+        : (primaryAction || secondaryAction) && (
+            <MIDialogActions>
+              {secondaryAction && (
+                <MIButton
+                  variant="text"
+                  onClick={secondaryAction.onClick}
+                  disabled={secondaryAction.disabled}
+                  color={secondaryAction.color}
+                  sx={(theme) => ({
+                    [theme.breakpoints.down('md')]: {
+                      width: '100%',
+                    },
+                  })}
+                >
+                  {secondaryAction.label}
+                </MIButton>
+              )}
+              {primaryAction && (
+                <MIButton
+                  autoFocus
+                  onClick={primaryAction.onClick}
+                  disabled={primaryAction.disabled}
+                  color={primaryAction.color}
+                  sx={(theme) => ({
+                    [theme.breakpoints.down('md')]: {
+                      width: '100%',
+                    },
+                  })}
+                >
+                  {primaryAction.label}
+                </MIButton>
+              )}
+            </MIDialogActions>
+          )}
     </StyledDialog>
   );
 };
