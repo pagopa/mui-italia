@@ -1,3 +1,5 @@
+'use client';
+
 import { FC } from "react";
 import { Typography } from "@mui/material";
 import { pxToRem } from '../../theme';

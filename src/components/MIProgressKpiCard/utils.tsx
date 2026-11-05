@@ -8,11 +8,12 @@ interface MIProgressKpiCardProps {
   title: string;
   icon?: React.ReactNode;
   tooltipText?: string;
+  tooltipAriaLabel?: string;
   denominator: number;
   bars: Array<MIProgressKpiCardData>;
 }
 
-type MIProgressKpiCardBarProps = Pick<MIProgressKpiCardProps, 'denominator'> & Pick<MIProgressKpiCardData, 'numerator' | 'variant' | 'label'>;
+type MIProgressKpiCardBarProps = { index?: number } & Pick<MIProgressKpiCardProps, 'denominator'> & Pick<MIProgressKpiCardData, 'numerator' | 'variant' | 'label'>;
 
 interface BorderLinearProgressProps {
   $sizeVariant: NonNullable<MIProgressKpiCardData['variant']>;
