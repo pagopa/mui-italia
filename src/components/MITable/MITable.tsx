@@ -1,5 +1,6 @@
 'use client';
 
+import { useId } from 'react';
 import { ArrowDownward as ArrowDownwardIcon } from '@mui/icons-material';
 import { Box, Table, TableContainer, TableRow, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
@@ -39,6 +40,7 @@ const MITable = <RowData,>({
   desktopTableProps,
   mobileTableProps,
 }: MITableProps<RowData>) => {
+  const tableId = useId();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const contentColumns = columns.filter((column) => !column.isAction);
@@ -78,7 +80,7 @@ const MITable = <RowData,>({
                 <StyledMobileRow spacing={1}>
                   {contentColumns.map((column) => {
                     const alignItems = column.align === 'right' ? 'flex-end' : 'flex-start';
-                    const mobileTermId = `mi-table-${String(rowId)}-${column.id}-term`;
+                    const mobileTermId = `mi-table-${tableId}-${String(rowId)}-${column.id}-term`;
                     const cellContent = column.renderCell(row);
 
                     return (

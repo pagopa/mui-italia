@@ -185,17 +185,33 @@ describe('MITable', () => {
     const { container } = render(
       <MITable columns={columns} rows={rows} getRowId={(row) => row.id} />
     );
+    const terms = Array.from(container.querySelectorAll('dt[id]'));
 
-    expect(container.querySelector('#mi-table-0123456-id-term')).toBeInTheDocument();
-    expect(container.querySelector('#mi-table-0123457-id-term')).toBeInTheDocument();
+    expect(terms.map((term) => term.id)).toEqual(
+      expect.arrayContaining([
+        expect.stringMatching(/-0123456-id-term$/),
+        expect.stringMatching(/-0123457-id-term$/),
+      ])
+    );
+    terms.forEach((term) => {
+      expect(term.nextElementSibling).toHaveAttribute('aria-labelledby', term.id);
+    });
   });
 
   it('falls back to the row index when getRowId is not provided', () => {
     window.matchMedia = createMatchMedia(400);
     const { container } = render(<MITable columns={columns} rows={rows} />);
+    const terms = Array.from(container.querySelectorAll('dt[id]'));
 
-    expect(container.querySelector('#mi-table-0-id-term')).toBeInTheDocument();
-    expect(container.querySelector('#mi-table-1-id-term')).toBeInTheDocument();
+    expect(terms.map((term) => term.id)).toEqual(
+      expect.arrayContaining([
+        expect.stringMatching(/-0-id-term$/),
+        expect.stringMatching(/-1-id-term$/),
+      ])
+    );
+    terms.forEach((term) => {
+      expect(term.nextElementSibling).toHaveAttribute('aria-labelledby', term.id);
+    });
   });
 
   it('renders pagination with rows per page selector when provided', () => {
