@@ -148,6 +148,22 @@ describe('MITable', () => {
     expect(screen.getByText('0123456')).toBeInTheDocument();
   });
 
+  it('does not wrap mobile cell content in typography when renderCell returns a React element', () => {
+    window.matchMedia = createMatchMedia(400);
+    const elementColumns: Array<MITableColumn<Row>> = [
+      {
+        id: 'id',
+        header: 'ID',
+        renderCell: (row) => <button type="button">{row.id}</button>,
+      },
+    ];
+
+    render(<MITable columns={elementColumns} rows={rows} />);
+
+    const cellButton = screen.getByRole('button', { name: rows[0].id });
+    expect(cellButton.closest('.MuiTypography-root')).toBeNull();
+  });
+
   it('does not render any row content when rows are empty', () => {
     render(<MITable columns={columns} rows={[]} />);
 

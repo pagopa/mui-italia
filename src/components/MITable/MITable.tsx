@@ -79,6 +79,7 @@ const MITable = <RowData,>({
                   {contentColumns.map((column) => {
                     const alignItems = column.align === 'right' ? 'flex-end' : 'flex-start';
                     const mobileTermId = `mi-table-${String(rowId)}-${column.id}-term`;
+                    const cellContent = column.renderCell(row);
 
                     return (
                       <StyledMobileCell
@@ -101,9 +102,13 @@ const MITable = <RowData,>({
                           }}
                         >
                           <StyledMobileCellContent spacing={0.25} ownerState={{ alignItems }}>
-                            <StyledMobileCellText variant="body2">
-                              {column.renderCell(row)}
-                            </StyledMobileCellText>
+                            {typeof cellContent === 'string' ? (
+                              <StyledMobileCellText variant="body2">
+                                {cellContent}
+                              </StyledMobileCellText>
+                            ) : (
+                              cellContent
+                            )}
                           </StyledMobileCellContent>
                         </Box>
                       </StyledMobileCell>
