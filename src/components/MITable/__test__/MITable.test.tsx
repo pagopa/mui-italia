@@ -126,7 +126,7 @@ describe('MITable', () => {
     const idSortButton = within(idHeader).getByRole('button', { name: 'ID' });
 
     expect(idSortButton).toHaveClass('Mui-active');
-    expect(idHeader).not.toHaveAttribute('aria-sort');
+    expect(idHeader).toHaveAttribute('aria-sort');
   });
 
   it('renders mobile stacked layout below sm breakpoint', () => {
