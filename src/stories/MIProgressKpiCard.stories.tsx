@@ -1,0 +1,70 @@
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { SendOutlined } from '@mui/icons-material';
+import { pxToRem, theme } from 'index';
+import { MIProgressKpiCard } from '../components/MIProgressKpiCard';
+
+const meta: Meta<typeof MIProgressKpiCard> = {
+  title: 'Components/MIProgressKpiCard',
+  component: MIProgressKpiCard,
+};
+
+export default meta;
+
+type Story = StoryObj<typeof MIProgressKpiCard>;
+
+export const Simple: Story = {
+  args: {
+    title: 'Inviate',
+    denominator: 10000,
+    bars: [
+      { numerator: 6000 },
+    ],
+  },
+};
+
+export const Small: Story = {
+  args: {
+    title: 'Inviate',
+    denominator: 10000,
+    bars: [
+      { numerator: 6000, variant: 'small' },
+    ],
+  },
+};
+
+export const Full: Story = {
+  args: {
+    title: 'Lette',
+    denominator: 10000,
+    bars: [
+      { numerator: 10000 },
+    ],
+  },
+};
+
+export const FullWithIconAndTooltip: Story = {
+  args: {
+    title: 'Inviate',
+    icon: <SendOutlined sx={{ color: theme.colors.neutral.grey[300], width: 24, height: 24 }} />,
+    tooltipText: 'Descrizione di approfondimento su più righe più righe più righe',
+    tooltipAriaLabel: 'Informazioni su Inviate', 
+    denominator: 10000,
+    bars: [
+      { numerator: 10000 },
+    ],
+  },
+};
+
+export const MultipleBars: Story = {
+  args: {
+    title: 'Fallite',
+    icon: <SendOutlined sx={{ color: theme.colors.neutral.grey[300], width: pxToRem(24), height: pxToRem(24) }} />,
+    tooltipText: 'Descrizione di approfondimento su più righe più righe più righe',
+    tooltipAriaLabel: 'Informazioni su Fallite',
+    denominator: 100,
+    bars: [
+      { numerator: 20, label: 'Destinatario errato', },
+      { numerator: 10, label: 'Destinatario deceduto', },
+    ],
+  },
+};
