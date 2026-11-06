@@ -305,13 +305,14 @@ const actionsByOption: Record<ActionsOption, DrawerDemoProps['renderActions']> =
 const meta: Meta<MIDrawerStoryArgs> = {
   title: 'Components/MIDrawer',
   component: MIDrawer,
+  tags: ['!dev'],
   parameters: {
     layout: 'padded',
     theme: 'next',
     // Interactive stories only show the opening button: snapshots are taken on the "Open" stories
     chromatic: { disableSnapshot: true },
     controls: {
-      include: ['title', 'description', 'anchor', 'actionsOption', 'withPictogram', 'localeText'],
+      include: ['title', 'description', 'anchor', 'actionsOption', 'withPictogram'],
     },
   },
   args: {
@@ -340,27 +341,6 @@ const meta: Meta<MIDrawerStoryArgs> = {
         'Lato del pannello da 640px in su; usa left solo per necessità specifiche. Sotto 640px il drawer è sempre un pannello dal basso.',
       table: { category: 'MIDrawer', defaultValue: { summary: 'right' } },
     },
-    localeText: {
-      control: { type: 'object' },
-      description: 'Testi per le tecnologie assistive, da tradurre.',
-      table: {
-        category: 'MIDrawer',
-        type: { summary: '{ closeButtonAriaLabel?: string }' },
-        defaultValue: { summary: "{ closeButtonAriaLabel: 'Close' }" },
-      },
-    },
-    actions: {
-      control: false,
-      description:
-        'Bottoni del footer (MIButton), al massimo due, nell’ordine principale, secondario. Nel Playground si prova con il controllo actionsOption.',
-      table: { category: 'MIDrawer', type: { summary: 'ReactNode' } },
-    },
-    pictogram: {
-      control: false,
-      description:
-        'Pittogramma decorativo a sinistra del titolo, 40px (illustrazioni MI). Nel Playground si prova con il controllo withPictogram.',
-      table: { category: 'MIDrawer', type: { summary: 'ReactNode' } },
-    },
     actionsOption: {
       options: ['none', 'primary', 'primaryAndSecondary'],
       control: { type: 'radio' },
@@ -373,9 +353,11 @@ const meta: Meta<MIDrawerStoryArgs> = {
       table: { category: 'Storybook controls' },
     },
   },
-  render: ({ actionsOption = 'none', withPictogram, ...args }) => (
+  render: ({ title, description, anchor, actionsOption = 'none', withPictogram }) => (
     <DrawerDemo
-      {...args}
+      title={title}
+      description={description}
+      anchor={anchor}
       pictogram={withPictogram ? <IllusMIFlag /> : undefined}
       renderActions={actionsByOption[actionsOption]}
     >
@@ -470,7 +452,8 @@ export const Anchors: Story = {
 };
 
 // ---------------------------------------------------------------------------
-// Open drawers for Chromatic, on every breakpoint. Not referenced in the docs page:
+// Open drawers for Chromatic, on every breakpoint: the drawer is laid out on the viewport (side panel
+// from sm, bottom sheet below), so there is no componentMaxWidth. Not referenced in the docs page:
 // several open modal drawers on the same page would overlap backdrops and focus traps
 // ---------------------------------------------------------------------------
 

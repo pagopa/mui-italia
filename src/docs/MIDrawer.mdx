@@ -1,4 +1,4 @@
-import { Meta, Title, Primary, Controls, Canvas } from '@storybook/addon-docs/blocks';
+import { Meta, Title, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
 
 import Overview from './components/Overview';
 import Section from './components/Section';
@@ -14,11 +14,34 @@ import * as MIDrawerStories from '../stories/MIDrawer.stories.tsx';
   destra, su mobile sale dal basso. È basato sul <code>Drawer</code> di MUI, con header, contenuto
   e bottoni secondo il design system.
 
-<br />
-
-Riferimento Figma: [MUI Italia Next - Design System, pagina Drawer](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=1262-6072).
-
+  <ul>
+    <li>
+      Serve per mostrare <strong>dettagli aggiuntivi</strong> su un oggetto della pagina, senza
+      perdere il contesto.
+    </li>
+    <li>
+      Serve per <strong>selezionare o inserire elementi</strong> che hanno effetto sulla pagina
+      principale: filtri, ordinamento, "aggiungi da libreria".
+    </li>
+  </ul>
+  Non usarlo per la navigazione principale (c'è la <code>Side nav</code>) né per conferme brevi, che
+  richiedono un dialog.
 </Overview>
+
+<Section title="Riferimenti">
+  <ul>
+    <li>
+      <a href="https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=1262-6072&m=dev">
+        🎨 Figma
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/pagopa/mui-italia/blob/develop/src/components/MIDrawer/MIDrawer.tsx">
+        Codice sorgente
+      </a>
+    </li>
+  </ul>
+</Section>
 
 <Section
   title="Playground"
@@ -28,99 +51,100 @@ Riferimento Figma: [MUI Italia Next - Design System, pagina Drawer](https://www.
   <Controls />
 </Section>
 
-<Section title="Quando usarlo">
-  <ul>
-    <li>
-      Per mostrare <strong>dettagli aggiuntivi</strong> su un oggetto della pagina, senza perdere il
-      contesto.
-    </li>
-    <li>
-      Per <strong>selezionare o inserire elementi</strong> che hanno effetto sulla pagina principale:
-      filtri, ordinamento, "aggiungi da libreria".
-    </li>
-  </ul>
-  Non usarlo per la navigazione principale (c'è la <code>Side nav</code>) né per conferme brevi, che
-  richiedono un dialog.
-</Section>
-
 <Section
-  title="Anatomia"
-  description="Titolo, bottone di chiusura e contenuto sono sempre presenti; pittogramma, descrizione e bottoni sono opzionali."
+  title="Varianti e stati"
+  description="I tipi del Figma, composti come in un prodotto. Ogni esempio si apre con il suo bottone."
 >
-  <ul>
-    <li>
-      <strong>title</strong>: titolo del drawer, reso come <code>h2</code> e sempre visibile in alto.
-    </li>
-    <li>
-      <strong>pictogram</strong>: pittogramma decorativo a sinistra del titolo, 40px (illustrazioni MI,
-      es. <code>IllusMIFlag</code>). È nascosto agli screen reader.
-    </li>
-    <li>
-      <strong>description</strong>: testo breve sotto il titolo (8px), a 24px dal resto del
-      contenuto. Scorre con il contenuto.
-    </li>
-    <li>
-      <strong>children</strong>: il contenuto, libero.
-    </li>
-    <li>
-      <strong>actions</strong>: i bottoni, sempre ancorati in basso (vedi "Bottoni").
-    </li>
-  </ul>
+  <SubSection title="Editorial">
+    Titolo con pittogramma, testo e un bottone.
 
-  <Canvas of={MIDrawerStories.Editorial} />
-</Section>
+    <Story of={MIDrawerStories.Editorial} />
 
-<Section title="Posizione e dimensioni">
-  <ul>
-    <li>
-      <strong>Da 640px in su</strong>: pannello largo 417px, attaccato al bordo destro e alto quanto
-      lo schermo. Tra 640 e 900px (tablet in verticale) il titolo usa la tipografia mobile.
-    </li>
-    <li>
-      <strong>Sotto 640px</strong>: pannello dal basso, largo quanto lo schermo e alto quanto il
-      contenuto. Se il contenuto è più alto dello schermo, il pannello scorre e in alto resta un
-      margine vuoto di 24px.
-    </li>
-  </ul>
+  </SubSection>
+
+  <SubSection title="Service detail">
+    Contenuto lungo: header e bottoni restano fissi, sotto l'header compare una linea quando il
+    contenuto è stato scorso e sopra i bottoni una sfumatura finché c'è altro contenuto sotto.
+
+    <Story of={MIDrawerStories.ServiceDetail} />
+
+  </SubSection>
+
+  <SubSection title="Search">
+    Campo di ricerca e lista selezionabile a tutta larghezza.
+
+    <Story of={MIDrawerStories.Search} />
+
+  </SubSection>
+
+  <SubSection title="Filters">
+    Campi di filtro con un bottone principale e uno secondario. Il primo campo non ha{' '}
+    <code>autoFocus</code>, quindi all'apertura il focus va sul titolo.
+
+    <Story of={MIDrawerStories.Filters} />
+
+  </SubSection>
+
+  <SubSection title="Sort">
+    Gruppo di radio con un bottone.
+
+    <Story of={MIDrawerStories.Sort} />
+
+  </SubSection>
 
   <SubSection title="Lato di apertura">
-    Il comportamento di base è uguale in tutti i prodotti, così l'utente sa cosa aspettarsi. Usa{' '}
-    <code>anchor="left"</code> solo per necessità specifiche: vale da 640px in su, mentre su mobile
-    il drawer resta sempre un pannello dal basso. Alto e basso non sono previsti dal design system.
+    Da 640px in su il pannello entra da destra (default) o, con <code>anchor="left"</code>, da
+    sinistra. Su mobile è sempre un pannello dal basso.
 
-    <Canvas of={MIDrawerStories.Anchors} />
+    <Story of={MIDrawerStories.Anchors} />
 
   </SubSection>
 </Section>
 
-<Section title="Scroll">
-  Scorre l'intero pannello, con header e bottoni fissi:
-  <ul>
-    <li>quando il contenuto è stato scorso compare una linea sotto l'header;</li>
-    <li>quando sotto i bottoni c'è altro contenuto compare una sfumatura sopra di essi;</li>
-    <li>
-      su schermi alti meno di 400px (per esempio con lo zoom del browser al 400% o con un telefono in
-      orizzontale) header e bottoni scorrono con il contenuto, per lasciargli spazio.
-    </li>
-  </ul>
-  Evita contenuti con uno scroll proprio (per esempio una lista con altezza fissa): due scroll uno
-  dentro l'altro sono scomodi, soprattutto da mobile e da tastiera.
+<Section
+  title="Note per gli sviluppatori"
+  description="Indicazioni tecniche per integrare correttamente il componente."
+>
+  <SubSection title="Props">
+    <ul>
+      <li>
+        <strong>title</strong>: titolo del drawer, reso come <code>h2</code> e sempre visibile in
+        alto. È il nome accessibile del dialog.
+      </li>
+      <li>
+        <strong>pictogram</strong>: pittogramma decorativo a sinistra del titolo, 40px
+        (illustrazioni MI, es. <code>IllusMIFlag</code>). È nascosto agli screen reader. Nel
+        Playground si prova con il controllo <code>withPictogram</code>.
+      </li>
+      <li>
+        <strong>description</strong>: testo breve (<code>string</code>) sotto il titolo, letto
+        dagli screen reader all'apertura. Scorre con il contenuto. Un testo lungo o con link va nel
+        contenuto.
+      </li>
+      <li>
+        <strong>children</strong>: il contenuto, libero.
+      </li>
+      <li>
+        <strong>actions</strong>: i bottoni del footer, sempre ancorati in basso (vedi "Bottoni").
+        Nel Playground si prova con il controllo <code>actionsOption</code>.
+      </li>
+      <li>
+        <strong>localeText</strong>: testi per le tecnologie assistive, da tradurre (
+        <code>{'{ closeButtonAriaLabel?: string }'}</code>, default <code>'Close'</code>).
+      </li>
+      <li>
+        <strong>onClose</strong>: riceve il motivo della chiusura (
+        <code>'closeButtonClick'</code>, <code>'escapeKeyDown'</code>, <code>'backdropClick'</code>
+        ).
+      </li>
+    </ul>
+  </SubSection>
 
-  <Canvas of={MIDrawerStories.ServiceDetail} />
-</Section>
-
-<Section title="Bottoni">
-  <ul>
-    <li>
-      Al massimo <strong>due bottoni</strong>: il principale (<code>MIButton</code>) ed
-      eventualmente uno secondario (<code>MIButton variant="text"</code>).
-    </li>
-    <li>
-      Passali nell'ordine <strong>principale, secondario</strong>: è l'ordine in cui li raggiunge la
-      tastiera. Da 640px in su sono su una riga, allineati a destra, con il principale a destra; su
-      mobile sono a tutta larghezza, con il principale sopra.
-    </li>
-  </ul>
+  <SubSection title="Bottoni">
+    Al massimo <strong>due bottoni</strong>: il principale (<code>MIButton</code>) ed eventualmente
+    uno secondario (<code>MIButton variant="text"</code>). Passali nell'ordine{' '}
+    <strong>principale, secondario</strong>: è l'ordine in cui li raggiunge la tastiera. La
+    disposizione sullo schermo la gestisce il componente.
 
 ```tsx
 <MIDrawer
@@ -140,36 +164,42 @@ Riferimento Figma: [MUI Italia Next - Design System, pagina Drawer](https://www.
 </MIDrawer>
 ```
 
-  <Canvas of={MIDrawerStories.Filters} />
-</Section>
+  </SubSection>
 
-<Section
-  title="Contenuto"
-  description="Il contenuto lo compone il prodotto: queste indicazioni valgono per i casi più comuni (tipi Search, Filters e Sort del Figma)."
->
-  <ul>
-    <li>
-      <strong>Contenuto a tutta larghezza</strong> (es. una lista selezionabile): annulla il padding
-      laterale di 24px con margini negativi (<code>{"sx={{ mx: -3 }}"}</code>) e rimettilo dentro le
-      righe. Non metterlo dentro uno <code>Stack</code>, che azzera i margini dei figli.
-    </li>
-    <li>
-      <strong>Titoli di sezione</strong>: il titolo del drawer è un <code>h2</code>, quindi i titoli
-      nel contenuto partono da <code>h3</code>.
-    </li>
-    <li>
-      <strong>Gruppi di radio o checkbox</strong>: dai un nome al gruppo, con <code>fieldset</code> e{' '}
-      <code>legend</code> oppure con <code>aria-label</code> / <code>aria-labelledby</code>.
-    </li>
-    <li>
-      <strong>Annunci</strong> (es. il numero dei risultati di una ricerca): mentre il drawer è
-      aperto la pagina sotto è nascosta agli screen reader, compresa la sua live region. Per gli
-      annunci che riguardano il contenuto del drawer usa una live region dentro il contenuto; per
-      quelli dopo la chiusura (es. "Filtri applicati: 3 notifiche") aggiorna la live region della
-      pagina in <code>onTransitionExited</code>, quando la pagina è di nuovo visibile. Una sola
-      live region attiva alla volta.
-    </li>
-  </ul>
+  <SubSection
+    title="Contenuto"
+    description="Il contenuto lo compone il prodotto: queste indicazioni valgono per i casi più comuni (tipi Search, Filters e Sort del Figma)."
+  >
+    <ul>
+      <li>
+        <strong>Contenuto a tutta larghezza</strong> (es. una lista selezionabile): annulla il
+        padding laterale di 24px con margini negativi (<code>{'sx={{ mx: -3 }}'}</code>) e
+        rimettilo dentro le righe. Non metterlo dentro uno <code>Stack</code>, che azzera i margini
+        dei figli.
+      </li>
+      <li>
+        <strong>Scroll</strong>: evita contenuti con uno scroll proprio (per esempio una lista con
+        altezza fissa): due scroll uno dentro l'altro sono scomodi, soprattutto da mobile e da
+        tastiera.
+      </li>
+      <li>
+        <strong>Titoli di sezione</strong>: il titolo del drawer è un <code>h2</code>, quindi i
+        titoli nel contenuto partono da <code>h3</code>.
+      </li>
+      <li>
+        <strong>Gruppi di radio o checkbox</strong>: dai un nome al gruppo, con{' '}
+        <code>fieldset</code> e <code>legend</code> oppure con <code>aria-label</code> /{' '}
+        <code>aria-labelledby</code>.
+      </li>
+      <li>
+        <strong>Annunci</strong> (es. il numero dei risultati di una ricerca): mentre il drawer è
+        aperto la pagina sotto è nascosta agli screen reader, compresa la sua live region. Per gli
+        annunci che riguardano il contenuto del drawer usa una live region dentro il contenuto; per
+        quelli dopo la chiusura (es. "Filtri applicati: 3 notifiche") aggiorna la live region della
+        pagina in <code>onTransitionExited</code>, quando la pagina è di nuovo visibile. Una sola
+        live region attiva alla volta.
+      </li>
+    </ul>
 
 ```tsx
 // Dopo la chiusura, quando la pagina è di nuovo visibile agli screen reader
@@ -181,36 +211,98 @@ Riferimento Figma: [MUI Italia Next - Design System, pagina Drawer](https://www.
 />
 ```
 
-  <SubSection title="Search">
-    <Canvas of={MIDrawerStories.Search} />
   </SubSection>
 
-  <SubSection title="Sort">
-    <Canvas of={MIDrawerStories.Sort} />
+  <SubSection title="Personalizzazione">
+    Il componente non accetta <code>style</code>, <code>className</code>, <code>classes</code> né{' '}
+    <code>PaperProps</code>. La prop <code>sx</code> si applica al contenitore del drawer (es.{' '}
+    <code>zIndex</code>), non al pannello.
+
+    <ul>
+      <li>
+        <code>id</code>, gli attributi <code>{'data-*'}</code> (es. <code>data-testid</code>) e le
+        altre props HTML vanno al contenitore.
+      </li>
+      <li>
+        gli attributi <code>{'aria-*'}</code> vanno al pannello, che ha <code>role="dialog"</code>:
+        per esempio <code>aria-describedby</code> aggiunge un testo della pagina alla descrizione.
+      </li>
+      <li>
+        Restano disponibili alcune props del <code>Drawer</code> di MUI: <code>keepMounted</code>{' '}
+        (per conservare lo stato di un form quando il drawer si chiude), <code>container</code>,{' '}
+        <code>disablePortal</code>, <code>disableScrollLock</code>,{' '}
+        <code>transitionDuration</code>, <code>onTransitionEnter</code>,{' '}
+        <code>onTransitionExited</code>.
+      </li>
+    </ul>
+
+  </SubSection>
+
+  <SubSection title="Rendering lato server">
+    Il drawer si monta solo nel browser (portal), quindi con il rendering lato server non produce
+    markup. Con <code>disablePortal</code> e il drawer già aperto al primo render, il lato scelto
+    lato server può differire da quello del browser.
   </SubSection>
 </Section>
 
-<Section title="Personalizzazione" description="L'aspetto di MIDrawer segue il design system.">
-  Il componente non accetta <code>style</code>, <code>className</code>, <code>classes</code> né{' '}
-  <code>PaperProps</code>. La prop <code>sx</code> si applica al contenitore del drawer (es.{' '}
-  <code>zIndex</code>), non al pannello.
+<Section
+  title="Note per i designer"
+  description="Informazioni utili per la revisione visuale e il confronto con Figma."
+>
+  <SubSection title="Posizione e dimensioni">
+    <ul>
+      <li>
+        <strong>Da 640px in su</strong>: pannello largo 417px, attaccato al bordo destro e alto
+        quanto lo schermo. Tra 640 e 900px (tablet in verticale) il titolo usa la tipografia mobile.
+      </li>
+      <li>
+        <strong>Sotto 640px</strong>: pannello dal basso, largo quanto lo schermo e alto quanto il
+        contenuto. Se il contenuto è più alto dello schermo, il pannello scorre e in alto resta un
+        margine vuoto di 24px.
+      </li>
+      <li>
+        <strong>Lato di apertura</strong>: il comportamento di base è uguale in tutti i prodotti,
+        così l'utente sa cosa aspettarsi. Il lato sinistro è da usare solo per necessità specifiche;
+        alto e basso non sono previsti dal design system.
+      </li>
+      <li>
+        <strong>Descrizione</strong>: 8px sotto il titolo, a 24px dal resto del contenuto.
+      </li>
+    </ul>
+  </SubSection>
 
-<ul>
-  <li>
-    <code>id</code>, gli attributi <code>{'data-*'}</code> (es. <code>data-testid</code>) e le altre
-    props HTML vanno al contenitore.
-  </li>
-  <li>
-    gli attributi <code>{'aria-*'}</code> vanno al pannello, che ha <code>role="dialog"</code>: per
-    esempio <code>aria-describedby</code> aggiunge un testo della pagina alla descrizione.
-  </li>
-  <li>
-    Restano disponibili alcune props del <code>Drawer</code> di MUI: <code>keepMounted</code> (per
-    conservare lo stato di un form quando il drawer si chiude), <code>container</code>,{' '}
-    <code>disablePortal</code>, <code>disableScrollLock</code>, <code>transitionDuration</code>,{' '}
-    <code>onTransitionEnter</code>, <code>onTransitionExited</code>.
-  </li>
-</ul>
+  <SubSection title="Scroll">
+    Scorre l'intero pannello, con header e bottoni fissi:
+
+    <ul>
+      <li>quando il contenuto è stato scorso compare una linea sotto l'header;</li>
+      <li>quando sotto i bottoni c'è altro contenuto compare una sfumatura sopra di essi;</li>
+      <li>
+        su schermi alti meno di 400px (per esempio con lo zoom del browser al 400% o con un telefono
+        in orizzontale) header e bottoni scorrono con il contenuto, per lasciargli spazio.
+      </li>
+    </ul>
+
+  </SubSection>
+
+  <SubSection title="Bottoni">
+    Da 640px in su sono su una riga, allineati a destra, con il principale a destra; su mobile sono
+    a tutta larghezza, con il principale sopra.
+  </SubSection>
+
+  <SubSection title="Tipografia e test visuali">
+    <ul>
+      <li>
+        Il design usa il font Titillio, non ancora disponibile nel tema: il titolo usa Titillium Web,
+        sempre in grassetto. La resa sarà allineata quando Titillio entrerà nel tema.
+      </li>
+      <li>
+        Gli snapshot Chromatic usano le story "Open", con il drawer già aperto, su tutti i
+        breakpoint: il drawer si dispone rispetto allo schermo, quindi non c'è una larghezza massima
+        del componente. Il lato sinistro è fotografato solo da 640px in su.
+      </li>
+    </ul>
+  </SubSection>
 </Section>
 
 <Section title="Accessibilità" description="MIDrawer segue il pattern Dialog (Modal) di WAI-ARIA APG.">
@@ -261,24 +353,9 @@ Riferimento Figma: [MUI Italia Next - Design System, pagina Drawer](https://www.
       chiusura, altrimenti il focus finisce in cima alla pagina.
     </li>
     <li>
-      <strong>Modifiche non salvate</strong>: <code>onClose</code> riceve il motivo della chiusura (
-      <code>'closeButtonClick'</code>, <code>'escapeKeyDown'</code>, <code>'backdropClick'</code>):
-      usalo per chiedere conferma prima di perdere un form compilato.
+      <strong>Modifiche non salvate</strong>: usa il motivo della chiusura ricevuto da{' '}
+      <code>onClose</code> per chiedere conferma prima di perdere un form compilato.
     </li>
   </ul>
 </SubSection>
-</Section>
-
-<Section title="Note">
-  <ul>
-    <li>
-      Il design usa il font Titillio, non ancora disponibile nel tema: il titolo usa Titillium Web,
-      sempre in grassetto. La resa sarà allineata quando Titillio entrerà nel tema.
-    </li>
-    <li>
-      Il drawer si monta solo nel browser (portal), quindi con il rendering lato server non produce
-      markup. Con <code>disablePortal</code> e il drawer già aperto al primo render, il lato scelto
-      lato server può differire da quello del browser.
-    </li>
-  </ul>
 </Section>
