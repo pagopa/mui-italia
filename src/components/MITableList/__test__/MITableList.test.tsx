@@ -127,17 +127,28 @@ describe('MITableList', () => {
   });
 
   it('throws when a forbidden child is passed', () => {
+    const expectedMessage = 'MITableList can have only children of type MITableListItem';
     const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const handleError = (event: ErrorEvent) => {
+      if (event.message === expectedMessage) {
+        event.preventDefault();
+      }
+    };
 
-    expect(() =>
-      render(
-        <MITableList>
-          <p>Forbidden</p>
-        </MITableList>
-      )
-    ).toThrow('MITableList can have only children of type MITableListItem');
+    window.addEventListener('error', handleError);
 
-    consoleSpy.mockRestore();
+    try {
+      expect(() =>
+        render(
+          <MITableList>
+            <p>Forbidden</p>
+          </MITableList>
+        )
+      ).toThrow(expectedMessage);
+    } finally {
+      window.removeEventListener('error', handleError);
+      consoleSpy.mockRestore();
+    }
   });
 
   it('does not validate children while loading', () => {

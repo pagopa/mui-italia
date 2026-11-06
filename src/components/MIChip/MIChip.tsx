@@ -21,6 +21,7 @@ type BaseMIChipProps = Omit<ChipProps, 'color' | 'deleteIcon' | 'onClick' | 'onD
 type StandardMIChipProps = BaseMIChipProps & {
   color?: Exclude<AllowedMIChipColors, 'neutral'>;
   onDelete?: never;
+  deleteIconAriaLabel?: never;
 };
 
 // Props for the deletable mode, with color fixed to 'neutral'
@@ -28,6 +29,7 @@ type DeletableMIChipProps = BaseMIChipProps & {
   color?: 'neutral';
   variant?: 'filled';
   onDelete?: EventHandler<any>;
+  deleteIconAriaLabel?: string;
 };
 
 export type MIChipProps = StandardMIChipProps | DeletableMIChipProps;
@@ -118,19 +120,30 @@ const StyledChip = styled(MuiChip, {
 }));
 
 const MIChip = forwardRef<HTMLDivElement, MIChipProps>((props, ref) => {
-  const { color: colorProp, sx, label, onDelete, 'aria-label': ariaLabel, ...other } = props;
+  const {
+    color: colorProp,
+    sx,
+    label,
+    onDelete,
+    'aria-label': ariaLabel,
+    deleteIconAriaLabel,
+    role,
+    ...other
+  } = props;
 
   const isDeletable = Boolean(onDelete);
 
   const color = colorProp ?? (isDeletable ? 'neutral' : 'default');
 
-  const accessibilityProps = isDeletable ? { tabIndex: -1, role: undefined } : {};
+  const rootAriaLabel = isDeletable && deleteIconAriaLabel === undefined ? undefined : ariaLabel;
+
+  const accessibilityProps = isDeletable ? { tabIndex: -1, role } : { role };
   const theme = useTheme();
 
   const deleteIconProps = {
     tabIndex: 0,
     role: 'button',
-    'aria-label': ariaLabel ?? 'Delete',
+    'aria-label': deleteIconAriaLabel ?? ariaLabel ?? 'Delete',
     style: { cursor: 'pointer' },
     'aria-hidden': false,
     focusable: true,
@@ -155,7 +168,7 @@ const MIChip = forwardRef<HTMLDivElement, MIChipProps>((props, ref) => {
       onDelete={onDelete}
       deleteIcon={<CloseRoundedIcon {...deleteIconProps} />}
       sx={sx}
-      aria-label={ariaLabel}
+      aria-label={rootAriaLabel}
       ref={ref}
       {...other}
       {...accessibilityProps}

@@ -90,7 +90,11 @@ const StyledPagination = styled(MuiPagination)({});
 
 const DEFAULT_OPTIONS = [10, 24, 36];
 
-export const MIPagination: React.FC<MIPaginationProps> = ({ itemsPerPageOptions, ...rest }) => {
+export const MIPagination: React.FC<MIPaginationProps> = ({
+  itemsPerPageOptions,
+  count,
+  ...rest
+}) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -105,6 +109,10 @@ export const MIPagination: React.FC<MIPaginationProps> = ({ itemsPerPageOptions,
       }
     }
   }, [itemsPerPageOptions, pageOptionsValues, limit]);
+
+  if (count === 0) {
+    return null;
+  }
 
   return (
     <Stack
@@ -143,6 +151,7 @@ export const MIPagination: React.FC<MIPaginationProps> = ({ itemsPerPageOptions,
           }
           return <StyledPaginationItem {...item} />;
         }}
+        count={count}
         {...rest}
       />
     </Stack>
