@@ -30,6 +30,7 @@ export * from './MISpidSelectOIDialog';
 export * from './MISpinner';
 export * from './MIStepper';
 export * from './MITableList';
+export * from './MITable';
 export * from './MITimeline';
 export * from './MITooltip';
 export * from './MIWizard';
