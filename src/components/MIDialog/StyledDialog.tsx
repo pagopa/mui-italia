@@ -18,14 +18,13 @@ export const StyledDialogTitle = styled(MuiDialogTitle)(({ theme }) => ({
   padding: theme.spacing(3, 3, 1),
 }));
 
-export const StyledDialogContent = styled(MuiDialogContent)(({ theme }) => ({
-  padding: theme.spacing(0, 3),
+export const StyledDialogContent = styled(MuiDialogContent)(() => ({
 }));
 
 export const StyledDialogActions = styled(MuiDialogActions)(({ theme }) => ({
   padding: theme.spacing(2, 3),
   gap: theme.spacing(2.5),
-  flexDirection: 'column',
+  flexDirection: 'column-reverse',
   [theme.breakpoints.up('md')]: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -34,3 +33,7 @@ export const StyledDialogActions = styled(MuiDialogActions)(({ theme }) => ({
 }));
 
 export const StyledDialogContentText = styled(MuiDialogContentText)(() => ({}));
+
+export const StyledDialogContentTextDescription = styled(MuiDialogContentText)(({ theme }) => ({
+  padding: theme.spacing(0.5, 3, 1),
+}));

@@ -1,3 +1,5 @@
+'use client';
+
 import {
   type DialogProps,
   type DialogTitleProps,
@@ -13,7 +15,7 @@ import {
   StyledDialog,
   StyledDialogActions,
   StyledDialogContent,
-  StyledDialogContentText,
+  StyledDialogContentTextDescription,
   StyledDialogTitle,
 } from './StyledDialog';
 
@@ -24,13 +26,20 @@ export type MIDialogActionProps = {
   color?: MIButtonProps['color'];
 };
 
-export type MIDialogProps = DialogProps & {
+export type MIDialogProps = Omit<DialogProps, 'fullScreen'> & {
+  /** Text displayed as the dialog title. */
   title?: string;
+  /** Descriptive text displayed below the title. */
   description?: string;
+  /** Accessible label for the dialog's close button. */
   closeButtonAriaLabel: string;
+  /** Callback invoked when the dialog's close button is clicked. */
   onCloseButtonClick: NonNullable<MIIconButtonProps['onClick']>;
+  /** Primary action displayed in the dialog footer. */
   primaryAction?: MIDialogActionProps;
+  /** Secondary action displayed in the dialog footer. */
   secondaryAction?: MIDialogActionProps;
+  /** Custom footer content; when provided, replaces the configured actions. */
   renderFooter?: ReactNode;
 };
 
@@ -55,11 +64,18 @@ export const MIDialog: React.FC<MIDialogProps> = ({
   return (
     <StyledDialog
       {...props}
+      fullScreen={false}
       onClose={onClose}
       aria-labelledby={ariaLabelledBy ?? (title != null ? titleId : undefined)}
       aria-describedby={ariaDescribedBy ?? (description != null ? descriptionId : undefined)}
     >
       {title != null && <MIDialogTitle id={titleId}>{title}</MIDialogTitle>}
+      {description != null && (
+        <MIDialogDescription sx={{ mt: 0 }} id={descriptionId}>
+          {description}
+        </MIDialogDescription>
+      )}
+
       <MIIconButton
         aria-label={closeButtonAriaLabel}
         onClick={onCloseButtonClick}
@@ -72,14 +88,7 @@ export const MIDialog: React.FC<MIDialogProps> = ({
       >
         <CloseRounded />
       </MIIconButton>
-      {(description != null || children != null) && (
-        <MIDialogContent>
-          {description != null && (
-            <MIDialogContentText id={descriptionId}>{description}</MIDialogContentText>
-          )}
-          {children}
-        </MIDialogContent>
-      )}
+      {(description != null || children != null) && <MIDialogContent>{children}</MIDialogContent>}
 
       {renderFooter !== undefined
         ? renderFooter
@@ -122,13 +131,12 @@ export const MIDialog: React.FC<MIDialogProps> = ({
 };
 
 const MIDialogTitle: React.FC<DialogTitleProps> = (props) => <StyledDialogTitle {...props} />;
+const MIDialogDescription: React.FC<DialogContentTextProps> = (props) => (
+  <StyledDialogContentTextDescription {...props} />
+);
 
 const MIDialogContent: React.FC<DialogContentProps> = (props) => <StyledDialogContent {...props} />;
 
 const MIDialogActions: React.FC<DialogActionsProps> = (props) => <StyledDialogActions {...props} />;
-
-const MIDialogContentText: React.FC<DialogContentTextProps> = (props) => (
-  <StyledDialogContentText {...props} />
-);
 
 export default MIDialog;

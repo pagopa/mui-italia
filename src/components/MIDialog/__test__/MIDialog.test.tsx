@@ -25,6 +25,21 @@ describe('MIDialog', () => {
     expect(getByText('Azioni')).toBeInTheDocument();
   });
 
+  it('does not render fullscreen when fullScreen is passed at runtime', () => {
+    const { getByRole } = render(
+      <MIDialog
+        open
+        onClose={() => {}}
+        onCloseButtonClick={() => {}}
+        closeButtonAriaLabel="Chiudi finestra"
+        // @ts-expect-error fullScreen is intentionally excluded from MIDialogProps
+        fullScreen
+      />
+    );
+
+    expect(getByRole('dialog')).not.toHaveClass('MuiDialog-paperFullScreen');
+  });
+
   it('allows the title to be omitted when the dialog has an accessible name', () => {
     const { getByRole, queryByRole } = render(
       <MIDialog

@@ -1,9 +1,4 @@
-import {
-  Checkbox,
-  DialogContentText,
-  FormControlLabel,
-  Stack,
-} from '@mui/material';
+import { Box, Checkbox, FormControlLabel, Stack, Typography } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { breakpointsChromaticValues } from '@theme';
 import { useState, type ComponentProps } from 'react';
@@ -11,6 +6,9 @@ import { useArgs } from 'storybook/preview-api';
 
 import { MIButton } from '@components/MIButton';
 import { MIDialog } from '@components/MIDialog';
+import { MITextField } from '@components/MITextField';
+import { CopyToClipboardButton } from '@components/CopyToClipboardButton';
+import successCheckIcon from '../assets/MIDialogSuccessCheck.svg';
 
 const componentMaxWidth = 800;
 
@@ -26,7 +24,6 @@ type MIDialogStoryArgs = Pick<
   | 'description'
   | 'maxWidth'
   | 'fullWidth'
-  | 'fullScreen'
   | 'scroll'
   | 'closeButtonAriaLabel'
 > & {
@@ -66,7 +63,6 @@ function DialogExample({
   onRequestClose,
   maxWidth,
   fullWidth,
-  fullScreen,
   scroll,
   title,
   description,
@@ -96,21 +92,22 @@ function DialogExample({
         </MIButton>
         <MIButton onClick={onRequestClose}>Conferma e invia</MIButton>
       </Stack>
-    ) : footerMode === 'hidden' ? (
-      null
-    ) : undefined;
+    ) : footerMode === 'hidden' ? null : undefined;
 
   const showActions = footerMode !== 'hidden';
   const children =
     content === 'checkbox' ? (
-      <FormControlLabel
-        control={<Checkbox />}
-        label="Ricevi aggiornamenti sulla richiesta"
-      />
+      <FormControlLabel control={<Checkbox />} label="Ricevi aggiornamenti sulla richiesta" />
     ) : content === 'error' ? (
-      <DialogContentText variant="body2">
-        Codice di riferimento: <strong>REF-2048</strong>
-      </DialogContentText>
+      <MITextField
+        label=""
+        fullWidth
+        success
+        disabled
+        defaultValue="[Codice errore]"
+        onDelete={() => alert('Non visibile: sovrascritto da endAdornment custom')}
+        InputProps={{ endAdornment: <CopyToClipboardButton value="nome.cognome@example.it" /> }}
+      />
     ) : content === 'accessible-name' ? (
       <span id="dialog-content-label">Dettagli della richiesta</span>
     ) : undefined;
@@ -124,7 +121,6 @@ function DialogExample({
         onCloseButtonClick={() => onRequestClose()}
         maxWidth={maxWidth}
         fullWidth={fullWidth}
-        fullScreen={fullScreen}
         scroll={scroll}
         title={showTitle ? title : undefined}
         aria-labelledby={showTitle ? undefined : 'dialog-content-label'}
@@ -156,17 +152,11 @@ function DialogExample({
   );
 }
 
-type StatefulDialogExampleProps = Omit<
-  DialogExampleProps,
-  'open' | 'onOpen' | 'onRequestClose'
-> & {
+type StatefulDialogExampleProps = Omit<DialogExampleProps, 'open' | 'onOpen' | 'onRequestClose'> & {
   initialOpen?: boolean;
 };
 
-function StatefulDialogExample({
-  initialOpen = false,
-  ...props
-}: StatefulDialogExampleProps) {
+function StatefulDialogExample({ initialOpen = false, ...props }: StatefulDialogExampleProps) {
   const [open, setOpen] = useState(initialOpen);
 
   return (
@@ -176,6 +166,71 @@ function StatefulDialogExample({
       onOpen={() => setOpen(true)}
       onRequestClose={() => setOpen(false)}
     />
+  );
+}
+
+function DelegationRevokedSuccessExample() {
+  const [open, setOpen] = useState(false);
+  const handleClose = () => setOpen(false);
+
+  return (
+    <>
+      <MIButton onClick={() => setOpen(true)}>Apri finestra</MIButton>
+      <MIDialog
+        open={open}
+        onClose={handleClose}
+        onCloseButtonClick={handleClose}
+        maxWidth="sm"
+        fullWidth
+        scroll="body"
+        closeButtonAriaLabel="Chiudi finestra"
+        aria-labelledby="delegation-revoked-dialog-title"
+        aria-describedby="delegation-revoked-dialog-description"
+        renderFooter={
+          <Box sx={{ display: 'flex', justifyContent: 'center', px: 3, pb: 3 }}>
+            <MIButton onClick={handleClose}>Ok, ho capito</MIButton>
+          </Box>
+        }
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 3,
+            textAlign: 'center',
+          }}
+        >
+          <Box
+            component="img"
+            src={successCheckIcon}
+            alt=""
+            sx={{ width: 64, height: 64, flexShrink: 0 }}
+          />
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+            <Typography
+              id="delegation-revoked-dialog-title"
+              component="h2"
+              sx={(theme) => ({
+                color: theme.colors.neutral.black,
+                fontSize: '1.5rem',
+                fontWeight: 600,
+                lineHeight: '2rem',
+              })}
+            >
+              Operazione conclusa con successo
+            </Typography>
+            <Typography
+              id="delegation-revoked-dialog-description"
+              variant="body2"
+              color="text.secondary"
+            >
+              La delega è stata revocata
+            </Typography>
+          </Box>
+        </Box>
+      </MIDialog>
+    </>
   );
 }
 
@@ -191,7 +246,6 @@ const meta: Meta<MIDialogStoryArgs> = {
         'contentMode',
         'maxWidth',
         'fullWidth',
-        'fullScreen',
         'scroll',
         'closeButtonAriaLabel',
         'showTitle',
@@ -201,9 +255,7 @@ const meta: Meta<MIDialogStoryArgs> = {
       ],
     },
     chromatic: {
-      viewports: breakpointsChromaticValues.filter(
-        (resolution) => resolution <= componentMaxWidth,
-      ),
+      viewports: breakpointsChromaticValues.filter((resolution) => resolution <= componentMaxWidth),
     },
     docs: {
       description: {
@@ -229,7 +281,6 @@ const meta: Meta<MIDialogStoryArgs> = {
     secondaryActionColor: 'primary',
     maxWidth: 'sm',
     fullWidth: true,
-    fullScreen: false,
     scroll: 'paper',
     closeButtonAriaLabel: 'Chiudi finestra',
   },
@@ -248,8 +299,7 @@ const meta: Meta<MIDialogStoryArgs> = {
     },
     title: {
       control: 'text',
-      description:
-        'Testo del titolo; può essere omesso con “Mostra titolo” disattivato.',
+      description: 'Testo del titolo; può essere omesso con “Mostra titolo” disattivato.',
       table: {
         category: 'Controlli Storybook',
         defaultValue: { summary: 'Conferma la richiesta' },
@@ -257,8 +307,7 @@ const meta: Meta<MIDialogStoryArgs> = {
     },
     description: {
       control: 'text',
-      description:
-        'Controllo Storybook: testo descrittivo mostrato nel contenuto.',
+      description: 'Controllo Storybook: testo descrittivo mostrato nel contenuto.',
       table: {
         category: 'Controlli Storybook',
         defaultValue: {
@@ -268,8 +317,7 @@ const meta: Meta<MIDialogStoryArgs> = {
       contentMode: {
         control: 'select',
         options: ['text', 'checkbox', 'error', 'accessible-name'],
-        description:
-          'Controllo Storybook: seleziona il contenuto aggiuntivo mostrato nel dialog.',
+        description: 'Controllo Storybook: seleziona il contenuto aggiuntivo mostrato nel dialog.',
         table: {
           category: 'Controlli Storybook',
           defaultValue: { summary: 'checkbox' },
@@ -328,13 +376,6 @@ const meta: Meta<MIDialogStoryArgs> = {
         defaultValue: { summary: 'true' },
       },
     },
-    fullScreen: {
-      control: 'boolean',
-      description: 'Mostra il dialog a schermo intero.',
-      table: {
-        defaultValue: { summary: 'false' },
-      },
-    },
     scroll: {
       control: 'radio',
       options: ['paper', 'body'],
@@ -374,7 +415,6 @@ export const Playground: Story = {
     closeButtonAriaLabel,
     maxWidth,
     fullWidth,
-    fullScreen,
     scroll,
     showTitle,
     footerMode,
@@ -395,7 +435,6 @@ export const Playground: Story = {
         content={contentMode}
         maxWidth={maxWidth}
         fullWidth={fullWidth}
-        fullScreen={fullScreen}
         scroll={scroll}
         showTitle={showTitle}
         footerMode={footerMode}
@@ -419,7 +458,6 @@ export const Default: Story = {
       content="checkbox"
       maxWidth="sm"
       fullWidth
-      fullScreen={false}
       scroll="paper"
     />
   ),
@@ -437,7 +475,6 @@ export const PrimaryActionOnly: Story = {
       description="Vuoi salvare le modifiche apportate?"
       maxWidth="sm"
       fullWidth
-      fullScreen={false}
       scroll="paper"
       showSecondaryAction={false}
     />
@@ -456,7 +493,6 @@ export const ColoredActions: Story = {
       description="L’operazione non può essere ripristinata."
       maxWidth="sm"
       fullWidth
-      fullScreen={false}
       scroll="paper"
       primaryActionColor="error"
     />
@@ -475,7 +511,6 @@ export const CustomFooter: Story = {
       description="Vuoi procedere con l’invio della richiesta?"
       maxWidth="sm"
       fullWidth
-      fullScreen={false}
       scroll="paper"
       footerMode="custom"
     />
@@ -494,28 +529,8 @@ export const HiddenActions: Story = {
       description="Consulta le informazioni prima di proseguire."
       maxWidth="sm"
       fullWidth
-      fullScreen={false}
       scroll="paper"
       footerMode="hidden"
-    />
-  ),
-};
-
-export const DialogWithoutTitle: Story = {
-  parameters: {
-    controls: {
-      disable: true,
-    },
-  },
-  render: () => (
-    <StatefulDialogExample
-      description="Consulta i dettagli della richiesta."
-      maxWidth="sm"
-      fullWidth
-      fullScreen={false}
-      scroll="paper"
-      showTitle={false}
-      content="accessible-name"
     />
   ),
 };
@@ -532,7 +547,6 @@ export const DialogWithCheckbox: Story = {
       description="Scegli se ricevere aggiornamenti su questa richiesta."
       maxWidth="sm"
       fullWidth
-      fullScreen={false}
       scroll="paper"
       content="checkbox"
     />
@@ -551,27 +565,19 @@ export const DialogWithError: Story = {
       description="Non è stato possibile completare l’operazione."
       maxWidth="sm"
       fullWidth
-      fullScreen={false}
       scroll="paper"
       content="error"
     />
   ),
 };
 
-export const FullScreenDialog: Story = {
+export const DelegationRevoked: Story = {
   parameters: {
     controls: {
       disable: true,
     },
   },
-  render: () => (
-    <StatefulDialogExample
-      title="Dettagli della richiesta"
-      description="Consulta i dettagli prima di confermare. Puoi chiudere questa finestra o tornare alla schermata precedente."
-      maxWidth={false}
-      fullWidth
-      fullScreen
-      scroll="paper"
-    />
-  ),
+  render: function RenderDelegationRevoked() {
+    return <DelegationRevokedSuccessExample />;
+  },
 };

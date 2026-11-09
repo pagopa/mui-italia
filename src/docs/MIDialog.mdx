@@ -47,8 +47,7 @@ import * as MIDialogStories from '../stories/MIDialog.stories';
   description="Le stories mostrano configurazioni del dialog, i footer disponibili e contenuti diversi."
 >
   <SubSection title="Dialog semplice">
-    Dialog con titolo, descrizione e azioni, come
-    configurazione desktop e mobile mostrata nel riferimento Figma.
+    Dialog con titolo, descrizione e azioni.
 
     <Canvas of={MIDialogStories.Default} />
   </SubSection>
@@ -85,24 +84,20 @@ import * as MIDialogStories from '../stories/MIDialog.stories';
 
     <Canvas of={MIDialogStories.HiddenActions} />
   </SubSection>
-
-  <SubSection title="Dialog senza titolo visibile">
-    Quando il titolo è omesso, un contenuto del dialog fornisce il nome accessibile.
-
-    <Canvas of={MIDialogStories.DialogWithoutTitle} />
-  </SubSection>
-
+  
   <SubSection title="Contenuto di errore">
     Esempio di messaggio di errore e codice di riferimento.
 
     <Canvas of={MIDialogStories.DialogWithError} />
   </SubSection>
 
-  <SubSection title="Schermo intero">
-    Configurazione con la prop <code>fullScreen</code> attiva.
+  <SubSection title="Revoca della delega completata">
+    Dialog di conferma mostrato al termine della revoca di una delega, con
+    messaggio di successo e un’unica azione per chiudere la finestra.
 
-    <Canvas of={MIDialogStories.FullScreenDialog} />
+    <Canvas of={MIDialogStories.DelegationRevoked} />
   </SubSection>
+
 </Section>
 
 <Section
@@ -137,8 +132,9 @@ import * as MIDialogStories from '../stories/MIDialog.stories';
       viene renderizzato nell’area di contenuto anche quando
       <code>description</code> è omessa.
       Le props di <code>MIDialog</code> derivano da MUI <code>DialogProps</code>,
-      ma l’API del wrapper esclude <code>sx</code>, <code>classes</code> e
-      <code>className</code>.
+      ma il wrapper esclude <code>fullScreen</code>, <code>sx</code>,
+      <code>classes</code> e <code>className</code>. Il dialog non può quindi
+      occupare l’intero schermo, anche sui viewport ridotti.
     </li>
     <li>
       L’entry point esporta <code>MIDialog</code> e i tipi delle sue props; i
