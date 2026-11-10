@@ -1,4 +1,6 @@
+import { themeNext } from '@theme';
 import { fireEvent, render } from '../../../test-utils';
+
 import MICheckbox from '../MICheckbox';
 
 describe('MICheckbox', () => {
@@ -126,7 +128,7 @@ describe('MICheckbox', () => {
       '.MuiCheckbox-root'
     );
 
-    expect(checkboxRoot).toHaveStyle({ color: 'rgb(209, 51, 51)' });
+    expect(checkboxRoot).toHaveStyle({ color: themeNext.palette.error.main });
   });
 
   it('keeps the checked checkbox blue when an error is present', () => {
@@ -142,6 +144,6 @@ describe('MICheckbox', () => {
       '.MuiCheckbox-root'
     );
 
-    expect(checkboxRoot).toHaveStyle({ color: 'rgb(11, 62, 227)' });
+    expect(checkboxRoot).toHaveStyle({ color: themeNext.palette.primary.main });
   });
 });

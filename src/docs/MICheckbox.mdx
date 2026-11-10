@@ -27,7 +27,7 @@ import * as MICheckboxStories from '../stories/MICheckbox.stories.tsx';
     <li>
       🎨 <a href="https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=194-3661&m=dev">Figma: Checkbox con label</a>
     </li>
-    <li>💻 Codice sorgente: TODO: link GitHub non fornito.</li>
+    <li>💻 Codice sorgente: <a href="https://github.com/pagopa/mui-italia/blob/develop/src/components/MICheckbox/MICheckbox.tsx">MICheckbox.tsx</a></li>
   </ul>
 </Section>
 
@@ -61,8 +61,15 @@ import * as MICheckboxStories from '../stories/MICheckbox.stories.tsx';
   </SubSection>
 
   <SubSection title="Senza label visibile">
-    La story mostra come fornire un nome accessibile tramite <code>inputProps</code>.
+    La story mostra come fornire un nome accessibile tramite <code>aria-label</code>.
     <Canvas of={MICheckboxStories.AccessibleName} />
+  </SubSection>
+
+    <SubSection title="Gruppi di checkbox">
+    Per opzioni correlate, usa un <code>fieldset</code> con una <code>legend</code> che descriva
+    la scelta comune.
+
+    <Canvas of={MICheckboxStories.CheckboxGroup} />
   </SubSection>
 </Section>
 
@@ -84,6 +91,8 @@ import * as MICheckboxStories from '../stories/MICheckbox.stories.tsx';
   </ul>
 </Section>
 
+
+
 <Section
   title="Note per i designer"
   description="Stati visivi e riferimenti verificabili nel codice."
@@ -100,11 +109,11 @@ import * as MICheckboxStories from '../stories/MICheckbox.stories.tsx';
   description="La checkbox associa label e messaggio di errore all’input."
 >
   <SubSection title="Nome accessibile">
-    Quando non è presente una label visibile, fornire un nome tramite <code>inputProps</code>:
+    Quando non è presente una label visibile, fornire un nome tramite <code>aria-label</code>:
 
     ```tsx
     <MICheckbox
-      inputProps={{ 'aria-label': 'Attiva gli aggiornamenti sul servizio' }}
+      aria-label="Attiva gli aggiornamenti sul servizio"
     />
     ```
   </SubSection>

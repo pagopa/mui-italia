@@ -1,9 +1,11 @@
-import { Stack } from '@mui/material';
+import { FormControl, FormLabel, Stack } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useArgs } from 'storybook/preview-api';
 
 import { breakpointsChromaticValues } from '@theme';
 import { MICheckbox, type MICheckboxProps } from '@components/MICheckbox';
+
+const componentMaxWidth = 400;
 
 const meta: Meta<typeof MICheckbox> = {
   title: 'Components/MICheckbox',
@@ -14,8 +16,8 @@ const meta: Meta<typeof MICheckbox> = {
       include: ['checked', 'disabled', 'label', 'error'],
     },
     chromatic: {
-      viewports: breakpointsChromaticValues,
-    },
+         viewports: breakpointsChromaticValues.filter((resolution) => resolution <= componentMaxWidth),
+       },   
   },
   args: {
     checked: false,
@@ -119,7 +121,23 @@ export const AccessibleName: Story = {
   },
   render: () => (
     <Stack spacing={2}>
-      <MICheckbox inputProps={{ 'aria-label': 'Ricevi aggiornamenti sul servizio' }}  />
+      <MICheckbox aria-label="Ricevi aggiornamenti sul servizio" />
     </Stack>
+  ),
+};
+
+export const CheckboxGroup: Story = {
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => (
+    <FormControl component="fieldset">
+      <FormLabel component="legend">Quali aggiornamenti desideri ricevere?</FormLabel>
+      <Stack spacing={1} sx={{ mt: 3}}>
+        <MICheckbox label="Novità e funzionalità" />
+        <MICheckbox label="Avvisi di manutenzione" />
+        <MICheckbox label="Aggiornamenti sul servizio" />
+      </Stack>
+    </FormControl>
   ),
 };
