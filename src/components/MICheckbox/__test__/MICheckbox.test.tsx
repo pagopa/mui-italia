@@ -108,6 +108,18 @@ describe('MICheckbox', () => {
     expect(checkbox).toHaveAttribute('aria-invalid', 'true');
   });
 
+  it('does not toggle the checkbox when the error message is clicked', () => {
+    const { getByRole, getByText } = render(
+      <MICheckbox label="Checkbox label" error="A translated error." />
+    );
+    const checkbox = getByRole('checkbox', { name: 'Checkbox label' });
+
+    fireEvent.click(getByText('A translated error.'));
+
+    expect(checkbox).not.toBeChecked();
+    expect(getByText('A translated error.').closest('label')).toBeNull();
+  });
+
   it('uses the error color for the unchecked checkbox border', () => {
     const { getByRole } = render(<MICheckbox label="Checkbox label" error="Required field" />);
     const checkboxRoot = getByRole('checkbox', { name: 'Checkbox label' }).closest(

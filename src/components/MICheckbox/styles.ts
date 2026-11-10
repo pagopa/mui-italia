@@ -25,14 +25,12 @@ export const StyledCheckbox = styled(MuiCheckbox, {
 }));
 
 export const StyledFormControlLabel = styled(FormControlLabel, {
-  shouldForwardProp: (prop) => prop !== 'hasLabel',
-})<{ hasLabel: boolean }>(({ theme, hasLabel }) => ({
+})(({ theme }) => ({
   alignItems: 'flex-start',
   boxSizing: 'border-box',
   gap: theme.spacing(1),
   margin: 0,
   minWidth: 0,
-  padding: hasLabel ? theme.spacing(2, 0) : 0,
   width: '100%',
   '& .MuiFormControlLabel-label': {
     flex: 1,

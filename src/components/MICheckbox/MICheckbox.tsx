@@ -52,12 +52,11 @@ export const MICheckbox = forwardRef<HTMLButtonElement, MICheckboxProps>(
     );
 
     return (
-      <StyledFormControlLabel
-        hasLabel={Boolean(label)}
-        control={checkbox}
-        label={
-          label ? (
-            <Stack component="div" spacing={0.25}>
+      <Stack>
+        <StyledFormControlLabel
+          control={checkbox}
+          label={
+            label ? (
               <Typography
                 id={labelId}
                 component="span"
@@ -70,24 +69,28 @@ export const MICheckbox = forwardRef<HTMLButtonElement, MICheckboxProps>(
               >
                 {label}
               </Typography>
-              {error && (
-                <Stack
-                  id={errorId}
-                  direction="row"
-                  alignItems="center"
-                  gap={0.5}
-                  sx={{ color: (theme) => theme.colors.error[600] }}
-                >
-                  <Report color="inherit" fontSize="small" aria-hidden="true" />
-                  <Typography color="inherit" variant="caption">
-                    {error}
-                  </Typography>
-                </Stack>
-              )}
-            </Stack>
-          ) : null
-        }
-      />
+            ) : null
+          }
+        />
+        {error && (
+          <Stack
+            id={errorId}
+            direction="row"
+            alignItems="center"
+            gap={0.5}
+            sx={{
+              color: (theme) => theme.colors.error[600],
+              marginLeft: (theme) => theme.spacing(4),
+              marginTop: (theme) => theme.spacing(0.25),
+            }}
+          >
+            <Report color="inherit" fontSize="small" aria-hidden="true" />
+            <Typography color="inherit" variant="caption">
+              {error}
+            </Typography>
+          </Stack>
+        )}
+      </Stack>
     );
   }
 );
