@@ -2,7 +2,7 @@
 
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 import { Box, Stack } from '@mui/system';
-import { FC } from 'react';
+import { FC, useId } from 'react';
 import { Typography, styled } from '@mui/material';
 import { CheckCircle } from '@mui/icons-material';
 import { pxToRem } from '../../theme';
@@ -23,19 +23,19 @@ const MIProgressKpiCardBorderLinearProgress = styled(LinearProgress, {
   },
 }));
 
-const MIProgressKpiCardNumerator: FC<{ numerator: number }> = ({ numerator }) => (
+const MIProgressKpiCardNumerator: FC<{ numerator: number; localeFormat: string }> = ({ numerator, localeFormat }) => (
   <Typography fontSize={pxToRem(16)} fontWeight={600} sx={{ display: 'inline-block' }}>
-    {ratioFormatter.format(numerator)}
+    {ratioFormatter(localeFormat).format(numerator)}
   </Typography>
 );
 
-const MIProgressKpiCardDenominator: FC<{ denominator: number }> = ({ denominator }) => (
+const MIProgressKpiCardDenominator: FC<{ denominator: number; localeFormat: string }> = ({ denominator, localeFormat }) => (
   <Typography fontSize={pxToRem(16)} fontWeight={400} sx={{ display: 'inline-block' }}>
-    {ratioFormatter.format(denominator)}
+    {ratioFormatter(localeFormat).format(denominator)}
   </Typography>
 );
 
-const MIProgressKpiCardBar: React.FC<MIProgressKpiCardBarProps> = ({ index=0, numerator, denominator, variant = 'regular', label }) => {
+const MIProgressKpiCardBar: React.FC<MIProgressKpiCardBarProps> = ({ numerator, denominator, variant = 'regular', label, headerLabelId, localeFormat }) => {
   // Check if the total is zero or invalid
   const isZeroTotal = !denominator || denominator <= 0;
 
@@ -45,11 +45,13 @@ const MIProgressKpiCardBar: React.FC<MIProgressKpiCardBarProps> = ({ index=0, nu
   // If the denominator is 0, the value passed to LinearProgress is 0 (never NaN)
   const progressValue = isZeroTotal ? 0 : Math.min((numerator / denominator) * 100, 100);
 
+  const localLabelId = useId();
+
   return (
     <>
       {label && (
         <Typography 
-          id={`mi-progress-kpi-card-bar-label-${index}`}
+          id={localLabelId}
           fontSize={pxToRem(12)} fontWeight={500} sx={(theme) => ({ color: theme.colors.neutral.grey[700] })} mb={1}>
           {label}
         </Typography>
@@ -59,11 +61,11 @@ const MIProgressKpiCardBar: React.FC<MIProgressKpiCardBarProps> = ({ index=0, nu
         $isFull={isFull} 
         variant="determinate" 
         value={progressValue}
-        aria-labelledby={`mi-progress-kpi-card-bar-label-${index}`}
+        aria-labelledby={label ? localLabelId : headerLabelId}
       />
       <Stack direction="row" alignItems="center" justifyContent="space-between" mt={1}>
         <Box>
-          <MIProgressKpiCardNumerator numerator={numerator} /> / <MIProgressKpiCardDenominator denominator={denominator} />
+          <MIProgressKpiCardNumerator numerator={numerator} localeFormat={localeFormat} /> / <MIProgressKpiCardDenominator denominator={denominator} localeFormat={localeFormat} />
         </Box>
         {isFull && <CheckCircle sx={(theme) => ({ color: theme.colors.success[700], width: pxToRem(16), height: pxToRem(16) })} />}
       </Stack>

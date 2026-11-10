@@ -7,11 +7,14 @@ import Tooltip from '@mui/material/Tooltip';
 import { pxToRem } from '../../theme';
 import type { MIProgressKpiCardProps } from './utils';
 
-const MIProgressKpiCardHeader: FC<Pick<MIProgressKpiCardProps, 'title' | 'icon' | 'tooltipText' | 'tooltipAriaLabel'>> = ({ title, icon, tooltipText, tooltipAriaLabel }) => (
+const MIProgressKpiCardHeader: FC<Pick<MIProgressKpiCardProps, 'title' | 'icon' | 'tooltipText' | 'tooltipAriaLabel'> & { headerLabelId: string }> = ({ title, icon, tooltipText, tooltipAriaLabel, headerLabelId }) => (
     <Stack direction="row" alignItems="center" justifyContent="space-between">
       <Stack direction="row" alignItems="center" spacing={1}>
         {icon}
-        <Typography fontSize={pxToRem(16)} fontWeight={500} sx={(theme) => ({ color: theme.colors.neutral.grey[700] })} lineHeight={1.375}>
+        <Typography
+          id={headerLabelId}
+          fontSize={pxToRem(16)} fontWeight={500} lineHeight={1.375}
+          sx={(theme) => ({ color: theme.colors.neutral.grey[700] })} >
           {title}
         </Typography>
       </Stack>
