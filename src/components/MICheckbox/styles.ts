@@ -9,17 +9,17 @@ export const StyledCheckbox = styled(MuiCheckbox, {
   height: theme.spacing(3),
   padding: 0,
   flexShrink: 0,
-  color: theme.colors.neutral.black,
+  color: theme.palette.text.primary,
   '&:not(.Mui-checked)': hasError
     ? {
-        color: theme.colors.error[600],
+        color: theme.palette.error.main,
       }
     : {},
   '&.Mui-checked': {
-    color: theme.colors.blue[500],
+    color: theme.palette.primary.main,
   },
   '&.Mui-focusVisible': {
-    outline: `2px solid ${theme.colors.blue[500]}`,
+    outline: `2px solid ${theme.palette.primary.main}`,
     outlineOffset: 2,
   },
 }));
@@ -28,7 +28,7 @@ export const StyledFormControlLabel = styled(FormControlLabel, {
 })(({ theme }) => ({
   alignItems: 'flex-start',
   boxSizing: 'border-box',
-  gap: theme.spacing(1),
+  gap: theme.spacing(0.5),
   margin: 0,
   minWidth: 0,
   width: '100%',

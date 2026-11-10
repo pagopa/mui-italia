@@ -3,7 +3,7 @@
 import { Stack, Typography } from '@mui/material';
 import { type CheckboxProps } from '@mui/material/Checkbox';
 import { forwardRef, useId, type AriaAttributes } from 'react';
-
+import { pxToRem } from '@theme';
 import { Report } from '@mui/icons-material';
 import { StyledCheckbox, StyledFormControlLabel } from './styles';
 
@@ -13,7 +13,14 @@ type MICheckboxContentProps =
 
 export type MICheckboxProps = Omit<
   CheckboxProps,
-  'color' | 'size' | 'classes' | 'className' | 'style' | 'focusVisibleClassName' |'indeterminate' | 'indeterminateIcon'
+  | 'color'
+  | 'size'
+  | 'classes'
+  | 'className'
+  | 'style'
+  | 'focusVisibleClassName'
+  | 'indeterminate'
+  | 'indeterminateIcon'
 > &
   MICheckboxContentProps;
 
@@ -61,10 +68,9 @@ export const MICheckbox = forwardRef<HTMLButtonElement, MICheckboxProps>(
                 id={labelId}
                 component="span"
                 sx={{
-                  color: (theme) => theme.colors.neutral.black,
-                  fontSize: 16,
+                  color: (theme) => theme.palette.text.primary,
+                  fontSize: pxToRem(16),
                   fontWeight: (theme) => theme.typography.fontWeightMedium,
-                  marginLeft: (theme) => `${theme.spacing(0.5)}!important`,
                 }}
               >
                 {label}
@@ -79,7 +85,7 @@ export const MICheckbox = forwardRef<HTMLButtonElement, MICheckboxProps>(
             alignItems="center"
             gap={0.5}
             sx={{
-              color: (theme) => theme.colors.error[600],
+              color: (theme) => theme.palette.error.main,
               marginLeft: (theme) => theme.spacing(4),
               marginTop: (theme) => theme.spacing(0.25),
             }}
