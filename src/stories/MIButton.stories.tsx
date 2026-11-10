@@ -173,7 +173,7 @@ const meta: Meta<MIButtonStoryArgs> = {
     if (linkHref) {
       return (
         <MIButton
-          variant="text"
+          variant={variant}
           href={linkHref}
           color={color}
           size={size}
