@@ -1,0 +1,1 @@
+import{i as e,k as s}from"./iframe-Do2iWwl6.js";function l(t){return e("MuiListItemButton",t)}const a=s("MuiListItemButton",["root","focusVisible","dense","alignItemsFlexStart","disabled","divider","gutters","selected"]);export{l as g,a as l};
