@@ -1,0 +1,348 @@
+import { Meta, Title, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
+import { Typography } from '@mui/material';
+
+import Overview from './components/Overview';
+import Section from './components/Section';
+import SubSection from './components/SubSection';
+import * as MIAccordionStories from '../stories/MIAccordion.stories.tsx';
+
+<Meta of={MIAccordionStories} />
+
+<Title />
+
+<Overview>
+  <strong>MIAccordion</strong> è un item espandibile che mostra un header sempre visibile e un
+  contenuto che si apre e si chiude al click. È basato sull'Accordion di MUI. L'header contiene il
+  titolo e, opzionali e indipendenti tra loro, un'icona, un badge e una descrizione; il componente
+  supporta gli stati disabilitato e di caricamento.
+</Overview>
+
+<Section title="Riferimenti">
+  <ul>
+    <li>
+      <a href="https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=759-6399&m=dev">
+        🎨 Figma
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/pagopa/mui-italia/blob/develop/src/components/MIAccordion/MIAccordion.tsx">
+        Codice sorgente
+      </a>
+    </li>
+  </ul>
+</Section>
+
+<Section
+  title="Playground"
+  description="Usa i controlli per modificare i parametri principali del componente. Il controllo expanded apre e chiude l'item e si aggiorna anche cliccando sull'header."
+>
+  <Primary />
+  <Controls />
+</Section>
+
+<Section
+  title="Varianti e stati"
+  description="Configurazioni statiche utili per confrontare l'aspetto e gli stati del componente."
+>
+  <SubSection title="Combinazioni">
+    Titolo, chevron e contenuto sono sempre presenti; icona, badge e descrizione sono opzionali e
+    indipendenti. La story mostra le 8 combinazioni, chiuse e aperte: titolo e chevron non cambiano
+    mai posizione.
+
+    <Story of={MIAccordionStories.SlotCombinations} />
+
+  </SubSection>
+
+  <SubSection title="Icona">
+    La prop <code>icon</code> accetta icone semplici, icone di stato colorate o avatar. MIAccordion
+    non ne modifica colore né dimensione.
+
+    <Story of={MIAccordionStories.IconVariants} />
+
+  </SubSection>
+
+  <SubSection title="Disabled">
+    Un item disabilitato non si apre né si chiude ed esce dall'ordine di tabulazione. Ha sfondo
+    grigio, icona, titolo e badge attenuati, e il badge diventa outlined mantenendo il suo colore.
+    Il componente non mostra il motivo del blocco: quando serve, spiegalo nella pagina, per esempio
+    con un testo sopra il primo accordion.
+
+    <Story of={MIAccordionStories.Disabled} />
+
+  </SubSection>
+
+  <SubSection title="Loading">
+    Con <code>loading</code> il contenuto e la descrizione sono sostituiti da uno skeleton, mentre
+    l'header resta visibile e interattivo. Il componente non annuncia il caricamento agli screen
+    reader: se ne occupa la pagina, con la sua live region (vedi "Accessibilità").
+
+    <Story of={MIAccordionStories.Loading} />
+
+  </SubSection>
+
+  <SubSection title="Gruppo">
+    Più item impilati con 16px di spazio. Il gruppo lo gestisce la pagina: in questo esempio, con{' '}
+    <code>expanded</code> e <code>onChange</code>, si apre un item alla volta.
+
+    <Story of={MIAccordionStories.Group} />
+
+  </SubSection>
+
+  <SubSection title="Stress test">
+    Titolo, badge e descrizione lunghi su più righe, con due gruppi di dati nel contenuto.
+
+    <Story of={MIAccordionStories.StressTest} />
+
+  </SubSection>
+</Section>
+
+<Section
+  title="Note per gli sviluppatori"
+  description="Indicazioni tecniche per integrare correttamente il componente."
+>
+  <SubSection title="Uso consigliato">
+    Passa il titolo come <strong>testo</strong> (<code>title</code> di tipo <code>string</code>) e,
+    se serve indicare uno stato, usa le props <code>badge</code> e <code>badgeProps</code>: il
+    componente rende il badge come <code>MIChip</code> sotto il titolo e lo mostra outlined quando
+    l'item è disabilitato, come previsto dal Figma.
+
+```tsx
+<MIAccordion
+  title="Configurazione del servizio"
+  badge="Attivo"
+  badgeProps={{ color: 'success' }}
+  description="Verifica i dati prima di proseguire."
+>
+  ...
+</MIAccordion>
+```
+
+  </SubSection>
+
+  <SubSection title="Titolo personalizzato">
+    <code>title</code> accetta anche un contenuto personalizzato (<code>ReactNode</code>), per i
+    casi che il design standard non copre. In questo caso aderenza al Figma e accessibilità
+    dipendono da chi usa il componente. Il titolo sta dentro il pulsante dell'header, quindi:
+
+    <ul>
+      <li>non inserire link, bottoni, campi o altri elementi interattivi;</li>
+      <li>
+        assicurati che il testo letto dagli screen reader resti un nome chiaro: icone informative
+        con testo alternativo, nessun contenuto vuoto o troppo lungo;
+      </li>
+      <li>
+        se componi tu un badge, usa <code>MIChip</code> e rendilo outlined quando l'item è
+        disabilitato, così lo stato non si distingue solo per il colore;
+      </li>
+      <li>
+        con i componenti di traduzione puoi passare la stringa già tradotta, per esempio{' '}
+        <code>t('...')</code>.
+      </li>
+    </ul>
+
+  </SubSection>
+
+  <SubSection title="Contenuto">
+    <ul>
+      <li>
+        <strong>icon</strong>: icona semplice, icona di stato colorata o avatar. L'icona è
+        decorativa e nascosta agli screen reader: se comunica uno stato, riportalo anche nel titolo
+        o nel badge.
+      </li>
+      <li>
+        <strong>badge</strong> e <strong>badgeProps</strong>: il badge è un <code>MIChip</code>, di
+        default <code>neutral</code> e <code>filled</code>. Con <code>badgeProps</code> si scelgono
+        solo colore e variante (<code>{"Pick<MIChipProps, 'color' | 'variant'>"}</code>): il badge è
+        testo semplice dentro l'header, quindi niente stili, icone o azioni. Nel Playground si
+        prova con i controlli <code>badgeColor</code> e <code>badgeVariant</code>.
+      </li>
+      <li>
+        <strong>description</strong>: testo secondario (<code>string</code>), visibile solo quando
+        l'item è aperto. Per un testo con link o formattazione usa l'inizio di{' '}
+        <code>children</code>.
+      </li>
+      <li>
+        <strong>children</strong>: contenuto dell'item, obbligatorio. Un elemento con solo il
+        titolo non è un accordion: in quel caso usa <code>MIBoxedModule</code>.
+      </li>
+    </ul>
+  </SubSection>
+
+  <SubSection title="Stato aperto e chiuso">
+    Il componente funziona in due modalità:
+
+    <ul>
+      <li>
+        <strong>non controllata</strong>: <code>defaultExpanded</code> imposta solo lo stato
+        iniziale, poi l'item si apre e si chiude da solo. Cambiare <code>defaultExpanded</code>{' '}
+        dopo il primo render non ha effetto;
+      </li>
+      <li>
+        <strong>controllata</strong>: <code>expanded</code> decide lo stato e{' '}
+        <code>onChange(event, expanded)</code> segnala le richieste di apertura e chiusura. Serve,
+        per esempio, per aprire un item alla volta in un gruppo.
+      </li>
+    </ul>
+
+    Un item disabilitato ignora ogni richiesta di apertura o chiusura, in entrambe le modalità, e
+    non chiama <code>onChange</code>.
+
+```tsx
+const [expanded, setExpanded] = useState<string | false>(false);
+
+<Stack spacing={2}>
+  <MIAccordion
+    title="Informazioni generali"
+    expanded={expanded === 'dati'}
+    onChange={(_, isExpanded) => setExpanded(isExpanded ? 'dati' : false)}
+  >
+    ...
+  </MIAccordion>
+</Stack>;
+```
+
+  </SubSection>
+
+  <SubSection title="Caricamento">
+    Lo skeleton mostrato con <code>loading</code> si sostituisce con{' '}
+    <code>slots.skeleton</code> (un componente che riceve <code>MIAccordionSkeletonProps</code>) e
+    si configura con <code>slotProps.skeleton</code>, per esempio il numero di righe (default 6).
+  </SubSection>
+
+  <SubSection title="Personalizzazione">
+    Il componente non accetta <code>style</code>, <code>className</code> né <code>classes</code>.
+    La prop <code>sx</code> si applica al contenitore: usala per posizionare il componente nella
+    pagina (es. margini), non per cambiarne l'aspetto rispetto al design system.
+
+    <ul>
+      <li>
+        <code>id</code>, gli attributi <code>{'data-*'}</code> (es. <code>data-testid</code>) e le
+        altre props HTML vanno al contenitore.
+      </li>
+      <li>
+        gli attributi <code>{'aria-*'}</code> vanno al pulsante dell'header, l'elemento che riceve
+        il focus: per esempio <code>aria-describedby</code> collega all'header un testo di
+        istruzioni presente nella pagina.
+      </li>
+    </ul>
+
+  </SubSection>
+</Section>
+
+<Section
+  title="Note per i designer"
+  description="Informazioni utili per la revisione visuale e il confronto con Figma."
+>
+  <ul>
+    <li>
+      Il design usa il font Titillio, non ancora disponibile nel tema: il titolo usa Titillium Web
+      con peso 600 al posto del 500. La resa sarà allineata quando Titillio entrerà nel tema.
+    </li>
+    <li>
+      Il componente non modifica colore né dimensione dell'icona: per le icone semplici la
+      dimensione consigliata è 24px.
+    </li>
+    <li>
+      Il badge è un <code>MIChip</code>, di default <code>neutral</code>; da disabilitato è sempre
+      outlined e mantiene il suo colore, così lo stato non si distingue solo per il colore.
+    </li>
+    <li>In un gruppo gli item sono impilati con 16px di spazio, gestito dalla pagina.</li>
+    <li>
+      Gli snapshot Chromatic coprono i viewport fino a 900px (<code>componentMaxWidth</code>): le
+      stories limitano la larghezza del componente a 900px, quindi oltre non cambia layout.
+    </li>
+  </ul>
+</Section>
+
+<Section
+  title="Accessibilità"
+  description="MIAccordion segue il pattern Accordion di WAI-ARIA APG."
+>
+  <SubSection title="Props rilevanti">
+    <ul>
+      <li>
+        <strong>headingLevel</strong>: l'header è contenuto in un heading (default{' '}
+        <code>h3</code>). Scegli il livello in base alla gerarchia della pagina.
+      </li>
+    </ul>
+  </SubSection>
+
+<SubSection title="Comportamento">
+  <ul>
+    <li>
+      Solo l'header è raggiungibile con Tab; si apre e si chiude con Invio o Spazio. Link e campi
+      nel contenuto restano raggiungibili normalmente.
+    </li>
+    <li>
+      Il pannello ha <code>role="region"</code> ed è etichettato dal titolo.
+    </li>
+    <li>La navigazione tra header con le frecce, opzionale nel pattern, non è implementata.</li>
+    <li>Con la riduzione del movimento attiva nel sistema, l'apertura non è animata.</li>
+    <li>
+      Un item disabilitato non si apre né si chiude in nessun modo: mouse, tastiera o screen reader.
+    </li>
+  </ul>
+</SubSection>
+
+<SubSection
+  title="Best practices"
+  description="MIAccordion gestisce da solo heading, tastiera, stati ARIA e disabled. Restano a carico dello sviluppatore che lo usa gli annunci di caricamento e la struttura del contenuto del pannello."
+>
+  <Typography component="h4" fontSize={18} fontWeight={600} sx={{ mt: 2, mb: 1 }}>
+    Live region
+  </Typography>
+
+MIAccordion non ha una live region propria: più live region che si attivano nello stesso momento
+hanno un comportamento imprevedibile con gli screen reader. Durante il caricamento il contenuto è
+marcato con <code>aria-busy</code>, ma l'annuncio va fatto dalla pagina:
+
+<ul>
+  <li>
+    prevedi <strong>una sola live region per pagina</strong>, condivisa da tutti gli aggiornamenti
+    dinamici (non una per componente);
+  </li>
+  <li>
+    aggiornala all'inizio del caricamento ("Caricamento in corso") e alla fine ("Documenti
+    caricati");
+  </li>
+  <li>non aggiungere live region dentro l'accordion o nel suo contenuto.</li>
+</ul>
+
+```tsx
+// Una sola volta nella pagina (visivamente nascosta)
+<Typography role="status" aria-atomic="true" sx={visuallyHidden}>
+  {announcement}
+</Typography>;
+
+// Dove parte e finisce il caricamento
+setAnnouncement('Caricamento dei documenti in corso');
+setAnnouncement('Documenti caricati');
+```
+
+<Typography component="h4" fontSize={18} fontWeight={600} sx={{ mt: 3, mb: 1 }}>
+  Contenuto del pannello
+</Typography>
+
+Il contenuto (<code>children</code>) lo scrive lo sviluppatore: queste indicazioni valgono per i
+casi più comuni.
+
+<ul>
+  <li>
+    <strong>Coppie etichetta/valore</strong> (es. "Denominazione – Comune di Milano"): usa una lista{' '}
+    <code>&lt;dl&gt;</code> con <code>&lt;dt&gt;</code> e <code>&lt;dd&gt;</code>, così la relazione
+    tra etichetta e valore è esposta agli screen reader.
+  </li>
+  <li>
+    <strong>Titoli dei gruppi</strong> (es. "Dati dell'ente"): con un solo gruppo nel pannello può
+    restare un paragrafo; con più gruppi usa un heading del livello successivo a{' '}
+    <code>headingLevel</code> (con il default <code>h3</code>, un <code>h4</code>).
+  </li>
+  <li>
+    <strong>Separatori decorativi</strong>: preferisci un bordo CSS; se usi un{' '}
+    <code>&lt;hr&gt;</code> o un <code>Divider</code>, nascondilo agli screen reader con{' '}
+    <code>role="presentation"</code>.
+  </li>
+</ul>
+
+</SubSection>
+</Section>
