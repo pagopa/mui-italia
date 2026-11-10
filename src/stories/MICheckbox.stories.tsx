@@ -62,6 +62,7 @@ const meta: Meta<typeof MICheckbox> = {
 
     return (
       <MICheckbox
+        
         checked={checked}
         onChange={(event) => updateArgs({ checked: event.target.checked })}
         disabled={disabled}

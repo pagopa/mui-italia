@@ -13,7 +13,7 @@ type MICheckboxContentProps =
 
 export type MICheckboxProps = Omit<
   CheckboxProps,
-  'color' | 'size' | 'classes' | 'className' | 'style' | 'focusVisibleClassName'
+  'color' | 'size' | 'classes' | 'className' | 'style' | 'focusVisibleClassName' |'indeterminate' | 'indeterminateIcon'
 > &
   MICheckboxContentProps;
 
