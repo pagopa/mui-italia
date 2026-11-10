@@ -141,6 +141,14 @@ describe('MIProgressKpiCard', () => {
     expect(screen.getByText(percentage)).toBeInTheDocument();
   });
 
+  it('uses it-IT formatting when localeFormat is omitted', () => {
+    render(<MIProgressKpiCard title="Processed items" denominator={5000} bars={[{ numerator: 1234 }]} />);
+
+    expect(screen.getByText('1.234')).toBeInTheDocument();
+    expect(screen.getByText('5.000')).toBeInTheDocument();
+    expect(screen.getByText('24,7%')).toBeInTheDocument();
+  });
+
   it.each([true, false])('keeps accessible names unique across cards with bar labels: %s', (hasLabels) => {
     render(
       <>

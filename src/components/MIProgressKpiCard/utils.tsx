@@ -11,10 +11,10 @@ interface MIProgressKpiCardProps {
   tooltipAriaLabel?: string;
   denominator: number;
   bars: Array<MIProgressKpiCardData>;
-  localeFormat: string;
+  localeFormat?: string;
 }
 
-type MIProgressKpiCardBarProps = { headerLabelId: string } & Pick<MIProgressKpiCardProps, 'denominator' | 'localeFormat'> & Pick<MIProgressKpiCardData, 'numerator' | 'variant' | 'label'>;
+type MIProgressKpiCardBarProps = { headerLabelId: string; localeFormat: string } & Pick<MIProgressKpiCardProps, 'denominator'> & Pick<MIProgressKpiCardData, 'numerator' | 'variant' | 'label'>;
 
 interface BorderLinearProgressProps {
   $sizeVariant: NonNullable<MIProgressKpiCardData['variant']>;

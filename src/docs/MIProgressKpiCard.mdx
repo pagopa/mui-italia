@@ -12,8 +12,20 @@ import * as MIProgressKpiCardStories from '../stories/MIProgressKpiCard.stories.
 <Overview>
 	<strong>MIProgressKpiCard</strong> visualizza l'avanzamento di uno o più indicatori rispetto a
 	un denominatore comune. Mostra la percentuale complessiva, una barra per ogni indicatore e il
-	relativo rapporto numeratore/denominatore.
+	relativo rapporto numeratore/denominatore, all'interno di una card basata su MIPaper.
 </Overview>
+
+<Section
+	title="Riferimenti"
+	description="Risorse utili per confrontare implementazione e specifiche."
+>
+	<ul>
+		<li>
+			🎨 <a href="https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?m=auto&node-id=9698-58980&t=wqEItqfyio2ilk70-1">Figma</a>
+		</li>
+		<li>💻 Codice sorgente: {/* TODO: confermare con lo sviluppatore */}</li>
+	</ul>
+</Section>
 
 <Section
 	title="Playground"
@@ -61,6 +73,15 @@ import * as MIProgressKpiCardStories from '../stories/MIProgressKpiCard.stories.
 		</li>
 		<li>
 			<strong><code>tooltipText</code></strong> - il testo mostrato nel tooltip dell'intestazione.
+			Se assente, l'icona informativa non viene mostrata.
+		</li>
+		<li>
+			<strong><code>tooltipAriaLabel</code></strong> - il nome accessibile del pulsante che apre il
+			tooltip. Se assente viene usato <code>tooltipText</code>.
+		</li>
+		<li>
+			<strong><code>localeFormat</code></strong> - il locale usato per formattare i numeri
+			(predefinito <code>it-IT</code>).
 		</li>
 	</ul>
 
@@ -81,37 +102,136 @@ import * as MIProgressKpiCardStories from '../stories/MIProgressKpiCard.stories.
 </Section>
 
 <Section
-	title="Stati e formattazione"
-	description="La card rende immediatamente leggibili avanzamento, valori e completamento."
+	title="Varianti e stati"
+	description="Configurazioni statiche utili per confrontare l'aspetto e gli stati del componente."
 >
+	<SubSection title="Configurazione di base">
+		Card con un solo indicatore, senza icona, tooltip né label.
+
+		<Story of={MIProgressKpiCardStories.Simple} />
+	</SubSection>
+
+	<SubSection title="Varianti della barra">
+		Confronto tra la variante <code>regular</code> (16px) e la variante <code>small</code> (8px).
+
+		<Story of={MIProgressKpiCardStories.BarVariants} />
+	</SubSection>
+
 	<SubSection title="Completamento">
-		Quando il numeratore di una barra e' maggiore o uguale al denominatore, la barra diventa verde
+		Quando il numeratore di una barra è maggiore o uguale al denominatore, la barra diventa verde
 		e viene visualizzata un'icona di conferma. Se la somma dei numeratori supera il denominatore,
 		il componente segnala la condizione nella console.
 
 		<Story of={MIProgressKpiCardStories.Full} />
 	</SubSection>
 
+	<SubSection title="Con icona e tooltip">
+		Intestazione completa di icona e pulsante informativo con tooltip.
+
+		<Story of={MIProgressKpiCardStories.FullWithIconAndTooltip} />
+	</SubSection>
+
 	<SubSection title="Più indicatori">
-		Tutte le barre condividono lo stesso denominatore. Usa una label per distinguere gli indicatori
-		e la variante <code>small</code> per ridurre l'enfasi visiva di una barra secondaria.
+		Tutte le barre condividono lo stesso denominatore e la percentuale mostrata è la somma delle
+		percentuali delle singole barre. Usa una label per distinguere gli indicatori e la variante
+		<code>small</code> per ridurre l'enfasi visiva di una barra secondaria.
 
 		<Story of={MIProgressKpiCardStories.MultipleBars} />
 	</SubSection>
 
+	<SubSection title="Denominatore nullo">
+		Con <code>denominator</code> pari a 0 o negativo la percentuale è 0% e le barre restano vuote.
+
+		<Story of={MIProgressKpiCardStories.ZeroDenominator} />
+	</SubSection>
+
 	<SubSection title="Numeri e percentuali">
-		Numeratore e denominatore usano la formattazione italiana con separatore delle migliaia, ad
-		esempio <code>6000</code> viene mostrato come <code>6.000</code>. La percentuale complessiva
-		mostra fino a due decimali, eliminando gli zeri finali non significativi.
+		Numeratore e denominatore usano <code>Intl.NumberFormat</code> con separatore delle migliaia
+		secondo <code>localeFormat</code>: con <code>it-IT</code>, ad esempio, <code>6000</code> viene
+		mostrato come <code>6.000</code>. La percentuale complessiva mostra al massimo un decimale.
+
+		<Story of={MIProgressKpiCardStories.LocaleFormats} />
+	</SubSection>
+
+	<SubSection title="Titolo lungo">
+		Il titolo non viene troncato e va a capo all'interno della larghezza fissa della card.
+
+		<Story of={MIProgressKpiCardStories.LongTitle} />
 	</SubSection>
 </Section>
 
 <Section
-	title="Accessibilità"
-	description="Associa a ogni barra un'etichetta che ne chiarisca il significato."
+	title="Note per gli sviluppatori"
+	description="Indicazioni tecniche per integrare correttamente il componente."
 >
-	Il colore segnala visivamente il completamento, ma il rapporto numeratore/denominatore resta
-	sempre visibile. Usa <code>label</code> per rendere comprensibili gli indicatori anche senza
-	affidarsi al solo colore e fornisci un <code>tooltipText</code> conciso quando sono necessari
-	dettagli aggiuntivi sul KPI.
+	<ul>
+		<li>Il componente è stateless: tutti i valori arrivano dalle props.</li>
+		<li>
+			L'avanzamento di ogni barra è limitato al 100%, mentre la percentuale complessiva non viene
+			limitata: se la somma dei numeratori supera il denominatore può superare il 100%.
+		</li>
+		<li>
+			<code>localeFormat</code> è opzionale: se omessa, i numeri vengono formattati con
+			<code>it-IT</code>.
+		</li>
+	</ul>
+</Section>
+
+<Section
+	title="Note per i designer"
+	description="Informazioni utili per la revisione visuale e il confronto con Figma."
+>
+	<ul>
+		<li>Card MIPaper outlined con larghezza fissa di 204px, padding 24px e border radius 16px.</li>
+		<li>
+			Barra: traccia <code>neutral.grey[100]</code>, avanzamento <code>blue[500]</code>,
+			completamento <code>success[700]</code> con icona di conferma.
+		</li>
+		<li>
+			Titolo e label usano <code>neutral.grey[700]</code>; l'icona informativa usa
+			<code>blue[500]</code>.
+		</li>
+		<li>
+			Gli snapshot Chromatic usano solo i viewport fino a 400px, perché la card ha larghezza fissa.
+		</li>
+	</ul>
+</Section>
+
+<Section
+	title="Accessibilità"
+	description="Il nome accessibile delle barre e del tooltip dipende dalle props testuali."
+>
+	<SubSection title="Props rilevanti">
+		<ul>
+			<li>
+				<strong>label</strong>: se presente, ogni barra (<code>progressbar</code>) è associata alla
+				propria label tramite <code>aria-labelledby</code>; altrimenti viene usato il titolo della
+				card.
+			</li>
+			<li>
+				<strong>tooltipAriaLabel</strong>: definisce il nome accessibile del pulsante che apre il
+				tooltip; in sua assenza viene usato <code>tooltipText</code>.
+			</li>
+		</ul>
+	</SubSection>
+
+	<SubSection title="Colore e completamento">
+		Il completamento è indicato dal colore e da un'icona, ma il rapporto numeratore/denominatore
+		resta sempre visibile come testo.
+	</SubSection>
+
+	<SubSection title="Esempio accessibile">
+		```tsx
+		<MIProgressKpiCard
+			title="Fallite"
+			tooltipText="Notifiche non recapitate, suddivise per causa."
+			tooltipAriaLabel="Informazioni su Fallite"
+			denominator={100}
+			bars={[
+				{ numerator: 20, label: 'Destinatario errato' },
+				{ numerator: 10, label: 'Destinatario deceduto' },
+			]}
+		/>
+		```
+	</SubSection>
 </Section>
