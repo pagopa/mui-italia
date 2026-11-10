@@ -62,4 +62,22 @@ describe('MIButton', () => {
     expect(screen.getByLabelText('Loading')).toBeInTheDocument();
     expect(screen.queryByText('Save')).not.toBeInTheDocument();
   });
+
+  it.each([
+    { name: 'default', variant: undefined, variantClass: 'MuiButton-contained' },
+    { name: 'contained', variant: 'contained' as const, variantClass: 'MuiButton-contained' },
+    { name: 'outlined', variant: 'outlined' as const, variantClass: 'MuiButton-outlined' },
+    { name: 'text', variant: 'text' as const, variantClass: 'MuiButton-text' },
+  ])('renders an href as a link with the $name variant', ({ variant, variantClass }) => {
+    const variantProps = variant === undefined ? {} : { variant };
+    render(
+      <MIButton href="/destination" {...variantProps}>
+        button-link
+      </MIButton>
+    );
+
+    const link = screen.getByRole('link', { name: 'button-link' });
+    expect(link).toHaveAttribute('href', '/destination');
+    expect(link).toHaveClass(variantClass);
+  });
 });
