@@ -21,10 +21,11 @@ const getBarFillColor = (bar: Element) =>
     .filter(
       (rule): rule is CSSStyleRule =>
         'selectorText' in rule &&
+        typeof rule.selectorText === 'string' &&
         rule.selectorText.endsWith(` .${linearProgressClasses.bar}`) &&
         bar.matches(rule.selectorText)
     )
-    .at(-1)
+    .slice(-1)[0]
     ?.style.getPropertyValue('background-color');
 
 describe('MIProgressKpiCard theme customization', () => {
@@ -32,6 +33,7 @@ describe('MIProgressKpiCard theme customization', () => {
     render(
       <ThemeProvider theme={customTheme}>
         <MIProgressKpiCard
+          localeFormat="it-IT"
           title="Customized KPI"
           tooltipText="More information"
           denominator={10}
@@ -58,7 +60,7 @@ describe('MIProgressKpiCard theme customization', () => {
   ])('uses the active theme for progress $numerator/10', ({ numerator, fillColor, completed }) => {
     render(
       <ThemeProvider theme={customTheme}>
-        <MIProgressKpiCard title="Customized KPI" denominator={10} bars={[{ numerator }]} />
+        <MIProgressKpiCard localeFormat="it-IT" title="Customized KPI" denominator={10} bars={[{ numerator }]} />
       </ThemeProvider>
     );
 
@@ -81,6 +83,7 @@ describe('MIProgressKpiCard', () => {
   it('renders the title, the icon and the tooltip button', () => {
     render(
       <MIProgressKpiCard
+        localeFormat="it-IT"
         title="Pratiche"
         icon={<span data-testid="kpi-icon" />}
         tooltipText="Maggiori informazioni"
@@ -97,6 +100,7 @@ describe('MIProgressKpiCard', () => {
   it('renders the sum of all bar numerators as the total percentage', () => {
     render(
       <MIProgressKpiCard
+        localeFormat="it-IT"
         title="Pratiche"
         denominator={10}
         bars={[
@@ -112,15 +116,66 @@ describe('MIProgressKpiCard', () => {
   });
 
   it('renders the bars with the shared denominator', () => {
-    render(<MIProgressKpiCard title="Pratiche" denominator={10} bars={[{ numerator: 5 }]} />);
+    render(<MIProgressKpiCard localeFormat="it-IT" title="Pratiche" denominator={10} bars={[{ numerator: 5 }]} />);
 
     expect(screen.getByText('5')).toBeInTheDocument();
     expect(screen.getByText('10')).toBeInTheDocument();
     expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '50');
   });
 
+  it.each([
+    { localeFormat: 'it-IT', numerator: '1.234', denominator: '5.000', percentage: '24,7%' },
+    { localeFormat: 'en-US', numerator: '1,234', denominator: '5,000', percentage: '24.7%' },
+  ])('passes $localeFormat to the bars and total percentage', ({ localeFormat, numerator, denominator, percentage }) => {
+    render(
+      <MIProgressKpiCard
+        localeFormat={localeFormat}
+        title="Processed items"
+        denominator={5000}
+        bars={[{ numerator: 1234 }]}
+      />
+    );
+
+    expect(screen.getByText(numerator)).toBeInTheDocument();
+    expect(screen.getByText(denominator)).toBeInTheDocument();
+    expect(screen.getByText(percentage)).toBeInTheDocument();
+  });
+
+  it.each([true, false])('keeps accessible names unique across cards with bar labels: %s', (hasLabels) => {
+    render(
+      <>
+        <MIProgressKpiCard
+          localeFormat="en-US"
+          title="Applications"
+          denominator={10}
+          bars={[{ numerator: 3, label: hasLabels ? 'Approved applications' : undefined }]}
+        />
+        <MIProgressKpiCard
+          localeFormat="en-US"
+          title="Payments"
+          denominator={20}
+          bars={[{ numerator: 8, label: hasLabels ? 'Completed payments' : undefined }]}
+        />
+      </>
+    );
+
+    const applicationName = hasLabels ? 'Approved applications' : 'Applications';
+    const paymentName = hasLabels ? 'Completed payments' : 'Payments';
+    const applicationLabel = screen.getByText(applicationName);
+    const paymentLabel = screen.getByText(paymentName);
+    expect(applicationLabel.id).not.toBe('');
+    expect(paymentLabel.id).not.toBe('');
+    expect(applicationLabel.id).not.toBe(paymentLabel.id);
+    expect(screen.getByRole('progressbar', { name: applicationName })).toHaveAttribute(
+      'aria-labelledby', applicationLabel.id
+    );
+    expect(screen.getByRole('progressbar', { name: paymentName })).toHaveAttribute(
+      'aria-labelledby', paymentLabel.id
+    );
+  });
+
   it.each([0, -5])('renders 0%% and no bar progress when denominator is %s', (denominator) => {
-    render(<MIProgressKpiCard title="Pratiche" denominator={denominator} bars={[{ numerator: 5 }]} />);
+    render(<MIProgressKpiCard localeFormat="it-IT" title="Pratiche" denominator={denominator} bars={[{ numerator: 5 }]} />);
 
     expect(screen.getByText('0%')).toBeInTheDocument();
     expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '0');
@@ -131,6 +186,7 @@ describe('MIProgressKpiCard', () => {
 
     render(
       <MIProgressKpiCard
+        localeFormat="it-IT"
         title="Pratiche"
         denominator={10}
         bars={[{ numerator: 8 }, { numerator: 7 }]}
@@ -145,7 +201,7 @@ describe('MIProgressKpiCard', () => {
     const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
 
     render(
-      <MIProgressKpiCard title="Pratiche" denominator={10} bars={[{ numerator: 4 }, { numerator: 6 }]} />
+      <MIProgressKpiCard localeFormat="it-IT" title="Pratiche" denominator={10} bars={[{ numerator: 4 }, { numerator: 6 }]} />
     );
 
     expect(screen.getByText('100%')).toBeInTheDocument();
@@ -155,7 +211,7 @@ describe('MIProgressKpiCard', () => {
   it('does not log an error when the denominator is zero', () => {
     const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
 
-    render(<MIProgressKpiCard title="Pratiche" denominator={0} bars={[{ numerator: 5 }]} />);
+    render(<MIProgressKpiCard localeFormat="it-IT" title="Pratiche" denominator={0} bars={[{ numerator: 5 }]} />);
 
     expect(consoleError).not.toHaveBeenCalled();
   });
