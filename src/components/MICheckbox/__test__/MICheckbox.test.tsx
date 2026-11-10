@@ -14,6 +14,26 @@ describe('MICheckbox', () => {
     expect(getByRole('checkbox', { name: 'Checkbox label' })).not.toBeChecked();
   });
 
+  it('forwards aria-label and aria-describedby to the checkbox input', () => {
+    const { getByRole } = render(
+      <>
+        <span id="help">Accepting confirms your agreement.</span>
+        <MICheckbox
+          aria-label="Accept the terms"
+          aria-describedby="help"
+        />
+      </>
+    );
+    const checkbox = getByRole('checkbox', {
+      name: 'Accept the terms',
+      description: 'Accepting confirms your agreement.',
+    });
+
+    expect(checkbox).toHaveAttribute('aria-label', 'Accept the terms');
+    expect(checkbox).toHaveAttribute('aria-describedby', 'help');
+    expect(checkbox.closest('.MuiCheckbox-root')).not.toHaveAttribute('aria-label');
+  });
+
   it('renders as checked when the checked prop is true', () => {
     const { getByRole } = render(<MICheckbox label="Checkbox label" checked onChange={() => {}} />);
 
@@ -74,7 +94,8 @@ describe('MICheckbox', () => {
       <MICheckbox
         label="Checkbox label"
         error="A translated error."
-        inputProps={{ 'aria-describedby': 'additional-help' }}
+        aria-describedby="additional-help"
+        inputProps={{ 'aria-describedby': 'input-help' }}
       />
     );
     const checkbox = getByRole('checkbox', { name: 'Checkbox label' });
@@ -82,6 +103,7 @@ describe('MICheckbox', () => {
     const describedBy = checkbox.getAttribute('aria-describedby')?.split(' ') ?? [];
 
     expect(describedBy).toContain('additional-help');
+    expect(describedBy).toContain('input-help');
     expect(describedBy).toContain(error.parentElement?.id);
     expect(checkbox).toHaveAttribute('aria-invalid', 'true');
   });

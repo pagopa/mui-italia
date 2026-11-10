@@ -108,9 +108,7 @@ export const LongLabel: Story = {
     controls: { disable: true },
   },
   render: () => (
-    <MICheckbox
-      label="Desidero ricevere aggiornamenti via email sulle novità, le funzionalità e gli eventi del servizio."
-    />
+    <MICheckbox label="Desidero ricevere aggiornamenti via email sulle novità, le funzionalità e gli eventi del servizio." />
   ),
 };
 
@@ -120,7 +118,7 @@ export const AccessibleName: Story = {
   },
   render: () => (
     <Stack spacing={2}>
-      <MICheckbox />
+      <MICheckbox inputProps={{ 'aria-label': 'Ricevi aggiornamenti sul servizio' }}  />
     </Stack>
   ),
 };

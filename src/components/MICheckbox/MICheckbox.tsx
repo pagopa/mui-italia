@@ -2,7 +2,7 @@
 
 import { Stack, Typography } from '@mui/material';
 import { type CheckboxProps } from '@mui/material/Checkbox';
-import { forwardRef, useId } from 'react';
+import { forwardRef, useId, type AriaAttributes } from 'react';
 
 import { Report } from '@mui/icons-material';
 import { StyledCheckbox, StyledFormControlLabel } from './styles';
@@ -11,24 +11,39 @@ type MICheckboxContentProps =
   | { label: string; error?: string }
   | { label?: undefined; error?: never };
 
-export type MICheckboxProps = CheckboxProps & MICheckboxContentProps;
+export type MICheckboxProps = Omit<
+  CheckboxProps,
+  'color' | 'size' | 'classes' | 'className' | 'style' | 'focusVisibleClassName'
+> &
+  MICheckboxContentProps;
 
 export const MICheckbox = forwardRef<HTMLButtonElement, MICheckboxProps>(
   ({ error, inputProps, label, ...props }, ref) => {
+    const ariaProps = Object.fromEntries(
+      Object.entries(props).filter(([key]) => key.startsWith('aria-'))
+    ) as AriaAttributes;
+    const checkboxProps = Object.fromEntries(
+      Object.entries(props).filter(([key]) => !key.startsWith('aria-'))
+    ) as CheckboxProps;
     const id = useId();
     const labelId = label ? `${id}-label` : undefined;
     const errorId = error ? `${id}-error` : undefined;
-    const describedBy = [inputProps?.['aria-describedby'], errorId].filter(Boolean).join(' ');
-    const labelledBy = [inputProps?.['aria-labelledby'], labelId].filter(Boolean).join(' ');
+    const describedBy = [ariaProps['aria-describedby'], inputProps?.['aria-describedby'], errorId]
+      .filter(Boolean)
+      .join(' ');
 
-    
+    const labelledBy = [ariaProps['aria-labelledby'], inputProps?.['aria-labelledby'], labelId]
+      .filter(Boolean)
+      .join(' ');
+
     const checkbox = (
       <StyledCheckbox
         ref={ref}
         hasError={Boolean(error)}
-        {...props}
+        {...checkboxProps}
         inputProps={{
           ...inputProps,
+          ...ariaProps,
           ...(labelledBy ? { 'aria-labelledby': labelledBy } : {}),
           ...(describedBy ? { 'aria-describedby': describedBy } : {}),
           ...(error ? { 'aria-invalid': true } : {}),
