@@ -147,14 +147,26 @@ describe('MITable', () => {
     }
   });
 
-  it('keeps sortable icon active and announces direction only when explicit sortDirection is provided', () => {
-    render(<MITable columns={columns} rows={rows} />);
+  it('announces sort direction only for columns with an explicit sortDirection', () => {
+    const sortColumns: Array<MITableColumn<Row>> = [
+      columns[0],
+      { ...columns[1], sortable: true, sortDirection: 'asc' },
+      { ...columns[2], sortable: true, sortDirection: 'desc' },
+    ];
+    render(<MITable columns={sortColumns} rows={rows} />);
 
     const idHeader = screen.getByRole('columnheader', { name: 'ID' });
     const idSortButton = within(idHeader).getByRole('button', { name: 'ID' });
-
     expect(idSortButton).toHaveClass('Mui-active');
-    expect(idHeader).toHaveAttribute('aria-sort');
+    expect(idHeader).not.toHaveAttribute('aria-sort');
+    expect(screen.getByRole('columnheader', { name: 'Category' })).toHaveAttribute(
+      'aria-sort',
+      'ascending'
+    );
+    expect(screen.getByRole('columnheader', { name: 'Date' })).toHaveAttribute(
+      'aria-sort',
+      'descending'
+    );
   });
 
   it('renders mobile stacked layout below sm breakpoint', () => {

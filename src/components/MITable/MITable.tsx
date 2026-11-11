@@ -145,7 +145,6 @@ const MITable = <RowData,>({
                   {contentColumns.map((column) => {
                     const isSortable = Boolean(column.sortable);
                     const direction = column.sortDirection ?? 'asc';
-                    const ariaSort = isSortable ? (direction === 'asc' ? 'ascending' : 'descending') : undefined;
 
                     return (
                       <StyledHeaderCell
@@ -153,7 +152,6 @@ const MITable = <RowData,>({
                         align={column.align}
                         ownerState={{ minWidth: column.minWidth }}
                         sortDirection={isSortable ? (column.sortDirection ?? false) : false}
-                        aria-sort={ariaSort}
                       >
                         {isSortable ? (
                           <StyledSortLabel
