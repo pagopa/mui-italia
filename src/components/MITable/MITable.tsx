@@ -219,8 +219,8 @@ const MITable = <RowData,>({
           </TableContainer>
         )}
 
-        {pagination && !isLoading && (
-          <StyledPaginationWrapper>
+        {pagination && (
+          <StyledPaginationWrapper hidden={isLoading}>
             <MIPagination {...pagination} itemsPerPageOptions={paginationItemsPerPageOptions} />
           </StyledPaginationWrapper>
         )}

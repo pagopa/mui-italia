@@ -1,4 +1,4 @@
-import { render, screen, within } from '../../../test-utils';
+import { fireEvent, render, screen, within } from '../../../test-utils';
 import { createMatchMedia } from '../../../test-utils';
 
 import MITable from '../MITable';
@@ -127,7 +127,7 @@ describe('MITable', () => {
     expect(renderCell).not.toHaveBeenCalled();
     expect(renderAction).not.toHaveBeenCalled();
     expect(getRowId).not.toHaveBeenCalled();
-    expect(screen.queryByLabelText('Go to next page')).not.toBeInTheDocument();
+    expect(screen.queryByRole('navigation')).not.toBeInTheDocument();
 
     rerender(<MITable {...props} rows={[]} isLoading />);
     expect(container.querySelectorAll('.MuiSkeleton-root')).toHaveLength(
@@ -304,6 +304,23 @@ describe('MITable', () => {
 
     expect(screen.getByTestId('items-per-page-select')).toBeInTheDocument();
     expect(screen.getByLabelText('Go to next page')).toBeInTheDocument();
+  });
+
+  it('preserves the uncontrolled pagination page while loading', () => {
+    const pagination = { count: 5, defaultPage: 1, onChange: vi.fn() };
+    const props = { columns, rows, pagination };
+    const { container, rerender } = render(<MITable {...props} />);
+
+    fireEvent.click(screen.getByText('3'));
+    expect(screen.getByText('3')).toHaveAttribute('aria-current', 'true');
+    expect(pagination.onChange).toHaveBeenLastCalledWith(expect.anything(), 3);
+
+    rerender(<MITable {...props} isLoading />);
+    expect(screen.queryByRole('navigation')).not.toBeInTheDocument();
+    expect(container.querySelector('[hidden] button[aria-current="true"]')).toHaveTextContent('3');
+
+    rerender(<MITable {...props} isLoading={false} />);
+    expect(screen.getByText('3')).toHaveAttribute('aria-current', 'true');
   });
 
   it('forwards container attributes separately from desktop table labeling attributes', () => {
