@@ -50,6 +50,26 @@ describe('MITable', () => {
     expect(screen.getByText('01/01/2029')).toBeInTheDocument();
   });
 
+  it('uses a block-compatible wrapper for desktop cell content', () => {
+    window.matchMedia = createMatchMedia(1280);
+    const blockContentColumns: Array<MITableColumn<Row>> = [
+      {
+        id: 'id',
+        header: 'ID',
+        renderCell: (row) => <div data-testid="block-content">{row.id}</div>,
+      },
+    ];
+
+    render(<MITable columns={blockContentColumns} rows={rows} />);
+
+    const blockContents = screen.getAllByTestId('block-content');
+    expect(blockContents).toHaveLength(rows.length);
+    blockContents.forEach((blockContent) => {
+      expect(blockContent.closest('td')).toBeInTheDocument();
+      expect(blockContent.closest('p')).toBeNull();
+    });
+  });
+
   it.each([
     { width: 400, withActions: false },
     { width: 400, withActions: true },

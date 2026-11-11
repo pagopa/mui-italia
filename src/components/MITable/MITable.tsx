@@ -192,7 +192,9 @@ const MITable = <RowData,>({
                           align={column.align}
                           ownerState={{ minWidth: column.minWidth, isLastRow }}
                         >
-                          <Typography variant="body2">{column.renderCell(row)}</Typography>
+                          <Typography component="div" variant="body2">
+                            {column.renderCell(row)}
+                          </Typography>
                         </StyledBodyCell>
                       ))}
 
