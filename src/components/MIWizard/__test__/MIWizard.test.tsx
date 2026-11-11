@@ -218,15 +218,28 @@ describe('MIWizard Component', () => {
 
   it('should throw an error if children are not MIStep', () => {
     // avoid annoing error log in console
+    const expectedMessage = 'MIWizard can have only children of type MIStep';
     const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-    expect(() =>
-      render(
-        <MIWizard activeStep={0} setActiveStep={setActiveStep} title="Wizard Title">
-          <div>Step 1</div>
-        </MIWizard>
-      )
-    ).toThrow('MIWizard can have only children of type MIStep');
-    // restore original behaviour
-    consoleSpy.mockRestore();
+    const handleError = (event: ErrorEvent) => {
+      if (event.message === expectedMessage) {
+        event.preventDefault();
+      }
+    };
+
+    window.addEventListener('error', handleError);
+
+    try {
+      expect(() =>
+        render(
+          <MIWizard activeStep={0} setActiveStep={setActiveStep} title="Wizard Title">
+            <div>Step 1</div>
+          </MIWizard>
+        )
+      ).toThrow(expectedMessage);
+    } finally {
+      // restore original behaviour
+      window.removeEventListener('error', handleError);
+      consoleSpy.mockRestore();
+    }
   });
 });
