@@ -3,6 +3,10 @@ import type { HTMLAttributes, ReactNode, TableHTMLAttributes } from 'react';
 
 import type { MIPaginationProps } from '@components/MIPagination';
 
+type DataAttributes = {
+  [key: `data-${string}`]: string | number | boolean | undefined;
+};
+
 export type MITableColumn<RowData> = {
   id: string;
   header: string;
@@ -21,7 +25,7 @@ export type MITableProps<RowData> = Pick<BoxProps, 'sx'> & {
   isLoading?: boolean;
   getRowId?: (row: RowData, index: number) => string | number;
   pagination?: MIPaginationProps;
-  containerProps?: Omit<HTMLAttributes<HTMLDivElement>, 'children'>;
-  desktopTableProps?: Omit<TableHTMLAttributes<HTMLTableElement>, 'children'>;
-  mobileTableProps?: Omit<HTMLAttributes<HTMLDivElement>, 'children'>;
+  containerProps?: Omit<HTMLAttributes<HTMLDivElement>, 'children'> & DataAttributes;
+  desktopTableProps?: Omit<TableHTMLAttributes<HTMLTableElement>, 'children'> & DataAttributes;
+  mobileTableProps?: Omit<HTMLAttributes<HTMLDivElement>, 'children'> & DataAttributes;
 };

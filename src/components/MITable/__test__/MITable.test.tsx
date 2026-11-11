@@ -333,11 +333,13 @@ describe('MITable', () => {
           containerProps={{
             id: 'table-container',
             className: 'table-wrapper',
+            'data-testid': 'table-container',
             'aria-labelledby': 'container-label',
           }}
           desktopTableProps={{
             id: 'desktop-table',
             className: 'transactions-table',
+            'data-testid': 'desktop-table',
             'aria-labelledby': 'desktop-table-label',
           }}
         />
@@ -347,10 +349,12 @@ describe('MITable', () => {
     const rootContainer = container.querySelector('#table-container');
     expect(rootContainer).toHaveClass('table-wrapper');
     expect(rootContainer).toHaveAttribute('aria-labelledby', 'container-label');
+    expect(screen.getByTestId('table-container')).toBe(rootContainer);
 
     const desktopTable = screen.getByRole('table', { name: 'Transactions desktop table' });
     expect(desktopTable).toHaveAttribute('id', 'desktop-table');
     expect(desktopTable).toHaveClass('transactions-table');
+    expect(screen.getByTestId('desktop-table')).toBe(desktopTable);
   });
 
   it('supports labeling the mobile table equivalent independently from the outer container', () => {
@@ -366,6 +370,7 @@ describe('MITable', () => {
           mobileTableProps={{
             id: 'mobile-table',
             className: 'mobile-table-layout',
+            'data-testid': 'mobile-table',
             'aria-labelledby': 'mobile-table-label',
           }}
         />
@@ -378,5 +383,6 @@ describe('MITable', () => {
     const mobileEquivalent = screen.getByRole('group', { name: 'Transactions mobile table' });
     expect(mobileEquivalent).toHaveAttribute('id', 'mobile-table');
     expect(mobileEquivalent).toHaveClass('mobile-table-layout');
+    expect(screen.getByTestId('mobile-table')).toBe(mobileEquivalent);
   });
 });
