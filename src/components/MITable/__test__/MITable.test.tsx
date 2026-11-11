@@ -106,7 +106,15 @@ describe('MITable', () => {
     expect(loadingRows).toHaveLength(10);
     loadingRows.forEach((row) => {
       expect(row).toHaveAttribute('aria-hidden', 'true');
-      expect(row.querySelectorAll('.MuiSkeleton-root')).toHaveLength(loadingColumns.length);
+      if (width < 600) {
+        expect(row.parentElement).toHaveAttribute('aria-hidden', 'true');
+        expect(row.parentElement?.querySelectorAll('.MuiSkeleton-root')).toHaveLength(
+          loadingColumns.length
+        );
+        expect(row.children).toHaveLength(loadingColumns.length - (withActions ? 2 : 0));
+      } else {
+        expect(row.querySelectorAll('.MuiSkeleton-root')).toHaveLength(loadingColumns.length);
+      }
     });
     if (width < 600) {
       expect(loadingTable.querySelectorAll('hr')).toHaveLength(9);
@@ -160,12 +168,40 @@ describe('MITable', () => {
     const firstRow = mobileRows[0];
     expect(firstRow.querySelectorAll('dt')).toHaveLength(columns.length);
     expect(firstRow.querySelectorAll('dd')).toHaveLength(columns.length);
+    expect(firstRow.children).toHaveLength(columns.length);
+    Array.from(firstRow.children).forEach((cellGroup) => {
+      expect(cellGroup.tagName).toBe('DIV');
+      expect(cellGroup.children[0].tagName).toBe('DT');
+      expect(cellGroup.children[1].tagName).toBe('DD');
+    });
     expect(within(firstRow).getByText('ID')).toBeInTheDocument();
     expect(within(firstRow).getByText('Category')).toBeInTheDocument();
     expect(within(firstRow).getByText('Date')).toBeInTheDocument();
 
     expect(screen.getAllByText('Label')).toHaveLength(rows.length);
     expect(screen.getByText('0123456')).toBeInTheDocument();
+  });
+
+  it('keeps mobile row actions outside the description list', () => {
+    window.matchMedia = createMatchMedia(400);
+    const actionColumns: Array<MITableColumn<Row>> = [
+      ...columns,
+      {
+        id: 'action',
+        header: '',
+        isAction: true,
+        renderCell: (row) => <button type="button">Open {row.id}</button>,
+      },
+    ];
+
+    const { container } = render(<MITable columns={actionColumns} rows={rows} />);
+    const mobileRows = container.querySelectorAll('dl');
+
+    mobileRows.forEach((mobileRow) => {
+      const rowActions = mobileRow.parentElement?.querySelector('button');
+      expect(rowActions).toBeInTheDocument();
+      expect(rowActions?.closest('dl')).toBeNull();
+    });
   });
 
   it('does not wrap mobile cell content in typography when renderCell returns a React element', () => {

@@ -76,8 +76,8 @@ const MITable = <RowData,>({
           >
             {isLoading && <MITableSkeleton columns={columns} isMobile />}
             {tableRows.map(({ row, rowId }) => (
-              <Box key={rowId} component="dl" sx={{ margin: 0 }}>
-                <StyledMobileRow spacing={1}>
+              <StyledMobileRow key={rowId} spacing={1}>
+                <Box component="dl" sx={{ margin: 0 }}>
                   {contentColumns.map((column) => {
                     const alignItems = column.align === 'right' ? 'flex-end' : 'flex-start';
                     const mobileTermId = `mi-table-${tableId}-${String(rowId)}-${column.id}-term`;
@@ -116,21 +116,21 @@ const MITable = <RowData,>({
                       </StyledMobileCell>
                     );
                   })}
+                </Box>
 
-                  {hasActionColumns && (
-                    <StyledMobileActions
-                      direction="row"
-                      justifyContent="flex-end"
-                      alignItems="center"
-                      spacing={1}
-                    >
-                      {actionColumns.map((column) => (
-                        <Box key={column.id}>{column.renderCell(row)}</Box>
-                      ))}
-                    </StyledMobileActions>
-                  )}
-                </StyledMobileRow>
-              </Box>
+                {hasActionColumns && (
+                  <StyledMobileActions
+                    direction="row"
+                    justifyContent="flex-end"
+                    alignItems="center"
+                    spacing={1}
+                  >
+                    {actionColumns.map((column) => (
+                      <Box key={column.id}>{column.renderCell(row)}</Box>
+                    ))}
+                  </StyledMobileActions>
+                )}
+              </StyledMobileRow>
             ))}
           </StyledMobileRows>
         ) : (

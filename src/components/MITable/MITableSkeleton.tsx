@@ -30,8 +30,8 @@ const MITableSkeleton = <RowData,>({ columns, isMobile }: MITableSkeletonProps<R
         isMobile ? (
           <Fragment key={index}>
             {index > 0 && <MIDivider aria-hidden="true" />}
-            <Box component="dl" aria-hidden="true" sx={{ margin: 0 }}>
-              <StyledMobileRow spacing={1}>
+            <StyledMobileRow spacing={1} aria-hidden="true">
+              <Box component="dl" aria-hidden="true" sx={{ margin: 0 }}>
                 {contentColumns.map((column) => (
                   <StyledMobileCell
                     key={column.id}
@@ -51,15 +51,15 @@ const MITableSkeleton = <RowData,>({ columns, isMobile }: MITableSkeletonProps<R
                     </Box>
                   </StyledMobileCell>
                 ))}
-                {actionColumns.length > 0 && (
-                  <StyledMobileActions direction="row" justifyContent="flex-end" spacing={1}>
-                    {actionColumns.map((column) => (
-                      <Skeleton key={column.id} width="6ch" />
-                    ))}
-                  </StyledMobileActions>
-                )}
-              </StyledMobileRow>
-            </Box>
+              </Box>
+              {actionColumns.length > 0 && (
+                <StyledMobileActions direction="row" justifyContent="flex-end" spacing={1}>
+                  {actionColumns.map((column) => (
+                    <Skeleton key={column.id} width="6ch" />
+                  ))}
+                </StyledMobileActions>
+              )}
+            </StyledMobileRow>
           </Fragment>
         ) : (
           <TableRow key={index} aria-hidden="true">
