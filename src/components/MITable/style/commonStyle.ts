@@ -37,14 +37,18 @@ export const StyledHeaderCell = styled(TableCell, {
 }));
 
 /** @internal */
-export const StyledSortLabel = styled(TableSortLabel)({
+export const StyledSortLabel = styled(TableSortLabel)(({ theme }) => ({
   '& .MuiTableSortLabel-icon': {
     opacity: 1,
   },
   '&.Mui-active .MuiTableSortLabel-icon': {
     color: 'inherit',
   },
-});
+   '&.Mui-focusVisible': {
+     outline: `2px solid ${theme.palette.primary.main}`,
+     outlineOffset: 2,
+   },
+}));
 
 /** @internal */
 export const StyledBody = styled(TableBody)(({ theme }) => ({

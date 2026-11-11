@@ -5,7 +5,7 @@ import type { MIPaginationProps } from '@components/MIPagination';
 
 export type MITableColumn<RowData> = {
   id: string;
-  header: ReactNode;
+  header: string;
   renderCell: (row: RowData) => ReactNode;
   isAction?: boolean;
   align?: TableCellProps['align'];
