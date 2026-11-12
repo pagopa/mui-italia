@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useArgs } from 'storybook/preview-api';
+import { useId } from 'react';
 
 import { breakpointsChromaticValues } from '@theme';
 import { MIRadio, type MIRadioProps } from '@components/MIRadio';
@@ -8,16 +9,21 @@ import type { RadioGroupProps } from '@mui/material/RadioGroup';
 
 const componentMaxWidth = 400;
 
-const UpdatesRadioGroup = ({ children, ...props }: RadioGroupProps) => (
-  <FormControl component="fieldset">
-    <FormLabel id="updates-label" component="legend">
-      Come desideri ricevere gli aggiornamenti?
-    </FormLabel>
-    <RadioGroup {...props} aria-labelledby="updates-label" name="updates">
-      {children}
-    </RadioGroup>
-  </FormControl>
-);
+const UpdatesRadioGroup = ({ children, ...props }: RadioGroupProps) => {
+  const groupId = useId();
+  const labelId = `${groupId}-label`;
+
+  return (
+    <FormControl component="fieldset">
+      <FormLabel id={labelId} component="legend">
+        Come desideri ricevere gli aggiornamenti?
+      </FormLabel>
+      <RadioGroup {...props} aria-labelledby={labelId} name={groupId}>
+        {children}
+      </RadioGroup>
+    </FormControl>
+  );
+};
 
 const meta: Meta<typeof MIRadio> = {
   title: 'Components/MIRadio',
