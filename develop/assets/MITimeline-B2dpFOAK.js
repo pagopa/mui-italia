@@ -1,0 +1,44 @@
+import{j as i}from"./iframe-QS4E-7kp.js";import{u as l,M as a,T as c,P as d,b as m,S as r}from"./blocks-DO9EBM73.js";import{O as p}from"./Overview-DsCnIs1e.js";import{S as t,a as n}from"./SubSection-B27YyjOr.js";import{M as h,V as x,R as j,C as u}from"./MITimeline.stories-BnpynKeF.js";import"./preload-helper-PPVm8Dsz.js";import"./index-CIqeYx7Z.js";import"./index-Dh03kj_h.js";import"./Box-C8vdU_P_.js";import"./Typography-BhBBVfSC.js";import"./DefaultPropsProvider-DskoNSvz.js";import"./styled-Cp8mViLI.js";import"./MITimeline-DALeMahe.js";import"./children.utility-nwmBKTh4.js";import"./MIPaper-BZPbDv2O.js";import"./Paper-BCI3Sze-.js";import"./TimelineSeparator-Dm9ZfyIR.js";import"./useThemeProps-CGh0UUZS.js";import"./useThemeProps-BMid6KCD.js";import"./isMuiElement-DnwupvXB.js";import"./useTheme-DtdRabi7.js";import"./Stack-CZoeEp5i.js";import"./createStack-BvVMW1Js.js";import"./Tag-DOM-e2MZ.js";import"./MITooltip-D_jSBUbp.js";import"./ClickAwayListener-aTY6qQ9c.js";import"./useForkRef-CBZLFoQR.js";import"./getReactElementRef-Bpxh3ycP.js";import"./TransitionGroupContext-UHTf2kEp.js";import"./ownerDocument-DW-IO8s5.js";import"./Tooltip-B66adYVs.js";import"./Grow-BzuYhFp6.js";import"./utils-9SvnuSH6.js";import"./useControlled-DdoGzNa_.js";import"./resolveComponentProps-DqWDWvXv.js";import"./isHostComponent-DVu5iVWx.js";import"./Popper-CgA0NDhL.js";import"./Portal-CPSPYf0G.js";import"./useSlotProps-BWyCKIRo.js";import"./InfoRounded-CJmrtzWP.js";import"./createSvgIcon-DZMTz-8P.js";import"./SvgIcon-DPFPFDDJ.js";import"./ReportRounded-CE3xypMC.js";import"./CheckCircleRounded-BbSJcDOV.js";import"./CheckCircle-IxZJzFld.js";import"./AccordionSummary-C900-YyL.js";import"./useSlot-DDXlcLZJ.js";import"./Collapse-Dv2Q6APB.js";import"./ButtonBase-C5zr_SjN.js";import"./MailOutline-VAFykiCG.js";import"./Warning-BBRsJXoq.js";import"./Error-DUsL_cpu.js";import"./Search-DpQxJ9_A.js";function s(o){const e={code:"code",p:"p",pre:"pre",...l(),...o.components};return i.jsxs(i.Fragment,{children:[i.jsx(a,{of:h}),`
+`,i.jsx(c,{}),`
+`,i.jsx(p,{children:i.jsxs(e.p,{children:["Il componente ",i.jsx("strong",{children:"MITimeline"})," è la timeline del Design System basata sul componente"," ",`
+`,i.jsx("a",{href:"https://mui.com/material-ui/react-timeline/",children:"Timeline"}),` di MUI Lab. Rappresenta una
+sequenza verticale di step, ognuno reso da un `,i.jsx("strong",{children:"MITimelineItem"}),`, con dot, connettori
+e card colorate previsti dal Design System.`]})}),`
+`,i.jsxs(t,{title:"Playground",description:"Usa i controlli per modificare i parametri principali del componente e verificare il risultato live.",children:[i.jsx(d,{}),i.jsx(m,{})]}),`
+`,i.jsx(t,{title:"Anatomia",description:"MITimeline gestisce internamente la sequenza degli item e la posizione di primo e ultimo elemento.",children:i.jsxs(n,{title:"Struttura del componente",children:[i.jsxs(e.p,{children:[i.jsx("code",{children:"MITimeline"})," è un contenitore che accetta ",i.jsxs("strong",{children:["solo figli di tipo ",i.jsx("code",{children:"MITimelineItem"})]}),`:
+la validazione dei children è automatica e segnala in console eventuali nodi non ammessi. La
+posizione di ogni item, primo o ultimo, viene gestita internamente da `,i.jsx("code",{children:"MITimeline"}),`,
+che mantiene trasparente il connettore sopra il primo item e sotto l'ultimo. Non è quindi
+richiesta — né possibile — alcuna configurazione manuale da parte di chi utilizza il componente.`]}),i.jsx(e.pre,{children:i.jsx(e.code,{className:"language-tsx",children:`<MITimeline>
+  <MITimelineItem variant="success" icon={CheckCircleIcon} title="Notifica inviata">
+    <Typography variant="body2" color="text.secondary">
+      La notifica è stata depositata e presa in carico dal sistema.
+    </Typography>
+  </MITimelineItem>
+
+  <MITimelineItem variant="normal" icon={InfoIcon} title="In elaborazione">
+    <Typography variant="body2" color="text.secondary">
+      Stiamo verificando i dati del destinatario.
+    </Typography>
+  </MITimelineItem>
+</MITimeline>
+`})})]})}),`
+`,i.jsx(t,{title:"Props di MITimelineItem",description:"Ogni MITimelineItem espone le prop necessarie a definire variante, icona, titolo e contenuto.",children:i.jsxs("ul",{children:[i.jsxs("li",{children:[i.jsx("strong",{children:i.jsx("code",{children:"variant"})})," ",i.jsxs(e.p,{children:["obbligatoria — il colore/significato dell'item: ",i.jsx("code",{children:"normal"}),", ",i.jsx("code",{children:"info"}),","," ",`
+`,i.jsx("code",{children:"success"}),", ",i.jsx("code",{children:"warning"}),", ",i.jsx("code",{children:"error"}),`. Determina i colori di bordo,
+sfondo della card, testo e dot.`]})]}),i.jsxs("li",{children:[i.jsx("strong",{children:i.jsx("code",{children:"icon"})})," ",i.jsxs(e.p,{children:["obbligatoria — il componente icona, ad esempio un'icona di ",i.jsx("code",{children:"@mui/icons-material"}),`,
+mostrato all'interno della card.`]})]}),i.jsxs("li",{children:[i.jsx("strong",{children:i.jsx("code",{children:"title"})})," ",i.jsxs(e.p,{children:["obbligatoria — il titolo dell'item; accetta qualsiasi ",i.jsx("code",{children:"ReactNode"}),"."]})]}),i.jsxs("li",{children:[i.jsx("strong",{children:i.jsx("code",{children:"children"})})," ",i.jsxs(e.p,{children:["— il corpo dell'item; accetta qualsiasi ",i.jsx("code",{children:"ReactNode"}),"."]})]})]})}),`
+`,i.jsxs(t,{title:"Varianti",description:"MITimelineItem supporta cinque varianti, che ne definiscono colore e semantica.",children:[i.jsxs(n,{title:"Panoramica delle varianti",children:[i.jsxs("ul",{children:[i.jsx("li",{children:i.jsxs(e.p,{children:[i.jsx("strong",{children:i.jsx("code",{children:"normal"})}),` — variante neutra, per gli step standard del flusso
+con sfondo bianco e bordo grigio.`]})}),i.jsx("li",{children:i.jsxs(e.p,{children:[i.jsx("strong",{children:i.jsx("code",{children:"info"})}),` — variante informativa, per comunicazioni neutre da
+evidenziare.`]})}),i.jsx("li",{children:i.jsxs(e.p,{children:[i.jsx("strong",{children:i.jsx("code",{children:"success"})})," — per esiti positivi e operazioni completate."]})}),i.jsx("li",{children:i.jsxs(e.p,{children:[i.jsx("strong",{children:i.jsx("code",{children:"warning"})})," — per situazioni che richiedono attenzione."]})}),i.jsx("li",{children:i.jsxs(e.p,{children:[i.jsx("strong",{children:i.jsx("code",{children:"error"})})," — per esiti negativi e operazioni fallite."]})})]}),i.jsx(r,{of:x})]}),i.jsx(n,{title:"Dot in evidenza",children:i.jsxs(e.p,{children:["Quando il ",i.jsx("strong",{children:"primo"})," item ha una variante diversa da ",i.jsx("code",{children:"normal"}),`, cioè una
+variante feedback, il suo dot viene reso più grande e con un alone, per dare risalto allo stato
+corrente in cima alla timeline. Gli altri dot restano piccoli e neutri.`]})})]}),`
+`,i.jsxs(t,{title:"Contenuto",description:"Title e children accettano ReactNode, permettendo contenuti testuali, componenti e strutture più articolate.",children:[i.jsxs(n,{title:"Contenuto strutturato",children:[i.jsxs(e.p,{children:["Sia ",i.jsx("code",{children:"title"})," che ",i.jsx("code",{children:"children"})," accettano qualsiasi ",i.jsx("code",{children:"ReactNode"}),`: è
+quindi possibile inserire testo formattato, liste, link o altri componenti all'interno del corpo
+di ogni item.`]}),i.jsx(r,{of:j})]}),i.jsxs(n,{title:"Titolo personalizzato",children:[i.jsxs(e.p,{children:["Anche ",i.jsx("code",{children:"title"})," accetta qualsiasi ",i.jsx("code",{children:"ReactNode"}),`: oltre al testo è possibile
+comporre elementi più ricchi, ad esempio affiancando un`," ",`
+`,i.jsx("a",{href:"?path=/docs/components-tag--docs",children:"Tag"})," al testo del titolo."]}),i.jsx(r,{of:u})]})]}),`
+`,i.jsxs(t,{title:"Accessibilità",description:"L’accessibilità finale dipende dal contenuto testuale passato agli item e dal modo in cui la timeline viene usata nel contesto dell’interfaccia.",children:[i.jsx(n,{title:"Icone decorative",children:i.jsxs(e.p,{children:["Le icone degli item sono di supporto visivo: assicurati che il ",i.jsx("code",{children:"title"}),` e il contenuto
+comunichino già l'informazione in forma testuale, senza affidarti al solo colore della variante.`]})})," ",i.jsx(n,{title:"Significato non solo cromatico",children:i.jsxs(e.p,{children:["Le varianti, ad esempio ",i.jsx("code",{children:"success"})," o ",i.jsx("code",{children:"error"}),`, usano il colore per comunicare
+lo stato: accompagna sempre il colore con un titolo e un'icona coerenti, così l'informazione resta
+percepibile anche in caso di daltonismo o bassa visione.`]})}),i.jsx(n,{title:"Struttura coerente",children:i.jsx(e.p,{children:`Mantieni l'ordine cronologico/logico degli item nel markup, così che l'ordine di lettura degli
+screen reader rispecchi la sequenza della timeline.`})})]})]})}function ui(o={}){const{wrapper:e}={...l(),...o.components};return e?i.jsx(e,{...o,children:i.jsx(s,{...o})}):s(o)}export{ui as default};
