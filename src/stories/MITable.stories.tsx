@@ -47,9 +47,7 @@ const columns: Array<MITableColumn<TableRow>> = [
   },
   {
     id: 'date',
-    header: 'Date',
-    sortable: true,
-    sortDirection: 'desc',
+    header: 'Date', 
     renderCell: (row) => row.date,
   },
   {
@@ -102,16 +100,9 @@ const meta: Meta<MITableStoryArgs> = {
   parameters: {
     layout: 'padded',
     theme: 'next',
-    controls: {
-      include: ['showPagination', 'isLoading'],
-    },
     chromatic: {
       viewports: breakpointsChromaticValues.filter((resolution) => resolution <= componentMaxWidth),
     },
-  },
-  args: {
-    showPagination: true,
-    isLoading: false,
   },
   argTypes: {
     isLoading: {
@@ -137,6 +128,15 @@ export default meta;
 type Story = StoryObj<MITableStoryArgs>;
 
 export const Playground: Story = {
+  args: {
+    showPagination: true,
+    isLoading: false,
+  },
+  parameters: {
+    controls: {
+      include: ['showPagination', 'isLoading'],
+    },
+  },
   render: function RenderPlayground({ showPagination, isLoading }) {
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(10);
