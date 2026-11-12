@@ -85,9 +85,7 @@ export const Selected: Story = {
   parameters: {
     controls: { disable: true },
   },
-  render: () => (
-    <MICheckbox label="Ricevi aggiornamenti sul servizio" checked onChange={() => {}} />
-  ),
+  render: () => <MICheckbox label="Ricevi aggiornamenti sul servizio" defaultChecked />,
 };
 
 export const Disabled: Story = {

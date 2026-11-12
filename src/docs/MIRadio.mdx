@@ -25,9 +25,15 @@ import * as MIRadioStories from '../stories/MIRadio.stories.tsx';
 <Section title="Riferimenti" description="Risorse per confrontare implementazione e specifiche.">
   <ul>
     <li>
-      🎨 <a href="https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=194-3841&m=dev">Figma: Radio con label</a>
+      <a href="https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=194-3841&m=dev">
+       🎨  Figma: Radio con label
+      </a>
     </li>
-    <li>💻 Codice sorgente: TODO: link GitHub non fornito.</li>
+    <li>
+      <a href="https://github.com/pagopa/mui-italia/blob/develop/src/components/MIRadio/MIRadio.tsx">
+       💻 Codice sorgente: MIRadio.tsx
+      </a>
+    </li>
   </ul>
 </Section>
 
@@ -77,12 +83,25 @@ import * as MIRadioStories from '../stories/MIRadio.stories.tsx';
     </li>
     <li>
       La prop <code>error</code> è disponibile quando viene fornita una <code>label</code>;
-      il componente associa il messaggio all’input.
+      mostra il messaggio per la singola opzione e lo associa all’input tramite{' '}
+      <code>aria-describedby</code>.
     </li>
     <li>
-      Le altre props sono ereditate da MUI <code>RadioProps</code>.
+      Assegna a ogni gruppo un nome accessibile e un <code>name</code> per i dati del form.
     </li>
   </ul>
+
+  ```tsx
+  <FormControl component="fieldset">
+  <FormLabel id="updates-label" component="legend">
+    Come desideri ricevere gli aggiornamenti?
+  </FormLabel>
+  <RadioGroup aria-labelledby="updates-label" name="updates">
+    <MIRadio value="email" label="Email" />
+    <MIRadio value="sms" label="SMS" />
+  </RadioGroup>
+</FormControl>
+  ```
 </Section>
 
 <Section
@@ -90,9 +109,9 @@ import * as MIRadioStories from '../stories/MIRadio.stories.tsx';
   description="Stati visivi e riferimenti verificabili nel codice."
 >
   <ul>
-    <li>Lo stato selezionato usa il token <code>blue[500]</code>.</li>
-    <li>Il bordo non selezionato in errore usa <code>error[600]</code>.</li>
-    <li>Il componente occupa la larghezza disponibile e adatta a capo la label.</li>
+    <li>Lo stato selezionato usa il token <code>primary.main</code>.</li>
+    <li>Il bordo non selezionato in errore usa <code>error.main</code>.</li>
+    <li>Il componente occupa la larghezza disponibile e porta a capo la label.</li>
   </ul>
 </Section>
 
@@ -101,10 +120,14 @@ import * as MIRadioStories from '../stories/MIRadio.stories.tsx';
   description="Il radio associa label e messaggio di errore all’input."
 >
   <SubSection title="Nome accessibile">
-    Quando non è presente una label visibile, fornire un nome tramite <code>inputProps</code>:
+    Quando non è presente una label visibile, fornire un nome accessibile:
 
     ```tsx
-    <MIRadio inputProps={{ 'aria-label': 'Ricevi aggiornamenti via email' }} />
+    <MIRadio aria-label="Ricevi aggiornamenti via email" />
     ```
+  </SubSection>
+  <SubSection title="Descrizione dell’errore">
+    Il messaggio configurato con <code>error</code> è associato al radio tramite{' '}
+    <code>aria-describedby</code>.
   </SubSection>
 </Section>

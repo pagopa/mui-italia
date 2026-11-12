@@ -3,7 +3,8 @@
 import { Report, RadioButtonUnchecked, CheckCircle } from '@mui/icons-material';
 import { Stack, Typography } from '@mui/material';
 import { type RadioProps } from '@mui/material/Radio';
-import { forwardRef, useId } from 'react';
+import { forwardRef, useId, type AriaAttributes } from 'react';
+import { pxToRem } from '@theme';
 
 import { StyledFormControlLabel, StyledRadio } from './styles';
 
@@ -11,69 +12,93 @@ type MIRadioContentProps =
   | { label: string; error?: string }
   | { label?: undefined; error?: never };
 
-export type MIRadioProps = RadioProps & MIRadioContentProps;
+export type MIRadioProps = Omit<
+  RadioProps,
+  | 'color'
+  | 'size'
+  | 'icon'
+  | 'checkedIcon'
+  | 'disableRipple'
+  | 'classes'
+  | 'className'
+  | 'style'
+  | 'focusVisibleClassName'
+> &
+  MIRadioContentProps;
 
 export const MIRadio = forwardRef<HTMLButtonElement, MIRadioProps>(
   ({ error, inputProps, label, ...props }, ref) => {
+    const ariaProps = Object.fromEntries(
+      Object.entries(props).filter(([key]) => key.startsWith('aria-'))
+    ) as AriaAttributes;
+    const radioProps = Object.fromEntries(
+      Object.entries(props).filter(([key]) => !key.startsWith('aria-'))
+    ) as RadioProps;
     const id = useId();
     const labelId = label ? `${id}-label` : undefined;
-    const errorId = error ? `${id}-error` : undefined;
-    const describedBy = [inputProps?.['aria-describedby'], errorId].filter(Boolean).join(' ');
-    const labelledBy = [inputProps?.['aria-labelledby'], labelId].filter(Boolean).join(' ');
+    const errorId = error && label ? `${id}-error` : undefined;
+    const describedBy = [ariaProps['aria-describedby'], inputProps?.['aria-describedby'], errorId]
+      .filter(Boolean)
+      .join(' ');
+    const labelledBy = [ariaProps['aria-labelledby'], inputProps?.['aria-labelledby'], labelId]
+      .filter(Boolean)
+      .join(' ');
 
     const radio = (
       <StyledRadio
         ref={ref}
         hasError={Boolean(error)}
-        {...props}
-        icon={props.icon ?? <RadioButtonUnchecked />}
-        checkedIcon={props.checkedIcon ?? <CheckCircle />}
+        {...radioProps}
+        icon={<RadioButtonUnchecked />}
+        checkedIcon={<CheckCircle />}
         inputProps={{
           ...inputProps,
+          ...ariaProps,
           ...(labelledBy ? { 'aria-labelledby': labelledBy } : {}),
           ...(describedBy ? { 'aria-describedby': describedBy } : {}),
-          ...(error ? { 'aria-invalid': true } : {}),
         }}
       />
     );
 
     return (
-      <StyledFormControlLabel
-        hasLabel={Boolean(label)}
-        control={radio}
-        label={
-          label ? (
-            <Stack component="div" spacing={0.25}>
+      <Stack sx= {(theme) => ({ paddingY: theme.spacing(1) })}>
+        <StyledFormControlLabel
+          control={radio}
+          label={
+            label ? (
               <Typography
                 id={labelId}
                 component="span"
                 sx={{
-                  color: (theme) => theme.colors.neutral.black,
-                  fontSize: (theme) => theme.typography.fontSize,
+                  color: (theme) => theme.palette.text.primary,
+                  fontSize: pxToRem(16),
                   fontWeight: (theme) => theme.typography.fontWeightMedium,
-                  lineHeight: '22px',
                 }}
               >
                 {label}
               </Typography>
-              {error && (
-                <Stack
-                  id={errorId}
-                  direction="row"
-                  alignItems="center"
-                  gap={0.5}
-                  sx={{ color: (theme) => theme.colors.error[600] }}
-                >
-                  <Report color="inherit" fontSize="small" aria-hidden="true" />
-                  <Typography color="inherit" variant="caption">
-                    {error}
-                  </Typography>
-                </Stack>
-              )}
-            </Stack>
-          ) : null
-        }
-      />
+            ) : null
+          }
+        />
+        {error && label && (
+          <Stack
+            id={errorId}
+            direction="row"
+            alignItems="center"
+            gap={0.5}
+            sx={{
+              color: (theme) => theme.palette.error.main,
+              marginLeft: (theme) => theme.spacing(4),
+              marginTop: (theme) => theme.spacing(0.25),
+            }}
+          >
+            <Report color="inherit" fontSize="small" aria-hidden="true" />
+            <Typography color="inherit" variant="caption">
+              {error}
+            </Typography>
+          </Stack>
+        )}
+      </Stack>
     );
   }
 );

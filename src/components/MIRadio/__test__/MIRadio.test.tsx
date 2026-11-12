@@ -1,4 +1,5 @@
 import { RadioGroup } from '@mui/material';
+import { themeNext } from '@theme';
 import { fireEvent, render } from '../../../test-utils';
 import MIRadio from '../MIRadio';
 
@@ -7,6 +8,23 @@ describe('MIRadio', () => {
     const { getByRole } = render(<MIRadio inputProps={{ 'aria-label': 'Email updates' }} />);
 
     expect(getByRole('radio', { name: 'Email updates' })).toBeInTheDocument();
+  });
+
+  it('forwards aria-label and aria-describedby to the radio input', () => {
+    const { getByRole } = render(
+      <>
+        <span id="help">Choose how to receive updates.</span>
+        <MIRadio aria-label="Email updates" aria-describedby="help" />
+      </>
+    );
+    const radio = getByRole('radio', {
+      name: 'Email updates',
+      description: 'Choose how to receive updates.',
+    });
+
+    expect(radio).toHaveAttribute('aria-label', 'Email updates');
+    expect(radio).toHaveAttribute('aria-describedby', 'help');
+    expect(radio.closest('.MuiRadio-root')).not.toHaveAttribute('aria-label');
   });
 
   it('renders an unchecked radio with its accessible label', () => {
@@ -68,14 +86,28 @@ describe('MIRadio', () => {
 
     expect(describedBy).toContain('additional-help');
     expect(describedBy).toContain(error.parentElement?.id);
-    expect(radio).toHaveAttribute('aria-invalid', 'true');
+    expect(radio).not.toHaveAttribute('aria-invalid');
+  });
+
+  it('does not select the radio when its error message is clicked', () => {
+    const { getByRole, getByText } = render(
+      <RadioGroup>
+        <MIRadio value="email" label="Email updates" error="A translated error." />
+      </RadioGroup>
+    );
+    const radio = getByRole('radio', { name: 'Email updates' });
+
+    fireEvent.click(getByText('A translated error.'));
+
+    expect(radio).not.toBeChecked();
+    expect(getByText('A translated error.').closest('label')).toBeNull();
   });
 
   it('uses the error color for an unchecked radio', () => {
     const { getByRole } = render(<MIRadio label="Email updates" error="Required field" />);
     const radioRoot = getByRole('radio', { name: 'Email updates' }).closest('.MuiRadio-root');
 
-    expect(radioRoot).toHaveStyle({ color: 'rgb(209, 51, 51)' });
+    expect(radioRoot).toHaveStyle({ color: themeNext.palette.error.main });
   });
 
   it('keeps a checked radio blue when an error is present', () => {
@@ -84,6 +116,6 @@ describe('MIRadio', () => {
     );
     const radioRoot = getByRole('radio', { name: 'Email updates' }).closest('.MuiRadio-root');
 
-    expect(radioRoot).toHaveStyle({ color: 'rgb(11, 62, 227)' });
+    expect(radioRoot).toHaveStyle({ color: themeNext.palette.primary.main });
   });
 });

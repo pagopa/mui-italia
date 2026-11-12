@@ -9,25 +9,22 @@ export const StyledRadio = styled(MuiRadio, {
   height: theme.spacing(3),
   padding: 0,
   flexShrink: 0,
-  color: hasError ? theme.colors.error[600] : theme.colors.neutral.black,
+  color: hasError ? theme.palette.error.main : theme.palette.text.primary,
   '&.Mui-checked': {
-    color: theme.colors.blue[500],
+    color: theme.palette.primary.main,
   },
   '&.Mui-focusVisible': {
-    outline: `2px solid ${theme.colors.blue[500]}`,
+    outline: `2px solid ${theme.palette.primary.main}`,
     outlineOffset: 2,
   },
 }));
 
-export const StyledFormControlLabel = styled(FormControlLabel, {
-  shouldForwardProp: (prop) => prop !== 'hasLabel',
-})<{ hasLabel: boolean }>(({ theme, hasLabel }) => ({
+export const StyledFormControlLabel = styled(FormControlLabel)(({ theme }) => ({
   alignItems: 'flex-start',
   boxSizing: 'border-box',
   gap: theme.spacing(1),
   margin: 0,
   minWidth: 0,
-  padding: hasLabel ? theme.spacing(2, 0) : 0,
   width: '100%',
   '& .MuiFormControlLabel-label': {
     flex: 1,
