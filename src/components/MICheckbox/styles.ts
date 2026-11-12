@@ -28,7 +28,7 @@ export const StyledFormControlLabel = styled(FormControlLabel, {
 })(({ theme }) => ({
   alignItems: 'flex-start',
   boxSizing: 'border-box',
-  gap: theme.spacing(0.5),
+  gap: theme.spacing(1),
   margin: 0,
   minWidth: 0,
   width: '100%',
