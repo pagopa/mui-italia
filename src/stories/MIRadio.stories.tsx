@@ -14,8 +14,8 @@ const UpdatesRadioGroup = ({ children, ...props }: RadioGroupProps) => {
   const labelId = `${groupId}-label`;
 
   return (
-    <FormControl component="fieldset">
-      <FormLabel id={labelId} component="legend">
+    <FormControl>
+      <FormLabel id={labelId}>
         Come desideri ricevere gli aggiornamenti?
       </FormLabel>
       <RadioGroup {...props} aria-labelledby={labelId} name={groupId}>
