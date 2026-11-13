@@ -123,6 +123,7 @@ export const MIPagination: React.FC<MIPaginationProps> = ({
     >
       {itemsPerPageOptions && (
         <MISelect
+          className="mipagination-items-per-page-select"
           labelId="items-per-page-select"
           id="items-per-page-select"
           data-testid="items-per-page-select"
