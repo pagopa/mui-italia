@@ -31,7 +31,8 @@ type MIDrawerProps = ComponentProps<typeof MIDrawer>;
 
 type ActionsOption = 'none' | 'primary' | 'primaryAndSecondary';
 
-type MIDrawerStoryArgs = Omit<MIDrawerProps, 'open' | 'onClose' | 'children'> & {
+// open, onClose and children are supplied by DrawerDemo, not by the controls
+type MIDrawerStoryArgs = MIDrawerProps & {
   actionsOption?: ActionsOption;
   withPictogram?: boolean;
 };
@@ -323,6 +324,9 @@ const meta: Meta<MIDrawerStoryArgs> = {
     withPictogram: false,
   },
   argTypes: {
+    open: { control: false },
+    onClose: { control: false },
+    children: { control: false },
     title: {
       control: { type: 'text' },
       description: 'Titolo del drawer (h2), sempre visibile. È il nome accessibile del dialog.',

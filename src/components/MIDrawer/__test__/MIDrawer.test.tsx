@@ -142,6 +142,28 @@ describe('MIDrawer', () => {
     expect(opener).toHaveFocus();
   });
 
+  it('keeps the focus on a field with autoFocus when the container is in an iframe', () => {
+    // The field belongs to the iframe window, whose HTMLElement is not the one of the main window
+    const iframe = document.createElement('iframe');
+    document.body.appendChild(iframe);
+    const iframeDocument = iframe.contentDocument as Document;
+
+    const { unmount } = renderDrawer({
+      container: iframeDocument.body,
+      children: (
+        <label>
+          Codice fiscale
+          <input autoFocus />
+        </label>
+      ),
+    });
+
+    expect(iframeDocument.activeElement).toBe(iframeDocument.querySelector('input'));
+
+    unmount();
+    iframe.remove();
+  });
+
   it('closes with the close button, Esc and a click on the backdrop', () => {
     const handleClose = vi.fn();
     renderDrawer({ onClose: handleClose });
@@ -156,6 +178,32 @@ describe('MIDrawer', () => {
     expect(handleClose).toHaveBeenLastCalledWith(expect.anything(), 'backdropClick');
 
     expect(handleClose).toHaveBeenCalledTimes(3);
+  });
+
+  it('keeps the modal dialog guarantees when the omitted props are passed with a spread', () => {
+    // A shared options object bypasses the excess property check of TypeScript
+    const sharedOptions: Record<string, unknown> = {
+      disableEnforceFocus: true,
+      disableRestoreFocus: true,
+      disableEscapeKeyDown: true,
+      hideBackdrop: true,
+      ModalProps: { disableEscapeKeyDown: true, hideBackdrop: true },
+    };
+    render(<DrawerWithOpener {...sharedOptions} />);
+
+    const opener = screen.getByRole('button', { name: 'Apri i filtri' });
+    opener.focus();
+    fireEvent.click(opener);
+
+    // Focus trap: the focus cannot leave the dialog
+    opener.focus();
+    expect(screen.getByRole('dialog')).toContainElement(document.activeElement as HTMLElement);
+
+    expect(document.querySelector('.MuiBackdrop-root')).toBeInTheDocument();
+
+    // Esc closes the drawer and the focus returns to the opener
+    fireEvent.keyDown(screen.getByRole('dialog'), { key: 'Escape' });
+    expect(opener).toHaveFocus();
   });
 
   it('translates the accessible name of the close button', () => {

@@ -12,6 +12,15 @@ import type { MIDrawerProps } from './types';
 
 const DEFAULT_CLOSE_BUTTON_ARIA_LABEL = 'Close';
 
+// Focus trap, initial focus, focus restore, Esc and backdrop of the modal dialog pattern
+const MODAL_DIALOG_GUARANTEES = {
+  disableEnforceFocus: false,
+  disableAutoFocus: false,
+  disableRestoreFocus: false,
+  disableEscapeKeyDown: false,
+  hideBackdrop: false,
+} as const;
+
 type MIDrawerTitleProps = {
   id: string;
   open: boolean;
@@ -35,8 +44,10 @@ const MIDrawerTitle = ({ id, open, children }: MIDrawerTitleProps) => {
     if (!dialog) {
       return;
     }
-    const activeElement = title.ownerDocument.activeElement;
-    if (activeElement instanceof HTMLElement && dialog.contains(activeElement)) {
+    const { activeElement, defaultView } = title.ownerDocument;
+    // HTMLElement of the drawer's window: with a container in an iframe, the window is the iframe's
+    const ElementOfDocument = defaultView?.HTMLElement ?? HTMLElement;
+    if (activeElement instanceof ElementOfDocument && dialog.contains(activeElement)) {
       initialFocusRef.current = activeElement;
       return;
     }
@@ -158,6 +169,8 @@ const MIDrawer = forwardRef<HTMLDivElement, MIDrawerProps>((props, ref) => {
       onClose={onClose}
       // Figma: bottom sheet below sm, side panel from sm
       anchor={isMobile ? 'bottom' : anchor}
+      // MUI applies ModalProps last: the guarantees of the modal dialog hold even if the omitted props are passed with a spread
+      ModalProps={MODAL_DIALOG_GUARANTEES}
       PaperProps={{
         ref: setPaper,
         // MUI Drawer is a Modal without the dialog semantics
