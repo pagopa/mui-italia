@@ -49,8 +49,8 @@ jobs:
         uses: ./.github/workflows/actions/build-size
         with:
           path: 'dist'
-          max_raw_kb: '800'
-          max_gzip_kb: '330'
+          max_raw_kb: '900'
+          max_gzip_kb: '360'
 ```
 
 ## ⚙️ Inputs
