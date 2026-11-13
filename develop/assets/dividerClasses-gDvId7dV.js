@@ -1,1 +1,0 @@
-import{e,f as t}from"./iframe-DLqg6HX8.js";function l(i){return e("MuiDivider",i)}const s=t("MuiDivider",["root","absolute","fullWidth","inset","middle","flexItem","light","vertical","withChildren","withChildrenVertical","textAlignRight","textAlignLeft","wrapper","wrapperVertical"]);export{s as d,l as g};
