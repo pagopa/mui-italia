@@ -1,3 +1,21 @@
+# [2.9.0-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.9.0-RC.0) (2026-11-13)
+
+
+### Features
+
+* **M20DS-95:** introducing MIProgressKpiCard component ([#766](https://github.com/pagopa/mui-italia/issues/766)) ([1d213ec](https://github.com/pagopa/mui-italia/commit/1d213ecf2f03f41974042a46a58febf1691dcb51))
+* **M20DS-31:** add MIAccordion component ([#782](https://github.com/pagopa/mui-italia/issues/782)) ([29cd135](https://github.com/pagopa/mui-italia/commit/29cd135977811c13992e19cae4a769c4cd236943))
+* **M20DS-48:** add MIDialog component ([#752](https://github.com/pagopa/mui-italia/issues/752)) ([7021d1a](https://github.com/pagopa/mui-italia/commit/7021d1a45b127e9c7601824a3441709066e4f3e8))
+
+
+### Chores
+
+* **M20DS-156:** update bundle size limits to 900 KB (raw) and 360 KB (gzip) ([#809](https://github.com/pagopa/mui-italia/issues/809)) ([bb5eeba](https://github.com/pagopa/mui-italia/commit/bb5eebab916309c26c8227213bd76d288cbfcdfb))
+
+
+### Documentation
+
+* **M20DS-136:** add MIBoxedModule action story and align icon layout with Figma ([#806](https://github.com/pagopa/mui-italia/issues/806)) ([26b18e9](https://github.com/pagopa/mui-italia/commit/26b18e96406ab4c8fa64f73af2721a9a3ba48029))
 # [2.8.2](https://github.com/pagopa/mui-italia/releases/tag/v2.8.2) (2026-10-29)
 
 
