@@ -1,1 +1,0 @@
-import{e,f as s}from"./iframe-QS4E-7kp.js";function l(t){return e("MuiListItemButton",t)}const a=s("MuiListItemButton",["root","focusVisible","dense","alignItemsFlexStart","disabled","divider","gutters","selected"]);export{l as g,a as l};
