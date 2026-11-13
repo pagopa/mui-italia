@@ -56,3 +56,4 @@ export * from './MITextField';
 export * from './MISwitch';
 export * from './MIDivider';
 export * from './MIRadio';
+export * from './MIProgressKpiCard';
