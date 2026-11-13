@@ -1,0 +1,187 @@
+import {
+  Meta,
+  Title,
+  Primary,
+  Controls,
+  Canvas,
+} from '@storybook/addon-docs/blocks';
+
+import Overview from './components/Overview';
+import Section from './components/Section';
+import SubSection from './components/SubSection';
+import * as MIDialogStories from '../stories/MIDialog.stories';
+
+<Meta of={MIDialogStories} />
+
+<Title />
+
+<Overview>
+  <strong>MIDialog</strong> è un wrapper del componente <code>Dialog</code> di MUI.
+  Accetta le props opzionali <code>title</code> e <code>description</code> per
+  mostrare titolo e descrizione senza comporre manualmente i relativi componenti.
+  Supporta azioni primaria e secondaria configurabili, un footer ReactNode
+  personalizzato e contenuti aggiuntivi tramite <code>children</code>.
+</Overview>
+
+<Section
+  title="Riferimenti"
+  description="Risorse per consultare il design e il codice del componente."
+>
+  <ul>
+    <li>
+      🎨 <a href="https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=1042-14217&p=f&m=dev">Figma</a>
+    </li>
+  </ul>
+</Section>
+
+<Section
+  title="Playground"
+  description="Modifica le configurazioni principali per vedere il dialog nel canvas."
+>
+  <Primary />
+  <Controls />
+</Section>
+
+<Section
+  title="Varianti e contenuti"
+  description="Le stories mostrano configurazioni del dialog, i footer disponibili e contenuti diversi."
+>
+  <SubSection title="Dialog semplice">
+    Dialog con titolo, descrizione e azioni.
+
+    <Canvas of={MIDialogStories.Default} />
+  </SubSection>
+
+  <SubSection title="Contenuto con checkbox">
+    Esempio di contenuto che include una scelta configurabile dall’utente.
+
+    <Canvas of={MIDialogStories.DialogWithCheckbox} />
+  </SubSection>
+
+  <SubSection title="Solo azione primaria">
+    La configurazione omette l’azione secondaria e mantiene quella primaria.
+
+    <Canvas of={MIDialogStories.PrimaryActionOnly} />
+  </SubSection>
+
+  <SubSection title="Colori delle azioni">
+    La story mostra un’azione primaria con colore di errore e un’azione
+    secondaria con il colore predefinito.
+
+    <Canvas of={MIDialogStories.ColoredActions} />
+  </SubSection>
+
+  <SubSection title="Footer personalizzato">
+    La story mostra un footer ReactNode fornito dal consumatore. Il footer
+    personalizzato sostituisce le azioni primarie e secondarie configurate.
+
+    <Canvas of={MIDialogStories.CustomFooter} />
+  </SubSection>
+
+  <SubSection title="Azioni nascoste">
+    La story omette le azioni standard. Il footer personalizzato non viene
+    fornito.
+
+    <Canvas of={MIDialogStories.HiddenActions} />
+  </SubSection>
+  
+  <SubSection title="Contenuto di errore">
+    Esempio di messaggio di errore e codice di riferimento.
+
+    <Canvas of={MIDialogStories.DialogWithError} />
+  </SubSection>
+
+  <SubSection title="Revoca della delega completata">
+    Dialog di conferma mostrato al termine della revoca di una delega, con
+    messaggio di successo e un’unica azione per chiudere la finestra.
+
+    <Canvas of={MIDialogStories.DelegationRevoked} />
+  </SubSection>
+
+</Section>
+
+<Section
+  title="Note per gli sviluppatori"
+  description="Aspetti dell’API da considerare durante l’integrazione."
+>
+  <ul>
+    <li>
+      <code>MIDialog</code> richiede le props <code>open</code>,
+      <code>closeButtonAriaLabel</code> e <code>onCloseButtonClick</code>.
+      La prop <code>title</code> è opzionale. La prop <code>onClose</code> è
+      opzionale, mantiene il contratto di MUI <code>DialogProps</code> e
+      gestisce le richieste di chiusura da Escape o backdrop. La prop
+      <code>description</code> è opzionale; titolo e descrizione accettano
+      contenuti React.
+    </li>
+    <li>
+      <code>primaryAction</code> e <code>secondaryAction</code> sono
+      configurazioni opzionali con <code>label</code>, <code>onClick</code>,
+      <code>disabled</code> e <code>color</code>. Il colore di ciascuna azione è
+      indipendente e supporta <code>primary</code>, <code>error</code> e
+      <code>contrasted</code>; il valore predefinito è <code>primary</code>.
+      Il button primario usa <code>MIButton</code> variant=<code>contained</code> mentre il button secondario usa
+      <code>MIButton</code> variant=<code>text</code>.
+    </li>
+    <li>
+      <code>renderFooter</code> accetta un <code>ReactNode</code> e, quando
+      definita, sostituisce il footer standard.
+    </li>
+    <li>
+      Il contenuto aggiuntivo può essere passato tramite <code>children</code>;
+      viene renderizzato nell’area di contenuto anche quando
+      <code>description</code> è omessa.
+      Le props di <code>MIDialog</code> derivano da MUI <code>DialogProps</code>,
+      ma il wrapper esclude <code>fullScreen</code>, <code>sx</code>,
+      <code>classes</code> e <code>className</code>. Il dialog non può quindi
+      occupare l’intero schermo, anche sui viewport ridotti.
+    </li>
+    <li>
+      L’entry point esporta <code>MIDialog</code> e i tipi delle sue props; i
+      wrapper di titolo, contenuto e azioni sono interni.
+    </li>
+    <li>
+      Il paper usa un raggio di <code>theme.spacing(2)</code>; descrizione e area
+      delle azioni usano spaziature basate su <code>theme.spacing</code>. Le
+      azioni standard sono disposte in colonna fino al breakpoint
+      <code>sm</code> e in riga da <code>md</code>. I pulsanti occupano tutta
+      la larghezza disponibile fino a <code>md</code>.
+    </li>
+  </ul>
+</Section>
+<Section
+  title="Accessibilità"
+  description="Il dialog eredita le props e il comportamento accessibile del Dialog di MUI."
+>
+  <SubSection title="Titolo e descrizione">
+    Passando <code>title</code> e <code>description</code>, il dialog genera gli
+    ID e associa automaticamente titolo e descrizione con
+    <code>aria-labelledby</code> e <code>aria-describedby</code>. Se
+    <code>title</code> viene omesso, specificare un nome accessibile tramite
+    <code>aria-labelledby</code>.
+
+    ```tsx
+    <MIDialog
+      open={open}
+      onClose={handleClose}
+      onCloseButtonClick={handleClose}
+      title="Conferma la richiesta"
+      description="Vuoi procedere con l’invio?"
+      closeButtonAriaLabel="Chiudi finestra"
+      secondaryAction={{
+        label: 'Annulla',
+        onClick: handleClose,
+      }}
+      primaryAction={{
+        label: 'Conferma',
+        onClick: handleConfirm,
+      }}
+    />
+    ```
+
+    È possibile passare contenuti aggiuntivi tramite <code>children</code>.
+    Se vengono fornite le props
+    <code>aria-labelledby</code> o <code>aria-describedby</code>, i valori
+    espliciti hanno precedenza sugli ID generati.
+  </SubSection>
+</Section>
