@@ -1,3 +1,121 @@
+# [2.8.2](https://github.com/pagopa/mui-italia/releases/tag/v2.8.2) (2026-10-29)
+
+
+### Chores
+
+* Bump version to v2.8.2
+# [2.8.1](https://github.com/pagopa/mui-italia/releases/tag/v2.8.1) (2026-10-29)
+
+
+### Build System
+
+* replaced NodeJS type to fix build ([#797](https://github.com/pagopa/mui-italia/issues/797)) ([d8e35bb](https://github.com/pagopa/mui-italia/commit/d8e35bb4ad65aef705dd85fb45e0e416605a93ce))
+# [2.8.0](https://github.com/pagopa/mui-italia/releases/tag/v2.8.0) (2026-10-29)
+
+
+### Features
+
+* **M20DS-151:** Storybook build for Githubpages ([#794](https://github.com/pagopa/mui-italia/issues/794)) ([a1589a0](https://github.com/pagopa/mui-italia/commit/a1589a0658f4aeda38e9016302c8b58ffb6e8f9b))
+
+
+### Chores
+
+* updated dependencies for security issues ([#795](https://github.com/pagopa/mui-italia/issues/795)) ([494f5f6](https://github.com/pagopa/mui-italia/commit/494f5f63ad81f755d27b16e8531dc9c6f124b559))
+# [2.8.0-RC.8](https://github.com/pagopa/mui-italia/releases/tag/v2.8.0-RC.8) (2026-10-28)
+
+
+### Bug Fixes
+
+* **M20DS-152:** MiSnackbar updated min and maxWitdh and update storybooks  ([#793](https://github.com/pagopa/mui-italia/issues/793)) ([e7bd277](https://github.com/pagopa/mui-italia/commit/e7bd27737f232c0732269d0208c25da937512ffc))
+# [2.8.0-RC.7](https://github.com/pagopa/mui-italia/releases/tag/v2.8.0-RC.7) (2026-10-27)
+
+
+### Bug Fixes
+
+* **A2-6109:** replace %s in Autocomplete chip delete aria-label ([#789](https://github.com/pagopa/mui-italia/issues/789)) ([43dacca](https://github.com/pagopa/mui-italia/commit/43dacca58f5e9d87e51c280080bbcfd867add035))
+
+
+### Chores
+
+* updated dependencies for security issues ([#792](https://github.com/pagopa/mui-italia/issues/792)) ([1b1a87c](https://github.com/pagopa/mui-italia/commit/1b1a87cb33151a6ed632aaea2b7f8577b6c36a95))
+* **M20DS-151:** add GitHub Actions workflow for publishing Storybook ([#791](https://github.com/pagopa/mui-italia/issues/791)) ([654791e](https://github.com/pagopa/mui-italia/commit/654791e42ca681cbb921cae8cf28140b119e942a))
+
+
+### Build System
+
+* **deps-dev:** bump eslint-plugin-import from 2.27.5 to 2.32.0 ([#623](https://github.com/pagopa/mui-italia/issues/623)) ([4a8f138](https://github.com/pagopa/mui-italia/commit/4a8f1385d4cfe6c89728891a77028c65c113c88a))
+
+
+### Documentation
+
+* **MUI-249:** enhanced skill for automated documentation ([#781](https://github.com/pagopa/mui-italia/issues/781)) ([c1da2b7](https://github.com/pagopa/mui-italia/commit/c1da2b75f228b343fc5edb4445cbab530c3f3b19))
+# [2.8.0-RC.6](https://github.com/pagopa/mui-italia/releases/tag/v2.8.0-RC.6) (2026-10-16)
+
+
+### Bug Fixes
+
+* **M20DS-148:** update MiTextField style (Minor on switch) ([#787](https://github.com/pagopa/mui-italia/issues/787)) ([59c4ba5](https://github.com/pagopa/mui-italia/commit/59c4ba5ca0c7831f761b3475c8a624f9933b5b2f))
+# [2.8.0-RC.5](https://github.com/pagopa/mui-italia/releases/tag/v2.8.0-RC.5) (2026-10-12)
+
+
+### Bug Fixes
+
+* **M20DS-147:** renamed prop in MIPagination and fix spacing ([#786](https://github.com/pagopa/mui-italia/issues/786)) ([e7f84ee](https://github.com/pagopa/mui-italia/commit/e7f84ee70c77d35a4c5ae14169633e1529bc91be))
+
+
+### Code Refactoring
+
+* **M20DS-146:** update MiSwitch with label and description props ([#785](https://github.com/pagopa/mui-italia/issues/785)) ([500581a](https://github.com/pagopa/mui-italia/commit/500581afea1288a83386485bac23130cccdc30ec))
+# [2.8.0-RC.4](https://github.com/pagopa/mui-italia/releases/tag/v2.8.0-RC.4) (2026-10-06)
+
+
+### Features
+
+* **M20DS-141:** implemented MIMenuDropdown component ([#779](https://github.com/pagopa/mui-italia/issues/779)) ([08f9f35](https://github.com/pagopa/mui-italia/commit/08f9f352c62bf37c2d8cf543578aaf6311544854))
+# [2.8.0-RC.3](https://github.com/pagopa/mui-italia/releases/tag/v2.8.0-RC.3) (2026-10-06)
+
+
+### Features
+
+* **M20DS-1:** Update MIButton borderRadius to 8px ([#783](https://github.com/pagopa/mui-italia/issues/783)) ([3fd4936](https://github.com/pagopa/mui-italia/commit/3fd4936bf8bb5983bde39ecc09e5601f670ca127))
+* **M20DS-9:** add  pagination component  ([#747](https://github.com/pagopa/mui-italia/issues/747)) ([3d44248](https://github.com/pagopa/mui-italia/commit/3d442486a0a3937755a64c7004e3dff9bedf1f01))
+* **M20DS-38:** add MISelect component ([#777](https://github.com/pagopa/mui-italia/issues/777)) ([d9cc557](https://github.com/pagopa/mui-italia/commit/d9cc557a8fde9fd682fb6ef7bf9319bd8322d788))
+# [2.8.0-RC.2](https://github.com/pagopa/mui-italia/releases/tag/v2.8.0-RC.2) (2026-09-28)
+
+
+### Bug Fixes
+
+* **M20DS-143:** fix 'SX'  CopyToCliboardButton ([#780](https://github.com/pagopa/mui-italia/issues/780)) ([e85689a](https://github.com/pagopa/mui-italia/commit/e85689a1eb047db2be922a4664262edcb172232b))
+# [2.8.0-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v2.8.0-RC.1) (2026-09-25)
+
+
+### Features
+
+* **M20DS-37:** add MITextField component ([#776](https://github.com/pagopa/mui-italia/issues/776)) ([a0510f4](https://github.com/pagopa/mui-italia/commit/a0510f44a8f63dbd1f7d617d24bdbf29e4705d4b))
+* **M20DS-28:** add  switch component  ([#749](https://github.com/pagopa/mui-italia/issues/749)) ([b884175](https://github.com/pagopa/mui-italia/commit/b8841750666123f43b9b62415a9283ba59461fe6))
+
+
+### Bug Fixes
+
+* **M20DS-142:** MIAlert extends standard div HTML attributes ([#778](https://github.com/pagopa/mui-italia/issues/778)) ([400f16a](https://github.com/pagopa/mui-italia/commit/400f16ac166900412e2063c7c1d1284efc7bf46e))
+* **M20DS-138:** add null values to AutocompleteValue type definition ([#759](https://github.com/pagopa/mui-italia/issues/759)) ([38863cb](https://github.com/pagopa/mui-italia/commit/38863cb3804bf91b014de7bf36ca418bd6d6f911))
+
+
+### Chores
+
+* **M20DS-123:** Update Autocomplete component with multiSelect counter ([#771](https://github.com/pagopa/mui-italia/issues/771)) ([41a16fe](https://github.com/pagopa/mui-italia/commit/41a16fe1545bb36905ca9035623447f279f1b885))
+* add copilot instructions for automatic review ([#756](https://github.com/pagopa/mui-italia/issues/756)) ([edd6920](https://github.com/pagopa/mui-italia/commit/edd69206b2d703d34e2116367e7e727a7480dfc0))
+# [2.8.0-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.8.0-RC.0) (2026-09-15)
+
+
+### Features
+
+* **M20DS-94:** Add MITableList component ([#769](https://github.com/pagopa/mui-italia/issues/769)) ([85dbcc4](https://github.com/pagopa/mui-italia/commit/85dbcc4ea8fb43c95aff299a87394c6ae8d4f352))
+
+
+### Bug Fixes
+
+* **M20DS-94:** update MITableList stories after MITableListItem API changes ([#774](https://github.com/pagopa/mui-italia/issues/774)) ([f33cfaa](https://github.com/pagopa/mui-italia/commit/f33cfaa1294a41cbe15826902e266c65b3ba4434))
 # [2.7.0](https://github.com/pagopa/mui-italia/releases/tag/v2.7.0) (2026-09-14)
 
 
