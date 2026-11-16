@@ -27,7 +27,7 @@ export type MIRadioProps = Omit<
   MIRadioContentProps;
 
 export const MIRadio = forwardRef<HTMLButtonElement, MIRadioProps>(
-  ({ error, inputProps, label, ...props }, ref) => {
+  ({ error, inputProps, label, sx, ...props }, ref) => {
     const ariaProps = Object.fromEntries(
       Object.entries(props).filter(([key]) => key.startsWith('aria-'))
     ) as AriaAttributes;
@@ -61,7 +61,7 @@ export const MIRadio = forwardRef<HTMLButtonElement, MIRadioProps>(
     );
 
     return (
-      <Stack sx= {(theme) => ({ paddingY: theme.spacing(1) })}>
+      <Stack sx={[{ paddingY: (theme) => theme.spacing(1) }, ...(Array.isArray(sx) ? sx : [sx])]}>
         <StyledFormControlLabel
           control={radio}
           label={ 

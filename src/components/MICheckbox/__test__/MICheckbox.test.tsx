@@ -20,10 +20,7 @@ describe('MICheckbox', () => {
     const { getByRole } = render(
       <>
         <span id="help">Accepting confirms your agreement.</span>
-        <MICheckbox
-          aria-label="Accept the terms"
-          aria-describedby="help"
-        />
+        <MICheckbox aria-label="Accept the terms" aria-describedby="help" />
       </>
     );
     const checkbox = getByRole('checkbox', {
@@ -133,17 +130,31 @@ describe('MICheckbox', () => {
 
   it('keeps the checked checkbox blue when an error is present', () => {
     const { getByRole } = render(
-      <MICheckbox
-        label="Checkbox label"
-        checked
-        onChange={() => {}}
-        error="Required field"
-      />
+      <MICheckbox label="Checkbox label" checked onChange={() => {}} error="Required field" />
     );
     const checkboxRoot = getByRole('checkbox', { name: 'Checkbox label' }).closest(
       '.MuiCheckbox-root'
     );
 
     expect(checkboxRoot).toHaveStyle({ color: themeNext.palette.primary.main });
+  });
+
+  it('applies sx to the wrapper around the checkbox, label and error', () => {
+    const { getByRole, getByText } = render(
+      <MICheckbox
+        label="Checkbox label"
+        error="Required field"
+        sx={[{ mb: 1 }, (theme) => ({ marginBottom: theme.spacing(2) })]}
+      />
+    );
+    const control = getByRole('checkbox', { name: 'Checkbox label' }).closest<HTMLElement>(
+      '.MuiCheckbox-root'
+    );
+    const wrapper = getByText('Required field').parentElement?.parentElement;
+
+    expect(wrapper).toContainElement(control);
+    expect(wrapper).toContainElement(getByText('Checkbox label'));
+    expect(wrapper).toHaveStyle({ marginBottom: themeNext.spacing(2) });
+    expect(control).not.toHaveStyle({ marginBottom: themeNext.spacing(2) });
   });
 });

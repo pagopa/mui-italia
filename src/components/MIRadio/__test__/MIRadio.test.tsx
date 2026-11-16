@@ -118,4 +118,34 @@ describe('MIRadio', () => {
 
     expect(radioRoot).toHaveStyle({ color: themeNext.palette.primary.main });
   });
+
+   it('applies sx to the wrapper around the radio, label and error', () => {
+    const { getByRole, getByText, rerender } = render(
+      <MIRadio label="Email updates" error="Required field" sx={{ mb: 2 }} />
+    );
+    const control = getByRole('radio', { name: 'Email updates' }).closest<HTMLElement>(
+      '.MuiRadio-root'
+    );
+    const wrapper = getByText('Required field').parentElement?.parentElement;
+
+    expect(wrapper).toContainElement(control);
+    expect(wrapper).toContainElement(getByText('Email updates'));
+    expect(wrapper).toHaveStyle({
+      marginBottom: themeNext.spacing(2),
+      paddingTop: themeNext.spacing(1),
+    });
+    expect(control).not.toHaveStyle({ marginBottom: themeNext.spacing(2) });
+
+    rerender(
+      <MIRadio
+        label="Email updates"
+        error="Required field"
+        sx={[{ mb: 1 }, (theme) => ({ mb: 2, paddingY: theme.spacing(3) })]}
+      />
+    );
+    expect(wrapper).toHaveStyle({
+      marginBottom: themeNext.spacing(2),
+      paddingTop: themeNext.spacing(3),
+    });
+  });
 });

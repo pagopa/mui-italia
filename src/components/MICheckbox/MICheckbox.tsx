@@ -25,7 +25,7 @@ export type MICheckboxProps = Omit<
   MICheckboxContentProps;
 
 export const MICheckbox = forwardRef<HTMLButtonElement, MICheckboxProps>(
-  ({ error, inputProps, label, ...props }, ref) => {
+  ({ error, inputProps, label, sx, ...props }, ref) => {
     const ariaProps = Object.fromEntries(
       Object.entries(props).filter(([key]) => key.startsWith('aria-'))
     ) as AriaAttributes;
@@ -59,7 +59,7 @@ export const MICheckbox = forwardRef<HTMLButtonElement, MICheckboxProps>(
     );
 
     return (
-      <Stack>
+      <Stack sx={sx}>
         <StyledFormControlLabel
           control={checkbox}
           label={
