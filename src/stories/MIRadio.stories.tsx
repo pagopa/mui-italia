@@ -158,7 +158,7 @@ export const AccessibleName: Story = {
   },
   render: () => (
     <UpdatesRadioGroup defaultValue="email">
-      <MIRadio value="email" inputProps={{ 'aria-label': 'Ricevi aggiornamenti via email' }} />
+      <MIRadio value="email" aria-label="Ricevi aggiornamenti via email" />
     </UpdatesRadioGroup>
   ),
 };

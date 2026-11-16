@@ -64,7 +64,7 @@ export const MIRadio = forwardRef<HTMLButtonElement, MIRadioProps>(
       <Stack sx= {(theme) => ({ paddingY: theme.spacing(1) })}>
         <StyledFormControlLabel
           control={radio}
-          label={
+          label={ 
             label ? (
               <Typography
                 id={labelId}
