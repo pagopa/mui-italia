@@ -1,0 +1,1 @@
+import{u as s}from"./useTheme-ce18xD2I.js";const a=e=>{const o=s(),t=o.palette.mode==="dark",r=(e||(t?"dark":"light"))==="dark";return{colorPrimary:r?o.colors.neutral.white:o.colors.blue[500],colorSecondary:r?o.colors.blue[300]:o.colors.blue[100]}};export{a as u};
