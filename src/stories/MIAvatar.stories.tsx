@@ -102,9 +102,9 @@ export const Loading: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
     <Stack direction="row" spacing={2} alignItems="center">
-      <MIAvatar isLoading size="small" alt="Logo del servizio" aria-label="Caricamento logo" />
-      <MIAvatar isLoading size="big" alt="Logo del servizio" aria-label="Caricamento logo" />
-      <MIAvatar variant="gravatar" label="MR" isLoading aria-label="Caricamento avatar" />
+      <MIAvatar isLoading size="small" alt="Logo del servizio" role="img" aria-label="Caricamento logo" />
+      <MIAvatar isLoading size="big" alt="Logo del servizio" role="img" aria-label="Caricamento logo" />
+      <MIAvatar variant="gravatar" label="MR" isLoading role="img" aria-label="Caricamento avatar" />
     </Stack>
   ),
 };
