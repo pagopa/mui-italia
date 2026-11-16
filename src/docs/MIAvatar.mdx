@@ -1,0 +1,76 @@
+import { Meta, Title, Primary, Controls, Story, Canvas } from '@storybook/addon-docs/blocks';
+
+import Overview from './components/Overview';
+import Section from './components/Section';
+import SubSection from './components/SubSection';
+import * as MIAvatarStories from '../stories/MIAvatar.stories';
+
+<Meta of={MIAvatarStories} />
+
+<Title />
+
+<Overview>
+  <strong>MIAvatar</strong> mostra un logo o un placeholder. Si possono avere due dimensioni: small e big.
+  Un'altra variante è il gravatar, un avatar circolare con iniziali.
+</Overview>
+
+<Section title="Riferimenti">
+  <ul>
+    <li>
+     🎨 
+    <a href="https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=160-1341&amp;m=dev">Figma</a>
+  
+    </li>
+  </ul>
+  <ul>
+    <li><a href="https://raw.githubusercontent.com/pagopa/mui-italia/refs/heads/develop/src/components/MIAvatar/MIAvatar.tsx">GitHub</a></li>
+  </ul>
+
+  {/* TODO: confermare il link GitHub del sorgente. */}
+</Section>
+
+<Section title="Playground" description="Usa i controlli per confrontare le configurazioni principali.">
+  <Primary />
+  <Controls />
+</Section>
+
+<Section title="Varianti e dimensioni">
+  <SubSection title="Placeholder">
+    Senza immagine, oppure se il caricamento fallisce, viene mostrata l’icona predefinita.
+    <Canvas of={MIAvatarStories.Default} />
+  </SubSection>
+  <SubSection title="Logo">
+    Le dimensioni small e big misurano rispettivamente 44px e 66px
+    (44 e 66 pixel con una dimensione del carattere radice di 16 pixel).
+    <Canvas of={MIAvatarStories.Sizes} />
+  </SubSection>
+  <SubSection title="Gravatar">
+    La variante gravatar misura 32 pixel e mostra la stringa passata tramite <code>label</code>. E' bene che la label sia formata esclusivamente da due caratteri.
+    <Canvas of={MIAvatarStories.Gravatar} />
+  </SubSection>
+  <SubSection title="Caricamento">
+    La prop <code>isLoading</code> mostra uno skeleton delle dimensioni e della forma
+    dell’avatar, al posto del logo, del placeholder o delle iniziali.
+    <Canvas of={MIAvatarStories.Loading} />
+  </SubSection>
+</Section>
+
+<Section title="Note per gli sviluppatori">
+  La variante standard accetta <code>src</code>, <code>srcSet</code> e <code>alt</code>.
+  La variante <code>gravatar</code> richiede le iniziali come stringa tramite <code>label</code>;
+  non recupera immagini da un indirizzo email. La prop <code>sx</code> consente
+  personalizzazioni MUI. Lo sfondo del logo usa <code>palette.background.paper</code> del tema.
+  Durante il caricamento, la root espone <code>aria-busy</code>; il nome accessibile
+  può essere configurato tramite <code>aria-label</code>.
+</Section>
+
+<Section title="Accessibilità">
+  La prop <code>alt</code> è obbligatoria per gli avatar standard: descrive un logo informativo
+  o il relativo placeholder.
+  Se le iniziali non identificano sufficientemente la persona, usa un nome accessibile
+  sull’avatar:
+
+  ```tsx
+  <MIAvatar variant="gravatar" label="MR" role="img" aria-label="Mario Rossi" />
+  ```
+</Section>
