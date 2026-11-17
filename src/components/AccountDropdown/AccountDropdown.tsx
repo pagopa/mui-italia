@@ -55,7 +55,7 @@ export const AccountDropdown = ({ user, userActions }: AccountDropdownProps) => 
         size="small"
         aria-label={`Area utente ${user.name || ''} ${user.surname || ''}`}
         aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
+        aria-expanded={open}
         onClick={handleClick}
         startIcon={<AccountCircleRoundedIcon />}
         endIcon={open ? <ArrowDropUpRoundedIcon /> : <ArrowDropDownRoundedIcon />}
