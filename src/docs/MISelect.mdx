@@ -195,6 +195,19 @@ import * as MISelectStories from '../stories/MISelect.stories.tsx';
 >
   <ul>
     <li>
+      <strong>sx</strong> personalizza il Select interno, non MIFormControl o la label.
+      Supporta oggetti di stile, callback del tema e array secondo l API MUI.
+    </li>
+    <li>
+      <strong>defaultValue</strong> imposta il valore iniziale della selezione non controllata:
+      un singolo valore oppure un array quando <code>multiple</code> e attivo.
+    </li>
+    <li>
+      Con <code>label={null}</code> non viene renderizzata una InputLabel. Usa
+      <code>labelId</code> per associarlo a una label esterna, oppure fornisci un nome accessibile
+      tramite <code>inputProps['aria-label']</code>.
+    </li>
+    <li>
       Usa <strong>helperText</strong> per fornire messaggi di supporto o di errore localizzati,
       anche con icone o altro contenuto React. Non serve comporre MIFormHelperText esternamente
       o assegnare manualmente un ID al messaggio. In assenza di contenuto, non viene aggiunto

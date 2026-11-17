@@ -30,7 +30,6 @@ export type MISelectProps = Omit<
   | 'classes'
   | 'children'
   | 'defaultOpen'
-  | 'defaultValue'
   | 'displayEmpty'
   | 'IconComponent'
   | 'input'
@@ -38,7 +37,6 @@ export type MISelectProps = Omit<
   | 'MenuProps'
   | 'native'
   | 'SelectDisplayProps'
-  | 'sx'
   | 'variant'
   | 'components'
   | 'componentsProps'
@@ -102,7 +100,7 @@ const MISelect = forwardRef<HTMLDivElement, MISelectProps>((props, ref) => {
   const {
     fullWidth,
     label,
-    labelId = generatedLabelId,
+    labelId: providedLabelId,
     helperText,
     'aria-describedby': ariaDescribedBy,
     inputProps,
@@ -112,6 +110,8 @@ const MISelect = forwardRef<HTMLDivElement, MISelectProps>((props, ref) => {
     getChipDeleteAriaLabel,
     ...selectProps
   } = props;
+  const hasLabel = label != null && label !== false && label !== '';
+  const labelId = providedLabelId ?? (hasLabel ? generatedLabelId : undefined);
   const hasHelperText = helperText != null && helperText !== false && helperText !== '';
   const helperTextId = hasHelperText ? `${generatedLabelId}-helper-text` : undefined;
   const describedBy =
@@ -120,7 +120,9 @@ const MISelect = forwardRef<HTMLDivElement, MISelectProps>((props, ref) => {
   const isValueControlled = props.value !== undefined;
 
   // State for uncontrolled multiple select value, this will hold the selected values when the component is not controlled externally.
-  const [uncontrolledMultipleValue, setUncontrolledMultipleValue] = useState<Array<unknown>>([]);
+  const [uncontrolledMultipleValue, setUncontrolledMultipleValue] = useState<Array<unknown>>(() =>
+    Array.isArray(props.defaultValue) ? props.defaultValue : []
+  );
 
   const selectValue =
     props.multiple && !isValueControlled ? uncontrolledMultipleValue : props.value;
@@ -174,7 +176,7 @@ const MISelect = forwardRef<HTMLDivElement, MISelectProps>((props, ref) => {
       fullWidth={fullWidth}
       required={props.required}
     >
-      <StyledInputLabel id={labelId}>{label}</StyledInputLabel>
+      {hasLabel && <StyledInputLabel id={labelId}>{label}</StyledInputLabel>}
       <StyledSelect
         ref={ref}
         {...selectProps}

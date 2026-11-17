@@ -14,6 +14,60 @@ const options: Array<MISelectOption> = [
 const openSelect = () => fireEvent.mouseDown(screen.getByRole('combobox'));
 
 describe('MISelect', () => {
+  it('associates an external label without rendering an empty floating label', () => {
+    const { container } = render(
+      <>
+        <span id="external-label">Rows per page</span>
+        <MISelect label={null} labelId="external-label" options={options} value="1" />
+      </>
+    );
+
+    expect(screen.getByRole('combobox', { name: 'Rows per page' })).toHaveTextContent('option-1');
+    expect(container.querySelector('.MuiInputLabel-root')).not.toBeInTheDocument();
+    expect(container.querySelectorAll('#external-label')).toHaveLength(1);
+  });
+
+  it.each([false, true])(
+    'uses defaultValue for uncontrolled selection with multiple=%s',
+    (multiple) => {
+      render(
+        <MISelect
+          label="Select"
+          options={options}
+          multiple={multiple}
+          defaultValue={multiple ? ['1'] : '1'}
+        />
+      );
+
+      const select = screen.getByRole('combobox');
+      expect(select).toHaveTextContent('option-1');
+      openSelect();
+      fireEvent.click(screen.getByRole('option', { name: 'option-2' }));
+      expect(select).toHaveTextContent('option-2');
+      if (multiple) {
+        expect(select).toHaveTextContent('option-1');
+      } else {
+        expect(select).not.toHaveTextContent('option-1');
+      }
+    }
+  );
+
+  it('applies sx objects and theme callbacks to the select rather than the form control', () => {
+    const ref = createRef<HTMLDivElement>();
+    render(
+      <MISelect
+        ref={ref}
+        label="Select"
+        options={options}
+        value="1"
+        sx={[{ marginTop: 2 }, (theme) => ({ letterSpacing: theme.spacing(0.5) })]}
+      />
+    );
+
+    expect(ref.current).toHaveStyle({ marginTop: '16px', letterSpacing: '4px' });
+    expect(ref.current?.closest('.MuiFormControl-root')).not.toHaveStyle({ marginTop: '16px' });
+  });
+
   it('renders helper text inside the form control and associates it with the select', () => {
     const { container } = render(
       <MISelect label="Select" options={options} value="" helperText="Choose your organization" />
@@ -72,10 +126,9 @@ describe('MISelect', () => {
         disabled
       />
     );
-    expect(screen.getByText('Selection unavailable').closest('.MuiFormHelperText-root')).toHaveClass(
-      'Mui-error',
-      'Mui-disabled'
-    );
+    expect(
+      screen.getByText('Selection unavailable').closest('.MuiFormHelperText-root')
+    ).toHaveClass('Mui-error', 'Mui-disabled');
 
     rerender(<MISelect label="Select" options={options} value="" helperText="Select an option" />);
     expect(screen.getByText('Select an option').closest('.MuiFormHelperText-root')).not.toHaveClass(
@@ -549,10 +602,9 @@ describe('MISelect', () => {
 
     expect(container.querySelector('.MuiInputBase-root')).toHaveClass('Mui-error');
     expect(container.querySelector('input')).toHaveAttribute('aria-invalid', 'true');
-    expect(screen.getByText('Selection unavailable').parentElement?.querySelector('svg')).toHaveAttribute(
-      'aria-hidden',
-      'true'
-    );
+    expect(
+      screen.getByText('Selection unavailable').parentElement?.querySelector('svg')
+    ).toHaveAttribute('aria-hidden', 'true');
   });
 
   it('forwards the name and required props to the native input', () => {

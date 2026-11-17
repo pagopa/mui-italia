@@ -50,6 +50,7 @@ export * from './TimelineNotification';
 export * from './TOSAgreement';
 export * from './Walkthrough';
 export * from './MIPagination';
+export * from './MIPaginationSelect';
 export * from './MISelect';
 export * from './MIForm';
 export * from './MITextField';
