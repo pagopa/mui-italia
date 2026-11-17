@@ -1,14 +1,7 @@
 'use client';
 
-import { KeyboardArrowDown } from '@mui/icons-material';
-import {
-  Box,
-  InputLabel,
-  Select as MuiSelect,
-  type SelectChangeEvent,
-  type SelectProps,
-  styled,
-} from '@mui/material';
+import { KeyboardArrowDown, ReportRounded as ReportRoundedIcon } from '@mui/icons-material';
+import { Box, type SelectChangeEvent, type SelectProps } from '@mui/material';
 import {
   cloneElement,
   forwardRef,
@@ -22,6 +15,7 @@ import {
 import { MIChip } from '../MIChip';
 import { MIFormControl, MIFormHelperText } from '../MIForm';
 import MISelectItem from './MISelectItem';
+import { StyledInputLabel, StyledSelect } from './styles';
 
 export type MISelectOption = {
   value: string | number;
@@ -71,29 +65,6 @@ export type MISelectProps = Omit<
   fullWidth?: boolean;
   getChipDeleteAriaLabel?: (label: ReactNode) => string;
 };
-
-const StyledSelect = styled(MuiSelect)(({ theme }) => ({
-  borderRadius: theme.shape.radius[8],
-  '& .MuiOutlinedInput-notchedOutline': {
-    borderColor: theme.colors.neutral.grey[650],
-  },
-  '& .MuiSelect-icon': {
-    color: theme.colors.neutral.black,
-  },
-  '&.Mui-focused ': {
-    '& .MuiOutlinedInput-notchedOutline': {
-      borderColor: theme.colors.blue[500],
-    },
-    '& .MuiSelect-icon': {
-      color: theme.colors.blue[500],
-    },
-  },
-  '&.Mui-error': {
-    '& .MuiOutlinedInput-notchedOutline': {
-      borderColor: theme.colors.error[600],
-    },
-  },
-}));
 
 const renderSelectedChips = (
   selectedValues: unknown,
@@ -203,7 +174,7 @@ const MISelect = forwardRef<HTMLDivElement, MISelectProps>((props, ref) => {
       fullWidth={fullWidth}
       required={props.required}
     >
-      <InputLabel id={labelId}>{label}</InputLabel>
+      <StyledInputLabel id={labelId}>{label}</StyledInputLabel>
       <StyledSelect
         ref={ref}
         {...selectProps}
@@ -231,7 +202,33 @@ const MISelect = forwardRef<HTMLDivElement, MISelectProps>((props, ref) => {
           )
         )}
       </StyledSelect>
-      {hasHelperText && <MIFormHelperText id={helperTextId}>{helperText}</MIFormHelperText>}
+      {hasHelperText && (
+        <MIFormHelperText id={helperTextId}>
+          {props.error ? (
+            <Box
+              component="span"
+              sx={(theme) => ({
+                alignItems: 'center',
+                display: 'flex',
+                fontSize: theme.typography.pxToRem(14),
+                gap: theme.spacing(0.75),
+                lineHeight: theme.typography.pxToRem(20),
+              })}
+            >
+              <ReportRoundedIcon
+                aria-hidden="true"
+                sx={(theme) => ({
+                  color: theme.palette.error.main,
+                  fontSize: theme.typography.pxToRem(16),
+                })}
+              />
+              {helperText}
+            </Box>
+          ) : (
+            helperText
+          )}
+        </MIFormHelperText>
+      )}
     </MIFormControl>
   );
 });

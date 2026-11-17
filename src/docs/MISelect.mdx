@@ -27,6 +27,14 @@ import * as MISelectStories from '../stories/MISelect.stories.tsx';
   .
 </Overview>
 
+ <SubSection title="Opzioni con MISingleDropdownItem">
+    Usa <code>renderOptions</code> per comporre ogni opzione con MISingleDropdownItem. Passa il
+    <code>value</code> dell’opzione al componente affinché MISelect possa mantenere la selezione.
+
+    <Story of={MISelectStories.WithSingleDropdownItems} />
+
+  </SubSection>
+  
 <Section
   title="Playground"
   description="Usa i controlli per modificare i parametri principali del componente e verificare il risultato live."
@@ -76,13 +84,7 @@ import * as MISelectStories from '../stories/MISelect.stories.tsx';
 >
   <Story of={MISelectStories.CustomOptions} />
 
-  <SubSection title="Opzioni con MISingleDropdownItem">
-    Usa <code>renderOptions</code> per comporre ogni opzione con MISingleDropdownItem. Passa il
-    <code>value</code> dell’opzione al componente affinché MISelect possa mantenere la selezione.
-
-    <Story of={MISelectStories.WithSingleDropdownItems} />
-
-  </SubSection>
+ 
 
 </Section>
 
@@ -108,6 +110,7 @@ import * as MISelectStories from '../stories/MISelect.stories.tsx';
         <strong>helperText</strong>: testo o contenuto React di supporto, renderizzato da
         MISelect tramite MIFormHelperText dentro MIFormControl. E associato automaticamente
         al campo tramite aria-describedby e ne eredita gli stati error e disabled.
+        Quando <code>error</code> e attivo, MISelect antepone un'icona decorativa al contenuto.
         Gli eventuali riferimenti aria-describedby esterni vengono mantenuti.
       </li>
       <li>

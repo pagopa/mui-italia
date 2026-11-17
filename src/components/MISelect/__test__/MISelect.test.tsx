@@ -72,11 +72,18 @@ describe('MISelect', () => {
         disabled
       />
     );
-    expect(screen.getByText('Selection unavailable')).toHaveClass('Mui-error', 'Mui-disabled');
+    expect(screen.getByText('Selection unavailable').closest('.MuiFormHelperText-root')).toHaveClass(
+      'Mui-error',
+      'Mui-disabled'
+    );
 
     rerender(<MISelect label="Select" options={options} value="" helperText="Select an option" />);
-    expect(screen.getByText('Select an option')).not.toHaveClass('Mui-error');
-    expect(screen.getByText('Select an option')).not.toHaveClass('Mui-disabled');
+    expect(screen.getByText('Select an option').closest('.MuiFormHelperText-root')).not.toHaveClass(
+      'Mui-error'
+    );
+    expect(screen.getByText('Select an option').closest('.MuiFormHelperText-root')).not.toHaveClass(
+      'Mui-disabled'
+    );
   });
 
   it('preserves external descriptions from select and input props', () => {
@@ -530,11 +537,22 @@ describe('MISelect', () => {
 
   it('applies the error state', () => {
     const { container } = render(
-      <MISelect label="Select" options={options} error value="" onChange={vi.fn()} />
+      <MISelect
+        label="Select"
+        options={options}
+        error
+        value=""
+        onChange={vi.fn()}
+        helperText="Selection unavailable"
+      />
     );
 
     expect(container.querySelector('.MuiInputBase-root')).toHaveClass('Mui-error');
     expect(container.querySelector('input')).toHaveAttribute('aria-invalid', 'true');
+    expect(screen.getByText('Selection unavailable').parentElement?.querySelector('svg')).toHaveAttribute(
+      'aria-hidden',
+      'true'
+    );
   });
 
   it('forwards the name and required props to the native input', () => {

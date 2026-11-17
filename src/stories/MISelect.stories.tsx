@@ -8,6 +8,7 @@ import {
 } from '@mui/icons-material';
 import {
   Box,
+  Checkbox,
   InputAdornment,
   MenuItem,
   Stack,
@@ -16,6 +17,7 @@ import {
 } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useEffect, useMemo, useState } from 'react';
+import { MITextField } from '@components/MITextField';
 
 type OptionPreset = 'basic' | 'status';
 
@@ -37,6 +39,26 @@ const STATUS_OPTIONS = [
   { value: 'delivered', label: 'Consegnata' },
   { value: 'deposited', label: 'Depositata' },
   { value: 'forwarding', label: 'In inoltro' },
+];
+
+const ORGANIZATION_OPTIONS = [
+  {
+    value: 'direzione-mobilita',
+    label: 'Direzione Mobilità',
+    description: 'Comune di Milano',
+  },
+  {
+    value: 'ufficio-permessi-ztl',
+    label: 'Ufficio permessi ZTL - Direzione Mobilità',
+    description: 'Ente Parent',
+  },
+  {
+    value: 'uo-aoo',
+    label: 'UO - AOO',
+    description: 'Ente Parent',
+  },
+  { value: 'pagopa', label: 'PagoPA S.p.A.' },
+  { value: 'regione-lombardia', label: 'Regione Lombardia' },
 ];
 
 const meta: Meta<MISelectStoryArgs> = {
@@ -304,12 +326,7 @@ export const States: Story = {
           value=""
           onChange={() => undefined}
           error
-          helperText={
-            <Box component="span" sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-              <ReportRoundedIcon color="error" fontSize="small" />
-              Selezione non valida
-            </Box>
-          }
+          helperText="Selezione non valida"
         />
       </Box>
 
@@ -424,42 +441,38 @@ export const WithSingleDropdownItems: Story = {
     docs: {
       description: {
         story:
-          'renderOptions compone ogni opzione con MISingleDropdownItem. Il value dell’opzione viene passato al componente per consentire a MISelect di gestire la selezione.',
+          'Menu multi-selezione di enti composto con MISingleDropdownItem, con contenuti e stati ispirati al riferimento Figma.',
       },
     },
   },
   render: function RenderWithSingleDropdownItems() {
-    const [value, setValue] = useState<unknown>('roma');
-    const organizations = [
-      {
-        value: 'roma',
-        label: 'Comune di Roma',
-        description: 'Amministrazione comunale',
-      },
-      {
-        value: 'milano',
-        label: 'Comune di Milano',
-        description: 'Amministrazione comunale',
-      },
-      {
-        value: 'lazio',
-        label: 'Regione Lazio',
-        description: 'Amministrazione regionale',
-        disabled: true,
-      },
-    ];
+    const [selectedValues, setSelectedValues] = useState<Array<string>>([
+      'direzione-mobilita',
+      'ufficio-permessi-ztl',
+      'uo-aoo',
+    ]);
 
     return (
-      <Box sx={{ width: 360, maxWidth: '100%' }}>
+      <Stack direction="row" gap="2" width="100%">
+        <MITextField label="Cerca per erogatore testo" sx={{ marginRight: 2 }} />
         <MISelect
           fullWidth
-          label="Ente"
-          options={organizations}
-          value={value}
-          onChange={(event) => setValue(event.target.value)}
-          helperText="Seleziona l’ente per cui vuoi operare"
+          label="Cerca per erogatore"
+          multiple
+          options={ORGANIZATION_OPTIONS}
+          value={selectedValues}
+          onChange={(event) => {
+            const nextValue = event.target.value;
+            setSelectedValues(
+              Array.isArray(nextValue) ? nextValue.map(String) : [String(nextValue)]
+            );
+          }}
+          renderValue={() => (
+            <MIChip label={selectedValues.length} onDelete={() => setSelectedValues([])} />
+          )}
           renderOptions={(option) => {
-            const organization = organizations.find((item) => item.value === option.value);
+            const organization = ORGANIZATION_OPTIONS.find((item) => item.value === option.value);
+            const isSelected = selectedValues.includes(String(option.value));
 
             return (
               <MISingleDropdownItem
@@ -467,26 +480,53 @@ export const WithSingleDropdownItems: Story = {
                 centralSlot={
                   <>
                     {option.label}
-                    <Typography
-                      component="span"
-                      sx={(theme) => ({
-                        color: theme.palette.text.secondary,
-                        fontSize: theme.typography.pxToRem(14),
-                        lineHeight: theme.typography.pxToRem(20),
-                      })}
-                    >
-                      {organization?.description}
-                    </Typography>
+                    {organization?.description && (
+                      <Typography
+                        component="span"
+                        sx={(theme) => ({
+                          color: theme.palette.text.secondary,
+                          fontSize: theme.typography.pxToRem(14),
+                          lineHeight: theme.typography.pxToRem(20),
+                        })}
+                      >
+                        {organization.description}
+                      </Typography>
+                    )}
                   </>
                 }
-                disabled={option.disabled}
-                leftSlot={<AccountBalanceIcon fontSize="small" />}
-                rightSlot={<MIChip label="Attivo" color="warning" />}
+                leftSlot={
+                  <Box
+                    component="span"
+                    sx={(theme) => ({
+                      alignItems: 'center',
+                      backgroundColor: theme.colors.neutral.grey[50],
+                      borderRadius: 1,
+                      color: theme.colors.neutral.grey[300],
+                      display: 'inline-flex',
+                      height: 32,
+                      justifyContent: 'center',
+                      width: 32,
+                    })}
+                  >
+                    <AccountBalanceIcon fontSize="small" />
+                  </Box>
+                }
+                rightSlot={
+                  isSelected ? undefined : (
+                    <Checkbox
+                      checked={false}
+                      disableRipple
+                      inputProps={{ 'aria-hidden': true }}
+                      tabIndex={-1}
+                      sx={{ p: 0, pointerEvents: 'none' }}
+                    />
+                  )
+                }
               />
             );
           }}
         />
-      </Box>
+      </Stack>
     );
   },
 };
