@@ -11,9 +11,9 @@ import * as MIPaginationSelectStories from '../stories/MIPaginationSelect.storie
 <Title />
 
 <Overview>
-  <strong>MIPaginationSelect</strong> e un selettore singolo per il numero di righe per pagina.
-  Compone MISelect e mostra la label accanto al campo, senza label flottante e senza interruzione
-  del bordo.
+  <strong>MIPaginationSelect</strong> e un selettore singolo per il numero di righe per pagina che sarà esclusivamente utilizzato 
+   all'interno del componente  <code>MIPagination</code>.
+  Compone MISelect e mostra la label accanto al campo, senza label flottante. 
 </Overview>
 
 <Section title="Riferimenti" description="Risorse per il confronto con le specifiche.">
@@ -23,7 +23,7 @@ import * as MIPaginationSelectStories from '../stories/MIPaginationSelect.storie
         Figma
       </a>
     </li>
-    <li>Link sorgente GitHub: {/* TODO: confermare con lo sviluppatore */}</li>
+    <li>Link sorgente GitHub: <a href="https://raw.githubusercontent.com/pagopa/mui-italia/refs/heads/develop/src/components/MIPaginationSelect/MIPaginationSelect.tsx">MIPaginationSelect.tsx</a></li>
   </ul>
 </Section>
 
@@ -35,41 +35,16 @@ import * as MIPaginationSelectStories from '../stories/MIPaginationSelect.storie
   <Controls />
 </Section>
 
-<Section title="Configurazioni" description="Casi per la revisione visuale.">
-  <SubSection title="Default">
-    Senza label o locale espliciti, il selettore mostra Elementi per pagina.
-    <Story of={MIPaginationSelectStories.Default} />
-  </SubSection>
-  <SubSection title="Testi personalizzati">
-    Esempio in inglese con label lunga e valore formattato.
-    <Story of={MIPaginationSelectStories.CustomLabels} />
-  </SubSection>
-</Section>
-
 <Section title="Note per gli sviluppatori" description="API e integrazione.">
   <ul>
     <li>
-      Importa <code>MIPaginationSelect</code> e <code>MIPaginationSelectProps</code>
-      dall'entry point pubblico <code>@pagopa/mui-italia</code>.
-    </li>
-    <li>
-      <code>options</code> usa il tipo <code>MISelectOption</code>: ogni opzione contiene
-      value, label ed eventualmente disabled e startIcon.
+      Questo componente non è pensato per essere utilizzato al di fuori di <code>MIPagination</code>. Per questo motivo non è esportato come parte dell'API pubblica.
     </li>
     <li>
       L API espone <code>options</code>, <code>value</code> e <code>onChange</code>,
       selezionate dalle props di MISelect tramite Pick, oltre a label e locale opzionali.
       Usa value e onChange per controllare la selezione dall'applicazione.
       Non sono presenti opzioni predefinite.
-    </li>
-    <li>
-      <code>locale</code> accetta it (predefinito) ed en. Le label predefinite sono rispettivamente
-      Elementi per pagina e Rows perpage. Una label personalizzata prevale sulla traduzione;
-      se omessa, nulla, false o vuota viene usato il testo della lingua scelta.
-    </li>
-    <li>
-      Il ref si riferisce al selettore interno. Lo stile e gestito dal componente;
-      sx e le altre personalizzazioni di MISelect non sono esposte.
     </li>
     <li>
       Il componente non cambia automaticamente il numero di pagina e non modifica MIPagination.
@@ -89,7 +64,6 @@ import { MIPaginationSelect } from '@pagopa/mui-italia';
   onChange={(event) => setPageSize(Number(event.target.value))}
 />;
 ```
-
 </Section>
 
 <Section title="Note per i designer" description="Layout e confronto visuale.">
@@ -98,10 +72,6 @@ import { MIPaginationSelect } from '@pagopa/mui-italia';
     <li>
       Lo spazio tra campo e label usa <code>theme.spacing(1.5)</code>. Il selettore mantiene il
       raggio di MISelect e usa colori e tipografia del tema attivo.
-    </li>
-    <li>
-      Le stories usano il tema Next globale. <code>componentMaxWidth = 900</code> e un'euristica per
-      input, usata solo per filtrare i viewport Chromatic.
     </li>
   </ul>
 </Section>
@@ -112,7 +82,7 @@ import { MIPaginationSelect } from '@pagopa/mui-italia';
       La label viene sempre renderizzata e associata al combobox con un ID univoco.
       Il nome accessibile usa la label personalizzata o il testo predefinito della lingua scelta.
     </li>
-    <li>Il menu conserva la gestione da tastiera del Select MUI.</li>
+    <li>Il menu conserva la gestione da tastiera del Select MUI-Italia.</li>
   </ul>
 
 ```tsx

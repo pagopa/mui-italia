@@ -60,37 +60,3 @@ type Story = StoryObj<StoryArgs>;
 
 export const Playground: Story = {};
 
-export const Default: Story = {
-  parameters: { controls: { disable: true } },
-  render: function RenderDefault() {
-    const [value, setValue] = useState<unknown>(20);
-    return (
-      <MIPaginationSelect
-        options={options}
-        value={value}
-        label="Test"
-        onChange={(event) => setValue(event.target.value)}
-      />
-    );
-  },
-};
-
-
-
-export const CustomLabels: Story = {
-  parameters: { controls: { disable: true } },
-  render: function RenderCustomLabels() {
-    const [value, setValue] = useState<unknown>(2080);
-    return (
-      <MIPaginationSelect
-        label="Results displayed on each page"
-        options={[
-          { value: 10, label: '10' },
-          { value: 2080, label: '2,080' },
-        ]}
-        value={value}
-        onChange={(event) => setValue(event.target.value)}
-      />
-    );
-  },
-};
