@@ -68,6 +68,27 @@ describe('MISelect', () => {
     expect(ref.current?.closest('.MuiFormControl-root')).not.toHaveStyle({ marginTop: '16px' });
   });
 
+  it('limits the select width to 10rem', () => {
+    render(<MISelect label="Select" options={options} value="1" fullWidth />);
+
+    const emotionStyles = Array.from(document.head.querySelectorAll('style[data-emotion]'))
+      .map((style) => style.textContent)
+      .join('');
+    expect(emotionStyles).toMatch(/max-width:\s*10rem/);
+  });
+
+  it('removes right padding from the outlined label notch', () => {
+    const { container } = render(
+      <MISelect label="Select" options={options} value="1" onChange={vi.fn()} />
+    );
+
+    expect(container.querySelector('.MuiOutlinedInput-notchedOutline > legend > span')).toBeTruthy();
+    const emotionStyles = Array.from(document.head.querySelectorAll('style[data-emotion]'))
+      .map((style) => style.textContent)
+      .join('');
+    expect(emotionStyles).toMatch(/padding-right:\s*0/);
+  });
+
   it('renders helper text inside the form control and associates it with the select', () => {
     const { container } = render(
       <MISelect label="Select" options={options} value="" helperText="Choose your organization" />
@@ -568,7 +589,7 @@ describe('MISelect', () => {
 
   it('does not open when disabled', () => {
     const onOpen = vi.fn();
-    render(
+    const { container } = render(
       <MISelect
         label="Select"
         options={options}
@@ -581,6 +602,9 @@ describe('MISelect', () => {
 
     const combobox = screen.getByRole('combobox');
     expect(combobox).toHaveAttribute('aria-disabled', 'true');
+    expect(container.querySelector('.MuiInputBase-root')).toHaveStyle({
+      backgroundColor: '#F4F5F8',
+    });
 
     openSelect();
 

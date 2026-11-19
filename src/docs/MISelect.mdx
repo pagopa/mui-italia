@@ -1,4 +1,4 @@
-import { Meta, Title, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
+import { Meta, Title, Primary, Controls, Story, Canvas } from '@storybook/addon-docs/blocks';
 
 import Overview from './components/Overview';
 import Section from './components/Section';
@@ -15,26 +15,13 @@ import * as MISelectStories from '../stories/MISelect.stories.tsx';
   applica personalizzazioni visive su bordo e icona, con gestione dedicata degli stati focus ed
   errore.
   <br />
-  <br />
-  Riferimento Figma:{' '}
-  <a
-    href="https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=602-7181&p=f&m=dev"
-    target="_blank"
-    rel="noreferrer"
-  >
-    MUI Italia Next - Design System / MISelect
-  </a>
-  .
-</Overview>
 
- <SubSection title="Opzioni con MISingleDropdownItem">
-    Usa <code>renderOptions</code> per comporre ogni opzione con MISingleDropdownItem. Passa il
-    <code>value</code> dell’opzione al componente affinché MISelect possa mantenere la selezione.
+  **Link utili**
 
-    <Story of={MISelectStories.WithSingleDropdownItems} />
+- 🎨 [Figma](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=602-7181&p=f&m=dev)
+- 💻 [GitHub](https://github.com/pagopa/mui-italia/blob/develop/src/components/MISelect/MISelect.tsx)
 
-  </SubSection>
-  
+</Overview>  
 <Section
   title="Playground"
   description="Usa i controlli per modificare i parametri principali del componente e verificare il risultato live."
@@ -47,42 +34,28 @@ import * as MISelectStories from '../stories/MISelect.stories.tsx';
   title="Stati"
   description="Panoramica degli stati piu comuni del componente: default, errore, disabilitato e sola lettura."
 >
-  <Story of={MISelectStories.States} />
+  <Canvas of={MISelectStories.States} />
 </Section>
 
 <Section
   title="Icona contestuale"
   description="Icona decorativa a sinistra tramite la prop startAdornment di MUI Select, negli stati default ed errore."
 >
-  <Story of={MISelectStories.WithDecorativeIcon} />
-</Section>
-
-<Section
-  title="Campo obbligatorio"
-  description="Casi di campo obbligatorio: vuoto, valorizzato, in errore e disabilitato. Impostare required sia su MIFormControl (asterisco sulla label) sia su MISelect (validazione dell input nativo)."
->
-  <Story of={MISelectStories.Required} />
+  <Canvas of={MISelectStories.WithDecorativeIcon} />
 </Section>
 
 <Section
   title="Modalita di selezione"
   description="MISelect supporta selezione singola e multipla tramite la prop multiple. In modalita multipla, i valori selezionati vengono mostrati automaticamente come MIChip."
 >
-  <Story of={MISelectStories.SingleAndMultiple} />
-</Section>
-
-<Section
-  title="Rimozione dei chip"
-  description="In modalita multipla, ogni MIChip selezionato include un controllo di rimozione. La rimozione aggiorna la selezione e richiama onChange con il nuovo valore."
->
-  <Story of={MISelectStories.MultipleWithChips} />
+  <Canvas of={MISelectStories.SingleAndMultiple} />
 </Section>
 
 <Section
   title="Opzioni personalizzate"
   description="La prop options fornisce i dati delle opzioni. Senza renderOptions, ogni opzione viene renderizzata con MISelectItem."
 >
-  <Story of={MISelectStories.CustomOptions} />
+  <Canvas of={MISelectStories.CustomOptions} />
 
  
 

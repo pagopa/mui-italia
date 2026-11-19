@@ -1,6 +1,6 @@
 'use client';
 
-import { KeyboardArrowDown, ReportRounded as ReportRoundedIcon } from '@mui/icons-material';
+import { KeyboardArrowDown } from '@mui/icons-material';
 import { Box, type SelectChangeEvent, type SelectProps } from '@mui/material';
 import {
   cloneElement,
@@ -13,6 +13,7 @@ import {
 } from 'react';
 
 import { MIChip } from '../MIChip';
+import { MIHelperTextError } from '../MIHelperTextError';
 import { MIFormControl, MIFormHelperText } from '../MIForm';
 import MISelectItem from './MISelectItem';
 import { StyledInputLabel, StyledSelect } from './styles';
@@ -205,31 +206,11 @@ const MISelect = forwardRef<HTMLDivElement, MISelectProps>((props, ref) => {
         )}
       </StyledSelect>
       {hasHelperText && (
-        <MIFormHelperText id={helperTextId}>
-          {props.error ? (
-            <Box
-              component="span"
-              sx={(theme) => ({
-                alignItems: 'center',
-                display: 'flex',
-                fontSize: theme.typography.pxToRem(14),
-                gap: theme.spacing(0.75),
-                lineHeight: theme.typography.pxToRem(20),
-              })}
-            >
-              <ReportRoundedIcon
-                aria-hidden="true"
-                sx={(theme) => ({
-                  color: theme.palette.error.main,
-                  fontSize: theme.typography.pxToRem(16),
-                })}
-              />
-              {helperText}
-            </Box>
-          ) : (
-            helperText
-          )}
-        </MIFormHelperText>
+        props.error ? (
+          <MIHelperTextError id={helperTextId}>{helperText}</MIHelperTextError>
+        ) : (
+          <MIFormHelperText id={helperTextId}>{helperText}</MIFormHelperText>
+        )
       )}
     </MIFormControl>
   );

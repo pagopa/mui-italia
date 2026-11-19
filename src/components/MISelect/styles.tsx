@@ -9,6 +9,7 @@ export const StyledInputLabel = styled(InputLabel)(({ theme }) => ({
 }));
 
 export const StyledSelect = styled(MuiSelect)(({ theme }) => ({
+  maxWidth: theme.spacing(35),
   '& .MuiInputLabel-root.Mui-focused': {
     color: theme.palette.primary.main,
   },
@@ -25,6 +26,9 @@ export const StyledSelect = styled(MuiSelect)(({ theme }) => ({
   },
   '& .MuiSelect-select': {
     padding: theme.spacing(0),
+  },
+  '& .MuiOutlinedInput-notchedOutline > legend > span': {
+    paddingRight: 0,
   },
   '&.Mui-error .MuiOutlinedInput-notchedOutline': {
     borderColor: theme.palette.error.main,

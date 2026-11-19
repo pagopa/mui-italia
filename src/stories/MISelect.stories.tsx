@@ -4,7 +4,6 @@ import { MISingleDropdownItem } from '@components/MISingleDropdownItem';
 import {
   AccountBalance as AccountBalanceIcon,
   LocationOn as LocationOnIcon,
-  ReportRounded as ReportRoundedIcon,
 } from '@mui/icons-material';
 import {
   Box,
@@ -13,17 +12,12 @@ import {
   MenuItem,
   Stack,
   Typography,
-  type SelectChangeEvent,
 } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useEffect, useMemo, useState } from 'react';
-import { MITextField } from '@components/MITextField';
-
-type OptionPreset = 'basic' | 'status';
+import { useEffect, useState } from 'react';
 
 type MISelectStoryArgs = React.ComponentProps<typeof MISelect> & {
   labelText: string;
-  optionPreset: OptionPreset;
   selectedValue: string;
   selectedValues: Array<string>;
 };
@@ -71,12 +65,10 @@ const meta: Meta<MISelectStoryArgs> = {
       include: [
         'labelText',
         'helperText',
-        'optionPreset',
         'selectedValue',
         'selectedValues',
         'multiple',
         'disabled',
-        'readOnly',
         'error',
         'required',
         'name',
@@ -87,12 +79,10 @@ const meta: Meta<MISelectStoryArgs> = {
   args: {
     labelText: 'Seleziona un valore',
     helperText: '',
-    optionPreset: 'basic',
     selectedValue: '2',
     selectedValues: ['1'],
     multiple: false,
     disabled: false,
-    readOnly: false,
     error: false,
     required: false,
     name: 'example-select',
@@ -111,14 +101,6 @@ const meta: Meta<MISelectStoryArgs> = {
       description: 'Testo di supporto gestito e associato al campo da MISelect.',
       table: {
         category: 'MISelect',
-      },
-    },
-    optionPreset: {
-      options: ['basic', 'status'],
-      control: { type: 'radio' },
-      description: 'Controllo Storybook: set di dati passato alla prop options del Select.',
-      table: {
-        category: 'Storybook controls',
       },
     },
     selectedValue: {
@@ -147,13 +129,6 @@ const meta: Meta<MISelectStoryArgs> = {
     disabled: {
       control: { type: 'boolean' },
       description: 'Disabilita l interazione del campo.',
-      table: {
-        category: 'MISelect',
-      },
-    },
-    readOnly: {
-      control: { type: 'boolean' },
-      description: 'Rende il componente non apribile in sola lettura.',
       table: {
         category: 'MISelect',
       },
@@ -220,22 +195,15 @@ const meta: Meta<MISelectStoryArgs> = {
     const {
       labelText,
       helperText,
-      optionPreset,
       selectedValue,
       selectedValues,
       multiple,
       disabled,
-      readOnly,
       error,
       required,
       name,
       open,
     } = args;
-
-    const options = useMemo(
-      () => (optionPreset === 'status' ? STATUS_OPTIONS : BASIC_OPTIONS),
-      [optionPreset]
-    );
 
     const [single, setSingle] = useState(selectedValue);
     const [multipleValues, setMultipleValues] = useState<Array<string>>(selectedValues);
@@ -266,11 +234,10 @@ const meta: Meta<MISelectStoryArgs> = {
       <Box sx={{ minWidth: 280 }}>
         <MISelect
           fullWidth
-          options={options}
+          options={BASIC_OPTIONS}
           label={labelText}
           multiple={multiple}
           disabled={disabled}
-          readOnly={readOnly}
           error={error}
           required={required}
           name={name}
@@ -304,7 +271,7 @@ export const States: Story = {
     controls: { hideNoControlsWarning: true },
     docs: {
       description: {
-        story: 'Panoramica degli stati principali: default, error, disabled e readOnly.',
+        story: 'Panoramica degli stati principali: default, error e disabled.',
       },
     },
   },
@@ -338,15 +305,6 @@ export const States: Story = {
         onChange={() => undefined}
         disabled
       />
-
-      <MISelect
-        fullWidth
-        label="Sola lettura"
-        options={BASIC_OPTIONS.map((item) => ({ ...item, startIcon: <LocationOnIcon /> }))}
-        value="3"
-        onChange={() => undefined}
-        readOnly
-      />
     </Stack>
   ),
 };
@@ -361,49 +319,33 @@ export const SingleAndMultiple: Story = {
       },
     },
   },
-  render: () => (
-    <Stack spacing={3} sx={{ minWidth: 320 }}>
-      <MISelect
-        fullWidth
-        label="Selezione singola"
-        options={STATUS_OPTIONS}
-        value="delivered"
-        onChange={() => undefined}
-      />
+  render: function RenderSingleAndMultiple() {
+    const [singleValue, setSingleValue] = useState<unknown>('delivered');
+    const [multipleValue, setMultipleValue] = useState<unknown>(['delivered', 'deposited']);
 
-      <MISelect
-        fullWidth
-        label="Selezione multipla"
-        options={STATUS_OPTIONS}
-        multiple
-        value={['delivered', 'deposited']}
-        onChange={() => undefined}
-      />
-    </Stack>
-  ),
-};
+    return (
+      <Stack spacing={3} sx={{ minWidth: 320 }}>
+        <MISelect
+          fullWidth
+          label="Selezione singola"
+          options={STATUS_OPTIONS}
+          value={singleValue}
+          onChange={(event) => setSingleValue(event.target.value)}
+        />
 
-export const WithItemStartIcons: Story = {
-  parameters: {
-    controls: { hideNoControlsWarning: true },
-    docs: {
-      description: {
-        story:
-          'Le opzioni possono avere una startIcon facoltativa, anche ripetuta su piu elementi.',
-      },
-    },
+        <MISelect
+          fullWidth
+          label="Selezione multipla"
+          options={STATUS_OPTIONS}
+          multiple
+          value={multipleValue}
+          onChange={(event) => setMultipleValue(event.target.value)}
+        />
+      </Stack>
+    );
   },
-  render: () => (
-    <MISelect
-      fullWidth
-      label="Indirizzo"
-      options={BASIC_OPTIONS.map((item) => ({ ...item, startIcon: <LocationOnIcon /> }))}
-      open
-      value="2"
-      onChange={() => undefined}
-    />
-  ),
 };
+
 
 export const CustomOptions: Story = {
   parameters: {
@@ -427,6 +369,7 @@ export const CustomOptions: Story = {
         onChange={(event) => setValue(event.target.value)}
         renderOptions={(option) => (
           <MenuItem value={option.value} disabled={option.disabled}>
+            <LocationOnIcon aria-hidden="true" fontSize="small" sx={{ mr: 1 }} />
             {option.label}
           </MenuItem>
         )}
@@ -453,10 +396,8 @@ export const WithSingleDropdownItems: Story = {
     ]);
 
     return (
-      <Stack direction="row" gap="2" width="100%">
-        <MITextField label="Cerca per erogatore testo" sx={{ marginRight: 2 }} />
         <MISelect
-          fullWidth
+          
           label="Cerca per erogatore"
           multiple
           options={ORGANIZATION_OPTIONS}
@@ -526,7 +467,6 @@ export const WithSingleDropdownItems: Story = {
             );
           }}
         />
-      </Stack>
     );
   },
 };
@@ -555,131 +495,8 @@ export const WithDecorativeIcon: Story = {
           </InputAdornment>
         }
       />
-
-      <Box>
-        <MISelect
-          fullWidth
-          label="Ente"
-          options={BASIC_OPTIONS}
-          value=""
-          onChange={() => undefined}
-          error
-          helperText={
-            <Box component="span" sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-              <ReportRoundedIcon color="error" fontSize="small" />
-              Some details error
-            </Box>
-          }
-          startAdornment={
-            <InputAdornment position="start">
-              <AccountBalanceIcon />
-            </InputAdornment>
-          }
-        />
-      </Box>
     </Stack>
   ),
 };
 
-export const MultipleWithChips: Story = {
-  parameters: {
-    controls: { hideNoControlsWarning: true },
-    docs: {
-      description: {
-        story:
-          'Selezione multipla con MIChip rimovibili, icona contestuale e campo obbligatorio. La rimozione aggiorna la selezione tramite onChange.',
-      },
-    },
-  },
-  render: function MultipleWithChipsExample() {
-    const [values, setValues] = useState<Array<string>>(['1', '2']);
 
-    const handleChange = (event: SelectChangeEvent<unknown>) => {
-      setValues(event.target.value as Array<string>);
-    };
-
-    return (
-      <Box sx={{ minWidth: 320 }}>
-        <MISelect
-          fullWidth
-          label="Label text"
-          options={BASIC_OPTIONS}
-          required
-          multiple
-          value={values}
-          name="multiple-chips"
-          onChange={handleChange}
-          getChipDeleteAriaLabel={(chipLabel) => `Rimuovi ${chipLabel}`}
-          startAdornment={
-            <InputAdornment position="start">
-              <AccountBalanceIcon />
-            </InputAdornment>
-          }
-        />
-      </Box>
-    );
-  },
-};
-
-export const Required: Story = {
-  parameters: {
-    controls: { hideNoControlsWarning: true },
-    docs: {
-      description: {
-        story:
-          'Casi di campo obbligatorio: vuoto, valorizzato e in errore. MISelect gestisce la label e inoltra required all input nativo.',
-      },
-    },
-  },
-  render: () => (
-    <Stack spacing={3} sx={{ minWidth: 320 }}>
-      <Box>
-        <MISelect
-          fullWidth
-          label="Obbligatorio"
-          options={BASIC_OPTIONS}
-          name="required-empty"
-          value=""
-          onChange={() => undefined}
-          required
-          helperText="Campo obbligatorio"
-        />
-      </Box>
-
-      <MISelect
-        fullWidth
-        label="Obbligatorio valorizzato"
-        options={BASIC_OPTIONS}
-        name="required-filled"
-        value="2"
-        onChange={() => undefined}
-        required
-      />
-
-      <Box>
-        <MISelect
-          fullWidth
-          label="Obbligatorio in errore"
-          options={BASIC_OPTIONS}
-          name="required-error"
-          value=""
-          onChange={() => undefined}
-          required
-          error
-          helperText="Seleziona un valore per proseguire"
-        />
-      </Box>
-
-      <MISelect
-        fullWidth
-        label="Obbligatorio disabilitato"
-        options={BASIC_OPTIONS}
-        name="required-disabled"
-        value="1"
-        onChange={() => undefined}
-        required
-        disabled
-      />
-    </Stack>
-  ),
-};
