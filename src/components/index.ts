@@ -26,6 +26,7 @@ export * from './MIChip';
 export * from './MICheckbox';
 export * from './MIDialog';
 export * from './MIIconButton';
+export * from './MIHelperTextError';
 export * from './MIMenu';
 export * from './MIPaper';
 export * from './MISnackbar';

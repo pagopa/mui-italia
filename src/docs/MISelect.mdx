@@ -1,4 +1,4 @@
-import { Meta, Title, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
+import { Meta, Title, Primary, Controls, Story, Canvas } from '@storybook/addon-docs/blocks';
 
 import Overview from './components/Overview';
 import Section from './components/Section';
@@ -11,21 +11,17 @@ import * as MISelectStories from '../stories/MISelect.stories.tsx';
 
 <Overview>
   <strong>MISelect</strong> e il wrapper del componente Select di MUI usato nel design system MUI
-  Italia. Mantiene il comportamento funzionale del Select MUI e applica personalizzazioni visive su
-  bordo e icona, con gestione dedicata degli stati focus ed errore.
+  Italia. Include MIFormControl e InputLabel, mantiene il comportamento funzionale del Select MUI e
+  applica personalizzazioni visive su bordo e icona, con gestione dedicata degli stati focus ed
+  errore.
   <br />
-  <br />
-  Riferimento Figma:{' '}
-  <a
-    href="https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=602-7181&p=f&m=dev"
-    target="_blank"
-    rel="noreferrer"
-  >
-    MUI Italia Next - Design System / MISelect
-  </a>
-  .
-</Overview>
 
+  **Link utili**
+
+- 🎨 [Figma](https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=602-7181&p=f&m=dev)
+- 💻 [GitHub](https://github.com/pagopa/mui-italia/blob/develop/src/components/MISelect/MISelect.tsx)
+
+</Overview>  
 <Section
   title="Playground"
   description="Usa i controlli per modificare i parametri principali del componente e verificare il risultato live."
@@ -38,46 +34,43 @@ import * as MISelectStories from '../stories/MISelect.stories.tsx';
   title="Stati"
   description="Panoramica degli stati piu comuni del componente: default, errore, disabilitato e sola lettura."
 >
-  <Story of={MISelectStories.States} />
+  <Canvas of={MISelectStories.States} />
 </Section>
 
 <Section
   title="Icona contestuale"
   description="Icona decorativa a sinistra tramite la prop startAdornment di MUI Select, negli stati default ed errore."
 >
-  <Story of={MISelectStories.WithDecorativeIcon} />
-</Section>
-
-<Section
-  title="Campo obbligatorio"
-  description="Casi di campo obbligatorio: vuoto, valorizzato, in errore e disabilitato. Impostare required sia su MIFormControl (asterisco sulla label) sia su MISelect (validazione dell input nativo)."
->
-  <Story of={MISelectStories.Required} />
+  <Canvas of={MISelectStories.WithDecorativeIcon} />
 </Section>
 
 <Section
   title="Modalita di selezione"
-  description="MISelect supporta sia selezione singola sia selezione multipla tramite la prop multiple."
+  description="MISelect supporta selezione singola e multipla tramite la prop multiple. In modalita multipla, i valori selezionati vengono mostrati automaticamente come MIChip."
 >
-  <Story of={MISelectStories.SingleAndMultiple} />
+  <Canvas of={MISelectStories.SingleAndMultiple} />
 </Section>
 
 <Section
-  title="Selezione multipla con chip rimovibili"
-  description="Icona contestuale, campo obbligatorio e valori selezionati come MIChip rimovibili, composti nella story tramite la prop renderValue di MISelect. Il click sul pulsante di rimozione aggiorna la selezione senza aprire il menu."
+  title="Opzioni personalizzate"
+  description="La prop options fornisce i dati delle opzioni. Senza renderOptions, ogni opzione viene renderizzata con MISelectItem."
 >
-  <Story of={MISelectStories.MultipleWithChips} />
+  <Canvas of={MISelectStories.CustomOptions} />
+
+ 
+
 </Section>
 
 <Section
   title="Accessibilita"
-  description="MISelect eredita la semantica combobox/listbox da MUI Select. L accessibilita finale dipende dalla corretta configurazione delle props testuali e del contesto FormControl."
+  description="MISelect associa automaticamente la label al campo e mantiene la semantica combobox/listbox di MUI Select."
 >
   <SubSection title="Props rilevanti">
     <ul>
       <li>
-        <strong>labelId</strong> e <strong>label</strong>: permettono l associazione con InputLabel
-        e contribuiscono al nome accessibile del campo.
+        <strong>label</strong> (obbligatoria): viene mostrata come InputLabel e associata
+        automaticamente al campo. Puoi usare <strong>labelId</strong> per fornire un ID
+        personalizzato alla label.
       </li>
       <li>
         <strong>name</strong> e <strong>required</strong>: vengono inoltrate all input nativo
@@ -87,14 +80,24 @@ import * as MISelectStories from '../stories/MISelect.stories.tsx';
         <strong>error</strong>: abilita lo stato di errore e imposta aria-invalid sull input nativo.
       </li>
       <li>
+        <strong>helperText</strong>: testo o contenuto React di supporto, renderizzato da
+        MISelect tramite MIFormHelperText dentro MIFormControl. E associato automaticamente
+        al campo tramite aria-describedby e ne eredita gli stati error e disabled.
+        Quando <code>error</code> e attivo, MISelect antepone un'icona decorativa al contenuto.
+        Gli eventuali riferimenti aria-describedby esterni vengono mantenuti.
+      </li>
+      <li>
         <strong>readOnly</strong> e <strong>disabled</strong>: impediscono apertura/interazione del
         menu secondo il comportamento verificato dai test.
       </li>
       <li>
-        <strong>renderValue</strong>: inoltrata direttamente a MUI Select. MISelect non impone
-        alcuna visualizzazione predefinita per la modalita multipla: per mostrare i valori
-        selezionati come <strong>MIChip</strong> rimovibili, componi tu stesso la funzione da
-        passare a renderValue (vedi la story <em>Selezione multipla con chip rimovibili</em>).
+        <strong>renderValue</strong>: consente di personalizzare la visualizzazione. In modalita
+        multipla, MISelect mostra per impostazione predefinita i valori selezionati come
+        <strong>MIChip</strong> rimovibili.
+      </li>
+      <li>
+        <strong>getChipDeleteAriaLabel</strong>: permette di fornire un nome accessibile localizzato
+        per il controllo che rimuove ciascun chip.
       </li>
     </ul>
   </SubSection>
@@ -121,25 +124,121 @@ import * as MISelectStories from '../stories/MISelect.stories.tsx';
   ArrowDown, ArrowUp, Enter e Space.
 </SubSection>
 
-  <SubSection title="Esempio accessibile">
-    ```tsx
-    <FormControl fullWidth required error={hasError}>
-      <InputLabel id="city-select-label">Citta</InputLabel>
-      <MISelect
-        labelId="city-select-label"
-        label="Citta"
-        name="city"
-        value={city}
-        onChange={handleCityChange}
-        aria-describedby="city-select-helper"
-      >
-        <MenuItem value="rome">Roma</MenuItem>
-        <MenuItem value="milan">Milano</MenuItem>
-      </MISelect>
-      <FormHelperText id="city-select-helper">
-        {hasError ? 'Seleziona una citta valida' : 'Campo obbligatorio'}
-      </FormHelperText>
-    </FormControl>
-    ```
-  </SubSection>
+<SubSection title="Esempio accessibile">
+  ```tsx
+  <MISelect
+    fullWidth
+    label="Citta"
+    name="city"
+    value={city}
+    required
+    error={hasError}
+    onChange={handleCityChange}
+    helperText={hasError ? 'Seleziona una citta valida' : 'Campo obbligatorio'}
+    options={[
+      { value: 'rome', label: 'Roma' },
+      { value: 'milan', label: 'Milano' },
+    ]}
+  />
+  ```
+</SubSection>
+
+<SubSection title="Opzioni con icona">
+  Le opzioni sono dati passati a <strong>options</strong>. La proprieta opzionale
+  <strong>startIcon</strong> consente di associare un icona a un singolo elemento o di ripeterla su
+  piu elementi.
+  ```tsx
+  <MISelect
+    label="Indirizzo"
+    value={value}
+    onChange={handleChange}
+    options={addresses.map((address) => ({
+      value: address.id,
+      label: address.label,
+      startIcon: <LocationOnIcon />,
+    }))}
+  />
+  ```
+</SubSection>
+</Section>
+
+<Section
+  title="Note per gli sviluppatori"
+  description="L API usa dati invece di children JSX per definire le opzioni."
+>
+  <ul>
+    <li>
+      <strong>sx</strong> personalizza il Select interno, non MIFormControl o la label.
+      Supporta oggetti di stile, callback del tema e array secondo l API MUI.
+    </li>
+    <li>
+      <strong>defaultValue</strong> imposta il valore iniziale della selezione non controllata:
+      un singolo valore oppure un array quando <code>multiple</code> e attivo.
+    </li>
+    <li>
+      Con <code>label={null}</code> non viene renderizzata una InputLabel. Usa
+      <code>labelId</code> per associarlo a una label esterna, oppure fornisci un nome accessibile
+      tramite <code>inputProps['aria-label']</code>.
+    </li>
+    <li>
+      Usa <strong>helperText</strong> per fornire messaggi di supporto o di errore localizzati,
+      anche con icone o altro contenuto React. Non serve comporre MIFormHelperText esternamente
+      o assegnare manualmente un ID al messaggio. In assenza di contenuto, non viene aggiunto
+      un elemento di supporto.
+    </li>
+    <li>
+      <strong>options</strong> e obbligatoria e accetta un array readonly di
+      <strong>MISelectOption</strong>: value (string o number univoco), label (ReactNode),
+      disabled e startIcon opzionali. Le label possono essere tradotte dal consumatore.
+    </li>
+    <li>
+      <strong>renderOptions(option)</strong> e facoltativa e restituisce un elemento React per
+      ciascuna opzione. La chiave viene assegnata da MISelect usando option.value.
+      Passa value e disabled all elemento restituito e usa option.label come contenuto.
+      Se usi un componente
+      personalizzato, deve inoltrare ref, props ARIA ed event handler di MUI al MenuItem
+      sottostante. Non restituire fragment o wrapper intorno alle opzioni.
+    </li>
+    <li>
+      Il valore selezionato e i chip usano option.label, mentre getChipDeleteAriaLabel riceve
+      la stessa label in selezione multipla,
+      indipendentemente dal markup restituito da renderOptions. renderValue mantiene la
+      precedenza per personalizzare i valori selezionati.
+    </li>
+    <li>
+      <strong>Migrazione:</strong> children non e piu supportata. Sostituisci i figli MISelectItem
+      con oggetti in options e usa renderOptions solo quando serve un componente diverso.
+    </li>
+  </ul>
+
+```tsx
+import { MenuItem } from '@mui/material';
+import { MISelect, type MISelectOption } from '@pagopa/mui-italia';
+
+const options: Array<MISelectOption> = [
+  { value: 'available', label: 'Disponibile' },
+  { value: 'unavailable', label: 'Non disponibile', disabled: true },
+];
+
+<MISelect
+  label="Disponibilita"
+  options={options}
+  value={value}
+  onChange={handleChange}
+  renderOptions={(option) => (
+    <MenuItem value={option.value} disabled={option.disabled}>
+      {option.label}
+    </MenuItem>
+  )}
+/>;
+```
+
+</Section>
+
+<Section
+  title="Note per i designer"
+  description="Gli esempi esistenti mantengono MISelectItem come opzione predefinita; la story Opzioni personalizzate mostra la sostituzione con MenuItem MUI."
+>
+  Le icone restano configurabili nei dati tramite startIcon. renderOptions controlla l aspetto delle
+  opzioni nel menu, mentre renderValue controlla il contenuto del campo selezionato.
 </Section>
