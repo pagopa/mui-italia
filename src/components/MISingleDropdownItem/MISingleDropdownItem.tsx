@@ -1,9 +1,15 @@
 'use client';
 
-import { Checkbox, MenuItem as MuiMenuItem } from '@mui/material';
-import { alpha, styled } from '@mui/material/styles';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { forwardRef, type HTMLAttributes, type ReactNode } from 'react';
+import {
+  CentralSlot,
+  LeftSlot,
+  RightSlot,
+  Root,
+  SelectionCheckbox,
+  SelectionIndicator,
+} from './styles';
 
 export type MISingleDropdownItemProps = Omit<HTMLAttributes<HTMLLIElement>, 'children'> & {
   value: string | number;
@@ -14,80 +20,6 @@ export type MISingleDropdownItemProps = Omit<HTMLAttributes<HTMLLIElement>, 'chi
   selected?: boolean;
   sx?: SxProps<Theme>;
 };
-
-const Root = styled(MuiMenuItem, {
-  shouldForwardProp: () => true,
-})(({ theme }) => {
-  const selectedBackground = alpha(theme.colors.blue[500], 0.08);
-
-  return {
-    alignItems: 'center',
-    backgroundColor: theme.colors.neutral.white,
-    minHeight: 'auto',
-    color: theme.colors.neutral.black,
-    columnGap: theme.spacing(1),
-    display: 'flex',
-    whiteSpace: 'normal',
-    padding: theme.spacing(1.5, 2),
-    gap: theme.spacing(1),
-    '& + &': {
-      borderTop: `1px solid ${theme.colors.neutral.grey[100]}`,
-    },
-    '&:hover': {
-      backgroundColor: theme.colors.neutral.grey[50],
-    },
-    '&:focus-visible': {
-      outline: `2px solid ${theme.colors.blue[500]}`,
-      outlineOffset: '-2px',
-    },
-    '&.Mui-selected': {
-      backgroundColor: selectedBackground,
-      '&:hover': {
-        backgroundColor: selectedBackground,
-      },
-    },
-  };
-});
-
-const LeftSlot = styled('span')({
-  alignItems: 'center',
-  display: 'inline-flex',
-  flex: '0 0 auto',
-  justifyContent: 'center',
-});
-
-const CentralSlot = styled('span')(({ theme }) => ({
-  color: theme.colors.neutral.black,
-  display: 'flex',
-  flex: '1 1 auto',
-  marginLeft: theme.spacing(1),
-  flexDirection: 'column',
-  fontSize: theme.typography.pxToRem(16),
-  fontWeight: theme.typography.fontWeightMedium,
-  gap: theme.spacing(0.25),
-  lineHeight: 1.375,
-  minWidth: 0,
-  overflowWrap: 'anywhere',
-}));
-
-const RightSlot = styled('span')({
-  display: 'inline-flex',
-  flex: '0 0 auto',
-});
-
-const SelectionIndicator = styled('span')({
-  display: 'inline-flex',
-  flex: '0 0 auto',
-});
-
-const SelectionCheckbox = styled(Checkbox)(({ theme }) => ({
-  padding: 0,
-  pointerEvents: 'none',
-  color: theme.colors.neutral.black,
-  '&.Mui-checked': {
-    color: theme.colors.blue[500],
-  },
-}));
 
 const MISingleDropdownItem = forwardRef<HTMLLIElement, MISingleDropdownItemProps>(
   (
