@@ -6,8 +6,8 @@ import { styled } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/system';
 import { InputBaseComponentProps, Stack } from '@mui/material';
-import { MISelect } from '@components/MISelect';
 import { useEffect } from 'react';
+import { MIPaginationSelect } from '@components/MIPaginationSelect';
 
 export type MIPaginationProps = Omit<
   PaginationProps,
@@ -122,11 +122,11 @@ export const MIPagination: React.FC<MIPaginationProps> = ({
       width="100%"
     >
       {itemsPerPageOptions && (
-        <MISelect
-          label=""
-          labelId="rows-per-page-select"
-          id="rows-per-page-select"
-          data-testid="rows-per-page-select"
+        <MIPaginationSelect
+          label="Elementi per pagina"
+          options={pageOptionsValues.map((option) => ({ value: option, label: option }))}
+          id="items-per-page-select"
+          data-testid="items-per-page-select"
           inputProps={{
             'aria-label': 'Select number of items per page',
             ...itemsPerPageOptions.inputProps,

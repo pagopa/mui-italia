@@ -12,6 +12,8 @@ export type MIPaginationSelectProps = Pick<
   'options' | 'value' | 'onChange' | 'label' | 'inputProps'
 > & {
   label: string;
+  id?: string;
+  'data-testid'?: string;
 };
 
 const paginationSelectSx: SxProps<Theme> = (theme) => ({
@@ -29,7 +31,7 @@ const paginationSelectSx: SxProps<Theme> = (theme) => ({
 });
 
 const MIPaginationSelect = forwardRef<HTMLDivElement, MIPaginationSelectProps>(
-  ({ label, options, value, onChange, inputProps }, ref) => {
+  ({ label, options, value, onChange, inputProps, id, 'data-testid': dataTestId }, ref) => {
     const generatedId = useId();
     const labelId = `${generatedId}-label`;
     const theme = useTheme();
@@ -40,7 +42,7 @@ const MIPaginationSelect = forwardRef<HTMLDivElement, MIPaginationSelectProps>(
       isMobile && !hasInputAriaLabel ? { ...inputProps, 'aria-label': label } : inputProps;
 
     return (
-      <Stack direction="row" alignItems="center" spacing={0.75}>
+      <Stack direction="row" alignItems="center" spacing={0.75} data-testid={dataTestId}>
         {!isMobile && (
           <Typography component="span" id={labelId} variant="caption">
             {label}
@@ -48,6 +50,7 @@ const MIPaginationSelect = forwardRef<HTMLDivElement, MIPaginationSelectProps>(
         )}
         <MISelect
           ref={ref}
+          id={id}
           options={options}
           value={value}
           onChange={onChange}
