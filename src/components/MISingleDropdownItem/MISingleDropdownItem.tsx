@@ -2,13 +2,12 @@
 
 import type { SxProps, Theme } from '@mui/material/styles';
 import { forwardRef, type HTMLAttributes, type ReactNode } from 'react';
+import { MICheckbox } from '../MICheckbox';
 import {
   CentralSlot,
   LeftSlot,
   RightSlot,
   Root,
-  SelectionCheckbox,
-  SelectionIndicator,
 } from './styles';
 
 export type MISingleDropdownItemProps = Omit<HTMLAttributes<HTMLLIElement>, 'children'> & {
@@ -57,15 +56,13 @@ const MISingleDropdownItem = forwardRef<HTMLLIElement, MISingleDropdownItemProps
           {rightContent}
         </>
         {selected && (
-          <SelectionIndicator aria-hidden="true">
-            <SelectionCheckbox
-              checked={selected}
-              disableRipple
-              inputProps={{ 'aria-hidden': true }}
-              size="medium"
-              tabIndex={-1}
-            />
-          </SelectionIndicator>
+          <MICheckbox
+            checked={selected}
+            disableRipple
+            inputProps={{ 'aria-hidden': true }}
+            sx={{ display: 'inline-flex', flex: '0 0 auto', pointerEvents: 'none' }}
+            tabIndex={-1}
+          />
         )}
       </Root>
     );

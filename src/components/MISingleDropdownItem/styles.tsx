@@ -1,6 +1,6 @@
 'use client';
 
-import { Checkbox, MenuItem as MuiMenuItem } from '@mui/material';
+import { MenuItem as MuiMenuItem } from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
 
 export const Root = styled(MuiMenuItem, {
@@ -62,17 +62,3 @@ export const RightSlot = styled('span')({
   display: 'inline-flex',
   flex: '0 0 auto',
 });
-
-export const SelectionIndicator = styled('span')({
-  display: 'inline-flex',
-  flex: '0 0 auto',
-});
-
-export const SelectionCheckbox = styled(Checkbox)(({ theme }) => ({
-  padding: 0,
-  pointerEvents: 'none',
-  color: theme.palette.text.primary,
-  '&.Mui-checked': {
-    color: theme.palette.primary.main,
-  },
-}));
