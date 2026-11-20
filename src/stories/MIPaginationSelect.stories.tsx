@@ -29,7 +29,8 @@ const meta: Meta<StoryArgs> = {
     },
   },
   args: {
-    labelText: 'Rows perpage',
+    labelText: '',
+    locale: 'it',
   },
   argTypes: {
     labelText: {
@@ -37,16 +38,18 @@ const meta: Meta<StoryArgs> = {
       description:
         'Controllo Storybook: label personalizzata; vuota usa il testo della lingua scelta.',
     },
+    locale: { control: 'select', options: ['it', 'en'] },
     label: { control: false },
     options: { control: false },
     onChange: { control: false },
     value: { control: false },
   },
-  render: function RenderPlayground({ labelText }) {
+  render: function RenderPlayground({ labelText, locale }) {
     const [value, setValue] = useState<unknown>(20);
     return (
       <MIPaginationSelect
         label={labelText}
+        locale={locale}
         options={options}
         value={value}
         onChange={(event) => setValue(event.target.value)}

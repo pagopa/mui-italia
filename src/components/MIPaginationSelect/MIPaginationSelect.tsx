@@ -9,9 +9,13 @@ import { MISelect, type MISelectProps } from '../MISelect';
 
 export type MIPaginationSelectProps = Pick<
   MISelectProps,
-  'options' | 'value' | 'onChange' | 'label' | 'inputProps'
+  'options' | 'value' | 'onChange' | 'inputProps'
 > & {
-  label: string;
+  /**
+   * Represent the label for the pagination select component.
+   */
+  label?: string;
+  locale?: 'it' | 'en';
   id?: string;
   'data-testid'?: string;
 };
@@ -31,21 +35,25 @@ const paginationSelectSx: SxProps<Theme> = (theme) => ({
 });
 
 const MIPaginationSelect = forwardRef<HTMLDivElement, MIPaginationSelectProps>(
-  ({ label, options, value, onChange, inputProps, id, 'data-testid': dataTestId }, ref) => {
+  (
+    { label, locale = 'it', options, value, onChange, inputProps, id, 'data-testid': dataTestId },
+    ref
+  ) => {
     const generatedId = useId();
     const labelId = `${generatedId}-label`;
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const resolvedLabel = label || (locale === 'it' ? 'Elementi per pagina' : 'Rows perpage');
     const hasInputAriaLabel =
       inputProps?.['aria-label'] !== undefined && inputProps['aria-label'] !== '';
     const resolvedInputProps =
-      isMobile && !hasInputAriaLabel ? { ...inputProps, 'aria-label': label } : inputProps;
+      isMobile && !hasInputAriaLabel ? { ...inputProps, 'aria-label': resolvedLabel } : inputProps;
 
     return (
       <Stack direction="row" alignItems="center" spacing={0.75} data-testid={dataTestId}>
         {!isMobile && (
           <Typography component="span" id={labelId} variant="caption">
-            {label}
+            {resolvedLabel}
           </Typography>
         )}
         <MISelect

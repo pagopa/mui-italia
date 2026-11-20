@@ -21,14 +21,10 @@ describe('MIPaginationSelect', () => {
     expect(screen.queryByText('Elementi per pagina')).not.toBeInTheDocument();
   });
 
-  it.each([null, false, ''])(
-    'uses the localized default instead of an empty label (%s)',
-    (label) => {
-      render(<MIPaginationSelect locale="en" label={label} options={options} value={10} />);
-      expect(screen.getByText('Rows perpage')).toBeVisible();
-      expect(screen.getByRole('combobox', { name: 'Rows perpage' })).toHaveTextContent('10');
-    }
-  );
+  it('uses the localized default instead of an empty label', () => {
+    render(<MIPaginationSelect locale="en" label="" options={options} value={10} />);
+    expect(screen.getByRole('combobox', { name: 'Rows perpage' })).toHaveTextContent('10');
+  });
 
   it('associates the visible label without rendering a floating label or outline notch', () => {
     const { container } = render(

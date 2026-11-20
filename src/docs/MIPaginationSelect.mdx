@@ -42,7 +42,10 @@ import * as MIPaginationSelectStories from '../stories/MIPaginationSelect.storie
     </li>
     <li>
       L API espone <code>options</code>, <code>value</code> e <code>onChange</code>,
-      selezionate dalle props di MISelect tramite Pick, oltre a label e locale opzionali.
+      selezionate dalle props di MISelect tramite Pick, oltre a <code>label</code> e <code>locale</code> opzionali.
+      Senza una label personalizzata, il testo è «Elementi per pagina» per <code>locale="it"</code> (predefinito)
+      e «Rows perpage» per <code>locale="en"</code>. Entrambe le props sono configurabili tramite
+      <code>itemsPerPageOptions</code> di <code>MIPagination</code>.
       Usa value e onChange per controllare la selezione dall'applicazione.
       Non sono presenti opzioni predefinite.
     </li>
@@ -52,16 +55,16 @@ import * as MIPaginationSelectStories from '../stories/MIPaginationSelect.storie
   </ul>
 
 ```tsx
-import { MIPaginationSelect } from '@pagopa/mui-italia';
+import { MIPagination } from '@pagopa/mui-italia';
 
-<MIPaginationSelect
-  label="Righe per pagina"
-  options={[
-    { value: 10, label: '10' },
-    { value: 20, label: '20' },
-  ]}
-  value={pageSize}
-  onChange={(event) => setPageSize(Number(event.target.value))}
+<MIPagination
+  count={pageCount}
+  itemsPerPageOptions={{
+    label: 'Righe per pagina',
+    options: [10, 20],
+    limit: pageSize,
+    onLimitChange: setPageSize,
+  }}
 />;
 ```
 </Section>
@@ -79,8 +82,9 @@ import { MIPaginationSelect } from '@pagopa/mui-italia';
 <Section title="Accessibilita" description="Associazione della label e nome accessibile.">
   <ul>
     <li>
-      La label viene sempre renderizzata e associata al combobox con un ID univoco.
-      Il nome accessibile usa la label personalizzata o il testo predefinito della lingua scelta.
+      Su desktop la label visibile è associata al combobox con un ID univoco.
+      Su mobile la label non è visibile, ma viene usata come nome accessibile.
+      È possibile impostare un nome diverso con <code>itemsPerPageOptions.inputProps['aria-label']</code>.
     </li>
     <li>Il menu conserva la gestione da tastiera del Select MUI-Italia.</li>
   </ul>

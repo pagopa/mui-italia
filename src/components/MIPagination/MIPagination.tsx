@@ -7,7 +7,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/system';
 import { InputBaseComponentProps, Stack } from '@mui/material';
 import { useEffect } from 'react';
-import { MIPaginationSelect } from '@components/MIPaginationSelect';
+import { MIPaginationSelect, type MIPaginationSelectProps } from '@components/MIPaginationSelect';
 
 export type MIPaginationProps = Omit<
   PaginationProps,
@@ -27,7 +27,7 @@ export type MIPaginationProps = Omit<
   | 'rowPerPageOptions'
   | 'disabled'
 > & {
-  itemsPerPageOptions?: {
+  itemsPerPageOptions?: Pick<MIPaginationSelectProps, 'label' | 'locale'> & {
     options?: Array<number>;
     onLimitChange: (limit: number) => void;
     limit: number;
@@ -123,14 +123,12 @@ export const MIPagination: React.FC<MIPaginationProps> = ({
     >
       {itemsPerPageOptions && (
         <MIPaginationSelect
-          label="Elementi per pagina"
+          label={itemsPerPageOptions.label}
+          locale={itemsPerPageOptions.locale}
           options={pageOptionsValues.map((option) => ({ value: option, label: option }))}
           id="items-per-page-select"
           data-testid="items-per-page-select"
-          inputProps={{
-            'aria-label': 'Select number of items per page',
-            ...itemsPerPageOptions.inputProps,
-          }}
+          inputProps={itemsPerPageOptions.inputProps}
           value={limit}
           onChange={(event) => itemsPerPageOptions.onLimitChange(event.target.value as number)}
         />
