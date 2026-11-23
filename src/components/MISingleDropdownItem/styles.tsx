@@ -8,7 +8,9 @@ export const Root = styled(MuiMenuItem, {
 })(({ theme }) => {
   const selectedBackground = alpha(theme.palette.primary.main, 0.08);
 
+
   return {
+    width: theme.spacing(34),
     alignItems: 'center',
     backgroundColor: theme.palette.background.paper,
     minHeight: 'auto',

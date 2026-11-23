@@ -57,8 +57,11 @@ import * as MISelectStories from '../stories/MISelect.stories.tsx';
 >
   <Canvas of={MISelectStories.CustomOptions} />
 
- 
-
+  <SubSection title="Selezione multipla con MISingleDropdownItem">
+    Apri il menu per selezionare uno o più enti. La prop <code>renderOptions</code> usa
+    <code>MISingleDropdownItem</code> per visualizzare ciascuna opzione.
+    <Canvas of={MISelectStories.WithSingleDropdownItems} />
+  </SubSection>
 </Section>
 
 <Section

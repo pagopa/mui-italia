@@ -7,7 +7,6 @@ import {
 } from '@mui/icons-material';
 import {
   Box,
-  Checkbox,
   InputAdornment,
   MenuItem,
   Stack,
@@ -15,6 +14,7 @@ import {
 } from '@mui/material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useEffect, useState } from 'react';
+import { MICheckbox } from '@components/MICheckbox';
 
 type MISelectStoryArgs = React.ComponentProps<typeof MISelect> & {
   labelText: string;
@@ -231,7 +231,6 @@ const meta: Meta<MISelectStoryArgs> = {
         : single;
 
     return (
-      <Box sx={{ minWidth: 280 }}>
         <MISelect
           fullWidth
           options={BASIC_OPTIONS}
@@ -255,7 +254,6 @@ const meta: Meta<MISelectStoryArgs> = {
           }}
           helperText={helperText}
         />
-      </Box>
     );
   },
 };
@@ -395,9 +393,9 @@ export const WithSingleDropdownItems: Story = {
       'uo-aoo',
     ]);
 
+    
     return (
         <MISelect
-          
           label="Cerca per erogatore"
           multiple
           options={ORGANIZATION_OPTIONS}
@@ -414,16 +412,27 @@ export const WithSingleDropdownItems: Story = {
           renderOptions={(option) => {
             const organization = ORGANIZATION_OPTIONS.find((item) => item.value === option.value);
             const isSelected = selectedValues.includes(String(option.value));
+            
 
             return (
               <MISingleDropdownItem
                 value={option.value}
                 centralSlot={
                   <>
-                    {option.label}
+                    <Typography
+                      component="span"
+                      variant='subtitle1'
+                      sx={(theme) => ({
+                        fontSize: theme.typography.pxToRem(14),
+                        lineHeight: theme.typography.pxToRem(24),
+                      })}
+                    >
+                      {organization?.label}
+                    </Typography>
                     {organization?.description && (
                       <Typography
                         component="span"
+                        variant="subtitle2"
                         sx={(theme) => ({
                           color: theme.palette.text.secondary,
                           fontSize: theme.typography.pxToRem(14),
@@ -454,7 +463,7 @@ export const WithSingleDropdownItems: Story = {
                 }
                 rightSlot={
                   isSelected ? undefined : (
-                    <Checkbox
+                    <MICheckbox
                       checked={false}
                       disableRipple
                       inputProps={{ 'aria-hidden': true }}

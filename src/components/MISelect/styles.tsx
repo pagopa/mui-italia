@@ -9,7 +9,7 @@ export const StyledInputLabel = styled(InputLabel)(({ theme }) => ({
 }));
 
 export const StyledSelect = styled(MuiSelect)(({ theme }) => ({
-  maxWidth: '10rem',
+  width: theme.spacing(34),
   '& .MuiInputLabel-root.Mui-focused': {
     color: theme.palette.primary.main,
   },
