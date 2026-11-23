@@ -68,13 +68,12 @@ describe('MISelect', () => {
     expect(ref.current?.closest('.MuiFormControl-root')).not.toHaveStyle({ marginTop: '16px' });
   });
 
-  it('limits the select width to 10rem', () => {
-    render(<MISelect label="Select" options={options} value="1" fullWidth />);
+  it('applies fullWidth to the form control without changing the select width', () => {
+    const ref = createRef<HTMLDivElement>();
+    render(<MISelect ref={ref} label="Select" options={options} value="1" fullWidth />);
 
-    const emotionStyles = Array.from(document.head.querySelectorAll('style[data-emotion]'))
-      .map((style) => style.textContent)
-      .join('');
-    expect(emotionStyles).toMatch(/max-width:\s*10rem/);
+    expect(ref.current).toHaveStyle({ width: '272px' });
+    expect(ref.current?.closest('.MuiFormControl-root')).toHaveStyle({ width: '100%' });
   });
 
   it('removes right padding from the outlined label notch', () => {
