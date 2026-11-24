@@ -150,7 +150,7 @@ const MITable = <RowData,>({
                       <StyledHeaderCell
                         key={column.id}
                         align={column.align}
-                        ownerState={{ minWidth: column.minWidth }}
+                        ownerState={{ minWidth: column.minWidth, maxWidth: column.maxWidth }}
                         sortDirection={isSortable ? (column.sortDirection ?? false) : false}
                       >
                         {isSortable ? (
@@ -188,7 +188,11 @@ const MITable = <RowData,>({
                         <StyledBodyCell
                           key={column.id}
                           align={column.align}
-                          ownerState={{ minWidth: column.minWidth, isLastRow }}
+                          ownerState={{
+                            minWidth: column.minWidth,
+                            maxWidth: column.maxWidth,
+                            isLastRow,
+                          }}
                         >
                           <Typography component="div" variant="body2">
                             {column.renderCell(row)}

@@ -14,6 +14,7 @@ export type MITableColumn<RowData> = {
   isAction?: boolean;
   align?: TableCellProps['align'];
   minWidth?: number | string;
+  maxWidth?: number | string;
   sortable?: boolean;
   sortDirection?: 'asc' | 'desc';
   onSort?: () => void;

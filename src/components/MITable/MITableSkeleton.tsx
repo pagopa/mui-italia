@@ -69,6 +69,7 @@ const MITableSkeleton = <RowData,>({ columns, isMobile }: MITableSkeletonProps<R
                 align={column.align}
                 ownerState={{
                   minWidth: column.minWidth,
+                  maxWidth: column.maxWidth,
                   isLastRow: index === LOADING_ROW_COUNT - 1,
                 }}
               >

@@ -70,6 +70,49 @@ describe('MITable', () => {
     });
   });
 
+  it('applies column maxWidth and wrapping to desktop headers, cells, and loading rows', () => {
+    window.matchMedia = createMatchMedia(1280);
+    const sizedColumns: Array<MITableColumn<Row>> = [
+      { ...columns[0], minWidth: 80, maxWidth: 160 },
+      { ...columns[1], maxWidth: '12rem' },
+      columns[2],
+    ];
+    const { container, rerender } = render(<MITable columns={sizedColumns} rows={rows} />);
+
+    expect(screen.getByRole('columnheader', { name: 'ID' })).toHaveStyle({
+      minWidth: '80px',
+      maxWidth: '160px',
+      width: '160px',
+      overflowWrap: 'anywhere',
+    });
+    expect(screen.getByText(rows[0].id).closest('td')).toHaveStyle({
+      minWidth: '80px',
+      maxWidth: '160px',
+      width: '160px',
+      overflowWrap: 'anywhere',
+    });
+    expect(screen.getByText(rows[0].id)).toHaveStyle({ maxWidth: '160px' });
+    expect(screen.getByRole('columnheader', { name: 'Category' })).toHaveStyle({
+      maxWidth: '12rem',
+      overflowWrap: 'anywhere',
+    });
+    expect(screen.getByRole('columnheader', { name: 'Date' })).not.toHaveStyle({
+      overflowWrap: 'anywhere',
+    });
+
+    rerender(<MITable columns={sizedColumns} rows={rows} isLoading />);
+    const loadingCells = container.querySelectorAll('tbody tr:first-child td');
+    expect(loadingCells[0]).toHaveStyle({ maxWidth: '160px', overflowWrap: 'anywhere' });
+    expect(loadingCells[1]).toHaveStyle({ maxWidth: '12rem', overflowWrap: 'anywhere' });
+  });
+
+  it('does not constrain mobile stacked content with desktop column maxWidth', () => {
+    window.matchMedia = createMatchMedia(400);
+    render(<MITable columns={[{ ...columns[0], maxWidth: 160 }]} rows={rows} />);
+
+    expect(screen.getByText(rows[0].id)).not.toHaveStyle({ maxWidth: '160px' });
+  });
+
   it.each([
     { width: 400, withActions: false },
     { width: 400, withActions: true },
