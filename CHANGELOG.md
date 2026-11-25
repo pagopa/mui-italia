@@ -1,3 +1,16 @@
+# [2.9.0-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v2.9.0-RC.1) (2026-11-25)
+
+
+### Features
+
+* **M20DS-158:** Update MISelect and add MIPaginationSelect  ([#813](https://github.com/pagopa/mui-italia/issues/813)) ([31344ea](https://github.com/pagopa/mui-italia/commit/31344eae303ef479bdabe1f4167a35533ab4bf4d))
+* **M20DS-22:** add MIRadio and MICheckbox components ([#805](https://github.com/pagopa/mui-italia/issues/805)) ([d7f1c27](https://github.com/pagopa/mui-italia/commit/d7f1c2728ec51d2a58cf1efbb392b508d148304d))
+* **M20DS-69:** add MIDrawer component ([#808](https://github.com/pagopa/mui-italia/issues/808)) ([090c770](https://github.com/pagopa/mui-italia/commit/090c770fc26bcb256f9e4cd4eaaab54bd553e3b3))
+
+
+### Chores
+
+* **M20DS-175:** add properties maxWidth in MITable ([#814](https://github.com/pagopa/mui-italia/issues/814)) ([2f4b998](https://github.com/pagopa/mui-italia/commit/2f4b99897a8fe61ab2fe290b4cae63cbc0338c3b))
 # [2.9.0-RC.0](https://github.com/pagopa/mui-italia/releases/tag/v2.9.0-RC.0) (2026-11-13)
 
 
