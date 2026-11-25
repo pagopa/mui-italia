@@ -1,0 +1,101 @@
+import { Meta, Title, Primary, Controls, Story } from '@storybook/addon-docs/blocks';
+
+import Overview from './components/Overview';
+import Section from './components/Section';
+import SubSection from './components/SubSection';
+
+import * as MIPaginationSelectStories from '../stories/MIPaginationSelect.stories';
+
+<Meta of={MIPaginationSelectStories} />
+
+<Title />
+
+<Overview>
+  <strong>MIPaginationSelect</strong> e un selettore singolo per il numero di righe per pagina che sarà esclusivamente utilizzato 
+   all'interno del componente  <code>MIPagination</code>.
+  Compone MISelect e mostra la label accanto al campo, senza label flottante. 
+</Overview>
+
+<Section title="Riferimenti" description="Risorse per il confronto con le specifiche.">
+  <ul>
+    <li>
+      <a href="https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=1504-9763&m=dev">
+        Figma
+      </a>
+    </li>
+    <li>Link sorgente GitHub: <a href="https://raw.githubusercontent.com/pagopa/mui-italia/refs/heads/develop/src/components/MIPaginationSelect/MIPaginationSelect.tsx">MIPaginationSelect.tsx</a></li>
+  </ul>
+</Section>
+
+<Section
+  title="Playground"
+  description="Modifica lingua e label con i Controls e seleziona un valore."
+>
+  <Primary />
+  <Controls />
+</Section>
+
+<Section title="Note per gli sviluppatori" description="API e integrazione.">
+  <ul>
+    <li>
+      Questo componente non è pensato per essere utilizzato al di fuori di <code>MIPagination</code>. Per questo motivo non è esportato come parte dell'API pubblica.
+    </li>
+    <li>
+      L API espone <code>options</code>, <code>value</code> e <code>onChange</code>,
+      selezionate dalle props di MISelect tramite Pick, oltre a <code>label</code> e <code>locale</code> opzionali.
+      Senza una label personalizzata, il testo è «Elementi per pagina» per <code>locale="it"</code> (predefinito)
+      e «Rows perpage» per <code>locale="en"</code>. Entrambe le props sono configurabili tramite
+      <code>itemsPerPageOptions</code> di <code>MIPagination</code>.
+      Usa value e onChange per controllare la selezione dall'applicazione.
+      Non sono presenti opzioni predefinite.
+    </li>
+    <li>
+      Il componente non cambia automaticamente il numero di pagina e non modifica MIPagination.
+    </li>
+  </ul>
+
+```tsx
+import { MIPagination } from '@pagopa/mui-italia';
+
+<MIPagination
+  count={pageCount}
+  itemsPerPageOptions={{
+    label: 'Righe per pagina',
+    options: [10, 20],
+    limit: pageSize,
+    onLimitChange: setPageSize,
+  }}
+/>;
+```
+</Section>
+
+<Section title="Note per i designer" description="Layout e confronto visuale.">
+  <ul>
+    <li>La label viene mostrata a sinistra del selettore, come nel riferimento Figma.</li>
+    <li>
+      Lo spazio tra campo e label usa <code>theme.spacing(1.5)</code>. Il selettore mantiene il
+      raggio di MISelect e usa colori e tipografia del tema attivo.
+    </li>
+  </ul>
+</Section>
+
+<Section title="Accessibilita" description="Associazione della label e nome accessibile.">
+  <ul>
+    <li>
+      Su desktop la label visibile è associata al combobox con un ID univoco.
+      Su mobile la label non è visibile, ma viene usata come nome accessibile.
+      È possibile impostare un nome diverso con <code>itemsPerPageOptions.inputProps['aria-label']</code>.
+    </li>
+    <li>Il menu conserva la gestione da tastiera del Select MUI-Italia.</li>
+  </ul>
+
+```tsx
+<MIPaginationSelect
+  label="Numero di righe per pagina"
+  options={[{ value: 20, label: '20' }]}
+  value={pageSize}
+  onChange={(event) => setPageSize(Number(event.target.value))}
+/>
+```
+
+</Section>
