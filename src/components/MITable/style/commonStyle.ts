@@ -1,14 +1,16 @@
 import { styled, Stack, Box, TableBody, TableCell, TableHead, TableSortLabel } from '@mui/material';
 
-type StyledCellWithMinWidthProps = {
+type StyledCellWidthProps = {
   ownerState: {
     minWidth?: number | string;
+    maxWidth?: number | string;
   };
 };
 
 type StyledBodyCellProps = {
   ownerState: {
     minWidth?: number | string;
+    maxWidth?: number | string;
     isLastRow: boolean;
     isActionCell?: boolean;
   };
@@ -30,10 +32,17 @@ export const StyledTableHead = styled(TableHead)(({ theme }) => ({
 /** @internal */
 export const StyledHeaderCell = styled(TableCell, {
   shouldForwardProp: (prop) => prop !== 'ownerState',
-})<StyledCellWithMinWidthProps>(({ theme, ownerState }) => ({
+})<StyledCellWidthProps>(({ theme, ownerState }) => ({
   padding: theme.spacing(1.5, 2),
   borderBottom: 'none',
   minWidth: ownerState.minWidth,
+  maxWidth: ownerState.maxWidth,
+  ...(ownerState.maxWidth !== undefined && {
+    width: ownerState.maxWidth,
+    overflowWrap: 'anywhere',
+    '& > *': { maxWidth: ownerState.maxWidth },
+    '& .MuiTableSortLabel-root > .MuiTypography-root': { minWidth: 0 },
+  }),
 }));
 
 /** @internal */
@@ -61,6 +70,12 @@ export const StyledBodyCell = styled(TableCell, {
 })<StyledBodyCellProps>(({ theme, ownerState }) => ({
   padding: theme.spacing(1.5, 2),
   minWidth: ownerState.minWidth,
+  maxWidth: ownerState.maxWidth,
+  ...(ownerState.maxWidth !== undefined && {
+    width: ownerState.maxWidth,
+    overflowWrap: 'anywhere',
+    '& > *': { maxWidth: ownerState.maxWidth },
+  }),
   borderBottom: ownerState.isLastRow ? 'none' : `1px solid ${theme.colors.neutral.grey[100]}`,
   ...(ownerState.isActionCell && {
     textAlign: 'right',

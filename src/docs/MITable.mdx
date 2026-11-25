@@ -42,6 +42,21 @@ import * as MITableStories from '../stories/MITable.stories';
   <Primary />
   <Controls />
 </Section>
+<Section title="Larghezza delle colonne">
+  Su desktop, le colonne non di azione possono impostare <code>minWidth</code> e
+  <code>maxWidth</code> con un numero in pixel o una stringa CSS. Con <code>maxWidth</code>,
+  il contenuto è limitato a tale larghezza e il testo lungo va a capo anche in assenza di spazi;
+  i contenuti personalizzati devono consentire il ritorno a capo. La larghezza è riferita al
+  contenuto, esclusa la spaziatura della cella, ed è usata anche come larghezza preferita della
+  colonna: la disposizione automatica della tabella può comunque distribuire lo spazio disponibile
+  tra le colonne. Le larghezze non si applicano al layout mobile a blocchi.
+
+  ```tsx
+  const columns = [
+    { id: 'name', header: 'Nome', maxWidth: 200, renderCell: (row) => row.name },
+  ];
+  ```
+</Section>
 <Section
   title="Ordinamento e azioni"
   description="Le colonne possono essere marcate come ordinabili e ogni riga può esporre azioni custom."
