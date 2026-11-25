@@ -1,0 +1,1 @@
+import{j as o}from"./iframe-2X3ZxJBB.js";import{c as r}from"./createSvgIcon-C6YSOS6Z.js";const s=r(o.jsx("path",{d:"M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"}),"KeyboardArrowDown");export{s as K};
