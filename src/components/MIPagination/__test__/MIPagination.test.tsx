@@ -113,6 +113,26 @@ describe('MIPagination', () => {
       expect(queryByTestId('items-per-page-select')).not.toBeInTheDocument();
     });
 
+    it('uses the localized fallback and lets callers override it on mobile', () => {
+      window.matchMedia = createMatchMedia(400);
+      const itemsPerPageOptions = { limit: 10, onLimitChange: vi.fn(), locale: 'en' as const };
+      const { getByRole, queryByText, rerender } = render(
+        <MIPagination count={5} itemsPerPageOptions={itemsPerPageOptions} />
+      );
+
+      expect(getByRole('combobox', { name: 'Rows perpage' })).toHaveTextContent('10');
+      expect(queryByText('Rows perpage')).not.toBeInTheDocument();
+
+      rerender(
+        <MIPagination
+          count={5}
+          itemsPerPageOptions={{ ...itemsPerPageOptions, label: 'Results per page' }}
+        />
+      );
+
+      expect(getByRole('combobox', { name: 'Results per page' })).toHaveTextContent('10');
+    });
+
     it('renders the default options when itemsPerPageOptions.options is not provided', () => {
       const { getByTestId, getByRole } = render(
         <MIPagination
