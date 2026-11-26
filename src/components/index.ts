@@ -19,6 +19,7 @@ export * from './Infoblock';
 export * from './LangSwitch';
 export * from './MIAccordion';
 export * from './MIAlert';
+export * from './MIAvatar';
 export * from './MIBoxedModule';
 export * from './MIBreadcrumbs';
 export * from './MIButton';
