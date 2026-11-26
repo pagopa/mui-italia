@@ -1,3 +1,9 @@
+# [2.9.0-RC.2](https://github.com/pagopa/mui-italia/releases/tag/v2.9.0-RC.2) (2026-11-26)
+
+
+### Features
+
+* **M20DS-16:** MIAvatar component ([#811](https://github.com/pagopa/mui-italia/issues/811)) ([6eaed26](https://github.com/pagopa/mui-italia/commit/6eaed26f2f5744a6d322d34c38e28cf7c6f84d4e))
 # [2.9.0-RC.1](https://github.com/pagopa/mui-italia/releases/tag/v2.9.0-RC.1) (2026-11-25)
 
 
