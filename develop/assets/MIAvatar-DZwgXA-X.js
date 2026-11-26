@@ -1,0 +1,21 @@
+import{j as e}from"./iframe-D2suRgZv.js";import{u as s,M as l,T as c,P as d,b as p,c as n}from"./blocks-nbgg0lEQ.js";import{O as m}from"./Overview-ofxCZEB8.js";import{S as r,a as o}from"./SubSection-C-qSqd5n.js";import{M as x,D as h,S as j,G as u,L as g}from"./MIAvatar.stories-C_ANmdVr.js";import"./preload-helper-PPVm8Dsz.js";import"./index-DLZ6Eal3.js";import"./index-pAvcHujp.js";import"./Box-BNZMBwnq.js";import"./Typography-lSWCvWZi.js";import"./DefaultPropsProvider-C9pPN9CS.js";import"./styled-Dg4SAjqP.js";import"./MIAvatar-CUAzE02-.js";import"./AccountBalanceRounded-YANSxUTR.js";import"./createSvgIcon-DXqKnqxi.js";import"./SvgIcon-B5OBknnD.js";import"./Avatar-ZhpBnu-A.js";import"./useSlot-8bFmuISO.js";import"./resolveComponentProps-AZibFEcc.js";import"./isHostComponent-DVu5iVWx.js";import"./useForkRef-qR2CMe6R.js";import"./Skeleton-DiaQqrSM.js";import"./Stack-DtDOdr4h.js";import"./createStack-vlnaEldP.js";import"./useThemeProps-BNDYbDbX.js";function t(a){const i={code:"code",p:"p",pre:"pre",...s(),...a.components};return e.jsxs(e.Fragment,{children:[e.jsx(l,{of:x}),`
+`,e.jsx(c,{}),`
+`,e.jsx(m,{children:e.jsxs(i.p,{children:[e.jsx("strong",{children:"MIAvatar"}),` mostra un logo o un placeholder. Si possono avere due dimensioni: small e big.
+Un'altra variante è il gravatar, un avatar circolare con iniziali.`]})}),`
+`,e.jsxs(r,{title:"Riferimenti",children:[e.jsx("ul",{children:e.jsx("li",{children:e.jsxs(i.p,{children:[`🎨
+`,e.jsx("a",{href:"https://www.figma.com/design/pvhsJpPGQbEwNLiyP7BOIw/MUI-Italia-Next---Design-System?node-id=160-1341&m=dev",children:"Figma"})]})})}),e.jsx("ul",{children:e.jsx("li",{children:e.jsx("a",{href:"https://raw.githubusercontent.com/pagopa/mui-italia/refs/heads/develop/src/components/MIAvatar/MIAvatar.tsx",children:"GitHub"})})})]}),`
+`,e.jsxs(r,{title:"Playground",description:"Usa i controlli per confrontare le configurazioni principali.",children:[e.jsx(d,{}),e.jsx(p,{})]}),`
+`,e.jsxs(r,{title:"Varianti e dimensioni",children:[e.jsxs(o,{title:"Placeholder",children:[e.jsx(i.p,{children:"Senza immagine, oppure se il caricamento fallisce, viene mostrata l’icona predefinita."}),e.jsx(n,{of:h})]}),e.jsxs(o,{title:"Logo",children:[e.jsx(i.p,{children:`Le dimensioni small e big misurano rispettivamente 44px e 66px
+(44 e 66 pixel con una dimensione del carattere radice di 16 pixel).`}),e.jsx(n,{of:j})]}),e.jsxs(o,{title:"Gravatar",children:[e.jsxs(i.p,{children:["La variante gravatar misura 32 pixel e mostra la stringa passata tramite ",e.jsx("code",{children:"label"}),". E' bene che la label sia formata esclusivamente da due caratteri."]}),e.jsx(n,{of:u})]}),e.jsxs(o,{title:"Caricamento",children:[e.jsxs(i.p,{children:["La prop ",e.jsx("code",{children:"isLoading"}),` mostra uno skeleton delle dimensioni e della forma
+dell’avatar, al posto del logo, del placeholder o delle iniziali.`]}),e.jsx(n,{of:g})]})]}),`
+`,e.jsx(r,{title:"Note per gli sviluppatori",children:e.jsxs(i.p,{children:["La variante standard accetta ",e.jsx("code",{children:"src"}),", ",e.jsx("code",{children:"srcSet"})," e ",e.jsx("code",{children:"alt"}),`.
+La variante `,e.jsx("code",{children:"gravatar"})," richiede le iniziali come stringa tramite ",e.jsx("code",{children:"label"}),`;
+non recupera immagini da un indirizzo email. La prop `,e.jsx("code",{children:"sx"}),` consente
+personalizzazioni MUI. Lo sfondo del logo usa `,e.jsx("code",{children:"palette.background.paper"}),` del tema.
+Durante il caricamento, la root espone `,e.jsx("code",{children:"aria-busy"}),`; il nome accessibile
+può essere configurato tramite `,e.jsx("code",{children:"aria-label"}),"."]})}),`
+`,e.jsxs(r,{title:"Accessibilità",children:[e.jsxs(i.p,{children:["La prop ",e.jsx("code",{children:"alt"}),` è obbligatoria per gli avatar standard: descrive un logo informativo
+o il relativo placeholder.
+Se le iniziali non identificano sufficientemente la persona, usa un nome accessibile
+sull’avatar:`]}),e.jsx(i.pre,{children:e.jsx(i.code,{className:"language-tsx",children:`<MIAvatar variant="gravatar" label="MR" role="img" aria-label="Mario Rossi" />
+`})})]})]})}function B(a={}){const{wrapper:i}={...s(),...a.components};return i?e.jsx(i,{...a,children:e.jsx(t,{...a})}):t(a)}export{B as default};
